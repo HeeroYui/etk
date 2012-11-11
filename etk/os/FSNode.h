@@ -202,6 +202,7 @@ namespace etk
 			int32_t      FileRead(void * data, int32_t blockSize, int32_t nbBlock);
 			int32_t      FileWrite(void * data, int32_t blockSize, int32_t nbBlock);
 			bool         FileSeek(long int offset, int origin);
+			void         FileFlush(void);
 		private:
 			void SortElementList(etk::Vector<etk::FSNode *> &list);
 	};

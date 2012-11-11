@@ -1229,6 +1229,20 @@ bool etk::FSNode::FileSeek(long int offset, int origin)
 	}
 }
 
+void etk::FSNode::FileFlush(void)
+{
+	#ifdef __TARGET_OS__Android
+	if(    etk::FSN_TYPE_DATA == m_type
+	    || etk::FSN_TYPE_THEME_DATA == m_type) {
+		return;
+	}
+	#endif
+	if (NULL != m_PointerFile) {
+		fflush(m_PointerFile);
+	}
+}
+
+
 
 
 // TODO : Add an INIT to reset all allocated parameter :
