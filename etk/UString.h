@@ -95,9 +95,9 @@ namespace etk
 			 *    toolbox
 			 *****************************************************/
 			// Start With ...
-			bool          StartWith(const etk::UString& data);
+			bool          StartWith(const etk::UString& data, bool caseSensitive=true) const ;
 			// End With ...
-			bool          EndWith(const etk::UString& data);
+			bool          EndWith(const etk::UString& data, bool caseSensitive=true) const ;
 			// Find element
 			int32_t       FindForward(const char      data, int32_t startPos=0) const;
 			int32_t       FindForward(const uniChar_t data, int32_t startPos=0) const;

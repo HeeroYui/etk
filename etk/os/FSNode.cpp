@@ -585,8 +585,9 @@ void etk::FSNode::GenerateFileSystemPath(void)
 			break;
 	}
 	m_systemFileName += m_userFileName;
-
 }
+
+
 // now we get all the right if the file existed:
 void etk::FSNode::UpdateFileSystemProperty(void)
 {
@@ -740,6 +741,27 @@ etk::UString etk::FSNode::GetNameFile(void) const
 etk::UString etk::FSNode::GetRelativeFolder(void) const
 {
 	etk::UString tmppp = GetName();
+	switch (m_typeNode)
+	{
+		case etk::FSN_UNKNOW:
+		case etk::FSN_FOLDER:
+		case etk::FSN_LINK:
+			if (tmppp.EndWith("/") == true) {
+				return tmppp;
+			} else {
+				etk::UString tmpVal = tmppp;
+				tmpVal += "/";
+				return tmpVal;
+			}
+			break;
+		case etk::FSN_BLOCK:
+		case etk::FSN_CHARACTER:
+		case etk::FSN_FIFO:
+		case etk::FSN_FILE:
+		case etk::FSN_SOCKET:
+		default:
+			break;
+	}
 	int32_t lastPos = tmppp.FindBack('/');
 	if (-1 != lastPos) {
 		return tmppp.Extract(0, lastPos+1);
@@ -986,6 +1008,67 @@ etk::FSNode etk::FSNode::FolderGetParent(void)
 	return tmpp;
 }
 
+void etk::FSNode::FolderGetRecursiveFiles(etk::Vector<etk::UString>& output)
+{
+	#ifdef __TARGET_OS__Android
+	if(    m_type == etk::FSN_TYPE_DATA
+	    || m_type == etk::FSN_TYPE_THEME_DATA) {
+		etk::UString FolderName = GetNameFolder();
+		for (int iii=0; iii<s_APKnbFiles; iii++) {
+			etk::UString filename = zip_get_name(s_APKArchive, iii, 0);
+			if (filename.StartWith(FolderName) == true) {
+				etk::UString tmpString;
+				if(m_type == etk::FSN_TYPE_DATA) {
+					tmpString = "DATA:";
+				} else {
+					tmpString = "THEME:";
+				}
+				tmpString += filename;
+				output.PushBack(tmpString);
+			}
+		}
+		return;
+	}
+	#endif
+	// regenerate the next list :
+	etk::FSNode * tmpEmement;
+	DIR *dir = NULL;
+	struct dirent *ent = NULL;
+	dir = opendir(m_systemFileName.c_str());
+	//TK_DEBUG(" ** open Folder : " << m_systemFileName );
+	if (dir != NULL) {
+		// for each element in the drectory...
+		while ((ent = readdir(dir)) != NULL) {
+			etk::UString tmpName(ent->d_name);
+			if(    tmpName=="." 
+			    || tmpName==".." ) {
+				// do nothing ...
+				continue;
+			}
+			//TK_DEBUG(" find : " << ent->d_name << " ==> " << (GetRelativeFolder()+tmpName));
+			tmpEmement = new etk::FSNode(GetRelativeFolder()+tmpName);
+			if (NULL != tmpEmement) {
+				if(tmpEmement->GetNodeType() == etk::FSN_FILE) {
+					etk::UString tmpVal = tmpEmement->GetName();
+					output.PushBack(tmpVal);
+				}
+				if(tmpEmement->GetNodeType() == etk::FSN_FOLDER) {
+					tmpEmement->FolderGetRecursiveFiles(output);
+				}
+				delete(tmpEmement);
+				tmpEmement = NULL;
+			} else {
+				TK_ERROR("allocation error ... of ewol::FSNode");
+				continue;
+			}
+		}
+		closedir(dir);
+	} else {
+		TK_ERROR("could not open directory : \"" << *this << "\"");
+	}
+	return;
+}
+
 /*
 	File Specific :
 */
@@ -1019,7 +1102,7 @@ etk::UString etk::FSNode::FileGetExtention(void)
 uint64_t etk::FSNode::FileSize(void)
 {
 	if (etk::FSN_FILE != m_typeNode) {
-		TK_ERROR("pppppppppppppppppppppp" << m_typeNode);
+		TK_ERROR("Request size of a non file node : " << m_typeNode);
 		return 0;
 	}
 	#ifdef __TARGET_OS__Android

@@ -188,6 +188,7 @@ namespace etk
 			                                            bool temporaryFile=true);
 			etk::FSNode                FolderGetParent(void); // ordered by name ...
 			
+			void FolderGetRecursiveFiles(etk::Vector<etk::UString>& output);
 			/*
 				File Specific :
 			*/

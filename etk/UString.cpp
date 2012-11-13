@@ -525,7 +525,7 @@ etk::Vector<uniChar_t> etk::UString::GetVector(void)
 }
 
 
-bool etk::UString::StartWith(const etk::UString& data)
+bool etk::UString::StartWith(const etk::UString& data, bool caseSensitive) const
 {
 	if (data.Size() == 0) {
 		return false;
@@ -533,16 +533,34 @@ bool etk::UString::StartWith(const etk::UString& data)
 	if (data.Size() > Size()) {
 		return false;
 	}
-	for (int32_t iii=0; iii<data.Size(); iii++) {
-		if (data[iii] != m_data[iii]) {
-			return false;
+	if (true == caseSensitive) {
+		for (int32_t iii=0; iii<data.Size(); iii++) {
+			if (data[iii] != m_data[iii]) {
+				return false;
+			}
+		}
+	} else {
+		for (int32_t iii=0; iii<data.Size(); iii++) {
+			if (data[iii] != m_data[iii]) {
+				uniChar_t in1 = data[iii];
+				uniChar_t in2 = m_data[iii];
+				if (in1 <= (uniChar_t)'Z' && in1 >= (uniChar_t)'A') {
+					in1 = in1 + (uniChar_t)'a' - (uniChar_t)'A';
+				}
+				if (in2 <= 'Z' && in2 >= 'A') {
+					in2 = in2 + (uniChar_t)'a' - (uniChar_t)'A';
+				}
+				if (in1 != in2) {
+					return false;
+				}
+			}
 		}
 	}
 	return true;
 }
 
 
-bool etk::UString::EndWith(const etk::UString& data)
+bool etk::UString::EndWith(const etk::UString& data, bool caseSensitive) const
 {
 	if (data.Size() == 0) {
 		return false;
@@ -550,11 +568,31 @@ bool etk::UString::EndWith(const etk::UString& data)
 	if (data.Size() > Size()) {
 		return false;
 	}
-	for( int32_t iii=Size()-1, jjj=data.Size()-1;
-	     iii>=0 && jjj>=0;
-	     iii--, jjj--) {
-		if (data[jjj] != m_data[iii]) {
-			return false;
+	if (true == caseSensitive) {
+		for( int32_t iii=Size()-1, jjj=data.Size()-1;
+		     iii>=0 && jjj>=0;
+		     iii--, jjj--) {
+			if (data[jjj] != m_data[iii]) {
+				return false;
+			}
+		}
+	} else {
+		for( int32_t iii=Size()-1, jjj=data.Size()-1;
+		     iii>=0 && jjj>=0;
+		     iii--, jjj--) {
+			if (data[jjj] != m_data[iii]) {
+				uniChar_t in1 = data[jjj];
+				uniChar_t in2 = m_data[iii];
+				if (in1 <= (uniChar_t)'Z' && in1 >= (uniChar_t)'A') {
+					in1 = in1 + (uniChar_t)'a' - (uniChar_t)'A';
+				}
+				if (in2 <= 'Z' && in2 >= 'A') {
+					in2 = in2 + (uniChar_t)'a' - (uniChar_t)'A';
+				}
+				if (in1 != in2) {
+					return false;
+				}
+			}
 		}
 	}
 	return true;
