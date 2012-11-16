@@ -75,6 +75,51 @@ etk::Matrix4 etk::matrix::rotate(float x, float y, float z, float angleRad)
 }
 
 
+etk::Matrix4 etk::matrix::Translate(etk::Vector3D<float> vect)
+{
+	etk::Matrix4 tmp;
+	// set translation :
+	tmp.m_mat[3] = vect.x;
+	tmp.m_mat[7] = vect.y;
+	tmp.m_mat[11] = vect.z;
+	//TK_INFO("Translate :");
+	//etk::matrix::Display(tmp);
+	return tmp;
+}
+
+etk::Matrix4 etk::matrix::Scale(etk::Vector3D<float> vect)
+{
+	etk::Matrix4 tmp;
+	// set scale :
+	tmp.m_mat[0] = vect.x;
+	tmp.m_mat[5] = vect.y;
+	tmp.m_mat[10] = vect.z;
+	//TK_INFO("Scale :");
+	//etk::matrix::Display(tmp);
+	return tmp;
+}
+
+etk::Matrix4 etk::matrix::Rotate(etk::Vector3D<float> vect, float angleRad)
+{
+	etk::Matrix4 tmp;
+	float cosVal = cos(angleRad);
+	float sinVal = sin(angleRad);
+	float invVal = 1.0-cosVal;
+	// set rotation : 
+	tmp.m_mat[0]  = vect.x * vect.x * invVal + cosVal;
+	tmp.m_mat[1]  = vect.x * vect.y * invVal - vect.z * cosVal;
+	tmp.m_mat[2]  = vect.x * vect.z * invVal + vect.y * sinVal;
+	
+	tmp.m_mat[4]  = vect.y * vect.x * invVal + vect.z * sinVal;
+	tmp.m_mat[5]  = vect.y * vect.y * invVal + cosVal;
+	tmp.m_mat[6]  = vect.y * vect.z * invVal - vect.x * sinVal;
+	
+	tmp.m_mat[8]  = vect.z * vect.x * invVal - vect.y * sinVal;
+	tmp.m_mat[9]  = vect.z * vect.y * invVal + vect.x * sinVal;
+	tmp.m_mat[10] = vect.z * vect.z * invVal + cosVal;
+	return tmp;
+}
+
 void etk::matrix::Display(etk::Matrix4& tmp)
 {
 	TK_INFO("matrix : (" << tmp.m_mat[0] << " , " << tmp.m_mat[1] << " , " << tmp.m_mat[2] << " , " << tmp.m_mat[3] << " , ");

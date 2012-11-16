@@ -203,9 +203,16 @@ namespace etk {
 	};
 	namespace matrix {
 		Matrix4 Perspective(float left, float right, float bottom, float top, float nearVal, float farVal);
+		// TODO : DEPRECATED
 		Matrix4 Translate(float x=0.0, float y=0.0, float z=0.0);
+		// TODO : DEPRECATED
 		Matrix4 Scale(float x=1.0, float y=1.0, float z=1.0);
+		// TODO : DEPRECATED
 		Matrix4 rotate(float x, float y, float z, float angleRad=0.0);
+		
+		Matrix4 Translate(etk::Vector3D<float> vect);
+		Matrix4 Scale(etk::Vector3D<float> vect);
+		Matrix4 Rotate(etk::Vector3D<float> vect, float angleRad=0.0);
 		void Display(Matrix4& tmp);
 	};
 };
