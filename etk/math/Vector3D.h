@@ -79,14 +79,14 @@ namespace etk
 				tmpp.x += (T)obj.x;
 				tmpp.y += (T)obj.y;
 				tmpp.z += (T)obj.z;
-				return *this;
+				return tmpp;
 			}
 			Vector3D<T> operator+ (const float val) {
 				Vector3D<T> tmpp(x,y,y);
 				tmpp.x += val;
 				tmpp.y += val;
 				tmpp.z += val;
-				return *this;
+				return tmpp;
 			}
 			/*****************************************************
 			 *    -= operator
@@ -111,14 +111,14 @@ namespace etk
 				tmpp.x -= (T)obj.x;
 				tmpp.y -= (T)obj.y;
 				tmpp.z -= (T)obj.z;
-				return *this;
+				return tmpp;
 			}
 			Vector3D<T> operator- (const float val) {
 				Vector3D<T> tmpp(x,y,y);
 				tmpp.x -= val;
 				tmpp.y -= val;
 				tmpp.z -= val;
-				return *this;
+				return tmpp;
 			}
 			/*****************************************************
 			 *    /= operator
