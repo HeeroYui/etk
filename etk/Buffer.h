@@ -43,7 +43,7 @@
 namespace etk
 {
 	/**
-	 * @brief EdnVectorBuf classes ...
+	 * @brief Buffer classes. Designed for access o
 	 */
 	class Buffer
 	{
@@ -80,12 +80,12 @@ namespace etk
 				m_data = (int8_t *)malloc( m_allocated * sizeof(int8_t) );
 				TK_ASSERT(NULL!=m_data, "Error in data allocation");
 				// Copy all data ...
-				memcpy(m_data, Evb.m_data, m_allocated * sizeof(int8_t) );
+				memcpy(m_data, obj.m_data, m_allocated * sizeof(int8_t) );
 			}
 			/**
 			 * @brief Destructor of the current Class
 			 */
-			~EdnVectorBuf(void)
+			~Buffer(void)
 			{
 				if (NULL!=m_data) {
 					free(m_data);
@@ -139,31 +139,35 @@ namespace etk
 			
 			/**
 			 * @brief Re-copy operator
-			 * @param[in] Evb	Vector that might be copy
+			 * @param[in] obj Buffer that might be copy
 			 * @return reference on the curent re-copy vector
 			 */
-			EdnVectorBuf& operator=(const EdnVectorBuf & Evb)
+			etk::Buffer& operator=(const etk::Buffer & obj)
 			{
-				if( this != &Evb ) // avoid copy to itself
+				if( this != &obj ) // avoid copy to itself
 				{
 					if (NULL!=m_data) {
 						free(m_data);
 						m_data = NULL;
 					}
 					// Set the new value
-					m_allocated = Evb.m_allocated;
-					m_gapStart  = Evb.m_gapStart;
-					m_gapEnd    = Evb.m_gapEnd;
+					m_allocated = obj.m_allocated;
+					m_gapStart  = obj.m_gapStart;
+					m_gapEnd    = obj.m_gapEnd;
 					// allocate all same data
 					m_data = (int8_t *)malloc( m_allocated * sizeof(int8_t) );
 					TK_ASSERT(NULL!=m_data, "Error in data allocation");
 					// Copy all data ...
-					memcpy(m_data, Evb.m_data, m_allocated * sizeof(int8_t) );
+					memcpy(m_data, obj.m_data, m_allocated * sizeof(int8_t) );
 				}
 				// Return the curent pointer
 				return *this;
 			}
-			
+			/**
+			 * @brief Operator [] : Get the data at the requested position (gap abstraction done).
+			 * @param[in] pos Position in the buffer.
+			 * @return Element at the request pos.
+			 */
 			int8_t operator[] (int32_t pos)
 			{
 				TK_ASSERT(0 <= pos || pos < Size(), "try to read an element non existing");
@@ -180,7 +184,6 @@ namespace etk
 			 */
 			int8_t& Get(int32_t pos)
 			{
-				
 				TK_ASSERT(0 <= pos || pos < Size(), "try to read an element non existing");
 				if (pos < m_gapStart) {
 					return m_data[pos];
@@ -188,11 +191,14 @@ namespace etk
 				return m_data[pos + m_gapEnd-m_gapStart];
 			}
 			/**
-			 * @brief 
-			 * @param[in,out] ---
+			 * @brief Get elements from a specific position.
+			 * @param[in] pos Position of the first element.
+			 * @param[in] nbElement Number of element needed.
+			 * @return The data requested
 			 */
-			void Get(int32_t pos, int32_t nbElement, etk::Vector<int8_t> &tmpBuffer)
+			etk::Vector<int8_t> Get(int32_t pos, int32_t nbElement)
 			{
+				etk::Vector<int8_t> tmpBuffer;
 				tmpBuffer.Clear();
 				if (pos < m_gapStart) {
 					if (pos + nbElement < m_gapStart) {
@@ -204,8 +210,8 @@ namespace etk
 				} else {
 					tmpBuffer.PushBack(&m_data[pos+(m_gapEnd-m_gapStart)], nbElement);
 				}
+				return tmpBuffer;
 			}
-			// insert functions
 			/**
 			 * @brief Add at the Last position of the Vector
 			 * @param[in] item	Element to add at the end of vector
@@ -215,12 +221,9 @@ namespace etk
 				Insert( Size(), item);
 			}
 			/**
-			 * @brief 
-			 * 
-			 * @param[in,out] ---
-			 * 
-			 * @return ---
-			 * 
+			 * @brief Insert One item at the specify position.
+			 * @param[in] pos Position where data might be inserted
+			 * @param[in] items Data that might be inserted.
 			 */
 			void Insert(int32_t pos, const int8_t& item)
 			{
@@ -251,12 +254,9 @@ namespace etk
 				}
 			}
 			/**
-			 * @brief 
-			 * 
-			 * @param[in,out] ---
-			 * 
-			 * @return ---
-			 * 
+			 * @brief Insert data in the buffer
+			 * @param[in] pos Position where data might be inserted
+			 * @param[in] items Data that might be inserted.
 			 */
 			void Insert(int32_t pos, etk::Vector<int8_t>& items)
 			{
@@ -280,14 +280,10 @@ namespace etk
 				}
 				m_gapStart += items.Size();
 			}
-			// Remove and insert functions
 			/**
-			 * @brief 
-			 * 
-			 * @param[in,out] ---
-			 * 
-			 * @return ---
-			 * 
+			 * @brief Replace one element in the buffer
+			 * @param[in] pos The first element to remove.
+			 * @param[in] items Data that might be inserted.
 			 */
 			void Replace(int32_t pos, const int8_t& item)
 			{
@@ -305,12 +301,10 @@ namespace etk
 				
 			}
 			/**
-			 * @brief 
-			 * 
-			 * @param[in,out] ---
-			 * 
-			 * @return ---
-			 * 
+			 * @brief Replace specified data.
+			 * @param[in] pos The first element to remove.
+			 * @param[in] nbRemoveElement number of element to remove.
+			 * @param[in] items Data that might be inserted.
 			 */
 			void Replace(int32_t pos, int32_t nbRemoveElement, etk::Vector<int8_t>& items)
 			{
@@ -334,18 +328,13 @@ namespace etk
 				// Resize buffer if needed...
 				GapCheckMaxSize();
 			}
-			// Revove fonctions
 			/**
-			 * @brief Remove data in the buffer
-			 * 
-			 * @param[in] 
-			 * 
-			 * @return ---
-			 * 
+			 * @brief Remove specific data in the buffer.
+			 * @param[in] pos The first element to remove
+			 * @param[in] nbRemoveElement number of element to remove
 			 */
 			void Remove(int32_t pos, int32_t nbRemoveElement = 1)
 			{
-				
 				if(		pos > Size()
 					||	pos < 0 ) {
 					TK_ERROR("Request higher than buffer size : pos="<<pos<< " bufferSize="<<Size());
@@ -368,12 +357,7 @@ namespace etk
 				GapCheckMaxSize();
 			}
 			/**
-			 * @brief Remove the last element of the vector
-			 * 
-			 * @param ---
-			 * 
-			 * @return ---
-			 * 
+			 * @brief Remove the last element of the Buffer.
 			 */
 			void PopBack(void)
 			{
@@ -382,38 +366,12 @@ namespace etk
 				}
 			}
 			/**
-			 * @brief Change the current allocation to the corect one (depend on the current size)
-			 * 
-			 * @param[in] newSize Minimum number of element needed
-			 * 
-			 * @return ---
-			 * 
+			 * @brief Clean all the data in the buffer.
 			 */
 			void Clear(void)
 			{
-				
-				// Remove all element in the buffer
 				Remove(0, Size() );
 			}
-			
-			
-			void Fit(void)
-			{
-				
-			}
-			
-			void Display(void)
-			{
-				TK_INFO(" Display Buffer : Size="<<Size()<<" m_allocated="<<m_allocated<<" m_gapStart="<<m_gapStart<<" m_gapEnd="<<m_gapEnd);
-				for(int32_t i=0; i<m_allocated; i++) {
-					if (i>= m_gapStart && i< m_gapEnd) {
-						TK_INFO( "Element " << i << " : GAP");
-					} else {
-						TK_INFO( "Element " << i << " : " << m_data[i]);
-					}
-				}
-			}
-			
 			/**
 			 * @brief Get a current element in the vector (iterator system)
 			 * @param[in] RealElementPosition Real position in the buffer (only use in the ITERATOR)
@@ -434,11 +392,7 @@ namespace etk
 		private:
 			/**
 			 * @brief Change the current allocation to the corect one (depend on the current size)
-			 * 
 			 * @param[in] newSize Minimum number of element needed
-			 * 
-			 * @return ---
-			 * 
 			 */
 			void ChangeAllocation(int32_t newSize)
 			{
@@ -465,12 +419,10 @@ namespace etk
 				m_allocated = newSize;
 			}
 			/**
-			 * @brief 
-			 * 
-			 * @param[in,out] ---
-			 * 
-			 * @return ---
-			 * 
+			 * @brief Move the current gap at an other position
+			 * @param[in] pos Position of the new Gap.
+			 * @return false The operation can not be proccesed.
+			 * @return true The operation done correctly.
 			 */
 			bool GapMove(int32_t pos)
 			{
@@ -490,12 +442,11 @@ namespace etk
 				return true;
 			}
 			/**
-			 * @brief 
-			 * 
-			 * @param[in,out] ---
-			 * 
-			 * @return ---
-			 * 
+			 * @brief Change The gap position and size
+			 * @param[in] pos Position of the new Gap.
+			 * @param[in] newGapLen Size of the new gap (can be bigger than GAP_SIZE_MAX).
+			 * @return false The operation can not be proccesed.
+			 * @return true The operation done correctly.
 			 */
 			bool GapResize(int32_t pos, int32_t newGapLen)
 			{
@@ -541,18 +492,16 @@ namespace etk
 				m_gapEnd = pos + newGapLen;
 				return true;
 			}
-			// get current gap Size
+			/**
+			 * @brief Get the current gap size.
+			 * @return The number of element in the gap
+			 */
 			int32_t GapSize(void)
 			{
 				return m_gapEnd - m_gapStart;
 			}
 			/**
-			 * @brief 
-			 * 
-			 * @param[in,out] ---
-			 * 
-			 * @return ---
-			 * 
+			 * @brief Control if the writing gap is not too big (automatic resize the buffer).
 			 */
 			void GapCheckMaxSize(void)
 			{
