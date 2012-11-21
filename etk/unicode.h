@@ -9,8 +9,9 @@
 #ifndef __UNICODE_H__
 #define __UNICODE_H__
 
-#include <etk/Types.h>
+#include <etk/types.h>
 #include <etk/Vector.h>
+
 namespace unicode {
 	typedef enum {
 		EDN_CHARSET_UTF8,

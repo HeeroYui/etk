@@ -9,7 +9,7 @@
 #ifndef __ETK_SEMAPHORE_H__
 #define __ETK_SEMAPHORE_H__
 
-#include <etk/Types.h>
+#include <etk/types.h>
 
 #ifdef __TARGET_OS__Windows
 	#include <windows.h>

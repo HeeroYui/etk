@@ -9,7 +9,7 @@
 #ifndef __ETK_TOOL_H__
 #define __ETK_TOOL_H__
 
-#include <etk/Types.h>
+#include <etk/types.h>
 #include <etk/UString.h>
 
 namespace etk {

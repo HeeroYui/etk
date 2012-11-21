@@ -6,10 +6,49 @@
  * @license BSD v3 (see license file)
  */
 
-#ifndef __ETK_STREAM_DEC_H__
-#define __ETK_STREAM_DEC_H__
+#ifndef __ETK_STREAM_H__
+#define __ETK_STREAM_H__
 
-namespace etk{
+#include <etk/types.h>
+#include <etk/os/Mutex.h>
+
+namespace etk
+{
+	#define MAX_LOG_SIZE		(16000)
+	#define MAX_LOG_SIZE_TMP	(512)
+
+	class CEndl{};
+	class CHex{};
+	class CStart{};
+	
+	class CCout{
+		private:
+			bool             hex;
+			char             m_tmpChar[MAX_LOG_SIZE+1];
+			char             tmp[MAX_LOG_SIZE_TMP];
+			etk::Mutex       m_mutex;
+		public:
+			CCout(void);
+			~CCout(void);
+			CCout& operator << (CHex t);
+			CCout& operator << (int t);
+			CCout& operator << (unsigned int t);
+			CCout& operator << (long t);
+			CCout& operator << (long long t);
+			CCout& operator << (double t);
+			CCout& operator << (float t);
+			CCout& operator << (char * t);
+			CCout& operator << (const char * t);
+			CCout& operator << (char t);
+			CCout& operator << (bool t);
+			CCout& operator << (CStart ccc);
+			CCout& operator << (etk::CEndl t);
+	};
+	extern etk::CCout cout;
+	extern etk::CEndl endl;
+	extern etk::CHex hex;
+	extern etk::CStart cstart;
+	
 	typedef enum {
 		LOG_LEVEL_NONE,
 		LOG_LEVEL_CRITICAL,
@@ -19,27 +58,12 @@ namespace etk{
 		LOG_LEVEL_DEBUG,
 		LOG_LEVEL_VERBOSE
 	} logLevel_te;
+	
+	/**
+	 * @brief Debug operator To display the curent element in a Human redeable information
+	 */
+	etk::CCout& operator <<(etk::CCout &os, const etk::logLevel_te obj);
 };
-#endif
-
-#include <string.h>
-#include <etk/Types.h>
-#include <etk/os/Mutex.h>
-
-#ifndef __ETK_STREAM_H__
-#define __ETK_STREAM_H__
-
-#if defined(__TARGET_OS__Android)
-#	include <android/log.h>
-#	define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "EWOL", __VA_ARGS__))
-#	define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "EWOL", __VA_ARGS__))
-#	define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, "EWOL", __VA_ARGS__))
-#endif
-
-#define MAX_LOG_SIZE		(16000)
-#define MAX_LOG_SIZE_TMP	(512)
-
-
 
 //regular colors
 #define ETK_BASH_COLOR_BLACK			"\e[0;30m"
@@ -74,206 +98,5 @@ namespace etk{
 #define ETK_BASH_GO_TOP					"\e[0;0f"
 
 
-namespace etk{
-	class CEndl{};
-	class CHex{};
-	class CStart{};
-	class CCout{
-		private:
-			bool             hex;
-			char             m_tmpChar[MAX_LOG_SIZE+1];
-			char             tmp[MAX_LOG_SIZE_TMP];
-			etk::Mutex       m_mutex;
-		public:
-			CCout(){
-				hex=false;
-				memset(m_tmpChar, 0, (MAX_LOG_SIZE+1)*sizeof(char));
-			};
-			~CCout() {
-				
-			};
-			
-			CCout& operator << (CHex t) {
-				hex = true;
-				return *this;
-			}
-			CCout& operator << (int t) {
-				snprintf(tmp, MAX_LOG_SIZE_TMP, "%d", t);
-				strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-				hex = false;
-				return *this;
-			}
-			CCout& operator << (unsigned int t) {
-				snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", t);
-				strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-				hex = false;
-				return *this;
-			}
-			/*
-			CCout& operator << (uniChar_t t) {
-				snprintf(tmp, MAX_LOG_SIZE_TMP, "%c", t);
-				strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-				return *this;
-			}
-			*/
-			CCout& operator << (long t) {
-				if (true == hex) {
-					snprintf(tmp, MAX_LOG_SIZE_TMP, "0x%08X", (unsigned int)t);
-					strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-					hex = false;
-				} else {
-					snprintf(tmp, MAX_LOG_SIZE_TMP, "%ld", t);
-					strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-				}
-				return *this;
-			}
-			CCout& operator << (long long t) {
-				if (true == hex) {
-					snprintf(tmp, MAX_LOG_SIZE_TMP, "0x%08X%08X", (unsigned int)(t>>32), (unsigned int)(t));
-					strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-					hex = false;
-				} else {
-					snprintf(tmp, MAX_LOG_SIZE_TMP, "%lld", t);
-					strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-				}
-				return *this;
-			}
-			CCout& operator << (double t) {
-				snprintf(tmp, MAX_LOG_SIZE_TMP, "%f", t);
-				strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-				hex = false;
-				return *this;
-			}
-			CCout& operator << (float t) {
-				snprintf(tmp, MAX_LOG_SIZE_TMP, "%f", t);
-				strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-				hex = false;
-				return *this;
-			}
-			CCout& operator << (char * t) {
-				snprintf(tmp, MAX_LOG_SIZE_TMP, "%s", t);
-				strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-				hex = false;
-				return *this;
-			}
-			CCout& operator << (const char * t) {
-				snprintf(tmp, MAX_LOG_SIZE_TMP, "%s", t);
-				strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-				hex = false;
-				return *this;
-			}
-			CCout& operator << (char t) {
-				snprintf(tmp, MAX_LOG_SIZE_TMP, "%c", t);
-				strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-				hex = false;
-				return *this;
-			}
-			CCout& operator << (bool t) {
-				if (t) {
-					strncat(m_tmpChar, "true", MAX_LOG_SIZE);
-				} else {
-					strncat(m_tmpChar, "false", MAX_LOG_SIZE);
-				}
-				return *this;
-			}
-			
-			CCout& operator << (Vector2D<float> t) {
-				snprintf(tmp, MAX_LOG_SIZE_TMP, "(%f,%f)", t.x, t.y);
-				strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-				hex = false;
-				return *this;
-			}
-			CCout& operator << (Vector2D<int32_t> t) {
-				snprintf(tmp, MAX_LOG_SIZE_TMP, "(%i,%i)", t.x, t.y);
-				strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-				hex = false;
-				return *this;
-			}
-			CCout& operator << (Vector3D<float> t) {
-				snprintf(tmp, MAX_LOG_SIZE_TMP, "(%f,%f,%f)", t.x, t.y, t.z);
-				strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-				hex = false;
-				return *this;
-			}
-			CCout& operator << (Vector3D<int32_t> t) {
-				snprintf(tmp, MAX_LOG_SIZE_TMP, "(%i,%i,%i)", t.x, t.y, t.z);
-				strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-				hex = false;
-				return *this;
-			}
-			CCout& operator << (clipping_ts t) {
-				snprintf(tmp, MAX_LOG_SIZE_TMP, "origin=(%f,%f) size=(%f,%f)", t.x, t.y, t.w, t.h);
-				strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-				hex = false;
-				return *this;
-			}
-			CCout& operator << (CStart ccc) {
-				m_mutex.Lock();
-				return *this;
-			}
-			CCout& operator << (logLevel_te ccc) {
-				switch (ccc)
-				{
-					case LOG_LEVEL_CRITICAL:
-						#if !defined(__TARGET_OS__Windows)
-							strncat(m_tmpChar, ETK_BASH_COLOR_BOLD_RED, MAX_LOG_SIZE);
-						#endif
-						strncat(m_tmpChar, "[C]", MAX_LOG_SIZE);
-						break;
-					case LOG_LEVEL_ERROR:
-						#if !defined(__TARGET_OS__Windows)
-							strncat(m_tmpChar, ETK_BASH_COLOR_RED, MAX_LOG_SIZE);
-						#endif
-						strncat(m_tmpChar, "[E]", MAX_LOG_SIZE);
-						break;
-					case LOG_LEVEL_WARNING:
-						#if !defined(__TARGET_OS__Windows)
-							strncat(m_tmpChar, ETK_BASH_COLOR_MAGENTA, MAX_LOG_SIZE);
-						#endif
-						strncat(m_tmpChar, "[W]", MAX_LOG_SIZE);
-						break;
-					case LOG_LEVEL_INFO:
-						#if !defined(__TARGET_OS__Windows)
-							strncat(m_tmpChar, ETK_BASH_COLOR_CYAN, MAX_LOG_SIZE);
-						#endif
-						strncat(m_tmpChar, "[I]", MAX_LOG_SIZE);
-						break;
-					case LOG_LEVEL_DEBUG:
-						#if !defined(__TARGET_OS__Windows)
-							strncat(m_tmpChar, ETK_BASH_COLOR_YELLOW, MAX_LOG_SIZE);
-						#endif
-						strncat(m_tmpChar, "[D]", MAX_LOG_SIZE);
-						break;
-					case LOG_LEVEL_VERBOSE:
-						#if !defined(__TARGET_OS__Windows)
-							strncat(m_tmpChar, ETK_BASH_COLOR_WHITE, MAX_LOG_SIZE);
-						#endif
-						strncat(m_tmpChar, "[V]", MAX_LOG_SIZE);
-						break;
-					default:
-						strncat(m_tmpChar, "[?]", MAX_LOG_SIZE);
-						break;
-				}
-				return *this;
-			}
-			CCout& operator << (etk::CEndl t) {
-				strncat(m_tmpChar, ETK_BASH_COLOR_NORMAL, MAX_LOG_SIZE);
-				strncat(m_tmpChar, "\n", MAX_LOG_SIZE);
-				m_tmpChar[MAX_LOG_SIZE] = '\0';
-#if defined(__TARGET_OS__Android)
-				LOGI("%s", m_tmpChar);
-#else
-				printf("%s", m_tmpChar);
-#endif
-				memset(m_tmpChar, 0, (MAX_LOG_SIZE+1)*sizeof(char));
-				m_mutex.UnLock();
-				return *this;
-			}
-	};
-	extern etk::CCout cout;
-	extern etk::CEndl endl;
-	extern etk::CHex hex;
-	extern etk::CStart cstart;
-}
 #endif
 

@@ -9,8 +9,12 @@
 #ifndef __ETK_TYPES_MATRIX4_H__
 #define __ETK_TYPES_MATRIX4_H__
 
-namespace etk {
+#include <etk/types.h>
+#include <math.h>
+#include <etk/math/Vector3D.h>
 
+namespace etk
+{
 	class Matrix4
 	{
 		public:
@@ -200,21 +204,16 @@ namespace etk {
 				m_mat[14] = tmpVal;
 				
 			}
+		public: 
+			Matrix4 Perspective(float left, float right, float bottom, float top, float nearVal, float farVal);
+			Matrix4 Translate(etk::Vector3D<float> vect);
+			Matrix4 Scale(etk::Vector3D<float> vect);
+			Matrix4 Rotate(etk::Vector3D<float> vect, float angleRad=0.0);
 	};
-	namespace matrix {
-		Matrix4 Perspective(float left, float right, float bottom, float top, float nearVal, float farVal);
-		// TODO : DEPRECATED
-		Matrix4 Translate(float x=0.0, float y=0.0, float z=0.0);
-		// TODO : DEPRECATED
-		Matrix4 Scale(float x=1.0, float y=1.0, float z=1.0);
-		// TODO : DEPRECATED
-		Matrix4 rotate(float x, float y, float z, float angleRad=0.0);
-		
-		Matrix4 Translate(etk::Vector3D<float> vect);
-		Matrix4 Scale(etk::Vector3D<float> vect);
-		Matrix4 Rotate(etk::Vector3D<float> vect, float angleRad=0.0);
-		void Display(Matrix4& tmp);
-	};
+	/**
+	 * @brief Debug operator To display the curent element in a Human redeable information
+	 */
+	etk::CCout& operator <<(etk::CCout &os, const etk::Matrix4 obj);
 };
 
 #endif

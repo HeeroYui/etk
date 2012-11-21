@@ -9,6 +9,10 @@
 #ifndef __ETK_MATH_VECTOR3D_H__
 #define __ETK_MATH_VECTOR3D_H__
 
+#include <etk/types.h>
+#include <math.h>
+#include <etk/Stream.h>
+
 namespace etk
 {
 	template <typename T> class Vector3D
@@ -397,6 +401,14 @@ namespace etk
 				return (*this)*(1.0f-factor)*(1.0f-factor) + 2*v2*factor*(1.0f-factor) + v3*factor*factor;
 			};
 	};
+	/**
+	 * @brief Debug operator To display the curent element in a Human redeable information
+	 */
+	etk::CCout& operator <<(etk::CCout &os, const etk::Vector3D<int32_t> obj);
+	/**
+	 * @brief Debug operator To display the curent element in a Human redeable information
+	 */
+	etk::CCout& operator <<(etk::CCout &os, const etk::Vector3D<float> obj);
 };
 
 

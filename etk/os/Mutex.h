@@ -6,10 +6,10 @@
  * @license BSD v3 (see license file)
  */
 
-#include <etk/Types.h>
-
 #ifndef __ETK_MUTEX_H__
 #define __ETK_MUTEX_H__
+
+#include <etk/types.h>
 
 #ifdef __TARGET_OS__Windows
 	#include <windows.h>

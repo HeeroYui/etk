@@ -6,7 +6,7 @@
  * @license BSD v3 (see license file)
  */
 
-#include <etk/Types.h>
+#include <etk/types.h>
 #include <etk/os/Memory.h>
 
 // General 

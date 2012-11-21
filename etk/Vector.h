@@ -9,8 +9,8 @@
 #ifndef __ETK_VECTOR_H__
 #define __ETK_VECTOR_H__
 
+#include <etk/types.h>
 #include <etk/DebugInternal.h>
-#include <etk/Types.h>
 #include <etk/os/Memory.h>
 
 #undef __class__

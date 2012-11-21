@@ -9,6 +9,9 @@
 #ifndef __ETK_MATH_VECTOR2D_H__
 #define __ETK_MATH_VECTOR2D_H__
 
+#include <etk/types.h>
+#include <etk/Stream.h>
+
 namespace etk
 {
 	template <typename T> class Vector2D
@@ -235,8 +238,18 @@ namespace etk
 			 */
 			Vector2D<T> QuadraticInterpolate(const Vector2D<T> & v2, const Vector2D<T> & v3, float factor) const
 			{
-				return (*this)*(1.0f-factor)*(1.0f-factor) + 2*v2*factor*(1.0f-factor) + v3*factor*factor;}
+				return (*this)*(1.0f-factor)*(1.0f-factor) + 2*v2*factor*(1.0f-factor) + v3*factor*factor;
 			};
+	};
+	/**
+	 * @brief Debug operator To display the curent element in a Human redeable information
+	 */
+	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<int32_t> obj);
+	/**
+	 * @brief Debug operator To display the curent element in a Human redeable information
+	 */
+	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<float> obj);
+	
 };
 
 #endif

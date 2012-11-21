@@ -6,11 +6,11 @@
  * @license BSD v3 (see license file)
  */
 
-#include <etk/Stream.h>
-#include <etk/Types.h>
-
 #ifndef __ETK_DEBUG_H__
 #define __ETK_DEBUG_H__
+
+#include <etk/types.h>
+#include <etk/Stream.h>
 
 // Log Message System For EDN
 void TOOLS_DisplayFuncName(int32_t ligne, const char* className, const char* funcName, const char* libName);

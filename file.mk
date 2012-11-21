@@ -13,7 +13,9 @@ FILE_LIST = \
 
 
 FILE_LIST+= \
-			etk/math/Matrix4.cpp
+			etk/math/Matrix4.cpp \
+			etk/math/Vector2D.cpp \
+			etk/math/Vector3D.cpp
 
 
 FILE_LIST+= \

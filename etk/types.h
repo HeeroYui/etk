@@ -52,18 +52,4 @@ typedef enum {
 #define etk_max(elemA, elemB)               (((elemA)<(elemB)) ? (elemB) : (elemA))
 #define etk_avg(minimim, elem, maximum)     (((minimim)>(elem)) ? (minimim) : ((maximum)<(elem)) ? (maximum) : (elem))
 
-typedef struct {
-	float u;
-	float v;
-}texCoord_ts;
-
-typedef struct {
-	float x;
-	float y;
-	float w;
-	float h;
-}clipping_ts;
-
-#include <etk/math/math.h>
-
 #endif

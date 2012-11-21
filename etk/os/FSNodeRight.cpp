@@ -7,7 +7,7 @@
  */
 
 
-#include <etk/Types.h>
+#include <etk/types.h>
 #include <etk/DebugInternal.h>
 #include <etk/os/FSNodeRight.h>
 

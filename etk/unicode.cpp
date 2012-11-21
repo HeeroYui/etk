@@ -8,7 +8,7 @@
 
 // see : http://unicode.org/fr/charts/symbols.html#CombiningDiacriticalMarks
 
-#include <etk/Types.h>
+#include <etk/types.h>
 #include <etk/Debug.h>
 #include <etk/unicodeTable.h>
 #include <etk/unicode.h>

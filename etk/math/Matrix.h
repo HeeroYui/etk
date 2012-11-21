@@ -9,7 +9,7 @@
 #ifndef __ETK_TYPES_MATRIX_H__
 #define __ETK_TYPES_MATRIX_H__
 
-//#include <etk/DebugInternal.h>
+#include <etk/types.h>
 #include <etk/math/Vector2D.h>
 #include <etk/Vector.h>
 

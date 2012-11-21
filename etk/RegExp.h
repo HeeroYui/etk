@@ -9,7 +9,7 @@
 #ifndef __TK_REG_EXP_H__
 #define __TK_REG_EXP_H__
 
-#include <etk/Types.h>
+#include <etk/types.h>
 #include <etk/DebugInternal.h>
 #include <etk/os/Memory.h>
 #include <etk/UString.h>
