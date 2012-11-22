@@ -205,10 +205,10 @@ namespace etk
 				
 			}
 		public: 
-			Matrix4 Perspective(float left, float right, float bottom, float top, float nearVal, float farVal);
-			Matrix4 Translate(etk::Vector3D<float> vect);
-			Matrix4 Scale(etk::Vector3D<float> vect);
-			Matrix4 Rotate(etk::Vector3D<float> vect, float angleRad=0.0);
+			static Matrix4 Perspective(float left, float right, float bottom, float top, float nearVal, float farVal);
+			static Matrix4 Translate(etk::Vector3D<float> vect);
+			static Matrix4 Scale(etk::Vector3D<float> vect);
+			static Matrix4 Rotate(etk::Vector3D<float> vect, float angleRad=0.0);
 	};
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information
