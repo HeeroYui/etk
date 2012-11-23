@@ -24,10 +24,7 @@ namespace etk
 			/*****************************************************
 			 *    Constructor
 			 *****************************************************/
-			 Vector2D(void) : x(0), y(0) { };
-			 Vector2D(double _x, double _y) : x(_x), y(_y) { };
-			 Vector2D(float _x, float _y) : x(_x), y(_y) { };
-			 Vector2D(int32_t _x, int32_t _y) : x(_x), y(_y) { };
+			 Vector2D(T _x=0, T _y=0)                : x(_x), y(_y) { };
 			 Vector2D(const Vector2D<double>& obj)   : x((T)obj.x), y((T)obj.y) { };
 			 Vector2D(const Vector2D<float>& obj)    : x((T)obj.x), y((T)obj.y) { };
 			 Vector2D(const Vector2D<int32_t>& obj)  : x((T)obj.x), y((T)obj.y) { };

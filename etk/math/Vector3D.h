@@ -25,10 +25,7 @@ namespace etk
 			/*****************************************************
 			 *    Constructor
 			 *****************************************************/
-			 Vector3D(void) : x(0), y(0), z(0) { };
-			 Vector3D(double _x, double _y, double _z)    : x(_x), y(_y), z(_z) { };
-			 Vector3D(float _x, float _y, float _z)       : x(_x), y(_y), z(_z) { };
-			 Vector3D(int32_t _x, int32_t _y, int32_t _z) : x(_x), y(_y), z(_z) { };
+			 Vector3D(T _x=0, T _y=0, T _z=0)       : x(_x), y(_y), z(_z) { };
 			 Vector3D(const Vector3D<double>& obj)  : x((T)obj.x), y((T)obj.y), z((T)obj.z) { };
 			 Vector3D(const Vector3D<float>& obj)   : x((T)obj.x), y((T)obj.y), z((T)obj.z) { };
 			 Vector3D(const Vector3D<int32_t>& obj) : x((T)obj.x), y((T)obj.y), z((T)obj.z) { };
