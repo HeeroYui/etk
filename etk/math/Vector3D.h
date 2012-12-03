@@ -408,6 +408,13 @@ namespace etk
 	etk::CCout& operator <<(etk::CCout &os, const etk::Vector3D<float> obj);
 };
 
+// To siplify the writing of the code ==> this permit to have the same name with the glsl language...
+typedef etk::Vector3D<float>      vec3;
+typedef etk::Vector3D<int32_t>   ivec3;
+// not compatible with glsl ... but it is better to have a same writing
+typedef etk::Vector3D<uint32_t> uivec3;
+typedef etk::Vector3D<bool>      bvec3;
+
 
 
 #endif

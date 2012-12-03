@@ -344,4 +344,9 @@ namespace etk
 	};
 };
 
+// To siplify the writing of the code ==> this is not compatible with GLSL ...
+typedef etk::Matrix<float>       mat;
+typedef etk::Matrix<int32_t>    imat;
+typedef etk::Matrix<uint32_t>  uimat;
+
 #endif

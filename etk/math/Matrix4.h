@@ -216,4 +216,8 @@ namespace etk
 	etk::CCout& operator <<(etk::CCout &os, const etk::Matrix4 obj);
 };
 
+
+// To siplify the writing of the code ==> this permit to have the same name with the glsl language...
+typedef etk::Matrix4  mat4;
+
 #endif

@@ -185,5 +185,13 @@ namespace etk
 	};
 };
 
+// To siplify the writing of the code ==> this permit to have the same name with the glsl language...
+typedef etk::Vector4D<float>      vec4;
+typedef etk::Vector4D<int32_t>   ivec4;
+// not compatible with glsl ... but it is better to have a same writing
+typedef etk::Vector4D<uint32_t> uivec4;
+typedef etk::Vector4D<bool>      bvec4;
+
+
 #endif
 
