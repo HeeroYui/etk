@@ -345,6 +345,13 @@ namespace etk
 			 */
 			MY_TYPE& Get(int32_t pos)
 			{
+				// NOTE :Do not change log level, this generate error only in debug mode
+				#if DEBUG_LEVEL > 2
+					if(    pos>m_size
+					    || pos<0){
+						TK_CRITICAL("[CRITICAL] Access to an unexistant data in vector : " << pos << "/ " << m_size);
+					}
+				#endif
 				return m_data[pos];
 			}
 	
@@ -365,6 +372,13 @@ namespace etk
 			 */
 			const MY_TYPE& operator[] (int32_t pos) const
 			{
+				// NOTE :Do not change log level, this generate error only in debug mode
+				#if DEBUG_LEVEL > 2
+					if(    pos>m_size
+					    || pos<0){
+						TK_CRITICAL("[CRITICAL] Access to an unexistant data in vector : " << pos << "/ " << m_size);
+					}
+				#endif
 				return m_data[pos];
 			}
 	

@@ -137,6 +137,9 @@ char * etk::levelSpace(int32_t level)
 
 int32_t etk::GetLenOfPTheseElem(etk::Vector<int16_t> &data, int32_t startPos)
 {
+	if (startPos>=data.Size()){
+		return 0;
+	}
 	int32_t pos = startPos;
 	int32_t nbOpen = 0;
 	// special case of the (...) or | ==> we search '|' or ')'
