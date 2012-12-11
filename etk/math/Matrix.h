@@ -101,6 +101,14 @@ namespace etk
 				m_data = obj.m_data;
 				return *this;
 			};
+			const Matrix<T>& operator= (T& value)
+			{
+				// set data :
+				for (int32_t iii=0; iii<m_data.Size(); iii++) {
+					m_data = value;
+				}
+				return *this;
+			};
 			/*****************************************************
 			 *    == operator
 			 *****************************************************/
@@ -237,6 +245,12 @@ namespace etk
 			}
 			T* operator[] (int32_t line) {
 				return &m_data[line*m_size.x];
+			}
+			/*****************************************************
+			 *    () operator
+			 *****************************************************/
+			T& operator () (int32_t line, int32_t colomn) {
+				return m_data[line*m_size.x + colomn];
 			}
 			/*****************************************************
 			 *    Other mathematical function
