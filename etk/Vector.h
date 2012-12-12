@@ -184,9 +184,9 @@ namespace etk
 					 * @return ---
 					 *
 					 */
-					Iterator(Vector<MY_TYPE> * Evb, int32_t pos):
+					Iterator(Vector<MY_TYPE> * obj, int32_t pos):
 						m_current(pos),
-						m_vector(Evb)
+						m_vector(obj)
 					{
 						// nothing to do ...
 					}
@@ -209,15 +209,14 @@ namespace etk
 			{
 				ChangeAllocation(count);
 			}
-	
 			/**
 			 * @brief Re-copy constructor (copy all needed data)
 			 * @param[in] Evb	Vector that might be copy
 			 */
-			Vector(const etk::Vector<MY_TYPE> & Evb)
+			Vector(const etk::Vector<MY_TYPE> & obj)
 			{
-				m_allocated = Evb.m_allocated;
-				m_size      = Evb.m_size;
+				m_allocated = obj.m_allocated;
+				m_size      = obj.m_size;
 				m_data      = NULL;
 				//TK_DEBUG("USE Specific vector allocator ... Evb.m_size=" << Evb.m_size << " Evb.m_increment=" << Evb.m_increment);
 				// allocate all same data
@@ -229,10 +228,9 @@ namespace etk
 				// Copy all data ...
 				for(int32_t iii=0; iii<m_allocated; iii++) {
 					// copy operator ...
-					m_data[iii] = Evb.m_data[iii];
+					m_data[iii] = obj.m_data[iii];
 				}
 			}
-	
 			/**
 			 * @brief Destructor of the current Class
 			 */
@@ -245,24 +243,43 @@ namespace etk
 				m_allocated = 0;
 				m_size = 0;
 			}
-	
+			/**
+			 * @brief Swap the data of 2 Vectors
+			 * @param[in] obj second vector to swap data.
+			 */
+			void Swap(etk::Vector<MY_TYPE>& obj)
+			{
+				// avoid Swap of itself
+				if(this != &obj) {
+					MY_TYPE* tmpData = m_data;
+					int32_t tmpAllocated = m_allocated;
+					int32_t tmpSize = m_size;
+					m_data = obj.m_data;
+					m_allocated = obj.m_allocated;
+					m_size = obj.m_size;
+					obj.m_data = tmpData;
+					obj.m_allocated = tmpAllocated;
+					obj.m_size = tmpSize;
+					
+				}
+			}
 			/**
 			 * @brief Re-copy operator
 			 * @param[in] Evb	Vector that might be copy
 			 * @return reference on the curent re-copy vector
 			 */
-			Vector& operator=(const etk::Vector<MY_TYPE> & Evb)
+			Vector& operator=(const etk::Vector<MY_TYPE> & obj)
 			{
 				//TK_DEBUG("USE RECOPY vector ... Evb.m_size=" << Evb.m_size << " Evb.m_increment=" << Evb.m_increment);
-				if( this != &Evb ) // avoid copy to itself
+				if( this != &obj ) // avoid copy to itself
 				{
 					if (NULL!=m_data) {
 						delete[] m_data;
 						m_data = NULL;
 					}
 					// Set the new value
-					m_allocated = Evb.m_allocated;
-					m_size      = Evb.m_size;
+					m_allocated = obj.m_allocated;
+					m_size      = obj.m_size;
 					// allocate all same data
 					m_data = new MY_TYPE[m_allocated];
 					if (NULL==m_data) {
@@ -271,7 +288,7 @@ namespace etk
 					}
 					for(int32_t iii=0; iii<m_allocated; iii++) {
 						// copy operator ...
-						m_data[iii] = Evb.m_data[iii];
+						m_data[iii] = obj.m_data[iii];
 					}
 				}
 				// Return the curent pointer
@@ -282,9 +299,9 @@ namespace etk
 			 * @brief Add at the Last position of the Vector
 			 * @param[in] item	Element to add at the end of vector
 			 */
-			Vector& operator+= (const etk::Vector<MY_TYPE> & Evb)	// += operator
+			Vector& operator+= (const etk::Vector<MY_TYPE> & obj)	// += operator
 			{
-				int32_t nbElememt = Evb.Size();
+				int32_t nbElememt = obj.Size();
 				int32_t idx = m_size;
 				Resize(m_size+nbElememt);
 				if (m_size<=idx) {
@@ -293,13 +310,11 @@ namespace etk
 				}
 				for(int32_t iii=0; iii<nbElememt; iii++) {
 					// copy operator ...
-					m_data[idx+iii] = Evb.m_data[iii];
+					m_data[idx+iii] = obj.m_data[iii];
 				}
 				// Return the curent pointer
 				return *this;
 			}
-			
-	
 			/**
 			 * @brief Get the number of element in the vector
 			 * @return The number requested
@@ -308,7 +323,6 @@ namespace etk
 			{
 				return m_size;
 			}
-	
 			/**
 			 * @brief Get the number of element in the vector
 			 * @return The number requested
@@ -328,7 +342,6 @@ namespace etk
 					}
 				}
 			}
-	
 			/**
 			 * @brief Get the Allocated size in the vector
 			 * @return The size of allocation
@@ -337,7 +350,6 @@ namespace etk
 			{
 				return m_allocated;
 			}
-	
 			/**
 			 * @brief Get a current element in the vector
 			 * @param[in] pos Desired position read
@@ -354,7 +366,6 @@ namespace etk
 				#endif
 				return m_data[pos];
 			}
-	
 			/**
 			 * @brief Get an copy Element an a special position
 			 * @param[in] pos	Position in the vector that might be get [0..Size()]
@@ -364,7 +375,6 @@ namespace etk
 			{
 				return Get(pos);
 			}
-	
 			/**
 			 * @brief Get an Element an a special position
 			 * @param[in] pos	Position in the vector that might be get [0..Size()]
@@ -381,7 +391,6 @@ namespace etk
 				#endif
 				return m_data[pos];
 			}
-	
 			/**
 			 * @brief Add at the Last position of the Vector
 			 * @param[in] item	Element to add at the end of vector
@@ -396,7 +405,6 @@ namespace etk
 					TK_ERROR("Resize does not work corectly ... not added item");
 				}
 			}
-	
 			/**
 			 * @brief Add at the Last position of the Vector
 			 * @param[in] item	Element to add at the end of vector
@@ -416,7 +424,6 @@ namespace etk
 					m_data[idx+iii] = item[iii];
 				}
 			}
-	
 			/**
 			 * @brief Remove the last element of the vector
 			 */
@@ -426,7 +433,6 @@ namespace etk
 					Resize(m_size-1);
 				}
 			}
-	
 			/**
 			 * @brief Remove all alement in the current vector
 			 */
@@ -436,15 +442,11 @@ namespace etk
 					Resize(0);
 				}
 			}
-	
-	
 			/**
-			 * @brief 
-			 *
-			 * @param[in,out] ---
-			 *
-			 * @return ---
-			 *
+			 * @brief Insert N element in the Vector.
+			 * @param[in] pos Position to add the elements.
+			 * @param[in] item Pointer on a table of the elements to add.
+			 * @param[in] nbElement Number of element to add in the Vector
 			 */
 			void Insert(int32_t pos, const MY_TYPE * item, int32_t nbElement)
 			{
@@ -472,28 +474,19 @@ namespace etk
 					m_data[pos+iii] = item[iii];
 				}
 			}
-			
 			/**
-			 * @brief 
-			 *
-			 * @param[in,out] ---
-			 *
-			 * @return ---
-			 *
+			 * @brief Insert one element in the Vector at a specific position
+			 * @param[in] pos Position to add the elements.
+			 * @param[in] item Element to add.
 			 */
 			void Insert(int32_t pos, const MY_TYPE& item)
 			{
 				Insert(pos, &item, 1);
 			}
-			
 			/**
 			 * @brief Remove N element
-			 *
 			 * @param[in] pos Position to remove the data
 			 * @param[in] nbElement number of element to remove
-			 *
-			 * @return ---
-			 *
 			 */
 			void EraseLen(int32_t pos, int32_t nbElement)
 			{
@@ -515,28 +508,26 @@ namespace etk
 				// Request resize of the current buffer
 				Resize(m_size-nbElement);
 			}
-			
 			/**
 			 * @brief Remove one element
-			 *
 			 * @param[in] pos Position to remove the data
-			 *
-			 * @return ---
-			 *
 			 */
-			void Erase(int32_t pos)
+			inline void Erase(int32_t pos)
 			{
 				EraseLen(pos, 1);
 			}
-	
+			/**
+			 * @brief Remove one element
+			 * @param[in] pos Position to remove the data
+			 */
+			inline void Remove(int32_t pos)
+			{
+				EraseLen(pos, 1);
+			}
 			/**
 			 * @brief Remove N elements
-			 *
 			 * @param[in] pos Position to remove the data
 			 * @param[in] posEnd Last position number
-			 *
-			 * @return ---
-			 *
 			 */
 			void Erase(int32_t pos, int32_t posEnd)
 			{
@@ -559,8 +550,6 @@ namespace etk
 				// Request resize of the current buffer
 				Resize(m_size-nbElement);
 			}
-	
-	
 			/**
 			 * @brief extract data between two point : 
 			 * @param[in] posStart start position to extract data
@@ -583,7 +572,14 @@ namespace etk
 				out.PushBack(&m_data[posStart], posEnd-posStart);
 				return out;
 			}
-	
+			/**
+			 * @brief Get the pointer on the sata
+			 * @return the type pointer on data
+			 */
+			MY_TYPE* DataPointer(void)
+			{
+				return &m_data[0];
+			}
 			/**
 			 * @brief Get an iterator an an specific position
 			 * @param[in] pos Requested position of the iterator in the vector
@@ -593,7 +589,6 @@ namespace etk
 			{
 				return Iterator(this, pos);
 			}
-	
 			/**
 			 * @brief Get an Iterator on the start position of the Vector
 			 * @return The Iterator
@@ -602,7 +597,6 @@ namespace etk
 			{
 				return Position(0);
 			}
-	
 			/**
 			 * @brief Get an Iterator on the end position of the Vector
 			 * @return The Iterator
@@ -611,7 +605,6 @@ namespace etk
 			{
 				return Position( Size()-1 );
 			}
-	
 		private:
 			/**
 			 * @brief Change the current size of the vector
@@ -625,7 +618,6 @@ namespace etk
 				}
 				m_size = newSize;
 			}
-			
 			/**
 			 * @brief Change the current allocation to the corect one (depend on the current size)
 			 * @param[in] newSize Minimum number of element needed

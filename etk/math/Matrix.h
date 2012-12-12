@@ -253,6 +253,15 @@ namespace etk
 				return m_data[line*m_size.x + colomn];
 			}
 			/*****************************************************
+			 *    - operator
+			 *****************************************************/
+			Matrix<T> operator - (void) {
+				Matrix<T> tmp(m_size);
+				for (int32_t iii=0; iii<m_data.Size(); iii++) {
+					tmp.m_data[iii] = -m_data[iii];
+				return tmp;
+			}
+			/*****************************************************
 			 *    Other mathematical function
 			 *****************************************************/
 			/**
@@ -265,7 +274,7 @@ namespace etk
 				Matrix<T> tmpMatrix(m_size.x, m_size.y);
 				for (int32_t jjj=0; jjj< m_size.y; jjj++) {
 					for (int32_t iii=0; iii< m_size.x; iii++) {
-						tmpMatrix[jjj][iii] = (*this)[iii][jjj];
+						tmpMatrix(jjj,iii) = (*this)(iii,jjj);
 					}
 				}
 				return tmpMatrix;
@@ -275,7 +284,7 @@ namespace etk
 			 * @ param[in] obj The convolution operator
 			 * @ return the value of the convolution
 			 */
-			Matrix<T> Convolution(Matrix<T>& obj)
+			Matrix<T>& Convolution(Matrix<T>& obj)
 			{
 				Matrix<T> tmppp(1,1);
 				// TODO : ...
@@ -288,8 +297,18 @@ namespace etk
 			 */
 			Matrix<T>& Fix(int32_t decalage)
 			{
-				Matrix<T> tmppp(1,1);
-				// TODO : ...
+				Matrix<T> tmppp(m_size);
+				T tmpVal = 0;
+				for(int32_t iii=0; iii<m_data.Size(); iii++) {
+					tmpVal = m_data[iii];
+					if (tmpVal < 0 && (tmpVal & ~(~0 << decalage))) {
+						tmpVal = tmpVal >> decalage;
+						tmpVal++;
+					} else {
+						tmpVal = tmpVal >> decalage;
+					}
+					tmppp.m_data[iii] = tmpVal;
+				}
 				return tmppp;
 			};
 			/**
@@ -297,16 +316,136 @@ namespace etk
 			 * @ param[in] decalage The power of 2 of the division
 			 * @ return the result
 			 */
-			Matrix<T>& Round2(int32_t decalage)
+			Matrix<T>& Round(int32_t decalage)
 			{
-				Matrix<T> tmppp(1,1);
-				// TODO : ...
+				Matrix<T> tmppp(m_size);
+				for(int32_t iii=0; iii<m_data.Size(); iii++) {
+					tmppp.m_data[iii] = ( m_data[iii]+(1<<(decalage-1)) ) >> decalage;
+				}
 				return tmppp;
 			};
+			/**
+			 * @ brief Generate a resised matrix
+			 * @ param[in] size new output size
+			 * @ return Te resied matrix
+			 */
+			Matrix<T>& Resize(etk::Vector2D<int32_t> size)
+			{
+				Matrix<T> tmppp(size);
+				for(int32_t iii=0; iii<m_data.m_size.x && iii<tmppp.m_size.x; iii++) {
+					for(int32_t jjj=0; jjj<m_data.m_size.y && jjj<tmppp.m_size.y; jjj++) {
+						tmppp(iii,jjj) = (*this)(iii,jjj);
+					}
+				}
+				return tmppp;
+			};
+			/**
+			 * @brief Select element in the matrix from a list of element Ids
+			 * @param[in] np Width of the output matrix
+			 * @param[in] p  List pointer of x
+			 * @param[in] np Heigh of the output matrix
+			 * @param[in] q  List pointer of y
+			 * @return the new matrix
+			 */
+			Matrix<T>& Select(int32_t np, int32_t *p, int32_t nq, int32_t *q)
+			{
+				if (np < 1 || nq < 1) {
+					TK_WARNING("bad index array sizes");
+				}
+				Matrix<T> tmppp(np,nq);
+				for (int32_t iii=0; iii<np; iii++) {
+					for (int32_t jjj=0; jjj<nq; jjj++) {
+						if(    p[i] < 0
+						    || p[i] >= m_size.x
+						    || q[i] < 0
+						    || q[i] >= m_size.y) {
+							TK_WARNING("bad index arrays");
+						}
+						tmppp(iii,jjj) = (*this)(p[i],q[j]);
+					}
+				}
+				return tmppp;
+			}
 			/*****************************************************
-			 *    other stupid action :
+			 *    utilities :
 			 *****************************************************/
-			Vector2D<int32_t> Size(void) { return m_size; };
+			/**
+			 * @brief Clear the Upper triangle of the current Matrix
+			 * <pre>
+			 *   x 0 0 0 0
+			 *   x x 0 0 0
+			 *   x x x 0 0
+			 *   x x x x 0
+			 *   x x x x x
+			 * </pre>
+			 */
+			void ClearUpperTriangle(void)
+			{
+				if (m_size.x != m_size.y) {
+					TK_WARNING("better to do with square Matrix");
+				}
+				for (int32_t iii=0; iii<m_size.x; iii++) {
+					for (int32_t jjj=iii+1; jjj<m_size.y; jjj++)
+						m_data[iii*m_size.x + jjj] = 0;
+					}
+				}
+			};
+			/**
+			 * @brief Clear the Lower triangle of the current Matrix
+			 * <pre>
+			 *   x x x x x
+			 *   0 x x x x
+			 *   0 0 x x x
+			 *   0 0 0 x x
+			 *   0 0 0 0 x
+			 * </pre>
+			 */
+			void ClearLowerTriangle(void)
+			{
+				if (m_size.x != m_size.y) {
+					TK_WARNING("better to do with square Matrix");
+				}
+				for (int32_t iii=0; iii<m_size.x; iii++) {
+					for (int32_t jjj=0; jjj<m_size.y && jjj<iii; jjj++)
+						m_data[iii*m_size.x + jjj] = 0;
+					}
+				}
+			};
+			/**
+			 * @brief Generate a compleate random Matrix.
+			 * @param[in] range The min/max value of the random Generation [-range..range].
+			 */
+			void MakeRandom(float range)
+			{
+				for(int32_t iii=0; iii<m_data.Size(); iii++) {
+					m_data[iii] = (T)etk::tool::frand(-range, range);
+				}
+			};
+			/**
+			 * @brief Return the maximum of the diff for this Matrix.
+			 * @param[in] input The compared Matix.
+			 * @return The absolute max value.
+			 */
+			T MaxDifference(const Matrix<T>& input)
+			{
+				if (m_size != input.m_size)
+					TK_WARNING("better to do with same size Matrix");
+				}
+				T max = 0;
+				for(int32_t iii=0; iii<m_data.Size() && iii<input.m_data.Size(); iii++) {
+					T diff = m_data[iii] - input.m_data[iii];
+					if (diff<0) {
+						diff = -diff;
+					}
+					if (diff > max)
+						max = diff;
+					}
+				}
+				return max;
+			};
+			/**
+			 * @brief Clear all the matrix.
+			 */
 			void Clear(void)
 			{
 				// copy data for the same size :
@@ -314,46 +453,31 @@ namespace etk
 					m_data[iii] = (T)0;
 				}
 			};
+			/**
+			 * @brief Set the diagonal at 1
+			 */
 			void Identity(void)
 			{
 				// copy data for the same size :
 				for (int32_t iii=0; iii< etk_min(m_size.x, m_size.y); iii++) {
-					(*this)[iii][iii] = (T)1;
+					(*this)(iii,iii) = (T)1;
 				}
 			};
-			
-			void Set(int32_t iii, int32_t jjj, T value)
+			/**
+			 * @brief Clear and set the diagonal at 1
+			 */
+			void Eye(void)
 			{
-				m_data[iii*m_size.x+jjj] = value;
-			}
-			T Get(int32_t iii, int32_t jjj)
+				Clear();
+				Identity();
+			};
+			/**
+			 * @brief Get the size of the current Matrix.
+			 * @return Dimention of the matrix
+			 */
+			Vector2D<int32_t> Size(void)
 			{
-				return m_data[iii*m_size.x+jjj];
-			}
-			void Display(void)
-			{
-				/*
-				TK_INFO("Matrix display : ");
-				for (int32_t jjj=0; jjj< m_size.y; jjj++) {
-					if (m_size.x == 0) {
-						TK_INFO("    --- , ");
-					} else if (m_size.x == 1) {
-						TK_INFO("    " << (*this)[jjj][0] << " , ");
-					} else if (m_size.x == 2) {
-						TK_INFO("    " << (*this)[jjj][0] << " , " << (*this)[jjj][1] << " , ");
-					} else if (m_size.x == 3) {
-						TK_INFO("    " << (*this)[jjj][0] << " , " << (*this)[jjj][1] << " , " << (*this)[jjj][2] << " , ");
-					} else if (m_size.x == 4) {
-						TK_INFO("    " << (*this)[jjj][0] << " , " << (*this)[jjj][1] << " , " << (*this)[jjj][2] << " , " << (*this)[jjj][3] << " , ");
-					} else if (m_size.x == 5) {
-						TK_INFO("    " << (*this)[jjj][0] << " , " << (*this)[jjj][1] << " , " << (*this)[jjj][2] << " , " << (*this)[jjj][3] << " , " << (*this)[jjj][4] << " , ");
-					} else if (m_size.x == 6) {
-						TK_INFO("    " << (*this)[jjj][0] << " , " << (*this)[jjj][1] << " , " << (*this)[jjj][2] << " , " << (*this)[jjj][3] << " , " << (*this)[jjj][4] << " , " << (*this)[jjj][5] << " , ");
-					} else {
-						TK_INFO("    " << (*this)[jjj][0] << " , " << (*this)[jjj][1] << " , " << (*this)[jjj][2] << " , " << (*this)[jjj][3] << " , " << (*this)[jjj][4] << " , " << (*this)[jjj][5] << " , " << (*this)[jjj][6] << " , ");
-					}
-				}
-				*/
+				return m_size;
 			};
 	};
 };
