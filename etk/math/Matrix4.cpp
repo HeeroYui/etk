@@ -11,7 +11,7 @@
 #include <etk/DebugInternal.h>
 #include <math.h>
 
-etk::Matrix4 etk::Matrix4::Perspective(float left, float right, float bottom, float top, float nearVal, float farVal)
+etk::Matrix4 etk::matPerspective(float left, float right, float bottom, float top, float nearVal, float farVal)
 {
 	etk::Matrix4 tmp;
 	for(int32_t iii=0; iii<4*4 ; iii++) {
@@ -29,7 +29,7 @@ etk::Matrix4 etk::Matrix4::Perspective(float left, float right, float bottom, fl
 	return tmp;
 }
 
-etk::Matrix4 etk::Matrix4::Translate(etk::Vector3D<float> vect)
+etk::Matrix4 etk::matTranslate(etk::Vector3D<float> vect)
 {
 	etk::Matrix4 tmp;
 	// set translation :
@@ -41,7 +41,7 @@ etk::Matrix4 etk::Matrix4::Translate(etk::Vector3D<float> vect)
 	return tmp;
 }
 
-etk::Matrix4 etk::Matrix4::Scale(etk::Vector3D<float> vect)
+etk::Matrix4 etk::matScale(etk::Vector3D<float> vect)
 {
 	etk::Matrix4 tmp;
 	// set scale :
@@ -53,7 +53,7 @@ etk::Matrix4 etk::Matrix4::Scale(etk::Vector3D<float> vect)
 	return tmp;
 }
 
-etk::Matrix4 etk::Matrix4::Rotate(etk::Vector3D<float> vect, float angleRad)
+etk::Matrix4 etk::matRotate(etk::Vector3D<float> vect, float angleRad)
 {
 	etk::Matrix4 tmp;
 	float cosVal = cos(angleRad);
@@ -73,6 +73,58 @@ etk::Matrix4 etk::Matrix4::Rotate(etk::Vector3D<float> vect, float angleRad)
 	tmp.m_mat[10] = vect.z * vect.z * invVal + cosVal;
 	return tmp;
 }
+
+
+
+float etk::Matrix4::CoFactor(int32_t row, int32_t col) const
+{
+	return (   (   m_mat[((row+1)&3)*4 + ((col+1)&3)] * m_mat[((row+2)&3)*4 + ((col+2)&3)] * m_mat[((row+3)&3)*4 + ((col+3)&3)]
+	             + m_mat[((row+1)&3)*4 + ((col+2)&3)] * m_mat[((row+2)&3)*4 + ((col+3)&3)] * m_mat[((row+3)&3)*4 + ((col+1)&3)]
+	             + m_mat[((row+1)&3)*4 + ((col+3)&3)] * m_mat[((row+2)&3)*4 + ((col+1)&3)] * m_mat[((row+3)&3)*4 + ((col+2)&3)] )
+	         - (   m_mat[((row+3)&3)*4 + ((col+1)&3)] * m_mat[((row+2)&3)*4 + ((col+2)&3)] * m_mat[((row+1)&3)*4 + ((col+3)&3)]
+	             + m_mat[((row+3)&3)*4 + ((col+2)&3)] * m_mat[((row+2)&3)*4 + ((col+3)&3)] * m_mat[((row+1)&3)*4 + ((col+1)&3)]
+	             + m_mat[((row+3)&3)*4 + ((col+3)&3)] * m_mat[((row+2)&3)*4 + ((col+1)&3)] * m_mat[((row+1)&3)*4 + ((col+2)&3)] )
+	       ) * ((row + col) & 1 ? -1.0f : +1.0f);
+}
+
+
+float etk::Matrix4::Determinant() const
+{
+	return	m_mat[0] * CoFactor(0, 0) +
+			m_mat[1] * CoFactor(0, 1) +
+			m_mat[2] * CoFactor(0, 2) +
+			m_mat[3] * CoFactor(0, 3);
+}
+
+
+etk::Matrix4 etk::Matrix4::Invert()
+{
+	float det = Determinant();
+	if(fabsf(det) < (1.0e-7f)) {
+		// The matrix is not invertible! Singular case!
+		return *this;
+	}
+	etk::Matrix4 temp;
+	float iDet = 1.0f / det;
+	temp.m_mat[0] = CoFactor(0,0) * iDet;
+	temp.m_mat[1] = CoFactor(0,1) * iDet;
+	temp.m_mat[2] = CoFactor(0,2) * iDet;
+	temp.m_mat[3] = CoFactor(0,3) * iDet;
+	temp.m_mat[4] = CoFactor(1,0) * iDet;
+	temp.m_mat[5] = CoFactor(1,1) * iDet;
+	temp.m_mat[6] = CoFactor(1,2) * iDet;
+	temp.m_mat[7] = CoFactor(1,3) * iDet;
+	temp.m_mat[8] = CoFactor(2,0) * iDet;
+	temp.m_mat[9] = CoFactor(2,1) * iDet;
+	temp.m_mat[10] = CoFactor(2,2) * iDet;
+	temp.m_mat[11] = CoFactor(2,3) * iDet;
+	temp.m_mat[12] = CoFactor(3,0) * iDet;
+	temp.m_mat[13] = CoFactor(3,1) * iDet;
+	temp.m_mat[14] = CoFactor(3,2) * iDet;
+	temp.m_mat[15] = CoFactor(3,3) * iDet;
+	return temp;
+}
+
 
 etk::CCout& etk::operator <<(etk::CCout &os, const etk::Matrix4 obj)
 {
