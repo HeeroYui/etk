@@ -11,6 +11,22 @@
 #include <etk/DebugInternal.h>
 #include <math.h>
 
+
+
+void etk::Matrix4::Rotate(etk::Vector3D<float>& vect, float angleRad)
+{
+	etk::Matrix4 tmpMat = etk::matRotate(vect, angleRad);
+	*this *= tmpMat;
+}
+
+void etk::Matrix4::Translate(etk::Vector3D<float>& vect)
+{
+	etk::Matrix4 tmpMat = etk::matScale(vect);
+	*this *= tmpMat;
+}
+
+
+
 etk::Matrix4 etk::matPerspective(float left, float right, float bottom, float top, float nearVal, float farVal)
 {
 	etk::Matrix4 tmp;
@@ -44,10 +60,13 @@ etk::Matrix4 etk::matTranslate(etk::Vector3D<float> vect)
 etk::Matrix4 etk::matScale(etk::Vector3D<float> vect)
 {
 	etk::Matrix4 tmp;
+	tmp.Scale(vect);
+	/*
 	// set scale :
 	tmp.m_mat[0] = vect.x;
 	tmp.m_mat[5] = vect.y;
 	tmp.m_mat[10] = vect.z;
+	*/
 	//TK_INFO("Scale :");
 	//etk::matrix::Display(tmp);
 	return tmp;
@@ -61,7 +80,7 @@ etk::Matrix4 etk::matRotate(etk::Vector3D<float> vect, float angleRad)
 	float invVal = 1.0-cosVal;
 	// set rotation : 
 	tmp.m_mat[0]  = vect.x * vect.x * invVal + cosVal;
-	tmp.m_mat[1]  = vect.x * vect.y * invVal - vect.z * cosVal;
+	tmp.m_mat[1]  = vect.x * vect.y * invVal - vect.z * sinVal;
 	tmp.m_mat[2]  = vect.x * vect.z * invVal + vect.y * sinVal;
 	
 	tmp.m_mat[4]  = vect.y * vect.x * invVal + vect.z * sinVal;
@@ -73,7 +92,6 @@ etk::Matrix4 etk::matRotate(etk::Vector3D<float> vect, float angleRad)
 	tmp.m_mat[10] = vect.z * vect.z * invVal + cosVal;
 	return tmp;
 }
-
 
 
 float etk::Matrix4::CoFactor(int32_t row, int32_t col) const

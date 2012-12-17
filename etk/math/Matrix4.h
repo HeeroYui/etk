@@ -259,15 +259,18 @@ namespace etk
 				m_mat[4] = -Sin;
 				m_mat[1] = Sin;
 			}
-
+#endif
 			/**
 			 * @brief Makes a rotation matrix about an arbitrary axis.
 			 * @param[in] vect vector to apply the angle.
 			 * @param[in] angleRad angle to apply.
 			 */
-			void Rotate(etk::Vector3D<float> vect, float angleRad=0.0);
-#endif
-
+			void Rotate(etk::Vector3D<float>& vect, float angleRad=0.0);
+			/**
+			 * @brief Makes a translation of the matrix
+			 * @param[in] vect Translation to apply.
+			 */
+			void Translate(etk::Vector3D<float>& vect);
 			/**
 			 * @brief Computes a cofactor. Used for matrix inversion.
 			 * @param[in] row Id of raw.
