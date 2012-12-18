@@ -76,14 +76,14 @@ namespace etk
 			 *    + operator
 			 *****************************************************/
 			Vector3D<T> operator+ (const Vector3D<T>& obj) {
-				Vector3D<T> tmpp(x,y,y);
+				Vector3D<T> tmpp(x,y,z);
 				tmpp.x += (T)obj.x;
 				tmpp.y += (T)obj.y;
 				tmpp.z += (T)obj.z;
 				return tmpp;
 			}
 			Vector3D<T> operator+ (const float val) {
-				Vector3D<T> tmpp(x,y,y);
+				Vector3D<T> tmpp(x,y,z);
 				tmpp.x += val;
 				tmpp.y += val;
 				tmpp.z += val;
@@ -108,14 +108,14 @@ namespace etk
 			 *    - operator
 			 *****************************************************/
 			Vector3D<T> operator- (const Vector3D<T>& obj) {
-				Vector3D<T> tmpp(x,y,y);
+				Vector3D<T> tmpp(x,y,z);
 				tmpp.x -= (T)obj.x;
 				tmpp.y -= (T)obj.y;
 				tmpp.z -= (T)obj.z;
 				return tmpp;
 			}
 			Vector3D<T> operator- (const float val) {
-				Vector3D<T> tmpp(x,y,y);
+				Vector3D<T> tmpp(x,y,z);
 				tmpp.x -= val;
 				tmpp.y -= val;
 				tmpp.z -= val;
@@ -149,7 +149,7 @@ namespace etk
 			 *    / operator
 			 *****************************************************/
 			Vector3D<T> operator/ (const Vector3D<T>& obj) {
-				Vector3D<T> tmpp(x,y,y);
+				Vector3D<T> tmpp(x,y,z);
 				if (obj.x != 0) {
 					tmpp.x /= (T)obj.x;
 				}
@@ -162,7 +162,7 @@ namespace etk
 				return tmpp;
 			}
 			Vector3D<T> operator/ (const float val) {
-				Vector3D<T> tmpp(x,y,y);
+				Vector3D<T> tmpp(x,y,z);
 				if (val==0) {
 					return tmpp;
 				}
@@ -190,14 +190,14 @@ namespace etk
 			 *    * operator
 			 *****************************************************/
 			Vector3D<T> operator* (const Vector3D<T>& obj) {
-				Vector3D<T> tmpp(x,y,y);
+				Vector3D<T> tmpp(x,y,z);
 				tmpp.x *= (T)obj.x;
 				tmpp.y *= (T)obj.y;
 				tmpp.z *= (T)obj.z;
 				return tmpp;
 			}
 			Vector3D<T> operator* (const float val) {
-				Vector3D<T> tmpp(x,y,y);
+				Vector3D<T> tmpp(x,y,z);
 				tmpp.x *= val;
 				tmpp.y *= val;
 				tmpp.z *= val;
@@ -264,7 +264,7 @@ namespace etk
 				       + z*obj.z;
 			};
 			
-			void Normalize()
+			void Normalize(void)
 			{
 				float length=GetLength();
 				if(length==1 || length==0) {
@@ -276,19 +276,19 @@ namespace etk
 				z *= scalefactor;
 			};
 			
-			Vector3D<T> GetNormalized() const
+			Vector3D<T> GetNormalized(void) const
 			{
 				Vector3D<T> tmpp(*this);
 				tmpp.Normalize();
 				return tmpp;
 			};
 			
-			float GetLength() const
+			float GetLength(void) const
 			{
-				return (float)sqrt((x*x)+(y*y)+(z*z));
+				return sqrtf((x*x)+(y*y)+(z*z));
 			};
 			
-			float GetSquaredLength() const
+			float GetSquaredLength(void) const
 			{
 				return (x*x)+(y*y)+(z*z);
 			};
@@ -304,8 +304,8 @@ namespace etk
 				if(angle==0.0) {
 					return (*this);
 				}
-				float sinAngle=(float)sin(M_PI*angle/180);
-				float cosAngle=(float)cos(M_PI*angle/180);
+				float sinAngle=sinf(M_PI*angle/180);
+				float cosAngle=cosf(M_PI*angle/180);
 				
 				return Vector3D<T>( x,
 				                    y*cosAngle - z*sinAngle,
@@ -322,8 +322,8 @@ namespace etk
 				if(angle==0.0) {
 					return (*this);
 				}
-				float sinAngle=(float)sin(M_PI*angle/180);
-				float cosAngle=(float)cos(M_PI*angle/180);
+				float sinAngle=sinf(M_PI*angle/180);
+				float cosAngle=cosf(M_PI*angle/180);
 				return Vector3D<T>( x*cosAngle + z*sinAngle,
 				                    y,
 				                    -x*sinAngle + z*cosAngle);
@@ -339,8 +339,8 @@ namespace etk
 				if(angle==0.0) {
 					return (*this);
 				}
-				float sinAngle=(float)sin(M_PI*angle/180);
-				float cosAngle=(float)cos(M_PI*angle/180);
+				float sinAngle=sinf(M_PI*angle/180);
+				float cosAngle=cosf(M_PI*angle/180);
 				return Vector3D<T>( x*cosAngle - y*sinAngle,
 				                    x*sinAngle + y*cosAngle,
 				                    z);
@@ -358,8 +358,8 @@ namespace etk
 				}
 				Vector3D<T> u=axis.GetNormalized();
 				Vector3D<T> rotMatrixRow0, rotMatrixRow1, rotMatrixRow2;
-				float sinAngle=(float)sin(M_PI*angle/180);
-				float cosAngle=(float)cos(M_PI*angle/180);
+				float sinAngle=sinf(M_PI*angle/180);
+				float cosAngle=cosf(M_PI*angle/180);
 				float MinusCosAngle=1.0f-cosAngle;
 				rotMatrixRow0.x=(u.x)*(u.x) + cosAngle*(1-(u.x)*(u.x));
 				rotMatrixRow0.y=(u.x)*(u.y)*(MinusCosAngle) - sinAngle*u.z;
