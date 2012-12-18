@@ -33,8 +33,13 @@ namespace etk
 			 *    = assigment
 			 *****************************************************/
 			const Vector2D<T>& operator= (const Vector2D<T>& obj ) {
-				x = (T)obj.x;
-				y = (T)obj.y;
+				x = obj.x;
+				y = obj.y;
+				return *this;
+			}
+			const Vector2D<T>& operator= (const T val ) {
+				x = val;
+				y = val;
 				return *this;
 			}
 			/*****************************************************
@@ -59,8 +64,13 @@ namespace etk
 			 *    += operator
 			 *****************************************************/
 			const Vector2D<T>& operator+= (const Vector2D<T>& obj) {
-				x += (T)obj.x;
-				y += (T)obj.y;
+				x += obj.x;
+				y += obj.y;
+				return *this;
+			}
+			const Vector2D<T>& operator+= (const T val) {
+				x += val;
+				y += val;
 				return *this;
 			}
 			/*****************************************************
@@ -68,16 +78,27 @@ namespace etk
 			 *****************************************************/
 			Vector2D<T> operator+ (const Vector2D<T>& obj) {
 				Vector2D<T> tmpp(x,y);
-				tmpp.x += (T)obj.x;
-				tmpp.y += (T)obj.y;
+				tmpp.x += obj.x;
+				tmpp.y += obj.y;
+				return tmpp;
+			}
+			Vector2D<T> operator+ (const T val) {
+				Vector2D<T> tmpp(x,y);
+				tmpp.x += val;
+				tmpp.y += val;
 				return tmpp;
 			}
 			/*****************************************************
 			 *    -= operator
 			 *****************************************************/
 			const Vector2D<T>& operator-= (const Vector2D<T>& obj) {
-				x -= (T)obj.x;
-				y -= (T)obj.y;
+				x -= obj.x;
+				y -= obj.y;
+				return *this;
+			}
+			const Vector2D<T>& operator-= (const T val) {
+				x -= val;
+				y -= val;
 				return *this;
 			}
 			/*****************************************************
@@ -85,16 +106,33 @@ namespace etk
 			 *****************************************************/
 			Vector2D<T> operator- (const Vector2D<T>& obj) {
 				Vector2D<T> tmpp(x,y);
-				tmpp.x -= (T)obj.x;
-				tmpp.y -= (T)obj.y;
+				tmpp.x -= obj.x;
+				tmpp.y -= obj.y;
+				return tmpp;
+			}
+			Vector2D<T> operator- (const T val) {
+				Vector2D<T> tmpp(x,y);
+				tmpp.x -= val;
+				tmpp.y -= val;
 				return tmpp;
 			}
 			/*****************************************************
 			 *    /= operator
 			 *****************************************************/
 			const Vector2D<T>& operator/= (const Vector2D<T>& obj) {
-				x /= (T)obj.x;
-				y /= (T)obj.y;
+				if (obj.x!=0) {
+					x /= obj.x;
+				}
+				if (obj.y!=0) {
+					y /= obj.y;
+				}
+				return *this;
+			}
+			const Vector2D<T>& operator/= (const T val) {
+				if (val != 0) {
+					x /= val;
+					y /= val;
+				}
 				return *this;
 			}
 			/*****************************************************
@@ -106,12 +144,23 @@ namespace etk
 				tmpp.y /= (T)obj.y;
 				return tmpp;
 			}
+			Vector2D<T> operator/ (const T val) {
+				Vector2D<T> tmpp(x,y);
+				tmpp.x /= val;
+				tmpp.y /= val;
+				return tmpp;
+			}
 			/*****************************************************
 			 *    *= operator
 			 *****************************************************/
 			const Vector2D<T>& operator*= (const Vector2D<T>& obj) {
-				x *= (T)obj.x;
-				y *= (T)obj.y;
+				x *= obj.x;
+				y *= obj.y;
+				return *this;
+			}
+			const Vector2D<T>& operator*= (const T val) {
+				x *= val;
+				y *= val;
 				return *this;
 			}
 			/*****************************************************
@@ -119,8 +168,14 @@ namespace etk
 			 *****************************************************/
 			Vector2D<T> operator* (const Vector2D<T>& obj) {
 				Vector2D<T> tmpp(x,y);
-				tmpp.x *= (T)obj.x;
-				tmpp.y *= (T)obj.y;
+				tmpp.x *= obj.x;
+				tmpp.y *= obj.y;
+				return tmpp;
+			}
+			Vector2D<T> operator* (const T val) {
+				Vector2D<T> tmpp(x,y);
+				tmpp.x *= val;
+				tmpp.y *= val;
 				return tmpp;
 			}
 			/*****************************************************

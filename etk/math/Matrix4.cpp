@@ -12,6 +12,11 @@
 #include <math.h>
 
 
+void etk::Matrix4::Rotate(etk::Vector3D<float> vect, float angleRad)
+{
+	etk::Matrix4 tmpMat = etk::matRotate(vect, angleRad);
+	*this *= tmpMat;
+}
 
 void etk::Matrix4::Rotate(etk::Vector3D<float>& vect, float angleRad)
 {
@@ -21,13 +26,41 @@ void etk::Matrix4::Rotate(etk::Vector3D<float>& vect, float angleRad)
 
 void etk::Matrix4::Translate(etk::Vector3D<float>& vect)
 {
-	etk::Matrix4 tmpMat = etk::matScale(vect);
+	etk::Matrix4 tmpMat = etk::matTranslate(vect);
 	*this *= tmpMat;
 }
 
 
+etk::Matrix4 etk::matPerspective(float fovx, float aspect, float zNear, float zFar)
+{
+	etk::Matrix4 tmp;
+	for(int32_t iii=0; iii<4*4 ; iii++) {
+		tmp.m_mat[iii] = 0;
+	}
+	
+	float xmax = zNear * tanf(fovx * M_PI / 360.0);
+	float xmin = -xmax;
+	
+	float ymin = xmin / aspect;
+	float ymax = xmax / aspect;
+	
+	//  0  1  2  3
+	//  4  5  6  7
+	//  8  9 10 11
+	// 12 13 14 15
+	
+	tmp.m_mat[0]  = (2.0 * zNear) / (xmax - xmin);
+	tmp.m_mat[5]  = (2.0 * zNear) / (ymax - ymin);
+	tmp.m_mat[10] = -(zFar + zNear) / (zFar - zNear);
+	tmp.m_mat[2] = (xmax + xmin) / (xmax - xmin);
+	tmp.m_mat[6] = (ymax + ymin) / (ymax - ymin);
+	tmp.m_mat[14] = -1.0;
+	tmp.m_mat[11] = -(2.0 * zFar * zNear) / (zFar - zNear);
+	
+	return tmp;
+}
 
-etk::Matrix4 etk::matPerspective(float left, float right, float bottom, float top, float nearVal, float farVal)
+etk::Matrix4 etk::matOrtho(float left, float right, float bottom, float top, float nearVal, float farVal)
 {
 	etk::Matrix4 tmp;
 	for(int32_t iii=0; iii<4*4 ; iii++) {
@@ -40,8 +73,6 @@ etk::Matrix4 etk::matPerspective(float left, float right, float bottom, float to
 	tmp.m_mat[7]  = -1*(top + bottom) / (top - bottom);
 	tmp.m_mat[11] = -1*(farVal + nearVal) / (farVal - nearVal);
 	tmp.m_mat[15] = 1;
-	//TK_INFO("Perspective :");
-	//etk::matrix::Display(tmp);
 	return tmp;
 }
 

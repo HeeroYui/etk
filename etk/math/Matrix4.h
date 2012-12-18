@@ -266,6 +266,7 @@ namespace etk
 			 * @param[in] angleRad angle to apply.
 			 */
 			void Rotate(etk::Vector3D<float>& vect, float angleRad=0.0);
+			void Rotate(etk::Vector3D<float> vect, float angleRad=0.0);
 			/**
 			 * @brief Makes a translation of the matrix
 			 * @param[in] vect Translation to apply.
@@ -290,7 +291,8 @@ namespace etk
 			 */
 			Matrix4 Invert(void);
 	};
-	Matrix4 matPerspective(float left, float right, float bottom, float top, float nearVal, float farVal);
+	Matrix4 matPerspective(float fovx, float aspect, float zNear, float zFar);
+	Matrix4 matOrtho(float left, float right, float bottom, float top, float nearVal, float farVal);
 	Matrix4 matTranslate(etk::Vector3D<float> vect);
 	Matrix4 matScale(etk::Vector3D<float> vect);
 	Matrix4 matRotate(etk::Vector3D<float> vect, float angleRad=0.0);

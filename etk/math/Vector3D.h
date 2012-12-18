@@ -66,7 +66,7 @@ namespace etk
 				z += (T)obj.z;
 				return *this;
 			}
-			const Vector3D<T>& operator+= (const float val) {
+			const Vector3D<T>& operator+= (const T val) {
 				x += val;
 				y += val;
 				z += val;
@@ -82,7 +82,7 @@ namespace etk
 				tmpp.z += (T)obj.z;
 				return tmpp;
 			}
-			Vector3D<T> operator+ (const float val) {
+			Vector3D<T> operator+ (const T val) {
 				Vector3D<T> tmpp(x,y,z);
 				tmpp.x += val;
 				tmpp.y += val;
@@ -98,7 +98,7 @@ namespace etk
 				z -= (T)obj.z;
 				return *this;
 			}
-			const Vector3D<T>& operator-= (const float val) {
+			const Vector3D<T>& operator-= (const T val) {
 				x -= val;
 				y -= val;
 				z -= val;
@@ -114,7 +114,7 @@ namespace etk
 				tmpp.z -= (T)obj.z;
 				return tmpp;
 			}
-			Vector3D<T> operator- (const float val) {
+			Vector3D<T> operator- (const T val) {
 				Vector3D<T> tmpp(x,y,z);
 				tmpp.x -= val;
 				tmpp.y -= val;
@@ -136,7 +136,7 @@ namespace etk
 				}
 				return *this;
 			}
-			const Vector3D<T>& operator/= (const float val) {
+			const Vector3D<T>& operator/= (const T val) {
 				if (val==0) {
 					return *this;
 				}
@@ -161,7 +161,7 @@ namespace etk
 				}
 				return tmpp;
 			}
-			Vector3D<T> operator/ (const float val) {
+			Vector3D<T> operator/ (const T val) {
 				Vector3D<T> tmpp(x,y,z);
 				if (val==0) {
 					return tmpp;
@@ -180,7 +180,7 @@ namespace etk
 				z *= (T)obj.z;
 				return *this;
 			}
-			const Vector3D<T>& operator*= (const float val) {
+			const Vector3D<T>& operator*= (const T val) {
 				x *= val;
 				y *= val;
 				z *= val;
@@ -196,7 +196,7 @@ namespace etk
 				tmpp.z *= (T)obj.z;
 				return tmpp;
 			}
-			Vector3D<T> operator* (const float val) {
+			Vector3D<T> operator* (const T val) {
 				Vector3D<T> tmpp(x,y,z);
 				tmpp.x *= val;
 				tmpp.y *= val;
