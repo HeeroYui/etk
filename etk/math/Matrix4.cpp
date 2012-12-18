@@ -31,18 +31,12 @@ void etk::Matrix4::Translate(etk::Vector3D<float>& vect)
 }
 
 
-etk::Matrix4 etk::matPerspective(float fovx, float aspect, float zNear, float zFar)
+etk::Matrix4 etk::matFrustum(float xmin, float xmax, float ymin, float ymax, float zNear, float zFar)
 {
 	etk::Matrix4 tmp;
 	for(int32_t iii=0; iii<4*4 ; iii++) {
 		tmp.m_mat[iii] = 0;
 	}
-	
-	float xmax = zNear * tanf(fovx * M_PI / 360.0);
-	float xmin = -xmax;
-	
-	float ymin = xmin / aspect;
-	float ymax = xmax / aspect;
 	
 	//  0  1  2  3
 	//  4  5  6  7
@@ -58,6 +52,18 @@ etk::Matrix4 etk::matPerspective(float fovx, float aspect, float zNear, float zF
 	tmp.m_mat[11] = -(2.0 * zFar * zNear) / (zFar - zNear);
 	
 	return tmp;
+}
+
+etk::Matrix4 etk::matPerspective(float fovx, float aspect, float zNear, float zFar)
+{
+	//TK_DEBUG("drax perspective: fovx=" << fovx << "->" << aspect << "  " << zNear << "->" << zFar);
+	float xmax = zNear * tanf(fovx/2.0);
+	float xmin = -xmax;
+	
+	float ymin = xmin / aspect;
+	float ymax = xmax / aspect;
+	//TK_DEBUG("drax perspective: " << xmin << "->" << xmax << " & " << ymin << "->" << ymax << " " << zNear << "->" << zFar);
+	return etk::matFrustum(xmin, xmax, ymin, ymax, zNear, zFar);
 }
 
 etk::Matrix4 etk::matOrtho(float left, float right, float bottom, float top, float nearVal, float farVal)

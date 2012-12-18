@@ -291,7 +291,8 @@ namespace etk
 			 */
 			Matrix4 Invert(void);
 	};
-	Matrix4 matPerspective(float fovx, float aspect, float zNear, float zFar);
+	Matrix4 matFrustum(float xmin, float xmax, float ymin, float ymax, float zNear, float zFar);
+	Matrix4 matPerspective(float foxy, float aspect, float zNear, float zFar);
 	Matrix4 matOrtho(float left, float right, float bottom, float top, float nearVal, float farVal);
 	Matrix4 matTranslate(etk::Vector3D<float> vect);
 	Matrix4 matScale(etk::Vector3D<float> vect);
