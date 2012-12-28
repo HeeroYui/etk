@@ -33,6 +33,9 @@ extern "C" {
 #endif
 
 
+#define TK_DBG_MODE TK_VERBOSE
+//#define TK_DBG_MODE TK_DEBUG
+
 // zip file of the apk file for Android ==> set to zip file apk access
 static etk::UString s_fileAPK = "";
 static etk::UString baseApplName = "ewolNoName";
@@ -357,11 +360,6 @@ void etk::FSNode::SortElementList(etk::Vector<etk::FSNode *> &list)
 	}
 }
 
-
-
-#define TK_DBG_MODE TK_VERBOSE
-//#define TK_DBG_MODE TK_DEBUG
-
 void etk::FSNode::PrivateSetName(etk::UString& newName)
 {
 	if(    NULL != m_PointerFile
@@ -604,6 +602,31 @@ void etk::FSNode::UpdateFileSystemProperty(void)
 	#ifdef __TARGET_OS__Android
 	if(    m_type == etk::FSN_TYPE_DATA
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
+		// ----------------------------------------
+		// = Check if it was a folder :           =
+		// ----------------------------------------
+		etk::UString folderName="/";
+		if (true==m_systemFileName.EndWith(folderName)) {
+			folderName = m_systemFileName;
+		} else {
+			folderName = m_systemFileName + "/";
+		}
+		for (int iii=0; iii<s_APKnbFiles; iii++) {
+			etk::UString name = zip_get_name(s_APKArchive, iii, 0);
+			if (name.Size() == 0) {
+				TK_ERROR("Can not get pointer on file in the APK file id " << iii);
+				continue;
+			}
+			if (name.StartWith(folderName)) {
+				m_typeNode=FSN_FOLDER;
+				m_rights.SetUserReadable(true);
+				return;
+			}
+		}
+		// ----------------------------------------
+		// = Check if it was a File :             =
+		// ----------------------------------------
+		// if it is not a folder, it can jest be a file :
 		for (int iii=0; iii<s_APKnbFiles; iii++) {
 			const char* name = zip_get_name(s_APKArchive, iii, 0);
 			if (name == NULL) {
@@ -621,7 +644,6 @@ void etk::FSNode::UpdateFileSystemProperty(void)
 			return;
 		}
 		// note : Zip does not support other think than file ...
-		// TODO : Suport folder parsing ...
 		m_typeNode=FSN_FILE;
 		m_rights.SetUserReadable(true);
 		// TODO : Set the time of the file (time program compilation)
@@ -741,16 +763,19 @@ etk::UString etk::FSNode::GetNameFile(void) const
 etk::UString etk::FSNode::GetRelativeFolder(void) const
 {
 	etk::UString tmppp = GetName();
+	TK_DBG_MODE("get REF folder : " << tmppp );
 	switch (m_typeNode)
 	{
 		case etk::FSN_UNKNOW:
 		case etk::FSN_FOLDER:
 		case etk::FSN_LINK:
 			if (tmppp.EndWith("/") == true) {
+				TK_DBG_MODE("     ==> : " << tmppp );
 				return tmppp;
 			} else {
 				etk::UString tmpVal = tmppp;
 				tmpVal += "/";
+				TK_DBG_MODE("     ==> : " << tmppp );
 				return tmpVal;
 			}
 			break;
@@ -764,12 +789,15 @@ etk::UString etk::FSNode::GetRelativeFolder(void) const
 	}
 	int32_t lastPos = tmppp.FindBack('/');
 	if (-1 != lastPos) {
+		TK_DBG_MODE("     ==> : " << tmppp.Extract(0, lastPos+1) );
 		return tmppp.Extract(0, lastPos+1);
 	}
 	lastPos = tmppp.FindBack(':');
 	if (-1 != lastPos) {
+		TK_DBG_MODE("     ==> : " << tmppp.Extract(0, lastPos+1) );
 		return tmppp.Extract(0, lastPos+1);
 	}
+	TK_DBG_MODE("     ==> : \"\"" );
 	return "";
 }
 
@@ -1013,6 +1041,7 @@ void etk::FSNode::FolderGetRecursiveFiles(etk::Vector<etk::UString>& output)
 	#ifdef __TARGET_OS__Android
 	if(    m_type == etk::FSN_TYPE_DATA
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
+		etk::UString assetsName = "assets/";
 		etk::UString FolderName = GetNameFolder();
 		for (int iii=0; iii<s_APKnbFiles; iii++) {
 			etk::UString filename = zip_get_name(s_APKArchive, iii, 0);
@@ -1022,6 +1051,9 @@ void etk::FSNode::FolderGetRecursiveFiles(etk::Vector<etk::UString>& output)
 					tmpString = "DATA:";
 				} else {
 					tmpString = "THEME:";
+				}
+				if (true == filename.StartWith(assetsName)) {
+					filename.Remove(0,assetsName.Size());
 				}
 				tmpString += filename;
 				output.PushBack(tmpString);
