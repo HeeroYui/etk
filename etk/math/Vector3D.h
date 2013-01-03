@@ -10,6 +10,7 @@
 #define __ETK_MATH_VECTOR3D_H__
 
 #include <etk/types.h>
+#include <etk/DebugInternal.h>
 #include <math.h>
 #include <etk/Stream.h>
 
@@ -294,72 +295,73 @@ namespace etk
 			};
 			
 			//rotations
-			void RotateX(double angle)
+			void RotateX(float angle)
 			{
 				(*this)=GetRotatedX(angle);
 			};
 			
-			Vector3D<T> GetRotatedX(double angle) const
+			Vector3D<T> GetRotatedX(float angle) const
 			{
 				if(angle==0.0) {
 					return (*this);
 				}
-				float sinAngle=sinf(M_PI*angle/180);
-				float cosAngle=cosf(M_PI*angle/180);
+				float sinAngle=sinf(angle);
+				float cosAngle=cosf(angle);
 				
 				return Vector3D<T>( x,
 				                    y*cosAngle - z*sinAngle,
 				                    y*sinAngle + z*cosAngle);
 			};
 			
-			void RotateY(double angle)
+			void RotateY(float angle)
 			{
 				(*this)=GetRotatedY(angle);
 			};
 			
-			Vector3D<T> GetRotatedY(double angle) const
+			Vector3D<T> GetRotatedY(float angle) const
 			{
 				if(angle==0.0) {
 					return (*this);
 				}
-				float sinAngle=sinf(M_PI*angle/180);
-				float cosAngle=cosf(M_PI*angle/180);
+				float sinAngle=sinf(angle);
+				float cosAngle=cosf(angle);
 				return Vector3D<T>( x*cosAngle + z*sinAngle,
 				                    y,
 				                    -x*sinAngle + z*cosAngle);
 			};
 			
-			void RotateZ(double angle)
+			void RotateZ(float angle)
 			{
 				(*this)=GetRotatedZ(angle);
 			};
 			
-			Vector3D<T> GetRotatedZ(double angle) const
+			Vector3D<T> GetRotatedZ(float angle) const
 			{
 				if(angle==0.0) {
 					return (*this);
 				}
-				float sinAngle=sinf(M_PI*angle/180);
-				float cosAngle=cosf(M_PI*angle/180);
+				float sinAngle=sinf(angle);
+				float cosAngle=cosf(angle);
 				return Vector3D<T>( x*cosAngle - y*sinAngle,
 				                    x*sinAngle + y*cosAngle,
 				                    z);
 			};
 			
-			void RotateAxis(double angle, const Vector3D<T> & axis)
+			void RotateAxis(const Vector3D<T> & axis, float angle)
 			{
-				(*this)=GetRotatedAxis(angle, axis);
+				(*this)=GetRotatedAxis(axis, angle);
+				TK_DEBUG("Rotate : " << *this);
 			};
 			
-			Vector3D<T> GetRotatedAxis(double angle, const Vector3D<T> & axis) const
+			Vector3D<T> GetRotatedAxis(const Vector3D<T> & axis, float angle) const
 			{
 				if(angle==0.0) {
 					return (*this);
 				}
 				Vector3D<T> u=axis.GetNormalized();
 				Vector3D<T> rotMatrixRow0, rotMatrixRow1, rotMatrixRow2;
-				float sinAngle=sinf(M_PI*angle/180);
-				float cosAngle=cosf(M_PI*angle/180);
+				float sinAngle=sinf(angle);
+				float cosAngle=cosf(angle);
 				float MinusCosAngle=1.0f-cosAngle;
 				rotMatrixRow0.x=(u.x)*(u.x) + cosAngle*(1-(u.x)*(u.x));
 				rotMatrixRow0.y=(u.x)*(u.y)*(MinusCosAngle) - sinAngle*u.z;

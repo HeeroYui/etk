@@ -130,6 +130,48 @@ etk::Matrix4 etk::matRotate(etk::Vector3D<float> vect, float angleRad)
 	return tmp;
 }
 
+etk::Matrix4 etk::matRotate2(etk::Vector3D<float> vect)
+{
+	return matLookAt(vect, etk::Vector3D<float>(0,0,0), etk::Vector3D<float>(0,1,0));
+}
+
+etk::Matrix4 etk::matLookAt(etk::Vector3D<float> eye,
+                            etk::Vector3D<float> center,
+                            etk::Vector3D<float> up)
+{
+	etk::Matrix4 tmp;
+	
+	etk::Vector3D<float> forward = center - eye;
+	forward.Normalize();
+	etk::Vector3D<float> side = forward.CrossProduct(up);
+	side.Normalize();
+	
+	etk::Vector3D<float> plane_up = side.CrossProduct(forward);
+	plane_up.Normalize();
+	
+	tmp.m_mat[0] = side.x;
+	tmp.m_mat[1] = plane_up.x;
+	tmp.m_mat[2] = -forward.x;
+	tmp.m_mat[3] = 0.0f;
+	
+	tmp.m_mat[4] = side.y;
+	tmp.m_mat[5] = plane_up.y;
+	tmp.m_mat[6] = -forward.y;
+	tmp.m_mat[7] = 0.0f;
+	
+	tmp.m_mat[8] = side.z;
+	tmp.m_mat[9] = plane_up.z;
+	tmp.m_mat[10] = -forward.z;
+	tmp.m_mat[11] = 0.0f;
+	
+	tmp.m_mat[12] = 0.0f;
+	tmp.m_mat[13] = 0.0f;
+	tmp.m_mat[14] = 0.0f;
+	tmp.m_mat[15] = 1.0f;
+	return tmp;
+}
+
+
 
 float etk::Matrix4::CoFactor(int32_t row, int32_t col) const
 {

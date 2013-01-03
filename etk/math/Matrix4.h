@@ -297,6 +297,10 @@ namespace etk
 	Matrix4 matTranslate(etk::Vector3D<float> vect);
 	Matrix4 matScale(etk::Vector3D<float> vect);
 	Matrix4 matRotate(etk::Vector3D<float> vect, float angleRad=0.0);
+	Matrix4 matRotate2(etk::Vector3D<float> vect);
+	Matrix4 matLookAt(etk::Vector3D<float> eye,
+	                  etk::Vector3D<float> center,
+	                  etk::Vector3D<float> up);
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information
 	 */
