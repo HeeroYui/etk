@@ -293,6 +293,22 @@ namespace etk
 			{
 				return (x*x)+(y*y)+(z*z);
 			};
+			/**
+			 * @brief Set the absolute value of the vector
+			 */
+			void Abs(void)
+			{
+				if (x<0) {
+					x = -x;
+				}
+				if (y<0) {
+					y = -y;
+				}
+				if (z<0) {
+					z = -z;
+				}
+			};
+			
 			
 			//rotations
 			void RotateX(float angle)
