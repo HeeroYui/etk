@@ -13,6 +13,9 @@
 #include <math.h>
 #include <etk/math/Vector3D.h>
 
+#define DEG_TO_RAD(a)       ((a)*M_PI/180.0f)
+#define RAD_TO_DEG(a)       ((a)*180.0f/M_PI)
+
 namespace etk
 {
 	class Matrix4
