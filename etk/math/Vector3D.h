@@ -13,6 +13,7 @@
 #include <etk/DebugInternal.h>
 #include <math.h>
 #include <etk/Stream.h>
+#include <LinearMath/btVector3.h>
 
 namespace etk
 {
