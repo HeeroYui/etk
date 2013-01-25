@@ -11,9 +11,9 @@
 etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector2D<int32_t> obj)
 {
 	os << "(";
-	os << obj.x;
+	os << obj.x();
 	os << ",";
-	os << obj.y;
+	os << obj.y();
 	os << ")";
 	return os;
 }
@@ -21,9 +21,29 @@ etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector2D<int32_t> obj)
 etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector2D<float> obj)
 {
 	os << "(";
-	os << obj.x;
+	os << obj.x();
 	os << ",";
-	os << obj.y;
+	os << obj.y();
+	os << ")";
+	return os;
+}
+
+etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector2D<uint32_t> obj)
+{
+	os << "(";
+	os << obj.x();
+	os << ",";
+	os << obj.y();
+	os << ")";
+	return os;
+}
+
+etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector2D<bool> obj)
+{
+	os << "(";
+	os << obj.x();
+	os << ",";
+	os << obj.y();
 	os << ")";
 	return os;
 }

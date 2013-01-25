@@ -11,23 +11,47 @@
 etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector3D<int32_t> obj)
 {
 	os << "(";
-	os << obj.x;
+	os << obj.x();
 	os << ",";
-	os << obj.y;
+	os << obj.y();
 	os << ",";
-	os << obj.z;
+	os << obj.z();
 	os << ")";
 	return os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector3D<float> obj)
+etk::CCout& etk::operator <<(etk::CCout &os, const btVector3 obj)
 {
 	os << "(";
-	os << obj.x;
+	os << obj.x();
 	os << ",";
-	os << obj.y;
+	os << obj.y();
 	os << ",";
-	os << obj.z;
+	os << obj.z();
+	os << ")";
+	return os;
+}
+
+etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector3D<uint32_t> obj)
+{
+	os << "(";
+	os << obj.x();
+	os << ",";
+	os << obj.y();
+	os << ",";
+	os << obj.z();
+	os << ")";
+	return os;
+}
+
+etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector3D<bool> obj)
+{
+	os << "(";
+	os << obj.x();
+	os << ",";
+	os << obj.y();
+	os << ",";
+	os << obj.z();
 	os << ")";
 	return os;
 }

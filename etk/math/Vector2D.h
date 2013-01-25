@@ -11,6 +11,7 @@
 
 #include <etk/types.h>
 #include <etk/Stream.h>
+#include <etk/math/Vector3D.h>
 #include <math.h>
 
 namespace etk
@@ -18,164 +19,126 @@ namespace etk
 	template <typename T> class Vector2D
 	{
 		public:
-			T x;
-			T y;
+			T m_floats[2];
 		public:
 			/*****************************************************
 			 *    Constructor
 			 *****************************************************/
-			 Vector2D(T _x=0, T _y=0)                : x(_x), y(_y) { };
-			 Vector2D(const Vector2D<double>& obj)   : x((T)obj.x), y((T)obj.y) { };
-			 Vector2D(const Vector2D<float>& obj)    : x((T)obj.x), y((T)obj.y) { };
-			 Vector2D(const Vector2D<int32_t>& obj)  : x((T)obj.x), y((T)obj.y) { };
+			 Vector2D(void) { }; // do nothing ==> better for optimisation
+			 Vector2D(T _x, T _y) { m_floats[0] = _x; m_floats[1] = _y; };
+			 Vector2D(const Vector2D<double>& obj)  { m_floats[0] = (T)obj.x(); m_floats[1] = (T)obj.y(); };
+			 Vector2D(const Vector2D<float>& obj)   { m_floats[0] = (T)obj.x(); m_floats[1] = (T)obj.y(); };
+			 Vector2D(const Vector2D<int32_t>& obj) { m_floats[0] = (T)obj.x(); m_floats[1] = (T)obj.y(); };
 			~Vector2D(void) { };
 			/*****************************************************
 			 *    = assigment
 			 *****************************************************/
 			const Vector2D<T>& operator= (const Vector2D<T>& obj ) {
-				x = obj.x;
-				y = obj.y;
+				m_floats[0] = obj.m_floats[0];
+				m_floats[1] = obj.m_floats[1];
 				return *this;
 			}
 			const Vector2D<T>& operator= (const T val ) {
-				x = val;
-				y = val;
+				m_floats[0] = val;
+				m_floats[1] = val;
 				return *this;
 			}
 			/*****************************************************
 			 *    == operator
 			 *****************************************************/
 			bool  operator== (const Vector2D<T>& obj) const {
-				if ((T)obj.x == x && (T)obj.y == y) {
-					return true;
-				}
-				return false;
+				return (    (T)obj.m_floats[0] == m_floats[0]
+				         && (T)obj.m_floats[1] == m_floats[1]);
 			}
 			/*****************************************************
 			 *    != operator
 			 *****************************************************/
 			bool  operator!= (const Vector2D<T>& obj) const {
-				if ((T)obj.x == x && (T)obj.y == y) {
-					return false;
-				}
-				return true;
+				return (    (T)obj.m_floats[0] != m_floats[0]
+				         || (T)obj.m_floats[1] != m_floats[1]);
 			}
 			/*****************************************************
 			 *    += operator
 			 *****************************************************/
 			const Vector2D<T>& operator+= (const Vector2D<T>& obj) {
-				x += obj.x;
-				y += obj.y;
+				m_floats[0] += obj.m_floats[0];
+				m_floats[1] += obj.m_floats[1];
 				return *this;
 			}
 			const Vector2D<T>& operator+= (const T val) {
-				x += val;
-				y += val;
+				m_floats[0] += val;
+				m_floats[1] += val;
 				return *this;
 			}
 			/*****************************************************
 			 *    + operator
 			 *****************************************************/
 			Vector2D<T> operator+ (const Vector2D<T>& obj) {
-				Vector2D<T> tmpp(x,y);
-				tmpp.x += obj.x;
-				tmpp.y += obj.y;
+				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
+				tmpp.m_floats[0] += obj.m_floats[0];
+				tmpp.m_floats[1] += obj.m_floats[1];
 				return tmpp;
 			}
 			Vector2D<T> operator+ (const T val) {
-				Vector2D<T> tmpp(x,y);
-				tmpp.x += val;
-				tmpp.y += val;
+				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
+				tmpp.m_floats[0] += val;
+				tmpp.m_floats[1] += val;
 				return tmpp;
 			}
 			/*****************************************************
 			 *    -= operator
 			 *****************************************************/
 			const Vector2D<T>& operator-= (const Vector2D<T>& obj) {
-				x -= obj.x;
-				y -= obj.y;
+				m_floats[0] -= obj.m_floats[0];
+				m_floats[1] -= obj.m_floats[1];
 				return *this;
 			}
 			const Vector2D<T>& operator-= (const T val) {
-				x -= val;
-				y -= val;
+				m_floats[0] -= val;
+				m_floats[1] -= val;
 				return *this;
 			}
 			/*****************************************************
 			 *    - operator
 			 *****************************************************/
 			Vector2D<T> operator- (const Vector2D<T>& obj) {
-				Vector2D<T> tmpp(x,y);
-				tmpp.x -= obj.x;
-				tmpp.y -= obj.y;
+				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
+				tmpp.m_floats[0] -= obj.m_floats[0];
+				tmpp.m_floats[1] -= obj.m_floats[1];
 				return tmpp;
 			}
 			Vector2D<T> operator- (const T val) {
-				Vector2D<T> tmpp(x,y);
-				tmpp.x -= val;
-				tmpp.y -= val;
-				return tmpp;
-			}
-			/*****************************************************
-			 *    /= operator
-			 *****************************************************/
-			const Vector2D<T>& operator/= (const Vector2D<T>& obj) {
-				if (obj.x!=0) {
-					x /= obj.x;
-				}
-				if (obj.y!=0) {
-					y /= obj.y;
-				}
-				return *this;
-			}
-			const Vector2D<T>& operator/= (const T val) {
-				if (val != 0) {
-					x /= val;
-					y /= val;
-				}
-				return *this;
-			}
-			/*****************************************************
-			 *    / operator
-			 *****************************************************/
-			Vector2D<T> operator/ (const Vector2D<T>& obj) {
-				Vector2D<T> tmpp(x,y);
-				tmpp.x /= (T)obj.x;
-				tmpp.y /= (T)obj.y;
-				return tmpp;
-			}
-			Vector2D<T> operator/ (const T val) {
-				Vector2D<T> tmpp(x,y);
-				tmpp.x /= val;
-				tmpp.y /= val;
+				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
+				tmpp.m_floats[0] -= val;
+				tmpp.m_floats[1] -= val;
 				return tmpp;
 			}
 			/*****************************************************
 			 *    *= operator
 			 *****************************************************/
 			const Vector2D<T>& operator*= (const Vector2D<T>& obj) {
-				x *= obj.x;
-				y *= obj.y;
+				m_floats[0] *= obj.m_floats[0];
+				m_floats[1] *= obj.m_floats[1];
 				return *this;
 			}
 			const Vector2D<T>& operator*= (const T val) {
-				x *= val;
-				y *= val;
+				m_floats[0] *= val;
+				m_floats[1] *= val;
 				return *this;
 			}
 			/*****************************************************
 			 *    * operator
 			 *****************************************************/
 			Vector2D<T> operator* (const Vector2D<T>& obj) {
-				Vector2D<T> tmpp(x,y);
-				tmpp.x *= obj.x;
-				tmpp.y *= obj.y;
+				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
+				tmpp.m_floats[0] *= obj.m_floats[0];
+				tmpp.m_floats[1] *= obj.m_floats[1];
 				return tmpp;
 			}
 			Vector2D<T> operator* (const T val) {
-				Vector2D<T> tmpp(x,y);
-				tmpp.x *= val;
-				tmpp.y *= val;
+				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
+				tmpp.m_floats[0] *= val;
+				tmpp.m_floats[1] *= val;
 				return tmpp;
 			}
 			/*****************************************************
@@ -183,8 +146,8 @@ namespace etk
 			 *****************************************************/
 			Vector2D<T>& operator++() // prefix
 			{
-				++x;
-				++y;
+				++m_floats[0];
+				++m_floats[1];
 				return *this;
 			}
 			Vector2D<T> operator++(int unused) // postfix
@@ -198,8 +161,8 @@ namespace etk
 			 *****************************************************/
 			Vector2D<T>& operator--() // prefix
 			{
-				--x;
-				--y;
+				--m_floats[0];
+				--m_floats[1];
 				return *this;
 			}
 			
@@ -211,97 +174,175 @@ namespace etk
 			}
 			
 			/**
-			 * @brief Set the vector at (0,0)
+			 * @brief Return the dot product
+			 * @param v The other vector in the dot product
 			 */
-			void Zero(void)
+			btScalar dot(const Vector2D<T>& v) const
 			{
-				x=0;
-				y=0;
-			};
-			/**
-			 * @brief Set the vector at (1,1)
-			 */
-			void One(void)
-			{
-				x=0;
-				y=0;
-			};
+				return	m_floats[0] * v.m_floats[0] + 
+						m_floats[1] * v.m_floats[1];
+			}
 			
 			/**
-			 * @brief normalize the curent vector
+			 * @brief Return the length of the vector squared
 			 */
-			void Normalize(void)
+			btScalar length2(void) const
 			{
-				float length=GetLength();
-				if(    length==1
-				    || length==0) {
-					return;
-				}
-				float scalefactor = 1.0f/length;
-				x *= scalefactor;
-				y *= scalefactor;
-			};
+				return dot(*this);
+			}
 			
 			/**
-			 * @brief Get the normalized vector
-			 * @return a new vector normalized
+			 * @brief Return the length of the vector
 			 */
-			Vector2D<T> GetNormalized(void) const
+			btScalar length(void) const
 			{
-				Vector2D<T> tmp(*this);
-				tmp.Normalize();
-				return tmp;
-			};
+				return btSqrt(length2());
+			}
 			
 			/**
-			 * @brief Get the size of the vector
-			 * @return the float value
+			 * @brief Return the distance squared between the ends of this and another vector
+			 * This is symantically treating the vector like a point
 			 */
-			float GetLength(void) const
+			btScalar distance2(const btVector3& v) const
 			{
-				return (float)sqrt((x*x)+(y*y));
-			};
+				return (v - *this).length2();
+			}
 			
 			/**
-			 * @brief Get the square size of the vector
-			 * @return flat value
+			 * @brief Return the distance between the ends of this and another vector
+			 * This is symantically treating the vector like a point
 			 */
-			float GetSquaredLength(void) const
+			btScalar distance(const btVector3& v) const
 			{
-				return (float)(x*x)+(y*y);
-			};
+				return (v - *this).length();
+			}
 			
 			/**
-			 * @brief Linar intermolation of the curent Vector
-			 * @param[in] input
-			 * @param[in] factor
-			 * @return the interpolate vector
+			 * @brief Normalize this vector 
+			 * x^2 + y^2 + z^2 = 1
 			 */
-			Vector2D<T> LinearInterpolate(const Vector2D<T> & input, float factor) const
+			Vector3D<T>& normalize(void) 
 			{
-				return (*this)*(1.0f-factor) + input*factor;
-			};
+				return *this /= length();
+			}
 			
 			/**
-			 * @brief Quadratic intermolation of the curent Vector
-			 * @param[in] v1
-			 * @param[in] v2
-			 * @param[in] factor
-			 * @return the interpolate vector
+			 * @brief Return a normalized version of this vector
 			 */
-			Vector2D<T> QuadraticInterpolate(const Vector2D<T> & v2, const Vector2D<T> & v3, float factor) const
+			Vector2D<T> normalized(void) const
 			{
-				return (*this)*(1.0f-factor)*(1.0f-factor) + 2*v2*factor*(1.0f-factor) + v3*factor*factor;
-			};
+				return *this / length();
+			}
+			
+			/**
+			 * @brief Return a vector will the absolute values of each element
+			 */
+			Vector2D<T> absolute(void) const
+			{
+				return Vector2D<T>( abs(m_floats[0]),
+				                    abs(m_floats[1]));
+			}
+			
+			/**
+			 * @brief Return the axis with the smallest value 
+			 * Note return values are 0,1,2 for x, y, or z
+			 */
+			int32_t minAxis(void) const
+			{
+				return m_floats[0] < m_floats[1] ? 0 : 1;
+			}
+			
+			/**
+			 * @brief Return the axis with the largest value
+			 * Note return values are 0,1,2 for x, y, or z
+			 */
+			int32_t maxAxis(void) const 
+			{
+				return m_floats[0] < m_floats[1] ? 1 : 0;
+			}
+			
+			int32_t furthestAxis(void) const
+			{
+				return absolute().minAxis();
+			}
+			
+			int32_t closestAxis(void) const
+			{
+				return absolute().maxAxis();
+			}
+			
+			/**
+			 * @brief Return the x value
+			 */
+			const T& getX() const { return m_floats[0]; }
+			/**
+			 * @brief Return the y value
+			 */
+			const T& getY() const { return m_floats[1]; }
+			/**
+			 * @brief Set the x value
+			 */
+			void	setX(T _x) { m_floats[0] = _x;};
+			/**
+			 * @brief Set the y value
+			 */
+			void	setY(T _y) { m_floats[1] = _y;};
+			/**
+			 * @brief Return the x value
+			 */
+			const T& x() const { return m_floats[0]; }
+			/**
+			 * @brief Return the y value
+			 */
+			const T& y() const { return m_floats[1]; }
+			
+			operator       T *()       { return &m_floats[0]; }
+			operator const T *() const { return &m_floats[0]; }
+			
+			/**
+			 * @brief Set each element to the max of the current values and the values of another btVector3
+			 * @param other The other btVector3 to compare with 
+			 */
+			void setMax(const Vector2D<T>& other)
+			{
+				btSetMax(m_floats[0], other.m_floats[0]);
+				btSetMax(m_floats[1], other.m_floats[1]);
+			}
+			
+			/**
+			 * @brief Set each element to the min of the current values and the values of another btVector3
+			 * @param other The other btVector3 to compare with 
+			 */
+			void setMin(const Vector2D<T>& other)
+			{
+				btSetMin(m_floats[0], other.m_floats[0]);
+				btSetMin(m_floats[1], other.m_floats[1]);
+			}
+			
+			void setValue(const T& _x, const T& _y)
+			{
+				m_floats[0]=_x;
+				m_floats[1]=_y;
+			}
+			
+			void setZero(void)
+			{
+				setValue(0,0);
+			}
+			
+			bool isZero(void) const
+			{
+				return m_floats[0] == 0 && m_floats[1] == 0;
+			}
+			
 	};
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information
 	 */
 	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<int32_t> obj);
-	/**
-	 * @brief Debug operator To display the curent element in a Human redeable information
-	 */
 	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<float> obj);
+	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<uint32_t> obj);
+	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<bool> obj);
 	
 };
 

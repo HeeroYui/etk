@@ -179,9 +179,9 @@ namespace etk
 			}
 			vec3 operator*(const vec3& point) const
 			{
-				return vec3( m_mat[0]*point.x + m_mat[1]*point.y + m_mat[2]*point.z  + m_mat[3],
-				             m_mat[4]*point.x + m_mat[5]*point.y + m_mat[6]*point.z  + m_mat[7],
-				             m_mat[8]*point.x + m_mat[9]*point.y + m_mat[10]*point.z + m_mat[11] );
+				return vec3( m_mat[0]*point.x() + m_mat[1]*point.y() + m_mat[2]*point.z()  + m_mat[3],
+				             m_mat[4]*point.x() + m_mat[5]*point.y() + m_mat[6]*point.z()  + m_mat[7],
+				             m_mat[8]*point.x() + m_mat[9]*point.y() + m_mat[10]*point.z() + m_mat[11] );
 			}
 			/*****************************************************
 			 *  other basic function :
@@ -214,7 +214,7 @@ namespace etk
 			}
 			void Scale(const vec3& p)
 			{
-				Scale(p.x, p.y, p.z);
+				Scale(p.x(), p.y(), p.z());
 			}
 			void Scale(float sx, float sy, float sz)
 			{
@@ -222,59 +222,17 @@ namespace etk
 				m_mat[4] *= sx;	m_mat[5] *= sy;	m_mat[6] *= sz;
 				m_mat[8] *= sx;	m_mat[9] *= sy;	m_mat[10] *= sz;
 			}
-			#if 0
-			/**
-			 * @brief Sets a rotation matrix around the X axis.
-			 * @param[in] angleRad Angle to rotate in radian.
-			 */
-			void RotateX(float angleRad)
-			{
-				float Cos = cosf(angleRad);
-				float Sin = sinf(angleRad);
-				Identity();
-				m_mat[5] = m_mat[10] = Cos;
-				m_mat[9] = -Sin;
-				m_mat[6] = Sin;
-			}
-			/**
-			 * @brief Sets a rotation matrix around the Y axis.
-			 * @param[in] angleRad Angle to rotate in radian.
-			 */
-			void RotateY(float angleRad)
-			{
-				float Cos = cosf(angleRad);
-				float Sin = sinf(angleRad);
-				Identity();
-				m_mat[0] = m_mat[10] = Cos;
-				m_mat[8] = Sin;
-				m_mat[2] = -Sin;
-			}
-			/**
-			 * @brief Sets a rotation matrix around the Z axis.
-			 * @param[in] angleRad Angle to rotate in radian.
-			 */
-			void RotateZ(float angleRad)
-			{
-				float Cos = cosf(angle);
-				float Sin = sinf(angle);
-				Identity();
-				m_mat[0] = m_mat[9] = Cos;
-				m_mat[4] = -Sin;
-				m_mat[1] = Sin;
-			}
-#endif
 			/**
 			 * @brief Makes a rotation matrix about an arbitrary axis.
 			 * @param[in] vect vector to apply the angle.
 			 * @param[in] angleRad angle to apply.
 			 */
-			void Rotate(etk::Vector3D<float>& vect, float angleRad=0.0);
-			void Rotate(etk::Vector3D<float> vect, float angleRad=0.0);
+			void Rotate(const vec3& vect, float angleRad=0.0);
 			/**
 			 * @brief Makes a translation of the matrix
 			 * @param[in] vect Translation to apply.
 			 */
-			void Translate(etk::Vector3D<float>& vect);
+			void Translate(const vec3& vect);
 			/**
 			 * @brief Computes a cofactor. Used for matrix inversion.
 			 * @param[in] row Id of raw.
@@ -297,13 +255,13 @@ namespace etk
 	Matrix4 matFrustum(float xmin, float xmax, float ymin, float ymax, float zNear, float zFar);
 	Matrix4 matPerspective(float foxy, float aspect, float zNear, float zFar);
 	Matrix4 matOrtho(float left, float right, float bottom, float top, float nearVal, float farVal);
-	Matrix4 matTranslate(etk::Vector3D<float> vect);
-	Matrix4 matScale(etk::Vector3D<float> vect);
-	Matrix4 matRotate(etk::Vector3D<float> vect, float angleRad=0.0);
-	Matrix4 matRotate2(etk::Vector3D<float> vect);
-	Matrix4 matLookAt(etk::Vector3D<float> eye,
-	                  etk::Vector3D<float> center,
-	                  etk::Vector3D<float> up);
+	Matrix4 matTranslate(vec3 vect);
+	Matrix4 matScale(vec3 vect);
+	Matrix4 matRotate(vec3 vect, float angleRad=0.0);
+	Matrix4 matRotate2(vec3 vect);
+	Matrix4 matLookAt(vec3 eye,
+	                  vec3 center,
+	                  vec3 up);
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information
 	 */
