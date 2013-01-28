@@ -29,7 +29,10 @@ namespace etk
 			 */
 			Vector3D(void)
 			{
-				
+				m_floats[0]=0;
+				m_floats[1]=0;
+				m_floats[2]=0;
+				m_floats[3]=0;
 			}
 			/**
 			 * @brief Constructor from scalars 
