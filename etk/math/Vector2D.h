@@ -24,11 +24,7 @@ namespace etk
 			/*****************************************************
 			 *    Constructor
 			 *****************************************************/
-			Vector2D(void)
-			{
-				m_floats[0]=0;
-				m_floats[1]=0;
-			}; // do nothing ==> better for optimisation
+			Vector2D(void) { }; // do nothing ==> better for optimisation
 			Vector2D(T _x, T _y)
 			{
 				m_floats[0] = _x;

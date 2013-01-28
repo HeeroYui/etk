@@ -29,10 +29,6 @@ namespace etk
 			 */
 			Vector3D(void)
 			{
-				m_floats[0]=0;
-				m_floats[1]=0;
-				m_floats[2]=0;
-				m_floats[3]=0;
 			}
 			/**
 			 * @brief Constructor from scalars 
@@ -59,6 +55,12 @@ namespace etk
 				m_floats[2] += v.m_floats[2];
 				return *this;
 			}
+			Vector3D<T> operator+(const Vector3D<T>& v)
+			{
+				return Vector3D<T>(m_floats[0] + v.m_floats[0],
+				                   m_floats[1] + v.m_floats[1],
+				                   m_floats[2] + v.m_floats[2]);
+			}
 			
 			
 			/**
@@ -72,6 +74,12 @@ namespace etk
 				m_floats[2] -= v.m_floats[2];
 				return *this;
 			}
+			Vector3D<T> operator-(const Vector3D<T>& v)
+			{
+				return Vector3D<T>(m_floats[0] - v.m_floats[0],
+				                   m_floats[1] - v.m_floats[1],
+				                   m_floats[2] - v.m_floats[2]);
+			}
 			
 			/**
 			 * @brief Scale the vector
@@ -84,6 +92,12 @@ namespace etk
 				m_floats[2] *= s;
 				return *this;
 			}
+			Vector3D<T> operator*(const T& s)
+			{
+				return Vector3D<T>(m_floats[0] * s,
+				                   m_floats[1] * s,
+				                   m_floats[2] * s);
+			}
 			
 			/**
 			 * @brief Inversely scale the vector 
@@ -94,7 +108,17 @@ namespace etk
 				if (0!=s) {
 					return *this *= btScalar(1.0) / s;
 				}
-				return 0;
+				return *this;
+			}
+			Vector3D<T>& operator/=(const T& s) 
+			{
+				if (0!=s) {
+					m_floats[0]/=s;
+					m_floats[1]/=s;
+					m_floats[2]/=s;
+					return *this;
+				}
+				return *this;
 			}
 			
 			/**
@@ -288,6 +312,12 @@ namespace etk
 				m_floats[2] *= v.m_floats[2];
 				return *this;
 			}
+			Vector3D<T> operator*(const Vector3D<T>& v)
+			{
+				return Vector3D<T>(m_floats[0] * v.m_floats[0],
+				                   m_floats[1] * v.m_floats[1],
+				                   m_floats[2] * v.m_floats[2]);
+			}
 			
 			/**
 			 * @brief Return the x value
@@ -409,6 +439,7 @@ namespace etk
 	etk::CCout& operator <<(etk::CCout &os, const btVector3 obj);
 	etk::CCout& operator <<(etk::CCout &os, const etk::Vector3D<uint32_t> obj);
 	etk::CCout& operator <<(etk::CCout &os, const etk::Vector3D<bool> obj);
+	
 };
 
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
