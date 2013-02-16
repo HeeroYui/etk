@@ -16,6 +16,7 @@
 #include <LinearMath/btScalar.h>
 #include <LinearMath/btMinMax.h>
 #include <LinearMath/btVector3.h>
+#include <LinearMath/btQuaternion.h>
 
 namespace etk
 {
@@ -450,6 +451,8 @@ typedef etk::Vector3D<int32_t>   ivec3;
 typedef etk::Vector3D<uint32_t> uivec3;
 typedef etk::Vector3D<bool>      bvec3;
 
+
+vec3 quaternionToEulerXYZ(const btQuaternion& quat);
 
 
 #endif
