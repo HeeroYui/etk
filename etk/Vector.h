@@ -327,7 +327,7 @@ namespace etk
 			 * @brief Get the number of element in the vector
 			 * @return The number requested
 			 */
-			void ReSize(int32_t newSize, MY_TYPE& basicElement)
+			void ReSize(int32_t newSize, const MY_TYPE& basicElement)
 			{
 				int32_t idx = m_size;
 				Resize(newSize);

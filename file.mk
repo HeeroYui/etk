@@ -8,7 +8,8 @@ FILE_LIST = \
 			etk/UString.cpp \
 			etk/Stream.cpp \
 			etk/RegExp.cpp \
-			etk/tool.cpp
+			etk/tool.cpp \
+			etk/Noise.cpp
 			
 
 
