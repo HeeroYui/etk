@@ -25,6 +25,26 @@ int32_t etk::tool::irand(int32_t a, int32_t b)
 	return (int32_t)(( rand()/(float)RAND_MAX ) * ((float)b-(float)a) + (float)a);
 }
 
+void etk::tool::frandTable(float a, float b, int32_t size, float* table)
+{
+	if (NULL==table) {
+		return;
+	}
+	for(int32_t iii=0; iii<size; iii++) {
+		table[iii] = frand(a, b);
+	}
+}
+
+void etk::tool::irandTable(int32_t a, int32_t b, int32_t size, int32_t* table)
+{
+	if (NULL==table) {
+		return;
+	}
+	for(int32_t iii=0; iii<size; iii++) {
+		table[iii] = frand(a, b);
+	}
+}
+
 
 void etk::tool::SortList(etk::Vector<etk::UString *> &m_listDirectory)
 {
