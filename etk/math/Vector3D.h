@@ -30,6 +30,13 @@ namespace etk
 			 */
 			Vector3D(void)
 			{
+				#ifdef DEBUG
+					// in debug mode we set supid value to prevent forget of the inits ...
+					m_floats[0] = (T)34673363;
+					m_floats[1] = (T)34523535;
+					m_floats[2] = (T)43523424;
+					m_floats[3] = (T)23452345;
+				#endif
 			}
 			/**
 			 * @brief Constructor from scalars 

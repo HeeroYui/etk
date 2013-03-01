@@ -24,7 +24,15 @@ namespace etk
 			/*****************************************************
 			 *    Constructor
 			 *****************************************************/
-			Vector2D(void) { }; // do nothing ==> better for optimisation
+			Vector2D(void) 
+			{
+				#ifdef DEBUG
+					// in debug mode we set supid value to prevent forget of the inits ...
+					m_floats[0] = (T)34673363;
+					m_floats[1] = (T)34523535;
+				#endif
+			};
+			
 			Vector2D(T _x, T _y)
 			{
 				m_floats[0] = _x;
