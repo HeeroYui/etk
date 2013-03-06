@@ -370,7 +370,7 @@ const etk::UString& etk::UString::operator+= (const etk::UString &etkS)
 }
 
 
-etk::UString etk::UString::operator+ (const etk::UString &etkS)
+etk::UString etk::UString::operator+ (const etk::UString &etkS) const
 {
 	etk::UString temp;
 	//TK_INFO("        UString(arg) : \"" << etkS.m_data << "\"");
