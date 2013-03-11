@@ -3,7 +3,17 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := etk
-LOCAL_LIBRARIES := libzip linearmath
+LOCAL_LIBRARIES := linearmath
+
+# with android we have no real choice ...
+ifeq ("$(PLATFORM)","Android")
+	LOCAL_LIBRARIES += libzip
+else
+	ifeq ("$(CONFIG_BUILD_LIBZIP)","y")
+		LOCAL_LIBRARIES += libzip
+	endif
+endif
+
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)
 
