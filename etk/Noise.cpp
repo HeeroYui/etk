@@ -103,7 +103,7 @@ etk::Noise::Noise(noise_te type, ivec2 size, int32_t depth) :
 		default:
 		case etk::Noise::NOISE_BASE:
 			{
-				etk::BaseNoise myNoise(ivec2(128,128),0.0f,1.0f);
+				etk::BaseNoise myNoise(ivec2(m_size.x()/depth,m_size.y()/depth),0.0f,1.0f);
 				for(int32_t iii=0; iii<m_size.y(); iii++) {
 					for(int32_t jjj=0; jjj<m_size.x(); jjj++) {
 						m_data[iii+jjj*m_size.x()] = myNoise.Get(iii,jjj);
@@ -113,7 +113,7 @@ etk::Noise::Noise(noise_te type, ivec2 size, int32_t depth) :
 			break;
 		case etk::Noise::NOISE_SMOOTH:
 			{
-				etk::BaseNoise myNoise(ivec2(128,128),0.0f,1.0f);
+				etk::BaseNoise myNoise(ivec2(m_size.x()/depth,m_size.y()/depth),0.0f,1.0f);
 				for(int32_t iii=0; iii<m_size.y(); iii++) {
 					for(int32_t jjj=0; jjj<m_size.x(); jjj++) {
 						m_data[iii+jjj*m_size.x()] = smoothNoise((float)iii/(float)depth,(float)jjj/(float)depth, myNoise);
@@ -123,7 +123,7 @@ etk::Noise::Noise(noise_te type, ivec2 size, int32_t depth) :
 			break;
 		case etk::Noise::NOISE_TURBULENCE:
 			{
-				etk::BaseNoise myNoise(ivec2(128,128),0.0f,1.0f);
+				etk::BaseNoise myNoise(ivec2(m_size.x()/depth,m_size.y()/depth),0.0f,1.0f);
 				for(int32_t iii=0; iii<m_size.y(); iii++) {
 					for(int32_t jjj=0; jjj<m_size.x(); jjj++) {
 						m_data[iii+jjj*m_size.x()] = turbulence(iii,jjj,depth,myNoise);
