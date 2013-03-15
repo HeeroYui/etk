@@ -121,7 +121,7 @@ namespace etk
 			/*****************************************************
 			 *    + operator
 			 *****************************************************/
-			Matrix4 operator+ (const Matrix4& obj) {
+			Matrix4 operator+ (const Matrix4& obj) const {
 				Matrix4 tmpp(*this);
 				tmpp += obj;
 				return tmpp;
@@ -138,7 +138,7 @@ namespace etk
 			/*****************************************************
 			 *    - operator
 			 *****************************************************/
-			Matrix4 operator- (const Matrix4& obj) {
+			Matrix4 operator- (const Matrix4& obj) const {
 				Matrix4 tmpp(*this);
 				tmpp += obj;
 				return tmpp;
@@ -172,7 +172,7 @@ namespace etk
 			/*****************************************************
 			 *    * operator
 			 *****************************************************/
-			Matrix4 operator* (const Matrix4& obj) {
+			Matrix4 operator* (const Matrix4& obj) const {
 				Matrix4 tmpp(*this);
 				tmpp *= obj;
 				return tmpp;
