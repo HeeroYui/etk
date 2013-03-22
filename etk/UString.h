@@ -12,6 +12,7 @@
 #include <etk/DebugInternal.h>
 #include <etk/Stream.h>
 #include <etk/Vector.h>
+#include <etk/Char.h>
 
 namespace etk
 {
@@ -118,15 +119,14 @@ namespace etk
 			
 			etk::Vector<uniChar_t> GetVector(void);
 			uniChar_t *            pointer(void) { return &m_data[0]; };
-			// generate temporary allocation (auto unallocated...)
-			char *                 c_str(void);
+			
+			etk::Char c_str(void) const;
 			
 			// Sting operation :
-			etk::UString  Extract(int32_t posStart=0, int32_t posEnd=0x7FFFFFFF) const;
+			etk::UString Extract(int32_t posStart=0, int32_t posEnd=0x7FFFFFFF) const;
 	
 		private :
 			etk::Vector<uniChar_t> m_data;     //!< internal data is stored in the Unicode properties ...
-			etk::Vector<char>      m_dataUtf8; //!< Tmp data for the Utf8Data() function
 	};
 
 	etk::CCout& operator <<(etk::CCout &os, const etk::UString &obj);

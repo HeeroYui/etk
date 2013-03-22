@@ -599,14 +599,15 @@ bool etk::UString::EndWith(const etk::UString& data, bool caseSensitive) const
 }
 
 
-char * etk::UString::c_str(void)
+etk::Char etk::UString::c_str(void) const
 {
+	etk::Char tmpVar;
+	etk::Vector<char> tmpData;
 	// UTF8 generation :
-	m_dataUtf8.Clear();
-	unicode::convertUnicodeToUtf8(m_data, m_dataUtf8);
-	m_dataUtf8.PushBack('\0');
-	
-	return &m_dataUtf8[0];
+	tmpData.Clear();
+	unicode::convertUnicodeToUtf8(m_data, tmpData);
+	tmpVar.SetValue(tmpData);
+	return tmpVar;
 }
 
 

@@ -5,6 +5,7 @@ FILE_LIST = \
 			etk/DebugInternal.cpp \
 			etk/unicode.cpp \
 			etk/unicodeTable.cpp \
+			etk/Char.cpp \
 			etk/UString.cpp \
 			etk/Stream.cpp \
 			etk/RegExp.cpp \

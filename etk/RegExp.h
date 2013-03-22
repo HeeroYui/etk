@@ -1628,7 +1628,8 @@ template<class CLASS_TYPE> class RegExp {
 			m_notEndWithChar = false;
 			
 			// TODO : Check this ... ==> could create some errors ...
-			char * exp = expressionRequested.c_str();
+			etk::Char tmppChar = expressionRequested.c_str();
+			const char * exp = tmppChar;
 			int32_t regExpLen = strlen(exp);
 			// change in the regular Opcode ==> replace \x with the corect element ... x if needed
 			int32_t iii;
