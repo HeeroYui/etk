@@ -392,8 +392,25 @@ namespace etk
 				return m_data[pos];
 			}
 			/**
+			 * @brief Add at the First position of the Vector
+			 * @param[in] item Element to add at the end of vector
+			 */
+			void PushFront(const MY_TYPE& item)
+			{
+				Insert(0, &item, 1);
+			}
+			/**
 			 * @brief Add at the Last position of the Vector
-			 * @param[in] item	Element to add at the end of vector
+			 * @param[in] item Pointer on a list of Element to add at the start of vector
+			 * @param[in] nbElement Number of element to add.
+			 */
+			void PushFront(const MY_TYPE * item, int32_t nbElement)
+			{
+				Insert(0, item, nbElement);
+			}
+			/**
+			 * @brief Add at the Last position of the Vector
+			 * @param[in] item Element to add at the end of vector
 			 */
 			void PushBack(const MY_TYPE& item)
 			{
@@ -407,7 +424,8 @@ namespace etk
 			}
 			/**
 			 * @brief Add at the Last position of the Vector
-			 * @param[in] item	Element to add at the end of vector
+			 * @param[in] item Pointer on a list of Element to add at the end of vector
+			 * @param[in] nbElement Number of element to add.
 			 */
 			void PushBack(const MY_TYPE * item, int32_t nbElement)
 			{
