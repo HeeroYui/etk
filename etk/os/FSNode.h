@@ -215,6 +215,7 @@ namespace etk
 	void SetBaseFolderCache(const char * folder);
 	void InitDefaultFolder(const char * applName);
 	etk::UString GetUserHomeFolder(void);
+	etk::UString GetUserRunFolder(void);
 	
 	namespace theme
 	{

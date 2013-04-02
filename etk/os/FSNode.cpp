@@ -39,6 +39,7 @@ extern "C" {
 // zip file of the apk file for Android ==> set to zip file apk access
 static etk::UString s_fileAPK = "";
 static etk::UString baseApplName = "ewolNoName";
+static etk::UString baseRunPath = "/";
 #if defined(__TARGET_OS__Android)
 	static etk::UString baseFolderHome     = "/sdcard/";                 // home folder
 	static etk::UString baseFolderData     = "assets/";                  // program Data
@@ -113,6 +114,8 @@ void etk::SetBaseFolderCache(const char * folder)
 void etk::InitDefaultFolder(const char * applName)
 {
 	baseApplName = applName;
+	char cCurrentPath[FILENAME_MAX];
+	
 	char * basicPath = getenv("HOME");
 	if (NULL == basicPath) {
 		TK_ERROR("ERROR while trying to get the path of the home folder");
@@ -124,12 +127,23 @@ void etk::InitDefaultFolder(const char * applName)
 	} else {
 		baseFolderHome = basicPath;
 	}
+	if (!getcwd(cCurrentPath, FILENAME_MAX)) {
+		baseRunPath = ".";
+	} else {
+		cCurrentPath[FILENAME_MAX - 1] = '\0';
+		if (cCurrentPath[0] == '/') {
+			baseRunPath = cCurrentPath+1;
+		} else {
+			baseRunPath = cCurrentPath;
+		}
+	}
+	TK_DBG_MODE("Find Basic running PATH : \"" << baseRunPath << "\"");
+	
 	#ifndef __TARGET_OS__Android
 		
 		#ifdef MODE_RELEASE
 			baseFolderData  = "/usr/share/";
 		#else
-			char cCurrentPath[FILENAME_MAX];
 			if (!getcwd(cCurrentPath, FILENAME_MAX)) {
 				baseFolderData = ".";
 			} else {
@@ -168,6 +182,10 @@ etk::UString etk::GetUserHomeFolder(void)
 	return baseFolderHome;
 }
 
+etk::UString etk::GetUserRunFolder(void)
+{
+	return baseRunPath;
+}
 
 
 #ifdef __TARGET_OS__Android
@@ -393,7 +411,7 @@ void etk::FSNode::PrivateSetName(etk::UString& newName)
 		destFilename = newName;
 	}
 	
-	bool isRoofFolder = false;
+	bool isRootFolder = false;
 	#ifdef __TARGET_OS__Windows
 		for (char iii='a' ; iii<='z' ; iii++) {
 			char tmpVal[10];
@@ -402,17 +420,17 @@ void etk::FSNode::PrivateSetName(etk::UString& newName)
 			sprintf(tmpValMaj, "%c:/", iii+'A'-'a');
 			if(    true == destFilename.StartWith(tmpVal)
 			    || true == destFilename.StartWith(tmpValMaj)) {
-				isRoofFolder = true;
+				isRootFolder = true;
 				break;
 			}
 		}
 	#else
-		isRoofFolder = destFilename.StartWith('/');
+		isRootFolder = destFilename.StartWith('/');
 	#endif
 	if (true == destFilename.StartWith(baseFolderHome) ) {
 		destFilename.Remove(0, baseFolderHome.Size());
 		m_type = etk::FSN_TYPE_HOME;
-	} else if(true == isRoofFolder) {
+	} else if(true == isRootFolder) {
 		#ifdef __TARGET_OS__Windows
 			destFilename.Remove(0, 3);
 		#else
@@ -423,10 +441,18 @@ void etk::FSNode::PrivateSetName(etk::UString& newName)
 	           || true == destFilename.StartWith("root:") ) {
 		destFilename.Remove(0, 5);
 		m_type = etk::FSN_TYPE_DIRECT;
+		if(true == destFilename.StartWith("~")) {
+			destFilename.Remove(0, 1);
+			m_type = etk::FSN_TYPE_HOME;
+		}
 	} else if(    true == destFilename.StartWith("DIRECT:")
 	           || true == destFilename.StartWith("direct:") ) {
 		destFilename.Remove(0, 7);
 		m_type = etk::FSN_TYPE_DIRECT;
+		if(true == destFilename.StartWith("~")) {
+			destFilename.Remove(0, 1);
+			m_type = etk::FSN_TYPE_HOME;
+		}
 	} else if(    true == destFilename.StartWith("DATA:")
 	           || true == destFilename.StartWith("data:") ) {
 		destFilename.Remove(0, 5);
@@ -450,10 +476,22 @@ void etk::FSNode::PrivateSetName(etk::UString& newName)
 	           || true == destFilename.StartWith("home:") ) {
 		destFilename.Remove(0, 5);
 		m_type = etk::FSN_TYPE_HOME;
-	} else {
+		if(true == destFilename.StartWith("~")) {
+			destFilename.Remove(0, 1);
+		}
+	} /*else if(true == destFilename.StartWith(baseRunPath)) {
+		destFilename.Remove(0, baseRunPath.Size());
+		m_type = etk::FSN_TYPE_RELATIF;
+	} */else {
 		// nothing to remove
 		//Other type is Relative : 
 		m_type = etk::FSN_TYPE_RELATIF;
+		
+		// we force to have the correct name : (can generate many problem otherwise ...
+		etk::UString tmpName = etk::GetUserRunFolder() + "/" + destFilename;
+		destFilename = tmpName;
+		m_type = etk::FSN_TYPE_DIRECT;
+		
 	}
 	m_userFileName = destFilename;
 	TK_DBG_MODE("3 : parse done :            [" << m_type << "]->\"" << m_userFileName << "\"");
