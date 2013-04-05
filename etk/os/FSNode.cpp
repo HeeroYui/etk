@@ -874,9 +874,24 @@ bool etk::FSNode::Touch(void)
 }
 bool etk::FSNode::Remove(void)
 {
-	// TODO : ...
-	return false;
+	if (GetNodeType()==etk::FSN_FOLDER) {
+		// remove the folder
+		if( 0!=rmdir(m_systemFileName.c_str()) ) {
+			if (ENOTEMPTY == errno) {
+				TK_ERROR("The Directory is not empty...");
+			}
+			return false;
+		}
+	} else {
+		if( 0!=unlink(m_systemFileName.c_str()) ) {
+			return false;
+		}
+	}
+	// update internal time and properties ...
+	UpdateFileSystemProperty();
+	return true;
 }
+
 uint64_t etk::FSNode::TimeCreated(void) const
 {
 	return m_timeCreate;
@@ -1292,6 +1307,7 @@ bool etk::FSNode::FileOpenWrite(void)
 		TK_CRITICAL("File Already open : " << *this);
 		return true;
 	}
+	FSNODE_LOCAL_mkPath(GetNameFolder().c_str() , 0777);
 	m_PointerFile=fopen(m_systemFileName.c_str(),"wb");
 	if(NULL == m_PointerFile) {
 		TK_ERROR("Can not find the file " << *this);
