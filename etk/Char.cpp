@@ -24,6 +24,11 @@ etk::Char::operator const char *()
 	return &m_data[0];
 };
 
+etk::Char::operator void *()
+{
+	return &m_data[0];
+};
+
 
 void etk::Char::SetValue(const etk::Vector<char>& data)
 {
