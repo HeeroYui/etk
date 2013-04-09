@@ -372,12 +372,21 @@ namespace etk
 	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<bool> obj);
 	
 };
-
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
 typedef etk::Vector2D<float>      vec2;
 typedef etk::Vector2D<int32_t>   ivec2;
 // not compatible with glsl ... but it is better to have a same writing
 typedef etk::Vector2D<uint32_t> uivec2;
 typedef etk::Vector2D<bool>      bvec2;
+
+inline vec2 vec2ClipInt32(const vec2& val)
+{
+	return vec2((int32_t)val.x(), (int32_t)val.y());
+}
+
+inline vec2 vec2ClipInt64(const vec2& val)
+{
+	return vec2((int64_t)val.x(), (int64_t)val.y());
+}
 
 #endif

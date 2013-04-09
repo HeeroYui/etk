@@ -461,6 +461,15 @@ typedef etk::Vector3D<bool>      bvec3;
 
 vec3 quaternionToEulerXYZ(const btQuaternion& quat);
 
+inline vec3 vec3ClipInt32(const vec3& val)
+{
+	return vec3((int32_t)val.x(), (int32_t)val.y(), (int32_t)val.z());
+}
+inline vec3 vec3ClipInt64(const vec3& val)
+{
+	return vec3((int64_t)val.x(), (int64_t)val.y(), (int64_t)val.z());
+}
+
 
 #endif
 
