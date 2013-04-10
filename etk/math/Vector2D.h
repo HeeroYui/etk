@@ -85,13 +85,13 @@ namespace etk
 			/*****************************************************
 			 *    + operator
 			 *****************************************************/
-			Vector2D<T> operator+ (const Vector2D<T>& obj) {
+			Vector2D<T> operator+ (const Vector2D<T>& obj) const {
 				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
 				tmpp.m_floats[0] += obj.m_floats[0];
 				tmpp.m_floats[1] += obj.m_floats[1];
 				return tmpp;
 			}
-			Vector2D<T> operator+ (const T val) {
+			Vector2D<T> operator+ (const T val) const {
 				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
 				tmpp.m_floats[0] += val;
 				tmpp.m_floats[1] += val;
@@ -113,13 +113,13 @@ namespace etk
 			/*****************************************************
 			 *    - operator
 			 *****************************************************/
-			Vector2D<T> operator- (const Vector2D<T>& obj) {
+			Vector2D<T> operator- (const Vector2D<T>& obj) const {
 				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
 				tmpp.m_floats[0] -= obj.m_floats[0];
 				tmpp.m_floats[1] -= obj.m_floats[1];
 				return tmpp;
 			}
-			Vector2D<T> operator- (const T val) {
+			Vector2D<T> operator- (const T val) const {
 				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
 				tmpp.m_floats[0] -= val;
 				tmpp.m_floats[1] -= val;
@@ -141,13 +141,13 @@ namespace etk
 			/*****************************************************
 			 *    * operator
 			 *****************************************************/
-			Vector2D<T> operator* (const Vector2D<T>& obj) {
+			Vector2D<T> operator* (const Vector2D<T>& obj) const {
 				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
 				tmpp.m_floats[0] *= obj.m_floats[0];
 				tmpp.m_floats[1] *= obj.m_floats[1];
 				return tmpp;
 			}
-			Vector2D<T> operator* (const T val) {
+			Vector2D<T> operator* (const T val) const {
 				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
 				tmpp.m_floats[0] *= val;
 				tmpp.m_floats[1] *= val;
@@ -156,13 +156,13 @@ namespace etk
 			/*****************************************************
 			 *    / operator
 			 *****************************************************/
-			Vector2D<T> operator/ (const Vector2D<T>& obj) {
+			Vector2D<T> operator/ (const Vector2D<T>& obj) const{
 				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
 				tmpp.m_floats[0] /= obj.m_floats[0];
 				tmpp.m_floats[1] /= obj.m_floats[1];
 				return tmpp;
 			}
-			Vector2D<T> operator/ (const T val) {
+			Vector2D<T> operator/ (const T val) const {
 				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
 				tmpp.m_floats[0] /= val;
 				tmpp.m_floats[1] /= val;
