@@ -12,6 +12,7 @@
 #include <etk/types.h>
 #include <etk/Stream.h>
 #include <etk/math/Vector3D.h>
+#include <etk/UString.h>
 #include <math.h>
 
 namespace etk
@@ -41,6 +42,7 @@ namespace etk
 			Vector2D(const Vector2D<double>& obj)  { m_floats[0] = (T)obj.x(); m_floats[1] = (T)obj.y(); };
 			Vector2D(const Vector2D<float>& obj)   { m_floats[0] = (T)obj.x(); m_floats[1] = (T)obj.y(); };
 			Vector2D(const Vector2D<int32_t>& obj) { m_floats[0] = (T)obj.x(); m_floats[1] = (T)obj.y(); };
+			Vector2D(const etk::UString& str);
 			~Vector2D(void) { };
 			/*****************************************************
 			 *    = assigment

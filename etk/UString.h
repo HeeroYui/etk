@@ -46,11 +46,12 @@ namespace etk
 			/*****************************************************
 			 *    == operator
 			 *****************************************************/
-			bool  operator== (const etk::UString& etkS) const;
+			bool operator== (const etk::UString& etkS) const;
+			bool CompareNoCase(const etk::UString& etkS) const;
 			/*****************************************************
 			 *    != operator
 			 *****************************************************/
-			bool  operator!= (const etk::UString& etkS) const;
+			bool operator!= (const etk::UString& etkS) const;
 			/*****************************************************
 			 *    > < >= <= operator
 			 *****************************************************/

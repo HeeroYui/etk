@@ -346,6 +346,34 @@ bool etk::UString::operator== (const etk::UString& etkS) const
 	return true;
 }
 
+bool etk::UString::CompareNoCase(const etk::UString& etkS) const
+{
+	if( this != &etkS ) {
+		if (etkS.m_data.Size() != m_data.Size()) {
+			//TK_DEBUG(" not the same size : " << etkS.m_data.Size() << "!=" << m_data.Size());
+			return false;
+		}
+		for (int32_t iii= 0; iii<m_data.Size(); iii++) {
+			//TK_DEBUG("     check : " << etkS.m_data[iii] << "!=" << m_data[iii]);
+			uniChar_t in1 = etkS.m_data[iii];
+			uniChar_t in2 = m_data[iii];
+			if(    in1>=(uniChar_t)'A'
+			    && in1<=(uniChar_t)'Z') {
+				in1 += (uniChar_t)'a' - (uniChar_t)'A';
+			}
+			if(    in2>=(uniChar_t)'A'
+			    && in2<=(uniChar_t)'Z') {
+				in2 += (uniChar_t)'a' - (uniChar_t)'A';
+			}
+			if (in1!=in2){
+				return false;
+			}
+		}
+		return true;
+	}
+	return true;
+}
+
 
 bool etk::UString::operator!= (const etk::UString& etkS) const
 {
