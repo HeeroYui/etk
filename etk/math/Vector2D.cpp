@@ -187,11 +187,14 @@ namespace etk {
 	{
 		m_floats[0] = 0;
 		m_floats[1] = 0;
+		//TK_DEBUG("start parsing od vec2 with \"" << str << "\"");
 		if (str.StartWith("(")) {
+			//TK_DEBUG("    start with (");
 			sscanf(str.c_str(), "(%f,%f)", &m_floats[0], &m_floats[1]);
 		} else {
-			sscanf(str.c_str(), "(%f,%f)", &m_floats[0], &m_floats[1]);
+			sscanf(str.c_str(), "%f,%f", &m_floats[0], &m_floats[1]);
 		}
+		//TK_DEBUG("    result " << *this);
 	}
 
 };
