@@ -234,6 +234,13 @@ namespace etk
 			 */
 			bool Touch(void);
 			/**
+			 * @brief Move the Node at a new path
+			 * @param[in] path The new path
+			 * @return true : action done
+			 * @return false : action not done
+			 */
+			bool Move(const etk::UString& path);
+			/**
 			 * @brief Get the node type (DATA/DIRECT...)
 			 * @return the requested type
 			 */
@@ -499,6 +506,14 @@ namespace etk
 	 */
 	bool FSNodeExist(const etk::UString& path);
 	/**
+	 * @brief Simple access for : chexk the exestance of an element
+	 * @param[in] path Folder/File/Pipe path of the node sources
+	 * @param[in] path Folder/File/Pipe path of the node destination
+	 * @return true : Action done corectly
+	 * @return false : An error occured
+	 */
+	bool FSNodeMove(const etk::UString& path1, const etk::UString& path2);
+	/**
 	 * @brief Simple access for : Get right of the current Node
 	 * @param[in] path Folder/File/Pipe path of the node
 	 * @return true : Action done corectly
@@ -539,7 +554,7 @@ namespace etk
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
-	uint64_t FSNodeTouch(const etk::UString& path);
+	bool FSNodeTouch(const etk::UString& path);
 	/**
 	 * @brief Simple access for : Basic write on the node (like console echo)
 	 * @param[in] path Folder/File/Pipe path of the node

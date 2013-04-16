@@ -136,11 +136,11 @@ etk::UString::UString(char inputData)
 }
 
 
-etk::UString::UString(int inputData)
+etk::UString::UString(int inputData, const char* mode)
 {
 	char tmpVal[256];
 	// generate the UString : 
-	sprintf(tmpVal, "%d", inputData);
+	sprintf(tmpVal, mode, inputData);
 	// set the internal data : 
 	m_data.Clear();
 	m_data.PushBack('\0');
@@ -148,11 +148,11 @@ etk::UString::UString(int inputData)
 }
 
 
-etk::UString::UString(unsigned int inputData)
+etk::UString::UString(unsigned int inputData, const char* mode)
 {
 	char tmpVal[256];
 	// generate the UString : 
-	sprintf(tmpVal, "%d", inputData);
+	sprintf(tmpVal, mode, inputData);
 	// set the internal data : 
 	m_data.Clear();
 	m_data.PushBack('\0');

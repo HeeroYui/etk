@@ -863,6 +863,7 @@ etk::UString etk::FSNode::GetRelativeFolder(void) const
 
 bool etk::FSNode::Touch(void)
 {
+	TK_DEBUG("Touch FILE : " << GetName());
 	//just open in write an close ==> this will update the time
 	if (false==FileOpenAppend()) {
 		return false;
@@ -872,6 +873,21 @@ bool etk::FSNode::Touch(void)
 	UpdateFileSystemProperty();
 	return ret;
 }
+
+bool etk::FSNode::Move(const etk::UString& path)
+{
+	etk::FSNode tmpDst(path);
+	if (tmpDst.Exist()==true) {
+		tmpDst.Remove();
+	}
+	int32_t res = rename(GetName().c_str(), tmpDst.GetName().c_str());
+	if (res!=0) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
 bool etk::FSNode::Remove(void)
 {
 	if (GetNodeType()==etk::FSN_FOLDER) {
@@ -1288,6 +1304,7 @@ bool etk::FSNode::FileOpenRead(void)
 		TK_CRITICAL("File Already open : " << *this);
 		return true;
 	}
+	TK_VERBOSE(" Read file : " << m_systemFileName);
 	m_PointerFile=fopen(m_systemFileName.c_str(),"rb");
 	if(NULL == m_PointerFile) {
 		TK_ERROR("Can not find the file " << *this );
@@ -1308,6 +1325,7 @@ bool etk::FSNode::FileOpenWrite(void)
 		return true;
 	}
 	FSNODE_LOCAL_mkPath(GetNameFolder().c_str() , 0777);
+	TK_VERBOSE(" write file : " << m_systemFileName);
 	m_PointerFile=fopen(m_systemFileName.c_str(),"wb");
 	if(NULL == m_PointerFile) {
 		TK_ERROR("Can not find the file " << *this);
@@ -1328,6 +1346,8 @@ bool etk::FSNode::FileOpenAppend(void)
 		return true;
 	}
 	FSNODE_LOCAL_mkPath(GetNameFolder().c_str() , 0777);
+	
+	TK_VERBOSE(" append file : " << m_systemFileName);
 	
 	m_PointerFile=fopen(m_systemFileName.c_str(),"ab");
 	if(NULL == m_PointerFile) {
@@ -1600,6 +1620,18 @@ bool etk::FSNodeExist(const etk::UString& path)
 	return tmpNode.Exist();
 }
 
+bool etk::FSNodeMove(const etk::UString& path1, const etk::UString& path2)
+{
+	etk::FSNode tmpNode(path1);
+	if (false==tmpNode.Exist()) {
+		return false;
+	}
+	// no check error in every case
+	(void)etk::FSNodeRemove(path2);
+	//move the node
+	return tmpNode.Move(path2);
+}
+
 etk::FSNodeRight etk::FSNodeGetRight(const etk::UString& path)
 {
 	etk::FSNode tmpNode(path);
@@ -1630,12 +1662,9 @@ uint64_t etk::FSNodeGetTimeAccessed(const etk::UString& path)
 	return tmpNode.TimeAccessed();
 }
 
-uint64_t etk::FSNodeTouch(const etk::UString& path)
+bool etk::FSNodeTouch(const etk::UString& path)
 {
 	etk::FSNode tmpNode(path);
-	if (false==tmpNode.Exist()) {
-		return false;
-	}
 	return tmpNode.Touch();
 }
 

@@ -27,8 +27,8 @@ namespace etk
 			void Set(const char*      inputData, int32_t len=-1);
 			// basic convertion integer en string
 			UString(char inputData);
-			UString(int inputData);
-			UString(unsigned int inputData);
+			UString(int inputData, const char* mode="%d");
+			UString(unsigned int inputData, const char* mode="%d");
 			UString(float inputData);
 			UString(double inputData);
 			UString(const etk::UString &etkS);
