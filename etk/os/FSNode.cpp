@@ -141,31 +141,53 @@ void etk::InitDefaultFolder(const char * applName)
 	TK_DBG_MODE("Find Basic running PATH : \"" << baseRunPath << "\"");
 	
 	#ifndef __TARGET_OS__Android
-		
-		#ifdef MODE_RELEASE
-			baseFolderData  = "/usr/share/";
+		#ifdef __TARGET_OS__MacOs
+			#ifdef MODE_RELEASE
+				baseFolderData  = "/usr/share/";
+			#else
+				if (!getcwd(cCurrentPath, FILENAME_MAX)) {
+					baseFolderData = ".";
+				} else {
+					cCurrentPath[FILENAME_MAX - 1] = '\0';
+					baseFolderData  = cCurrentPath;
+				}
+				baseFolderData += "/out/MacOs/debug/staging/Resources/";
+			#endif
+			
+			baseFolderDataUser  = baseFolderHome;
+			baseFolderDataUser += "/.local/share/";
+			baseFolderDataUser += baseApplName;
+			baseFolderDataUser += "/";
+			
+			baseFolderCache  = "/tmp/";
+			baseFolderCache += baseApplName;
+			baseFolderCache += "/";
 		#else
-			if (!getcwd(cCurrentPath, FILENAME_MAX)) {
-				baseFolderData = ".";
-			} else {
-				cCurrentPath[FILENAME_MAX - 1] = '\0';
-				baseFolderData  = cCurrentPath;
-			}
-			baseFolderData += "/out/Linux/debug/staging/";
+			#ifdef MODE_RELEASE
+				baseFolderData  = "/usr/share/";
+			#else
+				if (!getcwd(cCurrentPath, FILENAME_MAX)) {
+					baseFolderData = ".";
+				} else {
+					cCurrentPath[FILENAME_MAX - 1] = '\0';
+					baseFolderData  = cCurrentPath;
+				}
+				baseFolderData += "/out/Linux/debug/staging/";
+				baseFolderData += baseApplName;
+				baseFolderData += "/usr/share/";
+			#endif
 			baseFolderData += baseApplName;
-			baseFolderData += "/usr/share/";
+			baseFolderData += "/";
+			
+			baseFolderDataUser  = baseFolderHome;
+			baseFolderDataUser += "/.local/share/";
+			baseFolderDataUser += baseApplName;
+			baseFolderDataUser += "/";
+			
+			baseFolderCache  = "/tmp/";
+			baseFolderCache += baseApplName;
+			baseFolderCache += "/";
 		#endif
-		baseFolderData += baseApplName;
-		baseFolderData += "/";
-		
-		baseFolderDataUser  = baseFolderHome;
-		baseFolderDataUser += "/.local/share/";
-		baseFolderDataUser += baseApplName;
-		baseFolderDataUser += "/";
-		
-		baseFolderCache  = "/tmp/";
-		baseFolderCache += baseApplName;
-		baseFolderCache += "/";
 	#endif
 	#ifdef MODE_RELEASE
 		if (strncmp("ewolApplNoName",applName, 256) != 0) {

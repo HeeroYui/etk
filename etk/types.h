@@ -15,7 +15,9 @@
 #include <string.h>
 #include <assert.h>
 
-
+#ifdef __TARGET_OS__MacOs
+#include <stdint.h>
+#else
 #ifndef __int8_t_defined
 #   define __int8_t_defined
     typedef   signed char                    int8_t;
@@ -34,6 +36,7 @@
 #	else
 		typedef unsigned long long int          uint64_t;
 #	endif
+#endif
 #endif
 typedef uint32_t       uniChar_t;
 
