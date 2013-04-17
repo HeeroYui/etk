@@ -267,7 +267,11 @@ static int32_t FSNODE_LOCAL_mkdir(const char *path, mode_t mode)
 	int32_t status = 0;
 	if (stat(path, &st) != 0) {
 		/* Directory does not exist. EEXIST for race condition */
-		if(    0!=mkdir(path, mode)
+		#ifdef __TARGET_OS__Windows
+		if(0!=mkdir(path)
+		#else
+		if(0!=mkdir(path, mode)
+		#endif
 		    && errno != EEXIST) {
 			status = -1;
 		}

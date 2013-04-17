@@ -14,40 +14,18 @@
 #include <stdarg.h>
 #include <string.h>
 #include <assert.h>
-
-#ifdef __TARGET_OS__MacOs
+// defien type : uintXX_t and intXX_t
 #include <stdint.h>
-#else
-#ifndef __int8_t_defined
-#   define __int8_t_defined
-    typedef   signed char                    int8_t;
-    typedef   signed short int               int16_t;
-    typedef   int                            int32_t;
-    typedef   signed long long int           int64_t;
-#endif
 
-#ifndef __uint8_t_defined
-#   define __uint8_t_defined
-	typedef unsigned char                   uint8_t;
-	typedef unsigned short int              uint16_t;
-	typedef unsigned int                    uint32_t;
-#	if __WORDSIZE == 64
-		typedef unsigned long int               uint64_t;
-#	else
-		typedef unsigned long long int          uint64_t;
-#	endif
-#endif
-#endif
-typedef uint32_t       uniChar_t;
-
+typedef uint32_t uniChar_t;
 
 typedef enum {
-    ERR_NONE = 0,   //!< No error, luckily everything went fine
-    ERR_FAIL,       //!< Miscellaneous failure
-    ERR_INVAL,      //!< Invalid entry parameter
-    ERR_MEM,        //!< Dynamic memory allocation failure
-    ERR_TIMEOUT,    //!< Request time out
-    ERR_BUSY,       //!< Element curently Busy
+	ERR_NONE = 0, //!< No error, luckily everything went fine
+	ERR_FAIL, //!< Miscellaneous failure
+	ERR_INVAL, //!< Invalid entry parameter
+	ERR_MEM, //!< Dynamic memory allocation failure
+	ERR_TIMEOUT, //!< Request time out
+	ERR_BUSY, //!< Element curently Busy
 }erreurCode_te;
 
 
