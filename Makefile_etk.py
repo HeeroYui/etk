@@ -34,12 +34,6 @@ myModule.AddSrcFile([
 	'etk/os/FSNodeRight.cpp',
 	'etk/os/Memory.cpp'])
 
-# game mode area :
-myModule.AddSrcFile([
-	'ewol/widget/Scene.cpp',
-	'ewol/game/Camera.cpp'])
-
-
 #ifeq ("$(TARGET_OS)","Windows")
 #	myModule.AddSrcFile('etk/os/Mutex.Windows.cpp')
 #	myModule.AddSrcFile('etk/os/Semaphore.Windows.cpp')
