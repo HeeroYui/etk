@@ -32,25 +32,26 @@ def Create(target):
 		'etk/os/FSNodeRight.cpp',
 		'etk/os/Memory.cpp'])
 	
-	#ifeq ("$(TARGET_OS)","Windows")
-	#	myModule.AddSrcFile('etk/os/Mutex.Windows.cpp')
-	#	myModule.AddSrcFile('etk/os/Semaphore.Windows.cpp')
-	#else
-	myModule.AddSrcFile('etk/os/Mutex.Generic.cpp')
-	myModule.AddSrcFile('etk/os/Semaphore.Generic.cpp')
-	#endif
-	
+	if target.name=="Windows":
+		myModule.AddSrcFile('etk/os/Mutex.Windows.cpp')
+		myModule.AddSrcFile('etk/os/Semaphore.Windows.cpp')
+	else:
+		myModule.AddSrcFile('etk/os/Mutex.Generic.cpp')
+		myModule.AddSrcFile('etk/os/Semaphore.Generic.cpp')
 	
 	# name of the dependency
-	#ifeq ("$(PLATFORM)","Android")
-	myModule.AddModuleDepend(['linearmath', 'zip'])
+	myModule.AddModuleDepend('linearmath')
+	if target.name=="Android":
+		myModule.AddModuleDepend('zip')
 	
 	myModule.CompileFlags_CC([
 		'-Wno-write-strings',
 		'-Wall'])
-	# TODO : The other way is to remove this ...
-	# TODO : Fore release mode : the etk folder are absolutly not at the same position in the tree ...
-	#,'-DMODE_RELEASE'])
+	
+	if target.buildMode == "release":
+		# TODO : The other way is to remove this ...
+		# TODO : Fore release mode : the etk folder are absolutly not at the same position in the tree ...
+		myModule.CompileFlags_CC("-DMODE_RELEASE")
 	
 	
 	myModule.AddExportPath(lutinTools.GetCurrentPath(__file__))
