@@ -52,7 +52,9 @@ def Create(target):
 		# TODO : The other way is to remove this ...
 		# TODO : Fore release mode : the etk folder are absolutly not at the same position in the tree ...
 		myModule.CompileFlags_CC("-DMODE_RELEASE")
-	
+	else:
+		myModule.AddExportFlag_CC("-DDEBUG_LEVEL=3")
+		myModule.AddExportFlag_CC("-DDEBUG=1")
 	
 	myModule.AddExportPath(lutinTools.GetCurrentPath(__file__))
 	

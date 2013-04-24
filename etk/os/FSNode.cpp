@@ -140,6 +140,20 @@ void etk::InitDefaultFolder(const char * applName)
 	}
 	TK_DBG_MODE("Find Basic running PATH : \"" << baseRunPath << "\"");
 	
+	/*
+		On Unixes with /proc really straight and realiable way is to:
+			readlink("/proc/self/exe", buf, bufsize) (Linux)
+			readlink("/proc/curproc/file", buf, bufsize) (FreeBSD)
+			readlink("/proc/self/path/a.out", buf, bufsize) (Solaris)
+		On Unixes without /proc (i.e. if above fails):
+			If argv[0] starts with "/" (absolute path) this is the path.
+			Otherwise if argv[0] contains "/" (relative path) append it to cwd (assuming it hasn't been changed yet).
+			Otherwise search directories in $PATH for executable argv[0].
+		Afterwards it may be reasonable to check whether the executable isn't actually a symlink. If it is resolve it relative to the symlink directory.
+		This step is not necessary in /proc method (at least for Linux). There the proc symlink points directly to executable.
+		Note that it is up to the calling process to set argv[0] correctly. It is right most of the times however there are occasions when the calling process cannot be trusted (ex. setuid executable).
+		On Windows: use GetModuleFileName(NULL, buf, bufsize)
+	*/
 	#ifndef __TARGET_OS__Android
 		#ifdef __TARGET_OS__MacOs
 			#ifdef MODE_RELEASE
@@ -163,21 +177,39 @@ void etk::InitDefaultFolder(const char * applName)
 			baseFolderCache += baseApplName;
 			baseFolderCache += "/";
 		#else
-			#ifdef MODE_RELEASE
-				baseFolderData  = "/usr/share/";
-			#else
-				if (!getcwd(cCurrentPath, FILENAME_MAX)) {
-					baseFolderData = ".";
-				} else {
-					cCurrentPath[FILENAME_MAX - 1] = '\0';
-					baseFolderData  = cCurrentPath;
-				}
-				baseFolderData += "/out/Linux/debug/staging/";
-				baseFolderData += baseApplName;
-				baseFolderData += "/usr/share/";
-			#endif
-			baseFolderData += baseApplName;
+			// check it to prevent test mode in local folder ...
+			char binaryCompleatePath[FILENAME_MAX];
+			memset(binaryCompleatePath, 0, FILENAME_MAX);
+			readlink("/proc/self/exe", binaryCompleatePath, FILENAME_MAX);
+			char* tmpBinName = strrchr(binaryCompleatePath, '/');
+			etk::UString applNameAutoFind = tmpBinName;
+			// if element is installed :
+			baseFolderData = "/usr/share";
+			baseFolderData += applNameAutoFind;
 			baseFolderData += "/";
+			etk::UString theoricInstalledName = "/usr/bin";
+			theoricInstalledName += applNameAutoFind;
+			TK_CRITICAL(" position : '" << binaryCompleatePath << "' installed position : '" << theoricInstalledName << "'");
+			etk::UString tmpVal = binaryCompleatePath;
+			if (tmpVal != theoricInstalledName) {
+				TK_CRITICAL(" base path is not correct try to find it : (must only appear in test and not when installed) base name : '" << binaryCompleatePath << "'");
+				// remove bin/applName
+				char* tmp = strrchr(binaryCompleatePath, '/');
+				// remove filename:
+				if (tmp != 0) {
+					*tmp = '\0';
+				}
+				tmp = strrchr(binaryCompleatePath, '/');
+				if (tmp != 0) {
+					*tmp = '\0';
+				}
+				baseFolderData = binaryCompleatePath;
+				baseFolderData += "/share";
+				baseFolderData += applNameAutoFind;
+				baseFolderData += "/";
+				
+				TK_CRITICAL("    ==> DATA: '" << baseFolderData << "'");
+			}
 			
 			baseFolderDataUser  = baseFolderHome;
 			baseFolderDataUser += "/.local/share/";
@@ -189,15 +221,10 @@ void etk::InitDefaultFolder(const char * applName)
 			baseFolderCache += "/";
 		#endif
 	#endif
-	#ifdef MODE_RELEASE
-		if (strncmp("ewolApplNoName",applName, 256) != 0) {
-			// start log
-		}
-	#endif
-	TK_INFO("baseFolderHome     : \"" << baseFolderHome << "\"");
-	TK_INFO("baseFolderData     : \"" << baseFolderData << "\"");
-	TK_INFO("baseFolderDataUser : \"" << baseFolderDataUser << "\"");
-	TK_INFO("baseFolderCache    : \"" << baseFolderCache << "\"");
+	TK_CRITICAL("baseFolderHome     : '" << baseFolderHome << "'");
+	TK_CRITICAL("baseFolderData     : '" << baseFolderData << "'");
+	TK_CRITICAL("baseFolderDataUser : '" << baseFolderDataUser << "'");
+	TK_CRITICAL("baseFolderCache    : '" << baseFolderCache << "'");
 }
 
 etk::UString etk::GetUserHomeFolder(void)
