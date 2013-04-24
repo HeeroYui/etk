@@ -37,6 +37,74 @@ extern "C" {
 #define TK_DBG_MODE TK_VERBOSE
 //#define TK_DBG_MODE TK_DEBUG
 
+
+
+static etk::UString SimplifyPathAbstractPath(etk::UString input)
+{
+	int32_t findStartPos = input.FindForward('/') + 1;
+	int32_t findPos = input.FindForward('/', findStartPos);
+	//TK_DEBUG("Siplify : \"" << input << "\"");
+	int32_t preventBadCode = 0;
+	while (findPos!=-1)
+	{
+		//TK_DEBUG("      string=\"" << input << "\"");
+		//TK_DEBUG("      '/' @" << findPos);
+		if (input.Size()<findPos+1) {
+			// no more element ...
+			break;
+		}
+		if(    input[findPos+1] == '/'
+		    || (    input[findPos+1] == '.'
+		         && input.Size()==findPos+2 )) {
+			// cleane the element path
+			input.Remove(findPos+1, 1);
+			//TK_DEBUG("      Remove // string=\"" << input << "\"");
+		} else {
+			if (input.Size()<findPos+2) {
+				// no more element ...
+				break;
+			}
+			if(    input[findPos+1] == '.'
+			    && input[findPos+2] == '.') {
+				// cleane the element path
+				input.Remove(findStartPos, findPos+3 - findStartPos );
+				//TK_DEBUG("      Remove xxx/.. string=\"" << input << "\"");
+			} else if(    input[findPos+1] == '.'
+			           && input[findPos+2] == '/') {
+				// cleane the element path
+				input.Remove(findPos+1, 2);
+				//TK_DEBUG("      Remove ./ string=\"" << input << "\"");
+			} else {
+				findStartPos = findPos+1;
+			}
+		}
+		findPos = input.FindForward('/', findStartPos);
+		preventBadCode++;
+		if (preventBadCode>5000) {
+			TK_CRITICAL("ERROR when getting the small path ... this is loop prevention...");
+			break;
+		}
+	}
+	/*
+	#ifndef __TARGET_OS__Windows
+		// for the target that supported the Realpath system :
+		char buf[MAX_FILE_NAME];
+		memset(buf, 0, MAX_FILE_NAME);
+		char * ok = realpath(input.c_str(), buf);
+		if (!ok) {
+			TK_ERROR("Error to get the real path");
+			input = "/";
+		} else {
+			input = buf;
+		}
+	#endif
+	*/
+	//TK_DEBUG("   ==> \"" << input << "\"");
+	return input;
+}
+
+
+
 // zip file of the apk file for Android ==> set to zip file apk access
 static etk::UString s_fileAPK = "";
 static etk::UString baseApplName = "ewolNoName";
@@ -111,6 +179,94 @@ void etk::SetBaseFolderCache(const char * folder)
 	#endif
 }
 
+etk::UString l_argZero="";
+void etk::SetArgZero(const etk::UString& val)
+{
+	l_argZero = val;
+}
+	/*
+		On Unixes with /proc really straight and realiable way is to:
+			readlink("/proc/self/exe", buf, bufsize) (Linux)
+			readlink("/proc/curproc/file", buf, bufsize) (FreeBSD)
+			readlink("/proc/self/path/a.out", buf, bufsize) (Solaris)
+		On Unixes without /proc (i.e. if above fails):
+			If argv[0] starts with "/" (absolute path) this is the path.
+			Otherwise if argv[0] contains "/" (relative path) append it to cwd (assuming it hasn't been changed yet).
+			Otherwise search directories in $PATH for executable argv[0].
+		Afterwards it may be reasonable to check whether the executable isn't actually a symlink. If it is resolve it relative to the symlink directory.
+		This step is not necessary in /proc method (at least for Linux). There the proc symlink points directly to executable.
+		Note that it is up to the calling process to set argv[0] correctly. It is right most of the times however there are occasions when the calling process cannot be trusted (ex. setuid executable).
+		On Windows: use GetModuleFileName(NULL, buf, bufsize)
+	*/
+etk::UString GetApplicationPath(void)
+{
+	etk::UString binaryName = "no-name";
+	char binaryCompleatePath[FILENAME_MAX];
+	memset(binaryCompleatePath, 0, FILENAME_MAX);
+	#ifdef __TARGET_OS__Windows
+		GetModuleFileName(NULL, binaryCompleatePath, FILENAME_MAX);
+		if (0==strlen(binaryCompleatePath)) {
+			TK_CRITICAL("Can not get the binary position in the tree ==> this is really bad ...");
+		} else {
+			binaryName = binaryCompleatePath;
+		}
+	#else
+		// check it to prevent test mode in local folder ...
+		// Generic Linux system
+		readlink("/proc/self/exe", binaryCompleatePath, FILENAME_MAX);
+		if(0!=strlen(binaryCompleatePath)) {
+			binaryName = binaryCompleatePath;
+			return binaryName;
+		}
+		// generic FreeBSD system
+		memset(binaryCompleatePath, 0, FILENAME_MAX);
+		readlink("/proc/curproc/file", binaryCompleatePath, FILENAME_MAX);
+		if(0!=strlen(binaryCompleatePath)) {
+			binaryName = binaryCompleatePath;
+			return binaryName;
+		}
+		// generic Solaris system 
+		memset(binaryCompleatePath, 0, FILENAME_MAX);
+		readlink("/proc/self/path/a.out", binaryCompleatePath, FILENAME_MAX);
+		if(0!=strlen(binaryCompleatePath)) {
+			binaryName = binaryCompleatePath;
+			return binaryName;
+		}
+		// now we are in a really bad case ...
+		if (l_argZero.Size() == 0) {
+			TK_CRITICAL("Can not get the binary position in the tree ==> this is really bad ... arg 0 is as bad as other ...");
+			return binaryName;
+		}
+		TK_VERBOSE("Parse arg0 = '" << l_argZero << "' start with '/' ???");
+		if (l_argZero.StartWith("/")==true) {
+			binaryName = l_argZero;
+			return SimplifyPathAbstractPath(binaryName);
+		}
+		TK_VERBOSE("Parse arg0 = '" << l_argZero << "' try add PWD");
+		char * basicPathPWD = getenv("PWD");
+		if (NULL != basicPathPWD) {
+			etk::UString testCompleatePath = basicPathPWD;
+			testCompleatePath += "/";
+			testCompleatePath += l_argZero;
+			// check if the element existed : 
+			TK_VERBOSE("test path: '" << testCompleatePath << "'");
+			memset(binaryCompleatePath, 0, FILENAME_MAX);
+			struct stat statProperty;
+			if (-1 != stat(testCompleatePath.c_str(), &statProperty)) {
+				//Normal case when the file does not exist ... ==> the it was in unknow mode ...
+				binaryName = testCompleatePath;
+				TK_VERBOSE("find real name = '" << binaryName << "'");
+				return SimplifyPathAbstractPath(binaryName);
+			}
+		}
+		char * basicPathPATH = getenv("PATH");
+		if (NULL != basicPathPWD) {
+			// TODO : bad case ...
+		}
+		// and now we will really in a bad mood ...
+	#endif
+	return binaryName;
+}
 
 void etk::InitDefaultFolder(const char * applName)
 {
@@ -140,91 +296,46 @@ void etk::InitDefaultFolder(const char * applName)
 	}
 	TK_DBG_MODE("Find Basic running PATH : \"" << baseRunPath << "\"");
 	
-	/*
-		On Unixes with /proc really straight and realiable way is to:
-			readlink("/proc/self/exe", buf, bufsize) (Linux)
-			readlink("/proc/curproc/file", buf, bufsize) (FreeBSD)
-			readlink("/proc/self/path/a.out", buf, bufsize) (Solaris)
-		On Unixes without /proc (i.e. if above fails):
-			If argv[0] starts with "/" (absolute path) this is the path.
-			Otherwise if argv[0] contains "/" (relative path) append it to cwd (assuming it hasn't been changed yet).
-			Otherwise search directories in $PATH for executable argv[0].
-		Afterwards it may be reasonable to check whether the executable isn't actually a symlink. If it is resolve it relative to the symlink directory.
-		This step is not necessary in /proc method (at least for Linux). There the proc symlink points directly to executable.
-		Note that it is up to the calling process to set argv[0] correctly. It is right most of the times however there are occasions when the calling process cannot be trusted (ex. setuid executable).
-		On Windows: use GetModuleFileName(NULL, buf, bufsize)
-	*/
 	#ifndef __TARGET_OS__Android
-		#ifdef __TARGET_OS__MacOs
-			#ifdef MODE_RELEASE
-				baseFolderData  = "/usr/share/";
+		etk::UString binaryPath = GetApplicationPath();
+		int32_t pos = binaryPath.FindBack('/');
+		etk::UString binaryName = binaryPath.Extract(pos);
+		binaryPath.Remove(pos, binaryName.Size());
+		TK_VERBOSE("Bianry name : '" << binaryPath << "' && '" << binaryName << "'" );
+		// if element is installed :
+		baseFolderData = "/usr/share";
+		baseFolderData += binaryName;
+		baseFolderData += "/";
+		
+		etk::UString theoricInstalledName = "/usr/bin";
+		theoricInstalledName += binaryName;
+		TK_VERBOSE(" position : '" << binaryPath << "' installed position : '" << theoricInstalledName << "'");
+		if (binaryPath != theoricInstalledName) {
+			TK_INFO(" base path is not correct try to find it : (must only appear in test and not when installed) base name : '" << binaryPath << "'");
+			// remove bin/applName
+			baseFolderData = binaryPath;
+			#ifdef __TARGET_OS__MacOs
+				baseFolderData += "/../../Resources/";
 			#else
-				if (!getcwd(cCurrentPath, FILENAME_MAX)) {
-					baseFolderData = ".";
-				} else {
-					cCurrentPath[FILENAME_MAX - 1] = '\0';
-					baseFolderData  = cCurrentPath;
-				}
-				baseFolderData += "/out/MacOs/debug/staging/Resources/";
-			#endif
-			
-			baseFolderDataUser  = baseFolderHome;
-			baseFolderDataUser += "/.local/share/";
-			baseFolderDataUser += baseApplName;
-			baseFolderDataUser += "/";
-			
-			baseFolderCache  = "/tmp/";
-			baseFolderCache += baseApplName;
-			baseFolderCache += "/";
-		#else
-			// check it to prevent test mode in local folder ...
-			char binaryCompleatePath[FILENAME_MAX];
-			memset(binaryCompleatePath, 0, FILENAME_MAX);
-			readlink("/proc/self/exe", binaryCompleatePath, FILENAME_MAX);
-			char* tmpBinName = strrchr(binaryCompleatePath, '/');
-			etk::UString applNameAutoFind = tmpBinName;
-			// if element is installed :
-			baseFolderData = "/usr/share";
-			baseFolderData += applNameAutoFind;
-			baseFolderData += "/";
-			etk::UString theoricInstalledName = "/usr/bin";
-			theoricInstalledName += applNameAutoFind;
-			TK_CRITICAL(" position : '" << binaryCompleatePath << "' installed position : '" << theoricInstalledName << "'");
-			etk::UString tmpVal = binaryCompleatePath;
-			if (tmpVal != theoricInstalledName) {
-				TK_CRITICAL(" base path is not correct try to find it : (must only appear in test and not when installed) base name : '" << binaryCompleatePath << "'");
-				// remove bin/applName
-				char* tmp = strrchr(binaryCompleatePath, '/');
-				// remove filename:
-				if (tmp != 0) {
-					*tmp = '\0';
-				}
-				tmp = strrchr(binaryCompleatePath, '/');
-				if (tmp != 0) {
-					*tmp = '\0';
-				}
-				baseFolderData = binaryCompleatePath;
-				baseFolderData += "/share";
-				baseFolderData += applNameAutoFind;
+				baseFolderData += "/../../share";
+				baseFolderData += binaryName;
 				baseFolderData += "/";
-				
-				TK_CRITICAL("    ==> DATA: '" << baseFolderData << "'");
-			}
-			
-			baseFolderDataUser  = baseFolderHome;
-			baseFolderDataUser += "/.local/share/";
-			baseFolderDataUser += baseApplName;
-			baseFolderDataUser += "/";
-			
-			baseFolderCache  = "/tmp/";
-			baseFolderCache += baseApplName;
-			baseFolderCache += "/";
-		#endif
+			#endif
+			baseFolderData = SimplifyPathAbstractPath(baseFolderData);
+		}
+		baseFolderDataUser  = baseFolderHome;
+		baseFolderDataUser += "/.local/share/";
+		baseFolderDataUser += binaryName;
+		baseFolderDataUser += "/";
+		
+		baseFolderCache  = "/tmp/";
+		baseFolderCache += binaryName;
+		baseFolderCache += "/";
 	#endif
-	TK_CRITICAL("baseFolderHome     : '" << baseFolderHome << "'");
-	TK_CRITICAL("baseFolderData     : '" << baseFolderData << "'");
-	TK_CRITICAL("baseFolderDataUser : '" << baseFolderDataUser << "'");
-	TK_CRITICAL("baseFolderCache    : '" << baseFolderCache << "'");
+	TK_INFO("baseFolderHome     : '" << baseFolderHome << "'");
+	TK_INFO("baseFolderData     : '" << baseFolderData << "'");
+	TK_INFO("baseFolderDataUser : '" << baseFolderDataUser << "'");
+	TK_INFO("baseFolderCache    : '" << baseFolderCache << "'");
 }
 
 etk::UString etk::GetUserHomeFolder(void)
@@ -373,70 +484,6 @@ etk::FSNode::~FSNode(void)
 		TK_ERROR("Missing to close the file : \"" << *this << "\"");
 		FileClose();
 	}
-}
-
-static etk::UString SimplifyPathAbstractPath(etk::UString input)
-{
-	int32_t findStartPos = input.FindForward('/') + 1;
-	int32_t findPos = input.FindForward('/', findStartPos);
-	//TK_DEBUG("Siplify : \"" << input << "\"");
-	int32_t preventBadCode = 0;
-	while (findPos!=-1)
-	{
-		//TK_DEBUG("      string=\"" << input << "\"");
-		//TK_DEBUG("      '/' @" << findPos);
-		if (input.Size()<findPos+1) {
-			// no more element ...
-			break;
-		}
-		if(    input[findPos+1] == '/'
-		    || (    input[findPos+1] == '.'
-		         && input.Size()==findPos+2 )) {
-			// cleane the element path
-			input.Remove(findPos+1, 1);
-			//TK_DEBUG("      Remove // string=\"" << input << "\"");
-		} else {
-			if (input.Size()<findPos+2) {
-				// no more element ...
-				break;
-			}
-			if(    input[findPos+1] == '.'
-			    && input[findPos+2] == '.') {
-				// cleane the element path
-				input.Remove(findStartPos, findPos+3 - findStartPos );
-				//TK_DEBUG("      Remove xxx/.. string=\"" << input << "\"");
-			} else if(    input[findPos+1] == '.'
-			           && input[findPos+2] == '/') {
-				// cleane the element path
-				input.Remove(findPos+1, 2);
-				//TK_DEBUG("      Remove ./ string=\"" << input << "\"");
-			} else {
-				findStartPos = findPos+1;
-			}
-		}
-		findPos = input.FindForward('/', findStartPos);
-		preventBadCode++;
-		if (preventBadCode>5000) {
-			TK_CRITICAL("ERROR when getting the small path ... this is loop prevention...");
-			break;
-		}
-	}
-	/*
-	#ifndef __TARGET_OS__Windows
-		// for the target that supported the Realpath system :
-		char buf[MAX_FILE_NAME];
-		memset(buf, 0, MAX_FILE_NAME);
-		char * ok = realpath(input.c_str(), buf);
-		if (!ok) {
-			TK_ERROR("Error to get the real path");
-			input = "/";
-		} else {
-			input = buf;
-		}
-	#endif
-	*/
-	//TK_DEBUG("   ==> \"" << input << "\"");
-	return input;
 }
 
 

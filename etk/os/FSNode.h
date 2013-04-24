@@ -18,6 +18,7 @@
 
 namespace etk
 {
+	void SetArgZero(const etk::UString& val);
 	/**
 	 * List of Type that a node can have (this wrap some type that not exist on Windows)
 	 */
