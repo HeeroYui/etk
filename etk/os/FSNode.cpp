@@ -872,6 +872,10 @@ etk::UString etk::FSNode::GetNameFolder(void) const
 	}
 	return "";
 }
+etk::UString etk::FSNode::GetFileSystemName(void) const
+{
+	return m_systemFileName;
+}
 
 etk::UString etk::FSNode::GetName(void) const
 {
@@ -1266,7 +1270,7 @@ etk::FSNode etk::FSNode::FolderGetParent(void)
 	return tmpp;
 }
 
-void etk::FSNode::FolderGetRecursiveFiles(etk::Vector<etk::UString>& output)
+void etk::FSNode::FolderGetRecursiveFiles(etk::Vector<etk::UString>& output, bool recursiveEnable)
 {
 	#ifdef __TARGET_OS__Android
 	if(    m_type == etk::FSN_TYPE_DATA
@@ -1315,7 +1319,9 @@ void etk::FSNode::FolderGetRecursiveFiles(etk::Vector<etk::UString>& output)
 					output.PushBack(tmpVal);
 				}
 				if(tmpEmement->GetNodeType() == etk::FSN_FOLDER) {
-					tmpEmement->FolderGetRecursiveFiles(output);
+					if (true==recursiveEnable) {
+						tmpEmement->FolderGetRecursiveFiles(output);
+					}
 				}
 				delete(tmpEmement);
 				tmpEmement = NULL;

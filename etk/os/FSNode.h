@@ -152,11 +152,6 @@ namespace etk
 			 */
 			void UpdateFileSystemProperty(void);
 			/**
-			 * @brief Get the Generate FileSystem name
-			 * @return the requested filename
-			 */
-			etk::UString GetFileSystemName(void) const;
-			/**
 			 * @brief Common set name of the Node (if the user decide to change the node selection
 			 * @param[in] newName Name of the Node
 			 */
@@ -205,6 +200,11 @@ namespace etk
 			 * @return false : action not done
 			 */
 			void SetName(const etk::UString& newName);
+			/**
+			 * @brief Get the Generate FileSystem name
+			 * @return the requested filename
+			 */
+			etk::UString GetFileSystemName(void) const;
 			/**
 			 * @brief Get the current folder of the Node. (file system name)
 			 * @return the common name define (like /xxxxx/xxxxx/ or c:/xxxxx/xxxxx/)
@@ -334,8 +334,9 @@ namespace etk
 			/**
 			 * @brief Get all the File inside a Folder (done recursively)
 			 * @param[out] output List of all the File names (You must clear it before set it in)
+			 * @param[in] recursiveEnable Activate the recursive mode (enable by default)
 			 */
-			void FolderGetRecursiveFiles(etk::Vector<etk::UString>& output);
+			void FolderGetRecursiveFiles(etk::Vector<etk::UString>& output, bool recursiveEnable=true);
 			/**
 			 * @brief Check if the file have an extention ( ***.ccc)
 			 * @return true The file have an extention.
