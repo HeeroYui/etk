@@ -133,7 +133,7 @@ template<class CLASS_TYPE> class RegExpNode{
 		 * @param[in,out] 
 		 * @return
 		 */
-		virtual bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		virtual bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			return false;
@@ -233,7 +233,7 @@ template<class CLASS_TYPE> class RegExpNodeValue : public RegExpNode<CLASS_TYPE>
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			//TK_INFO("Parse node : Value{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -359,7 +359,7 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public RegExpNode<CLASS_TYP
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			//TK_INFO("Parse node : [...]{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -437,7 +437,7 @@ template<class CLASS_TYPE> class RegExpNodeDigit : public RegExpNode<CLASS_TYPE>
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			//TK_INFO("Parse node : Digit{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "} : "<< data[currentPos] << " lenMax=" << lenMax);
@@ -503,7 +503,7 @@ template<class CLASS_TYPE> class RegExpNodeDigitNot : public RegExpNode<CLASS_TY
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			//TK_INFO("Parse node : DigitNot{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -573,7 +573,7 @@ template<class CLASS_TYPE> class RegExpNodeLetter : public RegExpNode<CLASS_TYPE
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			//TK_INFO("Parse node : Letter{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -645,7 +645,7 @@ template<class CLASS_TYPE> class RegExpNodeLetterNot : public RegExpNode<CLASS_T
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			//TK_INFO("Parse node : LetterNot{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -717,7 +717,7 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpace : public RegExpNode<CLASS_
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			//TK_INFO("Parse node : Space{" << m_multipleMin << "," << m_multipleMax << "}");
@@ -791,7 +791,7 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpaceNot : public RegExpNode<CLA
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			//TK_INFO("Parse node : SpaceNot{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -865,7 +865,7 @@ template<class CLASS_TYPE> class RegExpNodeWordChar : public RegExpNode<CLASS_TY
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			//TK_INFO("Parse node : Word{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -939,7 +939,7 @@ template<class CLASS_TYPE> class RegExpNodeWordCharNot : public RegExpNode<CLASS
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			//TK_INFO("Parse node : WordNot{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -1013,7 +1013,7 @@ template<class CLASS_TYPE> class RegExpNodeDot : public RegExpNode<CLASS_TYPE> {
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			//TK_INFO("Parse node : '.'{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -1089,7 +1089,7 @@ template<class CLASS_TYPE> class RegExpNodeSOL : public RegExpNode<CLASS_TYPE> {
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			TK_INFO("Parse node : SOL{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -1138,7 +1138,7 @@ template<class CLASS_TYPE> class RegExpNodeEOL : public RegExpNode<CLASS_TYPE> {
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			TK_INFO("Parse node : EOL{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -1351,7 +1351,7 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			//TK_INFO("Parse node : (Elem){" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -1480,7 +1480,7 @@ template<class CLASS_TYPE> class RegExpNodePThese : public RegExpNode<CLASS_TYPE
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool Parse(CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
+		bool Parse(const CLASS_TYPE &data, int32_t currentPos, int32_t lenMax, int32_t &findLen)
 		{
 			findLen = 0;
 			//TK_INFO("Parse node : (...){" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -1611,11 +1611,10 @@ template<class CLASS_TYPE> class RegExp {
 		};
 		
 		/**
-		 * @brief
-		 * @param[in,out] 
-		 * @return
+		 * @brief Set a new regular expression matching
+		 * @param[in] expressionRequested the new expression to search
 		 */
-		void SetRegExp(etk::UString &expressionRequested)
+		void SetRegExp(const etk::UString &expressionRequested)
 		{
 			m_expressionRequested = expressionRequested;		// TODO : Must be deprecated ...
 			etk::Vector<int16_t> tmpExp;
@@ -1745,19 +1744,18 @@ template<class CLASS_TYPE> class RegExp {
 		};
 		
 		/**
-		 * @brief
-		 * @param[in,out] 
-		 * @return
+		 * @brief Get the regular expression string
+		 * @return the string representing the RegExp
 		 */
-		etk::UString	GetRegExp(void)
+		etk::UString GetRegExp(void)
 		{
 			return m_expressionRequested;
 		};
 		
 		/**
-		 * @brief
-		 * @param[in,out] 
-		 * @return
+		 * @brief Get the status if the regular expression parsing
+		 * @return true : the regExp is correctly parsed
+		 * @return false : an error occcured (check log ...)
 		 */
 		bool GetStatus(void)
 		{
@@ -1766,14 +1764,17 @@ template<class CLASS_TYPE> class RegExp {
 		// process the regular expression
 		
 		/**
-		 * @brief
-		 * @param[in,out] 
-		 * @return
+		 * @brief process the seach of the regular expression in a defined class type
+		 * @param[in] SearchIn table of element to seach in
+		 * @param[in] startPos start position to search
+		 * @param[in] endPos end position to search
+		 * @param[in] escapeChar special char that remove other char real type
+		 * @return true : find something, false otherwise
 		 */
-		bool Process( CLASS_TYPE   &SearchIn,
-		              int32_t      startPos,
-		              int32_t      endPos,
-		              char         escapeChar=0)
+		bool Process( const CLASS_TYPE& SearchIn,
+		              int32_t startPos,
+		              int32_t endPos,
+		              char escapeChar=0)
 		{
 			if (false == m_isOk) {
 				return false;
@@ -1851,10 +1852,10 @@ template<class CLASS_TYPE> class RegExp {
 			return false;
 		};
 		
-		bool ProcessOneElement( CLASS_TYPE   &SearchIn,
-		                        int32_t      startPos,
-		                        int32_t      endPos,
-		                        char         escapeChar=0)
+		bool ProcessOneElement( const CLASS_TYPE& SearchIn,
+		                        int32_t startPos,
+		                        int32_t endPos,
+		                        char escapeChar=0)
 		{
 			if (false == m_isOk) {
 				return false;

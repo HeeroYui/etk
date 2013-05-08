@@ -18,6 +18,8 @@ namespace etk
 {
 	class UString
 	{
+		private :
+			etk::Vector<uniChar_t> m_data; //!< internal data is stored in the Unicode properties ...
 		public:
 			// Constructeurs
 			UString(void);
@@ -55,10 +57,10 @@ namespace etk
 			/*****************************************************
 			 *    > < >= <= operator
 			 *****************************************************/
-			bool  operator>  (const etk::UString& etkS) const;
-			bool  operator>= (const etk::UString& etkS) const;
-			bool  operator<  (const etk::UString& etkS) const;
-			bool  operator<= (const etk::UString& etkS) const;
+			bool operator>  (const etk::UString& etkS) const;
+			bool operator>= (const etk::UString& etkS) const;
+			bool operator<  (const etk::UString& etkS) const;
+			bool operator<= (const etk::UString& etkS) const;
 			/*****************************************************
 			 *    += operator
 			 *****************************************************/
@@ -97,37 +99,34 @@ namespace etk
 			 *    toolbox
 			 *****************************************************/
 			// Start With ...
-			bool          StartWith(const etk::UString& data, bool caseSensitive=true) const ;
+			bool StartWith(const etk::UString& data, bool caseSensitive=true) const ;
 			// End With ...
-			bool          EndWith(const etk::UString& data, bool caseSensitive=true) const ;
+			bool EndWith(const etk::UString& data, bool caseSensitive=true) const ;
 			// Find element
-			int32_t       FindForward(const char      data, int32_t startPos=0) const;
-			int32_t       FindForward(const uniChar_t data, int32_t startPos=0) const;
-			int32_t       FindBack(const char         data, int32_t startPos=0x7FFFFFFF) const;
-			int32_t       FindBack(const uniChar_t    data, int32_t startPos=0x7FFFFFFF) const;
+			int32_t FindForward(const char data, int32_t startPos=0) const;
+			int32_t FindForward(const uniChar_t data, int32_t startPos=0) const;
+			int32_t FindBack(const char data, int32_t startPos=0x7FFFFFFF) const;
+			int32_t FindBack(const uniChar_t data, int32_t startPos=0x7FFFFFFF) const;
 			
-			bool          IsEmpty(void) const;
-			int32_t       Size(void) const;
+			bool IsEmpty(void) const;
+			int32_t Size(void) const;
 			
 			/*****************************************************
 			 *    Generic modification function
 			 *****************************************************/
-			void          Add(int32_t currentID, const char* inputData);
-			void          Add(int32_t currentID, const uniChar_t* inputData);
-			void          Add(int32_t currentID, const uniChar_t  inputData);
-			void          Remove(int32_t currentID, int32_t len);
-			void          Clear(void);
+			void Add(int32_t currentID, const char* inputData);
+			void Add(int32_t currentID, const uniChar_t* inputData);
+			void Add(int32_t currentID, const uniChar_t  inputData);
+			void Remove(int32_t currentID, int32_t len);
+			void Clear(void);
 			
 			etk::Vector<uniChar_t> GetVector(void);
-			uniChar_t *            pointer(void) { return &m_data[0]; };
+			uniChar_t* pointer(void) { return &m_data[0]; };
 			
 			etk::Char c_str(void) const;
 			
 			// Sting operation :
 			etk::UString Extract(int32_t posStart=0, int32_t posEnd=0x7FFFFFFF) const;
-	
-		private :
-			etk::Vector<uniChar_t> m_data;     //!< internal data is stored in the Unicode properties ...
 	};
 
 	etk::CCout& operator <<(etk::CCout &os, const etk::UString &obj);

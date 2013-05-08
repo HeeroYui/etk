@@ -58,8 +58,8 @@ namespace etk
 			{
 				// Private data :
 				private:
-					int32_t            m_current;      //!< curent Id on the vector
-					Vector<MY_TYPE> *  m_vector;       //!< Pointer on the curent element of the vectorBin
+					int32_t m_current; //!< curent Id on the vector
+					Vector<MY_TYPE>* m_vector; //!< Pointer on the curent element of the vectorBin
 				public:
 					/**
 					 * @brief Basic itarator constructor with no link with an etkVector
@@ -72,7 +72,7 @@ namespace etk
 					}
 					/**
 					 * @brief Recopy constructor on a specific etkVector.
-					 * @param[in] otherIterator		The Iterator that might be copy
+					 * @param[in] otherIterator The Iterator that might be copy
 					 */
 					Iterator(const Iterator & otherIterator):
 						m_current(otherIterator.m_current),
@@ -82,7 +82,7 @@ namespace etk
 					}
 					/**
 					 * @brief Asignation operator.
-					 * @param[in] otherIterator		The Iterator that might be copy
+					 * @param[in] otherIterator The Iterator that might be copy
 					 * @return reference on the curent Iterator
 					 */
 					Iterator& operator=(const Iterator & otherIterator)
@@ -105,8 +105,8 @@ namespace etk
 					 */
 					operator bool ()
 					{
-						if(		0 <= m_current
-							&&	m_current < m_vector->Size() )
+						if(    0 <= m_current
+						    && m_current < m_vector->Size() )
 						{
 							return true;
 						} else {
@@ -119,8 +119,8 @@ namespace etk
 					 */
 					Iterator& operator++ ()
 					{
-						if(		NULL != m_vector
-							&&	m_current < m_vector->Size() )
+						if(    NULL != m_vector
+						    && m_current < m_vector->Size() )
 						{
 							m_current++;
 						}
@@ -176,14 +176,6 @@ namespace etk
 						return m_vector->Get(m_current);
 					}
 				private:
-					/**
-					 * @brief 
-					 *
-					 * @param[in,out] ---
-					 *
-					 * @return ---
-					 *
-					 */
 					Iterator(Vector<MY_TYPE> * obj, int32_t pos):
 						m_current(pos),
 						m_vector(obj)
@@ -194,13 +186,13 @@ namespace etk
 			};
 	
 		private:
-			MY_TYPE *     m_data;         //!< pointer on the curetn table of Data
-			int32_t       m_size;         //!< nb Element in the buffer
-			int32_t       m_allocated;    //!< Current allocated size
+			MY_TYPE* m_data; //!< pointer on the curetn table of Data
+			int32_t m_size; //!< nb Element in the buffer
+			int32_t m_allocated; //!< Current allocated size
 		public:
 			/**
 			 * @brief Create an empty vector
-			 * @param[in] count		Minimum request size of the Buffer
+			 * @param[in] count Minimum request size of the Buffer
 			 */
 			Vector(int32_t count = 0):
 				m_data(NULL),
@@ -211,9 +203,9 @@ namespace etk
 			}
 			/**
 			 * @brief Re-copy constructor (copy all needed data)
-			 * @param[in] Evb	Vector that might be copy
+			 * @param[in] obj Vector that might be copy
 			 */
-			Vector(const etk::Vector<MY_TYPE> & obj)
+			Vector(const etk::Vector<MY_TYPE>& obj)
 			{
 				m_allocated = obj.m_allocated;
 				m_size      = obj.m_size;
@@ -260,12 +252,11 @@ namespace etk
 					obj.m_data = tmpData;
 					obj.m_allocated = tmpAllocated;
 					obj.m_size = tmpSize;
-					
 				}
 			}
 			/**
 			 * @brief Re-copy operator
-			 * @param[in] Evb	Vector that might be copy
+			 * @param[in] obj Vector that might be copy
 			 * @return reference on the curent re-copy vector
 			 */
 			Vector& operator=(const etk::Vector<MY_TYPE> & obj)
@@ -297,9 +288,9 @@ namespace etk
 			
 			/**
 			 * @brief Add at the Last position of the Vector
-			 * @param[in] item	Element to add at the end of vector
+			 * @param[in] obj Element to add at the end of vector
 			 */
-			Vector& operator+= (const etk::Vector<MY_TYPE> & obj)	// += operator
+			Vector& operator+= (const etk::Vector<MY_TYPE> & obj)
 			{
 				int32_t nbElememt = obj.Size();
 				int32_t idx = m_size;
@@ -319,7 +310,7 @@ namespace etk
 			 * @brief Get the number of element in the vector
 			 * @return The number requested
 			 */
-			int32_t Size() const
+			int32_t Size(void) const
 			{
 				return m_size;
 			}

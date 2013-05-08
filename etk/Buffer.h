@@ -168,7 +168,7 @@ namespace etk
 			 * @param[in] pos Position in the buffer.
 			 * @return Element at the request pos.
 			 */
-			int8_t operator[] (int32_t pos)
+			int8_t operator[] (int32_t pos) const
 			{
 				TK_ASSERT(0 <= pos || pos < Size(), "try to read an element non existing");
 				if (pos < m_gapStart) {
@@ -182,7 +182,7 @@ namespace etk
 			 * @param[in] pos Desired position read
 			 * @return Reference on the Element
 			 */
-			int8_t& Get(int32_t pos)
+			int8_t& Get(int32_t pos) const
 			{
 				TK_ASSERT(0 <= pos || pos < Size(), "try to read an element non existing");
 				if (pos < m_gapStart) {
@@ -385,7 +385,7 @@ namespace etk
 			 * @brief Get the number of element in the vector
 			 * @return The number requested
 			 */
-			int32_t Size(void)
+			int32_t Size(void) const
 			{
 				return m_allocated - GapSize();
 			};
@@ -496,7 +496,7 @@ namespace etk
 			 * @brief Get the current gap size.
 			 * @return The number of element in the gap
 			 */
-			int32_t GapSize(void)
+			int32_t GapSize(void) const
 			{
 				return m_gapEnd - m_gapStart;
 			}

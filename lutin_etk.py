@@ -56,6 +56,11 @@ def Create(target):
 		myModule.AddExportFlag_CC("-DDEBUG_LEVEL=3")
 		myModule.AddExportFlag_CC("-DDEBUG=1")
 	
+	if target.name=="Windows":
+		None
+	else:
+		myModule.AddExportflag_LD("-lpthread")
+	
 	myModule.AddExportPath(lutinTools.GetCurrentPath(__file__))
 	
 	
