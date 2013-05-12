@@ -984,7 +984,8 @@ bool etk::FSNode::Move(const etk::UString& path)
 	if (tmpDst.Exist()==true) {
 		tmpDst.Remove();
 	}
-	int32_t res = rename(GetName().c_str(), tmpDst.GetName().c_str());
+	TK_DEBUG("Move : \"" << GetFileSystemName() << "\" ==> \"" << tmpDst.GetFileSystemName() << "\"");
+	int32_t res = rename(GetFileSystemName().c_str(), tmpDst.GetFileSystemName().c_str());
 	if (res!=0) {
 		return false;
 	} else {
@@ -1730,6 +1731,7 @@ bool etk::FSNodeMove(const etk::UString& path1, const etk::UString& path2)
 {
 	etk::FSNode tmpNode(path1);
 	if (false==tmpNode.Exist()) {
+		TK_DEBUG("try to move un existant file \"" << path1 << "\"");
 		return false;
 	}
 	// no check error in every case

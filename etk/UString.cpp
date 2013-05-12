@@ -79,7 +79,8 @@ etk::UString::UString(const uniChar_t inputData)
 void etk::UString::Set(const char * inputData, int32_t len)
 {
 	if (NULL == inputData) {
-		// nothing to add ... 
+		// nothing to add ... ==> clear all the data ...
+		Clear();
 		return;
 	}
 	// overwrite the len if needed : 
@@ -105,7 +106,8 @@ void etk::UString::Set(const char * inputData, int32_t len)
 void etk::UString::Set(const uniChar_t * inputData, int32_t len)
 {
 	if (NULL == inputData) {
-		// nothing to add ...
+		// nothing to add ... ==> clear all the data ...
+		Clear();
 		return;
 	}
 	// overwrite the len if needed :
@@ -639,3 +641,90 @@ etk::Char etk::UString::c_str(void) const
 }
 
 
+int64_t etk::UString::ToInt64(void) const
+{
+	int64_t ret=0;
+	bool isOdd = false;
+	for (int32_t iii=0; iii<m_data.Size(); iii++) {
+		if(    iii==0
+		    && (    m_data[iii] == '-'
+		         || m_data[iii] == '+') ) {
+			if(m_data[iii] == '-') {
+				isOdd = true;
+			}
+		} else {
+			if (m_data[iii]>='0' && m_data[iii]<='9') {
+				int32_t val = m_data[iii] - '0';
+				ret = ret*10 + val;
+			} else {
+				break;
+			}
+		}
+	}
+	if (isOdd == true) {
+		ret *= -1;
+	}
+	return ret;
+}
+
+int32_t etk::UString::ToInt32(void) const
+{
+	int64_t parse = ToInt64();
+	return etk_avg((int64_t)INT32_MIN, parse, (int64_t)INT32_MAX);
+}
+int16_t etk::UString::ToInt16(void) const
+{
+	int64_t parse = ToInt64();
+	return etk_avg((int64_t)INT16_MIN, parse, (int64_t)INT16_MAX);
+}
+int8_t etk::UString::ToInt8(void) const
+{
+	int64_t parse = ToInt64();
+	return etk_avg((int64_t)INT8_MIN, parse, (int64_t)INT8_MAX);
+}
+
+double etk::UString::ToDouble(void) const
+{
+	double ret=0;
+	bool isOdd = false;
+	int32_t dotPos = -1;
+	for (int32_t iii=0; iii<m_data.Size(); iii++) {
+		if(    iii==0
+		    && (    m_data[iii] == '-'
+		         || m_data[iii] == '+') ) {
+			if(m_data[iii] == '-') {
+				isOdd = true;
+			}
+		} else {
+			if (dotPos == -1) {
+				if (m_data[iii] == '.') {
+					dotPos = 1;
+					// jump at the next element
+					continue;
+				}
+			}
+			if (m_data[iii]>='0' && m_data[iii]<='9') {
+				int32_t val = m_data[iii] - '0';
+				double val2 = val;
+				if (dotPos>=0) {
+					ret += (val2*(((double)dotPos)*0.1));
+					dotPos++;
+				} else {
+					ret = ret*10.0 + val2;
+				}
+			} else {
+				break;
+			}
+		}
+	}
+	if (isOdd == true) {
+		ret *= -1.0;
+	}
+	return ret;
+}
+
+
+float etk::UString::ToFloat(void) const
+{
+	return (float)ToDouble();
+}

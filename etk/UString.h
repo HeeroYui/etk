@@ -127,6 +127,36 @@ namespace etk
 			
 			// Sting operation :
 			etk::UString Extract(int32_t posStart=0, int32_t posEnd=0x7FFFFFFF) const;
+			/**
+			 * @brief Transform the current string in an int64_t
+			 * @return the requested int
+			 */
+			int64_t ToInt64(void) const;
+			/**
+			 * @brief Transform the current string in an int32_t (if the number is higher, then it is limited at the int32_t max)
+			 * @return the requested int
+			 */
+			int32_t ToInt32(void) const;
+			/**
+			 * @brief Transform the current string in an int16_t (if the number is higher, then it is limited at the int16_t max)
+			 * @return the requested int
+			 */
+			int16_t ToInt16(void) const;
+			/**
+			 * @brief Transform the current string in an int8_t (if the number is higher, then it is limited at the int8_t max)
+			 * @return the requested int
+			 */
+			int8_t ToInt8(void) const;
+			/**
+			 * @brief Transform the current string in a double
+			 * @return the requested double
+			 */
+			double ToDouble(void) const;
+			/**
+			 * @brief Transform the current string in a float
+			 * @return the requested float
+			 */
+			float ToFloat(void) const;
 	};
 
 	etk::CCout& operator <<(etk::CCout &os, const etk::UString &obj);
