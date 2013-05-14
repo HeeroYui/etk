@@ -149,6 +149,26 @@ namespace etk
 			 */
 			int8_t ToInt8(void) const;
 			/**
+			 * @brief Transform the current string in an uint64_t
+			 * @return the requested int
+			 */
+			uint64_t ToUInt64(void) const;
+			/**
+			 * @brief Transform the current string in an uint32_t (if the number is higher, then it is limited at the uint32_t max)
+			 * @return the requested int
+			 */
+			uint32_t ToUInt32(void) const;
+			/**
+			 * @brief Transform the current string in an uint16_t (if the number is higher, then it is limited at the uint16_t max)
+			 * @return the requested int
+			 */
+			uint16_t ToUInt16(void) const;
+			/**
+			 * @brief Transform the current string in an uint8_t (if the number is higher, then it is limited at the uint8_t max)
+			 * @return the requested int
+			 */
+			uint8_t ToUInt8(void) const;
+			/**
 			 * @brief Transform the current string in a double
 			 * @return the requested double
 			 */

@@ -662,6 +662,7 @@ bool etk::UString::ToBool(void) const
 	}
 	return false;
 }
+
 int64_t etk::UString::ToInt64(void) const
 {
 	int64_t ret=0;
@@ -688,6 +689,28 @@ int64_t etk::UString::ToInt64(void) const
 	return ret;
 }
 
+uint64_t etk::UString::ToUInt64(void) const
+{
+	uint64_t ret=0;
+	for (int32_t iii=0; iii<m_data.Size(); iii++) {
+		if(    iii==0
+		    && (    m_data[iii] == '-'
+		         || m_data[iii] == '+') ) {
+			if(m_data[iii] == '-') {
+				return 0;
+			}
+		} else {
+			if (m_data[iii]>='0' && m_data[iii]<='9') {
+				int32_t val = m_data[iii] - '0';
+				ret = ret*10 + val;
+			} else {
+				break;
+			}
+		}
+	}
+	return ret;
+}
+
 int32_t etk::UString::ToInt32(void) const
 {
 	int64_t parse = ToInt64();
@@ -702,6 +725,22 @@ int8_t etk::UString::ToInt8(void) const
 {
 	int64_t parse = ToInt64();
 	return etk_avg((int64_t)INT8_MIN, parse, (int64_t)INT8_MAX);
+}
+
+uint32_t etk::UString::ToUInt32(void) const
+{
+	uint64_t parse = ToUInt64();
+	return etk_avg((int64_t)0, parse, (int64_t)UINT32_MAX);
+}
+uint16_t etk::UString::ToUInt16(void) const
+{
+	uint64_t parse = ToUInt64();
+	return etk_avg((int64_t)0, parse, (int64_t)UINT16_MAX);
+}
+uint8_t etk::UString::ToUInt8(void) const
+{
+	uint64_t parse = ToUInt64();
+	return etk_avg((int64_t)0, parse, (int64_t)UINT8_MAX);
 }
 
 double etk::UString::ToDouble(void) const

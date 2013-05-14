@@ -66,95 +66,26 @@ namespace etk
 	{
 		m_floats[0] = false;
 		m_floats[1] = false;
+		// copy to permit to modify it :
+		etk::UString tmpStr = _str;
 		if (_str.StartWith("(")) {
-			if (_str.StartWith("(t")) {
-				if (_str.CompareNoCase("(true,true)")) {
-					m_floats[0] = true;
-					m_floats[1] = true;
-				} else if (_str.CompareNoCase("(true,false)")) {
-					m_floats[0] = true;
-					m_floats[1] = false;
-				} else if (_str.CompareNoCase("(true)")) {
-					m_floats[0] = true;
-					m_floats[1] = true;
-				}
-			} else if (_str.StartWith("(f")) {
-				if (_str.CompareNoCase("(false,true)")) {
-					m_floats[0] = false;
-					m_floats[1] = true;
-				} else if (_str.CompareNoCase("(false,false)")) {
-					m_floats[0] = false;
-					m_floats[1] = false;
-				} else if (_str.CompareNoCase("(false)")) {
-					m_floats[0] = false;
-					m_floats[1] = false;
-				}
-			} else {
-				if (_str.CompareNoCase("(1,1)")) {
-					m_floats[0] = true;
-					m_floats[1] = true;
-				} else if (_str.CompareNoCase("(1)")) {
-					m_floats[0] = true;
-					m_floats[1] = true;
-				} else if (_str.CompareNoCase("(1,0)")) {
-					m_floats[0] = true;
-					m_floats[1] = false;
-				} else if (_str.CompareNoCase("(0,1)")) {
-					m_floats[0] = false;
-					m_floats[1] = true;
-				} else if (_str.CompareNoCase("(0,0)")) {
-					m_floats[0] = false;
-					m_floats[1] = false;
-				} else if (_str.CompareNoCase("(0)")) {
-					m_floats[0] = false;
-					m_floats[1] = false;
-				}
-			}
-		} else {
-			if (_str.StartWith("t")) {
-				if (_str.CompareNoCase("true,true")) {
-					m_floats[0] = true;
-					m_floats[1] = true;
-				} else if (_str.CompareNoCase("true,false")) {
-					m_floats[0] = true;
-					m_floats[1] = false;
-				} else if (_str.CompareNoCase("true")) {
-					m_floats[0] = true;
-					m_floats[1] = true;
-				}
-			} else if (_str.StartWith("f")) {
-				if (_str.CompareNoCase("false,true")) {
-					m_floats[0] = false;
-					m_floats[1] = true;
-				} else if (_str.CompareNoCase("false,false")) {
-					m_floats[0] = false;
-					m_floats[1] = false;
-				} else if (_str.CompareNoCase("false")) {
-					m_floats[0] = false;
-					m_floats[1] = false;
-				}
-			} else {
-				if (_str.CompareNoCase("1,1")) {
-					m_floats[0] = true;
-					m_floats[1] = true;
-				} else if (_str.CompareNoCase("1")) {
-					m_floats[0] = true;
-					m_floats[1] = true;
-				} else if (_str.CompareNoCase("1,0")) {
-					m_floats[0] = true;
-					m_floats[1] = false;
-				} else if (_str.CompareNoCase("0,1")) {
-					m_floats[0] = false;
-					m_floats[1] = true;
-				} else if (_str.CompareNoCase("0,0")) {
-					m_floats[0] = false;
-					m_floats[1] = false;
-				} else if (_str.CompareNoCase("0")) {
-					m_floats[0] = false;
-					m_floats[1] = false;
-				}
-			}
+			tmpStr.Remove(0,1);
 		}
+		if (tmpStr.EndWith(")")) {
+			tmpStr.Remove(tmpStr.Size()-1,1);
+		}
+		int32_t posComa = tmpStr.FindForward(',');
+		if (posComa <= 0) {
+			// no coma ...
+			// in every case, we parse the first element :
+			m_floats[0] = tmpStr.ToBool();
+			m_floats[1] = m_floats[0];
+		} else {
+			m_floats[0] = tmpStr.Extract(0,posComa).ToBool();
+			tmpStr.Remove(0,posComa+1);
+			m_floats[1] = tmpStr.ToBool();
+		}
+		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
 	
 	template<> Vector2D<int32_t>::operator etk::UString(void) const
@@ -172,19 +103,27 @@ namespace etk
 	{
 		m_floats[0] = 0;
 		m_floats[1] = 0;
+		// copy to permit to modify it :
+		etk::UString tmpStr = _str;
 		if (_str.StartWith("(")) {
-			int32_t val1=0;
-			int32_t val2=0;
-			sscanf(_str.c_str(), "(%d,%d)", &val1, &val2);
-			m_floats[0] = val1;
-			m_floats[1] = val2;
-		} else {
-			int32_t val1=0;
-			int32_t val2=0;
-			sscanf(_str.c_str(), "%d,%d", &val1, &val2);
-			m_floats[0] = val1;
-			m_floats[1] = val2;
+			tmpStr.Remove(0,1);
 		}
+		if (tmpStr.EndWith(")")) {
+			tmpStr.Remove(tmpStr.Size()-1,1);
+		}
+		
+		int32_t posComa = tmpStr.FindForward(',');
+		if (posComa <= 0) {
+			// no coma ...
+			// in every case, we parse the first element :
+			m_floats[0] = tmpStr.ToInt32();
+			m_floats[1] = m_floats[0];
+		} else {
+			m_floats[0] = tmpStr.Extract(0,posComa).ToInt32();
+			tmpStr.Remove(0,posComa+1);
+			m_floats[1] = tmpStr.ToInt32();
+		}
+		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
 	
 	template<> Vector2D<uint32_t>::operator etk::UString(void) const
@@ -202,19 +141,26 @@ namespace etk
 	{
 		m_floats[0] = 0;
 		m_floats[1] = 0;
+		// copy to permit to modify it :
+		etk::UString tmpStr = _str;
 		if (_str.StartWith("(")) {
-			int32_t val1=0;
-			int32_t val2=0;
-			sscanf(_str.c_str(), "(%d,%d)", &val1, &val2);
-			m_floats[0] = etk_max(0,val1);
-			m_floats[1] = etk_max(0,val2);
-		} else {
-			int32_t val1=0;
-			int32_t val2=0;
-			sscanf(_str.c_str(), "%d,%d", &val1, &val2);
-			m_floats[0] = etk_max(0,val1);
-			m_floats[1] = etk_max(0,val2);
+			tmpStr.Remove(0,1);
 		}
+		if (tmpStr.EndWith(")")) {
+			tmpStr.Remove(tmpStr.Size()-1,1);
+		}
+		int32_t posComa = tmpStr.FindForward(',');
+		if (posComa <= 0) {
+			// no coma ...
+			// in every case, we parse the first element :
+			m_floats[0] = tmpStr.ToUInt32();
+			m_floats[1] = m_floats[0];
+		} else {
+			m_floats[0] = tmpStr.Extract(0,posComa).ToUInt32();
+			tmpStr.Remove(0,posComa+1);
+			m_floats[1] = tmpStr.ToUInt32();
+		}
+		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
 	
 	template<> Vector2D<float>::operator etk::UString(void) const
@@ -232,14 +178,26 @@ namespace etk
 	{
 		m_floats[0] = 0;
 		m_floats[1] = 0;
-		//TK_DEBUG("start parsing od vec2 with \"" << str << "\"");
+		// copy to permit to modify it :
+		etk::UString tmpStr = _str;
 		if (_str.StartWith("(")) {
-			//TK_DEBUG("    start with (");
-			sscanf(_str.c_str(), "(%f,%f)", &m_floats[0], &m_floats[1]);
-		} else {
-			sscanf(_str.c_str(), "%f,%f", &m_floats[0], &m_floats[1]);
+			tmpStr.Remove(0,1);
 		}
-		//TK_DEBUG("    result " << *this);
+		if (tmpStr.EndWith(")")) {
+			tmpStr.Remove(tmpStr.Size()-1,1);
+		}
+		int32_t posComa = tmpStr.FindForward(',');
+		if (posComa <= 0) {
+			// no coma ...
+			// in every case, we parse the first element :
+			m_floats[0] = tmpStr.ToFloat();
+			m_floats[1] = m_floats[0];
+		} else {
+			m_floats[0] = tmpStr.Extract(0,posComa).ToFloat();
+			tmpStr.Remove(0,posComa+1);
+			m_floats[1] = tmpStr.ToFloat();
+		}
+		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
 
 };
