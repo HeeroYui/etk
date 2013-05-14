@@ -1747,7 +1747,7 @@ template<class CLASS_TYPE> class RegExp {
 		 * @brief Get the regular expression string
 		 * @return the string representing the RegExp
 		 */
-		etk::UString GetRegExp(void)
+		const etk::UString& GetRegExp(void) const
 		{
 			return m_expressionRequested;
 		};

@@ -363,15 +363,18 @@ namespace etk
 			{
 				return m_floats[0] == 0 && m_floats[1] == 0;
 			}
-			
+			//!< string cast :
+			operator etk::UString(void) const;
+			//etk::UString UString(void) const { return *this; };
 	};
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information
 	 */
-	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<int32_t> obj);
-	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<float> obj);
-	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<uint32_t> obj);
-	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<bool> obj);
+	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<int32_t>& obj);
+	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<float>& obj);
+	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<uint32_t>& obj);
+	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<bool>& obj);
+	
 	
 };
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...

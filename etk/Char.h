@@ -24,7 +24,7 @@ namespace etk
 			~Char(void);
 			operator const char *();
 			operator void *();
-			void SetValue(const etk::Vector<char>& data);
+			void SetValue(const etk::Vector<char>& _data);
 	};
 };
 

@@ -126,15 +126,29 @@ void etk::UString::Set(const uniChar_t * inputData, int32_t len)
 }
 
 
-etk::UString::UString(char inputData)
+etk::UString::UString(const bool _inputData)
 {
-	char tmpVal[2];
-	// generate the UString : 
-	sprintf(tmpVal, "%c", inputData);
-	// set the internal data : 
 	m_data.Clear();
+	if (true == _inputData) {
+		m_data.PushBack('t');
+		m_data.PushBack('r');
+		m_data.PushBack('u');
+		m_data.PushBack('e');
+	} else {
+		m_data.PushBack('f');
+		m_data.PushBack('a');
+		m_data.PushBack('l');
+		m_data.PushBack('s');
+		m_data.PushBack('e');
+	}
 	m_data.PushBack('\0');
-	Set(tmpVal);
+}
+
+etk::UString::UString(const char inputData)
+{
+	m_data.Clear();
+	m_data.PushBack((uint32_t)inputData);
+	m_data.PushBack('\0');
 }
 
 
@@ -161,7 +175,7 @@ etk::UString::UString(unsigned int inputData, const char* mode)
 	Set(tmpVal);
 }
 
-etk::UString::UString(float inputData)
+etk::UString::UString(const float inputData)
 {
 	char tmpVal[256];
 	// generate the UString : 
@@ -172,7 +186,7 @@ etk::UString::UString(float inputData)
 	Set(tmpVal);
 }
 
-etk::UString::UString(double inputData)
+etk::UString::UString(const double inputData)
 {
 	char tmpVal[256];
 	// generate the UString : 
@@ -640,7 +654,14 @@ etk::Char etk::UString::c_str(void) const
 	return tmpVar;
 }
 
-
+bool etk::UString::ToBool(void) const
+{
+	if(    true == CompareNoCase("true")
+	    || *this == "1") {
+		return true;
+	}
+	return false;
+}
 int64_t etk::UString::ToInt64(void) const
 {
 	int64_t ret=0;

@@ -28,11 +28,12 @@ namespace etk
 			void Set(const uniChar_t* inputData, int32_t len=-1);
 			void Set(const char*      inputData, int32_t len=-1);
 			// basic convertion integer en string
-			UString(char inputData);
+			UString(const bool _inputData);
+			UString(const char _inputData);
 			UString(int inputData, const char* mode="%d");
 			UString(unsigned int inputData, const char* mode="%d");
-			UString(float inputData);
-			UString(double inputData);
+			UString(const float inputData);
+			UString(const double inputData);
 			UString(const etk::UString &etkS);
 			//UString(const uniChar_t inputData);
 			// destructor : 
@@ -41,7 +42,7 @@ namespace etk
 			/*****************************************************
 			 *    = assigment
 			 *****************************************************/
-			const etk::UString& operator= (const etk::UString &etkS );
+			const etk::UString& operator= (const etk::UString& etkS );
 			const etk::UString& operator= (etk::Vector<char> inputData);
 			const etk::UString& operator= (etk::Vector<int8_t> inputData);
 			const etk::UString& operator= (etk::Vector<uniChar_t> inputData);
@@ -157,6 +158,11 @@ namespace etk
 			 * @return the requested float
 			 */
 			float ToFloat(void) const;
+			/**
+			 * @brief Transform the current string in a boolean
+			 * @return the requested bool
+			 */
+			bool ToBool(void) const;
 	};
 
 	etk::CCout& operator <<(etk::CCout &os, const etk::UString &obj);
