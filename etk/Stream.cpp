@@ -100,6 +100,14 @@ etk::CCout& etk::CCout::operator << (int t)
 }
 
 
+etk::CCout& etk::CCout::operator << (const etk::UniChar& t)
+{
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", t.Get());
+	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
+	hex = false;
+	return *this;
+}
+
 etk::CCout& etk::CCout::operator << (unsigned int t)
 {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", t);

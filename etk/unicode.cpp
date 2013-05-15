@@ -15,38 +15,38 @@
 
 
 
-void unicode::convertIsoToUnicode(charset_te inputCharset, char input_ISO, uniChar_t & output_Unicode)
+void unicode::convertIsoToUnicode(charset_te _inputCharset, const char _input_ISO, uniChar_t & _output_Unicode)
 {
-	switch(inputCharset)
+	switch(_inputCharset)
 	{
-		case EDN_CHARSET_ISO_8859_1:		output_Unicode = TableIso8859_1[(uint32_t)input_ISO&0xFF];			break;
-		case EDN_CHARSET_ISO_8859_2:		output_Unicode = TableIso8859_2[(uint32_t)input_ISO&0xFF];			break;
-		case EDN_CHARSET_ISO_8859_3:		output_Unicode = TableIso8859_3[(uint32_t)input_ISO&0xFF];			break;
-		case EDN_CHARSET_ISO_8859_4:		output_Unicode = TableIso8859_4[(uint32_t)input_ISO&0xFF];			break;
-		case EDN_CHARSET_ISO_8859_5:		output_Unicode = TableIso8859_5[(uint32_t)input_ISO&0xFF];			break;
-		case EDN_CHARSET_ISO_8859_6:		output_Unicode = TableIso8859_6[(uint32_t)input_ISO&0xFF];			break;
-		case EDN_CHARSET_ISO_8859_7:		output_Unicode = TableIso8859_7[(uint32_t)input_ISO&0xFF];			break;
-		case EDN_CHARSET_ISO_8859_8:		output_Unicode = TableIso8859_8[(uint32_t)input_ISO&0xFF];			break;
-		case EDN_CHARSET_ISO_8859_9:		output_Unicode = TableIso8859_9[(uint32_t)input_ISO&0xFF];			break;
-		case EDN_CHARSET_ISO_8859_10:		output_Unicode = TableIso8859_10[(uint32_t)input_ISO&0xFF];			break;
-		case EDN_CHARSET_ISO_8859_11:		output_Unicode = TableIso8859_11[(uint32_t)input_ISO&0xFF];			break;
-		case EDN_CHARSET_ISO_8859_13:		output_Unicode = TableIso8859_13[(uint32_t)input_ISO&0xFF];			break;
-		case EDN_CHARSET_ISO_8859_14:		output_Unicode = TableIso8859_14[(uint32_t)input_ISO&0xFF];			break;
+		case EDN_CHARSET_ISO_8859_1:		_output_Unicode.Set(TableIso8859_1[(uint32_t)_input_ISO&0xFF]);			break;
+		case EDN_CHARSET_ISO_8859_2:		_output_Unicode.Set(TableIso8859_2[(uint32_t)_input_ISO&0xFF]);			break;
+		case EDN_CHARSET_ISO_8859_3:		_output_Unicode.Set(TableIso8859_3[(uint32_t)_input_ISO&0xFF]);			break;
+		case EDN_CHARSET_ISO_8859_4:		_output_Unicode.Set(TableIso8859_4[(uint32_t)_input_ISO&0xFF]);			break;
+		case EDN_CHARSET_ISO_8859_5:		_output_Unicode.Set(TableIso8859_5[(uint32_t)_input_ISO&0xFF]);			break;
+		case EDN_CHARSET_ISO_8859_6:		_output_Unicode.Set(TableIso8859_6[(uint32_t)_input_ISO&0xFF]);			break;
+		case EDN_CHARSET_ISO_8859_7:		_output_Unicode.Set(TableIso8859_7[(uint32_t)_input_ISO&0xFF]);			break;
+		case EDN_CHARSET_ISO_8859_8:		_output_Unicode.Set(TableIso8859_8[(uint32_t)_input_ISO&0xFF]);			break;
+		case EDN_CHARSET_ISO_8859_9:		_output_Unicode.Set(TableIso8859_9[(uint32_t)_input_ISO&0xFF]);			break;
+		case EDN_CHARSET_ISO_8859_10:		_output_Unicode.Set(TableIso8859_10[(uint32_t)_input_ISO&0xFF]);			break;
+		case EDN_CHARSET_ISO_8859_11:		_output_Unicode.Set(TableIso8859_11[(uint32_t)_input_ISO&0xFF]);			break;
+		case EDN_CHARSET_ISO_8859_13:		_output_Unicode.Set(TableIso8859_13[(uint32_t)_input_ISO&0xFF]);			break;
+		case EDN_CHARSET_ISO_8859_14:		_output_Unicode.Set(TableIso8859_14[(uint32_t)_input_ISO&0xFF]);			break;
 		case EDN_CHARSET_ISO_8859_15:		
-			output_Unicode = TableIso8859_15[(uint32_t)input_ISO&0xFF];
+			_output_Unicode = TableIso8859_15[(uint32_t)_input_ISO&0xFF];
 			break;
 		default :
-			TK_WARNING("Unknow charset ... " << inputCharset);
-			output_Unicode = '?';
+			TK_WARNING("Unknow charset ... " << _inputCharset);
+			_output_Unicode = '?';
 			break;
 	}
 }
 
 
-void unicode::convertUnicodeToIso(charset_te inputCharset, uniChar_t input_Unicode, char & output_ISO)
+void unicode::convertUnicodeToIso(charset_te _inputCharset, const uniChar_t _input_Unicode, char & _output_ISO)
 {
-	const uniChar_t *tmpTable = NULL;
-	switch(inputCharset)
+	const uint32_t *tmpTable = NULL;
+	switch(_inputCharset)
 	{
 		case EDN_CHARSET_ISO_8859_1:		tmpTable = TableIso8859_1;		break;
 		case EDN_CHARSET_ISO_8859_2:		tmpTable = TableIso8859_2;		break;
@@ -63,245 +63,158 @@ void unicode::convertUnicodeToIso(charset_te inputCharset, uniChar_t input_Unico
 		case EDN_CHARSET_ISO_8859_14:		tmpTable = TableIso8859_14;		break;
 		case EDN_CHARSET_ISO_8859_15:		tmpTable = TableIso8859_15;		break;
 		default :
-			TK_WARNING("Unknow charset ... " <<  inputCharset);
-			output_ISO = '?';
+			TK_WARNING("Unknow charset ... " <<  _inputCharset);
+			_output_ISO = '?';
 			return;
 	}
 	int32_t i;
 	for (i=0; i<256; i++) {
-		if (tmpTable[i] == input_Unicode) {
-			output_ISO = (char)i;
+		if (tmpTable[i] == _input_Unicode.Get()) {
+			_output_ISO = (char)i;
 			return;
 		}
 	}
 }
 
 
-int32_t unicode::convertIsoToUnicode(charset_te inputCharset, etk::Vector<char>& input_ISO, etk::Vector<uniChar_t>& output_Unicode)
+int32_t unicode::convertIsoToUnicode(charset_te _inputCharset, const etk::Vector<char>& _input_ISO, etk::Vector<uniChar_t>& _output_Unicode)
 {
-	output_Unicode.Clear();
+	_output_Unicode.Clear();
 	uniChar_t output;
-	for(int32_t iii=0; iii<input_ISO.Size(); iii++) {
-		convertIsoToUnicode(inputCharset, (char)input_ISO[iii], output);
-		output_Unicode.PushBack(output);
+	for(int32_t iii=0; iii<_input_ISO.Size(); iii++) {
+		convertIsoToUnicode(_inputCharset, (char)_input_ISO[iii], output);
+		_output_Unicode.PushBack(output);
 	}
-	if (output_Unicode.Size() == 0) {
-		output_Unicode.PushBack(0);
-	} else if (output_Unicode[output_Unicode.Size()-1] != 0) {
-		output_Unicode.PushBack(0);
+	if (_output_Unicode.Size() == 0) {
+		_output_Unicode.PushBack(0);
+	} else if (_output_Unicode[_output_Unicode.Size()-1] != 0) {
+		_output_Unicode.PushBack(0);
 	}
-	return output_Unicode.Size();
+	return _output_Unicode.Size();
 }
 
-int32_t unicode::convertIsoToUnicode(charset_te inputCharset, etk::Vector<int8_t>& input_ISO, etk::Vector<uniChar_t>& output_Unicode)
+int32_t unicode::convertIsoToUnicode(charset_te _inputCharset, const etk::Vector<int8_t>& _input_ISO, etk::Vector<uniChar_t>& _output_Unicode)
 {
-	output_Unicode.Clear();
+	_output_Unicode.Clear();
 	uniChar_t output;
-	for(int32_t iii=0; iii<input_ISO.Size(); iii++) {
-		convertIsoToUnicode(inputCharset, (char)input_ISO[iii], output);
-		output_Unicode.PushBack(output);
+	for(int32_t iii=0; iii<_input_ISO.Size(); iii++) {
+		convertIsoToUnicode(_inputCharset, (char)_input_ISO[iii], output);
+		_output_Unicode.PushBack(output);
 	}
-	if (output_Unicode.Size() == 0) {
-		output_Unicode.PushBack(0);
-	} else if (output_Unicode[output_Unicode.Size()-1] != 0) {
-		output_Unicode.PushBack(0);
+	if (_output_Unicode.Size() == 0) {
+		_output_Unicode.PushBack(0);
+	} else if (_output_Unicode[_output_Unicode.Size()-1] != 0) {
+		_output_Unicode.PushBack(0);
 	}
-	return output_Unicode.Size();
+	return _output_Unicode.Size();
 }
 
 
-int32_t unicode::convertUnicodeToIso(charset_te inputCharset, etk::Vector<uniChar_t>& input_Unicode, etk::Vector<char>&    output_ISO)
+int32_t unicode::convertUnicodeToIso(charset_te _inputCharset, const etk::Vector<uniChar_t>& _input_Unicode, etk::Vector<char>&    _output_ISO)
 {
-	output_ISO.Clear();
+	_output_ISO.Clear();
 	char output[10];
-	for(int32_t iii=0; iii<input_Unicode.Size(); iii++) {
-		convertUnicodeToUtf8(input_Unicode[iii], output);
+	for(int32_t iii=0; iii<_input_Unicode.Size(); iii++) {
+		_input_Unicode[iii].GetUtf8(output);
 		char * tmp = output;
 		while(*tmp != '\0') {
-			output_ISO.PushBack(*tmp);
+			_output_ISO.PushBack(*tmp);
 			tmp++;
 		}
 	}
-	output_ISO.PushBack(0);
-	return output_ISO.Size();
+	_output_ISO.PushBack(0);
+	return _output_ISO.Size();
 }
 
-int32_t unicode::convertUnicodeToIso(charset_te inputCharset, etk::Vector<uniChar_t>& input_Unicode, etk::Vector<int8_t>&    output_ISO)
+int32_t unicode::convertUnicodeToIso(charset_te _inputCharset, const etk::Vector<uniChar_t>& _input_Unicode, etk::Vector<int8_t>&    _output_ISO)
 {
-	output_ISO.Clear();
+	_output_ISO.Clear();
 	char output[10];
-	for(int32_t iii=0; iii<input_Unicode.Size(); iii++) {
-		convertUnicodeToUtf8(input_Unicode[iii], output);
+	for(int32_t iii=0; iii<_input_Unicode.Size(); iii++) {
+		_input_Unicode[iii].GetUtf8(output);
 		char * tmp = output;
 		while(*tmp != '\0') {
-			output_ISO.PushBack(*tmp);
+			_output_ISO.PushBack(*tmp);
 			tmp++;
 		}
 	}
-	output_ISO.PushBack(0);
-	return output_ISO.Size();
-}
-
-
-static uint32_t unicodeToUtf8(uniChar_t value)
-{
-	uint32_t output = 0;
-	if (127 >= value) {
-		output = value;
-	} else if (2047 >= value) {
-		// output ==> 00000000 00000000 110xxxxx 10xxxxxx
-		// input ==>  -------- -------- -----222 22111111
-		output = 0x0000C080;
-		output+= (value & 0x000007C0)<<2;
-		output+=  value & 0x0000003F;
-	} else if (65535 >= value) {
-		// output ==> 00000000 1110xxxx 10xxxxxx 10xxxxxx
-		// input ==>  -------- -------- 33332222 22111111
-		output = 0x00E08080;
-		output+= (value & 0x0000F000)<<4;
-		output+= (value & 0x00000FC0)<<2;
-		output+=  value & 0x0000003F;
-	} else if (1114111 >= value) {
-		// output ==> 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
-		// input ==>  -------- ---44433 33332222 22111111
-		output = 0xF0808080;
-		output+= (value & 0x001C0000)<<6;
-		output+= (value & 0x0003F000)<<4;
-		output+= (value & 0x00000FC0)<<2;
-		output+=  value & 0x0000003F;
-	} else {
-		TK_ERROR("NON UTF8 caracter input...");
-		return 0;
-	}
-	//printf("utf8convertion : %d=%08x ==> %08x\n",value, value, output);
-	return output;
-}
-
-
-void unicode::convertUnicodeToUtf8(uniChar_t input_Unicode, char * output_UTF8)
-{
-	uint32_t value = unicodeToUtf8(input_Unicode);
-	if (0xFF >= value) {
-		output_UTF8[0] = (char)value;
-		output_UTF8[1] = '\0';
-	} else if (0xFFFF >= value) {
-		output_UTF8[0] = (char)((value>>8)  & 0x000000FF);
-		output_UTF8[1] = (char)value;
-		output_UTF8[2] = '\0';
-	} else if (0xFFFFFF >= value) {
-		output_UTF8[0] = (char)((value>>16) & 0x000000FF);
-		output_UTF8[1] = (char)((value>>8)  & 0x000000FF);
-		output_UTF8[2] = (char)value;
-		output_UTF8[3] = '\0';
-	} else {
-		output_UTF8[0] = (char)((value>>24) & 0x000000FF);
-		output_UTF8[1] = (char)((value>>16) & 0x000000FF);
-		output_UTF8[2] = (char)((value>>8)  & 0x000000FF);
-		output_UTF8[3] = (char)value;
-		output_UTF8[4] = '\0';
-	}
+	_output_ISO.PushBack(0);
+	return _output_ISO.Size();
 }
 
 
 
-void unicode::convertUtf8ToUnicode(char * input_UTF8, uniChar_t &output_Unicode)
-{
-	int32_t len = strlen(input_UTF8);
-	output_Unicode = 0;
-	switch (len) {
-		case 1:
-			output_Unicode = (uint8_t)(input_UTF8[0]) & 0x7F;
-			break;
-		case 2:
-			output_Unicode  = (((uint8_t)input_UTF8[0]) & 0x1F)<< 6;
-			output_Unicode +=  ((uint8_t)input_UTF8[1]) & 0x3F;
-			break;
-		case 3:
-			output_Unicode  = (((uint8_t)input_UTF8[0]) & 0x0F)<< 12;
-			output_Unicode += (((uint8_t)input_UTF8[1]) & 0x3F)<< 6;
-			output_Unicode +=  ((uint8_t)input_UTF8[2]) & 0x3F;
-			break;
-		default:
-			output_Unicode  = (((uint8_t)input_UTF8[0]) & 0x07)<< 18;
-			output_Unicode += (((uint8_t)input_UTF8[1]) & 0x3F)<< 12;
-			output_Unicode += (((uint8_t)input_UTF8[2]) & 0x3F)<< 6;
-			output_Unicode +=  ((uint8_t)input_UTF8[3]) & 0x3F;
-			break;
-	}
-}
-
-
-int32_t unicode::convertUnicodeToUtf8(const etk::Vector<uniChar_t>& input_Unicode, etk::Vector<char>& output_UTF8)
+int32_t unicode::convertUnicodeToUtf8(const etk::Vector<uniChar_t>& _input_Unicode, etk::Vector<char>& _output_UTF8)
 {
 	char output[10];
 	
-	for (int32_t iii=0; iii<input_Unicode.Size(); iii++) {
-		unicode::convertUnicodeToUtf8(input_Unicode[iii], output);
+	for (int32_t iii=0; iii<_input_Unicode.Size(); iii++) {
+		_input_Unicode[iii].GetUtf8(output);
 		char * tmp = output ;
 		while (*tmp != '\0') {
-			output_UTF8.PushBack(*tmp);
+			_output_UTF8.PushBack(*tmp);
 			tmp++;
 		}
 	}
-	output_UTF8.PushBack('\0');
-	return output_UTF8.Size()-1;
+	_output_UTF8.PushBack('\0');
+	return _output_UTF8.Size()-1;
 }
 
-int32_t unicode::convertUnicodeToUtf8(const etk::Vector<uniChar_t>& input_Unicode, etk::Vector<int8_t>& output_UTF8)
+int32_t unicode::convertUnicodeToUtf8(const etk::Vector<uniChar_t>& _input_Unicode, etk::Vector<int8_t>& _output_UTF8)
 {
 	char output[10];
 	
-	for (int32_t iii=0; iii<input_Unicode.Size(); iii++) {
-		unicode::convertUnicodeToUtf8(input_Unicode[iii], output);
+	for (int32_t iii=0; iii<_input_Unicode.Size(); iii++) {
+		_input_Unicode[iii].GetUtf8(output);
 		char * tmp = output ;
 		while (*tmp != '\0') {
-			output_UTF8.PushBack((int8_t)*tmp);
+			_output_UTF8.PushBack((int8_t)*tmp);
 			tmp++;
 		}
 	}
-	output_UTF8.PushBack('\0');
-	return output_UTF8.Size()-1;
+	_output_UTF8.PushBack('\0');
+	return _output_UTF8.Size()-1;
 }
 
 
-int32_t unicode::convertUtf8ToUnicode(etk::Vector<char>& input_UTF8, etk::Vector<uniChar_t>& output_Unicode)
+int32_t unicode::convertUtf8ToUnicode(const etk::Vector<char>& _input_UTF8, etk::Vector<uniChar_t>& _output_Unicode)
 {
 	char tmpData[20];
 	int32_t pos = 0;
-	while (pos < input_UTF8.Size()) {
-		int32_t lenMax = input_UTF8.Size() - pos;
+	while (pos < _input_UTF8.Size()) {
+		int32_t lenMax = _input_UTF8.Size() - pos;
 		//4 case
 		if(    1<=lenMax
-		    && 0x00 == (input_UTF8[pos+0] & 0x80) )
+		    && 0x00 == (_input_UTF8[pos+0] & 0x80) )
 		{
-			tmpData[0] = input_UTF8[pos+0];
+			tmpData[0] = _input_UTF8[pos+0];
 			tmpData[1] = '\0';
 			pos += 1;
 		} else if(		2<=lenMax
-					&&	0xC0 == (input_UTF8[pos+0] & 0xE0)
-					&&	0x80 == (input_UTF8[pos+1] & 0xC0) ) {
-			tmpData[0] = input_UTF8[pos+0];
-			tmpData[1] = input_UTF8[pos+1];
+					&&	0xC0 == (_input_UTF8[pos+0] & 0xE0)
+					&&	0x80 == (_input_UTF8[pos+1] & 0xC0) ) {
+			tmpData[0] = _input_UTF8[pos+0];
+			tmpData[1] = _input_UTF8[pos+1];
 			tmpData[2] = '\0';
 			pos += 2;
 		} else if(		3<=lenMax
-					&&	0xE0 == (input_UTF8[pos+0] & 0xF0)
-					&&	0x80 == (input_UTF8[pos+1] & 0xC0)
-					&&	0x80 == (input_UTF8[pos+2] & 0xC0)) {
-			tmpData[0] = input_UTF8[pos+0];
-			tmpData[1] = input_UTF8[pos+1];
-			tmpData[2] = input_UTF8[pos+2];
+					&&	0xE0 == (_input_UTF8[pos+0] & 0xF0)
+					&&	0x80 == (_input_UTF8[pos+1] & 0xC0)
+					&&	0x80 == (_input_UTF8[pos+2] & 0xC0)) {
+			tmpData[0] = _input_UTF8[pos+0];
+			tmpData[1] = _input_UTF8[pos+1];
+			tmpData[2] = _input_UTF8[pos+2];
 			tmpData[3] = '\0';
 			pos += 3;
 		} else if(		4<=lenMax
-					&&	0xF0 == (input_UTF8[pos+0] & 0xF8)
-					&&	0x80 == (input_UTF8[pos+1] & 0xC0)
-					&&	0x80 == (input_UTF8[pos+2] & 0xC0)
-					&&	0x80 == (input_UTF8[pos+3] & 0xC0)) {
-			tmpData[0] = input_UTF8[pos+0];
-			tmpData[1] = input_UTF8[pos+1];
-			tmpData[2] = input_UTF8[pos+2];
-			tmpData[3] = input_UTF8[pos+3];
+					&&	0xF0 == (_input_UTF8[pos+0] & 0xF8)
+					&&	0x80 == (_input_UTF8[pos+1] & 0xC0)
+					&&	0x80 == (_input_UTF8[pos+2] & 0xC0)
+					&&	0x80 == (_input_UTF8[pos+3] & 0xC0)) {
+			tmpData[0] = _input_UTF8[pos+0];
+			tmpData[1] = _input_UTF8[pos+1];
+			tmpData[2] = _input_UTF8[pos+2];
+			tmpData[3] = _input_UTF8[pos+3];
 			tmpData[4] = '\0';
 			pos += 4;
 		} else {
@@ -309,50 +222,50 @@ int32_t unicode::convertUtf8ToUnicode(etk::Vector<char>& input_UTF8, etk::Vector
 			pos += 1;
 		}
 		uniChar_t tmpUnicode;
-		convertUtf8ToUnicode(tmpData, tmpUnicode);
-		output_Unicode.PushBack(tmpUnicode);
+		tmpUnicode.SetUtf8(tmpData);
+		_output_Unicode.PushBack(tmpUnicode);
 	}
 	return 0;
 }
 
-int32_t unicode::convertUtf8ToUnicode(etk::Vector<int8_t>& input_UTF8, etk::Vector<uniChar_t>& output_Unicode)
+int32_t unicode::convertUtf8ToUnicode(const etk::Vector<int8_t>& _input_UTF8, etk::Vector<uniChar_t>& _output_Unicode)
 {
 	char tmpData[20];
 	int32_t pos = 0;
-	while (pos < input_UTF8.Size()) {
-		int32_t lenMax = input_UTF8.Size() - pos;
+	while (pos < _input_UTF8.Size()) {
+		int32_t lenMax = _input_UTF8.Size() - pos;
 		//4 case
 		if(    1<=lenMax
-		    && 0x00 == (input_UTF8[pos+0] & 0x80) )
+		    && 0x00 == (_input_UTF8[pos+0] & 0x80) )
 		{
-			tmpData[0] = input_UTF8[pos+0];
+			tmpData[0] = _input_UTF8[pos+0];
 			tmpData[1] = '\0';
 			pos += 1;
 		} else if(		2<=lenMax
-					&&	0xC0 == (input_UTF8[pos+0] & 0xE0)
-					&&	0x80 == (input_UTF8[pos+1] & 0xC0) ) {
-			tmpData[0] = input_UTF8[pos+0];
-			tmpData[1] = input_UTF8[pos+1];
+					&&	0xC0 == (_input_UTF8[pos+0] & 0xE0)
+					&&	0x80 == (_input_UTF8[pos+1] & 0xC0) ) {
+			tmpData[0] = _input_UTF8[pos+0];
+			tmpData[1] = _input_UTF8[pos+1];
 			tmpData[2] = '\0';
 			pos += 2;
 		} else if(		3<=lenMax
-					&&	0xE0 == (input_UTF8[pos+0] & 0xF0)
-					&&	0x80 == (input_UTF8[pos+1] & 0xC0)
-					&&	0x80 == (input_UTF8[pos+2] & 0xC0)) {
-			tmpData[0] = input_UTF8[pos+0];
-			tmpData[1] = input_UTF8[pos+1];
-			tmpData[2] = input_UTF8[pos+2];
+					&&	0xE0 == (_input_UTF8[pos+0] & 0xF0)
+					&&	0x80 == (_input_UTF8[pos+1] & 0xC0)
+					&&	0x80 == (_input_UTF8[pos+2] & 0xC0)) {
+			tmpData[0] = _input_UTF8[pos+0];
+			tmpData[1] = _input_UTF8[pos+1];
+			tmpData[2] = _input_UTF8[pos+2];
 			tmpData[3] = '\0';
 			pos += 3;
 		} else if(		4<=lenMax
-					&&	0xF0 == (input_UTF8[pos+0] & 0xF8)
-					&&	0x80 == (input_UTF8[pos+1] & 0xC0)
-					&&	0x80 == (input_UTF8[pos+2] & 0xC0)
-					&&	0x80 == (input_UTF8[pos+3] & 0xC0)) {
-			tmpData[0] = input_UTF8[pos+0];
-			tmpData[1] = input_UTF8[pos+1];
-			tmpData[2] = input_UTF8[pos+2];
-			tmpData[3] = input_UTF8[pos+3];
+					&&	0xF0 == (_input_UTF8[pos+0] & 0xF8)
+					&&	0x80 == (_input_UTF8[pos+1] & 0xC0)
+					&&	0x80 == (_input_UTF8[pos+2] & 0xC0)
+					&&	0x80 == (_input_UTF8[pos+3] & 0xC0)) {
+			tmpData[0] = _input_UTF8[pos+0];
+			tmpData[1] = _input_UTF8[pos+1];
+			tmpData[2] = _input_UTF8[pos+2];
+			tmpData[3] = _input_UTF8[pos+3];
 			tmpData[4] = '\0';
 			pos += 4;
 		} else {
@@ -360,54 +273,54 @@ int32_t unicode::convertUtf8ToUnicode(etk::Vector<int8_t>& input_UTF8, etk::Vect
 			pos += 1;
 		}
 		uniChar_t tmpUnicode;
-		convertUtf8ToUnicode(tmpData, tmpUnicode);
-		output_Unicode.PushBack(tmpUnicode);
+		tmpUnicode.SetUtf8(tmpData);
+		_output_Unicode.PushBack(tmpUnicode);
 	}
 	return 0;
 }
 
-int32_t unicode::convertUtf8ToUnicode(char * input_UTF8, etk::Vector<uniChar_t>& output_Unicode)
+int32_t unicode::convertUtf8ToUnicode(const char * _input_UTF8, etk::Vector<uniChar_t>& _output_Unicode)
 {
 	char tmpData[20];
 	int32_t pos = 0;
-	if (NULL == input_UTF8) {
+	if (NULL == _input_UTF8) {
 		return 0;
 	}
-	int32_t len = strlen(input_UTF8);
+	int32_t len = strlen(_input_UTF8);
 	while (pos < len) {
 		int32_t lenMax = len - pos;
 		//4 case
 		if(    1<=lenMax
-		    && 0x00 == (input_UTF8[pos+0] & 0x80) )
+		    && 0x00 == (_input_UTF8[pos+0] & 0x80) )
 		{
-			tmpData[0] = input_UTF8[pos+0];
+			tmpData[0] = _input_UTF8[pos+0];
 			tmpData[1] = '\0';
 			pos += 1;
 		} else if(		2<=lenMax
-					&&	0xC0 == (input_UTF8[pos+0] & 0xE0)
-					&&	0x80 == (input_UTF8[pos+1] & 0xC0) ) {
-			tmpData[0] = input_UTF8[pos+0];
-			tmpData[1] = input_UTF8[pos+1];
+					&&	0xC0 == (_input_UTF8[pos+0] & 0xE0)
+					&&	0x80 == (_input_UTF8[pos+1] & 0xC0) ) {
+			tmpData[0] = _input_UTF8[pos+0];
+			tmpData[1] = _input_UTF8[pos+1];
 			tmpData[2] = '\0';
 			pos += 2;
 		} else if(		3<=lenMax
-					&&	0xE0 == (input_UTF8[pos+0] & 0xF0)
-					&&	0x80 == (input_UTF8[pos+1] & 0xC0)
-					&&	0x80 == (input_UTF8[pos+2] & 0xC0)) {
-			tmpData[0] = input_UTF8[pos+0];
-			tmpData[1] = input_UTF8[pos+1];
-			tmpData[2] = input_UTF8[pos+2];
+					&&	0xE0 == (_input_UTF8[pos+0] & 0xF0)
+					&&	0x80 == (_input_UTF8[pos+1] & 0xC0)
+					&&	0x80 == (_input_UTF8[pos+2] & 0xC0)) {
+			tmpData[0] = _input_UTF8[pos+0];
+			tmpData[1] = _input_UTF8[pos+1];
+			tmpData[2] = _input_UTF8[pos+2];
 			tmpData[3] = '\0';
 			pos += 3;
 		} else if(		4<=lenMax
-					&&	0xF0 == (input_UTF8[pos+0] & 0xF8)
-					&&	0x80 == (input_UTF8[pos+1] & 0xC0)
-					&&	0x80 == (input_UTF8[pos+2] & 0xC0)
-					&&	0x80 == (input_UTF8[pos+3] & 0xC0)) {
-			tmpData[0] = input_UTF8[pos+0];
-			tmpData[1] = input_UTF8[pos+1];
-			tmpData[2] = input_UTF8[pos+2];
-			tmpData[3] = input_UTF8[pos+3];
+					&&	0xF0 == (_input_UTF8[pos+0] & 0xF8)
+					&&	0x80 == (_input_UTF8[pos+1] & 0xC0)
+					&&	0x80 == (_input_UTF8[pos+2] & 0xC0)
+					&&	0x80 == (_input_UTF8[pos+3] & 0xC0)) {
+			tmpData[0] = _input_UTF8[pos+0];
+			tmpData[1] = _input_UTF8[pos+1];
+			tmpData[2] = _input_UTF8[pos+2];
+			tmpData[3] = _input_UTF8[pos+3];
 			tmpData[4] = '\0';
 			pos += 4;
 		} else {
@@ -415,83 +328,83 @@ int32_t unicode::convertUtf8ToUnicode(char * input_UTF8, etk::Vector<uniChar_t>&
 			pos += 1;
 		}
 		uniChar_t tmpUnicode;
-		convertUtf8ToUnicode(tmpData, tmpUnicode);
-		output_Unicode.PushBack(tmpUnicode);
+		tmpUnicode.SetUtf8(tmpData);
+		_output_Unicode.PushBack(tmpUnicode);
 	}
 	return 0;
 }
 
 
 // Transform ISO <==> UTF-8
-void unicode::convertIsoToUtf8(charset_te inputCharset,  char input_ISO, char * output_UTF8)
+void unicode::convertIsoToUtf8(charset_te _inputCharset, const char _input_ISO, char * _output_UTF8)
 {
 	uniChar_t tmpUnicode;
 	// concert Iso in UniCode
-	convertIsoToUnicode(inputCharset, input_ISO, tmpUnicode );
+	convertIsoToUnicode(_inputCharset, _input_ISO, tmpUnicode );
 	// convert UniCode in Utf-8
-	convertUnicodeToUtf8(tmpUnicode, output_UTF8);
+	tmpUnicode.GetUtf8(_output_UTF8);
 }
 
 
-void unicode::convertUtf8ToIso(charset_te inputCharset,  char * input_UTF8, char & output_ISO)
+void unicode::convertUtf8ToIso(charset_te _inputCharset, const char * _input_UTF8, char & _output_ISO)
 {
 	uniChar_t tmpUnicode;
 	// convert Utf-8 in UniCode
-	convertUtf8ToUnicode(input_UTF8, tmpUnicode);
+	tmpUnicode.SetUtf8(_input_UTF8);
 	// concert UniCode in Iso
-	convertUnicodeToIso(inputCharset, tmpUnicode, output_ISO);
+	convertUnicodeToIso(_inputCharset, tmpUnicode, _output_ISO);
 }
 
 
-int32_t unicode::convertIsoToUtf8(charset_te inputCharset, etk::Vector<char>& input_ISO, etk::Vector<char>& output_UTF8)
+int32_t unicode::convertIsoToUtf8(charset_te _inputCharset, const etk::Vector<char>& _input_ISO, etk::Vector<char>& _output_UTF8)
 {
 	TK_WARNING("TODO : not coded...");
 	return 0;
 }
 
 
-int32_t unicode::convertUtf8ToIso(charset_te inputCharset, etk::Vector<char>& input_UTF8, etk::Vector<char>& output_ISO)
+int32_t unicode::convertUtf8ToIso(charset_te _inputCharset, const etk::Vector<char>& _input_UTF8, etk::Vector<char>& _output_ISO)
 {
 	TK_WARNING("TODO : not coded...");
 	return 0;
 }
 
-void unicode::Utf8_SizeElement(const char * data, int32_t lenMax , uint8_t &size, bool &baseValid)
+void unicode::Utf8_SizeElement(const char * _data, int32_t _lenMax , uint8_t &_size, bool &_baseValid)
 {
-	TK_ASSERT(0 <= lenMax, "size can not be < 0 ...");
-	if (0 > lenMax) {
-		size = 0;
-		baseValid = false;
+	TK_ASSERT(0 <= _lenMax, "size can not be < 0 ...");
+	if (0 > _lenMax) {
+		_size = 0;
+		_baseValid = false;
 		return;
 	}
 	//4 case
-	if (	1<=lenMax
-		&&	0x00 == (data[0] & 0x80) ) {
+	if (	1<=_lenMax
+		&&	0x00 == (_data[0] & 0x80) ) {
 		// One Char Element
-		size = 1;
-		baseValid = true;
-	} else if(		2<=lenMax
-				&&	0xC0 == (data[0] & 0xE0)
-				&&	0x80 == (data[1] & 0xC0) ) {
-		size = 2;
-		baseValid = true;
-	} else if(		3<=lenMax
-				&&	0xE0 == (data[0] & 0xF0)
-				&&	0x80 == (data[1] & 0xC0)
-				&&	0x80 == (data[2] & 0xC0)) {
-		size = 3;
-		baseValid = true;
-	} else if(		4<=lenMax
-				&&	0xF0 == (data[0] & 0xF8)
-				&&	0x80 == (data[1] & 0xC0)
-				&&	0x80 == (data[2] & 0xC0)
-				&&	0x80 == (data[3] & 0xC0)) {
-		size = 4;
-		baseValid = true;
+		_size = 1;
+		_baseValid = true;
+	} else if(		2<=_lenMax
+				&&	0xC0 == (_data[0] & 0xE0)
+				&&	0x80 == (_data[1] & 0xC0) ) {
+		_size = 2;
+		_baseValid = true;
+	} else if(		3<=_lenMax
+				&&	0xE0 == (_data[0] & 0xF0)
+				&&	0x80 == (_data[1] & 0xC0)
+				&&	0x80 == (_data[2] & 0xC0)) {
+		_size = 3;
+		_baseValid = true;
+	} else if(		4<=_lenMax
+				&&	0xF0 == (_data[0] & 0xF8)
+				&&	0x80 == (_data[1] & 0xC0)
+				&&	0x80 == (_data[2] & 0xC0)
+				&&	0x80 == (_data[3] & 0xC0)) {
+		_size = 4;
+		_baseValid = true;
 	} else {
 		// return only one error Caracter ...
-		baseValid = false;
-		size = 1;
+		_baseValid = false;
+		_size = 1;
 	}
 }
 

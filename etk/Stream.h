@@ -31,6 +31,7 @@ namespace etk
 			CCout(void);
 			~CCout(void);
 			CCout& operator << (CHex t);
+			CCout& operator << (const etk::UniChar& t);;
 			CCout& operator << (int t);
 			CCout& operator << (unsigned int t);
 			CCout& operator << (long t);

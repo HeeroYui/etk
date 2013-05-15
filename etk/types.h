@@ -18,8 +18,6 @@
 #define __STDC_LIMIT_MACROS
 #include <stdint.h>
 
-typedef uint32_t uniChar_t;
-
 typedef enum {
 	ERR_NONE = 0, //!< No error, luckily everything went fine
 	ERR_FAIL, //!< Miscellaneous failure
@@ -33,5 +31,8 @@ typedef enum {
 #define etk_min(elemA, elemB)               (((elemA)<(elemB)) ? (elemA) : (elemB))
 #define etk_max(elemA, elemB)               (((elemA)<(elemB)) ? (elemB) : (elemA))
 #define etk_avg(minimim, elem, maximum)     (((minimim)>(elem)) ? (minimim) : ((maximum)<(elem)) ? (maximum) : (elem))
+
+#include <etk/UniChar.h>
+
 
 #endif

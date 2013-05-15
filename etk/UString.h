@@ -18,58 +18,80 @@ namespace etk
 {
 	class UString
 	{
+		public:
+			typedef enum {
+				printModeBinary,
+				printModeOctal,
+				printModeDecimal,
+				printModeHexadecimal,
+				printModeString,
+			} printMode_te;
 		private :
 			etk::Vector<uniChar_t> m_data; //!< internal data is stored in the Unicode properties ...
 		public:
 			// Constructeurs
 			UString(void);
-			UString(const uniChar_t*  inputData, int32_t len = -1);
-			UString(const char*       inputData, int32_t len = -1);
+			// destructor : 
+			~UString(void) { };
+			// recopy operator :
+			UString(const etk::UString& _obj);
+			
+			// single element adding
+			UString(const bool _inputData, printMode_te _mode=printModeString, bool _preset=false);
+			UString(const uniChar_t _inputData);
+			UString(const float _inputData);
+			UString(const double _inputData);
+			UString(const int8_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false)   { Set((int64_t)_inputData, _mode, _preset); };
+			UString(const int16_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false)  { Set((int64_t)_inputData, _mode, _preset); };
+			UString(const int32_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false)  { Set((int64_t)_inputData, _mode, _preset); };
+			UString(const int64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false)  { Set(_inputData, _mode, _preset); };
+			UString(const uint8_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false)  { Set((uint64_t)_inputData, _mode, _preset); };
+			UString(const uint16_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false) { Set((uint64_t)_inputData, _mode, _preset); };
+			UString(const uint32_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false) { Set((uint64_t)_inputData, _mode, _preset); };
+			UString(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false) { Set(_inputData, _mode, _preset); };
+			// multiple element add
+			UString(const uniChar_t* _inputData, int32_t len = -1);
+			UString(const char* _inputData, int32_t len = -1);
+			UString(const etk::Vector<char>& inputData);
+			UString(const etk::Vector<int8_t>& inputData);
+			UString(const etk::Vector<uniChar_t>& inputData);
+			// generic setter
 			void Set(const uniChar_t* inputData, int32_t len=-1);
 			void Set(const char*      inputData, int32_t len=-1);
-			// basic convertion integer en string
-			UString(const bool _inputData);
-			UString(const char _inputData);
-			UString(int inputData, const char* mode="%d");
-			UString(unsigned int inputData, const char* mode="%d");
-			UString(const float inputData);
-			UString(const double inputData);
-			UString(const etk::UString &etkS);
-			//UString(const uniChar_t inputData);
-			// destructor : 
-			~UString(void);
+			void Set(const etk::Vector<char>& inputData);
+			void Set(const etk::Vector<int8_t>& inputData);
+			void Set(const etk::Vector<uniChar_t>& inputData);
+			void Set(const int64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false);
+			void Set(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false);
 			
 			/*****************************************************
 			 *    = assigment
 			 *****************************************************/
-			const etk::UString& operator= (const etk::UString& etkS );
-			const etk::UString& operator= (etk::Vector<char> inputData);
-			const etk::UString& operator= (etk::Vector<int8_t> inputData);
-			const etk::UString& operator= (etk::Vector<uniChar_t> inputData);
+			const etk::UString& operator= (const etk::UString& _obj );
 			/*****************************************************
 			 *    == operator
 			 *****************************************************/
-			bool operator== (const etk::UString& etkS) const;
-			bool CompareNoCase(const etk::UString& etkS) const;
+			bool operator== (const etk::UString& _obj) const;
+			bool CompareNoCase(const etk::UString& _obj) const;
 			/*****************************************************
 			 *    != operator
 			 *****************************************************/
-			bool operator!= (const etk::UString& etkS) const;
+			bool operator!= (const etk::UString& _obj) const;
 			/*****************************************************
 			 *    > < >= <= operator
 			 *****************************************************/
-			bool operator>  (const etk::UString& etkS) const;
-			bool operator>= (const etk::UString& etkS) const;
-			bool operator<  (const etk::UString& etkS) const;
-			bool operator<= (const etk::UString& etkS) const;
+			bool operator>  (const etk::UString& _obj) const;
+			bool operator>= (const etk::UString& _obj) const;
+			bool operator<  (const etk::UString& _obj) const;
+			bool operator<= (const etk::UString& _obj) const;
 			/*****************************************************
 			 *    += operator
 			 *****************************************************/
-			const etk::UString& operator+= (const etk::UString &etkS);
+			const etk::UString& operator+= (const etk::UString &_obj);
 			/*****************************************************
 			 *    + operator
 			 *****************************************************/
-			etk::UString operator+ (const etk::UString &etkS) const;
+			etk::UString operator+ (const etk::UString &_obj) const;
 			/*****************************************************
 			 *    << operator
 			 *****************************************************/
@@ -85,29 +107,27 @@ namespace etk
 			/*****************************************************
 			 *    Cout << operator
 			 *****************************************************/
-			friend etk::CCout& operator <<( etk::CCout &os,const etk::UString &obj);
+			friend etk::CCout& operator <<( etk::CCout& _os,const etk::UString& _obj);
 			/*****************************************************
 			 *    [] operator
 			 *****************************************************/
-			const uniChar_t& operator[] (int32_t pos) const {
-				return m_data[pos];
+			const uniChar_t& operator[] (int32_t _pos) const {
+				return m_data[_pos];
 			}
-			uniChar_t& operator[] (int32_t pos) {
-				return m_data[pos];
+			uniChar_t& operator[] (int32_t _pos) {
+				return m_data[_pos];
 			}
 			
 			/*****************************************************
 			 *    toolbox
 			 *****************************************************/
 			// Start With ...
-			bool StartWith(const etk::UString& data, bool caseSensitive=true) const ;
+			bool StartWith(const etk::UString& _data, bool _caseSensitive=true) const ;
 			// End With ...
-			bool EndWith(const etk::UString& data, bool caseSensitive=true) const ;
+			bool EndWith(const etk::UString& _data, bool _caseSensitive=true) const ;
 			// Find element
-			int32_t FindForward(const char data, int32_t startPos=0) const;
-			int32_t FindForward(const uniChar_t data, int32_t startPos=0) const;
-			int32_t FindBack(const char data, int32_t startPos=0x7FFFFFFF) const;
-			int32_t FindBack(const uniChar_t data, int32_t startPos=0x7FFFFFFF) const;
+			int32_t FindForward(const uniChar_t _data, int32_t _startPos=0) const;
+			int32_t FindBack(const uniChar_t _data, int32_t _startPos=0x7FFFFFFF) const;
 			
 			bool IsEmpty(void) const;
 			int32_t Size(void) const;
@@ -125,6 +145,12 @@ namespace etk
 			uniChar_t* pointer(void) { return &m_data[0]; };
 			
 			etk::Char c_str(void) const;
+			
+			void Lower(void);
+			etk::UString ToLower(void);
+			void Upper(void);
+			etk::UString ToUpper(void);
+			
 			
 			// Sting operation :
 			etk::UString Extract(int32_t posStart=0, int32_t posEnd=0x7FFFFFFF) const;
