@@ -139,9 +139,14 @@ void etk::UString::Set(const int64_t& _inputData, etk::UString::printMode_te _mo
 		Set((uint64_t)_inputData, _mode, _preset);
 		return;
 	}
-	int64_t tmpData = _inputData * (int64_t)(-1);
+	uint64_t tmpData;
 	if (_inputData < 0) {
-		if (_mode != etk::UString::printModeString) {
+		tmpData = (uint64_t)((int64_t)_inputData * (int64_t)(-1));
+	} else {
+		tmpData = _inputData;
+	}
+	if (_inputData < 0) {
+		if (_mode == etk::UString::printModeString) {
 			m_data.PushBack('l');
 			m_data.PushBack('e');
 			m_data.PushBack('s');
@@ -177,84 +182,49 @@ void etk::UString::Set(const uint64_t& _inputData, etk::UString::printMode_te _m
 				break;
 		}
 	}
-	bool startDisplay=false;
-	switch(_mode) {
-		case etk::UString::printModeBinary :
-			for(int32_t iii=63; iii>=0; iii--) {
-				if ((_inputData & (1<<iii)) != 0) {
-					m_data.PushBack('1');
-					startDisplay = true;
-				} else {
-					if (true == startDisplay) {
-						m_data.PushBack('0');
-					}
-				}
-			}
-			break;
-		case etk::UString::printModeOctal :
-			// special strt case ...
-			if ((_inputData & 0x80000000000000LL) != 0) {
-				m_data.PushBack('1');
-				startDisplay = true;
-			} else {
-				if (true == startDisplay) {
-					m_data.PushBack('0');
-				}
-			}
-			for(int32_t iii=59; iii>=0; iii-=3) {
-				uint64_t tmpVal = (_inputData & (((uint64_t)7)<<iii)) >> iii;
-				
-				if (tmpVal != 0) {
-					startDisplay = true;
-				}
-				if (true == startDisplay) {
-					tmpVal += '0';
-					m_data.PushBack(tmpVal);
-				}
-			}
-			break;
-		case etk::UString::printModeDecimal :
-			{
-				uint64_t tmpVal = _inputData;
-				etk::UString tmpString;
-				while (tmpVal>0) {
-					int32_t val = tmpVal % 10;
-					tmpString.Add(0,(val+'0'));
-					tmpVal /= 10;
-				}
-				if (tmpString.Size() == 0) {
-					m_data.PushBack('0');
-				} else {
-					*this += tmpString;
-				}
-			}
-			break;
-		case etk::UString::printModeHexadecimal :
-			for(int32_t iii=59; iii>=0; iii-=4) {
-				uint64_t tmpVal = (_inputData & (((uint64_t)0xF)<<iii)) >> iii;
-				if (tmpVal != 0) {
-					startDisplay = true;
-				}
-				if (true == startDisplay) {
-					if (tmpVal < 10) {
-						tmpVal += '0';
-					} else {
-						tmpVal += 'A'-10;
-					}
-					m_data.PushBack(tmpVal);
-				}
-			}
-			break;
-		default:
-		case etk::UString::printModeString :
-			m_data.PushBack('T');
-			m_data.PushBack('O');
-			m_data.PushBack('D');
-			m_data.PushBack('O');
-			m_data.PushBack('.');
-			m_data.PushBack('.');
-			m_data.PushBack('.');
-			break;
+	if (_mode == etk::UString::printModeString) {
+		m_data.PushBack('T');
+		m_data.PushBack('O');
+		m_data.PushBack('D');
+		m_data.PushBack('O');
+		m_data.PushBack('.');
+		m_data.PushBack('.');
+		m_data.PushBack('.');
+	} else {
+		int32_t base=8;
+		//char ploppp[256]="";
+		switch(_mode) {
+			case etk::UString::printModeBinary :
+				base=2;
+				break;
+			case etk::UString::printModeOctal :
+				//sprintf(ploppp, "%llo", _inputData);
+				base=8;
+				break;
+			default:
+			case etk::UString::printModeDecimal :
+				//sprintf(ploppp, "%llu", _inputData);
+				base=10;
+				break;
+			case etk::UString::printModeHexadecimal :
+				//sprintf(ploppp, "%llx", _inputData);
+				base=16;
+				break;
+		}
+		uint64_t tmpVal = _inputData;
+		etk::UString tmpString;
+		while (tmpVal>0) {
+			uint64_t quotient = tmpVal / base;
+			uint64_t rest = tmpVal - quotient*base;
+			tmpString.Add(0,(rest+'0'));
+			tmpVal = quotient;
+		}
+		if (tmpString.Size() == 0) {
+			m_data.PushBack('0');
+		} else {
+			*this += tmpString;
+		}
+		//TK_ERROR ("        " << ploppp);
 	}
 	m_data.PushBack('\0');
 }
@@ -708,7 +678,7 @@ bool etk::UString::EndWith(const etk::UString& _data, bool _caseSensitive) const
 		for( int32_t iii=Size()-1, jjj=_data.Size()-1;
 		     iii>=0 && jjj>=0;
 		     iii--, jjj--) {
-			if (false==m_data[iii].CompareNoCase(_data[iii])) {
+			if (false==m_data[iii].CompareNoCase(_data[jjj])) {
 				return false;
 			}
 		}

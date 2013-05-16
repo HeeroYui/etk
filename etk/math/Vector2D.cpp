@@ -85,7 +85,7 @@ namespace etk
 			tmpStr.Remove(0,posComa+1);
 			m_floats[1] = tmpStr.ToBool();
 		}
-		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
+		TK_DEBUG("Parse : \"" << _str << "\" ==> " << *this);
 	}
 	
 	template<> Vector2D<int32_t>::operator etk::UString(void) const

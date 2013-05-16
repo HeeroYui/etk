@@ -18,19 +18,19 @@ namespace etk
 	#define MAX_LOG_SIZE_TMP	(512)
 
 	class CEndl{};
-	class CHex{};
 	class CStart{};
 	
 	class CCout{
 		private:
-			bool             hex;
 			char             m_tmpChar[MAX_LOG_SIZE+1];
 			char             tmp[MAX_LOG_SIZE_TMP];
+			#if defined(__TARGET_OS__Android)
+				int8_t       m_levelAndroid; //!< specific level for Android
+			#endif
 			etk::Mutex       m_mutex;
 		public:
 			CCout(void);
 			~CCout(void);
-			CCout& operator << (CHex t);
 			CCout& operator << (const etk::UniChar& t);;
 			CCout& operator << (int t);
 			CCout& operator << (unsigned int t);
@@ -47,7 +47,6 @@ namespace etk
 	};
 	extern etk::CCout cout;
 	extern etk::CEndl endl;
-	extern etk::CHex hex;
 	extern etk::CStart cstart;
 	
 	typedef enum {
@@ -64,6 +63,8 @@ namespace etk
 	 * @brief Debug operator To display the curent element in a Human redeable information
 	 */
 	etk::CCout& operator <<(etk::CCout &os, const etk::logLevel_te obj);
+	
+	void DisplayBacktrace(void);
 };
 
 //regular colors

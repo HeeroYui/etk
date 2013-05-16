@@ -11,6 +11,35 @@
 
 namespace etk
 {
+	
+	//in the unicode section we have : [E000..F8FF]   private area ==> we will store element in this area:
+	// internal define to permit to have all needed system
+	typedef enum {
+		REGEXP_OPCODE_PTHESE_IN=0xE000,	/* ( */
+		REGEXP_OPCODE_PTHESE_OUT,/* ) */
+		REGEXP_OPCODE_BRACKET_IN,/* [ */
+		REGEXP_OPCODE_BRACKET_OUT,/* ] */
+		REGEXP_OPCODE_BRACE_IN,/* { */
+		REGEXP_OPCODE_BRACE_OUT,/* } */
+		REGEXP_OPCODE_TO,/* - */
+		REGEXP_OPCODE_STAR,/* * */
+		REGEXP_OPCODE_DOT,/* . */
+		REGEXP_OPCODE_QUESTION,/* ? */
+		REGEXP_OPCODE_PLUS,/* + */
+		REGEXP_OPCODE_PIPE,/* | */
+		REGEXP_OPCODE_START_OF_LINE,/* ^  this is also NOT, but not manage */
+		REGEXP_OPCODE_END_OF_LINE,/* $ */
+		REGEXP_OPCODE_DIGIT,/* \d */
+		REGEXP_OPCODE_DIGIT_NOT,/* \D */
+		REGEXP_OPCODE_LETTER,/* \l */
+		REGEXP_OPCODE_LETTER_NOT,/* \L */
+		REGEXP_OPCODE_SPACE,/* \s */
+		REGEXP_OPCODE_SPACE_NOT,/* \S */
+		REGEXP_OPCODE_WORD,/* \w */
+		REGEXP_OPCODE_WORD_NOT,/* \W */
+		REGEXP_OPCODE_NO_CHAR,/* \@ */
+	} regExpPrivateSection_te;
+	
 	class UniChar
 	{
 		private:
@@ -22,6 +51,9 @@ namespace etk
 				m_value(_obj.m_value)
 			{ };
 			UniChar(const char _obj) :
+				m_value((uint32_t)_obj)
+			{ };
+			UniChar(const regExpPrivateSection_te _obj) :
 				m_value((uint32_t)_obj)
 			{ };
 			~UniChar(void) {}

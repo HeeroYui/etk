@@ -34,7 +34,10 @@ void GeneralDebugSetLevel(etk::logLevel_te ccc);
 													}while(0)
 
 
-#define ETK_CRITICAL(libName, data)					ETK_DBG_COMMON(libName, etk::LOG_LEVEL_CRITICAL, data)
+#define ETK_CRITICAL(libName, data)					do { \
+														ETK_DBG_COMMON(libName, etk::LOG_LEVEL_CRITICAL, data); \
+														etk::DisplayBacktrace(); \
+													}while(0)
 
 #if DEBUG_LEVEL > 0
 #	define ETK_WARNING(libName, data)				ETK_DBG_COMMON(libName, etk::LOG_LEVEL_WARNING, data)

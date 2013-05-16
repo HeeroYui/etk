@@ -64,21 +64,11 @@ const etk::convertionTable_ts etk::constConvertionTable[] = {
 };
 const int32_t etk::constConvertionTableSize = sizeof(etk::constConvertionTable) / sizeof(etk::convertionTable_ts) ;
 
-
-void etk::DisplayData(etk::Vector<char> &data)
+void etk::DisplayElem(const etk::Vector<etk::UniChar>& _data, int32_t _start, int32_t _stop)
 {
-	int32_t i;
-	for (i=0; i<(int32_t)data.Size() ; i++) {
-		etk::cout<< (char)(data[i]&0x00FF );
-	}
-}
-
-void etk::DisplayElem(etk::Vector<int16_t> &data, int32_t start, int32_t stop)
-{
-	int32_t i;
 	etk::cout<< ETK_BASH_COLOR_NORMAL;
-	for (i=start; i<(int32_t)data.Size() && i<stop ; i++) {
-		switch(data[i])
+	for (int32_t iii=_start; iii<_data.Size() && iii<_stop ; iii++) {
+		switch(_data[iii].Get())
 		{
 			case REGEXP_OPCODE_PTHESE_IN:		etk::cout<<ETK_BASH_COLOR_RED		<< (char*)"(" << ETK_BASH_COLOR_NORMAL;		break;
 			case REGEXP_OPCODE_PTHESE_OUT:		etk::cout<<ETK_BASH_COLOR_RED		<< (char*)")" << ETK_BASH_COLOR_NORMAL;		break;
@@ -105,13 +95,13 @@ void etk::DisplayElem(etk::Vector<int16_t> &data, int32_t start, int32_t stop)
 			case REGEXP_OPCODE_WORD_NOT:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\W" << ETK_BASH_COLOR_NORMAL;	break;
 			case '\n':							etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\n" << ETK_BASH_COLOR_NORMAL;	break;
 			case '\t':							etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\t" << ETK_BASH_COLOR_NORMAL;	break;
-			default:							etk::cout<< (char)(data[i]&0x00FF );											break;
+			default:							etk::cout<< (char)(_data[iii].Get()&0x00FF );									break;
 		}
 	}
 }
-char * etk::levelSpace(int32_t level)
+char * etk::levelSpace(int32_t _level)
 {
-	switch(level)
+	switch(_level)
 	{
 		case 0:		return (char*)"";
 		case 1:		return (char*)"  ";
@@ -135,79 +125,74 @@ char * etk::levelSpace(int32_t level)
 }
 
 
-int32_t etk::GetLenOfPTheseElem(etk::Vector<int16_t> &data, int32_t startPos)
+int32_t etk::GetLenOfPTheseElem(const etk::Vector<etk::UniChar>& _data, int32_t _startPos)
 {
-	if (startPos>=data.Size()){
+	if (_startPos>=_data.Size()){
 		return 0;
 	}
-	int32_t pos = startPos;
+	int32_t pos = _startPos;
 	int32_t nbOpen = 0;
 	// special case of the (...) or | ==> we search '|' or ')'
-	if(		REGEXP_OPCODE_PTHESE_OUT	== data[pos]
-		||	REGEXP_OPCODE_PIPE			== data[pos]) {
+	if(    _data[pos] == REGEXP_OPCODE_PTHESE_OUT
+	    || _data[pos] == REGEXP_OPCODE_PIPE) {
 		return 0;
 	}
 	// find size ...
-	while (pos < (int32_t)data.Size() ) {
-		if(REGEXP_OPCODE_PTHESE_IN == data[pos]) {
+	while (pos < (int32_t)_data.Size() ) {
+		if(_data[pos] == REGEXP_OPCODE_PTHESE_IN) {
 			// find a sub section : 
 			nbOpen++;
 		} else if(0 < nbOpen) {
-			if (REGEXP_OPCODE_PTHESE_OUT == data[pos])
-			{
+			if (_data[pos] == REGEXP_OPCODE_PTHESE_OUT) {
 				nbOpen--;
 				if (0 > nbOpen) {
 					TK_ERROR("Error in the (...) find element at "<< pos);
 					return -1;
 				}
 			}
-		} else if(		REGEXP_OPCODE_PTHESE_OUT	== data[pos]
-					||	REGEXP_OPCODE_PIPE			== data[pos])
-		{
+		} else if(    _data[pos] == REGEXP_OPCODE_PTHESE_OUT
+		           || _data[pos] == REGEXP_OPCODE_PIPE) {
 			// Find the end of the (...)
 			// just return the size inside
-			int32_t sizeInside = pos - startPos;
+			int32_t sizeInside = pos - _startPos;
 			if (0 >= sizeInside) {
 				TK_ERROR("Error in the (...) no data at "<< pos-1);
 				return -1;
 			} else {
-					return sizeInside;
+				return sizeInside;
 			}
 		}
 		pos++;
 	}
-	return pos - startPos;
+	return pos - _startPos;
 }
 
-int32_t etk::GetLenOfPThese(etk::Vector<int16_t> &data, int32_t startPos)
+int32_t etk::GetLenOfPThese(const etk::Vector<etk::UniChar>& _data, int32_t _startPos)
 {
-	int32_t pos = startPos;
+	int32_t pos = _startPos;
 	int32_t nbOpen = 0;
 	// special case of the (...) or | ==> we search '|' or ')'
-	if( REGEXP_OPCODE_PTHESE_OUT == data[pos]) {
+	if(_data[pos]==REGEXP_OPCODE_PTHESE_OUT) {
 		return 0;
-	} else if( REGEXP_OPCODE_PTHESE_IN == data[pos])
-	{
+	} else if(_data[pos]==REGEXP_OPCODE_PTHESE_IN) {
 		pos++;
 		// find size ...
-		while (pos < (int32_t)data.Size() ) {
-			if(REGEXP_OPCODE_PTHESE_IN == data[pos]) {
+		while (pos < _data.Size() ) {
+			if(_data[pos]==REGEXP_OPCODE_PTHESE_IN) {
 				// find a sub section : 
 				nbOpen++;
 			} else if(0 < nbOpen) {
-				if (REGEXP_OPCODE_PTHESE_OUT == data[pos])
-				{
+				if (_data[pos]==REGEXP_OPCODE_PTHESE_OUT) {
 					nbOpen--;
 					if (0 > nbOpen) {
 						TK_ERROR("Error in the (...) find element at "<< pos);
 						return -1;
 					}
 				}
-			} else if( REGEXP_OPCODE_PTHESE_OUT	== data[pos])
-			{
+			} else if(_data[pos]==REGEXP_OPCODE_PTHESE_OUT) {
 				// Find the end of the (...)
 				// just return the size inside
-				int32_t sizeInside = pos - startPos-1;
+				int32_t sizeInside = pos - _startPos-1;
 				if (0 >= sizeInside) {
 					TK_ERROR("Error in the (...) no data at "<< pos-1);
 					return -1;
@@ -224,31 +209,29 @@ int32_t etk::GetLenOfPThese(etk::Vector<int16_t> &data, int32_t startPos)
 }
 
 
-int32_t etk::GetLenOfBracket(etk::Vector<int16_t> &data, int32_t startPos)
+int32_t etk::GetLenOfBracket(const etk::Vector<etk::UniChar>& _data, int32_t _startPos)
 {
-	int32_t pos = startPos;
+	int32_t pos = _startPos;
 	// special case of the (...) or | ==> we search '|' or ')'
-	if( REGEXP_OPCODE_BRACKET_OUT == data[pos]) {
+	if(_data[pos]==REGEXP_OPCODE_BRACKET_OUT) {
 		return 0;
-	} else if( REGEXP_OPCODE_BRACKET_IN == data[pos]) {
+	} else if(_data[pos] == REGEXP_OPCODE_BRACKET_IN) {
 		pos++;
 		// find size ...
-		while (pos < (int32_t)data.Size() ) {
-			if(REGEXP_OPCODE_BRACKET_OUT == data[pos]) {
+		while (pos < _data.Size() ) {
+			if(_data[pos]==REGEXP_OPCODE_BRACKET_OUT) {
 				// Find the end of the [...]
 				// just return the size inside
-				int32_t sizeInside = pos - startPos -1 ;
+				int32_t sizeInside = pos - _startPos -1 ;
 				if (0 >= sizeInside) {
 					TK_ERROR("Error in the [...] no data at "<< pos-1);
 					return sizeInside;
 				} else {
 					return sizeInside;
 				}
-			} else if(		REGEXP_OPCODE_TO != data[pos]
-						&&	(		0 > data[pos]
-								||	0xFF < data[pos]) )
-			{
-				TK_ERROR("Error in the [...] not permited element at "<< pos << " '" << (char)data[pos] << "'");
+			} else if(    _data[pos] != REGEXP_OPCODE_TO
+			           && _data[pos] > 0xFF ) {
+				TK_ERROR("Error in the [...] not permited element at "<< pos << " '" << (char)_data[pos].Get() << "'");
 				return false;
 			}
 			pos++;
@@ -260,31 +243,30 @@ int32_t etk::GetLenOfBracket(etk::Vector<int16_t> &data, int32_t startPos)
 }
 
 
-int32_t etk::GetLenOfBrace(etk::Vector<int16_t> &data, int32_t startPos)
+int32_t etk::GetLenOfBrace(const etk::Vector<etk::UniChar>& _data, int32_t _startPos)
 {
-	int32_t pos = startPos;
+	int32_t pos = _startPos;
 	// special case of the (...) or | ==> we search '|' or ')'
-	if( REGEXP_OPCODE_BRACE_OUT == data[pos]) {
+	if(_data[pos]==REGEXP_OPCODE_BRACE_OUT) {
 		return 0;
-	} else if( REGEXP_OPCODE_BRACE_IN == data[pos]) {
+	} else if(_data[pos]==REGEXP_OPCODE_BRACE_IN) {
 		pos++;
 		// find size ...
-		while (pos < (int32_t)data.Size() ) {
-			if(REGEXP_OPCODE_BRACE_OUT == data[pos]) {
+		while (pos < _data.Size() ) {
+			if(_data[pos]==REGEXP_OPCODE_BRACE_OUT) {
 				// Find the end of the [...]
 				// just return the size inside
-				int32_t sizeInside = pos - startPos -1 ;
+				int32_t sizeInside = pos - _startPos -1 ;
 				if (0 >= sizeInside) {
 					TK_ERROR("Error in the {...} no data at "<< pos-1);
 					return sizeInside;
 				} else {
 					return sizeInside;
 				}
-			} else if(		',' != data[pos]
-						&&	(		'0' > data[pos]
-								||	'9' < data[pos]) )
-			{
-				TK_ERROR("Error in the {...} not permited element at "<< pos << " '" << (char)data[pos] << "'");
+			} else if(    _data[pos] != ','
+			           && (    _data[pos] < '0'
+			                || _data[pos] > '9') ) {
+				TK_ERROR("Error in the {...} not permited element at "<< pos << " '" << _data[pos].Get() << "'");
 				return false;
 			}
 			pos++;
@@ -296,13 +278,13 @@ int32_t etk::GetLenOfBrace(etk::Vector<int16_t> &data, int32_t startPos)
 }
 
 
-int32_t etk::GetLenOfNormal(etk::Vector<int16_t> &data, int32_t startPos)
+int32_t etk::GetLenOfNormal(const etk::Vector<etk::UniChar>& _data, int32_t _startPos)
 {
-	int32_t pos = startPos;
+	int32_t pos = _startPos;
 
 	// find size ...
-	while (pos < (int32_t)data.Size() ) {
-		switch(data[pos])
+	while (pos < _data.Size() ) {
+		switch(_data[pos].Get())
 		{
 			case REGEXP_OPCODE_PTHESE_IN:
 			case REGEXP_OPCODE_PTHESE_OUT:
@@ -328,7 +310,7 @@ int32_t etk::GetLenOfNormal(etk::Vector<int16_t> &data, int32_t startPos)
 			case REGEXP_OPCODE_WORD_NOT:
 				{
 					// just return the size inside
-					int32_t sizeInside = pos - startPos;
+					int32_t sizeInside = pos - _startPos;
 					if (0 >= sizeInside) {
 						TK_ERROR("Error in the normal data :  no data ...");
 					}
@@ -341,11 +323,11 @@ int32_t etk::GetLenOfNormal(etk::Vector<int16_t> &data, int32_t startPos)
 		}
 		pos++;
 	}
-	return pos - startPos ;
+	return pos - _startPos ;
 }
 
 
-bool etk::ParseBrace(etk::Vector<int16_t> &data, int32_t &min, int32_t &max)
+bool etk::ParseBrace(const etk::Vector<etk::UniChar>& _data, int32_t& _min, int32_t& _max)
 {
 	//TK_INFO("parse {...} in "; DisplayElem(data); );
 	int32_t k=0;
@@ -353,36 +335,36 @@ bool etk::ParseBrace(etk::Vector<int16_t> &data, int32_t &min, int32_t &max)
 	int32_t firstElement = 0;
 	int32_t SecondElement = 0;
 	
-	while(k<data.Size()) {
-		if (',' == (char)data[k]) {
+	while(k<_data.Size()) {
+		if (_data[k]==',') {
 			k++;
 			break;
-		} if ('}' == (char)data[k]) {
+		} if (_data[k]=='}') {
 			SecondElement = firstElement;
 			goto allIsSet;
-		} else if ('0' <= (char)data[k] && '9' >= (char)data[k]) {
+		} else if(true==_data[k].IsInteger()) {
 			firstElement *=10;
-			firstElement += (char)data[k] - '0';
+			firstElement += _data[k].ToInt32();
 		} else {
-			TK_ERROR("Can not parse this element " << (char)data[k] << " at pos " << k);
+			TK_ERROR("Can not parse this element " << (char)_data[k].Get() << " at pos " << k);
 			return false;
 		}
 		k++;
 	}
-	if (k==data.Size()) {
+	if (k==_data.Size()) {
 		SecondElement = firstElement;
 	}
-	while(k<data.Size()) {
-		if (',' == (char)data[k]) {
+	while(k<_data.Size()) {
+		if (_data[k]==',') {
 			TK_ERROR("Can not find a second , in {} at pos " << k);
 			return false;
-		} if ('}' == (char)data[k]) {
+		} if (_data[k]=='}') {
 			goto allIsSet;
-		} else if ('0' <= (char)data[k] && '9' >= (char)data[k]) {
+		} else if (true==_data[k].IsInteger()) {
 			SecondElement *=10;
-			SecondElement += (char)data[k] - '0';
+			SecondElement += _data[k].ToInt32();
 		} else {
-			TK_ERROR("Can not parse this element " << (char)data[k] << " at pos " << k);
+			TK_ERROR("Can not parse this element " << _data[k] << " at pos " << k);
 			return false;
 		}
 		k++;
@@ -390,14 +372,14 @@ bool etk::ParseBrace(etk::Vector<int16_t> &data, int32_t &min, int32_t &max)
 	
 allIsSet:
 	if (SecondElement == 0 && firstElement != 0) {
-		min = 0;
-		max = firstElement;
+		_min = 0;
+		_max = firstElement;
 	} else {
-		min = firstElement;
-		max = SecondElement;
+		_min = firstElement;
+		_max = SecondElement;
 	}
-	if (min > max) {
-		TK_ERROR("Minimum=" << min << " can not be < maximum=" << max );
+	if (_min > _max) {
+		TK_ERROR("Minimum=" << _min << " can not be < maximum=" << _max );
 		return false;
 	}
 	return true;
