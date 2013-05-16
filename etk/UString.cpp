@@ -9,6 +9,7 @@
 #include <etk/UString.h>
 #include <etk/os/Memory.h>
 #include <etk/unicode.h>
+#include <etk/Debug.h>
 
 int32_t strlen(const uniChar_t * data)
 {
@@ -157,6 +158,7 @@ void etk::UString::Set(const int64_t& _inputData, etk::UString::printMode_te _mo
 		}
 	}
 	Set((uint64_t)tmpData, _mode, _preset);
+	//TK_ERROR(" convert : " << _inputData << " in : " << *this);
 }
 
 void etk::UString::Set(const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset)
@@ -227,6 +229,7 @@ void etk::UString::Set(const uint64_t& _inputData, etk::UString::printMode_te _m
 		//TK_ERROR ("        " << ploppp);
 	}
 	m_data.PushBack('\0');
+	//TK_ERROR(" convert : " << _inputData << " in : " << *this);
 }
 
 // multiple element add

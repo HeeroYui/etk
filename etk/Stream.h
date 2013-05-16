@@ -32,10 +32,14 @@ namespace etk
 			CCout(void);
 			~CCout(void);
 			CCout& operator << (const etk::UniChar& t);;
-			CCout& operator << (int t);
-			CCout& operator << (unsigned int t);
-			CCout& operator << (long t);
-			CCout& operator << (long long t);
+			CCout& operator << (int8_t t);
+			CCout& operator << (int16_t t);
+			CCout& operator << (int32_t t);
+			CCout& operator << (int64_t t);
+			CCout& operator << (uint8_t t);
+			CCout& operator << (uint16_t t);
+			CCout& operator << (uint32_t t);
+			CCout& operator << (uint64_t t);
 			CCout& operator << (double t);
 			CCout& operator << (float t);
 			CCout& operator << (char * t);

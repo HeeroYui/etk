@@ -39,7 +39,7 @@
 				free(demangled);
 			}
 		}
-		//assert(false);
+		assert(false);
 	}
 #else
 	void etk::DisplayBacktrace(void)
@@ -139,14 +139,6 @@ etk::CCout::~CCout()
 };
 
 
-etk::CCout& etk::CCout::operator << (int t)
-{
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%d", t);
-	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-	return *this;
-}
-
-
 etk::CCout& etk::CCout::operator << (const etk::UniChar& t)
 {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", t.Get());
@@ -154,25 +146,60 @@ etk::CCout& etk::CCout::operator << (const etk::UniChar& t)
 	return *this;
 }
 
-etk::CCout& etk::CCout::operator << (unsigned int t)
+etk::CCout& etk::CCout::operator << (int8_t t)
+{
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%d", t);
+	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
+	return *this;
+}
+etk::CCout& etk::CCout::operator << (int16_t t)
+{
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%d", t);
+	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
+	return *this;
+}
+etk::CCout& etk::CCout::operator << (int32_t t)
+{
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%d", t);
+	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
+	return *this;
+}
+etk::CCout& etk::CCout::operator << (int64_t t)
+{
+	#if __WORDSIZE == 64
+		snprintf(tmp, MAX_LOG_SIZE_TMP, "%ld", t);
+	#else
+		snprintf(tmp, MAX_LOG_SIZE_TMP, "%lld", t);
+	#endif
+	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
+	return *this;
+}
+
+etk::CCout& etk::CCout::operator << (uint8_t t)
 {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
-
-
-etk::CCout& etk::CCout::operator << (long t)
+etk::CCout& etk::CCout::operator << (uint16_t t)
 {
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%ld", t);
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
-
-
-etk::CCout& etk::CCout::operator << (long long t)
+etk::CCout& etk::CCout::operator << (uint32_t t)
 {
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%lld", t);
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", t);
+	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
+	return *this;
+}
+etk::CCout& etk::CCout::operator << (uint64_t t)
+{
+	#if __WORDSIZE == 64
+		snprintf(tmp, MAX_LOG_SIZE_TMP, "%lu", t);
+	#else
+		snprintf(tmp, MAX_LOG_SIZE_TMP, "%llu", t);
+	#endif
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
