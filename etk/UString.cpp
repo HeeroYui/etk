@@ -317,9 +317,9 @@ void etk::UString::Set(const char * inputData, int32_t len)
 		m_data.PopBack();
 		// copy the data ...
 		unicode::convertUtf8ToUnicode(tmpChar, m_data);
-		// add the last '\0'
-		m_data.PushBack('\0');
 	}
+	// add the last '\0'
+	m_data.PushBack('\0');
 }
 
 void etk::UString::Set(const uniChar_t * inputData, int32_t len)
@@ -339,9 +339,9 @@ void etk::UString::Set(const uniChar_t * inputData, int32_t len)
 		m_data.PopBack();
 		// copy the data ...
 		m_data.PushBack(inputData, len);
-		// add the last '\0'
-		m_data.PushBack('\0');
 	}
+	// add the last '\0'
+	m_data.PushBack('\0');
 }
 
 
