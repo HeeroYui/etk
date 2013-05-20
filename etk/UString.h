@@ -50,17 +50,20 @@ namespace etk
 			UString(const uint32_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false) { Set((uint64_t)_inputData, _mode, _preset); };
 			UString(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false) { Set(_inputData, _mode, _preset); };
 			// multiple element add
-			UString(const uniChar_t* _inputData, int32_t len = -1);
-			UString(const char* _inputData, int32_t len = -1);
-			UString(const etk::Vector<char>& inputData);
-			UString(const etk::Vector<int8_t>& inputData);
-			UString(const etk::Vector<uniChar_t>& inputData);
+			UString(const uniChar_t* _inputData, int32_t _len = -1);
+			UString(const char* _inputData, int32_t _len = -1);
+			UString(const etk::Vector<char>& _inputData);
+			UString(const etk::Vector<int8_t>& _inputData);
+			UString(const etk::Vector<uniChar_t>& _inputData);
 			// generic setter
-			void Set(const uniChar_t* inputData, int32_t len=-1);
-			void Set(const char*      inputData, int32_t len=-1);
-			void Set(const etk::Vector<char>& inputData);
-			void Set(const etk::Vector<int8_t>& inputData);
-			void Set(const etk::Vector<uniChar_t>& inputData);
+			void Set(const uniChar_t* _inputData, int32_t _len=-1);
+			void Set(const char*      _inputData, int32_t _len=-1);
+			void Set(const etk::Vector<char>& _inputData);
+			void Set(const etk::Vector<int8_t>& _inputData);
+			void Set(const etk::Vector<uniChar_t>& _inputData);
+		private:
+			void SetNumber(bool _negative, const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset);
+		public:
 			void Set(const int64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false);
 			void Set(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false);
 			
@@ -135,10 +138,10 @@ namespace etk
 			/*****************************************************
 			 *    Generic modification function
 			 *****************************************************/
-			void Add(int32_t currentID, const char* inputData);
-			void Add(int32_t currentID, const uniChar_t* inputData);
-			void Add(int32_t currentID, const uniChar_t  inputData);
-			void Remove(int32_t currentID, int32_t len);
+			void Add(int32_t _currentID, const char* _inputData);
+			void Add(int32_t _currentID, const uniChar_t* _inputData);
+			void Add(int32_t _currentID, const uniChar_t  _inputData);
+			void Remove(int32_t _currentID, int32_t _len);
 			void Clear(void);
 			
 			etk::Vector<uniChar_t> GetVector(void);
@@ -147,13 +150,13 @@ namespace etk
 			etk::Char c_str(void) const;
 			
 			void Lower(void);
-			etk::UString ToLower(void);
+			etk::UString ToLower(void) const;
 			void Upper(void);
-			etk::UString ToUpper(void);
+			etk::UString ToUpper(void) const;
 			
 			
 			// Sting operation :
-			etk::UString Extract(int32_t posStart=0, int32_t posEnd=0x7FFFFFFF) const;
+			etk::UString Extract(int32_t _posStart=0, int32_t _posEnd=0x7FFFFFFF) const;
 			/**
 			 * @brief Transform the current string in an int64_t
 			 * @return the requested int
@@ -211,11 +214,11 @@ namespace etk
 			bool ToBool(void) const;
 	};
 
-	etk::CCout& operator <<(etk::CCout &os, const etk::UString &obj);
+	etk::CCout& operator <<(etk::CCout& _os, const etk::UString& _obj);
 
 }
 
-int32_t strlen(const uniChar_t * data);
+int32_t strlen(const uniChar_t * _data);
 
 
 
