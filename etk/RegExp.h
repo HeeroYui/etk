@@ -294,7 +294,7 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public RegExpNode<CLASS_TYP
 				int32_t i;
 				tmpFind=false;
 				for (i=0; i<m_data.Size(); i++) {
-					if (_data[_currentPos+j] == m_data[i]) {
+					if (m_data[i] == _data[_currentPos+j]) {
 						_findLen += 1;
 						tmpFind=true;
 						break;
@@ -1175,7 +1175,7 @@ template<class CLASS_TYPE> class RegExp
 		 * @brief Constructor
 		 * @param[in,out] _exp Regular expression to parse
 		 */
-		RegExp(const etk::UString &_exp) :
+		RegExp(const etk::UString &_exp="") :
 			m_expressionRequested(""),
 			m_isOk(false),
 			m_notBeginWithChar(false),
@@ -1356,7 +1356,7 @@ template<class CLASS_TYPE> class RegExp
 		bool Process( const CLASS_TYPE& _SearchIn,
 		              int32_t _startPos,
 		              int32_t _endPos,
-		              char _escapeChar=0)
+		              etk::UniChar _escapeChar=0)
 		{
 			if (false == m_isOk) {
 				return false;
@@ -1391,7 +1391,7 @@ template<class CLASS_TYPE> class RegExp
 					if(		_escapeChar != 0
 						&&	i>0)
 					{
-						if ((char)_SearchIn[i-1] == _escapeChar) {
+						if (_escapeChar == _SearchIn[i-1]) {
 							//==> detected escape char ==> try find again ...
 							continue;
 						}
@@ -1435,7 +1435,7 @@ template<class CLASS_TYPE> class RegExp
 		bool ProcessOneElement( const CLASS_TYPE& _SearchIn,
 		                        int32_t _startPos,
 		                        int32_t _endPos,
-		                        char _escapeChar=0)
+		                        etk::UniChar _escapeChar=0)
 		{
 			if (false == m_isOk) {
 				return false;
@@ -1468,7 +1468,7 @@ template<class CLASS_TYPE> class RegExp
 				if(		_escapeChar != 0
 					&&	_startPos>0)
 				{
-					if (_SearchIn[_startPos-1] == _escapeChar) {
+					if (_escapeChar == _SearchIn[_startPos-1]) {
 						//==> detected escape char ==> try find again ...
 						return false;
 					}

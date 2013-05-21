@@ -144,7 +144,7 @@ namespace etk
 			void Remove(int32_t _currentID, int32_t _len);
 			void Clear(void);
 			
-			etk::Vector<uniChar_t> GetVector(void);
+			etk::Vector<etk::UniChar> GetVector(void);
 			uniChar_t* pointer(void) { return &m_data[0]; };
 			
 			etk::Char c_str(void) const;

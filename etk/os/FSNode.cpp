@@ -555,12 +555,14 @@ void etk::FSNode::PrivateSetName(const etk::UString& newName)
 			}
 		}
 	#else
-		isRootFolder = destFilename.StartWith('/');
+		isRootFolder = destFilename.StartWith("/");
 	#endif
 	if (true == destFilename.StartWith(baseFolderHome) ) {
+		TK_DBG_MODE("    ==> detect home");
 		destFilename.Remove(0, baseFolderHome.Size());
 		m_type = etk::FSN_TYPE_HOME;
 	} else if(true == isRootFolder) {
+		TK_DBG_MODE("    ==> detect root");
 		#ifdef __TARGET_OS__Windows
 			destFilename.Remove(0, 3);
 		#else
@@ -569,6 +571,7 @@ void etk::FSNode::PrivateSetName(const etk::UString& newName)
 		m_type = etk::FSN_TYPE_DIRECT;
 	} else if(    true == destFilename.StartWith("ROOT:")
 	           || true == destFilename.StartWith("root:") ) {
+		TK_DBG_MODE("    ==> detect root 2 ");
 		destFilename.Remove(0, 5);
 		m_type = etk::FSN_TYPE_DIRECT;
 		if(true == destFilename.StartWith("~")) {
@@ -577,6 +580,7 @@ void etk::FSNode::PrivateSetName(const etk::UString& newName)
 		}
 	} else if(    true == destFilename.StartWith("DIRECT:")
 	           || true == destFilename.StartWith("direct:") ) {
+		TK_DBG_MODE("    ==> detect direct");
 		destFilename.Remove(0, 7);
 		m_type = etk::FSN_TYPE_DIRECT;
 		if(true == destFilename.StartWith("~")) {
@@ -585,25 +589,31 @@ void etk::FSNode::PrivateSetName(const etk::UString& newName)
 		}
 	} else if(    true == destFilename.StartWith("DATA:")
 	           || true == destFilename.StartWith("data:") ) {
+		TK_DBG_MODE("    ==> detect data");
 		destFilename.Remove(0, 5);
 		m_type = etk::FSN_TYPE_DATA;
 	} else if(    true == destFilename.StartWith("USERDATA:")
 	           || true == destFilename.StartWith("userdata:") ) {
+		TK_DBG_MODE("    ==> detect User-data");
 		destFilename.Remove(0, 9);
 		m_type = etk::FSN_TYPE_USER_DATA;
 	} else if(    true == destFilename.StartWith("CACHE:")
 	           || true == destFilename.StartWith("cache:") ) {
+		TK_DBG_MODE("    ==> detect Cach");
 		destFilename.Remove(0, 6);
 		m_type = etk::FSN_TYPE_CACHE;
 	} else if(    true == destFilename.StartWith("THEME:")
 	           || true == destFilename.StartWith("theme:") ) {
+		TK_DBG_MODE("    ==> detect theme");
 		destFilename.Remove(0, 6);
 		m_type = etk::FSN_TYPE_THEME;
 	} else if(true == destFilename.StartWith("~")) {
+		TK_DBG_MODE("    ==> detect home 2");
 		destFilename.Remove(0, 1);
 		m_type = etk::FSN_TYPE_HOME;
 	} else if(    true == destFilename.StartWith("HOME:")
 	           || true == destFilename.StartWith("home:") ) {
+		TK_DBG_MODE("    ==> detect home 3");
 		destFilename.Remove(0, 5);
 		m_type = etk::FSN_TYPE_HOME;
 		if(true == destFilename.StartWith("~")) {
@@ -613,6 +623,7 @@ void etk::FSNode::PrivateSetName(const etk::UString& newName)
 		destFilename.Remove(0, baseRunPath.Size());
 		m_type = etk::FSN_TYPE_RELATIF;
 	} */else {
+		TK_DBG_MODE("    ==> detect other");
 		// nothing to remove
 		//Other type is Relative : 
 		m_type = etk::FSN_TYPE_RELATIF;
