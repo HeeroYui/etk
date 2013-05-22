@@ -141,7 +141,9 @@ etk::CCout::~CCout()
 
 etk::CCout& etk::CCout::operator << (const etk::UniChar& t)
 {
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", t.Get());
+	char output[5];
+	int32_t len = t.GetUtf8(output);
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%s", output);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }

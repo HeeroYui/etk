@@ -38,6 +38,7 @@ namespace etk
 		REGEXP_OPCODE_WORD,/* \w */
 		REGEXP_OPCODE_WORD_NOT,/* \W */
 		REGEXP_OPCODE_NO_CHAR,/* \@ */
+		REGEXP_OPCODE_ERROR, // not used
 	} regExpPrivateSection_te;
 	
 	class UniChar

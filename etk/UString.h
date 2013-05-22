@@ -27,7 +27,7 @@ namespace etk
 				printModeString,
 			} printMode_te;
 		private :
-			etk::Vector<uniChar_t> m_data; //!< internal data is stored in the Unicode properties ...
+			etk::Vector<etk::UniChar> m_data; //!< internal data is stored in the Unicode properties ...
 		public:
 			// Constructeurs
 			UString(void);
@@ -114,10 +114,10 @@ namespace etk
 			/*****************************************************
 			 *    [] operator
 			 *****************************************************/
-			const uniChar_t& operator[] (int32_t _pos) const {
+			const etk::UniChar& operator[] (int32_t _pos) const {
 				return m_data[_pos];
 			}
-			uniChar_t& operator[] (int32_t _pos) {
+			etk::UniChar& operator[] (int32_t _pos) {
 				return m_data[_pos];
 			}
 			
