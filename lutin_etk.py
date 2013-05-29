@@ -61,6 +61,8 @@ def Create(target):
 	
 	if target.name=="Windows":
 		None
+	elif target.name=="Android":
+		None
 	else:
 		myModule.AddExportflag_LD("-lpthread")
 	

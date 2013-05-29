@@ -24,10 +24,11 @@ namespace etk
 		private:
 			char             m_tmpChar[MAX_LOG_SIZE+1];
 			char             tmp[MAX_LOG_SIZE_TMP];
+			etk::Mutex       m_mutex;
 			#if defined(__TARGET_OS__Android)
+			public:
 				int8_t       m_levelAndroid; //!< specific level for Android
 			#endif
-			etk::Mutex       m_mutex;
 		public:
 			CCout(void);
 			~CCout(void);

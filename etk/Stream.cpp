@@ -66,7 +66,7 @@ etk::CCout& etk::operator <<(etk::CCout &os, const etk::logLevel_te obj)
 				os << ETK_BASH_COLOR_BOLD_RED;
 			#endif
 			#if defined(__TARGET_OS__Android)
-				m_levelAndroid = ANDROID_LOG_FATAL;
+				os.m_levelAndroid = ANDROID_LOG_FATAL;
 			#endif
 			os << "[C]";
 			break;
@@ -75,7 +75,7 @@ etk::CCout& etk::operator <<(etk::CCout &os, const etk::logLevel_te obj)
 				os << ETK_BASH_COLOR_RED;
 			#endif
 			#if defined(__TARGET_OS__Android)
-				m_levelAndroid = ANDROID_LOG_ERROR;
+				os.m_levelAndroid = ANDROID_LOG_ERROR;
 			#endif
 			os << "[E]";
 			break;
@@ -84,7 +84,7 @@ etk::CCout& etk::operator <<(etk::CCout &os, const etk::logLevel_te obj)
 				os << ETK_BASH_COLOR_MAGENTA;
 			#endif
 			#if defined(__TARGET_OS__Android)
-				m_levelAndroid = ANDROID_LOG_WARN;
+				os.m_levelAndroid = ANDROID_LOG_WARN;
 			#endif
 			os << "[W]";
 			break;
@@ -93,7 +93,7 @@ etk::CCout& etk::operator <<(etk::CCout &os, const etk::logLevel_te obj)
 				os << ETK_BASH_COLOR_CYAN;
 			#endif
 			#if defined(__TARGET_OS__Android)
-				m_levelAndroid = ANDROID_LOG_INFO;
+				os.m_levelAndroid = ANDROID_LOG_INFO;
 			#endif
 			os << "[I]";
 			break;
@@ -102,7 +102,7 @@ etk::CCout& etk::operator <<(etk::CCout &os, const etk::logLevel_te obj)
 				os << ETK_BASH_COLOR_YELLOW;
 			#endif
 			#if defined(__TARGET_OS__Android)
-				m_levelAndroid = ANDROID_LOG_DEBUG;
+				os.m_levelAndroid = ANDROID_LOG_DEBUG;
 			#endif
 			os << "[D]";
 			break;
@@ -111,7 +111,7 @@ etk::CCout& etk::operator <<(etk::CCout &os, const etk::logLevel_te obj)
 				os << ETK_BASH_COLOR_WHITE;
 			#endif
 			#if defined(__TARGET_OS__Android)
-				m_levelAndroid = ANDROID_LOG_VERBOSE;
+				os.m_levelAndroid = ANDROID_LOG_VERBOSE;
 			#endif
 			os << "[V]";
 			break;
@@ -142,7 +142,7 @@ etk::CCout::~CCout()
 etk::CCout& etk::CCout::operator << (const etk::UniChar& t)
 {
 	char output[5];
-	int32_t len = t.GetUtf8(output);
+	t.GetUtf8(output);
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%s", output);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
