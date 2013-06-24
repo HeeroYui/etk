@@ -13,6 +13,7 @@
 #include <etk/Stream.h>
 #include <etk/Vector.h>
 #include <etk/Char.h>
+#include <etk/unicode.h>
 
 namespace etk
 {
@@ -39,6 +40,7 @@ namespace etk
 			// single element adding
 			UString(const bool _inputData, printMode_te _mode=printModeString, bool _preset=false);
 			UString(const uniChar_t _inputData);
+			UString(const char* _data, unicode::charset_te _inputCharset);
 			UString(const float _inputData);
 			UString(const double _inputData);
 			UString(const int8_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false)   { Set((int64_t)_inputData, _mode, _preset); };
@@ -143,6 +145,7 @@ namespace etk
 			void Add(int32_t _currentID, const uniChar_t  _inputData);
 			void Remove(int32_t _currentID, int32_t _len);
 			void Clear(void);
+			void Append(const etk::UniChar& _inputData);
 			
 			etk::Vector<etk::UniChar> GetVector(void);
 			uniChar_t* pointer(void) { return &m_data[0]; };

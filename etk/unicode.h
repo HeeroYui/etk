@@ -28,7 +28,7 @@ namespace unicode {
 		EDN_CHARSET_ISO_8859_11,
 		EDN_CHARSET_ISO_8859_13,
 		EDN_CHARSET_ISO_8859_14,
-		EDN_CHARSET_ISO_8859_15,
+		EDN_CHARSET_ISO_8859_15
 	} charset_te;
 	
 	// transform ISO <==> Unicode

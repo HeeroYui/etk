@@ -46,6 +46,26 @@ etk::UString::UString(void)
 }
 
 
+etk::UString::UString(const char* _data, unicode::charset_te _inputCharset)
+{
+	// TODO : Change this ...
+	etk::Vector<char> transformData;
+	while (*_data != '\0') {
+		transformData.PushBack(*_data);
+		_data++;
+	}
+	m_data.Clear();
+	if (unicode::EDN_CHARSET_UTF8==_inputCharset) {
+		unicode::convertUtf8ToUnicode(transformData, m_data);
+	} else {
+		unicode::convertIsoToUnicode(_inputCharset, transformData, m_data);
+	}
+	if(    0 == m_data.Size()
+	    || m_data[m_data.Size()-1]!='\0') {
+		m_data.PushBack('\0');
+	}
+}
+
 
 // single element adding
 etk::UString::UString(const bool _inputData, etk::UString::printMode_te _mode, bool _preset)
@@ -585,6 +605,11 @@ void etk::UString::Add(int32_t _currentID, const uniChar_t _inputData)
 	data[0] = _inputData;
 	data[1] = 0;
 	Add(_currentID, data);
+}
+
+void etk::UString::Append(const etk::UniChar& _inputData)
+{
+	m_data.PushBack(_inputData);
 }
 
 
