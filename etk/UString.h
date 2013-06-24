@@ -39,7 +39,7 @@ namespace etk
 			
 			// single element adding
 			UString(const bool _inputData, printMode_te _mode=printModeString, bool _preset=false);
-			UString(const uniChar_t _inputData);
+			UString(const etk::UniChar& _inputData);
 			UString(const char* _data, unicode::charset_te _inputCharset);
 			UString(const float _inputData);
 			UString(const double _inputData);
@@ -52,17 +52,17 @@ namespace etk
 			UString(const uint32_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false) { Set((uint64_t)_inputData, _mode, _preset); };
 			UString(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false) { Set(_inputData, _mode, _preset); };
 			// multiple element add
-			UString(const uniChar_t* _inputData, int32_t _len = -1);
+			UString(const etk::UniChar* _inputData, int32_t _len = -1);
 			UString(const char* _inputData, int32_t _len = -1);
 			UString(const etk::Vector<char>& _inputData);
 			UString(const etk::Vector<int8_t>& _inputData);
-			UString(const etk::Vector<uniChar_t>& _inputData);
+			UString(const etk::Vector<etk::UniChar>& _inputData);
 			// generic setter
-			void Set(const uniChar_t* _inputData, int32_t _len=-1);
+			void Set(const etk::UniChar* _inputData, int32_t _len=-1);
 			void Set(const char*      _inputData, int32_t _len=-1);
 			void Set(const etk::Vector<char>& _inputData);
 			void Set(const etk::Vector<int8_t>& _inputData);
-			void Set(const etk::Vector<uniChar_t>& _inputData);
+			void Set(const etk::Vector<etk::UniChar>& _inputData);
 		private:
 			void SetNumber(bool _negative, const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset);
 		public:
@@ -92,7 +92,8 @@ namespace etk
 			/*****************************************************
 			 *    += operator
 			 *****************************************************/
-			const etk::UString& operator+= (const etk::UString &_obj);
+			const etk::UString& operator+= (const etk::UString& _obj);
+			//const etk::UString& operator+= (const etk::UniChar& _obj);
 			/*****************************************************
 			 *    + operator
 			 *****************************************************/
@@ -131,8 +132,8 @@ namespace etk
 			// End With ...
 			bool EndWith(const etk::UString& _data, bool _caseSensitive=true) const ;
 			// Find element
-			int32_t FindForward(const uniChar_t _data, int32_t _startPos=0) const;
-			int32_t FindBack(const uniChar_t _data, int32_t _startPos=0x7FFFFFFF) const;
+			int32_t FindForward(const etk::UniChar _data, int32_t _startPos=0) const;
+			int32_t FindBack(const etk::UniChar _data, int32_t _startPos=0x7FFFFFFF) const;
 			
 			bool IsEmpty(void) const;
 			int32_t Size(void) const;
@@ -141,14 +142,14 @@ namespace etk
 			 *    Generic modification function
 			 *****************************************************/
 			void Add(int32_t _currentID, const char* _inputData);
-			void Add(int32_t _currentID, const uniChar_t* _inputData);
-			void Add(int32_t _currentID, const uniChar_t  _inputData);
+			void Add(int32_t _currentID, const etk::UniChar* _inputData);
+			void Add(int32_t _currentID, const etk::UniChar  _inputData);
 			void Remove(int32_t _currentID, int32_t _len);
 			void Clear(void);
 			void Append(const etk::UniChar& _inputData);
 			
 			etk::Vector<etk::UniChar> GetVector(void);
-			uniChar_t* pointer(void) { return &m_data[0]; };
+			etk::UniChar* pointer(void) { return &m_data[0]; };
 			
 			etk::Char c_str(void) const;
 			
@@ -221,7 +222,7 @@ namespace etk
 
 }
 
-int32_t strlen(const uniChar_t * _data);
+int32_t strlen(const etk::UniChar * _data);
 
 
 
