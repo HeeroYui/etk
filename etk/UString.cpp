@@ -797,6 +797,8 @@ etk::UString etk::UString::ToUpper(void) const
 bool etk::UString::ToBool(void) const
 {
 	if(    true == CompareNoCase("true")
+	    || true == CompareNoCase("enable")
+	    || true == CompareNoCase("yes")
 	    || *this == "1") {
 		return true;
 	}
@@ -896,7 +898,7 @@ double etk::UString::ToDouble(void) const
 				isOdd = true;
 			}
 		} else {
-			TK_DEBUG( *this << " curent val " << m_data[iii] << "out=" << ret);
+			TK_VERBOSE( *this << " curent val " << m_data[iii] << "out=" << ret);
 			if (dotPos == -1) {
 				if (m_data[iii] == '.') {
 					dotPos = 0.1;
@@ -921,7 +923,7 @@ double etk::UString::ToDouble(void) const
 	if (isOdd == true) {
 		ret *= -1.0;
 	}
-	TK_DEBUG( *this << " end =" << ret);
+	TK_VERBOSE( *this << " end =" << ret);
 	return ret;
 }
 
