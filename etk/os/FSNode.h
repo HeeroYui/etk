@@ -573,6 +573,12 @@ namespace etk
 	 * @return false : An error occured
 	 */
 	bool FSNodeEchoAdd(const etk::UString& path, const etk::UString& dataTowrite);
+	/**
+	 * @brief move file to generate an history of the current file
+	 * @param[in] _path Folder/File/Pipe path of the node
+	 * @param[in] _historyCount number of saved file in the history (-xxx)
+	 */
+	void FSNodeHistory(const etk::UString& _path, int32_t _historyCount);
 };
 
 #endif

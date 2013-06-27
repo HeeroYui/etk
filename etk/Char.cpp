@@ -43,4 +43,8 @@ void etk::Char::SetValue(const etk::Vector<char>& _data)
 }
 
 
+int64_t etk::Char::Size(void)
+{
+	return m_data.Size()-1;
+}
 

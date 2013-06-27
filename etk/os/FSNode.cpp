@@ -1831,3 +1831,16 @@ bool etk::FSNodeEchoAdd(const etk::UString& path, const etk::UString& dataTowrit
 	return tmpNode.FileClose();
 }
 
+void etk::FSNodeHistory(const etk::UString& _path, int32_t _historyCount)
+{
+	// step 1 : Move the file to prevent writing error
+	//Get the first oldest save :
+	for (int32_t iii=_historyCount-1; iii>0 ; iii--) {
+		if (true==etk::FSNodeExist(_path+"-"+iii) ) {
+			etk::FSNodeMove(_path+"-"+iii,_path+"-"+(iii+1));
+		}
+	}
+	if (true==etk::FSNodeExist(_path) ) {
+		etk::FSNodeMove(_path,_path+"-1");
+	}
+}

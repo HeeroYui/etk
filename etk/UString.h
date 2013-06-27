@@ -43,14 +43,14 @@ namespace etk
 			UString(const char* _data, unicode::charset_te _inputCharset);
 			UString(const float _inputData);
 			UString(const double _inputData);
-			UString(const int8_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false)   { Set((int64_t)_inputData, _mode, _preset); };
-			UString(const int16_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false)  { Set((int64_t)_inputData, _mode, _preset); };
-			UString(const int32_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false)  { Set((int64_t)_inputData, _mode, _preset); };
-			UString(const int64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false)  { Set(_inputData, _mode, _preset); };
-			UString(const uint8_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false)  { Set((uint64_t)_inputData, _mode, _preset); };
-			UString(const uint16_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false) { Set((uint64_t)_inputData, _mode, _preset); };
-			UString(const uint32_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false) { Set((uint64_t)_inputData, _mode, _preset); };
-			UString(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false) { Set(_inputData, _mode, _preset); };
+			UString(const int8_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0)   { Set((int64_t)_inputData, _mode, _preset, _leadingZero); };
+			UString(const int16_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0)  { Set((int64_t)_inputData, _mode, _preset, _leadingZero); };
+			UString(const int32_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0)  { Set((int64_t)_inputData, _mode, _preset, _leadingZero); };
+			UString(const int64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0)  { Set(_inputData, _mode, _preset, _leadingZero); };
+			UString(const uint8_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0)  { Set((uint64_t)_inputData, _mode, _preset, _leadingZero); };
+			UString(const uint16_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { Set((uint64_t)_inputData, _mode, _preset, _leadingZero); };
+			UString(const uint32_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { Set((uint64_t)_inputData, _mode, _preset, _leadingZero); };
+			UString(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { Set(_inputData, _mode, _preset, _leadingZero); };
 			// multiple element add
 			UString(const etk::UniChar* _inputData, int32_t _len = -1);
 			UString(const char* _inputData, int32_t _len = -1);
@@ -64,10 +64,10 @@ namespace etk
 			void Set(const etk::Vector<int8_t>& _inputData);
 			void Set(const etk::Vector<etk::UniChar>& _inputData);
 		private:
-			void SetNumber(bool _negative, const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset);
+			void SetNumber(bool _negative, const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero);
 		public:
-			void Set(const int64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false);
-			void Set(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false);
+			void Set(const int64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0);
+			void Set(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0);
 			
 			/*****************************************************
 			 *    = assigment
@@ -148,6 +148,13 @@ namespace etk
 			void Clear(void);
 			void Append(const etk::UniChar& _inputData);
 			
+			/**
+			 * @brief Split a string in multiple separate by a specific char
+			 * @param[in] _val Separate value of the string
+			 * @return The list of all sthe string splited.
+			 */
+			etk::Vector<etk::UString> Split(const etk::UniChar& _val);
+			
 			etk::Vector<etk::UniChar> GetVector(void);
 			etk::UniChar* pointer(void) { return &m_data[0]; };
 			
@@ -219,6 +226,7 @@ namespace etk
 	};
 
 	etk::CCout& operator <<(etk::CCout& _os, const etk::UString& _obj);
+	etk::CCout& operator <<(etk::CCout& _os, const etk::Vector<etk::UString>& _obj);
 
 }
 

@@ -39,6 +39,20 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const etk::UString& _obj)
 	return _os;
 }
 
+etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector<etk::UString>& _obj)
+{
+	_os << "{";
+	for (int32_t iii=0; iii< _obj.Size(); iii++) {
+		if (iii>0) {
+			_os << " ~ ";
+		}
+		_os << _obj[iii];
+	}
+	_os << "}";
+	return _os;
+}
+
+
 etk::UString::UString(void)
 {
 	//TK_INFO("new etk::UString()");
@@ -154,7 +168,7 @@ etk::UString::UString(const double _inputData)
 	Set(tmpVal);
 }
 
-void etk::UString::SetNumber(bool _negative, const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset)
+void etk::UString::SetNumber(bool _negative, const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero)
 {
 	m_data.Clear();
 	if (true==_negative) {
@@ -218,19 +232,28 @@ void etk::UString::SetNumber(bool _negative, const uint64_t& _inputData, etk::US
 				base=16;
 				break;
 		}
+		//printf("lmkmlj %llX\n", _inputData);
+		//printf("lmkmlk %s\n", ploppp);
 		uint64_t tmpVal = _inputData;
 		etk::UString tmpString;
 		while (tmpVal>0) {
 			uint64_t quotient = tmpVal / base;
 			uint64_t rest = tmpVal - quotient*base;
-			tmpString.Add(0,(rest+'0'));
+			if (rest<=9) {
+				tmpString.Add(0,(char)(rest+'0'));
+			} else {
+				tmpString.Add(0,(char)(rest-10+'A'));
+			}
 			tmpVal = quotient;
 		}
 		if (tmpString.Size() == 0) {
-			m_data.PushBack('0');
-		} else {
-			*this += tmpString;
+			tmpString = "0";
 		}
+		for (int32_t iii=tmpString.Size(); iii<_leadingZero; iii++){
+			tmpString.Add(0,'0');
+		}
+		*this += tmpString;
+		
 		//TK_ERROR ("        " << ploppp);
 	}
 	if (m_data.Size()==0) {
@@ -241,23 +264,23 @@ void etk::UString::SetNumber(bool _negative, const uint64_t& _inputData, etk::US
 	//TK_ERROR(" convert : " << _inputData << " in : " << *this << " len=" << m_data.Size());
 }
 
-void etk::UString::Set(const int64_t& _inputData, etk::UString::printMode_te _mode, bool _preset)
+void etk::UString::Set(const int64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero)
 {
 	if (_preset==true && _mode != etk::UString::printModeString) {
-		SetNumber(false, (uint64_t)_inputData, _mode, _preset);
+		SetNumber(false, (uint64_t)_inputData, _mode, _preset, _leadingZero);
 		return;
 	}
 	if (_inputData < 0) {
 		uint64_t tmpData = (uint64_t)((int64_t)_inputData * (int64_t)(-1));
-		SetNumber(true, (uint64_t)tmpData, _mode, _preset);
+		SetNumber(true, (uint64_t)tmpData, _mode, _preset, _leadingZero);
 	} else {
-		SetNumber(false, (uint64_t)_inputData, _mode, _preset);
+		SetNumber(false, (uint64_t)_inputData, _mode, _preset, _leadingZero);
 	}
 }
 
-void etk::UString::Set(const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset)
+void etk::UString::Set(const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero)
 {
-	SetNumber(false, (uint64_t)_inputData, _mode, _preset);
+	SetNumber(false, (uint64_t)_inputData, _mode, _preset, _leadingZero);
 }
 
 // multiple element add
@@ -763,6 +786,22 @@ etk::Char etk::UString::c_str(void) const
 	unicode::convertUnicodeToUtf8(m_data, tmpData);
 	tmpVar.SetValue(tmpData);
 	return tmpVar;
+}
+
+etk::Vector<etk::UString> etk::UString::Split(const etk::UniChar& _val)
+{
+	etk::Vector<etk::UString> list;
+	int32_t lastStartPos=0;
+	for(int32_t iii=0; iii<Size(); iii++) {
+		if (m_data[iii]==_val) {
+			list.PushBack(Extract(lastStartPos, iii));
+			lastStartPos = iii+1;
+		}
+	}
+	if (lastStartPos<Size()) {
+		list.PushBack(Extract(lastStartPos));
+	}
+	return list;
 }
 
 
