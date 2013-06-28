@@ -75,6 +75,17 @@ etk::UniChar etk::UniChar::ChangeOrder(void) const
 }
 
 
+bool etk::UniChar::IsWhiteChar(void) const
+{
+	if(    m_value == ' '
+	    || m_value == '\t'
+	    || m_value == '\n'
+	    || m_value == '\r') {
+		return true;
+	}
+	return false;
+}
+
 bool etk::UniChar::IsInteger(void) const
 {
 	if(    m_value>=(uint32_t)'0'

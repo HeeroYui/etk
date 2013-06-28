@@ -39,19 +39,9 @@
 	#endif
 #endif
 
-typedef enum {
-	ERR_NONE = 0, //!< No error, luckily everything went fine
-	ERR_FAIL, //!< Miscellaneous failure
-	ERR_INVAL, //!< Invalid entry parameter
-	ERR_MEM, //!< Dynamic memory allocation failure
-	ERR_TIMEOUT, //!< Request time out
-	ERR_BUSY, //!< Element curently Busy
-}erreurCode_te;
-
-
-#define etk_min(elemA, elemB)               (((elemA)<(elemB)) ? (elemA) : (elemB))
-#define etk_max(elemA, elemB)               (((elemA)<(elemB)) ? (elemB) : (elemA))
-#define etk_avg(minimim, elem, maximum)     (((minimim)>(elem)) ? (minimim) : ((maximum)<(elem)) ? (maximum) : (elem))
+#define etk_min(elemA,elemB) (((elemA)<(elemB)) ? (elemA) : (elemB))
+#define etk_max(elemA,elemB) (((elemA)<(elemB)) ? (elemB) : (elemA))
+#define etk_avg(minimim,elem,maximum) (((minimim)>(elem)) ? (minimim) : ((maximum)<(elem)) ? (maximum) : (elem))
 
 #include <etk/UniChar.h>
 

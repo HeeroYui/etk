@@ -52,7 +52,6 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector<etk::UString>& _
 	return _os;
 }
 
-
 etk::UString::UString(void)
 {
 	//TK_INFO("new etk::UString()");
@@ -167,6 +166,25 @@ etk::UString::UString(const double _inputData)
 	// set the internal data : 
 	Set(tmpVal);
 }
+
+// TODO : Does not work at all ...
+/*
+etk::UString etk::UString::WrapHidenChar(void) const
+{
+	etk::UString out;
+	for (int32_t iii=0; iii<Size(); iii++) {
+		if (m_data[iii]=='\r') {
+			out += "\r";
+		} else if (m_data[iii]=='\t') {
+			out += "\t";
+		} else {
+			out += m_data[iii];
+		}
+	}
+	return out;
+}
+*/
+
 
 void etk::UString::SetNumber(bool _negative, const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero)
 {

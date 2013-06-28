@@ -143,7 +143,15 @@ namespace etk
 			 *    () operator
 			 *****************************************************/
 			//operator uint32_t() const { return m_value; };
-			
+			/**
+			 * @brief check if the curent element is white or not : '\t' '\n' '\r' ' '
+			 * @return tue if it is white char
+			 */
+			bool IsWhiteChar(void) const;
+			/**
+			 * @brief check if the curent element is number or not
+			 * @return tue if it is a number char
+			 */
 			bool IsInteger(void) const;
 			int32_t ToInt32(void) const;
 			

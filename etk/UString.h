@@ -165,6 +165,11 @@ namespace etk
 			void Upper(void);
 			etk::UString ToUpper(void) const;
 			
+			/**
+			 * @brief transform tab in \t and '\r' in \r
+			 * @return the new string
+			 */
+			//etk::UString WrapHidenChar(void) const;
 			
 			// Sting operation :
 			etk::UString Extract(int32_t _posStart=0, int32_t _posEnd=0x7FFFFFFF) const;
