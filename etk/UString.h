@@ -173,6 +173,7 @@ namespace etk
 			
 			// Sting operation :
 			etk::UString Extract(int32_t _posStart=0, int32_t _posEnd=0x7FFFFFFF) const;
+			etk::UString ExtractLine(int32_t _pos=0) const;
 			/**
 			 * @brief Transform the current string in an int64_t
 			 * @return the requested int

@@ -732,6 +732,38 @@ etk::UString etk::UString::Extract(int32_t _posStart, int32_t _posEnd) const
 	return out;
 }
 
+etk::UString etk::UString::ExtractLine(int32_t _pos) const
+{
+	// search back : '\n'
+	int32_t startPos = FindBack('\n', _pos);
+	if (startPos == _pos) {
+		startPos = 0;
+	} else {
+		startPos++;
+	}
+	// search forward : '\n'
+	int32_t stopPos = _pos;
+	if (m_data[_pos] != '\n') {
+		stopPos = FindForward('\n', _pos);
+		if (stopPos == _pos) {
+			stopPos = Size();
+		}
+	}
+	etk::UString out;
+	if (startPos < 0) {
+		startPos = 0;
+	} else if (startPos >= Size() ) {
+		return out;
+	}
+	if (stopPos < 0) {
+		return out;
+	} else if (stopPos >= Size() ) {
+		stopPos = Size();
+	}
+	out.m_data = m_data.Extract(startPos, stopPos);
+	out.m_data.PushBack('\0');
+	return out;
+}
 
 etk::Vector<etk::UniChar> etk::UString::GetVector(void)
 {
