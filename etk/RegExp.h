@@ -59,11 +59,11 @@ extern const int32_t constConvertionTableSize;
 
 void DisplayElem(const etk::Vector<etk::UniChar>& _data, int32_t _start=0, int32_t _stop=0x7FFFFFFF);
 char * levelSpace(int32_t _level);
-int32_t GetLenOfPTheseElem(const etk::Vector<etk::UniChar>& _data, int32_t _startPos);
-int32_t GetLenOfPThese(const etk::Vector<etk::UniChar>& _data, int32_t _startPos);
-int32_t GetLenOfBracket(const etk::Vector<etk::UniChar>& _data, int32_t _startPos);
-int32_t GetLenOfBrace(const etk::Vector<etk::UniChar>& _data, int32_t _startPos);
-int32_t GetLenOfNormal(const etk::Vector<etk::UniChar>& _data, int32_t _startPos);
+size_t GetLenOfPTheseElem(const etk::Vector<etk::UniChar>& _data, int32_t _startPos);
+size_t GetLenOfPThese(const etk::Vector<etk::UniChar>& _data, int32_t _startPos);
+size_t GetLenOfBracket(const etk::Vector<etk::UniChar>& _data, int32_t _startPos);
+size_t GetLenOfBrace(const etk::Vector<etk::UniChar>& _data, int32_t _startPos);
+size_t GetLenOfNormal(const etk::Vector<etk::UniChar>& _data, int32_t _startPos);
 bool ParseBrace(const etk::Vector<etk::UniChar>& _data, int32_t& _min, int32_t& _max);
 
 

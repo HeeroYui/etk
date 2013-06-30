@@ -58,66 +58,60 @@ namespace etk
 			{
 				// Private data :
 				private:
-					int32_t m_current; //!< curent Id on the vector
+					size_t m_current; //!< curent Id on the vector
 					Vector<MY_TYPE>* m_vector; //!< Pointer on the curent element of the vectorBin
 				public:
 					/**
 					 * @brief Basic itarator constructor with no link with an etkVector
 					 */
-					Iterator():
-						m_current(-1),
+					Iterator(void):
+						m_current(0),
 						m_vector(NULL)
 					{
 						// nothing to do ...
 					}
 					/**
 					 * @brief Recopy constructor on a specific etkVector.
-					 * @param[in] otherIterator The Iterator that might be copy
+					 * @param[in] _otherIterator The Iterator that might be copy
 					 */
-					Iterator(const Iterator & otherIterator):
-						m_current(otherIterator.m_current),
-						m_vector(otherIterator.m_vector)
+					Iterator(const Iterator & _otherIterator):
+						m_current(_otherIterator.m_current),
+						m_vector(_otherIterator.m_vector)
 					{
 						// nothing to do ...
 					}
 					/**
 					 * @brief Asignation operator.
-					 * @param[in] otherIterator The Iterator that might be copy
+					 * @param[in] _otherIterator The Iterator that might be copy
 					 * @return reference on the curent Iterator
 					 */
-					Iterator& operator=(const Iterator & otherIterator)
+					Iterator& operator=(const Iterator & _otherIterator)
 					{
-						m_current = otherIterator.m_current;
-						m_vector = otherIterator.m_vector;
+						m_current = _otherIterator.m_current;
+						m_vector = _otherIterator.m_vector;
 						return *this;
 					}
 					/**
 					 * @brief Basic destructor
 					 */
-					~Iterator()
+					~Iterator(void)
 					{
-						m_current = -1;
+						m_current = 0;
 						m_vector = NULL;
 					}
 					/**
 					 * @brief basic boolean cast
 					 * @return true if the element is present in the etkVector size
 					 */
-					operator bool ()
+					operator bool (void)
 					{
-						if(    0 <= m_current
-						    && m_current < m_vector->Size() )
-						{
-							return true;
-						} else {
-							return false;
-						}
+						return (m_current < m_vector->Size());
 					}
 					/**
 					 * @brief Incremental operator
 					 * @return Reference on the current iterator incremented
 					 */
-					Iterator& operator++ ()
+					Iterator& operator++ (void)
 					{
 						if(    NULL != m_vector
 						    && m_current < m_vector->Size() )
@@ -130,9 +124,9 @@ namespace etk
 					 * @brief Decremental operator
 					 * @return Reference on the current iterator decremented
 					 */
-					Iterator& operator-- ()
+					Iterator& operator-- (void)
 					{
-						if (m_current >= 0) {
+						if (m_current > 0) {
 							m_current--;
 						}
 						return *this;
@@ -161,24 +155,24 @@ namespace etk
 					 * @brief Get reference on the current Element
 					 * @return the reference on the current Element 
 					 */
-					MY_TYPE & operator-> () const
+					MY_TYPE & operator-> (void) const
 					{
-						TK_CHECK_INOUT(m_current >= 0 && m_current < m_vector->Size());
+						TK_CHECK_INOUT(m_current < m_vector->Size());
 						return &m_vector->Get(m_current);
 					}
 					/**
 					 * @brief Get reference on the current Element
 					 * @return the reference on the current Element 
 					 */
-					MY_TYPE & operator* () const
+					MY_TYPE & operator* (void) const
 					{
-						TK_CHECK_INOUT(m_current >= 0 && m_current < m_vector->Size());
+						TK_CHECK_INOUT(m_current < m_vector->Size());
 						return m_vector->Get(m_current);
 					}
 				private:
-					Iterator(Vector<MY_TYPE> * obj, int32_t pos):
-						m_current(pos),
-						m_vector(obj)
+					Iterator(Vector<MY_TYPE> * _obj, int32_t _pos):
+						m_current(_pos),
+						m_vector(_obj)
 					{
 						// nothing to do ...
 					}
@@ -187,28 +181,28 @@ namespace etk
 	
 		private:
 			MY_TYPE* m_data; //!< pointer on the curetn table of Data
-			int32_t m_size; //!< nb Element in the buffer
-			int32_t m_allocated; //!< Current allocated size
+			size_t m_size; //!< nb Element in the buffer
+			size_t m_allocated; //!< Current allocated size
 		public:
 			/**
 			 * @brief Create an empty vector
-			 * @param[in] count Minimum request size of the Buffer
+			 * @param[in] _count Minimum request size of the Buffer
 			 */
-			Vector(int32_t count = 0):
+			Vector(int32_t _count = 0):
 				m_data(NULL),
 				m_size(0),
 				m_allocated(0)
 			{
-				ChangeAllocation(count);
+				ChangeAllocation(_count);
 			}
 			/**
 			 * @brief Re-copy constructor (copy all needed data)
-			 * @param[in] obj Vector that might be copy
+			 * @param[in] _obj Vector that might be copy
 			 */
-			Vector(const etk::Vector<MY_TYPE>& obj)
+			Vector(const etk::Vector<MY_TYPE>& _obj)
 			{
-				m_allocated = obj.m_allocated;
-				m_size      = obj.m_size;
+				m_allocated = _obj.m_allocated;
+				m_size      = _obj.m_size;
 				m_data      = NULL;
 				//TK_DEBUG("USE Specific vector allocator ... Evb.m_size=" << Evb.m_size << " Evb.m_increment=" << Evb.m_increment);
 				// allocate all same data
@@ -218,9 +212,9 @@ namespace etk
 					return;
 				}
 				// Copy all data ...
-				for(int32_t iii=0; iii<m_allocated; iii++) {
+				for(size_t iii=0; iii<m_allocated; iii++) {
 					// copy operator ...
-					m_data[iii] = obj.m_data[iii];
+					m_data[iii] = _obj.m_data[iii];
 				}
 			}
 			/**
@@ -237,49 +231,49 @@ namespace etk
 			}
 			/**
 			 * @brief Swap the data of 2 Vectors
-			 * @param[in] obj second vector to swap data.
+			 * @param[in] _obj second vector to swap data.
 			 */
-			void Swap(etk::Vector<MY_TYPE>& obj)
+			void Swap(etk::Vector<MY_TYPE>& _obj)
 			{
 				// avoid Swap of itself
-				if(this != &obj) {
+				if(this != &_obj) {
 					MY_TYPE* tmpData = m_data;
-					int32_t tmpAllocated = m_allocated;
-					int32_t tmpSize = m_size;
-					m_data = obj.m_data;
-					m_allocated = obj.m_allocated;
-					m_size = obj.m_size;
-					obj.m_data = tmpData;
-					obj.m_allocated = tmpAllocated;
-					obj.m_size = tmpSize;
+					size_t tmpAllocated = m_allocated;
+					size_t tmpSize = m_size;
+					m_data = _obj.m_data;
+					m_allocated = _obj.m_allocated;
+					m_size = _obj.m_size;
+					_obj.m_data = tmpData;
+					_obj.m_allocated = tmpAllocated;
+					_obj.m_size = tmpSize;
 				}
 			}
 			/**
 			 * @brief Re-copy operator
-			 * @param[in] obj Vector that might be copy
+			 * @param[in] _obj Vector that might be copy
 			 * @return reference on the curent re-copy vector
 			 */
-			Vector& operator=(const etk::Vector<MY_TYPE> & obj)
+			Vector& operator=(const etk::Vector<MY_TYPE> & _obj)
 			{
 				//TK_DEBUG("USE RECOPY vector ... Evb.m_size=" << Evb.m_size << " Evb.m_increment=" << Evb.m_increment);
-				if( this != &obj ) // avoid copy to itself
+				if( this != &_obj ) // avoid copy to itself
 				{
 					if (NULL!=m_data) {
 						delete[] m_data;
 						m_data = NULL;
 					}
 					// Set the new value
-					m_allocated = obj.m_allocated;
-					m_size      = obj.m_size;
+					m_allocated = _obj.m_allocated;
+					m_size      = _obj.m_size;
 					// allocate all same data
 					m_data = new MY_TYPE[m_allocated];
 					if (NULL==m_data) {
 						TK_CRITICAL("Vector : Error in data allocation ... might nor work corectly anymore");
 						return *this;
 					}
-					for(int32_t iii=0; iii<m_allocated; iii++) {
+					for(size_t iii=0; iii<m_allocated; iii++) {
 						// copy operator ...
-						m_data[iii] = obj.m_data[iii];
+						m_data[iii] = _obj.m_data[iii];
 					}
 				}
 				// Return the curent pointer
@@ -288,20 +282,20 @@ namespace etk
 			
 			/**
 			 * @brief Add at the Last position of the Vector
-			 * @param[in] obj Element to add at the end of vector
+			 * @param[in] _obj Element to add at the end of vector
 			 */
-			Vector& operator+= (const etk::Vector<MY_TYPE> & obj)
+			Vector& operator+= (const etk::Vector<MY_TYPE> & _obj)
 			{
-				int32_t nbElememt = obj.Size();
-				int32_t idx = m_size;
+				size_t nbElememt = _obj.Size();
+				size_t idx = m_size;
 				Resize(m_size+nbElememt);
 				if (m_size<=idx) {
 					TK_CRITICAL("allocation error");
 					return *this;
 				}
-				for(int32_t iii=0; iii<nbElememt; iii++) {
+				for(size_t iii=0; iii<nbElememt; iii++) {
 					// copy operator ...
-					m_data[idx+iii] = obj.m_data[iii];
+					m_data[idx+iii] = _obj.m_data[iii];
 				}
 				// Return the curent pointer
 				return *this;
@@ -310,7 +304,7 @@ namespace etk
 			 * @brief Get the number of element in the vector
 			 * @return The number requested
 			 */
-			int32_t Size(void) const
+			size_t Size(void) const
 			{
 				return m_size;
 			}
@@ -318,18 +312,18 @@ namespace etk
 			 * @brief Get the number of element in the vector
 			 * @return The number requested
 			 */
-			void ReSize(int32_t newSize, const MY_TYPE& basicElement)
+			void ReSize(size_t _newSize, const MY_TYPE& _basicElement)
 			{
-				int32_t idx = m_size;
-				Resize(newSize);
-				if (m_size != newSize) {
+				size_t idx = m_size;
+				Resize(_newSize);
+				if (m_size != _newSize) {
 					TK_CRITICAL("error to resize vector");
 					return;
 				}
-				if (newSize > idx) {
+				if (_newSize > idx) {
 					// initialize data ...
-					for(int32_t iii=idx; iii<newSize; iii++) {
-						m_data[iii] = basicElement;
+					for(size_t iii=idx; iii<_newSize; iii++) {
+						m_data[iii] = _basicElement;
 					}
 				}
 			}
@@ -337,100 +331,99 @@ namespace etk
 			 * @brief Get the Allocated size in the vector
 			 * @return The size of allocation
 			 */
-			int32_t AllocatedSize() const
+			size_t AllocatedSize(void) const
 			{
 				return m_allocated;
 			}
 			/**
 			 * @brief Get a current element in the vector
-			 * @param[in] pos Desired position read
+			 * @param[in] _pos Desired position read
 			 * @return Reference on the Element
 			 */
-			MY_TYPE& Get(int32_t pos)
+			MY_TYPE& Get(size_t _pos)
 			{
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
-					if(    pos>m_size
-					    || pos<0){
-						TK_CRITICAL("[CRITICAL] Access to an unexistant data in vector : " << pos << "/ " << m_size);
+					if(_pos>m_size){
+						TK_CRITICAL("[CRITICAL] Access to an unexistant data in vector : " << _pos << "/ " << m_size);
 					}
 				#endif
-				return m_data[pos];
+				return m_data[_pos];
 			}
 			/**
 			 * @brief Get an copy Element an a special position
-			 * @param[in] pos	Position in the vector that might be get [0..Size()]
+			 * @param[in] _pos Position in the vector that might be get [0..Size()]
 			 * @return An reference on the copy of selected element
 			 */
-			MY_TYPE& operator[] (int32_t pos)
+			MY_TYPE& operator[] (size_t _pos)
 			{
-				return Get(pos);
+				return Get(_pos);
 			}
 			/**
 			 * @brief Get an Element an a special position
-			 * @param[in] pos	Position in the vector that might be get [0..Size()]
+			 * @param[in] _pos Position in the vector that might be get [0..Size()]
 			 * @return An reference on the selected element
 			 */
-			const MY_TYPE& operator[] (int32_t pos) const
+			const MY_TYPE& operator[] (size_t _pos) const
 			{
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
-					if(    pos>m_size
-					    || pos<0){
-						TK_CRITICAL("[CRITICAL] Access to an unexistant data in vector : " << pos << "/ " << m_size);
+					if(    _pos>m_size
+					    || _pos<0){
+						TK_CRITICAL("[CRITICAL] Access to an unexistant data in vector : " << _pos << "/ " << m_size);
 					}
 				#endif
-				return m_data[pos];
+				return m_data[_pos];
 			}
 			/**
 			 * @brief Add at the First position of the Vector
-			 * @param[in] item Element to add at the end of vector
+			 * @param[in] _item Element to add at the end of vector
 			 */
-			void PushFront(const MY_TYPE& item)
+			void PushFront(const MY_TYPE& _item)
 			{
-				Insert(0, &item, 1);
+				Insert(0, &_item, 1);
 			}
 			/**
 			 * @brief Add at the Last position of the Vector
-			 * @param[in] item Pointer on a list of Element to add at the start of vector
-			 * @param[in] nbElement Number of element to add.
+			 * @param[in] _item Pointer on a list of Element to add at the start of vector
+			 * @param[in] _nbElement Number of element to add.
 			 */
-			void PushFront(const MY_TYPE * item, int32_t nbElement)
+			void PushFront(const MY_TYPE * _item, size_t _nbElement)
 			{
-				Insert(0, item, nbElement);
+				Insert(0, _item, _nbElement);
 			}
 			/**
 			 * @brief Add at the Last position of the Vector
-			 * @param[in] item Element to add at the end of vector
+			 * @param[in] _item Element to add at the end of vector
 			 */
-			void PushBack(const MY_TYPE& item)
+			void PushBack(const MY_TYPE& _item)
 			{
-				int32_t idx = m_size;
+				size_t idx = m_size;
 				Resize(m_size+1);
 				if (idx < m_size) {
-					m_data[idx] = item;
+					m_data[idx] = _item;
 				} else {
 					TK_ERROR("Resize does not work corectly ... not added item");
 				}
 			}
 			/**
 			 * @brief Add at the Last position of the Vector
-			 * @param[in] item Pointer on a list of Element to add at the end of vector
-			 * @param[in] nbElement Number of element to add.
+			 * @param[in] _item Pointer on a list of Element to add at the end of vector
+			 * @param[in] _nbElement Number of element to add.
 			 */
-			void PushBack(const MY_TYPE * item, int32_t nbElement)
+			void PushBack(const MY_TYPE * _item, size_t _nbElement)
 			{
-				if (NULL == item) {
+				if (NULL == _item) {
 					return;
 				}
-				int32_t idx = m_size;
-				Resize(m_size+nbElement);
+				size_t idx = m_size;
+				Resize(m_size+_nbElement);
 				if (idx > m_size) {
 					TK_ERROR("Resize does not work corectly ... not added item");
 					return;
 				}
-				for (int32_t iii=0; iii<nbElement; iii++) {
-					m_data[idx+iii] = item[iii];
+				for (size_t iii=0; iii<_nbElement; iii++) {
+					m_data[idx+iii] = _item[iii];
 				}
 			}
 			/**
@@ -453,107 +446,107 @@ namespace etk
 			}
 			/**
 			 * @brief Insert N element in the Vector.
-			 * @param[in] pos Position to add the elements.
-			 * @param[in] item Pointer on a table of the elements to add.
-			 * @param[in] nbElement Number of element to add in the Vector
+			 * @param[in] _pos Position to add the elements.
+			 * @param[in] _item Pointer on a table of the elements to add.
+			 * @param[in] _nbElement Number of element to add in the Vector
 			 */
-			void Insert(int32_t pos, const MY_TYPE * item, int32_t nbElement)
+			void Insert(size_t _pos, const MY_TYPE * _item, size_t _nbElement)
 			{
-				if (pos>m_size) {
-					TK_WARNING(" can not insert Element at this position : " << pos << " > " << m_size << " add it at the end ... ");
-					PushBack(item, nbElement);
+				if (_pos>m_size) {
+					TK_WARNING(" can not insert Element at this position : " << _pos << " > " << m_size << " add it at the end ... ");
+					PushBack(_item, _nbElement);
 					return;
 				}
-				int32_t idx = m_size;
+				size_t idx = m_size;
 				// Request resize of the current buffer
-				Resize(m_size+nbElement);
+				Resize(m_size+_nbElement);
 				if (idx>=m_size) {
 					TK_ERROR("Resize does not work corectly ... not added item");
 					return;
 				}
 				// move curent data (after the position)
-				int32_t sizeToMove = (idx - pos);
+				size_t sizeToMove = (idx - _pos);
 				if ( 0 < sizeToMove) {
-					for (int32_t iii=1; iii<=sizeToMove; iii++) {
+					for (size_t iii=1; iii<=sizeToMove; iii++) {
 						m_data[m_size-iii] = m_data[idx-iii];
 					}
 				}
 				// affectation of all input element
-				for (int32_t iii=0; iii<nbElement; iii++) {
-					m_data[pos+iii] = item[iii];
+				for (size_t iii=0; iii<_nbElement; iii++) {
+					m_data[_pos+iii] = _item[iii];
 				}
 			}
 			/**
 			 * @brief Insert one element in the Vector at a specific position
-			 * @param[in] pos Position to add the elements.
-			 * @param[in] item Element to add.
+			 * @param[in] _pos Position to add the elements.
+			 * @param[in] _item Element to add.
 			 */
-			void Insert(int32_t pos, const MY_TYPE& item)
+			void Insert(size_t _pos, const MY_TYPE& _item)
 			{
-				Insert(pos, &item, 1);
+				Insert(_pos, &_item, 1);
 			}
 			/**
 			 * @brief Remove N element
-			 * @param[in] pos Position to remove the data
-			 * @param[in] nbElement number of element to remove
+			 * @param[in] _pos Position to remove the data
+			 * @param[in] _nbElement number of element to remove
 			 */
-			void EraseLen(int32_t pos, int32_t nbElement)
+			void EraseLen(size_t _pos, size_t _nbElement)
 			{
-				if (pos>m_size) {
-					TK_ERROR(" can not Erase Len Element at this position : " << pos << " > " << m_size);
+				if (_pos>m_size) {
+					TK_ERROR(" can not Erase Len Element at this position : " << _pos << " > " << m_size);
 					return;
 				}
-				if (pos+nbElement>m_size) {
-					nbElement = m_size - pos;
+				if (_pos+_nbElement>m_size) {
+					_nbElement = m_size - _pos;
 				}
-				int32_t idx = m_size;
+				size_t idx = m_size;
 				// move curent data
-				int32_t sizeToMove = (idx - (pos+nbElement));
+				size_t sizeToMove = (idx - (_pos+_nbElement));
 				if ( 0 < sizeToMove) {
-					for (int32_t iii=0; iii<sizeToMove; iii++) {
-						m_data[pos+iii] = m_data[pos+nbElement+iii];
+					for (size_t iii=0; iii<sizeToMove; iii++) {
+						m_data[_pos+iii] = m_data[_pos+_nbElement+iii];
 					}
 				}
 				// Request resize of the current buffer
-				Resize(m_size-nbElement);
+				Resize(m_size-_nbElement);
 			}
 			/**
 			 * @brief Remove one element
-			 * @param[in] pos Position to remove the data
+			 * @param[in] _pos Position to remove the data
 			 */
-			inline void Erase(int32_t pos)
+			inline void Erase(size_t _pos)
 			{
-				EraseLen(pos, 1);
+				EraseLen(_pos, 1);
 			}
 			/**
 			 * @brief Remove one element
-			 * @param[in] pos Position to remove the data
+			 * @param[in] _pos Position to remove the data
 			 */
-			inline void Remove(int32_t pos)
+			inline void Remove(size_t _pos)
 			{
-				EraseLen(pos, 1);
+				EraseLen(_pos, 1);
 			}
 			/**
 			 * @brief Remove N elements
-			 * @param[in] pos Position to remove the data
-			 * @param[in] posEnd Last position number
+			 * @param[in] _pos Position to remove the data
+			 * @param[in] _posEnd Last position number
 			 */
-			void Erase(int32_t pos, int32_t posEnd)
+			void Erase(size_t _pos, size_t _posEnd)
 			{
-				if (pos>m_size) {
-					TK_ERROR(" can not Erase Element at this position : " << pos << " > " << m_size);
+				if (_pos>m_size) {
+					TK_ERROR(" can not Erase Element at this position : " << _pos << " > " << m_size);
 					return;
 				}
-				if (posEnd>m_size) {
-					posEnd = m_size;
+				if (_posEnd>m_size) {
+					_posEnd = m_size;
 				}
-				int32_t nbElement = m_size - pos;
-				int32_t tmpSize = m_size;
+				size_t nbElement = m_size - _pos;
+				size_t tmpSize = m_size;
 				// move curent data
-				int32_t sizeToMove = (tmpSize - (pos+nbElement));
+				size_t sizeToMove = (tmpSize - (_pos+nbElement));
 				if ( 0 < sizeToMove) {
-					for (int32_t iii=0; iii<sizeToMove; iii++) {
-						m_data[pos+iii] = m_data[pos+nbElement+iii];
+					for (size_t iii=0; iii<sizeToMove; iii++) {
+						m_data[_pos+iii] = m_data[_pos+nbElement+iii];
 					}
 				}
 				// Request resize of the current buffer
@@ -561,24 +554,24 @@ namespace etk
 			}
 			/**
 			 * @brief extract data between two point : 
-			 * @param[in] posStart start position to extract data
-			 * @param[in] posEnd End position to extract data
+			 * @param[in] _posStart start position to extract data
+			 * @param[in] _posEnd End position to extract data
 			 * @return the extracted vector
 			 */
-			Vector<MY_TYPE> Extract(int32_t posStart = 0, int32_t posEnd=0x7FFFFFFF) const
+			Vector<MY_TYPE> Extract(size_t _posStart = 0, size_t _posEnd=0x7FFFFFFF) const
 			{
 				Vector<MY_TYPE> out;
-				if (posStart < 0) {
-					posStart = 0;
-				} else if (posStart >= Size() ) {
+				if (_posStart < 0) {
+					_posStart = 0;
+				} else if (_posStart >= Size() ) {
 					return out;
 				}
-				if (posEnd < 0) {
+				if (_posEnd < 0) {
 					return out;
-				} else if (posEnd >= Size() ) {
-					posEnd = Size();
+				} else if (_posEnd >= Size() ) {
+					_posEnd = Size();
 				}
-				out.PushBack(&m_data[posStart], posEnd-posStart);
+				out.PushBack(&m_data[_posStart], _posEnd-_posStart);
 				return out;
 			}
 			/**
@@ -591,12 +584,12 @@ namespace etk
 			}
 			/**
 			 * @brief Get an iterator an an specific position
-			 * @param[in] pos Requested position of the iterator in the vector
+			 * @param[in] _pos Requested position of the iterator in the vector
 			 * @return The Iterator
 			 */
-			Iterator Position(int32_t pos)
+			Iterator Position(size_t _pos)
 			{
-				return Iterator(this, pos);
+				return Iterator(this, _pos);
 			}
 			/**
 			 * @brief Get an Iterator on the start position of the Vector
@@ -617,37 +610,37 @@ namespace etk
 		private:
 			/**
 			 * @brief Change the current size of the vector
-			 * @param[in] newSize New requested size of element in the vector
+			 * @param[in] _newSize New requested size of element in the vector
 			 */
-			void Resize(int32_t newSize)
+			void Resize(size_t _newSize)
 			{
 				// Reallocate memory
-				if (newSize > m_allocated) {
-					ChangeAllocation(newSize);
+				if (_newSize > m_allocated) {
+					ChangeAllocation(_newSize);
 				}
-				m_size = newSize;
+				m_size = _newSize;
 			}
 			/**
 			 * @brief Change the current allocation to the corect one (depend on the current size)
-			 * @param[in] newSize Minimum number of element needed
+			 * @param[in] _newSize Minimum number of element needed
 			 */
-			void ChangeAllocation(int32_t newSize)
+			void ChangeAllocation(size_t _newSize)
 			{
 				// set the minimal size to 1
-				if(newSize <= 0) {
-					newSize = 1;
+				if(_newSize == 0) {
+					_newSize = 1;
 				}
 				if (m_allocated<0) {
 					m_allocated = 0;
 				}
-				int32_t requestSize = m_allocated;
+				size_t requestSize = m_allocated;
 				// set the size with the corect chose type : 
-				if (newSize == requestSize) {
+				if (_newSize == requestSize) {
 					return;
-				} else if (newSize < requestSize) {
+				} else if (_newSize < requestSize) {
 					// we did not remove data ???
 				} else {
-					while(newSize > requestSize) {
+					while(_newSize > requestSize) {
 						if (0 == requestSize) {
 							requestSize = 1;
 						} else {
@@ -679,8 +672,8 @@ namespace etk
 						return;
 					}
 					// copy data in the new pool
-					int32_t nbElements = etk_min(requestSize, m_allocated);
-					for(int32_t iii=0; iii<nbElements; iii++) {
+					size_t nbElements = etk_min(requestSize, m_allocated);
+					for(size_t iii=0; iii<nbElements; iii++) {
 						m_dataTmp[iii] = m_data[iii];
 					}
 					// switch pointer:
@@ -698,22 +691,22 @@ namespace etk
 			/*****************************************************
 			 *    == operator
 			 *****************************************************/
-			bool  operator== (const Vector<MY_TYPE>& obj) const
+			bool operator== (const Vector<MY_TYPE>& _obj) const
 			{
 				// check if it was the same pointer
-				if( this == &obj ) {
+				if( this == &_obj ) {
 					return true;
 				}
 				// fiist step : check the size ...
-				if (m_size!=obj.m_size) {
+				if (m_size!=_obj.m_size) {
 					return false;
 				}
 				if(    NULL==m_data
-				    || NULL==obj.m_data) {
+				    || NULL==_obj.m_data) {
 					return false;
 				}
-				for (int32_t iii=0; iii<m_size; iii++) {
-					if (m_data[iii]!=obj.m_data[iii]) {
+				for (size_t iii=0; iii<m_size; iii++) {
+					if (m_data[iii]!=_obj.m_data[iii]) {
 						return false;
 					}
 				}
@@ -722,22 +715,22 @@ namespace etk
 			/*****************************************************
 			 *    != operator
 			 *****************************************************/
-			bool  operator!= (const Vector<MY_TYPE>& obj) const
+			bool operator!= (const Vector<MY_TYPE>& _obj) const
 			{
 				// check if it was the same pointer
-				if( this == &obj ) {
+				if( this == &_obj ) {
 					return false;
 				}
 				// fiist step : check the size ...
-				if (m_size!=obj.m_size) {
+				if (m_size!=_obj.m_size) {
 					return true;
 				}
 				if(    NULL==m_data
-				    || NULL==obj.m_data) {
+				    || NULL==_obj.m_data) {
 					return false;
 				}
-				for (int32_t iii=0; iii<m_size; iii++) {
-					if (m_data[iii]!=obj.m_data[iii]) {
+				for (size_t iii=0; iii<m_size; iii++) {
+					if (m_data[iii]!=_obj.m_data[iii]) {
 						return true;
 					}
 				}
