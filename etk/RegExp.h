@@ -55,16 +55,16 @@ typedef struct {
 }convertionTable_ts;
 
 extern const convertionTable_ts constConvertionTable[];
-extern const int32_t constConvertionTableSize;
+extern const esize_t constConvertionTableSize;
 
-void DisplayElem(const etk::Vector<etk::UniChar>& _data, int32_t _start=0, int32_t _stop=0x7FFFFFFF);
-char * levelSpace(int32_t _level);
-size_t GetLenOfPTheseElem(const etk::Vector<etk::UniChar>& _data, int32_t _startPos);
-size_t GetLenOfPThese(const etk::Vector<etk::UniChar>& _data, int32_t _startPos);
-size_t GetLenOfBracket(const etk::Vector<etk::UniChar>& _data, int32_t _startPos);
-size_t GetLenOfBrace(const etk::Vector<etk::UniChar>& _data, int32_t _startPos);
-size_t GetLenOfNormal(const etk::Vector<etk::UniChar>& _data, int32_t _startPos);
-bool ParseBrace(const etk::Vector<etk::UniChar>& _data, int32_t& _min, int32_t& _max);
+void DisplayElem(const etk::Vector<etk::UniChar>& _data, esize_t _start=0, esize_t _stop=0x7FFFFFFF);
+char * levelSpace(uint32_t _level);
+esize_t GetLenOfPTheseElem(const etk::Vector<etk::UniChar>& _data, esize_t _startPos);
+esize_t GetLenOfPThese(const etk::Vector<etk::UniChar>& _data, esize_t _startPos);
+esize_t GetLenOfBracket(const etk::Vector<etk::UniChar>& _data, esize_t _startPos);
+esize_t GetLenOfBrace(const etk::Vector<etk::UniChar>& _data, esize_t _startPos);
+esize_t GetLenOfNormal(const etk::Vector<etk::UniChar>& _data, esize_t _startPos);
+bool ParseBrace(const etk::Vector<etk::UniChar>& _data, uint32_t& _min, uint32_t& _max);
 
 
 #undef __class__
@@ -76,8 +76,8 @@ bool ParseBrace(const etk::Vector<etk::UniChar>& _data, int32_t& _min, int32_t& 
 template<class CLASS_TYPE> class RegExpNode
 {
 	protected :
-		int32_t m_multipleMin; //!< minimum repetition (included)
-		int32_t m_multipleMax; //!< maximum repetition (included)
+		uint32_t m_multipleMin; //!< minimum repetition (included)
+		uint32_t m_multipleMax; //!< maximum repetition (included)
 		// Data Section ... (can have no data...)
 		etk::Vector<etk::UniChar> m_RegExpData; //!< data to parse and compare in some case ...
 	public :
@@ -113,12 +113,12 @@ template<class CLASS_TYPE> class RegExpNode
 		 * @return true : Find something
 		 * @return false : Find nothing
 		 */
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)=0;
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)=0;
 		/**
 		 * @brief Display the current node properties
 		 * @param[in] level of the node
 		 */
-		virtual void Display(int32_t _level)
+		virtual void Display(uint32_t _level)
 		{
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@???@ {" << GetMultMin() << "," << GetMultMax() << "}  subdata="; DisplayElem(m_RegExpData););
 		};
@@ -127,7 +127,7 @@ template<class CLASS_TYPE> class RegExpNode
 		 * @param[in] _min The minimum appear time.
 		 * @param[in] _max The maximum appear time.
 		 */
-		void SetMult(int32_t _min, int32_t _max)
+		void SetMult(uint32_t _min, uint32_t _max)
 		{
 			m_multipleMin = etk_max(_min, 0);
 			m_multipleMax = etk_max(_max, 1);
@@ -137,12 +137,12 @@ template<class CLASS_TYPE> class RegExpNode
 		 * @brief Get the minimum multiplicity.
 		 * @return The minimum appear availlable.
 		 */
-		int32_t GetMultMin(void) const { return m_multipleMin; };
+		uint32_t GetMultMin(void) const { return m_multipleMin; };
 		/**
 		 * @brief Get the maximum multiplicity.
 		 * @return The maximum appear availlable.
 		 */
-		int32_t GetMultMax(void) const { return m_multipleMax; };
+		uint32_t GetMultMax(void) const { return m_multipleMax; };
 };
 
 #undef __class__
@@ -176,7 +176,7 @@ template<class CLASS_TYPE> class RegExpNodeValue : public RegExpNode<CLASS_TYPE>
 			return _data.Size();
 		};
 		
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)
 		{
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : Value{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -186,18 +186,18 @@ template<class CLASS_TYPE> class RegExpNodeValue : public RegExpNode<CLASS_TYPE>
 			}
 			TK_REG_EXP_DBG_MODE("check element value : '" << m_data[0] << "'");
 			bool tmpFind = true;
-			int32_t j;
-			for (j=0; j<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind == true; j++) {
-				int32_t ofset = 0;
-				int32_t k;
-				for (k=0; _findLen+k<_lenMax && k < m_data.Size(); k++) {
-					if (m_data[k] != _data[_currentPos+_findLen+k]) {
+			uint32_t jjj;
+			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind == true; jjj++) {
+				uint32_t ofset = 0;
+				esize_t kkk;
+				for (kkk=0; _findLen+kkk<_lenMax && kkk < m_data.Size(); kkk++) {
+					if (m_data[kkk] != _data[_currentPos+_findLen+kkk]) {
 						tmpFind=false;
 						break;
 					}
 					ofset++;
 				}
-				if (k != (int32_t)m_data.Size()) {
+				if (kkk != m_data.Size()) {
 					// parsing not ended ...
 					tmpFind=false;
 				}
@@ -206,8 +206,8 @@ template<class CLASS_TYPE> class RegExpNodeValue : public RegExpNode<CLASS_TYPE>
 					_findLen += ofset;
 				}
 			}
-			if(		j>=RegExpNode<CLASS_TYPE>::m_multipleMin
-				&&	j<=RegExpNode<CLASS_TYPE>::m_multipleMax
+			if(		jjj>=RegExpNode<CLASS_TYPE>::m_multipleMin
+				&&	jjj<=RegExpNode<CLASS_TYPE>::m_multipleMax
 				&&	_findLen>0	)
 			{
 				TK_REG_EXP_DBG_MODE("find " << _findLen);
@@ -219,7 +219,7 @@ template<class CLASS_TYPE> class RegExpNodeValue : public RegExpNode<CLASS_TYPE>
 			return false;
 		};
 		
-		void Display(int32_t _level)
+		void Display(uint32_t _level)
 		{
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@Value@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData); etk::cout<< " data: "; DisplayElem(m_data); );
 		};
@@ -253,20 +253,20 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public RegExpNode<CLASS_TYP
 			etk::UniChar lastElement = 'a';
 			bool multipleElement = false;
 			//
-			for (int32_t k=0; k<RegExpNode<CLASS_TYPE>::m_RegExpData.Size(); k++) {
-				if (RegExpNode<CLASS_TYPE>::m_RegExpData[k] == REGEXP_OPCODE_TO && multipleElement == true) {
+			for (int32_t kkk=0; kkk<RegExpNode<CLASS_TYPE>::m_RegExpData.Size(); kkk++) {
+				if (RegExpNode<CLASS_TYPE>::m_RegExpData[kkk] == REGEXP_OPCODE_TO && multipleElement == true) {
 					TK_ERROR("Can not have 2 consecutive - in [...]");
 					return 0;
 				} else if (multipleElement == true) {
-					etk::UniChar j='\0';
-					for (j=lastElement+1; j <= RegExpNode<CLASS_TYPE>::m_RegExpData[k]; j+=1) {
-						m_data.PushBack(j);
+					etk::UniChar jjj='\0';
+					for (jjj=lastElement+1; jjj <= RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]; jjj+=1) {
+						m_data.PushBack(jjj);
 					}
 					multipleElement = false;
-				} else if(RegExpNode<CLASS_TYPE>::m_RegExpData[k] == REGEXP_OPCODE_TO) {
+				} else if(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk] == REGEXP_OPCODE_TO) {
 					multipleElement = true;
 				} else {
-					lastElement = RegExpNode<CLASS_TYPE>::m_RegExpData[k];
+					lastElement = RegExpNode<CLASS_TYPE>::m_RegExpData[kkk];
 					m_data.PushBack(lastElement);
 				}
 			}
@@ -278,7 +278,7 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public RegExpNode<CLASS_TYP
 			return _data.Size();
 		};
 		
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)
 		{
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : [...]{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -288,20 +288,19 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public RegExpNode<CLASS_TYP
 			}
 			TK_REG_EXP_DBG_MODE("one of element value List : "; DisplayElem(m_data););
 			bool tmpFind = true;
-			int32_t j;
-			for (j=0; j<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && j < _lenMax; j++) {
-				int32_t i;
+			uint32_t jjj=0;
+			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
 				tmpFind=false;
-				for (i=0; i<m_data.Size(); i++) {
-					if (m_data[i] == _data[_currentPos+j]) {
+				for (esize_t iii=0; iii<m_data.Size(); iii++) {
+					if (m_data[iii] == _data[_currentPos+jjj]) {
 						_findLen += 1;
 						tmpFind=true;
 						break;
 					}
 				}
 			}
-			if(		j>=RegExpNode<CLASS_TYPE>::m_multipleMin
-				&&	j<=RegExpNode<CLASS_TYPE>::m_multipleMax
+			if(		jjj>=RegExpNode<CLASS_TYPE>::m_multipleMin
+				&&	jjj<=RegExpNode<CLASS_TYPE>::m_multipleMax
 				&&	_findLen>0	)
 			{
 				TK_REG_EXP_DBG_MODE("find " << _findLen);
@@ -313,7 +312,7 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public RegExpNode<CLASS_TYP
 			return false;
 		};
 		
-		void Display(int32_t _level)
+		void Display(uint32_t _level)
 		{
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@[...]@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData); etk::cout<< " data: "; DisplayElem(m_data); );
 		};
@@ -334,14 +333,14 @@ template<class CLASS_TYPE> class RegExpNodeDigit : public RegExpNode<CLASS_TYPE>
 		 */
 		~RegExpNodeDigit(void) { };
 		
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)
 		{
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : Digit{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "} : "<< _data[_currentPos] << " lenMax=" << _lenMax);
 			bool tmpFind = true;
-			int32_t j;
-			for (j=0; j<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && j < _lenMax; j++) {
-				etk::UniChar tmpVal = _data[_currentPos+j];
+			uint32_t jjj;
+			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
+				etk::UniChar tmpVal = _data[_currentPos+jjj];
 				TK_REG_EXP_DBG_MODE("compare : " << tmpVal);
 				if(    tmpVal >= '0'
 				    && tmpVal <= '9')
@@ -352,8 +351,8 @@ template<class CLASS_TYPE> class RegExpNodeDigit : public RegExpNode<CLASS_TYPE>
 					tmpFind=false;
 				}
 			}
-			if(		j>=RegExpNode<CLASS_TYPE>::m_multipleMin
-				&&	j<=RegExpNode<CLASS_TYPE>::m_multipleMax
+			if(		jjj>=RegExpNode<CLASS_TYPE>::m_multipleMin
+				&&	jjj<=RegExpNode<CLASS_TYPE>::m_multipleMax
 				&&	_findLen>0	)
 			{
 				TK_REG_EXP_DBG_MODE("find " << _findLen);
@@ -365,7 +364,7 @@ template<class CLASS_TYPE> class RegExpNodeDigit : public RegExpNode<CLASS_TYPE>
 			return false;
 		};
 		
-		void Display(int32_t _level)
+		void Display(uint32_t _level)
 		{
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@Digit@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
 		};
@@ -386,14 +385,14 @@ template<class CLASS_TYPE> class RegExpNodeDigitNot : public RegExpNode<CLASS_TY
 		 */
 		~RegExpNodeDigitNot(void) { };
 		
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)
 		{
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : DigitNot{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
 			bool tmpFind = true;
-			int32_t j;
-			for (j=0; j<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && j < _lenMax; j++) {
-				etk::UniChar tmpVal = _data[_currentPos+j];
+			uint32_t jjj;
+			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
+				etk::UniChar tmpVal = _data[_currentPos+jjj];
 				if(    tmpVal < '0'
 				    || tmpVal > '9') {
 					_findLen += 1;
@@ -401,8 +400,8 @@ template<class CLASS_TYPE> class RegExpNodeDigitNot : public RegExpNode<CLASS_TY
 					tmpFind=false;
 				}
 			}
-			if(    j>=RegExpNode<CLASS_TYPE>::m_multipleMin
-			    && j<=RegExpNode<CLASS_TYPE>::m_multipleMax
+			if(    jjj>=RegExpNode<CLASS_TYPE>::m_multipleMin
+			    && jjj<=RegExpNode<CLASS_TYPE>::m_multipleMax
 			    && _findLen>0 ) {
 				TK_REG_EXP_DBG_MODE("find " << _findLen);
 				return true;
@@ -413,7 +412,7 @@ template<class CLASS_TYPE> class RegExpNodeDigitNot : public RegExpNode<CLASS_TY
 			return false;
 		};
 		
-		void Display(int32_t _level)
+		void Display(uint32_t _level)
 		{
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@DigitNot@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
 		};
@@ -435,14 +434,14 @@ template<class CLASS_TYPE> class RegExpNodeLetter : public RegExpNode<CLASS_TYPE
 		 */
 		~RegExpNodeLetter(void) { };
 		
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)
 		{
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : Letter{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
 			bool tmpFind = true;
-			int32_t j;
-			for (j=0; j<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && j < _lenMax; j++) {
-				etk::UniChar tmpVal = _data[_currentPos+j];
+			uint32_t jjj;
+			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
+				etk::UniChar tmpVal = _data[_currentPos+jjj];
 				if(    (    tmpVal >= 'a'
 				         && tmpVal <= 'z')
 				    || (    tmpVal >= 'A'
@@ -452,8 +451,8 @@ template<class CLASS_TYPE> class RegExpNodeLetter : public RegExpNode<CLASS_TYPE
 					tmpFind=false;
 				}
 			}
-			if(    j>=RegExpNode<CLASS_TYPE>::m_multipleMin
-			    && j<=RegExpNode<CLASS_TYPE>::m_multipleMax
+			if(    jjj>=RegExpNode<CLASS_TYPE>::m_multipleMin
+			    && jjj<=RegExpNode<CLASS_TYPE>::m_multipleMax
 			    && _findLen>0 ) {
 				TK_REG_EXP_DBG_MODE("find " << _findLen);
 				return true;
@@ -464,7 +463,7 @@ template<class CLASS_TYPE> class RegExpNodeLetter : public RegExpNode<CLASS_TYPE
 			return false;
 		};
 		
-		void Display(int32_t _level)
+		void Display(uint32_t _level)
 		{
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@Letter@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
 		};
@@ -486,14 +485,14 @@ template<class CLASS_TYPE> class RegExpNodeLetterNot : public RegExpNode<CLASS_T
 		 */
 		~RegExpNodeLetterNot(void) { };
 		
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)
 		{
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : LetterNot{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
 			bool tmpFind = true;
-			int32_t j;
-			for (j=0; j<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && j < _lenMax; j++) {
-				etk::UniChar tmpVal = _data[_currentPos+j];
+			uint32_t jjj;
+			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
+				etk::UniChar tmpVal = _data[_currentPos+jjj];
 				if(    (    tmpVal < 'a'
 				         && tmpVal > 'Z')
 				    || tmpVal < 'A'
@@ -503,8 +502,8 @@ template<class CLASS_TYPE> class RegExpNodeLetterNot : public RegExpNode<CLASS_T
 					tmpFind=false;
 				}
 			}
-			if(    j>=RegExpNode<CLASS_TYPE>::m_multipleMin
-			    && j<=RegExpNode<CLASS_TYPE>::m_multipleMax
+			if(    jjj>=RegExpNode<CLASS_TYPE>::m_multipleMin
+			    && jjj<=RegExpNode<CLASS_TYPE>::m_multipleMax
 			    && _findLen>0 ) {
 				TK_REG_EXP_DBG_MODE("find " << _findLen);
 				return true;
@@ -515,7 +514,7 @@ template<class CLASS_TYPE> class RegExpNodeLetterNot : public RegExpNode<CLASS_T
 			return false;
 		};
 		
-		void Display(int32_t _level)
+		void Display(uint32_t _level)
 		{
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@LetterNot@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
 		};
@@ -537,14 +536,14 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpace : public RegExpNode<CLASS_
 		 */
 		~RegExpNodeWhiteSpace(void) { };
 		
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)
 		{
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : Space{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
 			bool tmpFind = true;
-			int32_t j;
-			for (j=0; j<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && j < _lenMax; j++) {
-				etk::UniChar tmpVal = _data[_currentPos+j];
+			uint32_t jjj;
+			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
+				etk::UniChar tmpVal = _data[_currentPos+jjj];
 				if(    tmpVal == ' '
 				    || tmpVal == '\t'
 				    || tmpVal == '\n'
@@ -556,8 +555,8 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpace : public RegExpNode<CLASS_
 					tmpFind=false;
 				}
 			}
-			if(    j>=RegExpNode<CLASS_TYPE>::m_multipleMin
-			    && j<=RegExpNode<CLASS_TYPE>::m_multipleMax
+			if(    jjj>=RegExpNode<CLASS_TYPE>::m_multipleMin
+			    && jjj<=RegExpNode<CLASS_TYPE>::m_multipleMax
 			    && _findLen>0 ) {
 				TK_REG_EXP_DBG_MODE("find " << _findLen);
 				return true;
@@ -568,7 +567,7 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpace : public RegExpNode<CLASS_
 			return false;
 		};
 		
-		void Display(int32_t _level)
+		void Display(uint32_t _level)
 		{
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@Space@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
 		};
@@ -590,14 +589,14 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpaceNot : public RegExpNode<CLA
 		 */
 		~RegExpNodeWhiteSpaceNot(void) { };
 		
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)
 		{
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : SpaceNot{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
 			bool tmpFind = true;
-			int32_t j;
-			for (j=0; j<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && j < _lenMax; j++) {
-				etk::UniChar tmpVal = _data[_currentPos+j];
+			uint32_t jjj;
+			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
+				etk::UniChar tmpVal = _data[_currentPos+jjj];
 				if(    tmpVal != ' '
 				    && tmpVal != '\t'
 				    && tmpVal != '\n'
@@ -609,8 +608,8 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpaceNot : public RegExpNode<CLA
 					tmpFind=false;
 				}
 			}
-			if(    j>=RegExpNode<CLASS_TYPE>::m_multipleMin
-			    && j<=RegExpNode<CLASS_TYPE>::m_multipleMax
+			if(    jjj>=RegExpNode<CLASS_TYPE>::m_multipleMin
+			    && jjj<=RegExpNode<CLASS_TYPE>::m_multipleMax
 			    && _findLen>0 ) {
 				TK_REG_EXP_DBG_MODE("find " << _findLen);
 				return true;
@@ -621,7 +620,7 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpaceNot : public RegExpNode<CLA
 			return false;
 		};
 		
-		void Display(int32_t _level)
+		void Display(uint32_t _level)
 		{
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@SpaceNot@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
 		};
@@ -642,14 +641,14 @@ template<class CLASS_TYPE> class RegExpNodeWordChar : public RegExpNode<CLASS_TY
 		 */
 		~RegExpNodeWordChar(void) { };
 		
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)
 		{
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : Word{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
 			bool tmpFind = true;
-			int32_t j;
-			for (j=0; j<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && j < _lenMax; j++) {
-				etk::UniChar tmpVal = _data[_currentPos+j];
+			uint32_t jjj;
+			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
+				etk::UniChar tmpVal = _data[_currentPos+jjj];
 				if(    (    tmpVal >= 'a'
 				         && tmpVal <= 'z' )
 				    || (    tmpVal >= 'A'
@@ -661,8 +660,8 @@ template<class CLASS_TYPE> class RegExpNodeWordChar : public RegExpNode<CLASS_TY
 					tmpFind=false;
 				}
 			}
-			if(    j>=RegExpNode<CLASS_TYPE>::m_multipleMin
-			    && j<=RegExpNode<CLASS_TYPE>::m_multipleMax
+			if(    jjj>=RegExpNode<CLASS_TYPE>::m_multipleMin
+			    && jjj<=RegExpNode<CLASS_TYPE>::m_multipleMax
 			    && _findLen>0 ) {
 				TK_REG_EXP_DBG_MODE("find " << _findLen);
 				return true;
@@ -673,7 +672,7 @@ template<class CLASS_TYPE> class RegExpNodeWordChar : public RegExpNode<CLASS_TY
 			return false;
 		};
 		
-		void Display(int32_t _level)
+		void Display(uint32_t _level)
 		{
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@Word@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
 		};
@@ -694,14 +693,14 @@ template<class CLASS_TYPE> class RegExpNodeWordCharNot : public RegExpNode<CLASS
 		 */
 		~RegExpNodeWordCharNot(void) { };
 		
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)
 		{
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : WordNot{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
 			bool tmpFind = true;
-			int32_t j;
-			for (j=0; j<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && j < _lenMax; j++) {
-				etk::UniChar tmpVal = _data[_currentPos+j];
+			uint32_t jjj;
+			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
+				etk::UniChar tmpVal = _data[_currentPos+jjj];
 				if(    (    tmpVal < 'A'
 				         && tmpVal > '9' )
 				    || (    tmpVal < 'a'
@@ -713,8 +712,8 @@ template<class CLASS_TYPE> class RegExpNodeWordCharNot : public RegExpNode<CLASS
 					tmpFind=false;
 				}
 			}
-			if(    j>=RegExpNode<CLASS_TYPE>::m_multipleMin
-			    && j<=RegExpNode<CLASS_TYPE>::m_multipleMax
+			if(    jjj>=RegExpNode<CLASS_TYPE>::m_multipleMin
+			    && jjj<=RegExpNode<CLASS_TYPE>::m_multipleMax
 			    && _findLen>0 ) {
 				TK_REG_EXP_DBG_MODE("find " << _findLen);
 				return true;
@@ -725,7 +724,7 @@ template<class CLASS_TYPE> class RegExpNodeWordCharNot : public RegExpNode<CLASS
 			return false;
 		};
 		
-		void Display(int32_t _level)
+		void Display(uint32_t _level)
 		{
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@WordNot@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
 		};
@@ -747,15 +746,15 @@ template<class CLASS_TYPE> class RegExpNodeDot : public RegExpNode<CLASS_TYPE>
 		 */
 		~RegExpNodeDot(void) { };
 		
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)
 		{
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : '.'{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
 			// equivalent a : [^\x00-\x08\x0A-\x1F\x7F]
 			bool tmpFind = true;
-			int32_t j;
-			for (j=0; j<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && j < _lenMax; j++) {
-				etk::UniChar tmpVal = _data[_currentPos+j];
+			uint32_t jjj;
+			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
+				etk::UniChar tmpVal = _data[_currentPos+jjj];
 				if(    (    tmpVal > 0x08
 				         && tmpVal < 0x0A )
 				    || (    tmpVal > 0x1F
@@ -767,8 +766,8 @@ template<class CLASS_TYPE> class RegExpNodeDot : public RegExpNode<CLASS_TYPE>
 					tmpFind=false;
 				}
 			}
-			if(    j>=RegExpNode<CLASS_TYPE>::m_multipleMin
-			    && j<=RegExpNode<CLASS_TYPE>::m_multipleMax
+			if(    jjj>=RegExpNode<CLASS_TYPE>::m_multipleMin
+			    && jjj<=RegExpNode<CLASS_TYPE>::m_multipleMax
 			    && _findLen>0 ) {
 				TK_REG_EXP_DBG_MODE("find " << _findLen);
 				return true;
@@ -779,7 +778,7 @@ template<class CLASS_TYPE> class RegExpNodeDot : public RegExpNode<CLASS_TYPE>
 			return false;
 		};
 		
-		void Display(int32_t _level)
+		void Display(uint32_t _level)
 		{
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@.@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
 		};
@@ -802,7 +801,7 @@ template<class CLASS_TYPE> class RegExpNodeSOL : public RegExpNode<CLASS_TYPE>
 		 */
 		~RegExpNodeSOL(void) { };
 		
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)
 		{
 			_findLen = 0;
 			// TODO : ...
@@ -810,7 +809,7 @@ template<class CLASS_TYPE> class RegExpNodeSOL : public RegExpNode<CLASS_TYPE>
 			return false;
 		};
 		
-		void Display(int32_t _level)
+		void Display(uint32_t _level)
 		{
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@SOL@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
 		};
@@ -832,7 +831,7 @@ template<class CLASS_TYPE> class RegExpNodeEOL : public RegExpNode<CLASS_TYPE>
 		 */
 		~RegExpNodeEOL(void) { };
 		
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)
 		{
 			_findLen = 0;
 			// TODO : ...
@@ -840,7 +839,7 @@ template<class CLASS_TYPE> class RegExpNodeEOL : public RegExpNode<CLASS_TYPE>
 			return false;
 		};
 		
-		void Display(int32_t _level)
+		void Display(uint32_t _level)
 		{
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@EOL@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
 		};
@@ -876,8 +875,8 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 		{
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse (elem) data="; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
-			int32_t pos = 0;
-			int32_t elementSize = 0;
+			esize_t pos = 0;
+			esize_t elementSize = 0;
 			etk::Vector<etk::UniChar> tmpData;
 			while (pos < RegExpNode<CLASS_TYPE>::m_RegExpData.Size()) {
 				tmpData.Clear();
@@ -885,8 +884,8 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 					case REGEXP_OPCODE_PTHESE_IN:
 						{
 							elementSize=GetLenOfPThese(RegExpNode<CLASS_TYPE>::m_RegExpData, pos);
-							for (int32_t k=pos+1; k<pos+elementSize+1; k++) {
-								tmpData.PushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[k]);
+							for (esize_t kkk=pos+1; kkk<pos+elementSize+1; kkk++) {
+								tmpData.PushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
 							}
 							RegExpNodePThese<CLASS_TYPE> * myElem = new RegExpNodePThese<CLASS_TYPE>();
 							(void)myElem->Generate(tmpData);
@@ -902,8 +901,8 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 					case REGEXP_OPCODE_BRACKET_IN:
 						{
 							elementSize=GetLenOfBracket(RegExpNode<CLASS_TYPE>::m_RegExpData, pos);
-							for (int32_t k=pos+1; k<pos+elementSize+1; k++) {
-								tmpData.PushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[k]);
+							for (esize_t kkk=pos+1; kkk<pos+elementSize+1; kkk++) {
+								tmpData.PushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
 							}
 							RegExpNodeBracket<CLASS_TYPE> * myElem = new RegExpNodeBracket<CLASS_TYPE>();
 							(void)myElem->Generate(tmpData);
@@ -919,11 +918,11 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 					case REGEXP_OPCODE_BRACE_IN:
 						{
 							elementSize=GetLenOfBrace(RegExpNode<CLASS_TYPE>::m_RegExpData, pos);
-							for (int32_t k=pos+1; k<pos+elementSize+1; k++) {
-								tmpData.PushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[k]);
+							for (esize_t kkk=pos+1; kkk<pos+elementSize+1; kkk++) {
+								tmpData.PushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
 							}
-							int32_t min = 0;
-							int32_t max = 0;
+							uint32_t min = 0;
+							uint32_t max = 0;
 							if (false == ParseBrace(tmpData, min, max)) {
 								return false;
 							}
@@ -986,8 +985,8 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 					default:
 						{
 							elementSize=GetLenOfNormal(RegExpNode<CLASS_TYPE>::m_RegExpData, pos);
-							for (int32_t k=pos; k<pos+elementSize; k++) {
-								tmpData.PushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[k]);
+							for (esize_t kkk=pos; kkk<pos+elementSize; kkk++) {
+								tmpData.PushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
 							}
 							RegExpNodeValue<CLASS_TYPE> * myElem = new RegExpNodeValue<CLASS_TYPE>();
 							(void)myElem->Generate(tmpData);
@@ -1003,7 +1002,7 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 			return _data.Size();
 		};
 		
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)
 		{
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : (Elem){" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -1012,24 +1011,28 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 			if (0 == m_subNode.Size()) {
 				return false;
 			}
-			int32_t tmpCurrentPos = _currentPos;
-			for (int32_t i=0; i<m_subNode.Size(); i++) {
-				int32_t tmpFindLen;
-				if (false == m_subNode[i]->Parse(_data, tmpCurrentPos, _lenMax, tmpFindLen)) {
+			esize_t tmpCurrentPos = _currentPos;
+			for (esize_t iii=0; iii<m_subNode.Size(); iii++) {
+				esize_t tmpFindLen;
+				if (false == m_subNode[iii]->Parse(_data, tmpCurrentPos, _lenMax, tmpFindLen)) {
 					_findLen = 0;
 					return false;
 				} else {
 					tmpCurrentPos += tmpFindLen;
 				}
 			}
-			_findLen = tmpCurrentPos - _currentPos;
+			if (tmpCurrentPos<_currentPos) {
+				_findLen = 0;
+			} else {
+				_findLen = tmpCurrentPos - _currentPos;
+			}
 			return true;
 		};
 		
-		void Display(int32_t _level)
+		void Display(uint32_t _level)
 		{
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@(Elem)@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
-			for(int32_t iii=0; iii<m_subNode.Size(); iii++) {
+			for(esize_t iii=0; iii<m_subNode.Size(); iii++) {
 				m_subNode[iii]->Display(_level+1);
 			}
 		};
@@ -1040,7 +1043,7 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 		 * @param[in] _max Maximum of the multiplicity
 		 * @return true if we find the node, false otherwise
 		 */
-		bool SetMultiplicityOnLastNode(int32_t _min, int32_t _max)
+		bool SetMultiplicityOnLastNode(uint32_t _min, uint32_t _max)
 		{
 			if (0==m_subNode.Size()) {
 				TK_ERROR("Set multiplicity on an inexistant element ....");
@@ -1091,8 +1094,8 @@ template<class CLASS_TYPE> class RegExpNodePThese : public RegExpNode<CLASS_TYPE
 			while (elementSize>0) {
 				// geerate output deta ...
 				etk::Vector<etk::UniChar> tmpData;
-				for (int32_t k=pos; k<pos+elementSize; k++) {
-					tmpData.PushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[k]);
+				for (esize_t kkk=pos; kkk<pos+elementSize; kkk++) {
+					tmpData.PushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
 				}
 				RegExpNodePTheseElem<CLASS_TYPE> * myElem = new RegExpNodePTheseElem<CLASS_TYPE>();
 				(void)myElem->Generate(tmpData);
@@ -1110,7 +1113,7 @@ template<class CLASS_TYPE> class RegExpNodePThese : public RegExpNode<CLASS_TYPE
 			return _data.Size();
 		};
 		
-		virtual bool Parse(const CLASS_TYPE& _data, int32_t _currentPos, int32_t _lenMax, int32_t& _findLen)
+		virtual bool Parse(const CLASS_TYPE& _data, esize_t _currentPos, esize_t _lenMax, esize_t& _findLen)
 		{
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : (...){" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -1118,19 +1121,19 @@ template<class CLASS_TYPE> class RegExpNodePThese : public RegExpNode<CLASS_TYPE
 				return false;
 			}
 			bool tmpFind = true;
-			int32_t j;
-			for (j=0; j<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind == true ; j++) {
+			uint32_t jjj;
+			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind == true ; jjj++) {
 				tmpFind = false;
-				for (int32_t i=0; i<m_subNode.Size(); i++) {
-					int32_t tmpFindLen;
-					if (true == m_subNode[i]->Parse(_data, _currentPos+_findLen, _lenMax, tmpFindLen)) {
+				for (esize_t iii=0; iii<m_subNode.Size(); iii++) {
+					esize_t tmpFindLen;
+					if (true == m_subNode[iii]->Parse(_data, _currentPos+_findLen, _lenMax, tmpFindLen)) {
 						_findLen += tmpFindLen;
 						tmpFind = true;
 					}
 				}
 			}
-			if(		j>=RegExpNode<CLASS_TYPE>::m_multipleMin
-				&&	j<=RegExpNode<CLASS_TYPE>::m_multipleMax
+			if(		jjj>=RegExpNode<CLASS_TYPE>::m_multipleMin
+				&&	jjj<=RegExpNode<CLASS_TYPE>::m_multipleMax
 				&&	_findLen>0	)
 			{
 				TK_REG_EXP_DBG_MODE("find " << _findLen);
@@ -1142,7 +1145,7 @@ template<class CLASS_TYPE> class RegExpNodePThese : public RegExpNode<CLASS_TYPE
 			return false;
 		};
 		
-		void Display(int32_t _level)
+		void Display(uint32_t _level)
 		{
 			if (-1 == _level) {
 				TK_INFO("regExp :"; DisplayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
@@ -1213,36 +1216,35 @@ template<class CLASS_TYPE> class RegExp
 			m_notEndWithChar = false;
 			
 			// change in the regular Opcode ==> replace \x with the corect element ... x if needed
-			int32_t iii;
 			int32_t countBraceIn = 0;
 			int32_t countBraceOut = 0;
 			int32_t countPTheseIn = 0;
 			int32_t countPTheseOut = 0;
 			int32_t countBracketIn = 0;
 			int32_t countBracketOut = 0;
-			for (iii=0; iii<_regexp.Size(); iii++) {
+			for (esize_t iii=0; iii<_regexp.Size(); iii++) {
 				if (_regexp[iii] == '\\') {
 					if(iii+1>=_regexp.Size()) {
 						TK_ERROR("Dangerous parse of the element pos " << iii << " \\ with nothing after");
 						// TODO : Generate Exeption ...
 						return;
 					}
-					int32_t j;
+					esize_t jjj;
 					// Find the element in the list...
-					for (j=0; j<constConvertionTableSize; j++) {
-						if(		true == constConvertionTable[j].haveBackSlash 
-							&&	_regexp[iii+1] == constConvertionTable[j].inputValue)
+					for (jjj=0; jjj<constConvertionTableSize; jjj++) {
+						if(		true == constConvertionTable[jjj].haveBackSlash 
+							&&	_regexp[iii+1] == constConvertionTable[jjj].inputValue)
 						{
-							if (constConvertionTable[j].newValue==0) {
-								tmpExp.PushBack(constConvertionTable[j].specialChar);
+							if (constConvertionTable[jjj].newValue==0) {
+								tmpExp.PushBack(constConvertionTable[jjj].specialChar);
 							} else {
-								tmpExp.PushBack(constConvertionTable[j].newValue);
+								tmpExp.PushBack(constConvertionTable[jjj].newValue);
 							}
 							break;
 						}
 					}
 					// check error : 
-					if (j==constConvertionTableSize) {
+					if (jjj==constConvertionTableSize) {
 						TK_ERROR("Dangerous parse of the \\ " << _regexp[iii+1] << " at element " << iii);
 						// TODO : Generate Exeption ...
 						return;
@@ -1263,22 +1265,22 @@ template<class CLASS_TYPE> class RegExp
 					} else if (_regexp[iii] == '}') {
 						countBraceOut++;
 					}
-					int32_t j;
+					esize_t jjj;
 					// find the element in the list...
-					for (j=0; j<constConvertionTableSize; j++) {
-						if(		false == constConvertionTable[j].haveBackSlash 
-							&&	_regexp[iii] == constConvertionTable[j].inputValue)
+					for (jjj=0; jjj<constConvertionTableSize; jjj++) {
+						if(		false == constConvertionTable[jjj].haveBackSlash 
+							&&	_regexp[iii] == constConvertionTable[jjj].inputValue)
 						{
-							if (constConvertionTable[j].newValue==0) {
-								tmpExp.PushBack(constConvertionTable[j].specialChar);
+							if (constConvertionTable[jjj].newValue==0) {
+								tmpExp.PushBack(constConvertionTable[jjj].specialChar);
 							} else {
-								tmpExp.PushBack(constConvertionTable[j].newValue);
+								tmpExp.PushBack(constConvertionTable[jjj].newValue);
 							}
 							break;
 						}
 					}
 					// not find : normal element
-					if (j==constConvertionTableSize) {
+					if (jjj==constConvertionTableSize) {
 						//TK_REG_EXP_DBG_MODE("parse : '" << _regexp[iii] << "'" );
 						tmpExp.PushBack(_regexp[iii]);
 					}
@@ -1362,27 +1364,26 @@ template<class CLASS_TYPE> class RegExp
 		 * @return true : find something, false otherwise
 		 */
 		bool Process( const CLASS_TYPE& _SearchIn,
-		              int32_t _startPos,
-		              int32_t _endPos,
+		              esize_t _startPos,
+		              esize_t _endPos,
 		              etk::UniChar _escapeChar=0)
 		{
 			if (false == m_isOk) {
 				return false;
 			}
-			int32_t buflen = _SearchIn.Size();
+			esize_t buflen = _SearchIn.Size();
 			if (_endPos > buflen) {
 				_endPos = buflen;
 			}
 			if (_startPos > _endPos) {
 				return false;
 			}
-			int32_t i = 0;
-			for (i=_startPos; i<_endPos; i++) {
-				int32_t findLen=0;
-				int32_t maxlen = _endPos-i;
+			for (esize_t iii=_startPos; iii<_endPos; iii++) {
+				esize_t findLen=0;
+				esize_t maxlen = _endPos-iii;
 				if (true == m_notBeginWithChar) {
-					if (i>0) {
-						etk::UniChar tmpVal = _SearchIn[i-1];
+					if (iii>0) {
+						etk::UniChar tmpVal = _SearchIn[iii-1];
 						if(    (    tmpVal >= 'a'
 						         && tmpVal <= 'z' )
 						    || (    tmpVal >= 'A'
@@ -1395,19 +1396,19 @@ template<class CLASS_TYPE> class RegExp
 						}
 					}
 				}
-				if (true == m_exprRootNode.Parse(_SearchIn, i, maxlen, findLen)) {
+				if (true == m_exprRootNode.Parse(_SearchIn, iii, maxlen, findLen)) {
 					if(		_escapeChar != 0
-						&&	i>0)
+						&&	iii>0)
 					{
-						if (_escapeChar == _SearchIn[i-1]) {
+						if (_escapeChar == _SearchIn[iii-1]) {
 							//==> detected escape char ==> try find again ...
 							continue;
 						}
 					}
 					// Check end :
 					if (true == m_notEndWithChar) {
-						if (i+findLen < _SearchIn.Size() ) {
-							etk::UniChar tmpVal = _SearchIn[i+findLen];
+						if (iii+findLen < _SearchIn.Size() ) {
+							etk::UniChar tmpVal = _SearchIn[iii+findLen];
 							if(    (    tmpVal >= 'a'
 							         && tmpVal <= 'z' )
 							    || (    tmpVal >= 'A'
@@ -1420,10 +1421,10 @@ template<class CLASS_TYPE> class RegExp
 							}
 						}
 					}
-					m_areaFind.start = i;
-					m_areaFind.stop  = i + findLen;
+					m_areaFind.start = iii;
+					m_areaFind.stop  = iii + findLen;
 					/*
-					if (i == 812) {
+					if (iii == 812) {
 						std::cout << std::endl;
 						for(int32_t k=startPos; k<endPos; k++){
 							std::cout << SearchIn[k];
@@ -1441,22 +1442,22 @@ template<class CLASS_TYPE> class RegExp
 		};
 		
 		bool ProcessOneElement( const CLASS_TYPE& _SearchIn,
-		                        int32_t _startPos,
-		                        int32_t _endPos,
+		                        esize_t _startPos,
+		                        esize_t _endPos,
 		                        etk::UniChar _escapeChar=0)
 		{
 			if (false == m_isOk) {
 				return false;
 			}
-			int32_t buflen = _SearchIn.Size();
+			esize_t buflen = _SearchIn.Size();
 			if (_endPos > buflen) {
 				_endPos = buflen;
 			}
 			if (_startPos > _endPos) {
 				return false;
 			}
-			int32_t findLen=0;
-			int32_t maxlen = _endPos-_startPos;
+			esize_t findLen=0;
+			esize_t maxlen = _endPos-_startPos;
 			if (true == m_notBeginWithChar) {
 				if (_startPos>0) {
 					etk::UniChar tmpVal = _SearchIn[_startPos-1];
@@ -1530,7 +1531,7 @@ template<class CLASS_TYPE> class RegExp
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool CheckGoodPosition(const etk::Vector<etk::UniChar>& _tmpExp, int32_t& _pos)
+		bool CheckGoodPosition(const etk::Vector<etk::UniChar>& _tmpExp, esize_t& _pos)
 		{
 			etk::UniChar curentCode = _tmpExp[_pos];
 			etk::UniChar endCode = REGEXP_OPCODE_PTHESE_OUT;
@@ -1637,7 +1638,7 @@ template<class CLASS_TYPE> class RegExp
 		 */
 		bool CheckGoodPosition(const etk::Vector<etk::UniChar>& _tmpExp)
 		{
-			int32_t pos = 0;
+			esize_t pos = 0;
 			while (pos < _tmpExp.Size()) {
 				//TK_DEBUG("check : " << tmpExp[pos]);
 				if(    _tmpExp[pos] == REGEXP_OPCODE_PTHESE_IN
