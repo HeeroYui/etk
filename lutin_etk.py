@@ -7,7 +7,6 @@ def Create(target):
 	myModule = lutinModule.module(__file__, 'etk', 'LIBRARY')
 	# add the file to compile:
 	
-	
 	myModule.AddSrcFile([
 		'etk/Debug.cpp',
 		'etk/DebugInternal.cpp',
@@ -19,16 +18,11 @@ def Create(target):
 		'etk/Stream.cpp',
 		'etk/RegExp.cpp',
 		'etk/tool.cpp',
-		'etk/Noise.cpp'])
-	
-	
-	myModule.AddSrcFile([
+		'etk/Noise.cpp',
+		'etk/Color.cpp',
 		'etk/math/Matrix4.cpp',
 		'etk/math/Vector2D.cpp',
-		'etk/math/Vector3D.cpp'])
-	
-	
-	myModule.AddSrcFile([
+		'etk/math/Vector3D.cpp',
 		'etk/os/FSNode.cpp',
 		'etk/os/FSNodeRight.cpp',
 		'etk/os/Memory.cpp'])
