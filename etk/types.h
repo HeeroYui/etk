@@ -44,7 +44,7 @@
 #define etk_avg(minimim,elem,maximum) (((minimim)>(elem)) ? (minimim) : ((maximum)<(elem)) ? (maximum) : (elem))
 
 #include <etk/UniChar.h>
-#if 1
+#if 0
 	typedef size_t esize_t;
 	#define ESIZE_T_IS_UNSIGNED
 #else

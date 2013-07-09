@@ -21,6 +21,7 @@ namespace etk {
 			MY_TYPE m_a;
 		public :
 			Color(void) { };
+			Color(double _r, double _g, double _b, double _a=255) { Set((float)_r, (float)_g, (float)_b, (float)_a); };
 			Color(float _r, float _g, float _b, float _a=255) { Set(_r, _g, _b, _a); };
 			Color(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a=255) { Set(_r, _g, _b, _a); };
 			Color(int _r, int _g, int _b, int _a=255) { Set(_r, _g, _b, _a); };
@@ -43,6 +44,26 @@ namespace etk {
 				m_a = _input.m_a;
 				return *this;
 			};
+			bool operator!= (const etk::Color<MY_TYPE>& _obj) const
+			{
+				if(    m_r != _obj.m_r
+				    || m_g != _obj.m_g
+				    || m_b != _obj.m_b
+				    || m_a != _obj.m_a) {
+					return true;
+				}
+				return false;
+			}
+			bool operator== (const etk::Color<MY_TYPE>& _obj) const
+			{
+				if(    m_r != _obj.m_r
+				    || m_g != _obj.m_g
+				    || m_b != _obj.m_b
+				    || m_a != _obj.m_a) {
+					return false;
+				}
+				return true;
+			}
 			uint32_t Get(void) const;
 			void Set(float _r, float _g, float _b, float _a=255);
 			void Set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a=255);
