@@ -855,6 +855,15 @@ etk::Vector<etk::UString> etk::UString::Split(const etk::UniChar& _val)
 }
 
 
+void etk::UString::Replace(const etk::UniChar& _out, const etk::UniChar& _in)
+{
+	for(int32_t iii=0 ; iii<m_data.Size() ; iii++) {
+		if (m_data[iii]==_out) {
+			m_data[iii]=_in;
+		}
+	}
+}
+
 void etk::UString::Lower(void)
 {
 	for( int32_t iii=0 ; iii<m_data.Size() ; iii++) {

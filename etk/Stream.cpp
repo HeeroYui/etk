@@ -44,7 +44,9 @@
 #else
 	void etk::DisplayBacktrace(void)
 	{
-		
+		#if DEBUG_LEVEL > 2
+			assert(false);
+		#endif
 	}
 #endif
 
@@ -267,7 +269,9 @@ etk::CCout& etk::CCout::operator << (CStart ccc)
 
 etk::CCout& etk::CCout::operator << (etk::CEndl t)
 {
+#if !defined(__TARGET_OS__Windows)
 	strncat(m_tmpChar, ETK_BASH_COLOR_NORMAL, MAX_LOG_SIZE);
+#endif
 	strncat(m_tmpChar, "\n", MAX_LOG_SIZE);
 	m_tmpChar[MAX_LOG_SIZE] = '\0';
 #if defined(__TARGET_OS__Android)

@@ -14,7 +14,9 @@
 #include <stdlib.h>
 #include <etk/tool.h>
 #include <etk/Vector.h>
-
+#ifdef __TARGET_OS__Windows
+	#include "windows.h"
+#endif
 extern "C" {
 	// file browsing ...
 	#include <dirent.h>
@@ -265,6 +267,7 @@ etk::UString GetApplicationPath(void)
 		}
 		// and now we will really in a bad mood ...
 	#endif
+	TK_INFO("Binary name : " << binaryName);
 	return binaryName;
 }
 
@@ -298,39 +301,51 @@ void etk::InitDefaultFolder(const char * applName)
 	
 	#ifndef __TARGET_OS__Android
 		etk::UString binaryPath = GetApplicationPath();
+		binaryPath.Replace('\\', '/');
 		int32_t pos = binaryPath.FindBack('/');
 		etk::UString binaryName = binaryPath.Extract(pos);
 		binaryPath.Remove(pos, binaryName.Size());
-		TK_VERBOSE("Bianry name : '" << binaryPath << "' && '" << binaryName << "'" );
-		// if element is installed :
-		baseFolderData = "/usr/share";
-		baseFolderData += binaryName;
-		baseFolderData += "/";
-		
-		etk::UString theoricInstalledName = "/usr/bin";
-		theoricInstalledName += binaryName;
-		TK_VERBOSE(" position : '" << binaryPath << "' installed position : '" << theoricInstalledName << "'");
-		if (binaryPath != theoricInstalledName) {
-			TK_INFO(" base path is not correct try to find it : (must only appear in test and not when installed) base name : '" << binaryPath << "'");
-			// remove bin/applName
+		TK_INFO("Bianry name : '" << binaryPath << "' && '" << binaryName << "'" );
+		#ifdef __TARGET_OS__Windows
 			baseFolderData = binaryPath;
-			#ifdef __TARGET_OS__MacOs
-				baseFolderData += "/../../Resources/";
-			#else
-				baseFolderData += "/../../share";
-				baseFolderData += binaryName;
-				baseFolderData += "/";
-			#endif
-			baseFolderData = SimplifyPathAbstractPath(baseFolderData);
-		}
-		baseFolderDataUser  = baseFolderHome;
-		baseFolderDataUser += "/.local/share/";
-		baseFolderDataUser += binaryName;
-		baseFolderDataUser += "/";
-		
-		baseFolderCache  = "/tmp/";
-		baseFolderCache += binaryName;
-		baseFolderCache += "/";
+			baseFolderData += "/data/";
+			
+			baseFolderDataUser  = binaryPath;
+			baseFolderDataUser += "/user/";
+			
+			baseFolderCache  = binaryPath;
+			baseFolderCache += "/tmp/";
+		#else
+			// if element is installed :
+			baseFolderData = "/usr/share";
+			baseFolderData += binaryName;
+			baseFolderData += "/";
+			
+			etk::UString theoricInstalledName = "/usr/bin";
+			theoricInstalledName += binaryName;
+			TK_VERBOSE(" position : '" << binaryPath << "' installed position : '" << theoricInstalledName << "'");
+			if (binaryPath != theoricInstalledName) {
+				TK_INFO(" base path is not correct try to find it : (must only appear in test and not when installed) base name : '" << binaryPath << "'");
+				// remove bin/applName
+				baseFolderData = binaryPath;
+				#ifdef __TARGET_OS__MacOs
+					baseFolderData += "/../../Resources/";
+				#else
+					baseFolderData += "/../../share";
+					baseFolderData += binaryName;
+					baseFolderData += "/";
+				#endif
+				baseFolderData = SimplifyPathAbstractPath(baseFolderData);
+			}
+			baseFolderDataUser  = baseFolderHome;
+			baseFolderDataUser += "/.local/share/";
+			baseFolderDataUser += binaryName;
+			baseFolderDataUser += "/";
+			
+			baseFolderCache  = "/tmp/";
+			baseFolderCache += binaryName;
+			baseFolderCache += "/";
+		#endif
 	#endif
 	TK_INFO("baseFolderHome     : '" << baseFolderHome << "'");
 	TK_INFO("baseFolderData     : '" << baseFolderData << "'");

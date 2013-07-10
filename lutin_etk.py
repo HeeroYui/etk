@@ -51,7 +51,8 @@ def Create(target):
 		myModule.AddExportFlag_CC("-DDEBUG_LEVEL=3")
 		myModule.AddExportFlag_CC("-DDEBUG=1")
 		# Bor backtrace display :
-		myModule.AddExportflag_LD("-ldl -rdynamic")
+		if target.name!="Windows":
+			myModule.AddExportflag_LD("-ldl -rdynamic")
 	
 	if target.name=="Windows":
 		None

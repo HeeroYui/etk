@@ -154,6 +154,12 @@ namespace etk
 			 * @return The list of all sthe string splited.
 			 */
 			etk::Vector<etk::UString> Split(const etk::UniChar& _val);
+			/**
+			 * @brief Replace a char with an other
+			 * @param[in] _out element to replace.
+			 * @param[in] _in Element to set.
+			 */
+			void Replace(const etk::UniChar& _out, const etk::UniChar& _in);
 			
 			etk::Vector<etk::UniChar> GetVector(void);
 			etk::UniChar* pointer(void) { return &m_data[0]; };
