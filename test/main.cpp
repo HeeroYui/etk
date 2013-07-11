@@ -57,7 +57,21 @@ void testUString(void)
 
 void testHash(void)
 {
-	
+	TK_INFO("==> Start test of Hach table");
+	etk::Hash<etk::UString> testData;
+	testData.Add("TEST", "testData");
+	testData.Add("TEST", "testData333");
+	testData.Add("TEST2", "22222222222222222");
+	testData.Add("TEST4", "4444444444444444444");
+	testData.Add("TEST3", "3333333333");
+	testData.Add("TEST1", "11111111111");
+	testData.Add("TEST55", "555555555555555((((5555");
+	TK_INFO(" count =" << testData.Size());
+	for (int32_t iii=0; iii< testData.Size(); iii++) {
+		TK_INFO(" id=" << iii << " key='" << testData.GetKey(iii) << "' val='" << testData.GetValue(iii) << "'");
+	}
+	TK_INFO(" direct acces at the key  key='TEST4' val='" << testData["TEST4"] << "'");
+	TK_INFO("==> End test of Hach table");
 }
 
 void testFSNode(void)
@@ -127,11 +141,11 @@ int main(int argc, const char *argv[])
 {
 	// the only one init for etk:
 	GeneralDebugSetLevel(etk::LOG_LEVEL_VERBOSE);
-	testVector();
-	testUniChar();
-	testUString();
+	//testVector();
+	//testUniChar();
+	//testUString();
 	testHash();
-	testFSNode();
+	//testFSNode();
 	//testDimension();
 	return 0;
 }

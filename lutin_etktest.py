@@ -13,6 +13,6 @@ def Create(target):
 	
 	myModule.AddModuleDepend(['etk'])
 	
-	# add the currrent module at the 
+	# add the currrent module at the system
 	return myModule
 
