@@ -26,8 +26,8 @@ void GeneralDebugSetLevel(etk::logLevel_te ccc);
 #define ETK_DBG_COMMON(libName, info, data)			do { \
 														if (info <= g_requestedLevel) { \
 															etk::cout << etk::cstart << info; \
-															/*TOOLS_DisplayTime();*/ \
-															/*TOOLS_DisplayFuncName(__LINE__, __class__, __func__, libName);*/ \
+															TOOLS_DisplayTime(); \
+															TOOLS_DisplayFuncName(__LINE__, __class__, __func__, libName); \
 															etk::cout << data; \
 															etk::cout <<etk::endl; \
 														} \
