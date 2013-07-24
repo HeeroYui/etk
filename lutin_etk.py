@@ -40,9 +40,6 @@ def Create(target):
 	myModule.AddModuleDepend('linearmath')
 	myModule.AddModuleDepend('minizip')
 	
-	if target.name=="Android":
-		myModule.AddModuleDepend('zip')
-	
 	myModule.CompileFlags_CC([
 		'-Wno-write-strings',
 		'-Wall'])

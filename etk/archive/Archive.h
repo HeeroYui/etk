@@ -23,9 +23,9 @@ namespace etk
 				private:
 					etk::Vector<char> m_data; // if null ==> this is a folder...
 				public:
-					Content(esize_t _basicSize=0) : m_data(_basicSize) { };
+					Content(esize_t _basicSize=0) : m_data(_basicSize) { m_data.ReSize(_basicSize, 0); };
 					esize_t Size(void) const { return m_data.Size(); };
-					void* Data(void) { return (void*)m_data.DataPointer(); };
+					void* Data(void) const { return (void*)&m_data[0]; };
 					etk::Vector<char>& GetDataVector(void) { return m_data; };
 			};
 		public:
@@ -65,6 +65,12 @@ namespace etk
 			 * @return FileName of the requested id
 			 */
 			const Content& GetContent(const etk::UString& _key) const;
+			/**
+			 * @brief Check if a file exist
+			 * @param[in] _key Name of the file
+			 * @return true if the file is present
+			 */
+			bool Exist(const etk::UString& _key) const { return m_content.Exist(_key); };
 			/**
 			 * @brief Display all Element in the archive
 			 */

@@ -24,11 +24,6 @@ extern "C" {
 	#include <errno.h>
 }
 
-#ifdef __TARGET_OS__Android
-#	include <stdio.h>
-#	include <zip/zip.h>
-#endif
-
 
 #ifdef __TARGET_OS__Windows
 	// For ctime 
@@ -130,24 +125,14 @@ static etk::UString baseRunPath = "/";
 
 
 #ifdef __TARGET_OS__Android
-	static struct zip * s_APKArchive = NULL;
-	static int32_t      s_APKnbFiles = 0;
+	static etk::Archive* s_APKArchive = NULL;
 	static void loadAPK(etk::UString& apkPath)
 	{
 		TK_DEBUG("Loading APK \"" << apkPath << "\"");
-		s_APKArchive = zip_open(apkPath.c_str(), 0, NULL);
+		s_APKArchive = etk::Archive::Load(apkPath);
 		TK_ASSERT(s_APKArchive != NULL, "Error loading APK ...  \"" << apkPath << "\"");
 		//Just for debug, print APK contents
-		s_APKnbFiles = zip_get_num_files(s_APKArchive);
-		TK_INFO("List all files in the APK : " << s_APKnbFiles << " files");
-		for (int iii=0; iii<s_APKnbFiles; iii++) {
-			const char* name = zip_get_name(s_APKArchive, iii, 0);
-			if (name == NULL) {
-				TK_ERROR("Error reading zip file name at index " << iii << " : \"" << zip_strerror(s_APKArchive) << "\"");
-				return;
-			}
-			TK_INFO("    File " << iii << " : \"" << name << "\"");
-		}
+		s_APKArchive->Display();
 	}
 #endif
 
@@ -367,48 +352,17 @@ etk::UString etk::GetUserRunFolder(void)
 #ifdef __TARGET_OS__Android
 bool etk::FSNode::LoadDataZip(void)
 {
-	if (NULL != m_zipData) {
-		return true;
-	} else {
-		struct zip_file * m_zipPointerFile= zip_fopen_index(s_APKArchive, m_idZipFile, 0);
-		if (NULL == m_zipPointerFile) {
-			TK_ERROR("Can not find the file name" << *this);
-			return false;
-		}
-		// get the fileSize .... end read all the data from the zip files
-		struct zip_stat zipFileProperty;
-		zip_stat_init(&zipFileProperty);
-		zip_stat_index(s_APKArchive, m_idZipFile, 0, &zipFileProperty);
-		TK_VERBOSE("LOAD data from the files : " << *this );
-		/*
-		TK_DEBUG("         name=" << zipFileProperty.name);
-		TK_DEBUG("         index=" << zipFileProperty.index);
-		TK_DEBUG("         crc=" << zipFileProperty.crc);
-		TK_DEBUG("         mtime=" << zipFileProperty.mtime);
-		TK_DEBUG("         size=" << zipFileProperty.size);
-		TK_DEBUG("         comp_size=" << zipFileProperty.comp_size);
-		TK_DEBUG("         comp_method=" << zipFileProperty.comp_method);
-		TK_DEBUG("         encryption_method=" << zipFileProperty.encryption_method);
-		*/
-		m_zipDataSize = zipFileProperty.size;
-		m_zipData = new char[m_zipDataSize +10];
-		if (NULL == m_zipData) {
-			TK_ERROR("File allocation ERROR : " << *this);
-			zip_fclose(m_zipPointerFile);
-			return false;
-		}
-		memset(m_zipData, 0, m_zipDataSize +10);
-		int32_t sizeTmp = zip_fread(m_zipPointerFile, m_zipData, m_zipDataSize);
-		if (sizeTmp != m_zipDataSize) {
-			TK_ERROR("File load data ERROR : " << *this);
-			zip_fclose(m_zipPointerFile);
-			delete[] m_zipData;
-			return false;
-		}
-		zip_fclose(m_zipPointerFile);
-		m_zipPointerFile = NULL;
+	if (NULL == s_APKArchive) {
+		return false;
+	}
+	if (NULL != m_zipContent) {
 		return true;
 	}
+	m_zipContent = &s_APKArchive->GetContent(m_systemFileName);
+	if (NULL != m_zipContent) {
+		return true;
+	}
+	return false;
 }
 #endif
 
@@ -479,9 +433,7 @@ etk::FSNode::FSNode(const etk::UString& nodeName) :
 	m_timeModify(0),
 	m_timeAccess(0)
 	#ifdef __TARGET_OS__Android
-		, m_idZipFile(-1),
-		m_zipData(NULL),
-		m_zipDataSize(-1),
+		, m_zipContent(NULL),
 		m_zipReadingOffset(-1)
 	#endif
 {
@@ -493,7 +445,7 @@ etk::FSNode::~FSNode(void)
 {
 	if(    NULL != m_PointerFile
 	#ifdef __TARGET_OS__Android
-	    || NULL != m_zipData
+	    || NULL != m_zipContent
 	#endif
 	  ) {
 		TK_ERROR("Missing to close the file : \"" << *this << "\"");
@@ -527,7 +479,7 @@ void etk::FSNode::PrivateSetName(const etk::UString& newName)
 {
 	if(    NULL != m_PointerFile
 	#ifdef __TARGET_OS__Android
-	    || NULL != m_zipData
+	    || NULL != m_zipContent
 	#endif
 	  ) {
 		TK_ERROR("Missing to close the file : \"" << *this << "\"");
@@ -537,9 +489,7 @@ void etk::FSNode::PrivateSetName(const etk::UString& newName)
 	m_rights = 0;
 	
 	#ifdef __TARGET_OS__Android
-		m_idZipFile = -1;
-		m_zipData = NULL;
-		m_zipDataSize = 0;
+		m_zipContent = NULL;
 		m_zipReadingOffset = 0;
 	#endif
 	// Reset ALL DATA :
@@ -671,15 +621,9 @@ bool DirectCheckFile(etk::UString tmpFileNameDirect, bool checkInAPKIfNeeded=fal
 {
 	#ifdef __TARGET_OS__Android
 	if (true == checkInAPKIfNeeded) {
-		for (int iii=0; iii<s_APKnbFiles; iii++) {
-			const char* name = zip_get_name(s_APKArchive, iii, 0);
-			if (name == NULL) {
-				TK_ERROR("Can not get pointer on file in the APK file id " << iii);
-				continue;
-			}
-			if (tmpFileNameDirect == name) {
-				return true;
-			}
+		if(    NULL != s_APKArchive
+		    && true == s_APKArchive->Exist(tmpFileNameDirect) ) {
+			return true;
 		}
 		return false;
 	}
@@ -805,44 +749,12 @@ void etk::FSNode::UpdateFileSystemProperty(void)
 		} else {
 			folderName = m_systemFileName + "/";
 		}
-		for (int iii=0; iii<s_APKnbFiles; iii++) {
-			etk::UString name = zip_get_name(s_APKArchive, iii, 0);
-			if (name.Size() == 0) {
-				TK_ERROR("Can not get pointer on file in the APK file id " << iii);
-				continue;
-			}
-			if (name.StartWith(folderName)) {
-				m_typeNode=FSN_FOLDER;
-				m_rights.SetUserReadable(true);
-				return;
-			}
-		}
-		// ----------------------------------------
-		// = Check if it was a File :             =
-		// ----------------------------------------
-		// if it is not a folder, it can jest be a file :
-		for (int iii=0; iii<s_APKnbFiles; iii++) {
-			const char* name = zip_get_name(s_APKArchive, iii, 0);
-			if (name == NULL) {
-				TK_ERROR("Can not get pointer on file in the APK file id " << iii);
-				continue;
-			}
-			if (m_systemFileName == name) {
-				m_idZipFile = iii;
-				break;
-			}
-		}
-		if(   -1 == m_idZipFile
-		    || m_idZipFile >= s_APKnbFiles) {
-			TK_ERROR("File Does not existed ... in APK : \"" << m_systemFileName << "\"");
-			return;
-		}
 		// note : Zip does not support other think than file ...
 		m_typeNode=FSN_FILE;
 		m_rights.SetUserReadable(true);
 		// TODO : Set the time of the file (time program compilation)
 		// TODO : Set the USER ID in the group and the user Id ...
-		TK_DBG_MODE("File existed ... in APK : \"" << m_systemFileName << "\" ==> id=" << m_idZipFile);
+		TK_DBG_MODE("File existed ... in APK : '" << m_systemFileName << "'");
 		return;
 	}
 	#endif
@@ -1093,7 +1005,7 @@ const etk::FSNode& etk::FSNode::operator=  (const etk::FSNode &obj )
 	{
 		if(    NULL != m_PointerFile
 		#ifdef __TARGET_OS__Android
-		    || NULL != m_zipData
+		    || NULL != m_zipContent
 		#endif
 		   ) {
 			TK_ERROR("Missing close the file : " << *this);
@@ -1101,9 +1013,7 @@ const etk::FSNode& etk::FSNode::operator=  (const etk::FSNode &obj )
 			m_PointerFile = NULL;
 		}
 		#ifdef __TARGET_OS__Android
-			m_idZipFile = obj.m_idZipFile;
-			m_zipData = NULL;
-			m_zipDataSize = 0;
+			m_zipContent = NULL;
 			m_zipReadingOffset = 0;
 		#endif
 		etk::UString tmppp = obj.GetName();
@@ -1304,8 +1214,11 @@ void etk::FSNode::FolderGetRecursiveFiles(etk::Vector<etk::UString>& output, boo
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
 		etk::UString assetsName = "assets/";
 		etk::UString FolderName = GetNameFolder();
-		for (int iii=0; iii<s_APKnbFiles; iii++) {
-			etk::UString filename = zip_get_name(s_APKArchive, iii, 0);
+		if (s_APKArchive==NULL) {
+			return;
+		}
+		for (int iii=0; iii<s_APKArchive->Size(); iii++) {
+			etk::UString filename = s_APKArchive->GetName(iii);
 			if (filename.StartWith(FolderName) == true) {
 				etk::UString tmpString;
 				if(m_type == etk::FSN_TYPE_DATA) {
@@ -1404,7 +1317,7 @@ uint64_t etk::FSNode::FileSize(void)
 	if(    etk::FSN_TYPE_DATA == m_type
 	    || etk::FSN_TYPE_THEME_DATA == m_type) {
 		if (true == LoadDataZip()) {
-			return m_zipDataSize;
+			return m_zipContent->Size();
 		}
 		return 0;
 	}
@@ -1494,13 +1407,11 @@ bool etk::FSNode::FileClose(void)
 	#ifdef __TARGET_OS__Android
 	if(    etk::FSN_TYPE_DATA == m_type
 	    || etk::FSN_TYPE_THEME_DATA == m_type) {
-		if (NULL == m_zipData) {
+		if (NULL == m_zipContent) {
 			TK_CRITICAL("File Already closed : " << *this);
 			return false;
 		}
-		delete[] m_zipData;
-		m_zipData = NULL;
-		m_zipDataSize = 0;
+		m_zipContent = NULL;
 		m_zipReadingOffset = 0;
 		return true;
 	}
@@ -1521,28 +1432,28 @@ char* etk::FSNode::FileGets(char * elementLine, int64_t maxData)
 	int64_t outSize = 0;
 	if(    etk::FSN_TYPE_DATA == m_type
 	    || etk::FSN_TYPE_THEME_DATA == m_type) {//char * tmpData = internalDataFiles[iii].data + m_readingOffset;
-		if (NULL == m_zipData) {
+		if (NULL == m_zipContent) {
 			element[0] = '\0';
 			return NULL;
 		}
-		if (m_zipReadingOffset>m_zipDataSize) {
+		if (m_zipReadingOffset>m_zipContent->Size()) {
 			element[0] = '\0';
 			return NULL;
 		}
-		while (m_zipData[m_zipReadingOffset] != '\0') {
-			if(    m_zipData[m_zipReadingOffset] == '\n'
-			    || m_zipData[m_zipReadingOffset] == '\r')
+		while (((char*)m_zipContent->Data())[m_zipReadingOffset] != '\0') {
+			if(    ((char*)m_zipContent->Data())[m_zipReadingOffset] == '\n'
+			    || ((char*)m_zipContent->Data())[m_zipReadingOffset] == '\r')
 			{
-				*element = m_zipData[m_zipReadingOffset];
+				*element = ((char*)m_zipContent->Data())[m_zipReadingOffset];
 				element++;
 				m_zipReadingOffset++;
 				*element = '\0';
 				return elementLine;
 			}
-			*element = m_zipData[m_zipReadingOffset];
+			*element = ((char*)m_zipContent->Data())[m_zipReadingOffset];
 			element++;
 			m_zipReadingOffset++;
-			if (m_zipReadingOffset>m_zipDataSize) {
+			if (m_zipReadingOffset>m_zipContent->Size()) {
 				*element = '\0';
 				return elementLine;
 			}
@@ -1568,16 +1479,16 @@ int64_t etk::FSNode::FileRead(void * data, int64_t blockSize, int64_t nbBlock)
 	#ifdef __TARGET_OS__Android
 	if(    etk::FSN_TYPE_DATA == m_type
 	    || etk::FSN_TYPE_THEME_DATA == m_type) {
-		if (NULL == m_zipData) {
+		if (NULL == m_zipContent) {
 			((char*)data)[0] = '\0';
 			return 0;
 		}
 		int32_t dataToRead = blockSize * nbBlock;
-		if (dataToRead + m_zipReadingOffset > m_zipDataSize) {
-			nbBlock = ((m_zipDataSize - m_zipReadingOffset) / blockSize);
+		if (dataToRead + m_zipReadingOffset > m_zipContent->Size()) {
+			nbBlock = ((m_zipContent->Size() - m_zipReadingOffset) / blockSize);
 			dataToRead = blockSize * nbBlock;
 		}
-		memcpy(data, &m_zipData[m_zipReadingOffset], dataToRead);
+		memcpy(data, &((char*)m_zipContent->Data())[m_zipReadingOffset], dataToRead);
 		m_zipReadingOffset += dataToRead;
 		return nbBlock;
 	}
@@ -1600,13 +1511,13 @@ bool etk::FSNode::FileSeek(long int offset, etk::seekNode_te origin)
 	#ifdef __TARGET_OS__Android
 	if(    etk::FSN_TYPE_DATA == m_type
 	    || etk::FSN_TYPE_THEME_DATA == m_type) {
-		if (NULL == m_zipData) {
+		if (NULL == m_zipContent) {
 			return false;
 		}
 		int32_t positionEnd = 0;
 		switch(origin) {
 			case etk::FSN_SEEK_END:
-				positionEnd = m_zipDataSize;
+				positionEnd = m_zipContent->Size();
 				break;
 			case etk::FSN_SEEK_CURRENT:
 				positionEnd = m_zipReadingOffset;
@@ -1618,8 +1529,8 @@ bool etk::FSNode::FileSeek(long int offset, etk::seekNode_te origin)
 		positionEnd += offset;
 		if (positionEnd < 0) {
 			positionEnd = 0;
-		} else if (positionEnd > m_zipDataSize) {
-			positionEnd = m_zipDataSize;
+		} else if (positionEnd > m_zipContent->Size()) {
+			positionEnd = m_zipContent->Size();
 		}
 		m_zipReadingOffset = positionEnd;
 		return true;

@@ -33,7 +33,8 @@ etk::Archive* etk::Archive::Load(const etk::UString& _fileName)
 	etk::Archive::Archive* output=NULL;
 	etk::UString tmpName = _fileName.ToLower();
 	// select the corect Loader :
-	if (true == tmpName.EndWith(".zip") ) {
+	if(    true == tmpName.EndWith(".zip") 
+	    || true == tmpName.EndWith(".apk")  ) {
 		output = new etk::archive::Zip(_fileName);
 		if (NULL==output) {
 			TK_ERROR("An error occured when load archive : " << _fileName);

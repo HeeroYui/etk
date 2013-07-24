@@ -12,6 +12,10 @@
 #include <etk/UString.h>
 #include <etk/os/FSNodeRight.h>
 
+#ifdef __TARGET_OS__Android
+#	include <etk/archive/Archive.h>
+#endif
+
 #define MAX_FILE_NAME      (10240)
 
 //http://developer.android.com/guide/topics/data/data-storage.html
@@ -164,9 +168,7 @@ namespace etk
 				 * @return false : An error Occured
 				 */
 				bool LoadDataZip(void);
-				int32_t m_idZipFile;
-				char* m_zipData;
-				int32_t m_zipDataSize;
+				const etk::Archive::Content* m_zipContent;
 				int32_t m_zipReadingOffset;
 			#endif
 		public:
