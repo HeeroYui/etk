@@ -46,3 +46,28 @@ etk::Archive* etk::Archive::Load(const etk::UString& _fileName)
 }
 
 
+void etk::Archive::Open(const etk::UString& _key)
+{
+	if (m_content.Exist(_key)==false) {
+		TK_ERROR("Try open an unexistant file : '" << _key << "'");
+		return;
+	}
+	if (m_content[_key].GetNumberOfRef()==-1) {
+		LoadFile(m_content.GetId(_key));
+		m_content[_key].IncreaseRef();
+	}
+	m_content[_key].IncreaseRef();
+}
+
+void etk::Archive::Close(const etk::UString& _key)
+{
+	if (m_content.Exist(_key)==false) {
+		TK_ERROR("Try close an unexistant file : '" << _key << "'");
+		return;
+	}
+	if (m_content[_key].GetNumberOfRef()==0){
+		TK_ERROR("Try close one more time the file : '" << _key << "'");
+	} else {
+		m_content[_key].DecreaseRef();
+	}
+}

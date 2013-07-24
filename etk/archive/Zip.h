@@ -26,6 +26,8 @@ namespace etk
 			public:
 				Zip(const etk::UString& _fileName);
 				virtual ~Zip(void);
+			protected: // herited functions :
+				virtual void LoadFile(int32_t _id);
 		};
 	};
 };

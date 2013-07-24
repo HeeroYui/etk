@@ -1321,7 +1321,7 @@ uint64_t etk::FSNode::FileSize(void)
 	if(    etk::FSN_TYPE_DATA == m_type
 	    || etk::FSN_TYPE_THEME_DATA == m_type) {
 		if (true == LoadDataZip()) {
-			return m_zipContent->Size();
+			return m_zipContent->GetTheoricSize();
 		}
 		return 0;
 	}

@@ -44,6 +44,8 @@ etk::archive::Zip::Zip(const etk::UString& _fileName) :
 			}
 			int error = UNZ_OK;
 			m_content.Add(tmpFileName, etk::Archive::Content(tmpFileInfo.uncompressed_size));
+			// request the resize of the data :
+			m_content[tmpFileName].GetDataVector().ReSize(tmpFileInfo.uncompressed_size, 0);
 			void* data = m_content[tmpFileName].Data();
 			if(NULL == data) {
 				TK_ERROR("Allocation error...");
@@ -78,3 +80,7 @@ etk::archive::Zip::~Zip(void)
 	};
 };
 
+void etk::archive::Zip::LoadFile(int32_t _id)
+{
+	TK_WARNING("Load file Here ... : " << _id << " = '" << m_content.GetKey(_id) << "'");
+}

@@ -21,9 +21,19 @@ namespace etk
 			class Content
 			{
 				private:
-					etk::Vector<char> m_data; // if null ==> this is a folder...
+					int32_t m_link; //!< number of element open on this file
 				public:
-					Content(esize_t _basicSize=0) : m_data(_basicSize) { m_data.ReSize(_basicSize, 0); };
+					void IncreaseRef(void) { m_link++; };
+					void DecreaseRef(void) { m_link--; };
+					int32_t GetNumberOfRef(void) const { return m_link; };
+				private:
+					esize_t m_theoricSize; //!< number of element open on this file
+				public:
+					esize_t GetTheoricSize(void) const { return m_theoricSize; };
+				private:
+					etk::Vector<char> m_data;
+				public:
+					Content(esize_t _basicSize=0) : m_link(-1), m_theoricSize(_basicSize) { };
 					esize_t Size(void) const { return m_data.Size(); };
 					void* Data(void) const { return (void*)&m_data[0]; };
 					etk::Vector<char>& GetDataVector(void) { return m_data; };
@@ -72,9 +82,25 @@ namespace etk
 			 */
 			bool Exist(const etk::UString& _key) const { return m_content.Exist(_key); };
 			/**
+			 * @brief Load the specific file in the memory
+			 * @param[in] _key Name of the file
+			 */
+			void Open(const etk::UString& _key);
+			/**
+			 * @brief Un-Load the specific file from the memory
+			 * @param[in] _key Name of the file
+			 */
+			void Close(const etk::UString& _key);
+			/**
 			 * @brief Display all Element in the archive
 			 */
 			void Display(void);
+		protected:
+			/**
+			 * @brief Request the load in memory of the concerned file.
+			 * @param[in] _id Id of the file to load.
+			 */
+			virtual void LoadFile(int32_t _id) { };
 		public:
 			/**
 			 * @brief Load an Achive with a specific name.
