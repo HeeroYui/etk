@@ -12,6 +12,7 @@
 #include <etk/Hach.h>
 #include <etk/os/FSNode.h>
 #include <etk/DebugInternal.h>
+#include <etk/archive/Archive.h>
 
 #undef __class__
 #define __class__	"etktest"
@@ -117,6 +118,16 @@ void testFSNode(void)
 	TK_INFO("==> Stop test of FSNode");
 }
 
+
+void testArchive(void)
+{
+	TK_INFO("==> Start test of archive");
+	etk::Archive* tmpArchive = etk::Archive::Load("testzip.zip");
+	tmpArchive->Display();
+	
+	TK_INFO("==> End test of archive");
+}
+
 /*
 void testDimension(void)
 {
@@ -147,6 +158,7 @@ int main(int argc, const char *argv[])
 	testHash();
 	//testFSNode();
 	//testDimension();
+	testArchive();
 	return 0;
 }
 

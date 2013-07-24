@@ -81,7 +81,7 @@ namespace etk
 			 * @param[in] _key Name of the hash requested
 			 * @return true if the element exist
 			 */
-			bool Exist(const etk::UString& _name)
+			bool Exist(const etk::UString& _name) const
 			{
 				int64_t elementId = GetId(_name);
 				if (elementId<0) {

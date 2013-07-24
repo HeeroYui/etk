@@ -25,7 +25,9 @@ def Create(target):
 		'etk/math/Vector3D.cpp',
 		'etk/os/FSNode.cpp',
 		'etk/os/FSNodeRight.cpp',
-		'etk/os/Memory.cpp'])
+		'etk/os/Memory.cpp',
+		'etk/archive/Archive.cpp',
+		'etk/archive/Zip.cpp'])
 	
 	if target.name=="Windows":
 		myModule.AddSrcFile('etk/os/Mutex.Windows.cpp')
@@ -36,6 +38,8 @@ def Create(target):
 	
 	# name of the dependency
 	myModule.AddModuleDepend('linearmath')
+	myModule.AddModuleDepend('minizip')
+	
 	if target.name=="Android":
 		myModule.AddModuleDepend('zip')
 	
