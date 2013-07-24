@@ -180,6 +180,16 @@ namespace etk
 				#endif
 				return m_data[_pos]->m_value;
 			}
+			MY_TYPE& GetValue(esize_t _pos)
+			{
+				// NOTE :Do not change log level, this generate error only in debug mode
+				#if DEBUG_LEVEL > 2
+					if(_pos>m_data.Size()){
+						TK_CRITICAL("[CRITICAL] Access to an unexistant data in hach : " << _pos << "/ " << m_data.Size());
+					}
+				#endif
+				return m_data[_pos]->m_value;
+			}
 	};
 };
 

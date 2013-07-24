@@ -1334,7 +1334,7 @@ uint64_t etk::FSNode::FileSize(void)
 		TK_ERROR("mlkmlkmlkmlkmlkmlk");
 		return 0;
 	}
-	TK_INFO(" file size : " << (int64_t)statProperty.st_size << " bytes");
+	TK_VERBOSE(" file size : " << (int64_t)statProperty.st_size << " bytes");
 	if ((uint64_t)statProperty.st_size<=0) {
 		return 0;
 	}
@@ -1347,7 +1347,11 @@ bool etk::FSNode::FileOpenRead(void)
 	#ifdef __TARGET_OS__Android
 	if(    etk::FSN_TYPE_DATA == m_type
 	    || etk::FSN_TYPE_THEME_DATA == m_type) {
-		return LoadDataZip();
+		if (false==LoadDataZip()) {
+			return false;
+		}
+		s_APKArchive->Open(m_systemFileName);
+		return m_zipContent->GetTheoricSize() == m_zipContent->Size();
 	}
 	#endif
 	if (NULL != m_PointerFile) {
@@ -1415,6 +1419,7 @@ bool etk::FSNode::FileClose(void)
 			TK_CRITICAL("File Already closed : " << *this);
 			return false;
 		}
+		s_APKArchive->Close(m_systemFileName);
 		m_zipContent = NULL;
 		m_zipReadingOffset = 0;
 		return true;
