@@ -715,7 +715,11 @@ void etk::FSNode::GenerateFileSystemPath(void)
 				}
 				// check in the Appl data : In every case we return this one ...
 				m_systemFileName = baseFolderData + "theme/" + themeName + "/" + basicName;
-				m_type = etk::FSN_TYPE_THEME_DATA;
+				if (true==DirectCheckFile(m_systemFileName, true)) {
+					m_type = etk::FSN_TYPE_THEME_DATA;
+					return;
+				}
+				m_type = etk::FSN_TYPE_UNKNOW;
 				return;
 			}
 			break;

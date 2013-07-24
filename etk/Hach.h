@@ -69,11 +69,13 @@ namespace etk
 			{
 				for (int32_t iii=0; iii<m_data.Size(); iii++) {
 					if (m_data[iii] != NULL) {
+						//TK_INFO("Compare key : '" << m_data[iii]->m_key << "' with '" << _key << "'" );
 						if (m_data[iii]->m_key == _key) {
 							return iii;
 						}
 					}
 				}
+				//TK_ERROR(" ==> not fund key '" << _key << "'" );
 				return -1;
 			}
 			/**
@@ -84,9 +86,12 @@ namespace etk
 			bool Exist(const etk::UString& _name) const
 			{
 				int64_t elementId = GetId(_name);
+				//TK_INFO(" Exist ? '" << _name << "' id=" << elementId );
 				if (elementId<0) {
+					//TK_INFO("     ==> return false" );
 					return false;
 				}
+				//TK_INFO("     ==> return true" );
 				return true;
 			}
 			/**

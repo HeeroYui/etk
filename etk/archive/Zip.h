@@ -10,7 +10,9 @@
 #define __ETK_ARCHIVE_ZIP_H__
 
 #include <etk/archive/Archive.h>
-#include <minizip/unzip.h>
+extern "C" {
+	#include <minizip/unzip.h>
+}
 
 namespace etk
 {

@@ -64,7 +64,6 @@ def Create(target):
 	
 	myModule.AddExportPath(lutinTools.GetCurrentPath(__file__))
 	
-	
 	# add the currrent module at the 
 	return myModule
 
