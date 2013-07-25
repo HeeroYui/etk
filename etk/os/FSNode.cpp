@@ -36,46 +36,46 @@ extern "C" {
 
 
 
-static etk::UString SimplifyPathAbstractPath(etk::UString input)
+static etk::UString SimplifyPathAbstractPath(etk::UString _input)
 {
-	int32_t findStartPos = input.FindForward('/') + 1;
-	int32_t findPos = input.FindForward('/', findStartPos);
+	int32_t findStartPos = _input.FindForward('/') + 1;
+	int32_t findPos = _input.FindForward('/', findStartPos);
 	//TK_DEBUG("Siplify : \"" << input << "\"");
 	int32_t preventBadCode = 0;
 	while (findPos!=-1)
 	{
 		//TK_DEBUG("      string=\"" << input << "\"");
 		//TK_DEBUG("      '/' @" << findPos);
-		if (input.Size()<findPos+1) {
+		if (_input.Size()<findPos+1) {
 			// no more element ...
 			break;
 		}
-		if(    input[findPos+1] == '/'
-		    || (    input[findPos+1] == '.'
-		         && input.Size()==findPos+2 )) {
+		if(    _input[findPos+1] == '/'
+		    || (    _input[findPos+1] == '.'
+		         && _input.Size()==findPos+2 )) {
 			// cleane the element path
-			input.Remove(findPos+1, 1);
+			_input.Remove(findPos+1, 1);
 			//TK_DEBUG("      Remove // string=\"" << input << "\"");
 		} else {
-			if (input.Size()<findPos+2) {
+			if (_input.Size()<findPos+2) {
 				// no more element ...
 				break;
 			}
-			if(    input[findPos+1] == '.'
-			    && input[findPos+2] == '.') {
+			if(    _input[findPos+1] == '.'
+			    && _input[findPos+2] == '.') {
 				// cleane the element path
-				input.Remove(findStartPos, findPos+3 - findStartPos );
+				_input.Remove(findStartPos, findPos+3 - findStartPos );
 				//TK_DEBUG("      Remove xxx/.. string=\"" << input << "\"");
-			} else if(    input[findPos+1] == '.'
-			           && input[findPos+2] == '/') {
+			} else if(    _input[findPos+1] == '.'
+			           && _input[findPos+2] == '/') {
 				// cleane the element path
-				input.Remove(findPos+1, 2);
+				_input.Remove(findPos+1, 2);
 				//TK_DEBUG("      Remove ./ string=\"" << input << "\"");
 			} else {
 				findStartPos = findPos+1;
 			}
 		}
-		findPos = input.FindForward('/', findStartPos);
+		findPos = _input.FindForward('/', findStartPos);
 		preventBadCode++;
 		if (preventBadCode>5000) {
 			TK_CRITICAL("ERROR when getting the small path ... this is loop prevention...");
@@ -97,7 +97,7 @@ static etk::UString SimplifyPathAbstractPath(etk::UString input)
 	#endif
 	*/
 	//TK_DEBUG("   ==> \"" << input << "\"");
-	return input;
+	return _input;
 }
 
 
@@ -126,50 +126,50 @@ static etk::UString baseRunPath = "/";
 
 #ifdef __TARGET_OS__Android
 	static etk::Archive* s_APKArchive = NULL;
-	static void loadAPK(etk::UString& apkPath)
+	static void loadAPK(etk::UString& _apkPath)
 	{
-		TK_DEBUG("Loading APK \"" << apkPath << "\"");
-		s_APKArchive = etk::Archive::Load(apkPath);
-		TK_ASSERT(s_APKArchive != NULL, "Error loading APK ...  \"" << apkPath << "\"");
+		TK_DEBUG("Loading APK \"" << _apkPath << "\"");
+		s_APKArchive = etk::Archive::Load(_apkPath);
+		TK_ASSERT(s_APKArchive != NULL, "Error loading APK ...  \"" << _apkPath << "\"");
 		//Just for debug, print APK contents
 		s_APKArchive->Display();
 	}
 #endif
 
 // for specific device contraint : 
-void etk::SetBaseFolderData(const char * folder)
+void etk::SetBaseFolderData(const char* _folder)
 {
 	#ifdef __TARGET_OS__Android
 		baseFolderData = "assets/";
-		s_fileAPK = folder;
+		s_fileAPK = _folder;
 		loadAPK(s_fileAPK);
 	#else
 		TK_WARNING("Not Availlable Outside Android");
 	#endif
 }
 
-void etk::SetBaseFolderDataUser(const char * folder)
+void etk::SetBaseFolderDataUser(const char* _folder)
 {
 	#ifdef __TARGET_OS__Android
-		baseFolderDataUser = folder;
+		baseFolderDataUser = _folder;
 	#else
 		TK_WARNING("Not Availlable Outside Android");
 	#endif
 }
 
-void etk::SetBaseFolderCache(const char * folder)
+void etk::SetBaseFolderCache(const char* _folder)
 {
 	#ifdef __TARGET_OS__Android
-		baseFolderCache = folder;
+		baseFolderCache = _folder;
 	#else
 		TK_WARNING("Not Availlable Outside Android");
 	#endif
 }
 
 etk::UString l_argZero="";
-void etk::SetArgZero(const etk::UString& val)
+void etk::SetArgZero(const etk::UString& _val)
 {
-	l_argZero = val;
+	l_argZero = _val;
 }
 	/*
 		On Unixes with /proc really straight and realiable way is to:
@@ -246,19 +246,19 @@ etk::UString GetApplicationPath(void)
 				return SimplifyPathAbstractPath(binaryName);
 			}
 		}
-		char * basicPathPATH = getenv("PATH");
-		if (NULL != basicPathPWD) {
+		//char * basicPathPATH = getenv("PATH");
+		//if (NULL != basicPathPWD) {
 			// TODO : bad case ...
-		}
+		//}
 		// and now we will really in a bad mood ...
 	#endif
 	TK_INFO("Binary name : " << binaryName);
 	return binaryName;
 }
 
-void etk::InitDefaultFolder(const char * applName)
+void etk::InitDefaultFolder(const char* _applName)
 {
-	baseApplName = applName;
+	baseApplName = _applName;
 	char cCurrentPath[FILENAME_MAX];
 	
 	char * basicPath = getenv("HOME");
@@ -266,6 +266,8 @@ void etk::InitDefaultFolder(const char * applName)
 		TK_ERROR("ERROR while trying to get the path of the home folder");
 		#if defined(__TARGET_OS__Windows)
 			baseFolderHome = "c:/";
+		#elif defined(__TARGET_OS__Android)
+			baseFolderHome = "/sdcard";
 		#else
 			baseFolderHome = "~";
 		#endif
@@ -368,16 +370,16 @@ bool etk::FSNode::LoadDataZip(void)
 
 
 
-static int32_t FSNODE_LOCAL_mkdir(const char *path, mode_t mode)
+static int32_t FSNODE_LOCAL_mkdir(const char* _path, mode_t _mode)
 {
 	struct stat st;
 	int32_t status = 0;
-	if (stat(path, &st) != 0) {
+	if (stat(_path, &st) != 0) {
 		/* Directory does not exist. EEXIST for race condition */
 		#ifdef __TARGET_OS__Windows
-		if(0!=mkdir(path)
+		if(0!=mkdir(_path)
 		#else
-		if(0!=mkdir(path, mode)
+		if(0!=mkdir(_path, _mode)
 		#endif
 		    && errno != EEXIST) {
 			status = -1;
@@ -390,12 +392,12 @@ static int32_t FSNODE_LOCAL_mkdir(const char *path, mode_t mode)
 	return(status);
 }
 
-static int32_t FSNODE_LOCAL_mkPath(const char *path, mode_t mode)
+static int32_t FSNODE_LOCAL_mkPath(const char* _path, mode_t _mode)
 {
 	char *pp;
 	char *sp;
 	int status;
-	char *copypath = strdup(path);
+	char *copypath = strdup(_path);
 	if (NULL==copypath) {
 		return -1;
 	}
@@ -405,13 +407,13 @@ static int32_t FSNODE_LOCAL_mkPath(const char *path, mode_t mode)
 		if (sp != pp) {
 			/* Neither root nor double slash in path */
 			*sp = '\0';
-			status = FSNODE_LOCAL_mkdir(copypath, mode);
+			status = FSNODE_LOCAL_mkdir(copypath, _mode);
 			*sp = '/';
 		}
 		pp = sp + 1;
 	}
 	if (status == 0) {
-		status = FSNODE_LOCAL_mkdir(path, mode);
+		status = FSNODE_LOCAL_mkdir(_path, _mode);
 	}
 	free(copypath);
 	return (status);
@@ -424,7 +426,7 @@ static int32_t FSNODE_LOCAL_mkPath(const char *path, mode_t mode)
 #undef __class__
 #define __class__	"FSNode"
 
-etk::FSNode::FSNode(const etk::UString& nodeName) :
+etk::FSNode::FSNode(const etk::UString& _nodeName) :
 	m_userFileName(""),
 	m_type(etk::FSN_TYPE_UNKNOW),
 	m_typeNode(etk::FSN_UNKNOW),
@@ -437,7 +439,7 @@ etk::FSNode::FSNode(const etk::UString& nodeName) :
 		m_zipReadingOffset(-1)
 	#endif
 {
-	PrivateSetName(nodeName);
+	PrivateSetName(_nodeName);
 }
 
 
@@ -454,28 +456,28 @@ etk::FSNode::~FSNode(void)
 }
 
 
-void etk::FSNode::SortElementList(etk::Vector<etk::FSNode *> &list)
+void etk::FSNode::SortElementList(etk::Vector<etk::FSNode *>& _list)
 {
-	etk::Vector<etk::FSNode *> tmpList = list;
-	list.Clear();
+	etk::Vector<etk::FSNode *> tmpList = _list;
+	_list.Clear();
 	for(int32_t iii=0; iii<tmpList.Size(); iii++) {
 		if (NULL != tmpList[iii]) {
 			int32_t findPos = 0;
-			for(int32_t jjj=0; jjj<list.Size(); jjj++) {
+			for(int32_t jjj=0; jjj<_list.Size(); jjj++) {
 				//EWOL_DEBUG("compare : \""<<*tmpList[iii] << "\" and \"" << *m_listDirectory[jjj] << "\"");
-				if (list[jjj]!=NULL) {
-					if (tmpList[iii]->GetNameFile() > list[jjj]->GetNameFile()) {
+				if (_list[jjj]!=NULL) {
+					if (tmpList[iii]->GetNameFile() > _list[jjj]->GetNameFile()) {
 						findPos = jjj+1;
 					}
 				}
 			}
 			//EWOL_DEBUG("position="<<findPos);
-			list.Insert(findPos, tmpList[iii]);
+			_list.Insert(findPos, tmpList[iii]);
 		}
 	}
 }
 
-void etk::FSNode::PrivateSetName(const etk::UString& newName)
+void etk::FSNode::PrivateSetName(const etk::UString& _newName)
 {
 	if(    NULL != m_PointerFile
 	#ifdef __TARGET_OS__Android
@@ -495,15 +497,15 @@ void etk::FSNode::PrivateSetName(const etk::UString& newName)
 	// Reset ALL DATA :
 	m_userFileName = "";
 	m_type = etk::FSN_TYPE_UNKNOW;
-	TK_DBG_MODE("1 : Set Name :              \"" << newName << "\"");
+	TK_DBG_MODE("1 : Set Name :              \"" << _newName << "\"");
 	
 	// generate destination name in case of the input error
 	etk::UString destFilename;
-	if (newName.Size() == 0) {
+	if (_newName.Size() == 0) {
 		// if no name ==> go to the root Folder
 		destFilename = "ROOT:";
 	} else {
-		destFilename = newName;
+		destFilename = _newName;
 	}
 	
 	bool isRootFolder = false;
@@ -617,12 +619,12 @@ void etk::FSNode::PrivateSetName(const etk::UString& newName)
 }
 
 
-bool DirectCheckFile(etk::UString tmpFileNameDirect, bool checkInAPKIfNeeded=false)
+bool DirectCheckFile(etk::UString _tmpFileNameDirect, bool _checkInAPKIfNeeded=false)
 {
 	#ifdef __TARGET_OS__Android
-	if (true == checkInAPKIfNeeded) {
+	if (true == _checkInAPKIfNeeded) {
 		if(    NULL != s_APKArchive
-		    && true == s_APKArchive->Exist(tmpFileNameDirect) ) {
+		    && true == s_APKArchive->Exist(_tmpFileNameDirect) ) {
 			return true;
 		}
 		return false;
@@ -630,7 +632,7 @@ bool DirectCheckFile(etk::UString tmpFileNameDirect, bool checkInAPKIfNeeded=fal
 	#endif
 	// tmpStat Buffer :
 	struct stat statProperty;
-	if (-1 == stat(tmpFileNameDirect.c_str(), &statProperty)) {
+	if (-1 == stat(_tmpFileNameDirect.c_str(), &statProperty)) {
 		return false;
 	}
 	return true;
@@ -794,16 +796,16 @@ void etk::FSNode::UpdateFileSystemProperty(void)
 	return;
 }
 
-bool etk::FSNode::SetRight(etk::FSNodeRight newRight)
+bool etk::FSNode::SetRight(etk::FSNodeRight _newRight)
 {
 	// TODO : ...
 	TK_ERROR("Can not set the new rights ...");
 	return false;
 }
 
-void etk::FSNode::SetName(const etk::UString& newName)
+void etk::FSNode::SetName(const etk::UString& _newName)
 {
-	PrivateSetName(newName);
+	PrivateSetName(_newName);
 }
 
 etk::UString etk::FSNode::GetNameFolder(void) const
@@ -920,9 +922,9 @@ bool etk::FSNode::Touch(void)
 	return ret;
 }
 
-bool etk::FSNode::Move(const etk::UString& path)
+bool etk::FSNode::Move(const etk::UString& _path)
 {
-	etk::FSNode tmpDst(path);
+	etk::FSNode tmpDst(_path);
 	if (tmpDst.Exist()==true) {
 		tmpDst.Remove();
 	}
@@ -1003,9 +1005,9 @@ etk::UString etk::FSNode::TimeAccessedString(void) const
 /*
 	Operator :
 */
-const etk::FSNode& etk::FSNode::operator=  (const etk::FSNode &obj )
+const etk::FSNode& etk::FSNode::operator=  (const etk::FSNode &_obj )
 {
-	if( this != &obj ) // avoid copy to itself
+	if( this != &_obj ) // avoid copy to itself
 	{
 		if(    NULL != m_PointerFile
 		#ifdef __TARGET_OS__Android
@@ -1020,17 +1022,17 @@ const etk::FSNode& etk::FSNode::operator=  (const etk::FSNode &obj )
 			m_zipContent = NULL;
 			m_zipReadingOffset = 0;
 		#endif
-		etk::UString tmppp = obj.GetName();
+		etk::UString tmppp = _obj.GetName();
 		PrivateSetName(tmppp);
 	}
 	return *this;
 }
-bool etk::FSNode::operator== (const etk::FSNode &obj ) const
+bool etk::FSNode::operator== (const etk::FSNode& _obj ) const
 {
-	if( this != &obj ) {
-		if(    obj.m_userFileName == m_userFileName
-		    && obj.m_systemFileName == m_systemFileName
-		    && obj.m_type == m_type ) {
+	if( this != &_obj ) {
+		if(    _obj.m_userFileName == m_userFileName
+		    && _obj.m_systemFileName == m_systemFileName
+		    && _obj.m_type == m_type ) {
 			return true;
 		} else {
 			return false;
@@ -1040,88 +1042,88 @@ bool etk::FSNode::operator== (const etk::FSNode &obj ) const
 	return true;
 }
 
-bool etk::FSNode::operator!= (const etk::FSNode &obj ) const
+bool etk::FSNode::operator!= (const etk::FSNode& _obj ) const
 {
-	return !(*this == obj);
+	return !(*this == _obj);
 }
 
-etk::CCout& etk::operator <<(etk::CCout &os, const etk::FSNode &obj)
+etk::CCout& etk::operator <<(etk::CCout &_os, const etk::FSNode &_obj)
 {
-	os << "[" << obj.m_type << "]->\"" << obj.m_userFileName << "\"";
-	return os;
+	_os << "[" << _obj.m_type << "]->\"" << _obj.m_userFileName << "\"";
+	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout &os, const etk::FSNType_te &obj)
+etk::CCout& etk::operator <<(etk::CCout &_os, const etk::FSNType_te &_obj)
 {
-	switch (obj)
+	switch (_obj)
 	{
 		case etk::FSN_TYPE_UNKNOW:
-			os << "FSN_TYPE_UNKNOW";
+			_os << "FSN_TYPE_UNKNOW";
 			break;
 		case etk::FSN_TYPE_DIRECT:
-			os << "FSN_TYPE_DIRECT";
+			_os << "FSN_TYPE_DIRECT";
 			break;
 		case etk::FSN_TYPE_RELATIF:
-			os << "FSN_TYPE_RELATIF";
+			_os << "FSN_TYPE_RELATIF";
 			break;
 		case etk::FSN_TYPE_HOME:
-			os << "FSN_TYPE_HOME";
+			_os << "FSN_TYPE_HOME";
 			break;
 		case etk::FSN_TYPE_DATA:
-			os << "FSN_TYPE_DATA";
+			_os << "FSN_TYPE_DATA";
 			break;
 		case etk::FSN_TYPE_USER_DATA:
-			os << "FSN_TYPE_USER_DATA";
+			_os << "FSN_TYPE_USER_DATA";
 			break;
 		case etk::FSN_TYPE_CACHE:
-			os << "FSN_TYPE_CACHE";
+			_os << "FSN_TYPE_CACHE";
 			break;
 		case etk::FSN_TYPE_THEME:
-			os << "FSN_TYPE_THEME";
+			_os << "FSN_TYPE_THEME";
 			break;
 		case etk::FSN_TYPE_THEME_DATA:
-			os << "FSN_TYPE_THEME(DATA)";
+			_os << "FSN_TYPE_THEME(DATA)";
 			break;
 		default:
-			os << "FSN_TYPE_????";
+			_os << "FSN_TYPE_????";
 			break;
 	}
-	return os;
+	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout &os, const etk::typeNode_te &obj)
+etk::CCout& etk::operator <<(etk::CCout &_os, const etk::typeNode_te &_obj)
 {
-	switch (obj)
+	switch (_obj)
 	{
 		case etk::FSN_UNKNOW:
-			os << "FSN_UNKNOW";
+			_os << "FSN_UNKNOW";
 			break;
 		case etk::FSN_BLOCK:
-			os << "FSN_BLOCK";
+			_os << "FSN_BLOCK";
 			break;
 		case etk::FSN_CHARACTER:
-			os << "FSN_CHARACTER";
+			_os << "FSN_CHARACTER";
 			break;
 		case etk::FSN_FOLDER:
-			os << "FSN_FOLDER";
+			_os << "FSN_FOLDER";
 			break;
 		case etk::FSN_FIFO:
-			os << "FSN_FIFO";
+			_os << "FSN_FIFO";
 			break;
 		case etk::FSN_LINK:
-			os << "FSN_LINK";
+			_os << "FSN_LINK";
 			break;
 		case etk::FSN_FILE:
-			os << "FSN_FILE";
+			_os << "FSN_FILE";
 			break;
 		case etk::FSN_SOCKET:
-			os << "FSN_SOCKET";
+			_os << "FSN_SOCKET";
 			break;
 		default:
-			os << "FSN_????";
+			_os << "FSN_????";
 			break;
 	}
-	return os;
+	return _os;
 }
 
 /*
@@ -1151,7 +1153,7 @@ int64_t etk::FSNode::FolderCount(void)
 	}
 	return counter;
 }
-etk::Vector<etk::FSNode *> etk::FSNode::FolderGetSubList(bool showHidenFile, bool getFolderAndOther, bool getFile, bool temporaryFile)
+etk::Vector<etk::FSNode *> etk::FSNode::FolderGetSubList(bool _showHidenFile, bool _getFolderAndOther, bool _getFile, bool _temporaryFile)
 {
 	etk::Vector<etk::FSNode*> tmpp;
 	if (m_typeNode != etk::FSN_FOLDER ) {
@@ -1174,20 +1176,20 @@ etk::Vector<etk::FSNode *> etk::FSNode::FolderGetSubList(bool showHidenFile, boo
 				continue;
 			}
 			if(    false == tmpName.StartWith(".")
-			    || true == showHidenFile) {
+			    || true == _showHidenFile) {
 				tmpEmement = new etk::FSNode(GetRelativeFolder()+tmpName);
 				if (NULL == tmpEmement) {
 					TK_ERROR("allocation error ... of ewol::FSNode");
 					continue;
 				}
 				if(tmpEmement->GetNodeType() == etk::FSN_FILE) {
-					if (true == getFile) {
+					if (true == _getFile) {
 						tmpp.PushBack(tmpEmement);
 					} else {
 						delete(tmpEmement);
 						tmpEmement = NULL;
 					}
-				} else if (getFolderAndOther) {
+				} else if (_getFolderAndOther) {
 					tmpp.PushBack(tmpEmement);
 				} else {
 					delete(tmpEmement);
@@ -1211,7 +1213,7 @@ etk::FSNode etk::FSNode::FolderGetParent(void)
 	return tmpp;
 }
 
-void etk::FSNode::FolderGetRecursiveFiles(etk::Vector<etk::UString>& output, bool recursiveEnable)
+void etk::FSNode::FolderGetRecursiveFiles(etk::Vector<etk::UString>& _output, bool _recursiveEnable)
 {
 	#ifdef __TARGET_OS__Android
 	if(    m_type == etk::FSN_TYPE_DATA
@@ -1234,7 +1236,7 @@ void etk::FSNode::FolderGetRecursiveFiles(etk::Vector<etk::UString>& output, boo
 					filename.Remove(0,assetsName.Size());
 				}
 				tmpString += filename;
-				output.PushBack(tmpString);
+				_output.PushBack(tmpString);
 			}
 		}
 		return;
@@ -1260,11 +1262,11 @@ void etk::FSNode::FolderGetRecursiveFiles(etk::Vector<etk::UString>& output, boo
 			if (NULL != tmpEmement) {
 				if(tmpEmement->GetNodeType() == etk::FSN_FILE) {
 					etk::UString tmpVal = tmpEmement->GetName();
-					output.PushBack(tmpVal);
+					_output.PushBack(tmpVal);
 				}
 				if(tmpEmement->GetNodeType() == etk::FSN_FOLDER) {
-					if (true==recursiveEnable) {
-						tmpEmement->FolderGetRecursiveFiles(output);
+					if (true==_recursiveEnable) {
+						tmpEmement->FolderGetRecursiveFiles(_output, _recursiveEnable);
 					}
 				}
 				delete(tmpEmement);
@@ -1433,11 +1435,11 @@ bool etk::FSNode::FileClose(void)
 	m_PointerFile = NULL;
 	return true;
 }
-char* etk::FSNode::FileGets(char * elementLine, int64_t maxData)
+char* etk::FSNode::FileGets(char * _elementLine, int64_t _maxData)
 {
-	memset(elementLine, 0, maxData);
+	memset(_elementLine, 0, _maxData);
 	#ifdef __TARGET_OS__Android
-	char * element = elementLine;
+	char * element = _elementLine;
 	int64_t outSize = 0;
 	if(    etk::FSN_TYPE_DATA == m_type
 	    || etk::FSN_TYPE_THEME_DATA == m_type) {//char * tmpData = internalDataFiles[iii].data + m_readingOffset;
@@ -1445,7 +1447,7 @@ char* etk::FSNode::FileGets(char * elementLine, int64_t maxData)
 			element[0] = '\0';
 			return NULL;
 		}
-		if (m_zipReadingOffset>m_zipContent->Size()) {
+		if (m_zipReadingOffset>=m_zipContent->Size()) {
 			element[0] = '\0';
 			return NULL;
 		}
@@ -1457,19 +1459,19 @@ char* etk::FSNode::FileGets(char * elementLine, int64_t maxData)
 				element++;
 				m_zipReadingOffset++;
 				*element = '\0';
-				return elementLine;
+				return _elementLine;
 			}
 			*element = ((char*)m_zipContent->Data())[m_zipReadingOffset];
 			element++;
 			m_zipReadingOffset++;
-			if (m_zipReadingOffset>m_zipContent->Size()) {
+			if (m_zipReadingOffset>=m_zipContent->Size()) {
 				*element = '\0';
-				return elementLine;
+				return _elementLine;
 			}
 			// check maxData Size ...
-			if (outSize>=maxData-1) {
+			if (outSize>=_maxData-1) {
 				*element = '\0';
-				return elementLine;
+				return _elementLine;
 			}
 			outSize++;
 		}
@@ -1477,34 +1479,34 @@ char* etk::FSNode::FileGets(char * elementLine, int64_t maxData)
 			return NULL;
 		} else {
 			// send last line
-			return elementLine;
+			return _elementLine;
 		}
 	}
 	#endif
-	return fgets(elementLine, maxData, m_PointerFile);
+	return fgets(_elementLine, _maxData, m_PointerFile);
 }
-int64_t etk::FSNode::FileRead(void * data, int64_t blockSize, int64_t nbBlock)
+int64_t etk::FSNode::FileRead(void* _data, int64_t _blockSize, int64_t _nbBlock)
 {
 	#ifdef __TARGET_OS__Android
 	if(    etk::FSN_TYPE_DATA == m_type
 	    || etk::FSN_TYPE_THEME_DATA == m_type) {
 		if (NULL == m_zipContent) {
-			((char*)data)[0] = '\0';
+			((char*)_data)[0] = '\0';
 			return 0;
 		}
-		int32_t dataToRead = blockSize * nbBlock;
+		int32_t dataToRead = _blockSize * _nbBlock;
 		if (dataToRead + m_zipReadingOffset > m_zipContent->Size()) {
-			nbBlock = ((m_zipContent->Size() - m_zipReadingOffset) / blockSize);
-			dataToRead = blockSize * nbBlock;
+			_nbBlock = ((m_zipContent->Size() - m_zipReadingOffset) / _blockSize);
+			dataToRead = _blockSize * _nbBlock;
 		}
-		memcpy(data, &((char*)m_zipContent->Data())[m_zipReadingOffset], dataToRead);
+		memcpy(_data, &((char*)m_zipContent->Data())[m_zipReadingOffset], dataToRead);
 		m_zipReadingOffset += dataToRead;
-		return nbBlock;
+		return _nbBlock;
 	}
 	#endif
-	return fread(data, blockSize, nbBlock, m_PointerFile);
+	return fread(_data, _blockSize, _nbBlock, m_PointerFile);
 }
-int64_t etk::FSNode::FileWrite(void * data, int64_t blockSize, int64_t nbBlock)
+int64_t etk::FSNode::FileWrite(void * _data, int64_t _blockSize, int64_t _nbBlock)
 {
 	#ifdef __TARGET_OS__Android
 	if(    etk::FSN_TYPE_DATA == m_type
@@ -1513,9 +1515,9 @@ int64_t etk::FSNode::FileWrite(void * data, int64_t blockSize, int64_t nbBlock)
 		return 0;
 	}
 	#endif
-	return fwrite(data, blockSize, nbBlock, m_PointerFile);
+	return fwrite(_data, _blockSize, _nbBlock, m_PointerFile);
 }
-bool etk::FSNode::FileSeek(long int offset, etk::seekNode_te origin)
+bool etk::FSNode::FileSeek(long int _offset, etk::seekNode_te _origin)
 {
 	#ifdef __TARGET_OS__Android
 	if(    etk::FSN_TYPE_DATA == m_type
@@ -1524,7 +1526,7 @@ bool etk::FSNode::FileSeek(long int offset, etk::seekNode_te origin)
 			return false;
 		}
 		int32_t positionEnd = 0;
-		switch(origin) {
+		switch(_origin) {
 			case etk::FSN_SEEK_END:
 				positionEnd = m_zipContent->Size();
 				break;
@@ -1535,7 +1537,7 @@ bool etk::FSNode::FileSeek(long int offset, etk::seekNode_te origin)
 				positionEnd = 0;
 				break;
 		}
-		positionEnd += offset;
+		positionEnd += _offset;
 		if (positionEnd < 0) {
 			positionEnd = 0;
 		} else if (positionEnd > m_zipContent->Size()) {
@@ -1546,7 +1548,7 @@ bool etk::FSNode::FileSeek(long int offset, etk::seekNode_te origin)
 	}
 	#endif
 	int originFS = 0;
-	switch(origin) {
+	switch(_origin) {
 		case etk::FSN_SEEK_END:
 			originFS = SEEK_END;
 			break;
@@ -1557,7 +1559,7 @@ bool etk::FSNode::FileSeek(long int offset, etk::seekNode_te origin)
 			originFS = 0;
 			break;
 	}
-	fseek(m_PointerFile, offset, originFS);
+	fseek(m_PointerFile, _offset, originFS);
 	if(ferror(m_PointerFile)) {
 		return false;
 	} else {
@@ -1593,12 +1595,12 @@ class tmpThemeElement
 static etk::Vector<tmpThemeElement*> g_listTheme;
 
 // set the Folder of a subset of a theme ...
-void etk::theme::SetName(etk::UString refName, etk::UString folderName)
+void etk::theme::SetName(etk::UString _refName, etk::UString _folderName)
 {
 	for(int32_t iii=0; iii<g_listTheme.Size(); iii++) {
 		if (NULL != g_listTheme[iii]) {
-			if (g_listTheme[iii]->refName==refName) {
-				g_listTheme[iii]->folderName = folderName;
+			if (g_listTheme[iii]->refName==_refName) {
+				g_listTheme[iii]->folderName = _folderName;
 				// action done
 				return;
 			}
@@ -1610,23 +1612,23 @@ void etk::theme::SetName(etk::UString refName, etk::UString folderName)
 		TK_ERROR("pb to add a reference theme");
 		return;
 	}
-	tmpp->refName = refName;
-	tmpp->folderName = folderName;
+	tmpp->refName = _refName;
+	tmpp->folderName = _folderName;
 	g_listTheme.PushBack(tmpp);
 }
 
 // get the folder from a Reference theme
-etk::UString etk::theme::GetName(etk::UString refName)
+etk::UString etk::theme::GetName(etk::UString _refName)
 {
 	for(int32_t iii=0; iii<g_listTheme.Size(); iii++) {
 		if (NULL != g_listTheme[iii]) {
-			if (g_listTheme[iii]->refName==refName) {
+			if (g_listTheme[iii]->refName==_refName) {
 				return g_listTheme[iii]->folderName;
 			}
 		}
 	}
 	// We did not find the theme
-	return refName;
+	return _refName;
 }
 
 // get the list of all the theme folder availlable in the user Home/appl
@@ -1643,88 +1645,88 @@ etk::Vector<etk::UString> etk::theme::List(void)
  *  Simple direct wrapper on the FileSystem node access :
  * 
  * -------------------------------------------------------------------------- */
-bool etk::FSNodeRemove(const etk::UString& path)
+bool etk::FSNodeRemove(const etk::UString& _path)
 {
-	etk::FSNode tmpNode(path);
+	etk::FSNode tmpNode(_path);
 	if (false==tmpNode.Exist()) {
 		return false;
 	}
 	return tmpNode.Remove();
 }
 
-int64_t etk::FSNodeGetCount(const etk::UString& path)
+int64_t etk::FSNodeGetCount(const etk::UString& _path)
 {
-	etk::FSNode tmpNode(path);
+	etk::FSNode tmpNode(_path);
 	if (false==tmpNode.Exist()) {
 		return -1;
 	}
 	return tmpNode.FolderCount();
 }
 
-bool etk::FSNodeCreate(const etk::UString& path, etk::FSNodeRight right, etk::typeNode_te type)
+bool etk::FSNodeCreate(const etk::UString& _path, etk::FSNodeRight _right, etk::typeNode_te _type)
 {
 	// TODO :
 	return false;
 }
 
-bool etk::FSNodeExist(const etk::UString& path)
+bool etk::FSNodeExist(const etk::UString& _path)
 {
-	etk::FSNode tmpNode(path);
+	etk::FSNode tmpNode(_path);
 	return tmpNode.Exist();
 }
 
-bool etk::FSNodeMove(const etk::UString& path1, const etk::UString& path2)
+bool etk::FSNodeMove(const etk::UString& _path1, const etk::UString& _path2)
 {
-	etk::FSNode tmpNode(path1);
+	etk::FSNode tmpNode(_path1);
 	if (false==tmpNode.Exist()) {
-		TK_DEBUG("try to move un existant file \"" << path1 << "\"");
+		TK_DEBUG("try to move un existant file \"" << _path1 << "\"");
 		return false;
 	}
 	// no check error in every case
-	(void)etk::FSNodeRemove(path2);
+	(void)etk::FSNodeRemove(_path2);
 	//move the node
-	return tmpNode.Move(path2);
+	return tmpNode.Move(_path2);
 }
 
-etk::FSNodeRight etk::FSNodeGetRight(const etk::UString& path)
+etk::FSNodeRight etk::FSNodeGetRight(const etk::UString& _path)
 {
-	etk::FSNode tmpNode(path);
+	etk::FSNode tmpNode(_path);
 	return tmpNode.GetRight();
 }
 
-etk::typeNode_te etk::FSNodeGetType(const etk::UString& path)
+etk::typeNode_te etk::FSNodeGetType(const etk::UString& _path)
 {
-	etk::FSNode tmpNode(path);
+	etk::FSNode tmpNode(_path);
 	return tmpNode.GetNodeType();
 }
 
-uint64_t etk::FSNodeGetTimeCreated(const etk::UString& path)
+uint64_t etk::FSNodeGetTimeCreated(const etk::UString& _path)
 {
-	etk::FSNode tmpNode(path);
+	etk::FSNode tmpNode(_path);
 	return tmpNode.TimeCreated();
 }
 
-uint64_t etk::FSNodeGetTimeModified(const etk::UString& path)
+uint64_t etk::FSNodeGetTimeModified(const etk::UString& _path)
 {
-	etk::FSNode tmpNode(path);
+	etk::FSNode tmpNode(_path);
 	return tmpNode.TimeModified();
 }
 
-uint64_t etk::FSNodeGetTimeAccessed(const etk::UString& path)
+uint64_t etk::FSNodeGetTimeAccessed(const etk::UString& _path)
 {
-	etk::FSNode tmpNode(path);
+	etk::FSNode tmpNode(_path);
 	return tmpNode.TimeAccessed();
 }
 
-bool etk::FSNodeTouch(const etk::UString& path)
+bool etk::FSNodeTouch(const etk::UString& _path)
 {
-	etk::FSNode tmpNode(path);
+	etk::FSNode tmpNode(_path);
 	return tmpNode.Touch();
 }
 
-bool etk::FSNodeEcho(const etk::UString& path, const etk::UString& dataTowrite)
+bool etk::FSNodeEcho(const etk::UString& _path, const etk::UString& _dataTowrite)
 {
-	etk::FSNode tmpNode(path);
+	etk::FSNode tmpNode(_path);
 	if (false==tmpNode.Exist()) {
 		return false;
 	}
@@ -1735,7 +1737,7 @@ bool etk::FSNodeEcho(const etk::UString& path, const etk::UString& dataTowrite)
 		return false;
 	}
 	// convert in UTF8 :
-	etk::Char tmpChar = dataTowrite.c_str();
+	etk::Char tmpChar = _dataTowrite.c_str();
 	int32_t nbChar = strlen(tmpChar);
 	if (nbChar != tmpNode.FileWrite(tmpChar, 1, nbChar)) {
 		tmpNode.FileClose();
@@ -1744,9 +1746,9 @@ bool etk::FSNodeEcho(const etk::UString& path, const etk::UString& dataTowrite)
 	return tmpNode.FileClose();
 }
 
-bool etk::FSNodeEchoAdd(const etk::UString& path, const etk::UString& dataTowrite)
+bool etk::FSNodeEchoAdd(const etk::UString& _path, const etk::UString& _dataTowrite)
 {
-	etk::FSNode tmpNode(path);
+	etk::FSNode tmpNode(_path);
 	if (false==tmpNode.Exist()) {
 		return false;
 	}
@@ -1757,7 +1759,7 @@ bool etk::FSNodeEchoAdd(const etk::UString& path, const etk::UString& dataTowrit
 		return false;
 	}
 	// convert in UTF8 :
-	etk::Char tmpChar = dataTowrite.c_str();
+	etk::Char tmpChar = _dataTowrite.c_str();
 	int32_t nbChar = strlen(tmpChar);
 	if (nbChar != tmpNode.FileWrite(tmpChar, 1, nbChar)) {
 		tmpNode.FileClose();

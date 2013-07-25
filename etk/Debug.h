@@ -13,7 +13,7 @@
 #include <etk/Stream.h>
 
 // Log Message System For EDN
-void TOOLS_DisplayFuncName(int32_t ligne, const char* className, const char* funcName, const char* libName);
+void TOOLS_DisplayFuncName(int32_t _ligne, const char* _className, const char* _funcName, const char* _libName);
 void TOOLS_DisplayTime(void);
 
 
@@ -21,7 +21,7 @@ void TOOLS_DisplayTime(void);
 #define __class__				(NULL)
 
 extern etk::logLevel_te g_requestedLevel;
-void GeneralDebugSetLevel(etk::logLevel_te ccc);
+void GeneralDebugSetLevel(etk::logLevel_te _ccc);
 
 #define ETK_DBG_COMMON(libName, info, data)			do { \
 														if (info <= g_requestedLevel) { \

@@ -60,7 +60,7 @@ etk::archive::Zip::~Zip(void)
 void etk::archive::Zip::LoadFile(int32_t _id)
 {
 	etk::UString fileNameRequested = m_content.GetKey(_id);
-	TK_WARNING("Load file Here ... : " << _id << " = '" << fileNameRequested << "'");
+	TK_VERBOSE("Real load file : " << _id << " = '" << fileNameRequested << "'");
 	
 	unzGoToFirstFile(m_ctx);
 	
@@ -96,6 +96,10 @@ void etk::archive::Zip::LoadFile(int32_t _id)
 					return;
 				}
 			} while ( error > 0 );
+			//((char*)data)[m_content.GetValue(_id).GetTheoricSize()] = '\0';
+			// stop searching here
+			unzCloseCurrentFile(m_ctx);
+			return;
 		}
 		unzCloseCurrentFile(m_ctx);
 		

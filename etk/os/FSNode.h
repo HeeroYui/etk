@@ -22,7 +22,7 @@
 
 namespace etk
 {
-	void SetArgZero(const etk::UString& val);
+	void SetArgZero(const etk::UString& _val);
 	/**
 	 * List of Type that a node can have (this wrap some type that not exist on Windows)
 	 */
@@ -37,7 +37,7 @@ namespace etk
 		FSN_SOCKET, //!< The node is a socket
 	} typeNode_te;
 	
-	etk::CCout& operator <<(etk::CCout &os, const etk::typeNode_te &obj);
+	etk::CCout& operator <<(etk::CCout &_os, const etk::typeNode_te &_obj);
 	
 	typedef enum {
 		FSN_SEEK_START,
@@ -87,7 +87,7 @@ namespace etk
 		FSN_TYPE_THEME_DATA
 	} FSNType_te;
 	
-	etk::CCout& operator <<(etk::CCout &os, const etk::FSNType_te &obj);
+	etk::CCout& operator <<(etk::CCout &_os, const etk::FSNType_te &_obj);
 	
 	/*
 	note : The filename can be
@@ -138,9 +138,9 @@ namespace etk
 		public:
 			/**
 			 * @brief Constructor
-			 * @param[in] path Path of the curent file /folder ...
+			 * @param[in] _path Path of the curent file /folder ...
 			 */
-			FSNode(const etk::UString& path="~");
+			FSNode(const etk::UString& _path="~");
 			/**
 			 * @brief Destructor
 			 * @note you will have some warning if you did not close your files
@@ -157,9 +157,9 @@ namespace etk
 			void UpdateFileSystemProperty(void);
 			/**
 			 * @brief Common set name of the Node (if the user decide to change the node selection
-			 * @param[in] newName Name of the Node
+			 * @param[in] _newName Name of the Node
 			 */
-			void PrivateSetName(const etk::UString& newName);
+			void PrivateSetName(const etk::UString& _newName);
 		private:
 			#ifdef __TARGET_OS__Android
 				/**
@@ -190,18 +190,18 @@ namespace etk
 			etk::FSNodeRight GetRight(void) const { return m_rights; };
 			/**
 			 * @brief Set the specific right of the node
-			 * @param[in] newRight new right to set
+			 * @param[in] _newRight new right to set
 			 * @return true : action done
 			 * @return false : action not done
 			 */
-			bool SetRight(etk::FSNodeRight newRight);
+			bool SetRight(etk::FSNodeRight _newRight);
 			/**
 			 * @brief Change the Node seeing (not rename the node, for this @ref Move)
-			 * @param[in] newName New node name to show
+			 * @param[in] _newName New node name to show
 			 * @return true : action done
 			 * @return false : action not done
 			 */
-			void SetName(const etk::UString& newName);
+			void SetName(const etk::UString& _newName);
 			/**
 			 * @brief Get the Generate FileSystem name
 			 * @return the requested filename
@@ -238,11 +238,11 @@ namespace etk
 			bool Touch(void);
 			/**
 			 * @brief Move the Node at a new path
-			 * @param[in] path The new path
+			 * @param[in] _path The new path
 			 * @return true : action done
 			 * @return false : action not done
 			 */
-			bool Move(const etk::UString& path);
+			bool Move(const etk::UString& _path);
 			/**
 			 * @brief Get the node type (DATA/DIRECT...)
 			 * @return the requested type
@@ -286,29 +286,29 @@ namespace etk
 			etk::UString TimeAccessedString(void) const;
 			/**
 			 * @brief copy the other FSnode ==> for vector
-			 * @param[in] obj input node
+			 * @param[in] _obj input node
 			 * @return the current modify node
 			 */
-			const etk::FSNode& operator=  (const etk::FSNode &obj );
+			const etk::FSNode& operator=  (const etk::FSNode &_obj );
 			/**
 			 * @brief Check if the 2 node are link with the same file
-			 * @param[in] obj input node
+			 * @param[in] _obj input node
 			 * @return true : same node, false otherwise
 			 */
-			bool operator== (const etk::FSNode &obj ) const;
+			bool operator== (const etk::FSNode &_obj ) const;
 			/**
 			 * @brief Check if the 2 node are NOT link with the same file
-			 * @param[in] obj input node
+			 * @param[in] _obj input node
 			 * @return false : same node, true otherwise
 			 */
-			bool operator!= (const etk::FSNode &obj ) const;
+			bool operator!= (const etk::FSNode &_obj ) const;
 			/**
 			 * @brief Write in the statard debug IO the current node
-			 * @param[in] os std debug IO
-			 * @param[in] obj Node to display
+			 * @param[in] _os std debug IO
+			 * @param[in] _obj Node to display
 			 * @return std debug IO
 			 */
-			friend etk::CCout& operator <<( etk::CCout &os,const etk::FSNode &obj);
+			friend etk::CCout& operator <<( etk::CCout &_os,const etk::FSNode &_obj);
 			
 			/**
 			 * @brief Count the number of subFolder in the curent Folder
@@ -318,16 +318,16 @@ namespace etk
 			int64_t FolderCount(void);
 			/**
 			 * @brief Get the List of all node inside a node (folder only)
-			 * @param[in] showHidenFile Add hidden file/folder/...
-			 * @param[in] getFolderAndOther get folder
-			 * @param[in] getFile Get files
-			 * @param[in] temporaryFile add Tmp file like .bck or ~
+			 * @param[in] _showHidenFile Add hidden file/folder/...
+			 * @param[in] _getFolderAndOther get folder
+			 * @param[in] _getFile Get files
+			 * @param[in] _temporaryFile add Tmp file like .bck or ~
 			 * @return The requested list
 			 */
-			etk::Vector<etk::FSNode *> FolderGetSubList(bool showHidenFile=true,
-			                                            bool getFolderAndOther=true,
-			                                            bool getFile=true,
-			                                            bool temporaryFile=true);
+			etk::Vector<etk::FSNode *> FolderGetSubList(bool _showHidenFile=true,
+			                                            bool _getFolderAndOther=true,
+			                                            bool _getFile=true,
+			                                            bool _temporaryFile=true);
 			/**
 			 * @brief Get the father node of this node
 			 * @return The requested node
@@ -335,10 +335,10 @@ namespace etk
 			etk::FSNode FolderGetParent(void);
 			/**
 			 * @brief Get all the File inside a Folder (done recursively)
-			 * @param[out] output List of all the File names (You must clear it before set it in)
-			 * @param[in] recursiveEnable Activate the recursive mode (enable by default)
+			 * @param[out] _output List of all the File names (You must clear it before set it in)
+			 * @param[in] _recursiveEnable Activate the recursive mode (enable by default)
 			 */
-			void FolderGetRecursiveFiles(etk::Vector<etk::UString>& output, bool recursiveEnable=true);
+			void FolderGetRecursiveFiles(etk::Vector<etk::UString>& _output, bool _recursiveEnable=true);
 			/**
 			 * @brief Check if the file have an extention ( ***.ccc)
 			 * @return true The file have an extention.
@@ -383,35 +383,35 @@ namespace etk
 			bool FileClose(void);
 			/**
 			 * @brief Get the pointer on the start line and the next line (or null)
-			 * @param[in,out] elementLine Pointer to an array of chars where the string read is copied.
-			 * @param[in] maxData Maximum number of characters to be copied into str (including the terminating null-character).
+			 * @param[in,out] _elementLine Pointer to an array of chars where the string read is copied.
+			 * @param[in] _maxData Maximum number of characters to be copied into str (including the terminating null-character).
 			 * @return the pointer on the end of the cuurent line.
 			 */
-			char* FileGets(char * elementLine, int64_t maxData);
+			char* FileGets(char* _elementLine, int64_t _maxData);
 			/**
 			 * @brief Read data from the file
-			 * @param[in,out] data Pointer on the buffer that might be set the data
-			 * @param[in] blockSize Size of one block of data
-			 * @param[in] nbBlock Number of block needed
+			 * @param[in,out] _data Pointer on the buffer that might be set the data
+			 * @param[in] _blockSize Size of one block of data
+			 * @param[in] _nbBlock Number of block needed
 			 * @return Number of element read (in block number)
 			 */
-			int64_t FileRead(void * data, int64_t blockSize, int64_t nbBlock);
+			int64_t FileRead(void* _data, int64_t _blockSize, int64_t _nbBlock);
 			/**
 			 * @brief Write data on the file
-			 * @param[in] data Pointer on the buffer that might be set on the file
-			 * @param[in] blockSize Size of one block of data
-			 * @param[in] nbBlock Number of block needed
+			 * @param[in] _data Pointer on the buffer that might be set on the file
+			 * @param[in] _blockSize Size of one block of data
+			 * @param[in] _nbBlock Number of block needed
 			 * @return Number of element written (in block number)
 			 */
-			int64_t FileWrite(void * data, int64_t blockSize, int64_t nbBlock);
+			int64_t FileWrite(void* _data, int64_t _blockSize, int64_t _nbBlock);
 			/**
 			 * @brief Move in the file Position
-			 * @param[in] offset Offset to apply at the file
-			 * @param[in] origin Origin  of the position
+			 * @param[in] _offset Offset to apply at the file
+			 * @param[in] _origin Origin  of the position
 			 * @return true : action done
 			 * @return false : action not done
 			 */
-			bool FileSeek(long int offset, etk::seekNode_te origin);
+			bool FileSeek(long int _offset, etk::seekNode_te _origin);
 			/**
 			 * @brief Flush the current file
 			 */
@@ -419,33 +419,33 @@ namespace etk
 		private:
 			/**
 			 * @brief Order the list of subnode the folder first and the alphabetical order
-			 * @param[in,out] list The list to order
+			 * @param[in,out] _list The list to order
 			 */
-			void SortElementList(etk::Vector<etk::FSNode *> &list);
+			void SortElementList(etk::Vector<etk::FSNode *>& _list);
 	};
 	
-	etk::CCout& operator <<(etk::CCout &os, const etk::FSNode &obj);
+	etk::CCout& operator <<(etk::CCout &_os, const etk::FSNode &_obj);
 	
 	/**
 	 * @brief Set manualy the folder of the Data.(like /usr/shared/applName/ for linux)
-	 * @param[in] folder folder path of the cathegorie
+	 * @param[in] _folder folder path of the cathegorie
 	 */
-	void SetBaseFolderData(const char * folder);
+	void SetBaseFolderData(const char* _folder);
 	/**
 	 * @brief Set the user data folder (like /home/machin/.local/applName/ for linux)
-	 * @param[in] folder folder path of the cathegorie
+	 * @param[in] _folder folder path of the cathegorie
 	 */
-	void SetBaseFolderDataUser(const char * folder);
+	void SetBaseFolderDataUser(const char* _folder);
 	/**
 	 * @brief Set the Cach folder for the application (like /tmp)
-	 * @param[in] folder folder path of the cathegorie
+	 * @param[in] _folder folder path of the cathegorie
 	 */
-	void SetBaseFolderCache(const char * folder);
+	void SetBaseFolderCache(const char* _folder);
 	/**
 	 * @brief Initialyse all the subFolder usable by the user like DATA/HOME/CACHE/USERDATA
-	 * @param[in] applName the name of the application
+	 * @param[in] _applName the name of the application
 	 */
-	void InitDefaultFolder(const char * applName);
+	void InitDefaultFolder(const char* _applName);
 	/**
 	 * @brief Get the home folder of the user
 	 * @return the home folder : like : "/home/machin/"
@@ -462,16 +462,16 @@ namespace etk
 		// TODO : Add an INIT ...
 		/**
 		 * @brief Set the Folder of a subset of a theme ...
-		 * @param[in] refName Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" 
-		 * @param[in] folderName The associated folder of the Theme (like "myTheme/folder/folder2/")
+		 * @param[in] _refName Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" 
+		 * @param[in] _folderName The associated folder of the Theme (like "myTheme/folder/folder2/")
 		 */
-		void SetName(etk::UString refName, etk::UString folderName);
+		void SetName(etk::UString _refName, etk::UString _folderName);
 		/**
 		 * @brief get the folder from a Reference theme
-		 * @param[in] refName Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" 
+		 * @param[in] _refName Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" 
 		 * @return the path of the theme
 		 */
-		etk::UString GetName(etk::UString refName);
+		etk::UString GetName(etk::UString _refName);
 		/**
 		 * @brief Get the list of all the theme folder availlable in the user Home/appl
 		 * @return The list of elements
@@ -481,100 +481,100 @@ namespace etk
 	
 	/**
 	 * @brief Simple access for : Remove folder and subFolder, files pipes ...
-	 * @param[in] path Folder/File/Pipe path of the node
+	 * @param[in] _path Folder/File/Pipe path of the node
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
-	bool FSNodeRemove(const etk::UString& path);
+	bool FSNodeRemove(const etk::UString& _path);
 	/**
 	 * @brief Simple access for : count the number of element in a path (if it is not a path ==> return -1)
-	 * @param[in] path Folder/File/Pipe path of the node
+	 * @param[in] _path Folder/File/Pipe path of the node
 	 * @return number of File inside
 	 * @return -1 : An error occured
 	 */
-	int64_t FSNodeGetCount(const etk::UString& path);
+	int64_t FSNodeGetCount(const etk::UString& _path);
 	/**
 	 * @brief Simple access for : Create a file or a folder depending of the request
-	 * @param[in] path Folder/File/Pipe path of the node
-	 * @param[in] right Right of the creation
-	 * @param[in] type Type of the element that might be created
+	 * @param[in] _path Folder/File/Pipe path of the node
+	 * @param[in] _right Right of the creation
+	 * @param[in] _type Type of the element that might be created
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
-	bool FSNodeCreate(const etk::UString& path, etk::FSNodeRight right, etk::typeNode_te type=etk::FSN_FOLDER);
+	bool FSNodeCreate(const etk::UString& _path, etk::FSNodeRight _right, etk::typeNode_te _type=etk::FSN_FOLDER);
 	/**
 	 * @brief Simple access for : chexk the exestance of an element
-	 * @param[in] path Folder/File/Pipe path of the node
+	 * @param[in] _path Folder/File/Pipe path of the node
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
-	bool FSNodeExist(const etk::UString& path);
+	bool FSNodeExist(const etk::UString& _path);
 	/**
 	 * @brief Simple access for : chexk the exestance of an element
-	 * @param[in] path Folder/File/Pipe path of the node sources
-	 * @param[in] path Folder/File/Pipe path of the node destination
+	 * @param[in] _path1 Folder/File/Pipe path of the node sources
+	 * @param[in] _path2 Folder/File/Pipe path of the node destination
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
-	bool FSNodeMove(const etk::UString& path1, const etk::UString& path2);
+	bool FSNodeMove(const etk::UString& _path1, const etk::UString& _path2);
 	/**
 	 * @brief Simple access for : Get right of the current Node
-	 * @param[in] path Folder/File/Pipe path of the node
+	 * @param[in] _path Folder/File/Pipe path of the node
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
-	etk::FSNodeRight FSNodeGetRight(const etk::UString& path);
+	etk::FSNodeRight FSNodeGetRight(const etk::UString& _path);
 	/**
 	 * @brief Simple access for : Get type of the current node
-	 * @param[in] path Folder/File/Pipe path of the node
+	 * @param[in] _path Folder/File/Pipe path of the node
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
-	etk::typeNode_te FSNodeGetType(const etk::UString& path);
+	etk::typeNode_te FSNodeGetType(const etk::UString& _path);
 	/**
 	 * @brief Simple access for : Getting creation time of the current node
-	 * @param[in] path Folder/File/Pipe path of the node
+	 * @param[in] _path Folder/File/Pipe path of the node
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
-	uint64_t FSNodeGetTimeCreated(const etk::UString& path);
+	uint64_t FSNodeGetTimeCreated(const etk::UString& _path);
 	/**
 	 * @brief Simple access for : Getting Modification time of the current node
-	 * @param[in] path Folder/File/Pipe path of the node
+	 * @param[in] _path Folder/File/Pipe path of the node
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
-	uint64_t FSNodeGetTimeModified(const etk::UString& path);
+	uint64_t FSNodeGetTimeModified(const etk::UString& _path);
 	/**
 	 * @brief Simple access for : Getting Accessing time of the current node
-	 * @param[in] path Folder/File/Pipe path of the node
+	 * @param[in] _path Folder/File/Pipe path of the node
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
-	uint64_t FSNodeGetTimeAccessed(const etk::UString& path);
+	uint64_t FSNodeGetTimeAccessed(const etk::UString& _path);
 	/**
 	 * @brief Simple access for : Update Modification time with the current time of the node (>)
-	 * @param[in] path Folder/File/Pipe path of the node
+	 * @param[in] _path Folder/File/Pipe path of the node
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
-	bool FSNodeTouch(const etk::UString& path);
+	bool FSNodeTouch(const etk::UString& _path);
 	/**
 	 * @brief Simple access for : Basic write on the node (like console echo)
-	 * @param[in] path Folder/File/Pipe path of the node
-	 * @param[in] dataTowrite write data in the Node
+	 * @param[in] _path Folder/File/Pipe path of the node
+	 * @param[in] _dataTowrite write data in the Node
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
-	bool FSNodeEcho(const etk::UString& path, const etk::UString& dataTowrite);
+	bool FSNodeEcho(const etk::UString& _path, const etk::UString& _dataTowrite);
 	/**
 	 * @brief Simple access for : Basic write on the node (like console echo) in adding mode (>>)
-	 * @param[in] path Folder/File/Pipe path of the node
-	 * @param[in] dataTowrite write data in the Node
+	 * @param[in] _path Folder/File/Pipe path of the node
+	 * @param[in] _dataTowrite write data in the Node
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
-	bool FSNodeEchoAdd(const etk::UString& path, const etk::UString& dataTowrite);
+	bool FSNodeEchoAdd(const etk::UString& _path, const etk::UString& _dataTowrite);
 	/**
 	 * @brief move file to generate an history of the current file
 	 * @param[in] _path Folder/File/Pipe path of the node

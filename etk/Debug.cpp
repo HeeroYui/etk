@@ -15,21 +15,21 @@
 
 #define FUNCTION_NAME_SIZE	(70)
 
-void TOOLS_DisplayFuncName(int32_t ligne, const char* className, const char* funcName, const char* libName)
+void TOOLS_DisplayFuncName(int32_t _ligne, const char* _className, const char* _funcName, const char* _libName)
 {
 	char tmpName[FUNCTION_NAME_SIZE] = "";
 	
-	if (NULL == className) {
-		if (NULL == libName) {
-			snprintf(tmpName, FUNCTION_NAME_SIZE-1, "???????? | (l=%5d) %s                                             ",ligne, funcName);
+	if (NULL == _className) {
+		if (NULL == _libName) {
+			snprintf(tmpName, FUNCTION_NAME_SIZE-1, "???????? | (l=%5d) %s                                             ",_ligne, _funcName);
 		} else {
-			snprintf(tmpName, FUNCTION_NAME_SIZE-1, "%s | (l=%5d) %s                                             ",libName, ligne, funcName);
+			snprintf(tmpName, FUNCTION_NAME_SIZE-1, "%s | (l=%5d) %s                                             ",_libName, _ligne, _funcName);
 		}
 	} else {
-		if (NULL == libName) {
-			snprintf(tmpName, FUNCTION_NAME_SIZE-1, "???????? | (l=%5d) %s::%s                                             ",ligne, className, funcName);
+		if (NULL == _libName) {
+			snprintf(tmpName, FUNCTION_NAME_SIZE-1, "???????? | (l=%5d) %s::%s                                             ",_ligne, _className, _funcName);
 		} else {
-			snprintf(tmpName, FUNCTION_NAME_SIZE-1, "%s | (l=%5d) %s::%s                                             ", libName, ligne, className, funcName);
+			snprintf(tmpName, FUNCTION_NAME_SIZE-1, "%s | (l=%5d) %s::%s                                             ", _libName, _ligne, _className, _funcName);
 		}
 	}
 	tmpName[FUNCTION_NAME_SIZE-4] = ' ';
@@ -45,13 +45,13 @@ void TOOLS_DisplayTime(void)
 #ifdef __TARGET_OS__Android
 	struct timeval  now;
 	gettimeofday(&now, NULL);
-	sprintf(tmpdata, " %2dh %2dmin %2ds | ", (int32_t)(now.tv_sec/3600)%24, (int32_t)(now.tv_sec/60)%60, (int32_t)(now.tv_sec%60));
+	sprintf(tmpdata, " %2dh%2d'%2d | ", (int32_t)(now.tv_sec/3600)%24, (int32_t)(now.tv_sec/60)%60, (int32_t)(now.tv_sec%60));
 #else
 	time_t rawtime;
 	struct tm * timeinfo;
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
-	sprintf(tmpdata, " %2dh %2dmin %2ds | ", (timeinfo->tm_hour)%24, timeinfo->tm_min, timeinfo->tm_sec);
+	sprintf(tmpdata, " %2dh%2d'%2d | ", (timeinfo->tm_hour)%24, timeinfo->tm_min, timeinfo->tm_sec);
 #endif
 	etk::cout << tmpdata ;
 }
@@ -62,7 +62,7 @@ etk::logLevel_te g_requestedLevel = etk::LOG_LEVEL_VERBOSE;
 #else
 etk::logLevel_te g_requestedLevel = etk::LOG_LEVEL_ERROR;
 #endif
-void GeneralDebugSetLevel(etk::logLevel_te ccc) {
-	g_requestedLevel = ccc;
+void GeneralDebugSetLevel(etk::logLevel_te _ccc) {
+	g_requestedLevel = _ccc;
 }
 

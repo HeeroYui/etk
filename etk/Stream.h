@@ -32,23 +32,23 @@ namespace etk
 		public:
 			CCout(void);
 			~CCout(void);
-			CCout& operator << (const etk::UniChar& t);;
-			CCout& operator << (int8_t t);
-			CCout& operator << (int16_t t);
-			CCout& operator << (int32_t t);
-			CCout& operator << (int64_t t);
-			CCout& operator << (uint8_t t);
-			CCout& operator << (uint16_t t);
-			CCout& operator << (uint32_t t);
-			CCout& operator << (uint64_t t);
-			CCout& operator << (double t);
-			CCout& operator << (float t);
-			CCout& operator << (char * t);
-			CCout& operator << (const char * t);
-			CCout& operator << (char t);
-			CCout& operator << (bool t);
-			CCout& operator << (CStart ccc);
-			CCout& operator << (etk::CEndl t);
+			CCout& operator << (const etk::UniChar& _t);;
+			CCout& operator << (int8_t _t);
+			CCout& operator << (int16_t _t);
+			CCout& operator << (int32_t _t);
+			CCout& operator << (int64_t _t);
+			CCout& operator << (uint8_t _t);
+			CCout& operator << (uint16_t _t);
+			CCout& operator << (uint32_t _t);
+			CCout& operator << (uint64_t _t);
+			CCout& operator << (double _t);
+			CCout& operator << (float _t);
+			CCout& operator << (char * _t);
+			CCout& operator << (const char * _t);
+			CCout& operator << (char _t);
+			CCout& operator << (bool _t);
+			CCout& operator << (CStart _ccc);
+			CCout& operator << (etk::CEndl _t);
 	};
 	extern etk::CCout cout;
 	extern etk::CEndl endl;
@@ -67,7 +67,7 @@ namespace etk
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information
 	 */
-	etk::CCout& operator <<(etk::CCout &os, const etk::logLevel_te obj);
+	etk::CCout& operator <<(etk::CCout &_os, const etk::logLevel_te _obj);
 	
 	void DisplayBacktrace(void);
 };

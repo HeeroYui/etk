@@ -23,8 +23,9 @@ const etk::Archive::Content& etk::Archive::GetContent(const etk::UString& _key) 
 void etk::Archive::Display(void)
 {
 	for (esize_t iii=0; iii<m_content.Size(); iii++) {
-		esize_t size = m_content.GetValue(iii).Size();
-		TK_INFO(" element : " << m_content.GetKey(iii) << " size=" << size);
+		esize_t size = m_content.GetValue(iii).GetTheoricSize();
+		esize_t sizeR = m_content.GetValue(iii).Size();
+		TK_INFO(" element : " << m_content.GetKey(iii) << " size=" << size << " allocated=" << sizeR);
 	}
 }
 

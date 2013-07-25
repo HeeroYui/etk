@@ -59,69 +59,77 @@ etk::CStart etk::cstart;
 #	include <android/log.h>
 #endif
 
-etk::CCout& etk::operator <<(etk::CCout &os, const etk::logLevel_te obj)
+etk::CCout& etk::operator <<(etk::CCout &_os, const etk::logLevel_te _obj)
 {
-	switch (obj)
+	switch (_obj)
 	{
 		case LOG_LEVEL_CRITICAL:
 			#if !defined(__TARGET_OS__Windows)
-				os << ETK_BASH_COLOR_BOLD_RED;
+				_os << ETK_BASH_COLOR_BOLD_RED;
 			#endif
 			#if defined(__TARGET_OS__Android)
-				os.m_levelAndroid = ANDROID_LOG_FATAL;
+				_os.m_levelAndroid = ANDROID_LOG_FATAL;
+			#else
+				_os << "[C]";
 			#endif
-			os << "[C]";
 			break;
 		case LOG_LEVEL_ERROR:
 			#if !defined(__TARGET_OS__Windows)
-				os << ETK_BASH_COLOR_RED;
+				_os << ETK_BASH_COLOR_RED;
 			#endif
 			#if defined(__TARGET_OS__Android)
-				os.m_levelAndroid = ANDROID_LOG_ERROR;
+				_os.m_levelAndroid = ANDROID_LOG_ERROR;
+			#else 
+				_os << "[E]";
 			#endif
-			os << "[E]";
 			break;
 		case LOG_LEVEL_WARNING:
 			#if !defined(__TARGET_OS__Windows)
-				os << ETK_BASH_COLOR_MAGENTA;
+				_os << ETK_BASH_COLOR_MAGENTA;
 			#endif
 			#if defined(__TARGET_OS__Android)
-				os.m_levelAndroid = ANDROID_LOG_WARN;
+				_os.m_levelAndroid = ANDROID_LOG_WARN;
+			#else
+				_os << "[W]";
 			#endif
-			os << "[W]";
 			break;
 		case LOG_LEVEL_INFO:
 			#if !defined(__TARGET_OS__Windows)
-				os << ETK_BASH_COLOR_CYAN;
+				_os << ETK_BASH_COLOR_CYAN;
 			#endif
 			#if defined(__TARGET_OS__Android)
-				os.m_levelAndroid = ANDROID_LOG_INFO;
+				_os.m_levelAndroid = ANDROID_LOG_INFO;
+			#else
+				_os << "[I]";
 			#endif
-			os << "[I]";
 			break;
 		case LOG_LEVEL_DEBUG:
 			#if !defined(__TARGET_OS__Windows)
-				os << ETK_BASH_COLOR_YELLOW;
+				_os << ETK_BASH_COLOR_YELLOW;
 			#endif
 			#if defined(__TARGET_OS__Android)
-				os.m_levelAndroid = ANDROID_LOG_DEBUG;
+				_os.m_levelAndroid = ANDROID_LOG_DEBUG;
+			#else
+				_os << "[D]";
 			#endif
-			os << "[D]";
 			break;
 		case LOG_LEVEL_VERBOSE:
 			#if !defined(__TARGET_OS__Windows)
-				os << ETK_BASH_COLOR_WHITE;
+				_os << ETK_BASH_COLOR_WHITE;
 			#endif
 			#if defined(__TARGET_OS__Android)
-				os.m_levelAndroid = ANDROID_LOG_VERBOSE;
+				_os.m_levelAndroid = ANDROID_LOG_VERBOSE;
+			#else
+				_os << "[V]";
 			#endif
-			os << "[V]";
 			break;
 		default:
-			os << "[?]";
+			#if !defined(__TARGET_OS__Android)
+				_os << "[?]";
+			#endif
 			break;
 	}
-	return os;
+	return _os;
 }
 
 
@@ -141,117 +149,117 @@ etk::CCout::~CCout()
 };
 
 
-etk::CCout& etk::CCout::operator << (const etk::UniChar& t)
+etk::CCout& etk::CCout::operator << (const etk::UniChar& _t)
 {
 	char output[5];
-	t.GetUtf8(output);
+	_t.GetUtf8(output);
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%s", output);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
 
-etk::CCout& etk::CCout::operator << (int8_t t)
+etk::CCout& etk::CCout::operator << (int8_t _t)
 {
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%d", t);
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%d", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
-etk::CCout& etk::CCout::operator << (int16_t t)
+etk::CCout& etk::CCout::operator << (int16_t _t)
 {
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%d", t);
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%d", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
-etk::CCout& etk::CCout::operator << (int32_t t)
+etk::CCout& etk::CCout::operator << (int32_t _t)
 {
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%d", t);
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%d", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
-etk::CCout& etk::CCout::operator << (int64_t t)
+etk::CCout& etk::CCout::operator << (int64_t _t)
 {
 	#if __WORDSIZE == 64
-		snprintf(tmp, MAX_LOG_SIZE_TMP, "%ld", t);
+		snprintf(tmp, MAX_LOG_SIZE_TMP, "%ld", _t);
 	#else
-		snprintf(tmp, MAX_LOG_SIZE_TMP, "%lld", t);
+		snprintf(tmp, MAX_LOG_SIZE_TMP, "%lld", _t);
 	#endif
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
 
-etk::CCout& etk::CCout::operator << (uint8_t t)
+etk::CCout& etk::CCout::operator << (uint8_t _t)
 {
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", t);
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
-etk::CCout& etk::CCout::operator << (uint16_t t)
+etk::CCout& etk::CCout::operator << (uint16_t _t)
 {
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", t);
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
-etk::CCout& etk::CCout::operator << (uint32_t t)
+etk::CCout& etk::CCout::operator << (uint32_t _t)
 {
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", t);
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
-etk::CCout& etk::CCout::operator << (uint64_t t)
+etk::CCout& etk::CCout::operator << (uint64_t _t)
 {
 	#if __WORDSIZE == 64
-		snprintf(tmp, MAX_LOG_SIZE_TMP, "%lu", t);
+		snprintf(tmp, MAX_LOG_SIZE_TMP, "%lu", _t);
 	#else
-		snprintf(tmp, MAX_LOG_SIZE_TMP, "%llu", t);
+		snprintf(tmp, MAX_LOG_SIZE_TMP, "%llu", _t);
 	#endif
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
 
 
-etk::CCout& etk::CCout::operator << (double t)
+etk::CCout& etk::CCout::operator << (double _t)
 {
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%f", t);
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%f", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
 
 
-etk::CCout& etk::CCout::operator << (float t)
+etk::CCout& etk::CCout::operator << (float _t)
 {
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%f", t);
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%f", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
 
 
-etk::CCout& etk::CCout::operator << (char * t)
+etk::CCout& etk::CCout::operator << (char * _t)
 {
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%s", t);
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%s", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
 
 
-etk::CCout& etk::CCout::operator << (const char * t)
+etk::CCout& etk::CCout::operator << (const char * _t)
 {
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%s", t);
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%s", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
 
 
-etk::CCout& etk::CCout::operator << (char t)
+etk::CCout& etk::CCout::operator << (char _t)
 {
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%c", t);
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%c", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
 
 
-etk::CCout& etk::CCout::operator << (bool t)
+etk::CCout& etk::CCout::operator << (bool _t)
 {
-	if (t) {
+	if (_t) {
 		strncat(m_tmpChar, "true", MAX_LOG_SIZE);
 	} else {
 		strncat(m_tmpChar, "false", MAX_LOG_SIZE);
@@ -260,14 +268,14 @@ etk::CCout& etk::CCout::operator << (bool t)
 }
 
 
-etk::CCout& etk::CCout::operator << (CStart ccc)
+etk::CCout& etk::CCout::operator << (CStart _ccc)
 {
 	m_mutex.Lock();
 	return *this;
 }
 
 
-etk::CCout& etk::CCout::operator << (etk::CEndl t)
+etk::CCout& etk::CCout::operator << (etk::CEndl _t)
 {
 #if !defined(__TARGET_OS__Windows)
 	strncat(m_tmpChar, ETK_BASH_COLOR_NORMAL, MAX_LOG_SIZE);
