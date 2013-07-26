@@ -31,7 +31,7 @@ namespace etk
 				// nothing to do ...
 			};
 			
-			bool Wait(MY_TYPE &data)
+			bool Wait(MY_TYPE &_data)
 			{
 				m_mutex.Lock();
 				// Check if data is not previously here
@@ -43,7 +43,7 @@ namespace etk
 				// End Waiting message :
 				if (0<m_data.Size()) {
 					// copy element :
-					data = m_data[0];
+					_data = m_data[0];
 					// remove element :
 					m_data.Erase(0);
 					// remove lock
@@ -52,13 +52,13 @@ namespace etk
 				}
 				return false;
 			};
-			bool Wait(MY_TYPE &data, uint32_t timeOutInUs)
+			bool Wait(MY_TYPE &_data, uint32_t _timeOutInUs)
 			{
 				m_mutex.Lock();
 				// Check if data is not previously here
 				while(0==m_data.Size()) {
 					m_mutex.UnLock();
-					if (false == m_semaphore.Wait(timeOutInUs)) {
+					if (false == m_semaphore.Wait(_timeOutInUs)) {
 						return false;
 					}
 					m_mutex.Lock();
@@ -66,7 +66,7 @@ namespace etk
 				// End Waiting message :
 				if (0<m_data.Size()) {
 					// copy element :
-					data = m_data[0];
+					_data = m_data[0];
 					// remove element :
 					m_data.Erase(0);
 					// remove lock
@@ -82,10 +82,10 @@ namespace etk
 				m_mutex.UnLock();
 				return nbElement;
 			};
-			void Post(MY_TYPE &data)
+			void Post(MY_TYPE &_data)
 			{
 				m_mutex.Lock();
-				m_data.PushBack(data);
+				m_data.PushBack(_data);
 				m_semaphore.Post();
 				m_mutex.UnLock();
 			};

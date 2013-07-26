@@ -25,7 +25,6 @@ def Create(target):
 		'etk/math/Vector3D.cpp',
 		'etk/os/FSNode.cpp',
 		'etk/os/FSNodeRight.cpp',
-		'etk/os/Memory.cpp',
 		'etk/archive/Archive.cpp',
 		'etk/archive/Zip.cpp'])
 	

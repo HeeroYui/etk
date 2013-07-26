@@ -7,7 +7,6 @@
  */
 
 #include <etk/UString.h>
-#include <etk/os/Memory.h>
 #include <etk/unicode.h>
 #include <etk/Debug.h>
 

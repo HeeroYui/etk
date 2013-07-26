@@ -11,7 +11,6 @@
 
 #include <etk/types.h>
 #include <etk/DebugInternal.h>
-#include <etk/os/Memory.h>
 
 #undef __class__
 #define __class__	"etk::Vector"

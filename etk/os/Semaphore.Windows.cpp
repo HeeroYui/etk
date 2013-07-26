@@ -9,10 +9,10 @@
 #include <etk/os/Semaphore.h>
 #include <etk/DebugInternal.h>
 
-etk::Semaphore::Semaphore(uint32_t nbBasicElement, uint32_t nbMessageMax)
+etk::Semaphore::Semaphore(uint32_t _nbBasicElement, uint32_t _nbMessageMax)
 {
 	// create interface mutex :
-	m_semaphore = CreateSemaphore(NULL, nbBasicElement, nbMessageMax, NULL);
+	m_semaphore = CreateSemaphore(NULL, _nbBasicElement, _nbMessageMax, NULL);
 	TK_ASSERT(m_semaphore != 0, "Error creating SEMAPHORE ...");
 }
 
@@ -41,9 +41,9 @@ void etk::Semaphore::Wait(void)
 }
 
 
-bool etk::Semaphore::Wait(uint32_t timeOutInUs)
+bool etk::Semaphore::Wait(uint32_t _timeOutInUs)
 {
-	DWORD result = WaitForSingleObject(m_semaphore, timeOutInUs);
+	DWORD result = WaitForSingleObject(m_semaphore, _timeOutInUs);
 	if (result == WAIT_FAILED) {
 		TK_ERROR("Failed to wait for semaphore ");
 		return false;

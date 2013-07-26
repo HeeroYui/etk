@@ -14,12 +14,12 @@
 
 namespace etk {
 	namespace tool {
-		float   frand(float a, float b);
-		int32_t irand(int32_t a, int32_t b);
+		float   frand(float _a, float _b);
+		int32_t irand(int32_t _a, int32_t _b);
 		
-		void SortList(etk::Vector<etk::UString *> &m_listDirectory);
-		bool strnCmpNoCase(const char * input1, const char * input2, int32_t maxLen);
-		etk::UString SimplifyPath(etk::UString input);
+		void SortList(etk::Vector<etk::UString *>& _list);
+		bool strnCmpNoCase(const char* _input1, const char* _input2, int32_t _maxLen);
+		etk::UString SimplifyPath(etk::UString _input);
 		
 	};
 };

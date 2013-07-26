@@ -7,7 +7,6 @@
  */
 
 #include <etk/Char.h>
-#include <etk/os/Memory.h>
 
 
 etk::Char::Char(void) {

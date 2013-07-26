@@ -20,9 +20,9 @@ namespace etk {
 			etk::Vector<float> m_data;
 			ivec2    m_size;
 		public:
-			BaseNoise(ivec2 size, float min, float max);
+			BaseNoise(ivec2 _size, float _min, float _max);
 			~BaseNoise(void);
-			float Get(int32_t x, int32_t y) const;
+			float Get(int32_t _x, int32_t _y) const;
 	};
 	class Noise
 	{
@@ -40,13 +40,13 @@ namespace etk {
 			etk::Vector<float> m_data;
 			ivec2    m_size;
 			noise_te m_type;
-			float smoothNoise(float x, float y, const etk::BaseNoise& noise);
-			float turbulence(float x, float y, float size, const etk::BaseNoise& noise);
-			float turbulenceNoSmooth(float x, float y, float size, const etk::BaseNoise& noise);
+			float smoothNoise(float _x, float _y, const etk::BaseNoise& _noise);
+			float turbulence(float _x, float _y, float _size, const etk::BaseNoise& _noise);
+			float turbulenceNoSmooth(float _x, float _y, float _size, const etk::BaseNoise& _noise);
 		public:
-			Noise(noise_te type, ivec2 size, int32_t depth);
+			Noise(noise_te _type, ivec2 _size, int32_t _depth);
 			~Noise(void);
-			float Get(int32_t x, int32_t y) const;
+			float Get(int32_t _x, int32_t _y) const;
 	};
 };
 

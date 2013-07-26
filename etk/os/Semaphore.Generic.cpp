@@ -11,7 +11,7 @@
 #include <etk/DebugInternal.h>
 #include <sys/time.h>
 
-etk::Semaphore::Semaphore(uint32_t nbBasicElement, uint32_t nbMessageMax)
+etk::Semaphore::Semaphore(uint32_t _nbBasicElement, uint32_t _nbMessageMax)
 {
 	// create interface mutex :
 	int ret = pthread_mutex_init(&m_mutex, NULL);
@@ -23,8 +23,8 @@ etk::Semaphore::Semaphore(uint32_t nbBasicElement, uint32_t nbMessageMax)
 		ret = pthread_mutex_destroy(&m_mutex);
 		TK_ASSERT(ret == 0, "Error destroying Mutex ...");
 	}
-	m_maximum = nbMessageMax;
-	m_data = nbBasicElement;
+	m_maximum = _nbMessageMax;
+	m_data = _nbBasicElement;
 }
 
 
@@ -72,7 +72,7 @@ void etk::Semaphore::Wait(void)
 }
 
 
-bool etk::Semaphore::Wait(uint32_t timeOutInUs)
+bool etk::Semaphore::Wait(uint32_t _timeOutInUs)
 {
 	pthread_mutex_lock(&m_mutex);
 	if(m_data == 0) {
@@ -80,7 +80,7 @@ bool etk::Semaphore::Wait(uint32_t timeOutInUs)
 		struct timespec ts;
 		gettimeofday(&tp,NULL);
 		uint64_t totalTimeUS = tp.tv_sec * 1000000 + tp.tv_usec;
-		totalTimeUS += timeOutInUs;
+		totalTimeUS += _timeOutInUs;
 		ts.tv_sec = totalTimeUS / 1000000;
 		ts.tv_nsec = (totalTimeUS%1000000) * 1000;
 		int ret = pthread_cond_timedwait(&m_condition, &m_mutex, &ts);

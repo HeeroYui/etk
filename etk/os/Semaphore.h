@@ -31,13 +31,13 @@ namespace etk
 				uint32_t         m_maximum;
 			#endif
 		public:
-			Semaphore(uint32_t nbBasicElement=0, uint32_t nbMessageMax=1);
+			Semaphore(uint32_t _nbBasicElement=0, uint32_t _nbMessageMax=1);
 			~Semaphore(void);
 			uint32_t GetCount(void);
 			void Post(void);
 			void Wait(void);
 			// wait with a timeout in us; return true if get the semaphore
-			bool Wait(uint32_t timeOutInUs);
+			bool Wait(uint32_t _timeOutInUs);
 	};
 	
 };
