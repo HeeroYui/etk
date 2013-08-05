@@ -1485,6 +1485,19 @@ char* etk::FSNode::FileGets(char * _elementLine, int64_t _maxData)
 	#endif
 	return fgets(_elementLine, _maxData, m_PointerFile);
 }
+
+
+char etk::FSNode::FileGet(void)
+{
+	char data='\0';
+	if (FileRead(&data, 1, 1)!=1) {
+		return '\0';
+	}
+	return data;
+}
+
+
+
 int64_t etk::FSNode::FileRead(void* _data, int64_t _blockSize, int64_t _nbBlock)
 {
 	#ifdef __TARGET_OS__Android

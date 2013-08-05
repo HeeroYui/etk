@@ -389,6 +389,11 @@ namespace etk
 			 */
 			char* FileGets(char* _elementLine, int64_t _maxData);
 			/**
+			 * @brief Get a unique data in the file
+			 * @return the next element in the file.
+			 */
+			char FileGet(void);
+			/**
 			 * @brief Read data from the file
 			 * @param[in,out] _data Pointer on the buffer that might be set the data
 			 * @param[in] _blockSize Size of one block of data
