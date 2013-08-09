@@ -9,6 +9,15 @@
 #ifndef __ETK_MATH_VECTOR4D_H__
 #define __ETK_MATH_VECTOR4D_H__
 
+#include <etk/types.h>
+#include <etk/DebugInternal.h>
+#include <math.h>
+#include <etk/Stream.h>
+#include <LinearMath/btScalar.h>
+#include <LinearMath/btMinMax.h>
+#include <LinearMath/btVector3.h>
+#include <LinearMath/btQuaternion.h>
+
 namespace etk
 {
 	template <typename T> class Vector4D
@@ -454,6 +463,13 @@ namespace etk
 				return m_floats[0] == 0 && m_floats[1] == 0 && m_floats[2] == 0 && m_floats[3] == 0;
 			}
 	};
+	/**
+	 * @brief Debug operator To display the curent element in a Human redeable information
+	 */
+	etk::CCout& operator <<(etk::CCout &os, const etk::Vector4D<int32_t> obj);
+	etk::CCout& operator <<(etk::CCout &os, const etk::Vector4D<float> obj);
+	etk::CCout& operator <<(etk::CCout &os, const etk::Vector4D<uint32_t> obj);
+	etk::CCout& operator <<(etk::CCout &os, const etk::Vector4D<bool> obj);
 };
 
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...

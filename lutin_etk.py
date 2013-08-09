@@ -23,6 +23,7 @@ def Create(target):
 		'etk/math/Matrix4.cpp',
 		'etk/math/Vector2D.cpp',
 		'etk/math/Vector3D.cpp',
+		'etk/math/Vector4D.cpp',
 		'etk/os/FSNode.cpp',
 		'etk/os/FSNodeRight.cpp',
 		'etk/archive/Archive.cpp',
