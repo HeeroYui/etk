@@ -31,7 +31,7 @@ void etk::Archive::Display(void)
 
 etk::Archive* etk::Archive::Load(const etk::UString& _fileName)
 {
-	etk::Archive::Archive* output=NULL;
+	etk::Archive* output=NULL;
 	etk::UString tmpName = _fileName.ToLower();
 	// select the corect Loader :
 	if(    true == tmpName.EndWith(".zip") 
