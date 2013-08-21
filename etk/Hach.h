@@ -160,6 +160,14 @@ namespace etk
 			{
 				return m_data.Size();
 			}
+			MY_TYPE& operator[] (esize_t _pos)
+			{
+				return GetValue(_pos);
+			}
+			const MY_TYPE& operator[] (esize_t _pos) const
+			{
+				return GetValue(_pos);
+			}
 			const etk::UString& GetKey(esize_t _pos) const
 			{
 				// NOTE :Do not change log level, this generate error only in debug mode
