@@ -162,6 +162,21 @@ etk::UString::UString(const double _inputData)
 	char tmpVal[256];
 	// generate the UString : 
 	sprintf(tmpVal, "%lf", _inputData);
+	int32_t len=strlen(tmpVal);
+	if (NULL!=strchr(tmpVal, '.')) {
+		//have a '.'
+		// remove the .000000000 at the end of the string
+		for (int32_t iii=len-1; iii>=0 ; --iii) {
+			if (tmpVal[iii] == '0') {
+				tmpVal[iii] = '\0';
+			} else {
+				if (tmpVal[iii] == '.') {
+					tmpVal[iii] = '\0';
+				}
+				break;
+			}
+		}
+	}
 	// set the internal data : 
 	Set(tmpVal);
 }
