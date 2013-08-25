@@ -201,5 +201,8 @@ namespace etk
 	};
 };
 
+#undef __class__
+#define __class__	NULL
+
 #endif
 
