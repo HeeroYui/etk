@@ -43,6 +43,14 @@ namespace etk
 	
 	class UniChar
 	{
+		public: // classic unicar code :
+			static const UniChar Return; //!< '\n' 
+			static const UniChar CarrierReturn; //!< '\r' CR
+			static const UniChar Tabulation; //!< '\t' TAB
+			static const UniChar Backspace; //!< BS (SUPPRESS)
+			static const UniChar Delete; //!< DEL
+			static const UniChar Space; //!< ' ' SPACE
+			static const UniChar Escape; //!< ESC Escape
 		private:
 			uint32_t m_value;
 		public:

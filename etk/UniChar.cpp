@@ -15,6 +15,14 @@
 #include <etk/Vector.h>
 #include <etk/Char.h>
 
+const etk::UniChar etk::UniChar::Return('\n');
+const etk::UniChar etk::UniChar::CarrierReturn('\r');
+const etk::UniChar etk::UniChar::Tabulation('\t');
+const etk::UniChar etk::UniChar::Backspace((const char)8);
+const etk::UniChar etk::UniChar::Delete((const char)127);
+const etk::UniChar etk::UniChar::Space(' ');
+const etk::UniChar etk::UniChar::Escape((const char)27);
+
 void etk::UniChar::Lower(void)
 {
 	if(    m_value>=(uint32_t)'A'
