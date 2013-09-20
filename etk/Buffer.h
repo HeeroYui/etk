@@ -220,7 +220,7 @@ namespace etk
 				etk::Vector<int8_t> tmpBuffer;
 				tmpBuffer.Clear();
 				if (_pos < m_gapStart) {
-					if (pos + _nbElement < m_gapStart) {
+					if (_pos + _nbElement < m_gapStart) {
 						tmpBuffer.PushBack(&m_data[_pos], _nbElement);
 					} else {
 						tmpBuffer.PushBack(&m_data[_pos], m_gapStart - _pos);
@@ -248,7 +248,7 @@ namespace etk
 			{
 				if(    _pos > Size()
 				    || _pos < 0 ) {
-					TK_ERROR("Request higher than buffer size : pos="<<pos<< " bufferSize="<<Size());
+					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize=" << Size());
 					return;
 				}
 				if( 0 == GapSize() ) {
@@ -489,7 +489,7 @@ namespace etk
 						memmove(&m_data[m_gapStart + _newGapLen], &m_data[m_gapEnd], previousSize - m_gapStart);
 						// update gap end position
 						m_gapEnd = m_gapStart + _newGapLen;
-						if (pos < m_gapStart) {
+						if (_pos < m_gapStart) {
 							if (false == GapMove(_pos)) {
 								return false;
 							}
