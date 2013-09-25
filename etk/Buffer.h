@@ -102,10 +102,14 @@ namespace etk
 			 */
 			bool DumpIn(etk::FSNode& _file)
 			{
+				if (false == _file.FileOpenWrite()) {
+					return false;
+				}
 				bool ret = true;
 				// write Data
 				(void)_file.FileWrite(m_data, sizeof(int8_t), m_gapStart);
 				(void)_file.FileWrite(&m_data[m_gapEnd], sizeof(int8_t), m_allocated - m_gapEnd);
+				_file.FileClose();
 				return ret;
 			}
 			/**
