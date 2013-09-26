@@ -44,6 +44,7 @@ namespace etk
 	class UniChar
 	{
 		public: // classic unicar code :
+			static const UniChar Null; //!< '\0' 
 			static const UniChar Return; //!< '\n' 
 			static const UniChar CarrierReturn; //!< '\r' CR
 			static const UniChar Tabulation; //!< '\t' TAB
@@ -175,7 +176,8 @@ namespace etk
 			
 			uint32_t GetUtf8(void) const;
 			int8_t GetUtf8(char _output[5]) const;
-			void SetUtf8(const char* _input);
+			//etk::Vector<int8_t> GetUtf8(void) const;
+			int8_t SetUtf8(const char* _input);
 	};
 };
 

@@ -15,6 +15,7 @@
 #include <etk/Vector.h>
 #include <etk/Char.h>
 
+const etk::UniChar etk::UniChar::Null('\0');
 const etk::UniChar etk::UniChar::Return('\n');
 const etk::UniChar etk::UniChar::CarrierReturn('\r');
 const etk::UniChar etk::UniChar::Tabulation('\t');
@@ -179,33 +180,92 @@ int8_t etk::UniChar::GetUtf8(char _output[5]) const
 		return 4;
 	}
 }
+/*
+etk::Vector<int8_t> etk::UniChar::GetUtf8(void) const
+{
+	etk::Vector<int8_t> ret;
+	uint32_t value = GetUtf8();
+	if (0xFF >= value) {
+		ret.PushBack((char)value);
+	} else if (0xFFFF >= value) {
+		ret.PushBack((char)((value>>8)  & 0x000000FF));
+		ret.PushBack((char)value);
+	} else if (0xFFFFFF >= value) {
+		ret.PushBack((char)((value>>16) & 0x000000FF));
+		ret.PushBack((char)((value>>8)  & 0x000000FF));
+		ret.PushBack((char)value);
+	} else {
+		ret.PushBack((char)((value>>24) & 0x000000FF));
+		ret.PushBack((char)((value>>16) & 0x000000FF));
+		ret.PushBack((char)((value>>8)  & 0x000000FF));
+		ret.PushBack((char)value);
+	}
+	return ret;
+}
+*/
+uint8_t SizeElement(const char* _data, int32_t _lenMax)
+{
+	uint8_t size = 0;
+	TK_ASSERT(0 <= _lenMax, "size can not be < 0 ...");
+	if (0 > _lenMax) {
+		return 0;
+	}
+	//4 case
+	if(    _lenMax >= 1
+	    && (_data[0] & 0x80) == 0x00 ) {
+		// One Char Element
+		size = 1;
+	} else if(    _lenMax >= 2
+	           && (_data[0] & 0xE0) == 0xC0
+	           && (_data[1] & 0xC0) == 0x80) {
+		size = 2;
+	} else if(    _lenMax >= 3
+	           && (_data[0] & 0xF0) == 0xE0
+	           && (_data[1] & 0xC0) == 0x80
+	           && (_data[2] & 0xC0) == 0x80) {
+		size = 3;
+	} else if(    _lenMax >= 4
+	           && (_data[0] & 0xF8) == 0xF0
+	           && (_data[1] & 0xC0) == 0x80
+	           && (_data[2] & 0xC0) == 0x80
+	           && (_data[3] & 0xC0) == 0x80) {
+		size = 4;
+	}
+	return size;
+}
 
-void etk::UniChar::SetUtf8(const char* _input)
+
+int8_t etk::UniChar::SetUtf8(const char* _input)
 {
 	m_value = 0;
 	if (NULL == _input) {
-		return;
+		return 0;
 	}
 	int32_t len = strlen(_input);
+	len = SizeElement(_input, len);
 	switch (len) {
+		default:
+			// case 0 : An error occured...
+			m_value = _input[0];
+			return 0;
 		case 1:
 			m_value = (uint8_t)(_input[0]) & 0x7F;
-			break;
+			return 1;
 		case 2:
 			m_value  = (((uint8_t)_input[0]) & 0x1F)<< 6;
 			m_value +=  ((uint8_t)_input[1]) & 0x3F;
-			break;
+			return 2;
 		case 3:
 			m_value  = (((uint8_t)_input[0]) & 0x0F)<< 12;
 			m_value += (((uint8_t)_input[1]) & 0x3F)<< 6;
 			m_value +=  ((uint8_t)_input[2]) & 0x3F;
-			break;
-		default:
+			return 3;
+		case 4:
 			m_value  = (((uint8_t)_input[0]) & 0x07)<< 18;
 			m_value += (((uint8_t)_input[1]) & 0x3F)<< 12;
 			m_value += (((uint8_t)_input[2]) & 0x3F)<< 6;
 			m_value +=  ((uint8_t)_input[3]) & 0x3F;
-			break;
+			return 4;
 	}
 }
 

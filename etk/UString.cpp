@@ -54,7 +54,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector<etk::UString>& _
 etk::UString::UString(void)
 {
 	//TK_INFO("new etk::UString()");
-	m_data.PushBack('\0');
+	m_data.PushBack(etk::UniChar::Null);
 }
 
 
@@ -73,8 +73,8 @@ etk::UString::UString(const char* _data, unicode::charset_te _inputCharset)
 		unicode::convertIsoToUnicode(_inputCharset, transformData, m_data);
 	}
 	if(    0 == m_data.Size()
-	    || m_data[m_data.Size()-1]!='\0') {
-		m_data.PushBack('\0');
+	    || m_data[m_data.Size()-1]!=etk::UniChar::Null) {
+		m_data.PushBack(etk::UniChar::Null);
 	}
 }
 
@@ -131,7 +131,7 @@ etk::UString::UString(const bool _inputData, etk::UString::printMode_te _mode, b
 			}
 			break;
 	}
-	m_data.PushBack('\0');
+	m_data.PushBack(etk::UniChar::Null);
 }
 
 etk::UString::UString(const etk::UString& _obj)
@@ -143,7 +143,7 @@ etk::UString::UString(const etk::UString& _obj)
 etk::UString::UString(const etk::UniChar& _inputData)
 {
 	m_data.PushBack(_inputData);
-	m_data.PushBack('\0');
+	m_data.PushBack(etk::UniChar::Null);
 }
 
 etk::UString::UString(const float _inputData)
@@ -289,9 +289,9 @@ void etk::UString::SetNumber(bool _negative, const uint64_t& _inputData, etk::US
 		//TK_ERROR ("        " << ploppp);
 	}
 	if (m_data.Size()==0) {
-		m_data.PushBack('\0');
-	} else if (m_data[m_data.Size()-1]!='\0') {
-		m_data.PushBack('\0');
+		m_data.PushBack(etk::UniChar::Null);
+	} else if (m_data[m_data.Size()-1]!=etk::UniChar::Null) {
+		m_data.PushBack(etk::UniChar::Null);
 	}
 	//TK_ERROR(" convert : " << _inputData << " in : " << *this << " len=" << m_data.Size());
 }
@@ -369,11 +369,11 @@ void etk::UString::Set(const etk::Vector<etk::UniChar>& _inputData)
 {
 	m_data = _inputData;
 	if (m_data.Size()>0) {
-		if (m_data[m_data.Size()-1] != '\0') {
-			m_data.PushBack('\0');
+		if (m_data[m_data.Size()-1] != etk::UniChar::Null) {
+			m_data.PushBack(etk::UniChar::Null);
 		}
 	} else {
-		m_data.PushBack('\0');
+		m_data.PushBack(etk::UniChar::Null);
 	}
 	//TK_DEBUG("m_dataLen="<<m_dataLen << " m_dataLenUTF8="<<m_dataLenUTF8 << " description=" << m_data);
 }
@@ -383,7 +383,7 @@ void etk::UString::Set(const char* _inputData, int32_t _len)
 	// clear all the data
 	m_data.Clear();
 	if (NULL == _inputData) {
-		m_data.PushBack('\0');
+		m_data.PushBack(etk::UniChar::Null);
 		// nothing to add ... ==> just exit
 		return;
 	}
@@ -406,9 +406,9 @@ void etk::UString::Set(const char* _inputData, int32_t _len)
 		unicode::convertUtf8ToUnicode(tmpChar, m_data);
 	}
 	if (m_data.Size()==0) {
-		m_data.PushBack('\0');
-	} else if (m_data[m_data.Size()-1]!='\0') {
-		m_data.PushBack('\0');
+		m_data.PushBack(etk::UniChar::Null);
+	} else if (m_data[m_data.Size()-1]!=etk::UniChar::Null) {
+		m_data.PushBack(etk::UniChar::Null);
 	}
 }
 
@@ -417,7 +417,7 @@ void etk::UString::Set(const etk::UniChar* _inputData, int32_t _len)
 	// clear all the data
 	m_data.Clear();
 	if (NULL == _inputData) {
-		m_data.PushBack('\0');
+		m_data.PushBack(etk::UniChar::Null);
 		// nothing to add ... ==> just exit
 		return;
 	}
@@ -430,9 +430,9 @@ void etk::UString::Set(const etk::UniChar* _inputData, int32_t _len)
 		m_data.PushBack(_inputData, _len);
 	}
 	if (m_data.Size()==0) {
-		m_data.PushBack('\0');
-	} else if (m_data[m_data.Size()-1]!='\0') {
-		m_data.PushBack('\0');
+		m_data.PushBack(etk::UniChar::Null);
+	} else if (m_data[m_data.Size()-1]!=etk::UniChar::Null) {
+		m_data.PushBack(etk::UniChar::Null);
 	}
 }
 
@@ -592,7 +592,7 @@ const etk::UString& etk::UString::operator+= (const etk::UString &_obj)
 		// This previous include the \0 in case of the 2 UString are different...
 		if( this == &_obj ) {
 			// add the removed end UString
-			m_data.PushBack('\0');
+			m_data.PushBack(etk::UniChar::Null);
 		}
 	}
 	return *this;
@@ -606,7 +606,7 @@ const etk::UString& etk::UString::operator+= (const etk::UniChar& _obj)
 	// copy the data ...
 	m_data.PushBack(_obj);
 	// add the last '\0' element
-	m_data.PushBack('\0');
+	m_data.PushBack(etk::UniChar::Null);
 	return *this;
 }
 */
@@ -670,13 +670,15 @@ void etk::UString::Add(int32_t _currentID, const etk::UniChar _inputData)
 {
 	etk::UniChar data[2];
 	data[0] = _inputData;
-	data[1] = 0;
+	data[1] = etk::UniChar::Null;
 	Add(_currentID, data);
 }
 
 void etk::UString::Append(const etk::UniChar& _inputData)
 {
+	m_data.PopBack();
 	m_data.PushBack(_inputData);
+	m_data.PushBack(etk::UniChar::Null);
 }
 
 
@@ -694,7 +696,7 @@ void etk::UString::Remove(int32_t _currentID, int32_t _len)
 void etk::UString::Clear(void)
 {
 	m_data.Clear();
-	m_data.PushBack('\0');
+	m_data.PushBack(etk::UniChar::Null);
 }
 
 int32_t etk::UString::FindForward(const etk::UniChar _element, int32_t _startPos) const
@@ -742,7 +744,7 @@ etk::UString etk::UString::Extract(int32_t _posStart, int32_t _posEnd) const
 		_posEnd = Size();
 	}
 	out.m_data = m_data.Extract(_posStart, _posEnd);
-	out.m_data.PushBack('\0');
+	out.m_data.PushBack(etk::UniChar::Null);
 	return out;
 }
 
@@ -775,7 +777,7 @@ etk::UString etk::UString::ExtractLine(int32_t _pos) const
 		stopPos = Size();
 	}
 	out.m_data = m_data.Extract(startPos, stopPos);
-	out.m_data.PushBack('\0');
+	out.m_data.PushBack(etk::UniChar::Null);
 	return out;
 }
 

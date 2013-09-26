@@ -117,10 +117,10 @@ namespace etk
 			/*****************************************************
 			 *    [] operator
 			 *****************************************************/
-			const etk::UniChar& operator[] (int32_t _pos) const {
+			const etk::UniChar& operator[] (esize_t _pos) const {
 				return m_data[_pos];
 			}
-			etk::UniChar& operator[] (int32_t _pos) {
+			etk::UniChar& operator[] (esize_t _pos) {
 				return m_data[_pos];
 			}
 			
