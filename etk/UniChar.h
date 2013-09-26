@@ -48,7 +48,7 @@ namespace etk
 			static const UniChar Return; //!< '\n' 
 			static const UniChar CarrierReturn; //!< '\r' CR
 			static const UniChar Tabulation; //!< '\t' TAB
-			static const UniChar Backspace; //!< BS (SUPPRESS)
+			static const UniChar Suppress; //!< BS (SUPPRESS)
 			static const UniChar Delete; //!< DEL
 			static const UniChar Space; //!< ' ' SPACE
 			static const UniChar Escape; //!< ESC Escape
