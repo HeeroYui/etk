@@ -269,3 +269,27 @@ int8_t etk::UniChar::SetUtf8(const char* _input)
 	}
 }
 
+int8_t etk::UniChar::TheoricUTF8Len(const char _input)
+{
+	if((_input&0x80) == 0x00 ) {
+		return 1;
+	}
+	if((_input&0xE0) == 0xC0) {
+		return 2;
+	}
+	if((_input&0xF0) == 0xE0) {
+		return 3;
+	}
+	if((_input&0xF8) == 0xF0) {
+		return 4;
+	}
+	return 1;
+}
+
+bool etk::UniChar::TheoricUTF8First(const char _input)
+{
+	if((_input&0x80) == 0x80 ) {
+		return false;
+	}
+	return true;
+}

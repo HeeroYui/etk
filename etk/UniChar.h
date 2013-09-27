@@ -178,6 +178,19 @@ namespace etk
 			int8_t GetUtf8(char _output[5]) const;
 			//etk::Vector<int8_t> GetUtf8(void) const;
 			int8_t SetUtf8(const char* _input);
+		public:
+			/**
+			 * @brief Get the size of an utf8 char with his first char.
+			 * @param[in] _input Char to parse
+			 * @return number of char needed
+			 */
+			static int8_t TheoricUTF8Len(const char _input);
+			/**
+			 * @brief When parsing a string in a reverse mode, we need to know if we get the first char
+			 * @param[in] _input Char to parse.
+			 * @return true if it was the first char.
+			 */
+			static bool TheoricUTF8First(const char _input);
 	};
 };
 

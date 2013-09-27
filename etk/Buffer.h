@@ -283,13 +283,23 @@ namespace etk
 			 */
 			void Insert(int32_t _pos, etk::Vector<int8_t>& _items)
 			{
+				Insert(_pos, _items.DataPointer(), _items.Size());
+			}
+			/**
+			 * @brief Insert data in the buffer
+			 * @param[in] _pos Position where data might be inserted
+			 * @param[in] _items Data that might be inserted. (no need of '\0')
+			 * @param[in] _nbElement number of element to insert
+			 */
+			void Insert(int32_t _pos, int8_t* _items, int32_t _nbElement)
+			{
 				if(    _pos > Size()
 				    || _pos < 0 ) {
 					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize="<<Size());
 					return;
 				}
-				if( _items.Size() > GapSize() ) {
-					if (false == GapResize(_pos, GAP_SIZE_MIN + _items.Size()) ) {
+				if(_nbElement > GapSize()) {
+					if (false == GapResize(_pos, GAP_SIZE_MIN + _nbElement) ) {
 						return;
 					}
 				} else {
@@ -297,10 +307,10 @@ namespace etk
 						return;
 					}
 				}
-				for(esize_t iii=0; iii<_items.Size(); iii++) {
+				for(esize_t iii=0; iii<_nbElement; iii++) {
 					m_data[m_gapStart+iii] = _items[iii];
 				}
-				m_gapStart += _items.Size();
+				m_gapStart += _nbElement;
 			}
 			/**
 			 * @brief Replace one element in the buffer
