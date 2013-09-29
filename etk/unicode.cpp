@@ -19,22 +19,20 @@ void unicode::convertIsoToUnicode(charset_te _inputCharset, const char _input_IS
 {
 	switch(_inputCharset)
 	{
-		case EDN_CHARSET_ISO_8859_1:		_output_Unicode.Set(TableIso8859_1[(uint32_t)_input_ISO&0xFF]);			break;
-		case EDN_CHARSET_ISO_8859_2:		_output_Unicode.Set(TableIso8859_2[(uint32_t)_input_ISO&0xFF]);			break;
-		case EDN_CHARSET_ISO_8859_3:		_output_Unicode.Set(TableIso8859_3[(uint32_t)_input_ISO&0xFF]);			break;
-		case EDN_CHARSET_ISO_8859_4:		_output_Unicode.Set(TableIso8859_4[(uint32_t)_input_ISO&0xFF]);			break;
-		case EDN_CHARSET_ISO_8859_5:		_output_Unicode.Set(TableIso8859_5[(uint32_t)_input_ISO&0xFF]);			break;
-		case EDN_CHARSET_ISO_8859_6:		_output_Unicode.Set(TableIso8859_6[(uint32_t)_input_ISO&0xFF]);			break;
-		case EDN_CHARSET_ISO_8859_7:		_output_Unicode.Set(TableIso8859_7[(uint32_t)_input_ISO&0xFF]);			break;
-		case EDN_CHARSET_ISO_8859_8:		_output_Unicode.Set(TableIso8859_8[(uint32_t)_input_ISO&0xFF]);			break;
-		case EDN_CHARSET_ISO_8859_9:		_output_Unicode.Set(TableIso8859_9[(uint32_t)_input_ISO&0xFF]);			break;
-		case EDN_CHARSET_ISO_8859_10:		_output_Unicode.Set(TableIso8859_10[(uint32_t)_input_ISO&0xFF]);			break;
-		case EDN_CHARSET_ISO_8859_11:		_output_Unicode.Set(TableIso8859_11[(uint32_t)_input_ISO&0xFF]);			break;
-		case EDN_CHARSET_ISO_8859_13:		_output_Unicode.Set(TableIso8859_13[(uint32_t)_input_ISO&0xFF]);			break;
-		case EDN_CHARSET_ISO_8859_14:		_output_Unicode.Set(TableIso8859_14[(uint32_t)_input_ISO&0xFF]);			break;
-		case EDN_CHARSET_ISO_8859_15:		
-			_output_Unicode = TableIso8859_15[(uint32_t)_input_ISO&0xFF];
-			break;
+		case EDN_CHARSET_ISO_8859_1:  _output_Unicode.Set(TableIso8859_1[(uint32_t)_input_ISO&0xFF]); break;
+		case EDN_CHARSET_ISO_8859_2:  _output_Unicode.Set(TableIso8859_2[(uint32_t)_input_ISO&0xFF]); break;
+		case EDN_CHARSET_ISO_8859_3:  _output_Unicode.Set(TableIso8859_3[(uint32_t)_input_ISO&0xFF]); break;
+		case EDN_CHARSET_ISO_8859_4:  _output_Unicode.Set(TableIso8859_4[(uint32_t)_input_ISO&0xFF]); break;
+		case EDN_CHARSET_ISO_8859_5:  _output_Unicode.Set(TableIso8859_5[(uint32_t)_input_ISO&0xFF]); break;
+		case EDN_CHARSET_ISO_8859_6:  _output_Unicode.Set(TableIso8859_6[(uint32_t)_input_ISO&0xFF]); break;
+		case EDN_CHARSET_ISO_8859_7:  _output_Unicode.Set(TableIso8859_7[(uint32_t)_input_ISO&0xFF]); break;
+		case EDN_CHARSET_ISO_8859_8:  _output_Unicode.Set(TableIso8859_8[(uint32_t)_input_ISO&0xFF]); break;
+		case EDN_CHARSET_ISO_8859_9:  _output_Unicode.Set(TableIso8859_9[(uint32_t)_input_ISO&0xFF]); break;
+		case EDN_CHARSET_ISO_8859_10: _output_Unicode.Set(TableIso8859_10[(uint32_t)_input_ISO&0xFF]); break;
+		case EDN_CHARSET_ISO_8859_11: _output_Unicode.Set(TableIso8859_11[(uint32_t)_input_ISO&0xFF]); break;
+		case EDN_CHARSET_ISO_8859_13: _output_Unicode.Set(TableIso8859_13[(uint32_t)_input_ISO&0xFF]); break;
+		case EDN_CHARSET_ISO_8859_14: _output_Unicode.Set(TableIso8859_14[(uint32_t)_input_ISO&0xFF]); break;
+		case EDN_CHARSET_ISO_8859_15: _output_Unicode.Set(TableIso8859_15[(uint32_t)_input_ISO&0xFF]); break;
 		default :
 			TK_WARNING("Unknow charset ... " << _inputCharset);
 			_output_Unicode = '?';
