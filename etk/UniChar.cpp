@@ -288,8 +288,13 @@ int8_t etk::UniChar::TheoricUTF8Len(const char _input)
 
 bool etk::UniChar::TheoricUTF8First(const char _input)
 {
-	if((_input&0x80) == 0x80 ) {
-		return false;
+	// When started with the bit 0 then the size is signle element.
+	if((_input&0x80) == 0x00 ) {
+		return true;
 	}
-	return true;
+	// for multiple element size, we just need to check the second element (might be != 1)
+	if((_input&0x40) == 0x40 ) {
+		return true;
+	}
+	return false;
 }
