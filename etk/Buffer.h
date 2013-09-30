@@ -339,6 +339,17 @@ namespace etk
 			 */
 			void Replace(int32_t _pos, int32_t _nbRemoveElement, etk::Vector<int8_t>& _items)
 			{
+				Replace(_pos, _nbRemoveElement, _items.DataPointer(), _items.Size());
+			}
+			/**
+			 * @brief Replace specified data.
+			 * @param[in] _pos The first element to remove.
+			 * @param[in] _nbRemoveElement number of element to remove.
+			 * @param[in] _items Data that might be inserted.
+			 * @param[in] _nbElement Number of element that might be added.
+			 */
+			void Replace(int32_t _pos, int32_t _nbRemoveElement, int8_t* _items, int32_t _nbElement)
+			{
 				if(    _pos > Size()
 				    || _pos < 0 ) {
 					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize="<<Size());
@@ -356,7 +367,7 @@ namespace etk
 				m_gapEnd += _nbRemoveElement;
 				//Display();
 				// insert elements
-				Insert(_pos, _items);
+				Insert(_pos, _items, _nbElement);
 				// Resize buffer if needed...
 				GapCheckMaxSize();
 			}
