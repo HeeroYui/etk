@@ -12,13 +12,13 @@
 #include <math.h>
 
 
-void etk::Matrix4::Rotate(const vec3& vect, float angleRad)
+void etk::Matrix4::rotate(const vec3& vect, float angleRad)
 {
 	etk::Matrix4 tmpMat = etk::matRotate(vect, angleRad);
 	*this *= tmpMat;
 }
 
-void etk::Matrix4::Translate(const vec3& vect)
+void etk::Matrix4::translate(const vec3& vect)
 {
 	etk::Matrix4 tmpMat = etk::matTranslate(vect);
 	*this *= tmpMat;
@@ -91,7 +91,7 @@ etk::Matrix4 etk::matTranslate(vec3 vect)
 etk::Matrix4 etk::matScale(vec3 vect)
 {
 	etk::Matrix4 tmp;
-	tmp.Scale(vect);
+	tmp.scale(vect);
 	/*
 	// set scale :
 	tmp.m_mat[0] = vect.x;
@@ -167,7 +167,7 @@ etk::Matrix4 etk::matLookAt(vec3 eye,
 
 
 
-float etk::Matrix4::CoFactor(int32_t row, int32_t col) const
+float etk::Matrix4::coFactor(int32_t row, int32_t col) const
 {
 	return (   (   m_mat[((row+1)&3)*4 + ((col+1)&3)] * m_mat[((row+2)&3)*4 + ((col+2)&3)] * m_mat[((row+3)&3)*4 + ((col+3)&3)]
 	             + m_mat[((row+1)&3)*4 + ((col+2)&3)] * m_mat[((row+2)&3)*4 + ((col+3)&3)] * m_mat[((row+3)&3)*4 + ((col+1)&3)]
@@ -179,40 +179,40 @@ float etk::Matrix4::CoFactor(int32_t row, int32_t col) const
 }
 
 
-float etk::Matrix4::Determinant() const
+float etk::Matrix4::determinant() const
 {
-	return	m_mat[0] * CoFactor(0, 0) +
-			m_mat[1] * CoFactor(0, 1) +
-			m_mat[2] * CoFactor(0, 2) +
-			m_mat[3] * CoFactor(0, 3);
+	return m_mat[0] * coFactor(0, 0) +
+	       m_mat[1] * coFactor(0, 1) +
+	       m_mat[2] * coFactor(0, 2) +
+	       m_mat[3] * coFactor(0, 3);
 }
 
 
-etk::Matrix4 etk::Matrix4::Invert()
+etk::Matrix4 etk::Matrix4::invert()
 {
-	float det = Determinant();
+	float det = determinant();
 	if(fabsf(det) < (1.0e-7f)) {
 		// The matrix is not invertible! Singular case!
 		return *this;
 	}
 	etk::Matrix4 temp;
 	float iDet = 1.0f / det;
-	temp.m_mat[0] = CoFactor(0,0) * iDet;
-	temp.m_mat[1] = CoFactor(0,1) * iDet;
-	temp.m_mat[2] = CoFactor(0,2) * iDet;
-	temp.m_mat[3] = CoFactor(0,3) * iDet;
-	temp.m_mat[4] = CoFactor(1,0) * iDet;
-	temp.m_mat[5] = CoFactor(1,1) * iDet;
-	temp.m_mat[6] = CoFactor(1,2) * iDet;
-	temp.m_mat[7] = CoFactor(1,3) * iDet;
-	temp.m_mat[8] = CoFactor(2,0) * iDet;
-	temp.m_mat[9] = CoFactor(2,1) * iDet;
-	temp.m_mat[10] = CoFactor(2,2) * iDet;
-	temp.m_mat[11] = CoFactor(2,3) * iDet;
-	temp.m_mat[12] = CoFactor(3,0) * iDet;
-	temp.m_mat[13] = CoFactor(3,1) * iDet;
-	temp.m_mat[14] = CoFactor(3,2) * iDet;
-	temp.m_mat[15] = CoFactor(3,3) * iDet;
+	temp.m_mat[0] = coFactor(0,0) * iDet;
+	temp.m_mat[1] = coFactor(0,1) * iDet;
+	temp.m_mat[2] = coFactor(0,2) * iDet;
+	temp.m_mat[3] = coFactor(0,3) * iDet;
+	temp.m_mat[4] = coFactor(1,0) * iDet;
+	temp.m_mat[5] = coFactor(1,1) * iDet;
+	temp.m_mat[6] = coFactor(1,2) * iDet;
+	temp.m_mat[7] = coFactor(1,3) * iDet;
+	temp.m_mat[8] = coFactor(2,0) * iDet;
+	temp.m_mat[9] = coFactor(2,1) * iDet;
+	temp.m_mat[10] = coFactor(2,2) * iDet;
+	temp.m_mat[11] = coFactor(2,3) * iDet;
+	temp.m_mat[12] = coFactor(3,0) * iDet;
+	temp.m_mat[13] = coFactor(3,1) * iDet;
+	temp.m_mat[14] = coFactor(3,2) * iDet;
+	temp.m_mat[15] = coFactor(3,3) * iDet;
 	return temp;
 }
 

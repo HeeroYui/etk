@@ -10,7 +10,7 @@
 
 
 etk::Char::Char(void) {
-	m_data.PushBack('\0');
+	m_data.pushBack('\0');
 }
 
 etk::Char::~Char(void)
@@ -29,21 +29,21 @@ etk::Char::operator void *()
 };
 
 
-void etk::Char::SetValue(const etk::Vector<char>& _data)
+void etk::Char::setValue(const etk::Vector<char>& _data)
 {
 	m_data = _data;
 	// check presence of '\0' (note : start by the end might be faster ...
-	for (int32_t iii=m_data.Size()-1; iii>=0; iii--) {
+	for (int32_t iii=m_data.size()-1; iii>=0; iii--) {
 		if (m_data[iii] == '\0') {
 			return;
 		}
 	}
-	m_data.PushBack('\0');
+	m_data.pushBack('\0');
 }
 
 
-int64_t etk::Char::Size(void)
+int64_t etk::Char::size(void)
 {
-	return m_data.Size()-1;
+	return m_data.size()-1;
 }
 

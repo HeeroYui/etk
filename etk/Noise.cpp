@@ -21,7 +21,7 @@ etk::BaseNoise::BaseNoise(ivec2 _size, float _min, float _max) :
 	m_data(_size.x()*_size.y()),
 	m_size(_size)
 {
-	m_data.ReSize(_size.x()*_size.y(), 0);
+	m_data.reSize(_size.x()*_size.y(), 0);
 	
 	for(int32_t iii=0; iii<m_size.x()*m_size.y(); iii++) {
 		m_data[iii] = etk::tool::frand(_min, _max);
@@ -33,7 +33,7 @@ etk::BaseNoise::~BaseNoise(void)
 	
 }
 
-float etk::BaseNoise::Get(int32_t _x, int32_t _y) const
+float etk::BaseNoise::get(int32_t _x, int32_t _y) const
 {
 	// We increment of the size to prevent the <0 result due to the "%" methode ...
 	_x += m_size.x();
@@ -59,10 +59,10 @@ float etk::Noise::smoothNoise(float _x, float _y, const etk::BaseNoise& _noise)
 	
 	//smooth the noise with bilinear interpolation
 	float value = 0.0f;
-	value += fractX       * fractY       * _noise.Get(x1,y1);
-	value += fractX       * (1 - fractY) * _noise.Get(x1,y2);
-	value += (1 - fractX) * fractY       * _noise.Get(x2,y1);
-	value += (1 - fractX) * (1 - fractY) * _noise.Get(x2,y2);
+	value += fractX       * fractY       * _noise.get(x1,y1);
+	value += fractX       * (1 - fractY) * _noise.get(x1,y2);
+	value += (1 - fractX) * fractY       * _noise.get(x2,y1);
+	value += (1 - fractX) * (1 - fractY) * _noise.get(x2,y2);
 	
 	return value;
 }
@@ -85,7 +85,7 @@ float etk::Noise::turbulenceNoSmooth(float _x, float _y, float _size, const etk:
 	float value = 0.0f;
 	float initialSize = _size;
 	while(1<=_size) {
-		value += _noise.Get(_x / _size, _y / _size) * _size;
+		value += _noise.get(_x / _size, _y / _size) * _size;
 		_size *= 0.5f;
 	}
 	return(0.5f * value / initialSize);
@@ -98,7 +98,7 @@ etk::Noise::Noise(noise_te _type, ivec2 _size, int32_t _depth) :
 	m_size(_size),
 	m_type(_type)
 {
-	m_data.ReSize(_size.x()*_size.y(), 0);
+	m_data.reSize(_size.x()*_size.y(), 0);
 	switch(m_type) {
 		default:
 		case etk::Noise::NOISE_BASE:
@@ -106,7 +106,7 @@ etk::Noise::Noise(noise_te _type, ivec2 _size, int32_t _depth) :
 				etk::BaseNoise myNoise(ivec2(m_size.x()/_depth,m_size.y()/_depth),0.0f,1.0f);
 				for(int32_t iii=0; iii<m_size.y(); iii++) {
 					for(int32_t jjj=0; jjj<m_size.x(); jjj++) {
-						m_data[iii+jjj*m_size.x()] = myNoise.Get(iii,jjj);
+						m_data[iii+jjj*m_size.x()] = myNoise.get(iii,jjj);
 					}
 				}
 			}
@@ -159,7 +159,7 @@ etk::Noise::~Noise(void)
 	
 }
 
-float etk::Noise::Get(int32_t _x, int32_t _y) const
+float etk::Noise::get(int32_t _x, int32_t _y) const
 {
 	// We increment of the size to prevent the <0 result due to the "%" methode ...
 	_x += m_size.x();

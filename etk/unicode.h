@@ -50,7 +50,7 @@ namespace unicode {
 	int32_t convertIsoToUtf8(  charset_te _inputCharset,  const etk::Vector<char>&    _input_ISO,     etk::Vector<char>&    _output_UTF8);
 	int32_t convertUtf8ToIso(  charset_te _inputCharset,  const etk::Vector<char>&    _input_UTF8,    etk::Vector<char>&    _output_ISO);
 	
-	void    Utf8_SizeElement(const char * _data, int32_t _lenMax , uint8_t &_size, bool &_baseValid);
+	void    utf8_SizeElement(const char * _data, int32_t _lenMax , uint8_t &_size, bool &_baseValid);
 	int32_t strUtf8Len(const char *_input_UTF8);
 }
 

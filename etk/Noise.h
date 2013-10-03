@@ -22,7 +22,7 @@ namespace etk {
 		public:
 			BaseNoise(ivec2 _size, float _min, float _max);
 			~BaseNoise(void);
-			float Get(int32_t _x, int32_t _y) const;
+			float get(int32_t _x, int32_t _y) const;
 	};
 	class Noise
 	{
@@ -46,7 +46,7 @@ namespace etk {
 		public:
 			Noise(noise_te _type, ivec2 _size, int32_t _depth);
 			~Noise(void);
-			float Get(int32_t _x, int32_t _y) const;
+			float get(int32_t _x, int32_t _y) const;
 	};
 };
 

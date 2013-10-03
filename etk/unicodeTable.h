@@ -13,20 +13,20 @@
 
 extern "C" {
 
-	extern const uint32_t TableIso8859_1[];
-	extern const uint32_t TableIso8859_2[];
-	extern const uint32_t TableIso8859_3[];
-	extern const uint32_t TableIso8859_4[];
-	extern const uint32_t TableIso8859_5[];
-	extern const uint32_t TableIso8859_6[];
-	extern const uint32_t TableIso8859_7[];
-	extern const uint32_t TableIso8859_8[];
-	extern const uint32_t TableIso8859_9[];
-	extern const uint32_t TableIso8859_10[];
-	extern const uint32_t TableIso8859_11[];
-	extern const uint32_t TableIso8859_13[];
-	extern const uint32_t TableIso8859_14[];
-	extern const uint32_t TableIso8859_15[];
+	extern const uint32_t tableIso8859_1[];
+	extern const uint32_t tableIso8859_2[];
+	extern const uint32_t tableIso8859_3[];
+	extern const uint32_t tableIso8859_4[];
+	extern const uint32_t tableIso8859_5[];
+	extern const uint32_t tableIso8859_6[];
+	extern const uint32_t tableIso8859_7[];
+	extern const uint32_t tableIso8859_8[];
+	extern const uint32_t tableIso8859_9[];
+	extern const uint32_t tableIso8859_10[];
+	extern const uint32_t tableIso8859_11[];
+	extern const uint32_t tableIso8859_13[];
+	extern const uint32_t tableIso8859_14[];
+	extern const uint32_t tableIso8859_15[];
 	
 	;
 }

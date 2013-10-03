@@ -55,7 +55,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			void SetNormal(const etk::Vector3D<T>& obj)
+			void setNormal(const etk::Vector3D<T>& obj)
 			{
 				m_normal=obj;
 			};
@@ -65,7 +65,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			void SetIntercept(float _intercept)
+			void setIntercept(float _intercept)
 			{
 				m_intercept=_intercept;
 			};
@@ -75,13 +75,13 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			void SetFromPoints(const etk::Vector3D<T> & p0,
+			void setFromPoints(const etk::Vector3D<T> & p0,
 			                   const etk::Vector3D<T> & p1,
 			                   const etk::Vector3D<T> & p2)
 			{
-				m_normal=(p1-p0).CrossProduct(p2-p0);
-				m_normal.Normalize();
-				CalculateIntercept(p0);
+				m_normal=(p1-p0).crossProduct(p2-p0);
+				m_normal.normalize();
+				calculateIntercept(p0);
 			};
 			
 			/**
@@ -89,9 +89,9 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			void CalculateIntercept(const etk::Vector3D<T>& pointOnPlane)
+			void calculateIntercept(const etk::Vector3D<T>& pointOnPlane)
 			{
-				m_intercept=-m_normal.DotProduct(pointOnPlane);
+				m_intercept=-m_normal.dotProduct(pointOnPlane);
 			}
 			
 			/**
@@ -99,9 +99,9 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			void Normalize(void)
+			void normalize(void)
 			{
-				float normalLength=m_normal.GetLength();
+				float normalLength=m_normal.getLength();
 				m_normal/=normalLength;
 				m_intercept/=normalLength;
 			};
@@ -111,7 +111,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			etk::Vector3D<T> GetNormal(void)
+			etk::Vector3D<T> getNormal(void)
 			{
 				return m_normal;
 			};
@@ -121,7 +121,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			float GetIntercept()
+			float getIntercept()
 			{
 				return m_intercept;
 			}
@@ -132,20 +132,20 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			bool Intersect3(const Plane<T>& p2,
+			bool intersect3(const Plane<T>& p2,
 			                const Plane<T> & p3,
 			                etk::Vector3D<T> & result)
 			{
-				float denominator=m_normal.DotProduct((p2.m_normal).CrossProduct(p3.m_normal));
+				float denominator=m_normal.dotProduct((p2.m_normal).crossProduct(p3.m_normal));
 				//scalar triple product of normals
 				if(denominator==0.0f) {
 					//no intersection
 					return false;
 				}
 				etk::Vector3D<T> temp1, temp2, temp3;
-				temp1=(p2.m_normal.CrossProduct(p3.m_normal))*m_intercept;
-				temp2=(p3.m_normal.CrossProduct(m_normal))*p2.m_intercept;
-				temp3=(m_normal.CrossProduct(p2.m_normal))*p3.m_intercept;
+				temp1=(p2.m_normal.crossProduct(p3.m_normal))*m_intercept;
+				temp2=(p3.m_normal.crossProduct(m_normal))*p2.m_intercept;
+				temp3=(m_normal.crossProduct(p2.m_normal))*p3.m_intercept;
 				
 				result=(temp1+temp2+temp3)/(-denominator);
 				
@@ -157,7 +157,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			float GetDistance(const etk::Vector3D<T> & point) const
+			float getDistance(const etk::Vector3D<T> & point) const
 			{
 				return   point.x*m_normal.x
 				       + point.y*m_normal.y
@@ -170,11 +170,11 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			Plane<T> LinearInterpolate(const Plane<T> & p2, float factor)
+			Plane<T> linearInterpolate(const Plane<T> & p2, float factor)
 			{
 				Plane<T> result;
 				result.m_normal=m_normal*(1.0f-factor) + p2.m_normal*factor;
-				result.m_normal.Normalize();
+				result.m_normal.normalize();
 				result.m_intercept=m_intercept*(1.0f-factor) + p2.m_intercept*factor;
 				return result;
 			};

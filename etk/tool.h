@@ -17,9 +17,9 @@ namespace etk {
 		float   frand(float _a, float _b);
 		int32_t irand(int32_t _a, int32_t _b);
 		
-		void SortList(etk::Vector<etk::UString *>& _list);
+		void sortList(etk::Vector<etk::UString *>& _list);
 		bool strnCmpNoCase(const char* _input1, const char* _input2, int32_t _maxLen);
-		etk::UString SimplifyPath(etk::UString _input);
+		etk::UString simplifyPath(etk::UString _input);
 		
 	};
 };

@@ -22,7 +22,7 @@ namespace etk
 	{
 		public:
 			float m_mat[4*4];
-			void Identity(void) {
+			void identity(void) {
 				for(int32_t iii=0; iii<4*4 ; iii++) {
 					m_mat[iii] = 0;
 				}
@@ -35,7 +35,7 @@ namespace etk
 			 *    Constructor
 			 *****************************************************/
 			Matrix4(void) {
-				Identity();
+				identity();
 			}
 			Matrix4(const Matrix4& obj) {
 				for(int32_t iii=0; iii<4*4 ; iii++) {
@@ -65,7 +65,7 @@ namespace etk
 			}
 			Matrix4(float * obj) {
 				if (NULL == obj) {
-					Identity();
+					identity();
 					return;
 				}
 				for(int32_t iii=0; iii<4*4 ; iii++) {
@@ -186,7 +186,7 @@ namespace etk
 			/*****************************************************
 			 *  other basic function :
 			 *****************************************************/
-			void Transpose(void)
+			void transpose(void)
 			{
 				float tmpVal = m_mat[1];
 				m_mat[1] = m_mat[4];
@@ -212,11 +212,11 @@ namespace etk
 				m_mat[11] = m_mat[14];
 				m_mat[14] = tmpVal;
 			}
-			void Scale(const vec3& p)
+			void scale(const vec3& p)
 			{
-				Scale(p.x(), p.y(), p.z());
+				scale(p.x(), p.y(), p.z());
 			}
-			void Scale(float sx, float sy, float sz)
+			void scale(float sx, float sy, float sz)
 			{
 				m_mat[0] *= sx;	m_mat[1] *= sy;	m_mat[2] *= sz;
 				m_mat[4] *= sx;	m_mat[5] *= sy;	m_mat[6] *= sz;
@@ -227,30 +227,30 @@ namespace etk
 			 * @param[in] vect vector to apply the angle.
 			 * @param[in] angleRad angle to apply.
 			 */
-			void Rotate(const vec3& vect, float angleRad=0.0);
+			void rotate(const vec3& vect, float angleRad=0.0);
 			/**
 			 * @brief Makes a translation of the matrix
 			 * @param[in] vect Translation to apply.
 			 */
-			void Translate(const vec3& vect);
+			void translate(const vec3& vect);
 			/**
 			 * @brief Computes a cofactor. Used for matrix inversion.
 			 * @param[in] row Id of raw.
 			 * @param[in] col Id of colomn.
 			 * @return the coFactorValue.
 			 */
-			float CoFactor(int32_t row, int32_t col) const;
+			float coFactor(int32_t row, int32_t col) const;
 			/**
 			 * @brief Computes the determinant of the matrix.
 			 * @return The determinent Value.
 			 */
-			float Determinant(void) const;
+			float determinant(void) const;
 			/**
 			 * @brief Inverts the matrix.
 			 * @note The determinant must be != 0, otherwithe the matrix can't be inverted.
 			 * @return The inverted matrix.
 			 */
-			Matrix4 Invert(void);
+			Matrix4 invert(void);
 	};
 	Matrix4 matFrustum(float xmin, float xmax, float ymin, float ymax, float zNear, float zFar);
 	Matrix4 matPerspective(float foxy, float aspect, float zNear, float zFar);

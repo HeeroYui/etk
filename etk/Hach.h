@@ -15,7 +15,7 @@
 #include <etk/UString.h>
 
 #undef __class__
-#define __class__	"etk::Hash"
+#define __class__ "etk::Hash"
 
 
 namespace etk
@@ -45,29 +45,29 @@ namespace etk
 			}
 			~Hash(void)
 			{
-				Clear();
+				clear();
 			}
 			/**
 			 * @brief Remove all entry in the Hash table
 			 */
-			void Clear(void)
+			void clear(void)
 			{
-				for (int32_t iii=0; iii<m_data.Size(); iii++) {
+				for (int32_t iii=0; iii<m_data.size(); iii++) {
 					if (m_data[iii] != NULL) {
 						delete(m_data[iii]);
 						m_data[iii]=NULL;
 					}
 				}
-				m_data.Clear();
+				m_data.clear();
 			}
 			/**
 			 * @brief Get a current element ID in the Hash table
 			 * @param[in] _key Name of the hash requested
 			 * @return Id of the element in the table or -1 of it does not existed
 			 */
-			int64_t GetId(const etk::UString& _key) const
+			int64_t getId(const etk::UString& _key) const
 			{
-				for (int32_t iii=0; iii<m_data.Size(); iii++) {
+				for (int32_t iii=0; iii<m_data.size(); iii++) {
 					if (m_data[iii] != NULL) {
 						//TK_INFO("Compare key : '" << m_data[iii]->m_key << "' with '" << _key << "'" );
 						if (m_data[iii]->m_key == _key) {
@@ -83,9 +83,9 @@ namespace etk
 			 * @param[in] _key Name of the hash requested
 			 * @return true if the element exist
 			 */
-			bool Exist(const etk::UString& _name) const
+			bool exist(const etk::UString& _name) const
 			{
-				int64_t elementId = GetId(_name);
+				int64_t elementId = getId(_name);
 				//TK_INFO(" Exist ? '" << _name << "' id=" << elementId );
 				if (elementId<0) {
 					//TK_INFO("     ==> return false" );
@@ -99,10 +99,10 @@ namespace etk
 			 * @param[in] _key Name of the hash requested
 			 * @return Reference on the Element
 			 */
-			MY_TYPE& Get(const etk::UString& _key) const
+			MY_TYPE& get(const etk::UString& _key) const
 			{
 				static MY_TYPE g_error;
-				int64_t elementId = GetId(_key);
+				int64_t elementId = getId(_key);
 				if (elementId<0) {
 					TK_ERROR("try to acces at an unexistant hash element : " << _key);
 					return g_error;
@@ -116,84 +116,84 @@ namespace etk
 			 */
 			MY_TYPE& operator[] (const etk::UString& _key)
 			{
-				return Get(_key);
+				return get(_key);
 			}
 			const MY_TYPE& operator[] (const etk::UString& _key) const
 			{
-				return Get(_key);
+				return get(_key);
 			}
 			
-			void Add(const etk::UString& _key, const MY_TYPE& _value)
+			void add(const etk::UString& _key, const MY_TYPE& _value)
 			{
-				int64_t elementId = GetId(_key);
+				int64_t elementId = getId(_key);
 				if (elementId <0) {
 					HashData<MY_TYPE>* tmp = new HashData<MY_TYPE>(_key, _value);
 					if (NULL == tmp) {
 						TK_ERROR("allocation error in Hash table : '" << _key << "'");
 						return;
 					}
-					m_data.PushBack(tmp);
+					m_data.pushBack(tmp);
 					return;
 				}
 				m_data[elementId]->m_value = _value;
 			}
-			void Set(const etk::UString& _key, const MY_TYPE& _value)
+			void set(const etk::UString& _key, const MY_TYPE& _value)
 			{
-				Add(_key, _value);
+				add(_key, _value);
 			}
-			void Remove(const etk::UString& _key)
+			void remove(const etk::UString& _key)
 			{
-				int64_t elementId = GetId(_key);
+				int64_t elementId = getId(_key);
 				if (elementId <0) {
 					//nothing to do ==> not existed
 					return;
 				}
 				delete(m_data[elementId]);
 				m_data[elementId] = NULL;
-				m_data.Remove(elementId);
+				m_data.remove(elementId);
 			}
 			/**
 			 * @brief Get the number of element in the hash table
 			 * @return number of elements
 			 */
-			esize_t Size(void) const
+			esize_t size(void) const
 			{
-				return m_data.Size();
+				return m_data.size();
 			}
 			MY_TYPE& operator[] (esize_t _pos)
 			{
-				return GetValue(_pos);
+				return getValue(_pos);
 			}
 			const MY_TYPE& operator[] (esize_t _pos) const
 			{
-				return GetValue(_pos);
+				return getValue(_pos);
 			}
-			const etk::UString& GetKey(esize_t _pos) const
+			const etk::UString& getKey(esize_t _pos) const
 			{
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
-					if(_pos>m_data.Size()){
-						TK_CRITICAL("[CRITICAL] Access to an unexistant data in hach : " << _pos << "/ " << m_data.Size());
+					if(_pos>m_data.size()){
+						TK_CRITICAL("Access to an unexistant data in hach : " << _pos << "/ " << m_data.size());
 					}
 				#endif
 				return m_data[_pos]->m_key;
 			}
-			const MY_TYPE& GetValue(esize_t _pos) const
+			const MY_TYPE& getValue(esize_t _pos) const
 			{
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
-					if(_pos>m_data.Size()){
-						TK_CRITICAL("[CRITICAL] Access to an unexistant data in hach : " << _pos << "/ " << m_data.Size());
+					if(_pos>m_data.size()){
+						TK_CRITICAL("Access to an unexistant data in hach : " << _pos << "/ " << m_data.size());
 					}
 				#endif
 				return m_data[_pos]->m_value;
 			}
-			MY_TYPE& GetValue(esize_t _pos)
+			MY_TYPE& getValue(esize_t _pos)
 			{
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
-					if(_pos>m_data.Size()){
-						TK_CRITICAL("[CRITICAL] Access to an unexistant data in hach : " << _pos << "/ " << m_data.Size());
+					if(_pos>m_data.size()){
+						TK_CRITICAL("Access to an unexistant data in hach : " << _pos << "/ " << m_data.size());
 					}
 				#endif
 				return m_data[_pos]->m_value;

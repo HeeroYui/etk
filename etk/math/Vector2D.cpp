@@ -68,22 +68,22 @@ namespace etk
 		m_floats[1] = false;
 		// copy to permit to modify it :
 		etk::UString tmpStr = _str;
-		if (_str.StartWith("(")) {
-			tmpStr.Remove(0,1);
+		if (_str.startWith("(")) {
+			tmpStr.remove(0,1);
 		}
-		if (tmpStr.EndWith(")")) {
-			tmpStr.Remove(tmpStr.Size()-1,1);
+		if (tmpStr.endWith(")")) {
+			tmpStr.remove(tmpStr.size()-1,1);
 		}
-		int32_t posComa = tmpStr.FindForward(',');
+		int32_t posComa = tmpStr.findForward(',');
 		if (posComa <= 0) {
 			// no coma ...
 			// in every case, we parse the first element :
-			m_floats[0] = tmpStr.ToBool();
+			m_floats[0] = tmpStr.toBool();
 			m_floats[1] = m_floats[0];
 		} else {
-			m_floats[0] = tmpStr.Extract(0,posComa).ToBool();
-			tmpStr.Remove(0,posComa+1);
-			m_floats[1] = tmpStr.ToBool();
+			m_floats[0] = tmpStr.extract(0,posComa).toBool();
+			tmpStr.remove(0,posComa+1);
+			m_floats[1] = tmpStr.toBool();
 		}
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
@@ -105,23 +105,23 @@ namespace etk
 		m_floats[1] = 0;
 		// copy to permit to modify it :
 		etk::UString tmpStr = _str;
-		if (_str.StartWith("(")) {
-			tmpStr.Remove(0,1);
+		if (_str.startWith("(")) {
+			tmpStr.remove(0,1);
 		}
-		if (tmpStr.EndWith(")")) {
-			tmpStr.Remove(tmpStr.Size()-1,1);
+		if (tmpStr.endWith(")")) {
+			tmpStr.remove(tmpStr.size()-1,1);
 		}
 		
-		int32_t posComa = tmpStr.FindForward(',');
+		int32_t posComa = tmpStr.findForward(',');
 		if (posComa <= 0) {
 			// no coma ...
 			// in every case, we parse the first element :
-			m_floats[0] = tmpStr.ToInt32();
+			m_floats[0] = tmpStr.toInt32();
 			m_floats[1] = m_floats[0];
 		} else {
-			m_floats[0] = tmpStr.Extract(0,posComa).ToInt32();
-			tmpStr.Remove(0,posComa+1);
-			m_floats[1] = tmpStr.ToInt32();
+			m_floats[0] = tmpStr.extract(0,posComa).toInt32();
+			tmpStr.remove(0,posComa+1);
+			m_floats[1] = tmpStr.toInt32();
 		}
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
@@ -143,22 +143,22 @@ namespace etk
 		m_floats[1] = 0;
 		// copy to permit to modify it :
 		etk::UString tmpStr = _str;
-		if (_str.StartWith("(")) {
-			tmpStr.Remove(0,1);
+		if (_str.startWith("(")) {
+			tmpStr.remove(0,1);
 		}
-		if (tmpStr.EndWith(")")) {
-			tmpStr.Remove(tmpStr.Size()-1,1);
+		if (tmpStr.endWith(")")) {
+			tmpStr.remove(tmpStr.size()-1,1);
 		}
-		int32_t posComa = tmpStr.FindForward(',');
+		int32_t posComa = tmpStr.findForward(',');
 		if (posComa <= 0) {
 			// no coma ...
 			// in every case, we parse the first element :
-			m_floats[0] = tmpStr.ToUInt32();
+			m_floats[0] = tmpStr.toUInt32();
 			m_floats[1] = m_floats[0];
 		} else {
-			m_floats[0] = tmpStr.Extract(0,posComa).ToUInt32();
-			tmpStr.Remove(0,posComa+1);
-			m_floats[1] = tmpStr.ToUInt32();
+			m_floats[0] = tmpStr.extract(0,posComa).toUInt32();
+			tmpStr.remove(0,posComa+1);
+			m_floats[1] = tmpStr.toUInt32();
 		}
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
@@ -180,22 +180,22 @@ namespace etk
 		m_floats[1] = 0;
 		// copy to permit to modify it :
 		etk::UString tmpStr = _str;
-		if (_str.StartWith("(")) {
-			tmpStr.Remove(0,1);
+		if (_str.startWith("(")) {
+			tmpStr.remove(0,1);
 		}
-		if (tmpStr.EndWith(")")) {
-			tmpStr.Remove(tmpStr.Size()-1,1);
+		if (tmpStr.endWith(")")) {
+			tmpStr.remove(tmpStr.size()-1,1);
 		}
-		int32_t posComa = tmpStr.FindForward(',');
+		int32_t posComa = tmpStr.findForward(',');
 		if (posComa <= 0) {
 			// no coma ...
 			// in every case, we parse the first element :
-			m_floats[0] = tmpStr.ToFloat();
+			m_floats[0] = tmpStr.toFloat();
 			m_floats[1] = m_floats[0];
 		} else {
-			m_floats[0] = tmpStr.Extract(0,posComa).ToFloat();
-			tmpStr.Remove(0,posComa+1);
-			m_floats[1] = tmpStr.ToFloat();
+			m_floats[0] = tmpStr.extract(0,posComa).toFloat();
+			tmpStr.remove(0,posComa+1);
+			m_floats[1] = tmpStr.toFloat();
 		}
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}

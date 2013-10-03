@@ -25,19 +25,19 @@ etk::Mutex::~Mutex(void)
 }
 
 
-void etk::Mutex::Lock(void)
+void etk::Mutex::lock(void)
 {
 	pthread_mutex_lock(&m_mutex);
 }
 
 
-bool etk::Mutex::TryLock(void)
+bool etk::Mutex::tryLock(void)
 {
 	return pthread_mutex_trylock(&m_mutex) != 0;
 }
 
 
-void etk::Mutex::UnLock(void)
+void etk::Mutex::unLock(void)
 {
 	pthread_mutex_unlock(&m_mutex);
 }

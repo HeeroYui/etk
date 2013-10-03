@@ -192,7 +192,7 @@ namespace etk
 				m_size(0),
 				m_allocated(0)
 			{
-				ChangeAllocation(_count);
+				changeAllocation(_count);
 			}
 			/**
 			 * @brief Re-copy constructor (copy all needed data)
@@ -232,7 +232,7 @@ namespace etk
 			 * @brief Swap the data of 2 Vectors
 			 * @param[in] _obj second vector to swap data.
 			 */
-			void Swap(etk::Vector<MY_TYPE>& _obj)
+			void wwap(etk::Vector<MY_TYPE>& _obj)
 			{
 				// avoid Swap of itself
 				if(this != &_obj) {
@@ -285,9 +285,9 @@ namespace etk
 			 */
 			Vector& operator+= (const etk::Vector<MY_TYPE> & _obj)
 			{
-				esize_t nbElememt = _obj.Size();
+				esize_t nbElememt = _obj.size();
 				esize_t idx = m_size;
-				Resize(m_size+nbElememt);
+				resize(m_size+nbElememt);
 				if (m_size<=idx) {
 					TK_CRITICAL("allocation error");
 					return *this;
@@ -303,7 +303,7 @@ namespace etk
 			 * @brief Get the number of element in the vector
 			 * @return The number requested
 			 */
-			esize_t Size(void) const
+			esize_t size(void) const
 			{
 				return m_size;
 			}
@@ -311,10 +311,10 @@ namespace etk
 			 * @brief Get the number of element in the vector
 			 * @return The number requested
 			 */
-			void ReSize(esize_t _newSize, const MY_TYPE& _basicElement)
+			void reSize(esize_t _newSize, const MY_TYPE& _basicElement)
 			{
 				esize_t idx = m_size;
-				Resize(_newSize);
+				resize(_newSize);
 				if (m_size != _newSize) {
 					TK_CRITICAL("error to resize vector");
 					return;
@@ -330,7 +330,7 @@ namespace etk
 			 * @brief Get the Allocated size in the vector
 			 * @return The size of allocation
 			 */
-			esize_t AllocatedSize(void) const
+			esize_t allocatedSize(void) const
 			{
 				return m_allocated;
 			}
@@ -339,7 +339,7 @@ namespace etk
 			 * @param[in] _pos Desired position read
 			 * @return Reference on the Element
 			 */
-			MY_TYPE& Get(esize_t _pos)
+			MY_TYPE& get(esize_t _pos)
 			{
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
@@ -356,7 +356,7 @@ namespace etk
 			 */
 			MY_TYPE& operator[] (esize_t _pos)
 			{
-				return Get(_pos);
+				return get(_pos);
 			}
 			/**
 			 * @brief Get an Element an a special position
@@ -377,27 +377,27 @@ namespace etk
 			 * @brief Add at the First position of the Vector
 			 * @param[in] _item Element to add at the end of vector
 			 */
-			void PushFront(const MY_TYPE& _item)
+			void pushFront(const MY_TYPE& _item)
 			{
-				Insert(0, &_item, 1);
+				insert(0, &_item, 1);
 			}
 			/**
 			 * @brief Add at the Last position of the Vector
 			 * @param[in] _item Pointer on a list of Element to add at the start of vector
 			 * @param[in] _nbElement Number of element to add.
 			 */
-			void PushFront(const MY_TYPE * _item, esize_t _nbElement)
+			void pushFront(const MY_TYPE * _item, esize_t _nbElement)
 			{
-				Insert(0, _item, _nbElement);
+				insert(0, _item, _nbElement);
 			}
 			/**
 			 * @brief Add at the Last position of the Vector
 			 * @param[in] _item Element to add at the end of vector
 			 */
-			void PushBack(const MY_TYPE& _item)
+			void pushBack(const MY_TYPE& _item)
 			{
 				esize_t idx = m_size;
-				Resize(m_size+1);
+				resize(m_size+1);
 				if (idx < m_size) {
 					m_data[idx] = _item;
 				} else {
@@ -409,13 +409,13 @@ namespace etk
 			 * @param[in] _item Pointer on a list of Element to add at the end of vector
 			 * @param[in] _nbElement Number of element to add.
 			 */
-			void PushBack(const MY_TYPE * _item, esize_t _nbElement)
+			void pushBack(const MY_TYPE * _item, esize_t _nbElement)
 			{
 				if (NULL == _item) {
 					return;
 				}
 				esize_t idx = m_size;
-				Resize(m_size+_nbElement);
+				resize(m_size+_nbElement);
 				if (idx > m_size) {
 					TK_ERROR("Resize does not work corectly ... not added item");
 					return;
@@ -427,19 +427,19 @@ namespace etk
 			/**
 			 * @brief Remove the last element of the vector
 			 */
-			void PopBack(void)
+			void popBack(void)
 			{
 				if(m_size>0) {
-					Resize(m_size-1);
+					resize(m_size-1);
 				}
 			}
 			/**
 			 * @brief Remove all alement in the current vector
 			 */
-			void Clear(void)
+			void clear(void)
 			{
 				if(m_size>0) {
-					Resize(0);
+					resize(0);
 				}
 			}
 			/**
@@ -448,16 +448,16 @@ namespace etk
 			 * @param[in] _item Pointer on a table of the elements to add.
 			 * @param[in] _nbElement Number of element to add in the Vector
 			 */
-			void Insert(esize_t _pos, const MY_TYPE * _item, esize_t _nbElement)
+			void insert(esize_t _pos, const MY_TYPE * _item, esize_t _nbElement)
 			{
 				if (_pos>m_size) {
 					TK_WARNING(" can not insert Element at this position : " << _pos << " > " << m_size << " add it at the end ... ");
-					PushBack(_item, _nbElement);
+					pushBack(_item, _nbElement);
 					return;
 				}
 				esize_t idx = m_size;
 				// Request resize of the current buffer
-				Resize(m_size+_nbElement);
+				resize(m_size+_nbElement);
 				if (idx>=m_size) {
 					TK_ERROR("Resize does not work corectly ... not added item");
 					return;
@@ -479,16 +479,16 @@ namespace etk
 			 * @param[in] _pos Position to add the elements.
 			 * @param[in] _item Element to add.
 			 */
-			void Insert(esize_t _pos, const MY_TYPE& _item)
+			void insert(esize_t _pos, const MY_TYPE& _item)
 			{
-				Insert(_pos, &_item, 1);
+				insert(_pos, &_item, 1);
 			}
 			/**
 			 * @brief Remove N element
 			 * @param[in] _pos Position to remove the data
 			 * @param[in] _nbElement number of element to remove
 			 */
-			void EraseLen(esize_t _pos, esize_t _nbElement)
+			void eraseLen(esize_t _pos, esize_t _nbElement)
 			{
 				if (_pos>m_size) {
 					TK_ERROR(" can not Erase Len Element at this position : " << _pos << " > " << m_size);
@@ -506,30 +506,30 @@ namespace etk
 					}
 				}
 				// Request resize of the current buffer
-				Resize(m_size-_nbElement);
+				resize(m_size-_nbElement);
 			}
 			/**
 			 * @brief Remove one element
 			 * @param[in] _pos Position to remove the data
 			 */
-			inline void Erase(esize_t _pos)
+			inline void erase(esize_t _pos)
 			{
-				EraseLen(_pos, 1);
+				eraseLen(_pos, 1);
 			}
 			/**
 			 * @brief Remove one element
 			 * @param[in] _pos Position to remove the data
 			 */
-			inline void Remove(esize_t _pos)
+			inline void remove(esize_t _pos)
 			{
-				EraseLen(_pos, 1);
+				eraseLen(_pos, 1);
 			}
 			/**
 			 * @brief Remove N elements
 			 * @param[in] _pos Position to remove the data
 			 * @param[in] _posEnd Last position number
 			 */
-			void Erase(esize_t _pos, esize_t _posEnd)
+			void erase(esize_t _pos, esize_t _posEnd)
 			{
 				if (_pos>m_size) {
 					TK_ERROR(" can not Erase Element at this position : " << _pos << " > " << m_size);
@@ -548,7 +548,7 @@ namespace etk
 					}
 				}
 				// Request resize of the current buffer
-				Resize(m_size-nbElement);
+				resize(m_size-nbElement);
 			}
 			/**
 			 * @brief extract data between two point : 
@@ -556,23 +556,23 @@ namespace etk
 			 * @param[in] _posEnd End position to extract data
 			 * @return the extracted vector
 			 */
-			Vector<MY_TYPE> Extract(esize_t _posStart = 0, esize_t _posEnd=0x7FFFFFFF) const
+			Vector<MY_TYPE> extract(esize_t _posStart = 0, esize_t _posEnd=0x7FFFFFFF) const
 			{
 				Vector<MY_TYPE> out;
-				if (_posStart >= Size() ) {
+				if (_posStart >= size() ) {
 					return out;
 				}
-				if (_posEnd >= Size() ) {
-					_posEnd = Size();
+				if (_posEnd >= size() ) {
+					_posEnd = size();
 				}
-				out.PushBack(&m_data[_posStart], _posEnd-_posStart);
+				out.pushBack(&m_data[_posStart], _posEnd-_posStart);
 				return out;
 			}
 			/**
 			 * @brief Get the pointer on the sata
 			 * @return the type pointer on data
 			 */
-			MY_TYPE* DataPointer(void)
+			MY_TYPE* dataPointer(void)
 			{
 				return &m_data[0];
 			}
@@ -581,36 +581,36 @@ namespace etk
 			 * @param[in] _pos Requested position of the iterator in the vector
 			 * @return The Iterator
 			 */
-			Iterator Position(esize_t _pos)
+			Iterator position(esize_t _pos)
 			{
-				return Iterator(this, _pos);
+				return iterator(this, _pos);
 			}
 			/**
 			 * @brief Get an Iterator on the start position of the Vector
 			 * @return The Iterator
 			 */
-			Iterator Begin(void)
+			Iterator begin(void)
 			{
-				return Position(0);
+				return position(0);
 			}
 			/**
 			 * @brief Get an Iterator on the end position of the Vector
 			 * @return The Iterator
 			 */
-			Iterator End(void)
+			Iterator end(void)
 			{
-				return Position( Size()-1 );
+				return position( size()-1 );
 			}
 		private:
 			/**
 			 * @brief Change the current size of the vector
 			 * @param[in] _newSize New requested size of element in the vector
 			 */
-			void Resize(esize_t _newSize)
+			void resize(esize_t _newSize)
 			{
 				// Reallocate memory
 				if (_newSize > m_allocated) {
-					ChangeAllocation(_newSize);
+					changeAllocation(_newSize);
 				}
 				m_size = _newSize;
 			}
@@ -618,7 +618,7 @@ namespace etk
 			 * @brief Change the current allocation to the corect one (depend on the current size)
 			 * @param[in] _newSize Minimum number of element needed
 			 */
-			void ChangeAllocation(esize_t _newSize)
+			void changeAllocation(esize_t _newSize)
 			{
 				// set the minimal size to 1
 				if(_newSize == 0) {

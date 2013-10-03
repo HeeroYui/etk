@@ -43,14 +43,14 @@ namespace etk
 			UString(const char* _data, unicode::charset_te _inputCharset);
 			UString(const float _inputData);
 			UString(const double _inputData);
-			UString(const int8_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0)   { Set((int64_t)_inputData, _mode, _preset, _leadingZero); };
-			UString(const int16_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0)  { Set((int64_t)_inputData, _mode, _preset, _leadingZero); };
-			UString(const int32_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0)  { Set((int64_t)_inputData, _mode, _preset, _leadingZero); };
-			UString(const int64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0)  { Set(_inputData, _mode, _preset, _leadingZero); };
-			UString(const uint8_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0)  { Set((uint64_t)_inputData, _mode, _preset, _leadingZero); };
-			UString(const uint16_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { Set((uint64_t)_inputData, _mode, _preset, _leadingZero); };
-			UString(const uint32_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { Set((uint64_t)_inputData, _mode, _preset, _leadingZero); };
-			UString(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { Set(_inputData, _mode, _preset, _leadingZero); };
+			UString(const int8_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set((int64_t)_inputData, _mode, _preset, _leadingZero); };
+			UString(const int16_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set((int64_t)_inputData, _mode, _preset, _leadingZero); };
+			UString(const int32_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set((int64_t)_inputData, _mode, _preset, _leadingZero); };
+			UString(const int64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set(_inputData, _mode, _preset, _leadingZero); };
+			UString(const uint8_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set((uint64_t)_inputData, _mode, _preset, _leadingZero); };
+			UString(const uint16_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set((uint64_t)_inputData, _mode, _preset, _leadingZero); };
+			UString(const uint32_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set((uint64_t)_inputData, _mode, _preset, _leadingZero); };
+			UString(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set(_inputData, _mode, _preset, _leadingZero); };
 			// multiple element add
 			UString(const etk::UniChar* _inputData, int32_t _len = -1);
 			UString(const char* _inputData, int32_t _len = -1);
@@ -58,16 +58,16 @@ namespace etk
 			UString(const etk::Vector<int8_t>& _inputData);
 			UString(const etk::Vector<etk::UniChar>& _inputData);
 			// generic setter
-			void Set(const etk::UniChar* _inputData, int32_t _len=-1);
-			void Set(const char*      _inputData, int32_t _len=-1);
-			void Set(const etk::Vector<char>& _inputData);
-			void Set(const etk::Vector<int8_t>& _inputData);
-			void Set(const etk::Vector<etk::UniChar>& _inputData);
+			void set(const etk::UniChar* _inputData, int32_t _len=-1);
+			void set(const char*      _inputData, int32_t _len=-1);
+			void set(const etk::Vector<char>& _inputData);
+			void set(const etk::Vector<int8_t>& _inputData);
+			void set(const etk::Vector<etk::UniChar>& _inputData);
 		private:
-			void SetNumber(bool _negative, const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero);
+			void setNumber(bool _negative, const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero);
 		public:
-			void Set(const int64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0);
-			void Set(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0);
+			void set(const int64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0);
+			void set(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0);
 			
 			/*****************************************************
 			 *    = assigment
@@ -77,7 +77,7 @@ namespace etk
 			 *    == operator
 			 *****************************************************/
 			bool operator== (const etk::UString& _obj) const;
-			bool CompareNoCase(const etk::UString& _obj) const;
+			bool compareNoCase(const etk::UString& _obj) const;
 			/*****************************************************
 			 *    != operator
 			 *****************************************************/
@@ -128,48 +128,48 @@ namespace etk
 			 *    toolbox
 			 *****************************************************/
 			// Start With ...
-			bool StartWith(const etk::UString& _data, bool _caseSensitive=true) const ;
+			bool startWith(const etk::UString& _data, bool _caseSensitive=true) const ;
 			// End With ...
-			bool EndWith(const etk::UString& _data, bool _caseSensitive=true) const ;
+			bool endWith(const etk::UString& _data, bool _caseSensitive=true) const ;
 			// Find element
-			int32_t FindForward(const etk::UniChar _data, int32_t _startPos=0) const;
-			int32_t FindBack(const etk::UniChar _data, int32_t _startPos=0x7FFFFFFF) const;
+			int32_t findForward(const etk::UniChar _data, int32_t _startPos=0) const;
+			int32_t findBack(const etk::UniChar _data, int32_t _startPos=0x7FFFFFFF) const;
 			
-			bool IsEmpty(void) const;
-			int32_t Size(void) const;
+			bool isEmpty(void) const;
+			int32_t size(void) const;
 			
 			/*****************************************************
 			 *    Generic modification function
 			 *****************************************************/
-			void Add(int32_t _currentID, const char* _inputData);
-			void Add(int32_t _currentID, const etk::UniChar* _inputData);
-			void Add(int32_t _currentID, const etk::UniChar  _inputData);
-			void Remove(int32_t _currentID, int32_t _len);
-			void Clear(void);
-			void Append(const etk::UniChar& _inputData);
+			void add(int32_t _currentID, const char* _inputData);
+			void add(int32_t _currentID, const etk::UniChar* _inputData);
+			void add(int32_t _currentID, const etk::UniChar  _inputData);
+			void remove(int32_t _currentID, int32_t _len);
+			void clear(void);
+			void append(const etk::UniChar& _inputData);
 			
 			/**
 			 * @brief Split a string in multiple separate by a specific char
 			 * @param[in] _val Separate value of the string
 			 * @return The list of all sthe string splited.
 			 */
-			etk::Vector<etk::UString> Split(const etk::UniChar& _val);
+			etk::Vector<etk::UString> split(const etk::UniChar& _val);
 			/**
 			 * @brief Replace a char with an other
 			 * @param[in] _out element to replace.
 			 * @param[in] _in Element to set.
 			 */
-			void Replace(const etk::UniChar& _out, const etk::UniChar& _in);
+			void replace(const etk::UniChar& _out, const etk::UniChar& _in);
 			
-			etk::Vector<etk::UniChar> GetVector(void);
+			etk::Vector<etk::UniChar> getVector(void);
 			etk::UniChar* pointer(void) { return &m_data[0]; };
 			
 			etk::Char c_str(void) const;
 			
-			void Lower(void);
-			etk::UString ToLower(void) const;
-			void Upper(void);
-			etk::UString ToUpper(void) const;
+			void lower(void);
+			etk::UString toLower(void) const;
+			void upper(void);
+			etk::UString toUpper(void) const;
 			
 			/**
 			 * @brief transform tab in \t and '\r' in \r
@@ -178,63 +178,63 @@ namespace etk
 			//etk::UString WrapHidenChar(void) const;
 			
 			// Sting operation :
-			etk::UString Extract(int32_t _posStart=0, int32_t _posEnd=0x7FFFFFFF) const;
-			etk::UString ExtractLine(int32_t _pos=0) const;
+			etk::UString extract(int32_t _posStart=0, int32_t _posEnd=0x7FFFFFFF) const;
+			etk::UString extractLine(int32_t _pos=0) const;
 			/**
 			 * @brief Transform the current string in an int64_t
 			 * @return the requested int
 			 */
-			int64_t ToInt64(void) const;
+			int64_t toInt64(void) const;
 			/**
 			 * @brief Transform the current string in an int32_t (if the number is higher, then it is limited at the int32_t max)
 			 * @return the requested int
 			 */
-			int32_t ToInt32(void) const;
+			int32_t toInt32(void) const;
 			/**
 			 * @brief Transform the current string in an int16_t (if the number is higher, then it is limited at the int16_t max)
 			 * @return the requested int
 			 */
-			int16_t ToInt16(void) const;
+			int16_t toInt16(void) const;
 			/**
 			 * @brief Transform the current string in an int8_t (if the number is higher, then it is limited at the int8_t max)
 			 * @return the requested int
 			 */
-			int8_t ToInt8(void) const;
+			int8_t toInt8(void) const;
 			/**
 			 * @brief Transform the current string in an uint64_t
 			 * @return the requested int
 			 */
-			uint64_t ToUInt64(void) const;
+			uint64_t toUInt64(void) const;
 			/**
 			 * @brief Transform the current string in an uint32_t (if the number is higher, then it is limited at the uint32_t max)
 			 * @return the requested int
 			 */
-			uint32_t ToUInt32(void) const;
+			uint32_t toUInt32(void) const;
 			/**
 			 * @brief Transform the current string in an uint16_t (if the number is higher, then it is limited at the uint16_t max)
 			 * @return the requested int
 			 */
-			uint16_t ToUInt16(void) const;
+			uint16_t toUInt16(void) const;
 			/**
 			 * @brief Transform the current string in an uint8_t (if the number is higher, then it is limited at the uint8_t max)
 			 * @return the requested int
 			 */
-			uint8_t ToUInt8(void) const;
+			uint8_t toUInt8(void) const;
 			/**
 			 * @brief Transform the current string in a double
 			 * @return the requested double
 			 */
-			double ToDouble(void) const;
+			double toDouble(void) const;
 			/**
 			 * @brief Transform the current string in a float
 			 * @return the requested float
 			 */
-			float ToFloat(void) const;
+			float toFloat(void) const;
 			/**
 			 * @brief Transform the current string in a boolean
 			 * @return the requested bool
 			 */
-			bool ToBool(void) const;
+			bool toBool(void) const;
 	};
 
 	etk::CCout& operator <<(etk::CCout& _os, const etk::UString& _obj);

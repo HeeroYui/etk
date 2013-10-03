@@ -18,8 +18,8 @@ namespace etk
 	template<class MY_TYPE=int32_t> class MessageFifo
 	{
 		private :
-			etk::Mutex           m_mutex;
-			etk::Semaphore       m_semaphore;
+			etk::Mutex m_mutex;
+			etk::Semaphore m_semaphore;
 			etk::Vector<MY_TYPE> m_data;
 		public :
 			MessageFifo(void)
@@ -31,72 +31,72 @@ namespace etk
 				// nothing to do ...
 			};
 			
-			bool Wait(MY_TYPE &_data)
+			bool wait(MY_TYPE &_data)
 			{
-				m_mutex.Lock();
+				m_mutex.lock();
 				// Check if data is not previously here
-				while(0==m_data.Size()) {
-					m_mutex.UnLock();
-					m_semaphore.Wait();
-					m_mutex.Lock();
+				while(0==m_data.size()) {
+					m_mutex.unLock();
+					m_semaphore.wait();
+					m_mutex.lock();
 				}
 				// End Waiting message :
-				if (0<m_data.Size()) {
+				if (0<m_data.size()) {
 					// copy element :
 					_data = m_data[0];
 					// remove element :
-					m_data.Erase(0);
+					m_data.erase(0);
 					// remove lock
-					m_mutex.UnLock();
+					m_mutex.unLock();
 					return true;
 				}
 				return false;
 			};
-			bool Wait(MY_TYPE &_data, uint32_t _timeOutInUs)
+			bool wait(MY_TYPE &_data, uint32_t _timeOutInUs)
 			{
-				m_mutex.Lock();
+				m_mutex.lock();
 				// Check if data is not previously here
-				while(0==m_data.Size()) {
-					m_mutex.UnLock();
-					if (false == m_semaphore.Wait(_timeOutInUs)) {
+				while(0==m_data.size()) {
+					m_mutex.unLock();
+					if (false == m_semaphore.wait(_timeOutInUs)) {
 						return false;
 					}
-					m_mutex.Lock();
+					m_mutex.lock();
 				}
 				// End Waiting message :
-				if (0<m_data.Size()) {
+				if (0<m_data.size()) {
 					// copy element :
 					_data = m_data[0];
 					// remove element :
-					m_data.Erase(0);
+					m_data.erase(0);
 					// remove lock
-					m_mutex.UnLock();
+					m_mutex.unLock();
 					return true;
 				}
 				return false;
 			};
-			int32_t Count(void)
+			int32_t count(void)
 			{
-				m_mutex.Lock();
-				int32_t nbElement = m_data.Size();
-				m_mutex.UnLock();
+				m_mutex.lock();
+				int32_t nbElement = m_data.size();
+				m_mutex.unLock();
 				return nbElement;
 			};
-			void Post(MY_TYPE &_data)
+			void post(MY_TYPE &_data)
 			{
-				m_mutex.Lock();
-				m_data.PushBack(_data);
-				m_semaphore.Post();
-				m_mutex.UnLock();
+				m_mutex.lock();
+				m_data.pushBack(_data);
+				m_semaphore.post();
+				m_mutex.unLock();
 			};
-			void Clean(void)
+			void clean(void)
 			{
-				m_mutex.Lock();
+				m_mutex.lock();
 				// remove data
-				m_data.Clear();
-				m_mutex.UnLock();
+				m_data.clear();
+				m_mutex.unLock();
 				// remove semaphore
-				m_semaphore.Wait(0);
+				m_semaphore.wait(0);
 			};
 	};
 };

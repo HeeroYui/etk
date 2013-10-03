@@ -104,7 +104,7 @@ namespace etk
 			const Matrix<T>& operator= (T& value)
 			{
 				// set data :
-				for (int32_t iii=0; iii<m_data.Size(); iii++) {
+				for (int32_t iii=0; iii<m_data.size(); iii++) {
 					m_data = value;
 				}
 				return *this;
@@ -150,7 +150,7 @@ namespace etk
 					m_data = tmpMatrix.m_data;
 				} else {
 					// copy data for the same size :
-					for (int32_t iii=0; iii< m_data.Size(); iii++) {
+					for (int32_t iii=0; iii< m_data.size(); iii++) {
 						m_data[iii] += obj.m_data[iii];
 					}
 				}
@@ -191,7 +191,7 @@ namespace etk
 					m_data = tmpMatrix.m_data;
 				} else {
 					// copy data for the same size :
-					for (int32_t iii=0; iii< m_data.Size(); iii++) {
+					for (int32_t iii=0; iii< m_data.size(); iii++) {
 						m_data[iii] -= obj.m_data[iii];
 					}
 				}
@@ -268,7 +268,7 @@ namespace etk
 			 * @ brief Transpose Matrix
 			 * @ return the transpose matrix
 			 */
-			Matrix<T> Transpose(void)
+			Matrix<T> transpose(void)
 			{
 				// create a matrix with the inverted size
 				Matrix<T> tmpMatrix(m_size.x, m_size.y);
@@ -284,7 +284,7 @@ namespace etk
 			 * @ param[in] obj The convolution operator
 			 * @ return the value of the convolution
 			 */
-			Matrix<T>& Convolution(Matrix<T>& obj)
+			Matrix<T>& convolution(Matrix<T>& obj)
 			{
 				Matrix<T> tmppp(1,1);
 				// TODO : ...
@@ -295,11 +295,11 @@ namespace etk
 			 * @ param[in] decalage The power of 2 of the division
 			 * @ return the result
 			 */
-			Matrix<T>& Fix(int32_t decalage)
+			Matrix<T>& fix(int32_t decalage)
 			{
 				Matrix<T> tmppp(m_size);
 				T tmpVal = 0;
-				for(int32_t iii=0; iii<m_data.Size(); iii++) {
+				for(int32_t iii=0; iii<m_data.size(); iii++) {
 					tmpVal = m_data[iii];
 					if (tmpVal < 0 && (tmpVal & ~(~0 << decalage))) {
 						tmpVal = tmpVal >> decalage;
@@ -316,10 +316,10 @@ namespace etk
 			 * @ param[in] decalage The power of 2 of the division
 			 * @ return the result
 			 */
-			Matrix<T>& Round(int32_t decalage)
+			Matrix<T>& round(int32_t decalage)
 			{
 				Matrix<T> tmppp(m_size);
-				for(int32_t iii=0; iii<m_data.Size(); iii++) {
+				for(int32_t iii=0; iii<m_data.size(); iii++) {
 					tmppp.m_data[iii] = ( m_data[iii]+(1<<(decalage-1)) ) >> decalage;
 				}
 				return tmppp;
@@ -329,7 +329,7 @@ namespace etk
 			 * @ param[in] size new output size
 			 * @ return Te resied matrix
 			 */
-			Matrix<T>& Resize(etk::Vector2D<int32_t> size)
+			Matrix<T>& resize(etk::Vector2D<int32_t> size)
 			{
 				Matrix<T> tmppp(size);
 				for(int32_t iii=0; iii<m_data.m_size.x && iii<tmppp.m_size.x; iii++) {
@@ -347,7 +347,7 @@ namespace etk
 			 * @param[in] q  List pointer of y
 			 * @return the new matrix
 			 */
-			Matrix<T>& Select(int32_t np, int32_t *p, int32_t nq, int32_t *q)
+			Matrix<T>& select(int32_t np, int32_t *p, int32_t nq, int32_t *q)
 			{
 				if (np < 1 || nq < 1) {
 					TK_WARNING("bad index array sizes");
@@ -379,7 +379,7 @@ namespace etk
 			 *   x x x x x
 			 * </pre>
 			 */
-			void ClearUpperTriangle(void)
+			void clearUpperTriangle(void)
 			{
 				if (m_size.x != m_size.y) {
 					TK_WARNING("better to do with square Matrix");
@@ -400,7 +400,7 @@ namespace etk
 			 *   0 0 0 0 x
 			 * </pre>
 			 */
-			void ClearLowerTriangle(void)
+			void clearLowerTriangle(void)
 			{
 				if (m_size.x != m_size.y) {
 					TK_WARNING("better to do with square Matrix");
@@ -415,9 +415,9 @@ namespace etk
 			 * @brief Generate a compleate random Matrix.
 			 * @param[in] range The min/max value of the random Generation [-range..range].
 			 */
-			void MakeRandom(float range)
+			void makeRandom(float range)
 			{
-				for(int32_t iii=0; iii<m_data.Size(); iii++) {
+				for(int32_t iii=0; iii<m_data.size(); iii++) {
 					m_data[iii] = (T)etk::tool::frand(-range, range);
 				}
 			};
@@ -426,13 +426,13 @@ namespace etk
 			 * @param[in] input The compared Matix.
 			 * @return The absolute max value.
 			 */
-			T MaxDifference(const Matrix<T>& input)
+			T maxDifference(const Matrix<T>& input)
 			{
 				if (m_size != input.m_size)
 					TK_WARNING("better to do with same size Matrix");
 				}
 				T max = 0;
-				for(int32_t iii=0; iii<m_data.Size() && iii<input.m_data.Size(); iii++) {
+				for(int32_t iii=0; iii<m_data.size() && iii<input.m_data.size(); iii++) {
 					T diff = m_data[iii] - input.m_data[iii];
 					if (diff<0) {
 						diff = -diff;
@@ -446,7 +446,7 @@ namespace etk
 			/**
 			 * @brief Clear all the matrix.
 			 */
-			void Clear(void)
+			void clear(void)
 			{
 				// copy data for the same size :
 				for (int32_t iii=0; iii< m_size.x*m_size.y; iii++) {
@@ -456,7 +456,7 @@ namespace etk
 			/**
 			 * @brief Set the diagonal at 1
 			 */
-			void Identity(void)
+			void identity(void)
 			{
 				// copy data for the same size :
 				for (int32_t iii=0; iii< etk_min(m_size.x, m_size.y); iii++) {
@@ -466,16 +466,16 @@ namespace etk
 			/**
 			 * @brief Clear and set the diagonal at 1
 			 */
-			void Eye(void)
+			void eye(void)
 			{
-				Clear();
-				Identity();
+				clear();
+				identity();
 			};
 			/**
 			 * @brief Get the size of the current Matrix.
 			 * @return Dimention of the matrix
 			 */
-			Vector2D<int32_t> Size(void)
+			Vector2D<int32_t> size(void)
 			{
 				return m_size;
 			};

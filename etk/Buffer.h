@@ -64,7 +64,7 @@ namespace etk
 				m_gapStart(0),
 				m_gapEnd(GAP_SIZE_MIN)
 			{
-				ChangeAllocation(_count+GAP_SIZE_MIN);
+				changeAllocation(_count+GAP_SIZE_MIN);
 			}
 			/**
 			 * @brief Re-copy constructor (copy all needed data)
@@ -100,16 +100,16 @@ namespace etk
 			 * @param[in,out] _file Pointer on the file where data might be writed
 			 * @return true if OK / false if an error occured
 			 */
-			bool DumpIn(etk::FSNode& _file)
+			bool dumpIn(etk::FSNode& _file)
 			{
-				if (false == _file.FileOpenWrite()) {
+				if (false == _file.fileOpenWrite()) {
 					return false;
 				}
 				bool ret = true;
 				// write Data
-				(void)_file.FileWrite(m_data, sizeof(int8_t), m_gapStart);
-				(void)_file.FileWrite(&m_data[m_gapEnd], sizeof(int8_t), m_allocated - m_gapEnd);
-				_file.FileClose();
+				(void)_file.fileWrite(m_data, sizeof(int8_t), m_gapStart);
+				(void)_file.fileWrite(&m_data[m_gapEnd], sizeof(int8_t), m_allocated - m_gapEnd);
+				_file.fileClose();
 				return ret;
 			}
 			/**
@@ -117,21 +117,21 @@ namespace etk
 			 * @param[in,out] _myFile Pointer on the file where data might be read
 			 * @return true if OK / false if an error occured
 			 */
-			bool DumpFrom(etk::FSNode& _file)
+			bool dumpFrom(etk::FSNode& _file)
 			{
-				if (false == _file.FileOpenRead()) {
+				if (false == _file.fileOpenRead()) {
 					return false;
 				}
 				bool ret = true;
-				uint32_t length = _file.FileSize();
+				uint32_t length = _file.fileSize();
 				// error case ...
 				if (length > 2000000000) {
 					return false;
 				}
 				// allocate the current buffer : 
-				ChangeAllocation(length + GAP_SIZE_MIN);
+				changeAllocation(length + GAP_SIZE_MIN);
 				// insert Data
-				int32_t nbReadData = _file.FileRead(&m_data[GAP_SIZE_MIN], sizeof(int8_t), length);
+				int32_t nbReadData = _file.fileRead(&m_data[GAP_SIZE_MIN], sizeof(int8_t), length);
 				TK_INFO("load data : filesize=" << length << ", readData=" << nbReadData);
 				// check ERROR
 				if (nbReadData != length) {
@@ -141,7 +141,7 @@ namespace etk
 				// set the gapsize at the end ...
 				m_gapStart = 0;
 				m_gapEnd = GAP_SIZE_MIN;
-				_file.FileClose();
+				_file.fileClose();
 				return ret;
 			}
 			
@@ -178,7 +178,7 @@ namespace etk
 			 */
 			int8_t operator[] (int32_t _pos) const
 			{
-				TK_ASSERT(0 <= _pos || _pos < Size(), "try to read an element non existing");
+				TK_ASSERT(0 <= _pos || _pos < size(), "try to read an element non existing");
 				if (_pos < m_gapStart) {
 					return m_data[_pos];
 				}
@@ -190,9 +190,9 @@ namespace etk
 			 * @param[in] _pos Desired position read
 			 * @return Reference on the Element
 			 */
-			int8_t& Get(int32_t _pos) const
+			int8_t& get(int32_t _pos) const
 			{
-				TK_ASSERT(0 <= _pos || _pos < Size(), "try to read an element non existing");
+				TK_ASSERT(0 <= _pos || _pos < size(), "try to read an element non existing");
 				if (_pos < m_gapStart) {
 					return m_data[_pos];
 				}
@@ -204,9 +204,9 @@ namespace etk
 			 * @param[in] _pos Desired position read
 			 * @return Reference on the Element
 			 */
-			esize_t Get(esize_t _pos, UniChar& _value, charset_te _charset) const
+			esize_t get(esize_t _pos, UniChar& _value, charset_te _charset) const
 			{
-				TK_ASSERT(0 <= pos || pos < Size(), "try to read an element non existing");
+				TK_ASSERT(0 <= pos || pos < size(), "try to read an element non existing");
 				if (pos < m_gapStart) {
 					return m_data[pos];
 				}
@@ -219,19 +219,19 @@ namespace etk
 			 * @param[in] _nbElement Number of element needed.
 			 * @return The data requested
 			 */
-			etk::Vector<int8_t> Get(int32_t _pos, int32_t _nbElement)
+			etk::Vector<int8_t> get(int32_t _pos, int32_t _nbElement)
 			{
 				etk::Vector<int8_t> tmpBuffer;
-				tmpBuffer.Clear();
+				tmpBuffer.clear();
 				if (_pos < m_gapStart) {
 					if (_pos + _nbElement < m_gapStart) {
-						tmpBuffer.PushBack(&m_data[_pos], _nbElement);
+						tmpBuffer.pushBack(&m_data[_pos], _nbElement);
 					} else {
-						tmpBuffer.PushBack(&m_data[_pos], m_gapStart - _pos);
-						tmpBuffer.PushBack(&m_data[m_gapEnd], _nbElement - (m_gapStart - _pos) );
+						tmpBuffer.pushBack(&m_data[_pos], m_gapStart - _pos);
+						tmpBuffer.pushBack(&m_data[m_gapEnd], _nbElement - (m_gapStart - _pos) );
 					}
 				} else {
-					tmpBuffer.PushBack(&m_data[_pos+(m_gapEnd-m_gapStart)], _nbElement);
+					tmpBuffer.pushBack(&m_data[_pos+(m_gapEnd-m_gapStart)], _nbElement);
 				}
 				return tmpBuffer;
 			}
@@ -239,24 +239,24 @@ namespace etk
 			 * @brief Add at the Last position of the Vector
 			 * @param[in] _item Element to add at the end of vector
 			 */
-			void PushBack(const int8_t& _item)
+			void pushBack(const int8_t& _item)
 			{
-				Insert(Size(), _item);
+				insert(size(), _item);
 			}
 			/**
 			 * @brief Insert One item at the specify position.
 			 * @param[in] _pos Position where data might be inserted
 			 * @param[in] _items Data that might be inserted.
 			 */
-			void Insert(int32_t _pos, const int8_t& _item)
+			void insert(int32_t _pos, const int8_t& _item)
 			{
-				if(    _pos > Size()
+				if(    _pos > size()
 				    || _pos < 0 ) {
 					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize=" << Size());
 					return;
 				}
-				if( 0 == GapSize() ) {
-					if (false == GapResize(_pos, GAP_SIZE_MIN + 1) ) {
+				if( 0 == gapSize() ) {
+					if (false == gapResize(_pos, GAP_SIZE_MIN + 1) ) {
 						return;
 					}
 				} else if(    _pos == m_gapStart
@@ -264,7 +264,7 @@ namespace etk
 				{
 					// mothing to do ...
 				} else {
-					if (GapMove(_pos) == false) {
+					if (gapMove(_pos) == false) {
 						return;
 					}
 				}
@@ -281,9 +281,9 @@ namespace etk
 			 * @param[in] _pos Position where data might be inserted
 			 * @param[in] _items Data that might be inserted.
 			 */
-			void Insert(int32_t _pos, etk::Vector<int8_t>& _items)
+			void insert(int32_t _pos, etk::Vector<int8_t>& _items)
 			{
-				Insert(_pos, _items.DataPointer(), _items.Size());
+				insert(_pos, _items.dataPointer(), _items.size());
 			}
 			/**
 			 * @brief Insert data in the buffer
@@ -291,19 +291,19 @@ namespace etk
 			 * @param[in] _items Data that might be inserted. (no need of '\0')
 			 * @param[in] _nbElement number of element to insert
 			 */
-			void Insert(int32_t _pos, int8_t* _items, int32_t _nbElement)
+			void insert(int32_t _pos, int8_t* _items, int32_t _nbElement)
 			{
-				if(    _pos > Size()
+				if(    _pos > size()
 				    || _pos < 0 ) {
-					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize="<<Size());
+					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize="<<size());
 					return;
 				}
-				if(_nbElement > GapSize()) {
-					if (false == GapResize(_pos, GAP_SIZE_MIN + _nbElement) ) {
+				if(_nbElement > gapSize()) {
+					if (false == gapResize(_pos, GAP_SIZE_MIN + _nbElement) ) {
 						return;
 					}
 				} else {
-					if (false == GapMove(_pos) ) {
+					if (false == gapMove(_pos) ) {
 						return;
 					}
 				}
@@ -317,18 +317,18 @@ namespace etk
 			 * @param[in] _pos The first element to remove.
 			 * @param[in] _items Data that might be inserted.
 			 */
-			void Replace(int32_t _pos, const int8_t& _item)
+			void replace(int32_t _pos, const int8_t& _item)
 			{
-				if(    _pos > Size()
+				if(    _pos > size()
 				    || _pos < 0 ) {
-					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize="<<Size());
+					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize="<<size());
 					return;
 				}
 				// just replace the element, not update Gap position
 				if (_pos < m_gapStart) {
 					m_data[_pos] = _item;
 				} else {
-					m_data[_pos+GapSize()] = _item;
+					m_data[_pos+gapSize()] = _item;
 				}
 			}
 			/**
@@ -337,9 +337,9 @@ namespace etk
 			 * @param[in] _nbRemoveElement number of element to remove.
 			 * @param[in] _items Data that might be inserted.
 			 */
-			void Replace(int32_t _pos, int32_t _nbRemoveElement, etk::Vector<int8_t>& _items)
+			void replace(int32_t _pos, int32_t _nbRemoveElement, etk::Vector<int8_t>& _items)
 			{
-				Replace(_pos, _nbRemoveElement, _items.DataPointer(), _items.Size());
+				replace(_pos, _nbRemoveElement, _items.dataPointer(), _items.size());
 			}
 			/**
 			 * @brief Replace specified data.
@@ -348,47 +348,47 @@ namespace etk
 			 * @param[in] _items Data that might be inserted.
 			 * @param[in] _nbElement Number of element that might be added.
 			 */
-			void Replace(int32_t _pos, int32_t _nbRemoveElement, int8_t* _items, int32_t _nbElement)
+			void replace(int32_t _pos, int32_t _nbRemoveElement, int8_t* _items, int32_t _nbElement)
 			{
-				if(    _pos > Size()
+				if(    _pos > size()
 				    || _pos < 0 ) {
-					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize="<<Size());
+					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize="<<size());
 					return;
 				}
-				if( _pos+_nbRemoveElement > Size() ) {
+				if( _pos+_nbRemoveElement > size() ) {
 					TK_ERROR("Request remove more element than expected in the buffer pos+nbRemoveElement="
-					         << _pos+_nbRemoveElement << " bufferSize=" << Size());
+					         << _pos+_nbRemoveElement << " bufferSize=" << size());
 					return;
 				}
-				if (false == GapMove(_pos)) {
+				if (false == gapMove(_pos)) {
 					return;
 				}
 				// Remove elements :
 				m_gapEnd += _nbRemoveElement;
 				//Display();
 				// insert elements
-				Insert(_pos, _items, _nbElement);
+				insert(_pos, _items, _nbElement);
 				// Resize buffer if needed...
-				GapCheckMaxSize();
+				gapCheckMaxSize();
 			}
 			/**
 			 * @brief Remove specific data in the buffer.
 			 * @param[in] _pos The first element to remove
 			 * @param[in] _nbRemoveElement number of element to remove
 			 */
-			void Remove(int32_t _pos, int32_t _nbRemoveElement = 1)
+			void remove(int32_t _pos, int32_t _nbRemoveElement = 1)
 			{
-				if(    _pos > Size()
+				if(    _pos > size()
 				    || _pos < 0 ) {
-					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize="<<Size());
+					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize="<<size());
 					return;
 				}
-				if( _pos+_nbRemoveElement > Size() ) {
+				if( _pos+_nbRemoveElement > size() ) {
 					TK_ERROR("Request remove more element than expected in the buffer pos+nbRemoveElement="
-					         << _pos+_nbRemoveElement << " bufferSize=" << Size());
+					         << _pos+_nbRemoveElement << " bufferSize=" << size());
 					return;
 				}
-				if (GapMove(_pos) == false) {
+				if (gapMove(_pos) == false) {
 					return;
 				}
 				// Remove elements :
@@ -398,30 +398,30 @@ namespace etk
 					m_gapEnd += _nbRemoveElement;
 				}
 				// Resize buffer if needed...
-				GapCheckMaxSize();
+				gapCheckMaxSize();
 			}
 			/**
 			 * @brief Remove the last element of the Buffer.
 			 */
-			void PopBack(void)
+			void popBack(void)
 			{
-				if (Size()>0) {
-					Remove( Size() );
+				if (size()>0) {
+					remove( size() );
 				}
 			}
 			/**
 			 * @brief Clean all the data in the buffer.
 			 */
-			void Clear(void)
+			void clear(void)
 			{
-				Remove(0, Size() );
+				remove(0, size() );
 			}
 			/**
 			 * @brief Get a current element in the vector (iterator system)
 			 * @param[in] _realElementPosition Real position in the buffer (only use in the ITERATOR)
 			 * @return Reference on the Element
 			 */
-			int8_t& GetDirect(int32_t _realElementPosition)
+			int8_t& getDirect(int32_t _realElementPosition)
 			{
 				return m_data[_realElementPosition];
 			};
@@ -429,16 +429,16 @@ namespace etk
 			 * @brief Get the number of element in the vector
 			 * @return The number requested
 			 */
-			int32_t Size(void) const
+			int32_t size(void) const
 			{
-				return m_allocated - GapSize();
+				return m_allocated - gapSize();
 			};
 		private:
 			/**
 			 * @brief Change the current allocation to the corect one (depend on the current size)
 			 * @param[in] _newSize Minimum number of element needed
 			 */
-			void ChangeAllocation(int32_t _newSize)
+			void changeAllocation(int32_t _newSize)
 			{
 				// set the minimal size to 1
 				if(_newSize <= 0) {
@@ -468,11 +468,11 @@ namespace etk
 			 * @return false The operation can not be proccesed.
 			 * @return true The operation done correctly.
 			 */
-			bool GapMove(int32_t _pos)
+			bool gapMove(int32_t _pos)
 			{
 				if(    _pos > Size()
 				    || _pos < 0 ) {
-					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize=" << Size());
+					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize=" << size());
 					return false;
 				}
 				int32_t gapLen = m_gapEnd - m_gapStart;
@@ -492,21 +492,21 @@ namespace etk
 			 * @return false The operation can not be proccesed.
 			 * @return true The operation done correctly.
 			 */
-			bool GapResize(int32_t _pos, int32_t _newGapLen)
+			bool gapResize(int32_t _pos, int32_t _newGapLen)
 			{
-				if(    _pos > Size()
+				if(    _pos > size()
 				    || _pos < 0 ) {
-					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize="<<Size());
+					TK_ERROR("Request higher than buffer size : pos=" << _pos << " bufferSize=" << size());
 					return false;
 				}
-				int32_t previousSize = Size();
-				if (_newGapLen == GapSize() ) {
+				int32_t previousSize = size();
+				if (_newGapLen == gapSize() ) {
 					// nothing to do ...
 					return true;
 				} else {
-					if (_newGapLen > GapSize() ) {
+					if (_newGapLen > gapSize() ) {
 						// reallocation
-						ChangeAllocation( previousSize + _newGapLen);
+						changeAllocation( previousSize + _newGapLen);
 					}
 					// move Data
 					if (_pos <= m_gapStart) {
@@ -515,20 +515,20 @@ namespace etk
 						// update gap end position
 						m_gapEnd = m_gapStart + _newGapLen;
 						if (_pos < m_gapStart) {
-							if (false == GapMove(_pos)) {
+							if (false == gapMove(_pos)) {
 								return false;
 							}
 						}
 						// no else
 					} else {
-						if (false == GapMove(_pos) ) {
+						if (false == gapMove(_pos) ) {
 							return false;
 						}
 						memmove(&m_data[m_gapStart + _newGapLen], &m_data[m_gapEnd], previousSize - m_gapStart);
 					}
-					if (_newGapLen < GapSize() ) {
+					if (_newGapLen < gapSize() ) {
 						// rellocation
-						ChangeAllocation(previousSize + _newGapLen);
+						changeAllocation(previousSize + _newGapLen);
 					}
 				}
 				// update gap position
@@ -540,23 +540,23 @@ namespace etk
 			 * @brief Get the current gap size.
 			 * @return The number of element in the gap
 			 */
-			int32_t GapSize(void) const
+			int32_t gapSize(void) const
 			{
 				return m_gapEnd - m_gapStart;
 			}
 			/**
 			 * @brief Control if the writing gap is not too big (automatic resize the buffer).
 			 */
-			void GapCheckMaxSize(void)
+			void gapCheckMaxSize(void)
 			{
-				if(GapSize() > GAP_SIZE_MAX) {
-					int32_t currentSize = Size();
+				if(gapSize() > GAP_SIZE_MAX) {
+					int32_t currentSize = size();
 					// Change the gap Size
-					if (false == GapResize(m_gapStart, GAP_SIZE_MAX) ) {
+					if (false == gapResize(m_gapStart, GAP_SIZE_MAX) ) {
 						return;
 					}
 					// remove deprecated elements at the end of the buffer ...
-					ChangeAllocation(currentSize + GAP_SIZE_MAX);
+					changeAllocation(currentSize + GAP_SIZE_MAX);
 				}
 			}
 	};

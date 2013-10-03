@@ -24,7 +24,7 @@ const etk::UniChar etk::UniChar::Delete((const char)8);
 const etk::UniChar etk::UniChar::Space(' ');
 const etk::UniChar etk::UniChar::Escape((const char)27);
 
-void etk::UniChar::Lower(void)
+void etk::UniChar::lower(void)
 {
 	if(    m_value>=(uint32_t)'A'
 	    && m_value<=(uint32_t)'Z') {
@@ -32,7 +32,7 @@ void etk::UniChar::Lower(void)
 	}
 }
 
-etk::UniChar etk::UniChar::ToLower(void) const
+etk::UniChar etk::UniChar::toLower(void) const
 {
 	if(    m_value>=(uint32_t)'A'
 	    && m_value<=(uint32_t)'Z') {
@@ -41,7 +41,7 @@ etk::UniChar etk::UniChar::ToLower(void) const
 	return m_value;
 }
 
-void etk::UniChar::Upper(void)
+void etk::UniChar::upper(void)
 {
 	if(    m_value>=(uint32_t)'a'
 	    && m_value<=(uint32_t)'z') {
@@ -49,7 +49,7 @@ void etk::UniChar::Upper(void)
 	}
 }
 
-etk::UniChar etk::UniChar::ToUpper(void) const
+etk::UniChar etk::UniChar::toUpper(void) const
 {
 	if(    m_value>=(uint32_t)'a'
 	    && m_value<=(uint32_t)'z') {
@@ -60,13 +60,13 @@ etk::UniChar etk::UniChar::ToUpper(void) const
 
 
 
-bool etk::UniChar::CompareNoCase(const etk::UniChar& _obj) const
+bool etk::UniChar::compareNoCase(const etk::UniChar& _obj) const
 {
-	return ToUpper() == _obj.ToUpper();
+	return toUpper() == _obj.toUpper();
 }
 
 
-etk::UniChar etk::UniChar::ChangeOrder(void) const
+etk::UniChar etk::UniChar::changeOrder(void) const
 {
 	if (m_value >= 'A' && m_value <= 'Z') {
 		return (m_value - (uint32_t)'A')*2 + 'A';
@@ -84,7 +84,7 @@ etk::UniChar etk::UniChar::ChangeOrder(void) const
 }
 
 
-bool etk::UniChar::IsWhiteChar(void) const
+bool etk::UniChar::isWhiteChar(void) const
 {
 	if(    m_value == ' '
 	    || m_value == '\t'
@@ -95,7 +95,7 @@ bool etk::UniChar::IsWhiteChar(void) const
 	return false;
 }
 
-bool etk::UniChar::IsInteger(void) const
+bool etk::UniChar::isInteger(void) const
 {
 	if(    m_value>=(uint32_t)'0'
 	    && m_value<=(uint32_t)'9') {
@@ -104,7 +104,7 @@ bool etk::UniChar::IsInteger(void) const
 	return false;
 }
 
-int32_t etk::UniChar::ToInt32(void) const
+int32_t etk::UniChar::toInt32(void) const
 {
 	return m_value - (uint32_t)'0';
 }
@@ -119,7 +119,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const etk::UniChar& _obj)
 */
 
 
-uint32_t etk::UniChar::GetUtf8(void) const
+uint32_t etk::UniChar::getUtf8(void) const
 {
 	uint32_t output = 0;
 	if (m_value <= 127) {
@@ -153,9 +153,9 @@ uint32_t etk::UniChar::GetUtf8(void) const
 	return output;
 }
 
-int8_t etk::UniChar::GetUtf8(char _output[5]) const
+int8_t etk::UniChar::getUtf8(char _output[5]) const
 {
-	uint32_t value = GetUtf8();
+	uint32_t value = getUtf8();
 	if (0xFF >= value) {
 		_output[0] = (char)value;
 		_output[1] = '\0';
@@ -203,7 +203,7 @@ etk::Vector<int8_t> etk::UniChar::GetUtf8(void) const
 	return ret;
 }
 */
-uint8_t SizeElement(const char* _data, int32_t _lenMax)
+uint8_t sizeElement(const char* _data, int32_t _lenMax)
 {
 	uint8_t size = 0;
 	TK_ASSERT(0 <= _lenMax, "size can not be < 0 ...");
@@ -235,14 +235,14 @@ uint8_t SizeElement(const char* _data, int32_t _lenMax)
 }
 
 
-int8_t etk::UniChar::SetUtf8(const char* _input)
+int8_t etk::UniChar::setUtf8(const char* _input)
 {
 	m_value = 0;
 	if (NULL == _input) {
 		return 0;
 	}
 	int32_t len = strlen(_input);
-	len = SizeElement(_input, len);
+	len = sizeElement(_input, len);
 	switch (len) {
 		default:
 			// case 0 : An error occured...
@@ -269,7 +269,7 @@ int8_t etk::UniChar::SetUtf8(const char* _input)
 	}
 }
 
-int8_t etk::UniChar::TheoricUTF8Len(const char _input)
+int8_t etk::UniChar::theoricUTF8Len(const char _input)
 {
 	if((_input&0x80) == 0x00 ) {
 		return 1;
@@ -286,7 +286,7 @@ int8_t etk::UniChar::TheoricUTF8Len(const char _input)
 	return 1;
 }
 
-bool etk::UniChar::TheoricUTF8First(const char _input)
+bool etk::UniChar::theoricUTF8First(const char _input)
 {
 	// When started with the bit 0 then the size is signle element.
 	if((_input&0x80) == 0x00 ) {

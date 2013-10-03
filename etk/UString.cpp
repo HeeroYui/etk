@@ -33,7 +33,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const etk::UString& _obj)
 {
 	etk::Vector<char> output_UTF8;
 	unicode::convertUnicodeToUtf8(_obj.m_data, output_UTF8);
-	output_UTF8.PushBack('\0');
+	output_UTF8.pushBack('\0');
 	_os << &output_UTF8[0];
 	return _os;
 }
@@ -41,7 +41,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const etk::UString& _obj)
 etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector<etk::UString>& _obj)
 {
 	_os << "{";
-	for (int32_t iii=0; iii< _obj.Size(); iii++) {
+	for (int32_t iii=0; iii< _obj.size(); iii++) {
 		if (iii>0) {
 			_os << " ~ ";
 		}
@@ -54,7 +54,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector<etk::UString>& _
 etk::UString::UString(void)
 {
 	//TK_INFO("new etk::UString()");
-	m_data.PushBack(etk::UniChar::Null);
+	m_data.pushBack(etk::UniChar::Null);
 }
 
 
@@ -63,18 +63,18 @@ etk::UString::UString(const char* _data, unicode::charset_te _inputCharset)
 	// TODO : Change this ...
 	etk::Vector<char> transformData;
 	while (*_data != '\0') {
-		transformData.PushBack(*_data);
+		transformData.pushBack(*_data);
 		_data++;
 	}
-	m_data.Clear();
+	m_data.clear();
 	if (unicode::EDN_CHARSET_UTF8==_inputCharset) {
 		unicode::convertUtf8ToUnicode(transformData, m_data);
 	} else {
 		unicode::convertIsoToUnicode(_inputCharset, transformData, m_data);
 	}
-	if(    0 == m_data.Size()
-	    || m_data[m_data.Size()-1]!=etk::UniChar::Null) {
-		m_data.PushBack(etk::UniChar::Null);
+	if(    0 == m_data.size()
+	    || m_data[m_data.size()-1]!=etk::UniChar::Null) {
+		m_data.pushBack(etk::UniChar::Null);
 	}
 }
 
@@ -82,22 +82,22 @@ etk::UString::UString(const char* _data, unicode::charset_te _inputCharset)
 // single element adding
 etk::UString::UString(const bool _inputData, etk::UString::printMode_te _mode, bool _preset)
 {
-	m_data.Clear();
+	m_data.clear();
 	if (_preset==true) {
 		switch(_mode) {
 			case etk::UString::printModeBinary :
-				m_data.PushBack('0');
-				m_data.PushBack('b');
+				m_data.pushBack('0');
+				m_data.pushBack('b');
 				break;
 			case etk::UString::printModeOctal :
-				m_data.PushBack('0');
-				m_data.PushBack('o');
+				m_data.pushBack('0');
+				m_data.pushBack('o');
 				break;
 			case etk::UString::printModeDecimal :
 				break;
 			case etk::UString::printModeHexadecimal :
-				m_data.PushBack('0');
-				m_data.PushBack('x');
+				m_data.pushBack('0');
+				m_data.pushBack('x');
 				break;
 			default:
 			case etk::UString::printModeString :
@@ -110,28 +110,28 @@ etk::UString::UString(const bool _inputData, etk::UString::printMode_te _mode, b
 		case etk::UString::printModeDecimal :
 		case etk::UString::printModeHexadecimal :
 			if (true == _inputData) {
-				m_data.PushBack('1');
+				m_data.pushBack('1');
 			} else {
-				m_data.PushBack('0');
+				m_data.pushBack('0');
 			}
 			break;
 		default:
 		case etk::UString::printModeString :
 			if (true == _inputData) {
-				m_data.PushBack('t');
-				m_data.PushBack('r');
-				m_data.PushBack('u');
-				m_data.PushBack('e');
+				m_data.pushBack('t');
+				m_data.pushBack('r');
+				m_data.pushBack('u');
+				m_data.pushBack('e');
 			} else {
-				m_data.PushBack('f');
-				m_data.PushBack('a');
-				m_data.PushBack('l');
-				m_data.PushBack('s');
-				m_data.PushBack('e');
+				m_data.pushBack('f');
+				m_data.pushBack('a');
+				m_data.pushBack('l');
+				m_data.pushBack('s');
+				m_data.pushBack('e');
 			}
 			break;
 	}
-	m_data.PushBack(etk::UniChar::Null);
+	m_data.pushBack(etk::UniChar::Null);
 }
 
 etk::UString::UString(const etk::UString& _obj)
@@ -142,8 +142,8 @@ etk::UString::UString(const etk::UString& _obj)
 
 etk::UString::UString(const etk::UniChar& _inputData)
 {
-	m_data.PushBack(_inputData);
-	m_data.PushBack(etk::UniChar::Null);
+	m_data.pushBack(_inputData);
+	m_data.pushBack(etk::UniChar::Null);
 }
 
 etk::UString::UString(const float _inputData)
@@ -153,7 +153,7 @@ etk::UString::UString(const float _inputData)
 	// generate the UString : 
 	sprintf(tmpVal, "%f", _inputData);
 	// set the internal data : 
-	Set(tmpVal);
+	set(tmpVal);
 }
 
 etk::UString::UString(const double _inputData)
@@ -178,7 +178,7 @@ etk::UString::UString(const double _inputData)
 		}
 	}
 	// set the internal data : 
-	Set(tmpVal);
+	set(tmpVal);
 }
 
 // TODO : Does not work at all ...
@@ -200,35 +200,35 @@ etk::UString etk::UString::WrapHidenChar(void) const
 */
 
 
-void etk::UString::SetNumber(bool _negative, const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero)
+void etk::UString::setNumber(bool _negative, const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero)
 {
-	m_data.Clear();
+	m_data.clear();
 	if (true==_negative) {
 		if (_mode == etk::UString::printModeString) {
-			m_data.PushBack('l');
-			m_data.PushBack('e');
-			m_data.PushBack('s');
-			m_data.PushBack('s');
-			m_data.PushBack(' ');
+			m_data.pushBack('l');
+			m_data.pushBack('e');
+			m_data.pushBack('s');
+			m_data.pushBack('s');
+			m_data.pushBack(' ');
 		} else {
-			m_data.PushBack('-');
+			m_data.pushBack('-');
 		}
 	}
 	if (_preset==true) {
 		switch(_mode) {
 			case etk::UString::printModeBinary :
-				m_data.PushBack('0');
-				m_data.PushBack('b');
+				m_data.pushBack('0');
+				m_data.pushBack('b');
 				break;
 			case etk::UString::printModeOctal :
-				m_data.PushBack('0');
-				m_data.PushBack('o');
+				m_data.pushBack('0');
+				m_data.pushBack('o');
 				break;
 			case etk::UString::printModeDecimal :
 				break;
 			case etk::UString::printModeHexadecimal :
-				m_data.PushBack('0');
-				m_data.PushBack('x');
+				m_data.pushBack('0');
+				m_data.pushBack('x');
 				break;
 			default:
 			case etk::UString::printModeString :
@@ -236,13 +236,13 @@ void etk::UString::SetNumber(bool _negative, const uint64_t& _inputData, etk::US
 		}
 	}
 	if (_mode == etk::UString::printModeString) {
-		m_data.PushBack('T');
-		m_data.PushBack('O');
-		m_data.PushBack('D');
-		m_data.PushBack('O');
-		m_data.PushBack('.');
-		m_data.PushBack('.');
-		m_data.PushBack('.');
+		m_data.pushBack('T');
+		m_data.pushBack('O');
+		m_data.pushBack('D');
+		m_data.pushBack('O');
+		m_data.pushBack('.');
+		m_data.pushBack('.');
+		m_data.pushBack('.');
 	} else {
 		int32_t base=8;
 		//char ploppp[256]="";
@@ -272,118 +272,118 @@ void etk::UString::SetNumber(bool _negative, const uint64_t& _inputData, etk::US
 			uint64_t quotient = tmpVal / base;
 			uint64_t rest = tmpVal - quotient*base;
 			if (rest<=9) {
-				tmpString.Add(0,(char)(rest+'0'));
+				tmpString.add(0,(char)(rest+'0'));
 			} else {
-				tmpString.Add(0,(char)(rest-10+'A'));
+				tmpString.add(0,(char)(rest-10+'A'));
 			}
 			tmpVal = quotient;
 		}
-		if (tmpString.Size() == 0) {
+		if (tmpString.size() == 0) {
 			tmpString = "0";
 		}
-		for (int32_t iii=tmpString.Size(); iii<_leadingZero; iii++){
-			tmpString.Add(0,'0');
+		for (int32_t iii=tmpString.size(); iii<_leadingZero; iii++){
+			tmpString.add(0,'0');
 		}
 		*this += tmpString;
 		
 		//TK_ERROR ("        " << ploppp);
 	}
-	if (m_data.Size()==0) {
-		m_data.PushBack(etk::UniChar::Null);
-	} else if (m_data[m_data.Size()-1]!=etk::UniChar::Null) {
-		m_data.PushBack(etk::UniChar::Null);
+	if (m_data.size()==0) {
+		m_data.pushBack(etk::UniChar::Null);
+	} else if (m_data[m_data.size()-1]!=etk::UniChar::Null) {
+		m_data.pushBack(etk::UniChar::Null);
 	}
 	//TK_ERROR(" convert : " << _inputData << " in : " << *this << " len=" << m_data.Size());
 }
 
-void etk::UString::Set(const int64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero)
+void etk::UString::set(const int64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero)
 {
 	if (_preset==true && _mode != etk::UString::printModeString) {
-		SetNumber(false, (uint64_t)_inputData, _mode, _preset, _leadingZero);
+		setNumber(false, (uint64_t)_inputData, _mode, _preset, _leadingZero);
 		return;
 	}
 	if (_inputData < 0) {
 		uint64_t tmpData = (uint64_t)((int64_t)_inputData * (int64_t)(-1));
-		SetNumber(true, (uint64_t)tmpData, _mode, _preset, _leadingZero);
+		setNumber(true, (uint64_t)tmpData, _mode, _preset, _leadingZero);
 	} else {
-		SetNumber(false, (uint64_t)_inputData, _mode, _preset, _leadingZero);
+		setNumber(false, (uint64_t)_inputData, _mode, _preset, _leadingZero);
 	}
 }
 
-void etk::UString::Set(const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero)
+void etk::UString::set(const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero)
 {
-	SetNumber(false, (uint64_t)_inputData, _mode, _preset, _leadingZero);
+	setNumber(false, (uint64_t)_inputData, _mode, _preset, _leadingZero);
 }
 
 // multiple element add
 etk::UString::UString(const etk::UniChar* _inputData, int32_t _len)
 {
-	Set(_inputData, _len);
+	set(_inputData, _len);
 }
 
 etk::UString::UString(const char* _inputData, int32_t _len)
 {
-	Set(_inputData, _len);
+	set(_inputData, _len);
 }
 
 etk::UString::UString(const etk::Vector<char>& _inputData)
 {
-	Set(_inputData);
+	set(_inputData);
 }
 
 etk::UString::UString(const etk::Vector<int8_t>& _inputData)
 {
-	Set(_inputData);
+	set(_inputData);
 }
 
 etk::UString::UString(const etk::Vector<etk::UniChar>& _inputData)
 {
-	Set(_inputData);
+	set(_inputData);
 }
 
 
-void etk::UString::Set(const etk::Vector<char>& _inputData)
+void etk::UString::set(const etk::Vector<char>& _inputData)
 {
-	if (_inputData.Size()==0) {
-		Clear();
+	if (_inputData.size()==0) {
+		clear();
 		return;
 	}
 	etk::Vector<etk::UniChar> output_Unicode;
 	unicode::convertUtf8ToUnicode(_inputData, output_Unicode);
-	Set(output_Unicode);
+	set(output_Unicode);
 }
 
-void etk::UString::Set(const etk::Vector<int8_t>& _inputData)
+void etk::UString::set(const etk::Vector<int8_t>& _inputData)
 {
-	if (_inputData.Size()==0) {
-		Clear();
+	if (_inputData.size()==0) {
+		clear();
 		return;
 	}
 	etk::Vector<etk::UniChar> output_Unicode;
 	unicode::convertUtf8ToUnicode(_inputData, output_Unicode);
-	Set(output_Unicode);
+	set(output_Unicode);
 }
 
 
-void etk::UString::Set(const etk::Vector<etk::UniChar>& _inputData)
+void etk::UString::set(const etk::Vector<etk::UniChar>& _inputData)
 {
 	m_data = _inputData;
-	if (m_data.Size()>0) {
-		if (m_data[m_data.Size()-1] != etk::UniChar::Null) {
-			m_data.PushBack(etk::UniChar::Null);
+	if (m_data.size()>0) {
+		if (m_data[m_data.size()-1] != etk::UniChar::Null) {
+			m_data.pushBack(etk::UniChar::Null);
 		}
 	} else {
-		m_data.PushBack(etk::UniChar::Null);
+		m_data.pushBack(etk::UniChar::Null);
 	}
 	//TK_DEBUG("m_dataLen="<<m_dataLen << " m_dataLenUTF8="<<m_dataLenUTF8 << " description=" << m_data);
 }
 
-void etk::UString::Set(const char* _inputData, int32_t _len)
+void etk::UString::set(const char* _inputData, int32_t _len)
 {
 	// clear all the data
-	m_data.Clear();
+	m_data.clear();
 	if (NULL == _inputData) {
-		m_data.PushBack(etk::UniChar::Null);
+		m_data.pushBack(etk::UniChar::Null);
 		// nothing to add ... ==> just exit
 		return;
 	}
@@ -398,26 +398,26 @@ void etk::UString::Set(const char* _inputData, int32_t _len)
 		if (_inputData[iii]=='\0') {
 			break;
 		}
-		tmpChar.PushBack(_inputData[iii]);
+		tmpChar.pushBack(_inputData[iii]);
 	}
 	// add it ...
 	if (_len != 0) {
 		// copy the data ...
 		unicode::convertUtf8ToUnicode(tmpChar, m_data);
 	}
-	if (m_data.Size()==0) {
-		m_data.PushBack(etk::UniChar::Null);
-	} else if (m_data[m_data.Size()-1]!=etk::UniChar::Null) {
-		m_data.PushBack(etk::UniChar::Null);
+	if (m_data.size()==0) {
+		m_data.pushBack(etk::UniChar::Null);
+	} else if (m_data[m_data.size()-1]!=etk::UniChar::Null) {
+		m_data.pushBack(etk::UniChar::Null);
 	}
 }
 
-void etk::UString::Set(const etk::UniChar* _inputData, int32_t _len)
+void etk::UString::set(const etk::UniChar* _inputData, int32_t _len)
 {
 	// clear all the data
-	m_data.Clear();
+	m_data.clear();
 	if (NULL == _inputData) {
-		m_data.PushBack(etk::UniChar::Null);
+		m_data.pushBack(etk::UniChar::Null);
 		// nothing to add ... ==> just exit
 		return;
 	}
@@ -427,12 +427,12 @@ void etk::UString::Set(const etk::UniChar* _inputData, int32_t _len)
 	}
 	if (_len != 0) {
 		// copy the data ...
-		m_data.PushBack(_inputData, _len);
+		m_data.pushBack(_inputData, _len);
 	}
-	if (m_data.Size()==0) {
-		m_data.PushBack(etk::UniChar::Null);
-	} else if (m_data[m_data.Size()-1]!=etk::UniChar::Null) {
-		m_data.PushBack(etk::UniChar::Null);
+	if (m_data.size()==0) {
+		m_data.pushBack(etk::UniChar::Null);
+	} else if (m_data[m_data.size()-1]!=etk::UniChar::Null) {
+		m_data.pushBack(etk::UniChar::Null);
 	}
 }
 
@@ -450,10 +450,10 @@ const etk::UString& etk::UString::operator= (const etk::UString& _obj )
 bool etk::UString::operator> (const etk::UString& _obj) const
 {
 	if( this != &_obj ) {
-		for (int32_t iii=0; iii < m_data.Size() && iii < _obj.m_data.Size(); iii++) {
+		for (int32_t iii=0; iii < m_data.size() && iii < _obj.m_data.size(); iii++) {
 			//TK_DEBUG("    compare : '" << (char)m_data[iii] << "'>'" << (char)_obj.m_data[iii] << "' ==> " << changeOrder(m_data[iii]) << ">" << changeOrder(_obj.m_data[iii]) << "");
-			etk::UniChar elemA = m_data[iii].ChangeOrder();
-			etk::UniChar elemB = _obj.m_data[iii].ChangeOrder();
+			etk::UniChar elemA = m_data[iii].changeOrder();
+			etk::UniChar elemB = _obj.m_data[iii].changeOrder();
 			if (elemA != elemB) {
 				if (elemA > elemB) {
 					return true;
@@ -461,7 +461,7 @@ bool etk::UString::operator> (const etk::UString& _obj) const
 				return false;
 			}
 		}
-		if (m_data.Size() > _obj.m_data.Size()) {
+		if (m_data.size() > _obj.m_data.size()) {
 			return true;
 		}
 	}
@@ -471,9 +471,9 @@ bool etk::UString::operator> (const etk::UString& _obj) const
 bool etk::UString::operator>= (const etk::UString& _obj) const
 {
 	if( this != &_obj ) {
-		for (int32_t iii=0; iii < m_data.Size() && iii < _obj.m_data.Size(); iii++) {
-			etk::UniChar elemA = m_data[iii].ChangeOrder();
-			etk::UniChar elemB = _obj.m_data[iii].ChangeOrder();
+		for (int32_t iii=0; iii < m_data.size() && iii < _obj.m_data.size(); iii++) {
+			etk::UniChar elemA = m_data[iii].changeOrder();
+			etk::UniChar elemB = _obj.m_data[iii].changeOrder();
 			if (elemA != elemB) {
 				if (elemA > elemB) {
 					return true;
@@ -481,7 +481,7 @@ bool etk::UString::operator>= (const etk::UString& _obj) const
 				return false;
 			}
 		}
-		if (m_data.Size() >= _obj.m_data.Size()) {
+		if (m_data.size() >= _obj.m_data.size()) {
 			return true;
 		}
 	}
@@ -491,9 +491,9 @@ bool etk::UString::operator>= (const etk::UString& _obj) const
 bool etk::UString::operator< (const etk::UString& _obj) const
 {
 	if( this != &_obj ) {
-		for (int32_t iii=0; iii < m_data.Size() && iii < _obj.m_data.Size(); iii++) {
-			etk::UniChar elemA = m_data[iii].ChangeOrder();
-			etk::UniChar elemB = _obj.m_data[iii].ChangeOrder();
+		for (int32_t iii=0; iii < m_data.size() && iii < _obj.m_data.size(); iii++) {
+			etk::UniChar elemA = m_data[iii].changeOrder();
+			etk::UniChar elemB = _obj.m_data[iii].changeOrder();
 			if (elemA != elemB) {
 				if (elemA < elemB) {
 					return true;
@@ -501,7 +501,7 @@ bool etk::UString::operator< (const etk::UString& _obj) const
 				return false;
 			}
 		}
-		if (m_data.Size() < _obj.m_data.Size()) {
+		if (m_data.size() < _obj.m_data.size()) {
 			return true;
 		}
 	}
@@ -511,9 +511,9 @@ bool etk::UString::operator< (const etk::UString& _obj) const
 bool etk::UString::operator<= (const etk::UString& _obj) const
 {
 	if( this != &_obj ) {
-		for (int32_t iii=0; iii < m_data.Size() && iii < _obj.m_data.Size(); iii++) {
-			etk::UniChar elemA = m_data[iii].ChangeOrder();
-			etk::UniChar elemB = _obj.m_data[iii].ChangeOrder();
+		for (int32_t iii=0; iii < m_data.size() && iii < _obj.m_data.size(); iii++) {
+			etk::UniChar elemA = m_data[iii].changeOrder();
+			etk::UniChar elemB = _obj.m_data[iii].changeOrder();
 			if (elemA != elemB) {
 				if (elemA < elemB) {
 					return true;
@@ -521,7 +521,7 @@ bool etk::UString::operator<= (const etk::UString& _obj) const
 				return false;
 			}
 		}
-		if (m_data.Size() <= _obj.m_data.Size()) {
+		if (m_data.size() <= _obj.m_data.size()) {
 			return true;
 		}
 	}
@@ -531,23 +531,11 @@ bool etk::UString::operator<= (const etk::UString& _obj) const
 
 bool etk::UString::operator== (const etk::UString& _obj) const
 {
-	//TK_DEBUG("Compare : \"" << _obj << "\"==\"" << *this << "\"");
 	if( this != &_obj ) {
-		if (_obj.m_data.Size() != m_data.Size()) {
-			/*TK_DEBUG(" not the same size : " << _obj.m_data.Size() << "!=" << m_data.Size());
-			for (int32_t iii=0; iii<etk_max(m_data.Size(),_obj.m_data.Size()); iii++) {
-				if (iii< m_data.Size() && iii<_obj.m_data.Size()) {
-					TK_DEBUG("     element : '" << m_data[iii] << "' !! '" << _obj.m_data[iii] << "'");
-				} else if (iii< m_data.Size()) {
-					TK_DEBUG("     element : '" << m_data[iii] << "' !! '-'");
-				} else {
-					TK_DEBUG("     element : '-' !! '" << _obj.m_data[iii] << "'");
-				}
-			}*/
+		if (_obj.m_data.size() != m_data.size()) {
 			return false;
 		}
-		for (int32_t iii= 0; iii<m_data.Size(); iii++) {
-			//TK_DEBUG("     check : " << _obj.m_data[iii] << "!=" << m_data[iii]);
+		for (int32_t iii= 0; iii<m_data.size(); iii++) {
 			if (_obj.m_data[iii]!= m_data[iii]){
 				return false;
 			}
@@ -557,16 +545,14 @@ bool etk::UString::operator== (const etk::UString& _obj) const
 	return true;
 }
 
-bool etk::UString::CompareNoCase(const etk::UString& _obj) const
+bool etk::UString::compareNoCase(const etk::UString& _obj) const
 {
 	if( this != &_obj ) {
-		if (_obj.m_data.Size() != m_data.Size()) {
-			//TK_DEBUG(" not the same size : " << _obj.m_data.Size() << "!=" << m_data.Size());
+		if (_obj.m_data.size() != m_data.size()) {
 			return false;
 		}
-		for (int32_t iii= 0; iii<m_data.Size(); iii++) {
-			//TK_DEBUG("     check : " << _obj.m_data[iii] << "!=" << m_data[iii]);
-			if (false==m_data[iii].CompareNoCase(_obj.m_data[iii])){
+		for (int32_t iii= 0; iii<m_data.size(); iii++) {
+			if (false==m_data[iii].compareNoCase(_obj.m_data[iii])){
 				return false;
 			}
 		}
@@ -581,35 +567,21 @@ bool etk::UString::operator!= (const etk::UString& _obj) const
 	return !(*this == _obj);
 }
 
-
 const etk::UString& etk::UString::operator+= (const etk::UString &_obj)
 {
-	if (0 < _obj.Size()) {
+	if (0 < _obj.size()) {
 		// remove the last '\0'
-		m_data.PopBack();
+		m_data.popBack();
 		// copy the data ...
 		m_data += _obj.m_data;
 		// This previous include the \0 in case of the 2 UString are different...
 		if( this == &_obj ) {
 			// add the removed end UString
-			m_data.PushBack(etk::UniChar::Null);
+			m_data.pushBack(etk::UniChar::Null);
 		}
 	}
 	return *this;
 }
-
-/*
-const etk::UString& etk::UString::operator+= (const etk::UniChar& _obj)
-{
-	// remove the last '\0'
-	m_data.PopBack();
-	// copy the data ...
-	m_data.PushBack(_obj);
-	// add the last '\0' element
-	m_data.PushBack(etk::UniChar::Null);
-	return *this;
-}
-*/
 
 etk::UString etk::UString::operator+ (const etk::UString &_obj) const
 {
@@ -620,9 +592,9 @@ etk::UString etk::UString::operator+ (const etk::UString &_obj) const
 }
 
 
-bool etk::UString::IsEmpty(void) const
+bool etk::UString::isEmpty(void) const
 {
-	if(1 >= m_data.Size() ) {
+	if(1 >= m_data.size() ) {
 		return true;
 	} else {
 		return false;
@@ -630,24 +602,24 @@ bool etk::UString::IsEmpty(void) const
 }
 
 
-int32_t etk::UString::Size(void) const
+int32_t etk::UString::size(void) const
 {
-	if (m_data.Size() == 0) {
+	if (m_data.size() == 0) {
 		return 0;
 	} else {
-		return m_data.Size() - 1;
+		return m_data.size() - 1;
 	}
 }
 
 
-void etk::UString::Add(int32_t _currentID, const char* _inputData)
+void etk::UString::add(int32_t _currentID, const char* _inputData)
 {
 	etk::UString tmpString(_inputData);
-	Add(_currentID, tmpString.pointer() );
+	add(_currentID, tmpString.pointer() );
 }
 
 
-void etk::UString::Add(int32_t _currentID, const etk::UniChar* _inputData)
+void etk::UString::add(int32_t _currentID, const etk::UniChar* _inputData)
 {
 	// get the input lenght
 	int32_t len = strlen(_inputData);
@@ -657,56 +629,56 @@ void etk::UString::Add(int32_t _currentID, const etk::UniChar* _inputData)
 	} else if (_currentID < 0) {
 		TK_WARNING("Curent ID(" << _currentID << ") < 0   ==> Add at the start");
 		_currentID = 0;
-	} else if (_currentID > Size() ) {
-		TK_ERROR("Curent ID(" << _currentID << ") > maxSize ... (" << Size() << ")  ==> add at the end ...");
-		m_data.PushBack(_inputData, len);
+	} else if (_currentID > size() ) {
+		TK_ERROR("Curent ID(" << _currentID << ") > maxSize ... (" << size() << ")  ==> add at the end ...");
+		m_data.pushBack(_inputData, len);
 		return;
 	}
-	m_data.Insert(_currentID, _inputData, len);
+	m_data.insert(_currentID, _inputData, len);
 }
 
 
-void etk::UString::Add(int32_t _currentID, const etk::UniChar _inputData)
+void etk::UString::add(int32_t _currentID, const etk::UniChar _inputData)
 {
 	etk::UniChar data[2];
 	data[0] = _inputData;
 	data[1] = etk::UniChar::Null;
-	Add(_currentID, data);
+	add(_currentID, data);
 }
 
-void etk::UString::Append(const etk::UniChar& _inputData)
+void etk::UString::append(const etk::UniChar& _inputData)
 {
-	m_data.PopBack();
-	m_data.PushBack(_inputData);
-	m_data.PushBack(etk::UniChar::Null);
+	m_data.popBack();
+	m_data.pushBack(_inputData);
+	m_data.pushBack(etk::UniChar::Null);
 }
 
 
-void etk::UString::Remove(int32_t _currentID, int32_t _len)
+void etk::UString::remove(int32_t _currentID, int32_t _len)
 {
 	if (0 >= _len) {
 		TK_ERROR("no data to remove on the current UString");
 		return;
 	}
 	// TODO : check the size of the data
-	m_data.EraseLen(_currentID, _len);
+	m_data.eraseLen(_currentID, _len);
 }
 
 
-void etk::UString::Clear(void)
+void etk::UString::clear(void)
 {
-	m_data.Clear();
-	m_data.PushBack(etk::UniChar::Null);
+	m_data.clear();
+	m_data.pushBack(etk::UniChar::Null);
 }
 
-int32_t etk::UString::FindForward(const etk::UniChar _element, int32_t _startPos) const
+int32_t etk::UString::findForward(const etk::UniChar _element, int32_t _startPos) const
 {
 	if (_startPos < 0) {
 		_startPos = 0;
-	} else if (_startPos >= Size() ) {
+	} else if (_startPos >= size() ) {
 		return -1;
 	}
-	for (int32_t iii=_startPos; iii< Size(); iii++) {
+	for (int32_t iii=_startPos; iii< size(); iii++) {
 		if (m_data[iii] == _element) {
 			return iii;
 		}
@@ -714,12 +686,12 @@ int32_t etk::UString::FindForward(const etk::UniChar _element, int32_t _startPos
 	return -1;
 }
 
-int32_t etk::UString::FindBack(const etk::UniChar _element, int32_t _startPos) const
+int32_t etk::UString::findBack(const etk::UniChar _element, int32_t _startPos) const
 {
 	if (_startPos < 0) {
 		return -1;
-	} else if (_startPos >= Size() ) {
-		_startPos = Size();
+	} else if (_startPos >= size() ) {
+		_startPos = size();
 	}
 	for (int32_t iii=_startPos; iii>=0; iii--) {
 		if (m_data[iii] == _element) {
@@ -730,28 +702,28 @@ int32_t etk::UString::FindBack(const etk::UniChar _element, int32_t _startPos) c
 }
 
 
-etk::UString etk::UString::Extract(int32_t _posStart, int32_t _posEnd) const
+etk::UString etk::UString::extract(int32_t _posStart, int32_t _posEnd) const
 {
 	etk::UString out;
 	if (_posStart < 0) {
 		_posStart = 0;
-	} else if (_posStart >= Size() ) {
+	} else if (_posStart >= size() ) {
 		return out;
 	}
 	if (_posEnd < 0) {
 		return out;
-	} else if (_posEnd >= Size() ) {
-		_posEnd = Size();
+	} else if (_posEnd >= size() ) {
+		_posEnd = size();
 	}
-	out.m_data = m_data.Extract(_posStart, _posEnd);
-	out.m_data.PushBack(etk::UniChar::Null);
+	out.m_data = m_data.extract(_posStart, _posEnd);
+	out.m_data.pushBack(etk::UniChar::Null);
 	return out;
 }
 
-etk::UString etk::UString::ExtractLine(int32_t _pos) const
+etk::UString etk::UString::extractLine(int32_t _pos) const
 {
 	// search back : '\n'
-	int32_t startPos = FindBack('\n', _pos);
+	int32_t startPos = findBack('\n', _pos);
 	if (startPos == _pos) {
 		startPos = 0;
 	} else {
@@ -760,52 +732,52 @@ etk::UString etk::UString::ExtractLine(int32_t _pos) const
 	// search forward : '\n'
 	int32_t stopPos = _pos;
 	if (m_data[_pos] != '\n') {
-		stopPos = FindForward('\n', _pos);
+		stopPos = findForward('\n', _pos);
 		if (stopPos == _pos) {
-			stopPos = Size();
+			stopPos = size();
 		}
 	}
 	etk::UString out;
 	if (startPos < 0) {
 		startPos = 0;
-	} else if (startPos >= Size() ) {
+	} else if (startPos >= size() ) {
 		return out;
 	}
 	if (stopPos < 0) {
 		return out;
-	} else if (stopPos >= Size() ) {
-		stopPos = Size();
+	} else if (stopPos >= size() ) {
+		stopPos = size();
 	}
-	out.m_data = m_data.Extract(startPos, stopPos);
-	out.m_data.PushBack(etk::UniChar::Null);
+	out.m_data = m_data.extract(startPos, stopPos);
+	out.m_data.pushBack(etk::UniChar::Null);
 	return out;
 }
 
-etk::Vector<etk::UniChar> etk::UString::GetVector(void)
+etk::Vector<etk::UniChar> etk::UString::getVector(void)
 {
 	etk::Vector<etk::UniChar> out = m_data;
-	out.PopBack();
+	out.popBack();
 	return out;
 }
 
 
-bool etk::UString::StartWith(const etk::UString& _data, bool _caseSensitive) const
+bool etk::UString::startWith(const etk::UString& _data, bool _caseSensitive) const
 {
-	if (_data.Size() == 0) {
+	if (_data.size() == 0) {
 		return false;
 	}
-	if (_data.Size() > Size()) {
+	if (_data.size() > size()) {
 		return false;
 	}
 	if (true == _caseSensitive) {
-		for (int32_t iii=0; iii<_data.Size(); iii++) {
+		for (int32_t iii=0; iii<_data.size(); iii++) {
 			if (_data[iii] != m_data[iii]) {
 				return false;
 			}
 		}
 	} else {
-		for (int32_t iii=0; iii<_data.Size(); iii++) {
-			if (false==m_data[iii].CompareNoCase(_data[iii])) {
+		for (int32_t iii=0; iii<_data.size(); iii++) {
+			if (false==m_data[iii].compareNoCase(_data[iii])) {
 				return false;
 			}
 		}
@@ -814,16 +786,16 @@ bool etk::UString::StartWith(const etk::UString& _data, bool _caseSensitive) con
 }
 
 
-bool etk::UString::EndWith(const etk::UString& _data, bool _caseSensitive) const
+bool etk::UString::endWith(const etk::UString& _data, bool _caseSensitive) const
 {
-	if (_data.Size() == 0) {
+	if (_data.size() == 0) {
 		return false;
 	}
-	if (_data.Size() > Size()) {
+	if (_data.size() > size()) {
 		return false;
 	}
 	if (true == _caseSensitive) {
-		for( int32_t iii=Size()-1, jjj=_data.Size()-1;
+		for( int32_t iii=size()-1, jjj=_data.size()-1;
 		     iii>=0 && jjj>=0;
 		     iii--, jjj--) {
 			if (_data[jjj] != m_data[iii]) {
@@ -831,10 +803,10 @@ bool etk::UString::EndWith(const etk::UString& _data, bool _caseSensitive) const
 			}
 		}
 	} else {
-		for( int32_t iii=Size()-1, jjj=_data.Size()-1;
+		for( int32_t iii=size()-1, jjj=_data.size()-1;
 		     iii>=0 && jjj>=0;
 		     iii--, jjj--) {
-			if (false==m_data[iii].CompareNoCase(_data[jjj])) {
+			if (false==m_data[iii].compareNoCase(_data[jjj])) {
 				return false;
 			}
 		}
@@ -848,82 +820,82 @@ etk::Char etk::UString::c_str(void) const
 	etk::Char tmpVar;
 	etk::Vector<char> tmpData;
 	// UTF8 generation :
-	tmpData.Clear();
+	tmpData.clear();
 	unicode::convertUnicodeToUtf8(m_data, tmpData);
-	tmpVar.SetValue(tmpData);
+	tmpVar.setValue(tmpData);
 	return tmpVar;
 }
 
-etk::Vector<etk::UString> etk::UString::Split(const etk::UniChar& _val)
+etk::Vector<etk::UString> etk::UString::split(const etk::UniChar& _val)
 {
 	etk::Vector<etk::UString> list;
 	int32_t lastStartPos=0;
-	for(int32_t iii=0; iii<Size(); iii++) {
+	for(int32_t iii=0; iii<size(); iii++) {
 		if (m_data[iii]==_val) {
-			list.PushBack(Extract(lastStartPos, iii));
+			list.pushBack(extract(lastStartPos, iii));
 			lastStartPos = iii+1;
 		}
 	}
-	if (lastStartPos<Size()) {
-		list.PushBack(Extract(lastStartPos));
+	if (lastStartPos<size()) {
+		list.pushBack(extract(lastStartPos));
 	}
 	return list;
 }
 
 
-void etk::UString::Replace(const etk::UniChar& _out, const etk::UniChar& _in)
+void etk::UString::replace(const etk::UniChar& _out, const etk::UniChar& _in)
 {
-	for(int32_t iii=0 ; iii<m_data.Size() ; iii++) {
+	for(int32_t iii=0 ; iii<m_data.size() ; iii++) {
 		if (m_data[iii]==_out) {
 			m_data[iii]=_in;
 		}
 	}
 }
 
-void etk::UString::Lower(void)
+void etk::UString::lower(void)
 {
-	for( int32_t iii=0 ; iii<m_data.Size() ; iii++) {
-		m_data[iii].Lower();
+	for( int32_t iii=0 ; iii<m_data.size() ; iii++) {
+		m_data[iii].lower();
 	}
 }
 
-etk::UString etk::UString::ToLower(void) const
+etk::UString etk::UString::toLower(void) const
 {
 	etk::UString ret = *this;
-	ret.Lower();
+	ret.lower();
 	return ret;
 }
 
-void etk::UString::Upper(void)
+void etk::UString::upper(void)
 {
-	for( int32_t iii=0 ; iii<m_data.Size() ; iii++) {
-		m_data[iii].Upper();
+	for( int32_t iii=0 ; iii<m_data.size() ; iii++) {
+		m_data[iii].upper();
 	}
 }
 
-etk::UString etk::UString::ToUpper(void) const
+etk::UString etk::UString::toUpper(void) const
 {
 	etk::UString ret = *this;
-	ret.Upper();
+	ret.upper();
 	return ret;
 }
 
-bool etk::UString::ToBool(void) const
+bool etk::UString::toBool(void) const
 {
-	if(    true == CompareNoCase("true")
-	    || true == CompareNoCase("enable")
-	    || true == CompareNoCase("yes")
+	if(    true == compareNoCase("true")
+	    || true == compareNoCase("enable")
+	    || true == compareNoCase("yes")
 	    || *this == "1") {
 		return true;
 	}
 	return false;
 }
 
-int64_t etk::UString::ToInt64(void) const
+int64_t etk::UString::toInt64(void) const
 {
 	int64_t ret=0;
 	bool isOdd = false;
-	for (int32_t iii=0; iii<m_data.Size(); iii++) {
+	for (int32_t iii=0; iii<m_data.size(); iii++) {
 		if(    iii==0
 		    && (    m_data[iii] == '-'
 		         || m_data[iii] == '+') ) {
@@ -931,8 +903,8 @@ int64_t etk::UString::ToInt64(void) const
 				isOdd = true;
 			}
 		} else {
-			if (true==m_data[iii].IsInteger()) {
-				int32_t val = m_data[iii].ToInt32();
+			if (true==m_data[iii].isInteger()) {
+				int32_t val = m_data[iii].toInt32();
 				ret = ret*10 + val;
 			} else {
 				break;
@@ -945,10 +917,10 @@ int64_t etk::UString::ToInt64(void) const
 	return ret;
 }
 
-uint64_t etk::UString::ToUInt64(void) const
+uint64_t etk::UString::toUInt64(void) const
 {
 	uint64_t ret=0;
-	for (int32_t iii=0; iii<m_data.Size(); iii++) {
+	for (int32_t iii=0; iii<m_data.size(); iii++) {
 		if(    iii==0
 		    && (    m_data[iii] == '-'
 		         || m_data[iii] == '+') ) {
@@ -956,8 +928,8 @@ uint64_t etk::UString::ToUInt64(void) const
 				return 0;
 			}
 		} else {
-			if (true==m_data[iii].IsInteger()) {
-				int32_t val = m_data[iii].ToInt32();
+			if (true==m_data[iii].isInteger()) {
+				int32_t val = m_data[iii].toInt32();
 				ret = ret*10 + val;
 			} else {
 				break;
@@ -967,44 +939,44 @@ uint64_t etk::UString::ToUInt64(void) const
 	return ret;
 }
 
-int32_t etk::UString::ToInt32(void) const
+int32_t etk::UString::toInt32(void) const
 {
-	int64_t parse = ToInt64();
+	int64_t parse = toInt64();
 	return etk_avg((int64_t)INT32_MIN, parse, (int64_t)INT32_MAX);
 }
-int16_t etk::UString::ToInt16(void) const
+int16_t etk::UString::toInt16(void) const
 {
-	int64_t parse = ToInt64();
+	int64_t parse = toInt64();
 	return etk_avg((int64_t)INT16_MIN, parse, (int64_t)INT16_MAX);
 }
-int8_t etk::UString::ToInt8(void) const
+int8_t etk::UString::toInt8(void) const
 {
-	int64_t parse = ToInt64();
+	int64_t parse = toInt64();
 	return etk_avg((int64_t)INT8_MIN, parse, (int64_t)INT8_MAX);
 }
 
-uint32_t etk::UString::ToUInt32(void) const
+uint32_t etk::UString::toUInt32(void) const
 {
-	uint64_t parse = ToUInt64();
+	uint64_t parse = toUInt64();
 	return etk_avg((int64_t)0, parse, (int64_t)UINT32_MAX);
 }
-uint16_t etk::UString::ToUInt16(void) const
+uint16_t etk::UString::toUInt16(void) const
 {
-	uint64_t parse = ToUInt64();
+	uint64_t parse = toUInt64();
 	return etk_avg((int64_t)0, parse, (int64_t)UINT16_MAX);
 }
-uint8_t etk::UString::ToUInt8(void) const
+uint8_t etk::UString::toUInt8(void) const
 {
-	uint64_t parse = ToUInt64();
+	uint64_t parse = toUInt64();
 	return etk_avg((int64_t)0, parse, (int64_t)UINT8_MAX);
 }
 
-double etk::UString::ToDouble(void) const
+double etk::UString::toDouble(void) const
 {
 	double ret=0;
 	bool isOdd = false;
 	float dotPos = -1;
-	for (int32_t iii=0; iii<m_data.Size(); iii++) {
+	for (int32_t iii=0; iii<m_data.size(); iii++) {
 		if(    iii==0
 		    && (    m_data[iii] == '-'
 		         || m_data[iii] == '+') ) {
@@ -1020,8 +992,8 @@ double etk::UString::ToDouble(void) const
 					continue;
 				}
 			}
-			if (true==m_data[iii].IsInteger()) {
-				int32_t val = m_data[iii].ToInt32();
+			if (true==m_data[iii].isInteger()) {
+				int32_t val = m_data[iii].toInt32();
 				double val2 = val;
 				if (dotPos>0) {
 					ret += val2*dotPos;
@@ -1042,7 +1014,7 @@ double etk::UString::ToDouble(void) const
 }
 
 
-float etk::UString::ToFloat(void) const
+float etk::UString::toFloat(void) const
 {
-	return (float)ToDouble();
+	return (float)toDouble();
 }

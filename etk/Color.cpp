@@ -40,12 +40,12 @@ typedef struct {
 	etk::Color<> color;
 } colorList_ts;
 
-static esize_t GetColorSize(void);
-static const colorList_ts* GetColorList(void);
+static esize_t getColorSize(void);
+static const colorList_ts* getColorList(void);
 
 namespace etk
 {
-	template<> void Color<uint8_t>::Set(float _r, float _g, float _b, float _a)
+	template<> void Color<uint8_t>::set(float _r, float _g, float _b, float _a)
 	{
 		m_r = (uint8_t)(_r*255.0f);
 		m_g = (uint8_t)(_g*255.0f);
@@ -53,7 +53,7 @@ namespace etk
 		m_a = (uint8_t)(_a*255.0f);
 	}
 	
-	template<> void Color<float>::Set(float _r, float _g, float _b, float _a)
+	template<> void Color<float>::set(float _r, float _g, float _b, float _a)
 	{
 		m_r = _r;
 		m_g = _g;
@@ -61,7 +61,7 @@ namespace etk
 		m_a = _a;
 	}
 	
-	template<> void Color<uint8_t>::Set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a)
+	template<> void Color<uint8_t>::set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a)
 	{
 		m_r = _r;
 		m_g = _g;
@@ -69,7 +69,7 @@ namespace etk
 		m_a = _a;
 	}
 	
-	template<> void Color<float>::Set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a)
+	template<> void Color<float>::set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a)
 	{
 		m_r = ((float)_r)/255.0f;
 		m_g = ((float)_g)/255.0f;
@@ -77,7 +77,7 @@ namespace etk
 		m_a = ((float)_a)/255.0f;
 	}
 	
-	template<> uint32_t Color<uint8_t>::Get(void) const
+	template<> uint32_t Color<uint8_t>::get(void) const
 	{
 		return   (((uint32_t)m_r)<<24)
 		       + (((uint32_t)m_g)<<16)
@@ -85,9 +85,9 @@ namespace etk
 		       + (uint32_t)m_a;
 	}
 	
-	template<> uint32_t Color<float>::Get(void) const
+	template<> uint32_t Color<float>::get(void) const
 	{
-		return Color<uint8_t>(*this).Get();
+		return Color<uint8_t>(*this).get();
 	}
 	
 	template<> Color<uint8_t>::Color(const etk::UString& _input) :
@@ -180,10 +180,10 @@ namespace etk
 		} else {
 			bool findIt = false;
 			// direct named color ...
-			for (esize_t iii=0; iii<GetColorSize(); iii++) {
-				if (strnCmpNoCase(GetColorList()[iii].colorName, inputData, strlen(GetColorList()[iii].colorName)) == true) {
+			for (esize_t iii=0; iii<getColorSize(); iii++) {
+				if (strnCmpNoCase(getColorList()[iii].colorName, inputData, strlen(getColorList()[iii].colorName)) == true) {
 					findIt = true;
-					*this = GetColorList()[iii].color;
+					*this = getColorList()[iii].color;
 					// stop searching
 					break;
 				}
@@ -205,7 +205,7 @@ namespace etk
 
 etk::CCout& etk::operator <<(etk::CCout &_os, const etk::Color<uint8_t>& _obj)
 {
-	_os << _obj.GetString();
+	_os << _obj.getString();
 	return _os;
 }
 etk::CCout& etk::operator <<(etk::CCout &_os, const etk::Color<float>& _obj)
@@ -526,12 +526,12 @@ static const colorList_ts listOfColor[] = {
 	{ "YellowGreen",		etk::color::yellowGreen}
 };
 
-static const colorList_ts* GetColorList(void)
+static const colorList_ts* getColorList(void)
 {
 	return listOfColor;
 }
 
-static esize_t GetColorSize(void)
+static esize_t getColorSize(void)
 {
 	static const esize_t tmpp = sizeof(listOfColor) / sizeof(colorList_ts);
 	return tmpp;

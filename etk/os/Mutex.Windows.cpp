@@ -21,19 +21,19 @@ etk::Mutex::~Mutex(void)
 }
 
 
-void etk::Mutex::Lock(void)
+void etk::Mutex::lock(void)
 {
 	EnterCriticalSection(&m_mutex);
 }
 
 
-bool etk::Mutex::TryLock(void)
+bool etk::Mutex::tryLock(void)
 {
 	return TryEnterCriticalSection(&m_mutex) != 0;
 }
 
 
-void etk::Mutex::UnLock(void)
+void etk::Mutex::unLock(void)
 {
 	LeaveCriticalSection(&m_mutex);
 }

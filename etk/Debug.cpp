@@ -15,7 +15,7 @@
 
 #define FUNCTION_NAME_SIZE	(70)
 
-void TOOLS_DisplayFuncName(int32_t _ligne, const char* _className, const char* _funcName, const char* _libName)
+void debug::displayFuncName(int32_t _ligne, const char* _className, const char* _funcName, const char* _libName)
 {
 	char tmpName[FUNCTION_NAME_SIZE] = "";
 	
@@ -39,7 +39,7 @@ void TOOLS_DisplayFuncName(int32_t _ligne, const char* _className, const char* _
 	etk::cout << tmpName;
 }
 
-void TOOLS_DisplayTime(void)
+void debug::displayTime(void)
 {
 	char tmpdata[50];
 #ifdef __TARGET_OS__Android
@@ -62,7 +62,7 @@ etk::logLevel_te g_requestedLevel = etk::LOG_LEVEL_VERBOSE;
 #else
 etk::logLevel_te g_requestedLevel = etk::LOG_LEVEL_ERROR;
 #endif
-void GeneralDebugSetLevel(etk::logLevel_te _ccc) {
+void debug::setGeneralLevel(etk::logLevel_te _ccc) {
 	g_requestedLevel = _ccc;
 }
 

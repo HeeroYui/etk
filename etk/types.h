@@ -51,4 +51,6 @@
 	typedef int32_t esize_t;
 	#define ESIZE_T_IS_SIGNED
 #endif
+
+typedef float float_t;
 #endif

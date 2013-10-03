@@ -38,7 +38,7 @@ etk::Semaphore::~Semaphore(void)
 	TK_ASSERT(ret == 0, "Error destroying Mutex ...");
 }
 
-uint32_t etk::Semaphore::GetCount(void)
+uint32_t etk::Semaphore::getCount(void)
 {
 	int32_t tmpData = 0;
 	pthread_mutex_lock(&m_mutex);
@@ -47,7 +47,7 @@ uint32_t etk::Semaphore::GetCount(void)
 	return tmpData;
 }
 
-void etk::Semaphore::Post(void)
+void etk::Semaphore::post(void)
 {
 	pthread_mutex_lock(&m_mutex);
 	if (m_data>=m_maximum) {
@@ -61,7 +61,7 @@ void etk::Semaphore::Post(void)
 }
 
 
-void etk::Semaphore::Wait(void)
+void etk::Semaphore::wait(void)
 {
 	pthread_mutex_lock(&m_mutex);
 	while(m_data == 0) {
@@ -72,7 +72,7 @@ void etk::Semaphore::Wait(void)
 }
 
 
-bool etk::Semaphore::Wait(uint32_t _timeOutInUs)
+bool etk::Semaphore::wait(uint64_t _timeOutInUs)
 {
 	pthread_mutex_lock(&m_mutex);
 	if(m_data == 0) {

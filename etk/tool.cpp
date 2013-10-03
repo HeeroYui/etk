@@ -25,21 +25,21 @@ int32_t etk::tool::irand(int32_t _a, int32_t _b)
 	return (int32_t)(( rand()/(float)RAND_MAX ) * ((float)_b-(float)_a) + (float)_a);
 }
 
-void etk::tool::SortList(etk::Vector<etk::UString *> &_list)
+void etk::tool::sortList(etk::Vector<etk::UString *> &_list)
 {
 	etk::Vector<etk::UString *> tmpList = _list;
-	_list.Clear();
-	for(int32_t iii=0; iii<tmpList.Size(); iii++) {
+	_list.clear();
+	for(int32_t iii=0; iii<tmpList.size(); iii++) {
 		
 		int32_t findPos = 0;
-		for(int32_t jjj=0; jjj<_list.Size(); jjj++) {
+		for(int32_t jjj=0; jjj<_list.size(); jjj++) {
 			//EWOL_DEBUG("compare : \""<<*tmpList[iii] << "\" and \"" << *m_listDirectory[jjj] << "\"");
 			if (*tmpList[iii] > *_list[jjj]) {
 				findPos = jjj+1;
 			}
 		}
 		//EWOL_DEBUG("position="<<findPos);
-		_list.Insert(findPos, tmpList[iii]);
+		_list.insert(findPos, tmpList[iii]);
 	}
 }
 
@@ -69,46 +69,46 @@ bool etk::tool::strnCmpNoCase(const char * _input1, const char * _input2, int32_
 }
 
 
-etk::UString etk::tool::SimplifyPath(etk::UString _input)
+etk::UString etk::tool::simplifyPath(etk::UString _input)
 {
-	int32_t findStartPos = _input.FindForward('/') + 1;
-	int32_t findPos = _input.FindForward('/', findStartPos);
+	int32_t findStartPos = _input.findForward('/') + 1;
+	int32_t findPos = _input.findForward('/', findStartPos);
 	//TK_DEBUG("Siplify : \"" << input << "\"");
 	int32_t preventBadCode = 0;
 	while (findPos!=-1)
 	{
 		//TK_DEBUG("      string=\"" << input << "\"");
 		//TK_DEBUG("      '/' @" << findPos);
-		if (_input.Size()<findPos+1) {
+		if (_input.size()<findPos+1) {
 			// no more element ...
 			break;
 		}
 		if(    _input[findPos+1] == '/'
 		    || (    _input[findPos+1] == '.'
-		         && _input.Size()==findPos+2 )) {
+		         && _input.size()==findPos+2 )) {
 			// cleane the element path
-			_input.Remove(findPos+1, 1);
+			_input.remove(findPos+1, 1);
 			//TK_DEBUG("      Remove // string=\"" << input << "\"");
 		} else {
-			if (_input.Size()<findPos+2) {
+			if (_input.size()<findPos+2) {
 				// no more element ...
 				break;
 			}
 			if(    _input[findPos+1] == '.'
 			    && _input[findPos+2] == '.') {
 				// cleane the element path
-				_input.Remove(findStartPos, findPos+3 - findStartPos );
+				_input.remove(findStartPos, findPos+3 - findStartPos );
 				//TK_DEBUG("      Remove xxx/.. string=\"" << input << "\"");
 			} else if(    _input[findPos+1] == '.'
 			           && _input[findPos+2] == '/') {
 				// cleane the element path
-				_input.Remove(findPos+1, 2);
+				_input.remove(findPos+1, 2);
 				//TK_DEBUG("      Remove ./ string=\"" << input << "\"");
 			} else {
 				findStartPos = findPos+1;
 			}
 		}
-		findPos = _input.FindForward('/', findStartPos);
+		findPos = _input.findForward('/', findStartPos);
 		preventBadCode++;
 		if (preventBadCode>5000) {
 			TK_CRITICAL("ERROR when getting the small path ... this is loop prevention...");

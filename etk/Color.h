@@ -21,19 +21,19 @@ namespace etk {
 			MY_TYPE m_a;
 		public :
 			Color(void) { };
-			Color(double _r, double _g, double _b, double _a=255) { Set((float)_r, (float)_g, (float)_b, (float)_a); };
-			Color(float _r, float _g, float _b, float _a=255) { Set(_r, _g, _b, _a); };
-			Color(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a=255) { Set(_r, _g, _b, _a); };
-			Color(int _r, int _g, int _b, int _a=255) { Set(_r, _g, _b, _a); };
+			Color(double _r, double _g, double _b, double _a=255) { set((float)_r, (float)_g, (float)_b, (float)_a); };
+			Color(float _r, float _g, float _b, float _a=255) { set(_r, _g, _b, _a); };
+			Color(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a=255) { set(_r, _g, _b, _a); };
+			Color(int _r, int _g, int _b, int _a=255) { set(_r, _g, _b, _a); };
 			Color(uint32_t _input)
 			{
-				Set((uint8_t)((_input&0xFF000000)>>24),
+				set((uint8_t)((_input&0xFF000000)>>24),
 				    (uint8_t)((_input&0x00FF0000)>>16),
 				    (uint8_t)((_input&0x0000FF00)>>8),
 				    (uint8_t)((_input&0x000000FF)));
 			};
-			Color(const etk::Color<float>& _obj) { Set(_obj.r(), _obj.g(), _obj.b(), _obj.a()); };
-			Color(const etk::Color<uint8_t>& _obj) { Set(_obj.r(), _obj.g(), _obj.b(), _obj.a()); };
+			Color(const etk::Color<float>& _obj) { set(_obj.r(), _obj.g(), _obj.b(), _obj.a()); };
+			Color(const etk::Color<uint8_t>& _obj) { set(_obj.r(), _obj.g(), _obj.b(), _obj.a()); };
 			Color(const etk::UString& _input);
 			~Color(void) { };
 			Color<MY_TYPE>& operator=(const etk::Color<MY_TYPE>& _input)
@@ -64,26 +64,26 @@ namespace etk {
 				}
 				return true;
 			}
-			uint32_t Get(void) const;
-			void Set(float _r, float _g, float _b, float _a=255);
-			void Set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a=255);
-			void Set(int _r, int _g, int _b, int _a=255)
+			uint32_t get(void) const;
+			void set(float _r, float _g, float _b, float _a=255);
+			void set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a=255);
+			void set(int _r, int _g, int _b, int _a=255)
 			{
-				Set((uint8_t)(etk_avg(0,_r,255)),
+				set((uint8_t)(etk_avg(0,_r,255)),
 				    (uint8_t)(etk_avg(0,_g,255)),
 				    (uint8_t)(etk_avg(0,_b,255)),
 				    (uint8_t)(etk_avg(0,_a,255)) );
 			}
-			etk::UString GetHexString(void) const { return etk::UString(Get(), etk::UString::printModeHexadecimal, true); };
-			etk::UString GetString(void) const { return etk::UString("#") + etk::UString(Get(), etk::UString::printModeHexadecimal); };
+			etk::UString getHexString(void) const { return etk::UString(get(), etk::UString::printModeHexadecimal, true); };
+			etk::UString getString(void) const { return etk::UString("#") + etk::UString(get(), etk::UString::printModeHexadecimal); };
 			MY_TYPE r(void) const { return m_r; };
 			MY_TYPE g(void) const { return m_g; };
 			MY_TYPE b(void) const { return m_b; };
 			MY_TYPE a(void) const { return m_a; };
-			void SetR(MY_TYPE _r) { m_r=_r; };
-			void SetG(MY_TYPE _g) { m_g=_g; };
-			void SetB(MY_TYPE _b) { m_b=_b; };
-			void SetA(MY_TYPE _a) { m_a=_a; };
+			void setR(MY_TYPE _r) { m_r=_r; };
+			void setG(MY_TYPE _g) { m_g=_g; };
+			void setB(MY_TYPE _b) { m_b=_b; };
+			void setA(MY_TYPE _a) { m_a=_a; };
 	};
 	etk::CCout& operator <<(etk::CCout &_os, const Color<uint8_t>& _obj);
 	etk::CCout& operator <<(etk::CCout &_os, const Color<float>& _obj);

@@ -15,7 +15,7 @@
 	#include <cxxabi.h>
 	#include <dlfcn.h>
 	#define MAX_DEPTH  (256)
-	void etk::DisplayBacktrace(void)
+	void etk::displayBacktrace(void)
 	{
 		// retrieve call-stack
 		void * trace[MAX_DEPTH];
@@ -42,7 +42,7 @@
 		assert(false);
 	}
 #else
-	void etk::DisplayBacktrace(void)
+	void etk::displayBacktrace(void)
 	{
 		#if DEBUG_LEVEL > 2
 			assert(false);
@@ -152,7 +152,7 @@ etk::CCout::~CCout()
 etk::CCout& etk::CCout::operator << (const etk::UniChar& _t)
 {
 	char output[5];
-	_t.GetUtf8(output);
+	_t.getUtf8(output);
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%s", output);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
@@ -270,7 +270,7 @@ etk::CCout& etk::CCout::operator << (bool _t)
 
 etk::CCout& etk::CCout::operator << (CStart _ccc)
 {
-	m_mutex.Lock();
+	m_mutex.lock();
 	return *this;
 }
 
@@ -288,7 +288,7 @@ etk::CCout& etk::CCout::operator << (etk::CEndl _t)
 	printf("%s", m_tmpChar);
 #endif
 	memset(m_tmpChar, 0, (MAX_LOG_SIZE+1)*sizeof(char));
-	m_mutex.UnLock();
+	m_mutex.unLock();
 	return *this;
 }
 

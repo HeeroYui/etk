@@ -23,21 +23,21 @@ namespace etk
 	{
 		private:
 			#ifdef __TARGET_OS__Windows
-				HANDLE           m_semaphore;
+				HANDLE m_semaphore;
 			#else
-				pthread_mutex_t  m_mutex;
-				pthread_cond_t   m_condition;
-				uint32_t         m_data;
-				uint32_t         m_maximum;
+				pthread_mutex_t m_mutex;
+				pthread_cond_t m_condition;
+				uint32_t m_data;
+				uint32_t m_maximum;
 			#endif
 		public:
 			Semaphore(uint32_t _nbBasicElement=0, uint32_t _nbMessageMax=1);
 			~Semaphore(void);
-			uint32_t GetCount(void);
-			void Post(void);
-			void Wait(void);
+			uint32_t getCount(void);
+			void post(void);
+			void wait(void);
 			// wait with a timeout in us; return true if get the semaphore
-			bool Wait(uint32_t _timeOutInUs);
+			bool wait(uint64_t _timeOutInUs);
 	};
 	
 };

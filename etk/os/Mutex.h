@@ -30,9 +30,9 @@ namespace etk
 		public:
 			Mutex(void);
 			~Mutex(void);
-			void Lock(void);
-			bool TryLock(void);
-			void UnLock(void);
+			void lock(void);
+			bool tryLock(void);
+			void unLock(void);
 	};
 	
 };

@@ -37,7 +37,7 @@ etk::archive::Zip::Zip(const etk::UString& _fileName) :
 		if(tmpFileName[strlen(tmpFileName) - 1] == '/' ) {
 			// find directory ...
 		} else {
-			m_content.Add(tmpFileName, etk::Archive::Content(tmpFileInfo.uncompressed_size));
+			m_content.add(tmpFileName, etk::Archive::Content(tmpFileInfo.uncompressed_size));
 		}
 		/* Go the the next entry listed in the zip file. */
 		if((iii+1) < m_info.number_entry) {
@@ -57,9 +57,9 @@ etk::archive::Zip::~Zip(void)
 	};
 };
 
-void etk::archive::Zip::LoadFile(int32_t _id)
+void etk::archive::Zip::loadFile(int32_t _id)
 {
-	etk::UString fileNameRequested = m_content.GetKey(_id);
+	etk::UString fileNameRequested = m_content.getKey(_id);
 	TK_VERBOSE("Real load file : " << _id << " = '" << fileNameRequested << "'");
 	
 	unzGoToFirstFile(m_ctx);
@@ -81,15 +81,15 @@ void etk::archive::Zip::LoadFile(int32_t _id)
 			}
 			int error = UNZ_OK;
 			// request the resize of the data :
-			m_content.GetValue(_id).GetDataVector().ReSize(m_content.GetValue(_id).GetTheoricSize(), 0);
-			void* data = m_content.GetValue(_id).Data();
+			m_content.getValue(_id).getDataVector().reSize(m_content.getValue(_id).getTheoricSize(), 0);
+			void* data = m_content.getValue(_id).data();
 			if(NULL == data) {
 				TK_ERROR("Allocation error...");
 				return;
 			}
 			/* read the file */
 			do {
-				error = unzReadCurrentFile(m_ctx, data, m_content.GetValue(_id).GetTheoricSize());
+				error = unzReadCurrentFile(m_ctx, data, m_content.getValue(_id).getTheoricSize());
 				if ( error < 0 ) {
 					TK_ERROR("Could not read file '" << tmpFileName << "' into the zip file '" << m_fileName << "': " <<  error);
 					unzCloseCurrentFile(m_ctx);

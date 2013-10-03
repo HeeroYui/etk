@@ -12,7 +12,7 @@
 etk::Semaphore::Semaphore(uint32_t _nbBasicElement, uint32_t _nbMessageMax)
 {
 	// create interface mutex :
-	m_semaphore = CreateSemaphore(NULL, _nbBasicElement, _nbMessageMax, NULL);
+	m_semaphore = createSemaphore(NULL, _nbBasicElement, _nbMessageMax, NULL);
 	TK_ASSERT(m_semaphore != 0, "Error creating SEMAPHORE ...");
 }
 
@@ -22,28 +22,28 @@ etk::Semaphore::~Semaphore(void)
 	CloseHandle(m_semaphore);
 }
 
-uint32_t etk::Semaphore::GetCount(void)
+uint32_t etk::Semaphore::getCount(void)
 {
 	LONG tmpData = 0;
-	ReleaseSemaphore(m_semaphore, 0, &tmpData);
+	releaseSemaphore(m_semaphore, 0, &tmpData);
 	return tmpData;
 }
 
-void etk::Semaphore::Post(void)
+void etk::Semaphore::post(void)
 {
-	ReleaseSemaphore(m_semaphore, 1, NULL);
+	releaseSemaphore(m_semaphore, 1, NULL);
 }
 
 
-void etk::Semaphore::Wait(void)
+void etk::Semaphore::wait(void)
 {
-	WaitForSingleObject(m_semaphore, INFINITE);
+	waitForSingleObject(m_semaphore, INFINITE);
 }
 
 
-bool etk::Semaphore::Wait(uint32_t _timeOutInUs)
+bool etk::Semaphore::wait(uint64_t _timeOutInUs)
 {
-	DWORD result = WaitForSingleObject(m_semaphore, _timeOutInUs);
+	DWORD result = waitForSingleObject(m_semaphore, _timeOutInUs);
 	if (result == WAIT_FAILED) {
 		TK_ERROR("Failed to wait for semaphore ");
 		return false;
