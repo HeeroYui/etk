@@ -1072,7 +1072,7 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 			        << RegExpNode<CLASS_TYPE>::m_multipleMin << ","
 			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata=";
 			        displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
-			for(esize_t iii=0; iii<m_subNode.Size(); iii++) {
+			for(esize_t iii=0; iii<m_subNode.size(); iii++) {
 				m_subNode[iii]->display(_level+1);
 			}
 		};
@@ -1138,7 +1138,7 @@ template<class CLASS_TYPE> class RegExpNodePThese : public RegExpNode<CLASS_TYPE
 					tmpData.pushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
 				}
 				RegExpNodePTheseElem<CLASS_TYPE> * myElem = new RegExpNodePTheseElem<CLASS_TYPE>();
-				(void)myElem->penerate(tmpData);
+				(void)myElem->generate(tmpData);
 				// add to the subnode list : 
 				m_subNode.pushBack(myElem);
 				pos += elementSize+1;
