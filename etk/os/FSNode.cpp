@@ -360,6 +360,9 @@ bool etk::FSNode::loadDataZip(void)
 	if (NULL != m_zipContent) {
 		return true;
 	}
+	if (false == s_APKArchive->exist(m_systemFileName)) {
+		return false;
+	}
 	m_zipContent = &s_APKArchive->getContent(m_systemFileName);
 	if (NULL != m_zipContent) {
 		return true;
@@ -424,27 +427,26 @@ static int32_t FSNODE_LOCAL_mkPath(const char* _path, mode_t _mode)
 
 
 #undef __class__
-#define __class__	"FSNode"
+#define __class__ "FSNode"
 
 etk::FSNode::FSNode(const etk::UString& _nodeName) :
-	m_userFileName(""),
-	m_type(etk::FSN_TYPE_UNKNOW),
-	m_typeNode(etk::FSN_UNKNOW),
-	m_PointerFile(NULL),
-	m_timeCreate(0),
-	m_timeModify(0),
-	m_timeAccess(0)
-	#ifdef __TARGET_OS__Android
-		, m_zipContent(NULL),
-		m_zipReadingOffset(-1)
-	#endif
+  m_userFileName(""),
+  m_type(etk::FSN_TYPE_UNKNOW),
+  m_typeNode(etk::FSN_UNKNOW),
+  m_PointerFile(NULL),
+  m_timeCreate(0),
+  m_timeModify(0),
+  m_timeAccess(0)
+#ifdef __TARGET_OS__Android
+    , m_zipContent(NULL),
+    m_zipReadingOffset(-1)
+#endif
 {
 	privateSetName(_nodeName);
 }
 
 
-etk::FSNode::~FSNode(void)
-{
+etk::FSNode::~FSNode(void) {
 	if(    NULL != m_PointerFile
 	#ifdef __TARGET_OS__Android
 	    || NULL != m_zipContent
@@ -456,8 +458,7 @@ etk::FSNode::~FSNode(void)
 }
 
 
-void etk::FSNode::sortElementList(etk::Vector<etk::FSNode *>& _list)
-{
+void etk::FSNode::sortElementList(etk::Vector<etk::FSNode *>& _list) {
 	etk::Vector<etk::FSNode *> tmpList = _list;
 	_list.clear();
 	for(int32_t iii=0; iii<tmpList.size(); iii++) {
@@ -756,7 +757,11 @@ void etk::FSNode::updateFileSystemProperty(void)
 			folderName = m_systemFileName + "/";
 		}
 		// note : Zip does not support other think than file ...
-		m_typeNode=FSN_FILE;
+		
+		if (    s_APKArchive != NULL
+		     && s_APKArchive->exist(m_systemFileName) == true) {
+			m_typeNode=FSN_FILE;
+		}
 		m_rights.setUserReadable(true);
 		// TODO : Set the time of the file (time program compilation)
 		// TODO : Set the USER ID in the group and the user Id ...
@@ -1233,7 +1238,7 @@ void etk::FSNode::folderGetRecursiveFiles(etk::Vector<etk::UString>& _output, bo
 					tmpString = "THEME:";
 				}
 				if (true == filename.startWith(assetsName)) {
-					filename.remove(0,assetsName.Size());
+					filename.remove(0,assetsName.size());
 				}
 				tmpString += filename;
 				_output.pushBack(tmpString);

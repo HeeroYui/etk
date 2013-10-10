@@ -69,7 +69,7 @@ namespace etk
 	 */
 	etk::CCout& operator <<(etk::CCout &_os, const etk::logLevel_te _obj);
 	
-	void displayBacktrace(void);
+	void displayBacktrace(bool _breakAtEnd=true);
 };
 
 //regular colors
