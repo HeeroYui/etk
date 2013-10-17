@@ -95,6 +95,17 @@ bool etk::UniChar::isWhiteChar(void) const
 	return false;
 }
 
+bool etk::UniChar::isSpecialChar(void) const
+{
+	if(    m_value < '0'
+	    || (m_value > '9' && m_value < 'A')
+	    || (m_value > 'Z' && m_value < 'a')
+	    || (m_value > 'z' && m_value < 0xFF) ) {
+		return true;
+	}
+	return false;
+}
+
 bool etk::UniChar::isInteger(void) const
 {
 	if(    m_value>=(uint32_t)'0'

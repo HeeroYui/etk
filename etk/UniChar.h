@@ -157,6 +157,7 @@ namespace etk
 			 * @return tue if it is white char
 			 */
 			bool isWhiteChar(void) const;
+			bool isSpecialChar(void) const;
 			/**
 			 * @brief check if the curent element is number or not
 			 * @return tue if it is a number char
