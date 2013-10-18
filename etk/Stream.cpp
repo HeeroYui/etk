@@ -149,7 +149,7 @@ etk::CCout::~CCout()
 };
 
 
-etk::CCout& etk::CCout::operator << (const etk::UniChar& _t)
+etk::CCout& etk::CCout::operator << (const etk::UChar& _t)
 {
 	char output[5];
 	_t.getUtf8(output);

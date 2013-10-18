@@ -196,7 +196,7 @@ namespace etk
 			 * @param[in] _pos Desired position read
 			 * @return Reference on the Element
 			 */
-			esize_t get(esize_t _pos, UniChar& _value, charset_te _charset) const
+			esize_t get(esize_t _pos, UChar& _value, charset_te _charset) const
 			{
 				TK_ASSERT(0 <= pos || pos < size(), "try to read an element non existing");
 				if (pos < m_gapStart) {

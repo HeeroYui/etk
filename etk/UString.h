@@ -28,7 +28,7 @@ namespace etk
 				printModeString,
 			} printMode_te;
 		private :
-			etk::Vector<etk::UniChar> m_data; //!< internal data is stored in the Unicode properties ...
+			etk::Vector<etk::UChar> m_data; //!< internal data is stored in the Unicode properties ...
 		public:
 			// Constructeurs
 			UString(void);
@@ -39,7 +39,7 @@ namespace etk
 			
 			// single element adding
 			UString(const bool _inputData, printMode_te _mode=printModeString, bool _preset=false);
-			UString(const etk::UniChar& _inputData);
+			UString(const etk::UChar& _inputData);
 			UString(const char* _data, unicode::charset_te _inputCharset);
 			UString(const float _inputData);
 			UString(const double _inputData);
@@ -52,17 +52,17 @@ namespace etk
 			UString(const uint32_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set((uint64_t)_inputData, _mode, _preset, _leadingZero); };
 			UString(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set(_inputData, _mode, _preset, _leadingZero); };
 			// multiple element add
-			UString(const etk::UniChar* _inputData, int32_t _len = -1);
+			UString(const etk::UChar* _inputData, int32_t _len = -1);
 			UString(const char* _inputData, int32_t _len = -1);
 			UString(const etk::Vector<char>& _inputData);
 			UString(const etk::Vector<int8_t>& _inputData);
-			UString(const etk::Vector<etk::UniChar>& _inputData);
+			UString(const etk::Vector<etk::UChar>& _inputData);
 			// generic setter
-			void set(const etk::UniChar* _inputData, int32_t _len=-1);
+			void set(const etk::UChar* _inputData, int32_t _len=-1);
 			void set(const char*      _inputData, int32_t _len=-1);
 			void set(const etk::Vector<char>& _inputData);
 			void set(const etk::Vector<int8_t>& _inputData);
-			void set(const etk::Vector<etk::UniChar>& _inputData);
+			void set(const etk::Vector<etk::UChar>& _inputData);
 		private:
 			void setNumber(bool _negative, const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero);
 		public:
@@ -93,7 +93,7 @@ namespace etk
 			 *    += operator
 			 *****************************************************/
 			const etk::UString& operator+= (const etk::UString& _obj);
-			//const etk::UString& operator+= (const etk::UniChar& _obj);
+			//const etk::UString& operator+= (const etk::UChar& _obj);
 			/*****************************************************
 			 *    + operator
 			 *****************************************************/
@@ -117,10 +117,10 @@ namespace etk
 			/*****************************************************
 			 *    [] operator
 			 *****************************************************/
-			const etk::UniChar& operator[] (esize_t _pos) const {
+			const etk::UChar& operator[] (esize_t _pos) const {
 				return m_data[_pos];
 			}
-			etk::UniChar& operator[] (esize_t _pos) {
+			etk::UChar& operator[] (esize_t _pos) {
 				return m_data[_pos];
 			}
 			
@@ -132,8 +132,8 @@ namespace etk
 			// End With ...
 			bool endWith(const etk::UString& _data, bool _caseSensitive=true) const ;
 			// Find element
-			int32_t findForward(const etk::UniChar _data, int32_t _startPos=0) const;
-			int32_t findBack(const etk::UniChar _data, int32_t _startPos=0x7FFFFFFF) const;
+			int32_t findForward(const etk::UChar _data, int32_t _startPos=0) const;
+			int32_t findBack(const etk::UChar _data, int32_t _startPos=0x7FFFFFFF) const;
 			
 			bool isEmpty(void) const;
 			int32_t size(void) const;
@@ -142,27 +142,27 @@ namespace etk
 			 *    Generic modification function
 			 *****************************************************/
 			void add(int32_t _currentID, const char* _inputData);
-			void add(int32_t _currentID, const etk::UniChar* _inputData);
-			void add(int32_t _currentID, const etk::UniChar  _inputData);
+			void add(int32_t _currentID, const etk::UChar* _inputData);
+			void add(int32_t _currentID, const etk::UChar  _inputData);
 			void remove(int32_t _currentID, int32_t _len);
 			void clear(void);
-			void append(const etk::UniChar& _inputData);
+			void append(const etk::UChar& _inputData);
 			
 			/**
 			 * @brief Split a string in multiple separate by a specific char
 			 * @param[in] _val Separate value of the string
 			 * @return The list of all sthe string splited.
 			 */
-			etk::Vector<etk::UString> split(const etk::UniChar& _val);
+			etk::Vector<etk::UString> split(const etk::UChar& _val);
 			/**
 			 * @brief Replace a char with an other
 			 * @param[in] _out element to replace.
 			 * @param[in] _in Element to set.
 			 */
-			void replace(const etk::UniChar& _out, const etk::UniChar& _in);
+			void replace(const etk::UChar& _out, const etk::UChar& _in);
 			
-			etk::Vector<etk::UniChar> getVector(void);
-			etk::UniChar* pointer(void) { return &m_data[0]; };
+			etk::Vector<etk::UChar> getVector(void);
+			etk::UChar* pointer(void) { return &m_data[0]; };
 			
 			etk::Char c_str(void) const;
 			
@@ -242,7 +242,7 @@ namespace etk
 
 }
 
-int32_t strlen(const etk::UniChar * _data);
+int32_t strlen(const etk::UChar * _data);
 
 
 

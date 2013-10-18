@@ -32,18 +32,18 @@ namespace unicode {
 	} charset_te;
 	
 	// transform ISO <==> Unicode
-	void    convertIsoToUnicode(charset_te _inputCharset, const char                        _input_ISO,     uniChar_t &               _output_Unicode);
-	void    convertUnicodeToIso(charset_te _inputCharset, const uniChar_t                   _input_Unicode, char &                    _output_ISO);
-	int32_t convertIsoToUnicode(charset_te _inputCharset, const etk::Vector<char>&          _input_ISO,     etk::Vector<uniChar_t>&   _output_Unicode);
-	int32_t convertIsoToUnicode(charset_te _inputCharset, const etk::Vector<int8_t>&        _input_ISO,     etk::Vector<uniChar_t>&   _output_Unicode);
-	int32_t convertUnicodeToIso(charset_te _inputCharset, const etk::Vector<uniChar_t>&     _input_Unicode, etk::Vector<char>&        _output_ISO);
-	int32_t convertUnicodeToIso(charset_te _inputCharset, const etk::Vector<uniChar_t>&     _input_Unicode, etk::Vector<int8_t>&      _output_ISO);
+	void    convertIsoToUnicode(charset_te _inputCharset, const char                        _input_ISO,     etk::UChar &               _output_Unicode);
+	void    convertUnicodeToIso(charset_te _inputCharset, const etk::UChar                   _input_Unicode, char &                    _output_ISO);
+	int32_t convertIsoToUnicode(charset_te _inputCharset, const etk::Vector<char>&          _input_ISO,     etk::Vector<etk::UChar>&   _output_Unicode);
+	int32_t convertIsoToUnicode(charset_te _inputCharset, const etk::Vector<int8_t>&        _input_ISO,     etk::Vector<etk::UChar>&   _output_Unicode);
+	int32_t convertUnicodeToIso(charset_te _inputCharset, const etk::Vector<etk::UChar>&     _input_Unicode, etk::Vector<char>&        _output_ISO);
+	int32_t convertUnicodeToIso(charset_te _inputCharset, const etk::Vector<etk::UChar>&     _input_Unicode, etk::Vector<int8_t>&      _output_ISO);
 	// Transform UTF-8 <==> Unicode
-	int32_t convertUnicodeToUtf8(                        const etk::Vector<uniChar_t>& _input_Unicode, etk::Vector<char>&      _output_UTF8);
-	int32_t convertUnicodeToUtf8(                        const etk::Vector<uniChar_t>& _input_Unicode, etk::Vector<int8_t>&    _output_UTF8);
-	int32_t convertUtf8ToUnicode(                        const etk::Vector<char>&            _input_UTF8,    etk::Vector<uniChar_t>& _output_Unicode);
-	int32_t convertUtf8ToUnicode(                        const etk::Vector<int8_t>&          _input_UTF8,    etk::Vector<uniChar_t>& _output_Unicode);
-	int32_t convertUtf8ToUnicode(                        const char *                        _input_UTF8,    etk::Vector<uniChar_t>& _output_Unicode);
+	int32_t convertUnicodeToUtf8(                        const etk::Vector<etk::UChar>& _input_Unicode, etk::Vector<char>&      _output_UTF8);
+	int32_t convertUnicodeToUtf8(                        const etk::Vector<etk::UChar>& _input_Unicode, etk::Vector<int8_t>&    _output_UTF8);
+	int32_t convertUtf8ToUnicode(                        const etk::Vector<char>&            _input_UTF8,    etk::Vector<etk::UChar>& _output_Unicode);
+	int32_t convertUtf8ToUnicode(                        const etk::Vector<int8_t>&          _input_UTF8,    etk::Vector<etk::UChar>& _output_Unicode);
+	int32_t convertUtf8ToUnicode(                        const char *                        _input_UTF8,    etk::Vector<etk::UChar>& _output_Unicode);
 	// Transform ISO <==> UTF-8
 	void    convertIsoToUtf8(  charset_te _inputCharset,  const char                  _input_ISO,     char *                _output_UTF8);
 	void    convertUtf8ToIso(  charset_te _inputCharset,  const char *                _input_UTF8,    char &                _output_ISO);

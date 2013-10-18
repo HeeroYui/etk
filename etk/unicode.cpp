@@ -15,7 +15,7 @@
 
 
 
-void unicode::convertIsoToUnicode(charset_te _inputCharset, const char _input_ISO, uniChar_t & _output_Unicode)
+void unicode::convertIsoToUnicode(charset_te _inputCharset, const char _input_ISO, etk::UChar & _output_Unicode)
 {
 	switch(_inputCharset)
 	{
@@ -41,7 +41,7 @@ void unicode::convertIsoToUnicode(charset_te _inputCharset, const char _input_IS
 }
 
 
-void unicode::convertUnicodeToIso(charset_te _inputCharset, const uniChar_t _input_Unicode, char & _output_ISO)
+void unicode::convertUnicodeToIso(charset_te _inputCharset, const etk::UChar _input_Unicode, char & _output_ISO)
 {
 	const uint32_t *tmpTable = NULL;
 	switch(_inputCharset)
@@ -75,10 +75,10 @@ void unicode::convertUnicodeToIso(charset_te _inputCharset, const uniChar_t _inp
 }
 
 
-int32_t unicode::convertIsoToUnicode(charset_te _inputCharset, const etk::Vector<char>& _input_ISO, etk::Vector<uniChar_t>& _output_Unicode)
+int32_t unicode::convertIsoToUnicode(charset_te _inputCharset, const etk::Vector<char>& _input_ISO, etk::Vector<etk::UChar>& _output_Unicode)
 {
 	_output_Unicode.clear();
-	uniChar_t output;
+	etk::UChar output;
 	for(int32_t iii=0; iii<_input_ISO.size(); iii++) {
 		convertIsoToUnicode(_inputCharset, (char)_input_ISO[iii], output);
 		_output_Unicode.pushBack(output);
@@ -91,10 +91,10 @@ int32_t unicode::convertIsoToUnicode(charset_te _inputCharset, const etk::Vector
 	return _output_Unicode.size();
 }
 
-int32_t unicode::convertIsoToUnicode(charset_te _inputCharset, const etk::Vector<int8_t>& _input_ISO, etk::Vector<uniChar_t>& _output_Unicode)
+int32_t unicode::convertIsoToUnicode(charset_te _inputCharset, const etk::Vector<int8_t>& _input_ISO, etk::Vector<etk::UChar>& _output_Unicode)
 {
 	_output_Unicode.clear();
-	uniChar_t output;
+	etk::UChar output;
 	for(int32_t iii=0; iii<_input_ISO.size(); iii++) {
 		convertIsoToUnicode(_inputCharset, (char)_input_ISO[iii], output);
 		_output_Unicode.pushBack(output);
@@ -108,7 +108,7 @@ int32_t unicode::convertIsoToUnicode(charset_te _inputCharset, const etk::Vector
 }
 
 
-int32_t unicode::convertUnicodeToIso(charset_te _inputCharset, const etk::Vector<uniChar_t>& _input_Unicode, etk::Vector<char>&    _output_ISO)
+int32_t unicode::convertUnicodeToIso(charset_te _inputCharset, const etk::Vector<etk::UChar>& _input_Unicode, etk::Vector<char>&    _output_ISO)
 {
 	_output_ISO.clear();
 	char output[10];
@@ -124,7 +124,7 @@ int32_t unicode::convertUnicodeToIso(charset_te _inputCharset, const etk::Vector
 	return _output_ISO.size();
 }
 
-int32_t unicode::convertUnicodeToIso(charset_te _inputCharset, const etk::Vector<uniChar_t>& _input_Unicode, etk::Vector<int8_t>&    _output_ISO)
+int32_t unicode::convertUnicodeToIso(charset_te _inputCharset, const etk::Vector<etk::UChar>& _input_Unicode, etk::Vector<int8_t>&    _output_ISO)
 {
 	_output_ISO.clear();
 	char output[10];
@@ -142,7 +142,7 @@ int32_t unicode::convertUnicodeToIso(charset_te _inputCharset, const etk::Vector
 
 
 
-int32_t unicode::convertUnicodeToUtf8(const etk::Vector<uniChar_t>& _input_Unicode, etk::Vector<char>& _output_UTF8)
+int32_t unicode::convertUnicodeToUtf8(const etk::Vector<etk::UChar>& _input_Unicode, etk::Vector<char>& _output_UTF8)
 {
 	char output[10];
 	
@@ -158,7 +158,7 @@ int32_t unicode::convertUnicodeToUtf8(const etk::Vector<uniChar_t>& _input_Unico
 	return _output_UTF8.size()-1;
 }
 
-int32_t unicode::convertUnicodeToUtf8(const etk::Vector<uniChar_t>& _input_Unicode, etk::Vector<int8_t>& _output_UTF8)
+int32_t unicode::convertUnicodeToUtf8(const etk::Vector<etk::UChar>& _input_Unicode, etk::Vector<int8_t>& _output_UTF8)
 {
 	char output[10];
 	
@@ -175,7 +175,7 @@ int32_t unicode::convertUnicodeToUtf8(const etk::Vector<uniChar_t>& _input_Unico
 }
 
 
-int32_t unicode::convertUtf8ToUnicode(const etk::Vector<char>& _input_UTF8, etk::Vector<uniChar_t>& _output_Unicode)
+int32_t unicode::convertUtf8ToUnicode(const etk::Vector<char>& _input_UTF8, etk::Vector<etk::UChar>& _output_Unicode)
 {
 	char tmpData[20];
 	int32_t pos = 0;
@@ -219,14 +219,14 @@ int32_t unicode::convertUtf8ToUnicode(const etk::Vector<char>& _input_UTF8, etk:
 			tmpData[0] = '\0';
 			pos += 1;
 		}
-		uniChar_t tmpUnicode;
+		etk::UChar tmpUnicode;
 		tmpUnicode.setUtf8(tmpData);
 		_output_Unicode.pushBack(tmpUnicode);
 	}
 	return 0;
 }
 
-int32_t unicode::convertUtf8ToUnicode(const etk::Vector<int8_t>& _input_UTF8, etk::Vector<uniChar_t>& _output_Unicode)
+int32_t unicode::convertUtf8ToUnicode(const etk::Vector<int8_t>& _input_UTF8, etk::Vector<etk::UChar>& _output_Unicode)
 {
 	char tmpData[20];
 	int32_t pos = 0;
@@ -270,14 +270,14 @@ int32_t unicode::convertUtf8ToUnicode(const etk::Vector<int8_t>& _input_UTF8, et
 			tmpData[0] = '\0';
 			pos += 1;
 		}
-		uniChar_t tmpUnicode;
+		etk::UChar tmpUnicode;
 		tmpUnicode.setUtf8(tmpData);
 		_output_Unicode.pushBack(tmpUnicode);
 	}
 	return 0;
 }
 
-int32_t unicode::convertUtf8ToUnicode(const char * _input_UTF8, etk::Vector<uniChar_t>& _output_Unicode)
+int32_t unicode::convertUtf8ToUnicode(const char * _input_UTF8, etk::Vector<etk::UChar>& _output_Unicode)
 {
 	char tmpData[20];
 	int32_t pos = 0;
@@ -325,7 +325,7 @@ int32_t unicode::convertUtf8ToUnicode(const char * _input_UTF8, etk::Vector<uniC
 			tmpData[0] = '\0';
 			pos += 1;
 		}
-		uniChar_t tmpUnicode;
+		etk::UChar tmpUnicode;
 		tmpUnicode.setUtf8(tmpData);
 		_output_Unicode.pushBack(tmpUnicode);
 	}
@@ -336,7 +336,7 @@ int32_t unicode::convertUtf8ToUnicode(const char * _input_UTF8, etk::Vector<uniC
 // Transform ISO <==> UTF-8
 void unicode::convertIsoToUtf8(charset_te _inputCharset, const char _input_ISO, char * _output_UTF8)
 {
-	uniChar_t tmpUnicode;
+	etk::UChar tmpUnicode;
 	// concert Iso in UniCode
 	convertIsoToUnicode(_inputCharset, _input_ISO, tmpUnicode );
 	// convert UniCode in Utf-8
@@ -346,7 +346,7 @@ void unicode::convertIsoToUtf8(charset_te _inputCharset, const char _input_ISO, 
 
 void unicode::convertUtf8ToIso(charset_te _inputCharset, const char * _input_UTF8, char & _output_ISO)
 {
-	uniChar_t tmpUnicode;
+	etk::UChar tmpUnicode;
 	// convert Utf-8 in UniCode
 	tmpUnicode.setUtf8(_input_UTF8);
 	// concert UniCode in Iso

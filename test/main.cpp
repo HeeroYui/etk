@@ -22,7 +22,7 @@ void testVector(void)
 	
 }
 
-void testUniChar(void)
+void testUChar(void)
 {
 	
 }
@@ -151,7 +151,7 @@ int main(int argc, const char *argv[])
 	// the only one init for etk:
 	debug::setGeneralLevel(etk::LOG_LEVEL_VERBOSE);
 	//testVector();
-	//testUniChar();
+	//testUChar();
 	//testUString();
 	testHash();
 	//testFSNode();

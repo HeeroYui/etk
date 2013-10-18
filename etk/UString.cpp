@@ -10,7 +10,7 @@
 #include <etk/unicode.h>
 #include <etk/Debug.h>
 
-int32_t strlen(const etk::UniChar * _data)
+int32_t strlen(const etk::UChar * _data)
 {
 	if (NULL == _data) {
 		return 0;
@@ -54,7 +54,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector<etk::UString>& _
 etk::UString::UString(void)
 {
 	//TK_INFO("new etk::UString()");
-	m_data.pushBack(etk::UniChar::Null);
+	m_data.pushBack(etk::UChar::Null);
 }
 
 
@@ -73,8 +73,8 @@ etk::UString::UString(const char* _data, unicode::charset_te _inputCharset)
 		unicode::convertIsoToUnicode(_inputCharset, transformData, m_data);
 	}
 	if(    0 == m_data.size()
-	    || m_data[m_data.size()-1]!=etk::UniChar::Null) {
-		m_data.pushBack(etk::UniChar::Null);
+	    || m_data[m_data.size()-1]!=etk::UChar::Null) {
+		m_data.pushBack(etk::UChar::Null);
 	}
 }
 
@@ -131,7 +131,7 @@ etk::UString::UString(const bool _inputData, etk::UString::printMode_te _mode, b
 			}
 			break;
 	}
-	m_data.pushBack(etk::UniChar::Null);
+	m_data.pushBack(etk::UChar::Null);
 }
 
 etk::UString::UString(const etk::UString& _obj)
@@ -140,10 +140,10 @@ etk::UString::UString(const etk::UString& _obj)
 	m_data = _obj.m_data;
 }
 
-etk::UString::UString(const etk::UniChar& _inputData)
+etk::UString::UString(const etk::UChar& _inputData)
 {
 	m_data.pushBack(_inputData);
-	m_data.pushBack(etk::UniChar::Null);
+	m_data.pushBack(etk::UChar::Null);
 }
 
 etk::UString::UString(const float _inputData)
@@ -289,9 +289,9 @@ void etk::UString::setNumber(bool _negative, const uint64_t& _inputData, etk::US
 		//TK_ERROR ("        " << ploppp);
 	}
 	if (m_data.size()==0) {
-		m_data.pushBack(etk::UniChar::Null);
-	} else if (m_data[m_data.size()-1]!=etk::UniChar::Null) {
-		m_data.pushBack(etk::UniChar::Null);
+		m_data.pushBack(etk::UChar::Null);
+	} else if (m_data[m_data.size()-1]!=etk::UChar::Null) {
+		m_data.pushBack(etk::UChar::Null);
 	}
 	//TK_ERROR(" convert : " << _inputData << " in : " << *this << " len=" << m_data.Size());
 }
@@ -316,7 +316,7 @@ void etk::UString::set(const uint64_t& _inputData, etk::UString::printMode_te _m
 }
 
 // multiple element add
-etk::UString::UString(const etk::UniChar* _inputData, int32_t _len)
+etk::UString::UString(const etk::UChar* _inputData, int32_t _len)
 {
 	set(_inputData, _len);
 }
@@ -336,7 +336,7 @@ etk::UString::UString(const etk::Vector<int8_t>& _inputData)
 	set(_inputData);
 }
 
-etk::UString::UString(const etk::Vector<etk::UniChar>& _inputData)
+etk::UString::UString(const etk::Vector<etk::UChar>& _inputData)
 {
 	set(_inputData);
 }
@@ -348,7 +348,7 @@ void etk::UString::set(const etk::Vector<char>& _inputData)
 		clear();
 		return;
 	}
-	etk::Vector<etk::UniChar> output_Unicode;
+	etk::Vector<etk::UChar> output_Unicode;
 	unicode::convertUtf8ToUnicode(_inputData, output_Unicode);
 	set(output_Unicode);
 }
@@ -359,21 +359,21 @@ void etk::UString::set(const etk::Vector<int8_t>& _inputData)
 		clear();
 		return;
 	}
-	etk::Vector<etk::UniChar> output_Unicode;
+	etk::Vector<etk::UChar> output_Unicode;
 	unicode::convertUtf8ToUnicode(_inputData, output_Unicode);
 	set(output_Unicode);
 }
 
 
-void etk::UString::set(const etk::Vector<etk::UniChar>& _inputData)
+void etk::UString::set(const etk::Vector<etk::UChar>& _inputData)
 {
 	m_data = _inputData;
 	if (m_data.size()>0) {
-		if (m_data[m_data.size()-1] != etk::UniChar::Null) {
-			m_data.pushBack(etk::UniChar::Null);
+		if (m_data[m_data.size()-1] != etk::UChar::Null) {
+			m_data.pushBack(etk::UChar::Null);
 		}
 	} else {
-		m_data.pushBack(etk::UniChar::Null);
+		m_data.pushBack(etk::UChar::Null);
 	}
 	//TK_DEBUG("m_dataLen="<<m_dataLen << " m_dataLenUTF8="<<m_dataLenUTF8 << " description=" << m_data);
 }
@@ -383,7 +383,7 @@ void etk::UString::set(const char* _inputData, int32_t _len)
 	// clear all the data
 	m_data.clear();
 	if (NULL == _inputData) {
-		m_data.pushBack(etk::UniChar::Null);
+		m_data.pushBack(etk::UChar::Null);
 		// nothing to add ... ==> just exit
 		return;
 	}
@@ -406,18 +406,18 @@ void etk::UString::set(const char* _inputData, int32_t _len)
 		unicode::convertUtf8ToUnicode(tmpChar, m_data);
 	}
 	if (m_data.size()==0) {
-		m_data.pushBack(etk::UniChar::Null);
-	} else if (m_data[m_data.size()-1]!=etk::UniChar::Null) {
-		m_data.pushBack(etk::UniChar::Null);
+		m_data.pushBack(etk::UChar::Null);
+	} else if (m_data[m_data.size()-1]!=etk::UChar::Null) {
+		m_data.pushBack(etk::UChar::Null);
 	}
 }
 
-void etk::UString::set(const etk::UniChar* _inputData, int32_t _len)
+void etk::UString::set(const etk::UChar* _inputData, int32_t _len)
 {
 	// clear all the data
 	m_data.clear();
 	if (NULL == _inputData) {
-		m_data.pushBack(etk::UniChar::Null);
+		m_data.pushBack(etk::UChar::Null);
 		// nothing to add ... ==> just exit
 		return;
 	}
@@ -430,9 +430,9 @@ void etk::UString::set(const etk::UniChar* _inputData, int32_t _len)
 		m_data.pushBack(_inputData, _len);
 	}
 	if (m_data.size()==0) {
-		m_data.pushBack(etk::UniChar::Null);
-	} else if (m_data[m_data.size()-1]!=etk::UniChar::Null) {
-		m_data.pushBack(etk::UniChar::Null);
+		m_data.pushBack(etk::UChar::Null);
+	} else if (m_data[m_data.size()-1]!=etk::UChar::Null) {
+		m_data.pushBack(etk::UChar::Null);
 	}
 }
 
@@ -452,8 +452,8 @@ bool etk::UString::operator> (const etk::UString& _obj) const
 	if( this != &_obj ) {
 		for (int32_t iii=0; iii < m_data.size() && iii < _obj.m_data.size(); iii++) {
 			//TK_DEBUG("    compare : '" << (char)m_data[iii] << "'>'" << (char)_obj.m_data[iii] << "' ==> " << changeOrder(m_data[iii]) << ">" << changeOrder(_obj.m_data[iii]) << "");
-			etk::UniChar elemA = m_data[iii].changeOrder();
-			etk::UniChar elemB = _obj.m_data[iii].changeOrder();
+			etk::UChar elemA = m_data[iii].changeOrder();
+			etk::UChar elemB = _obj.m_data[iii].changeOrder();
 			if (elemA != elemB) {
 				if (elemA > elemB) {
 					return true;
@@ -472,8 +472,8 @@ bool etk::UString::operator>= (const etk::UString& _obj) const
 {
 	if( this != &_obj ) {
 		for (int32_t iii=0; iii < m_data.size() && iii < _obj.m_data.size(); iii++) {
-			etk::UniChar elemA = m_data[iii].changeOrder();
-			etk::UniChar elemB = _obj.m_data[iii].changeOrder();
+			etk::UChar elemA = m_data[iii].changeOrder();
+			etk::UChar elemB = _obj.m_data[iii].changeOrder();
 			if (elemA != elemB) {
 				if (elemA > elemB) {
 					return true;
@@ -492,8 +492,8 @@ bool etk::UString::operator< (const etk::UString& _obj) const
 {
 	if( this != &_obj ) {
 		for (int32_t iii=0; iii < m_data.size() && iii < _obj.m_data.size(); iii++) {
-			etk::UniChar elemA = m_data[iii].changeOrder();
-			etk::UniChar elemB = _obj.m_data[iii].changeOrder();
+			etk::UChar elemA = m_data[iii].changeOrder();
+			etk::UChar elemB = _obj.m_data[iii].changeOrder();
 			if (elemA != elemB) {
 				if (elemA < elemB) {
 					return true;
@@ -512,8 +512,8 @@ bool etk::UString::operator<= (const etk::UString& _obj) const
 {
 	if( this != &_obj ) {
 		for (int32_t iii=0; iii < m_data.size() && iii < _obj.m_data.size(); iii++) {
-			etk::UniChar elemA = m_data[iii].changeOrder();
-			etk::UniChar elemB = _obj.m_data[iii].changeOrder();
+			etk::UChar elemA = m_data[iii].changeOrder();
+			etk::UChar elemB = _obj.m_data[iii].changeOrder();
 			if (elemA != elemB) {
 				if (elemA < elemB) {
 					return true;
@@ -577,7 +577,7 @@ const etk::UString& etk::UString::operator+= (const etk::UString &_obj)
 		// This previous include the \0 in case of the 2 UString are different...
 		if( this == &_obj ) {
 			// add the removed end UString
-			m_data.pushBack(etk::UniChar::Null);
+			m_data.pushBack(etk::UChar::Null);
 		}
 	}
 	return *this;
@@ -619,7 +619,7 @@ void etk::UString::add(int32_t _currentID, const char* _inputData)
 }
 
 
-void etk::UString::add(int32_t _currentID, const etk::UniChar* _inputData)
+void etk::UString::add(int32_t _currentID, const etk::UChar* _inputData)
 {
 	// get the input lenght
 	int32_t len = strlen(_inputData);
@@ -638,19 +638,19 @@ void etk::UString::add(int32_t _currentID, const etk::UniChar* _inputData)
 }
 
 
-void etk::UString::add(int32_t _currentID, const etk::UniChar _inputData)
+void etk::UString::add(int32_t _currentID, const etk::UChar _inputData)
 {
-	etk::UniChar data[2];
+	etk::UChar data[2];
 	data[0] = _inputData;
-	data[1] = etk::UniChar::Null;
+	data[1] = etk::UChar::Null;
 	add(_currentID, data);
 }
 
-void etk::UString::append(const etk::UniChar& _inputData)
+void etk::UString::append(const etk::UChar& _inputData)
 {
 	m_data.popBack();
 	m_data.pushBack(_inputData);
-	m_data.pushBack(etk::UniChar::Null);
+	m_data.pushBack(etk::UChar::Null);
 }
 
 
@@ -668,10 +668,10 @@ void etk::UString::remove(int32_t _currentID, int32_t _len)
 void etk::UString::clear(void)
 {
 	m_data.clear();
-	m_data.pushBack(etk::UniChar::Null);
+	m_data.pushBack(etk::UChar::Null);
 }
 
-int32_t etk::UString::findForward(const etk::UniChar _element, int32_t _startPos) const
+int32_t etk::UString::findForward(const etk::UChar _element, int32_t _startPos) const
 {
 	if (_startPos < 0) {
 		_startPos = 0;
@@ -686,7 +686,7 @@ int32_t etk::UString::findForward(const etk::UniChar _element, int32_t _startPos
 	return -1;
 }
 
-int32_t etk::UString::findBack(const etk::UniChar _element, int32_t _startPos) const
+int32_t etk::UString::findBack(const etk::UChar _element, int32_t _startPos) const
 {
 	if (_startPos < 0) {
 		return -1;
@@ -716,7 +716,7 @@ etk::UString etk::UString::extract(int32_t _posStart, int32_t _posEnd) const
 		_posEnd = size();
 	}
 	out.m_data = m_data.extract(_posStart, _posEnd);
-	out.m_data.pushBack(etk::UniChar::Null);
+	out.m_data.pushBack(etk::UChar::Null);
 	return out;
 }
 
@@ -749,13 +749,13 @@ etk::UString etk::UString::extractLine(int32_t _pos) const
 		stopPos = size();
 	}
 	out.m_data = m_data.extract(startPos, stopPos);
-	out.m_data.pushBack(etk::UniChar::Null);
+	out.m_data.pushBack(etk::UChar::Null);
 	return out;
 }
 
-etk::Vector<etk::UniChar> etk::UString::getVector(void)
+etk::Vector<etk::UChar> etk::UString::getVector(void)
 {
-	etk::Vector<etk::UniChar> out = m_data;
+	etk::Vector<etk::UChar> out = m_data;
 	out.popBack();
 	return out;
 }
@@ -826,7 +826,7 @@ etk::Char etk::UString::c_str(void) const
 	return tmpVar;
 }
 
-etk::Vector<etk::UString> etk::UString::split(const etk::UniChar& _val)
+etk::Vector<etk::UString> etk::UString::split(const etk::UChar& _val)
 {
 	etk::Vector<etk::UString> list;
 	int32_t lastStartPos=0;
@@ -843,7 +843,7 @@ etk::Vector<etk::UString> etk::UString::split(const etk::UniChar& _val)
 }
 
 
-void etk::UString::replace(const etk::UniChar& _out, const etk::UniChar& _in)
+void etk::UString::replace(const etk::UChar& _out, const etk::UChar& _in)
 {
 	for(int32_t iii=0 ; iii<m_data.size() ; iii++) {
 		if (m_data[iii]==_out) {

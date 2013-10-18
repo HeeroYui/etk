@@ -13,7 +13,7 @@ def Create(target):
 		'etk/unicode.cpp',
 		'etk/unicodeTable.cpp',
 		'etk/Char.cpp',
-		'etk/UniChar.cpp',
+		'etk/UChar.cpp',
 		'etk/UString.cpp',
 		'etk/Stream.cpp',
 		'etk/RegExp.cpp',

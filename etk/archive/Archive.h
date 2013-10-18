@@ -11,7 +11,7 @@
 
 #include <etk/UString.h>
 #include <etk/Vector.h>
-#include <etk/Hach.h>
+#include <etk/Hash.h>
 
 namespace etk
 {

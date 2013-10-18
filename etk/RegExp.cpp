@@ -64,7 +64,7 @@ const etk::convertionTable_ts etk::constConvertionTable[] = {
 };
 const esize_t etk::constConvertionTableSize = sizeof(etk::constConvertionTable) / sizeof(etk::convertionTable_ts) ;
 
-void etk::displayElem(const etk::Vector<etk::UniChar>& _data, esize_t _start, esize_t _stop)
+void etk::displayElem(const etk::Vector<etk::UChar>& _data, esize_t _start, esize_t _stop)
 {
 	etk::cout<< ETK_BASH_COLOR_NORMAL;
 	for (esize_t iii=_start; iii<_data.size() && iii<_stop ; iii++) {
@@ -125,7 +125,7 @@ char * etk::levelSpace(uint32_t _level)
 }
 
 
-esize_t etk::getLenOfPTheseElem(const etk::Vector<etk::UniChar>& _data, esize_t _startPos)
+esize_t etk::getLenOfPTheseElem(const etk::Vector<etk::UChar>& _data, esize_t _startPos)
 {
 	if (_startPos>=_data.size()){
 		return 0;
@@ -166,7 +166,7 @@ esize_t etk::getLenOfPTheseElem(const etk::Vector<etk::UniChar>& _data, esize_t 
 	return pos - _startPos;
 }
 
-esize_t etk::getLenOfPThese(const etk::Vector<etk::UniChar>& _data, esize_t _startPos)
+esize_t etk::getLenOfPThese(const etk::Vector<etk::UChar>& _data, esize_t _startPos)
 {
 	esize_t pos = _startPos;
 	int32_t nbOpen = 0;
@@ -208,7 +208,7 @@ esize_t etk::getLenOfPThese(const etk::Vector<etk::UniChar>& _data, esize_t _sta
 }
 
 
-esize_t etk::getLenOfBracket(const etk::Vector<etk::UniChar>& _data, esize_t _startPos)
+esize_t etk::getLenOfBracket(const etk::Vector<etk::UChar>& _data, esize_t _startPos)
 {
 	esize_t pos = _startPos;
 	// special case of the (...) or | ==> we search '|' or ')'
@@ -242,7 +242,7 @@ esize_t etk::getLenOfBracket(const etk::Vector<etk::UniChar>& _data, esize_t _st
 }
 
 
-esize_t etk::getLenOfBrace(const etk::Vector<etk::UniChar>& _data, esize_t _startPos)
+esize_t etk::getLenOfBrace(const etk::Vector<etk::UChar>& _data, esize_t _startPos)
 {
 	int32_t pos = _startPos;
 	// special case of the (...) or | ==> we search '|' or ')'
@@ -277,7 +277,7 @@ esize_t etk::getLenOfBrace(const etk::Vector<etk::UniChar>& _data, esize_t _star
 }
 
 
-esize_t etk::getLenOfNormal(const etk::Vector<etk::UniChar>& _data, esize_t _startPos)
+esize_t etk::getLenOfNormal(const etk::Vector<etk::UChar>& _data, esize_t _startPos)
 {
 	esize_t pos = _startPos;
 
@@ -329,7 +329,7 @@ esize_t etk::getLenOfNormal(const etk::Vector<etk::UniChar>& _data, esize_t _sta
 }
 
 
-bool etk::parseBrace(const etk::Vector<etk::UniChar>& _data, uint32_t& _min, uint32_t& _max)
+bool etk::parseBrace(const etk::Vector<etk::UChar>& _data, uint32_t& _min, uint32_t& _max)
 {
 	//TK_INFO("parse {...} in "; DisplayElem(data); );
 	esize_t k=0;

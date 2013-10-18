@@ -9,9 +9,7 @@
 #ifndef __ETK_UNI_CHAR_H__
 #define __ETK_UNI_CHAR_H__
 
-namespace etk
-{
-	
+namespace etk {
 	//in the unicode section we have : [E000..F8FF]   private area ==> we will store element in this area:
 	// internal define to permit to have all needed system
 	typedef enum {
@@ -41,97 +39,91 @@ namespace etk
 		REGEXP_OPCODE_ERROR, // not used
 	} regExpPrivateSection_te;
 	
-	class UniChar
-	{
+	class UChar {
 		public: // classic unicar code :
-			static const UniChar Null; //!< '\0' 
-			static const UniChar Return; //!< '\n' 
-			static const UniChar CarrierReturn; //!< '\r' CR
-			static const UniChar Tabulation; //!< '\t' TAB
-			static const UniChar Suppress; //!< BS (SUPPRESS)
-			static const UniChar Delete; //!< DEL
-			static const UniChar Space; //!< ' ' SPACE
-			static const UniChar Escape; //!< ESC Escape
+			static const UChar Null; //!< '\0' 
+			static const UChar Return; //!< '\n' 
+			static const UChar CarrierReturn; //!< '\r' CR
+			static const UChar Tabulation; //!< '\t' TAB
+			static const UChar Suppress; //!< BS (SUPPRESS)
+			static const UChar Delete; //!< DEL
+			static const UChar Space; //!< ' ' SPACE
+			static const UChar Escape; //!< ESC Escape
 		private:
 			uint32_t m_value;
 		public:
 			// note : No preset at this element to prevent unneded set
-			UniChar(void) { };
-			UniChar(const etk::UniChar& _obj) :
-				m_value(_obj.m_value)
-			{ };
-			UniChar(const char _obj) :
-				m_value((uint32_t)_obj)
-			{ };
-			UniChar(const regExpPrivateSection_te _obj) :
-				m_value((uint32_t)_obj)
-			{ };
-			~UniChar(void) {}
+			UChar(void) {
+				
+			};
+			UChar(const etk::UChar& _obj) :
+			  m_value(_obj.m_value) {
+				
+			};
+			UChar(const char _obj) :
+			  m_value((uint32_t)_obj){
+				
+			};
+			UChar(const regExpPrivateSection_te _obj) :
+			  m_value((uint32_t)_obj) {
+				
+			};
+			~UChar(void) {}
 			
 			/*****************************************************
 			 *    = assigment
 			 *****************************************************/
-			const etk::UniChar& operator= (const etk::UniChar& _obj )
-			{
+			const etk::UChar& operator= (const etk::UChar& _obj ) {
 				m_value = _obj.m_value;
 				return *this;
 			};
 			/*****************************************************
 			 *    == operator
 			 *****************************************************/
-			bool operator== (const etk::UniChar& _obj) const
-			{
+			bool operator== (const etk::UChar& _obj) const {
 				return m_value == _obj.m_value;
 			};
-			bool compareNoCase(const etk::UniChar& _obj) const;
+			bool compareNoCase(const etk::UChar& _obj) const;
 			/*****************************************************
 			 *    != operator
 			 *****************************************************/
-			bool operator!= (const etk::UniChar& _obj) const
-			{
+			bool operator!= (const etk::UChar& _obj) const {
 				return m_value != _obj.m_value;
 			};
 			/*****************************************************
 			 *    > < >= <= operator
 			 *****************************************************/
-			bool operator> (const etk::UniChar& _obj) const
-			{
+			bool operator> (const etk::UChar& _obj) const {
 				return m_value > _obj.m_value;
 			};
-			bool operator>= (const etk::UniChar& _obj) const
-			{
+			bool operator>= (const etk::UChar& _obj) const {
 				return m_value >= _obj.m_value;
 			};
-			bool operator< (const etk::UniChar& _obj) const
-			{
+			bool operator< (const etk::UChar& _obj) const {
 				return m_value < _obj.m_value;
 			};
-			bool operator<= (const etk::UniChar& _obj) const
-			{
+			bool operator<= (const etk::UChar& _obj) const {
 				return m_value <= _obj.m_value;
 			};
 			/*****************************************************
 			 *    += operator
 			 *****************************************************/
-			const etk::UniChar& operator+= (const etk::UniChar& _obj)
-			{
+			const etk::UChar& operator+= (const etk::UChar& _obj) {
 				m_value += _obj.m_value;
 				return *this;
 			};
 			/*****************************************************
 			 *    + operator
 			 *****************************************************/
-			etk::UniChar operator+ (const etk::UniChar& _obj) const
-			{
-				etk::UniChar tmp = *this;
+			etk::UChar operator+ (const etk::UChar& _obj) const {
+				etk::UChar tmp = *this;
 				tmp += _obj;
 				return tmp;
 			};
 			/*****************************************************
 			 *    -= operator
 			 *****************************************************/
-			const etk::UniChar& operator-= (const etk::UniChar& _obj)
-			{
+			const etk::UChar& operator-= (const etk::UChar& _obj) {
 				if (_obj.m_value >= m_value) {
 					m_value = 0;
 				} else {
@@ -142,9 +134,8 @@ namespace etk
 			/*****************************************************
 			 *    - operator
 			 *****************************************************/
-			etk::UniChar operator- (const etk::UniChar& _obj) const
-			{
-				etk::UniChar tmp = *this;
+			etk::UChar operator- (const etk::UChar& _obj) const {
+				etk::UChar tmp = *this;
 				tmp -= _obj;
 				return tmp;
 			};
@@ -166,11 +157,11 @@ namespace etk
 			int32_t toInt32(void) const;
 			
 			void lower(void);
-			UniChar toLower(void) const;
+			UChar toLower(void) const;
 			void upper(void);
-			UniChar toUpper(void) const;
+			UChar toUpper(void) const;
 			
-			UniChar changeOrder(void) const;
+			UChar changeOrder(void) const;
 			
 			uint32_t get(void) const { return m_value; };
 			void set(uint32_t _val) { m_value = _val; };
@@ -194,8 +185,6 @@ namespace etk
 			static bool theoricUTF8First(const char _input);
 	};
 };
-
-typedef etk::UniChar uniChar_t;
 
 #endif
 

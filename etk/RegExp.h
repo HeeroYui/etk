@@ -56,14 +56,14 @@ typedef struct {
 extern const convertionTable_ts constConvertionTable[];
 extern const esize_t constConvertionTableSize;
 
-void displayElem(const etk::Vector<etk::UniChar>& _data, esize_t _start=0, esize_t _stop=0x7FFFFFFF);
+void displayElem(const etk::Vector<etk::UChar>& _data, esize_t _start=0, esize_t _stop=0x7FFFFFFF);
 char * levelSpace(uint32_t _level);
-esize_t getLenOfPTheseElem(const etk::Vector<etk::UniChar>& _data, esize_t _startPos);
-esize_t getLenOfPThese(const etk::Vector<etk::UniChar>& _data, esize_t _startPos);
-esize_t getLenOfBracket(const etk::Vector<etk::UniChar>& _data, esize_t _startPos);
-esize_t getLenOfBrace(const etk::Vector<etk::UniChar>& _data, esize_t _startPos);
-esize_t getLenOfNormal(const etk::Vector<etk::UniChar>& _data, esize_t _startPos);
-bool parseBrace(const etk::Vector<etk::UniChar>& _data, uint32_t& _min, uint32_t& _max);
+esize_t getLenOfPTheseElem(const etk::Vector<etk::UChar>& _data, esize_t _startPos);
+esize_t getLenOfPThese(const etk::Vector<etk::UChar>& _data, esize_t _startPos);
+esize_t getLenOfBracket(const etk::Vector<etk::UChar>& _data, esize_t _startPos);
+esize_t getLenOfBrace(const etk::Vector<etk::UChar>& _data, esize_t _startPos);
+esize_t getLenOfNormal(const etk::Vector<etk::UChar>& _data, esize_t _startPos);
+bool parseBrace(const etk::Vector<etk::UChar>& _data, uint32_t& _min, uint32_t& _max);
 
 
 #undef __class__
@@ -78,7 +78,7 @@ template<class CLASS_TYPE> class RegExpNode
 		uint32_t m_multipleMin; //!< minimum repetition (included)
 		uint32_t m_multipleMax; //!< maximum repetition (included)
 		// Data Section ... (can have no data...)
-		etk::Vector<etk::UniChar> m_RegExpData; //!< data to parse and compare in some case ...
+		etk::Vector<etk::UChar> m_RegExpData; //!< data to parse and compare in some case ...
 	public :
 		/**
 		 * @brief Constructor
@@ -98,7 +98,7 @@ template<class CLASS_TYPE> class RegExpNode
 		 * @param[in] _data Property of the regexp
 		 * @return the number of element used
 		 */
-		virtual int32_t generate(const etk::Vector<etk::UniChar>& _data)
+		virtual int32_t generate(const etk::Vector<etk::UChar>& _data)
 		{
 			return 0;
 		};
@@ -151,7 +151,7 @@ template<class CLASS_TYPE> class RegExpNodeValue : public RegExpNode<CLASS_TYPE>
 {
 	protected :
 		// SubNodes :
-		etk::Vector<etk::UniChar> m_data;
+		etk::Vector<etk::UChar> m_data;
 	public :
 		
 		/**
@@ -164,7 +164,7 @@ template<class CLASS_TYPE> class RegExpNodeValue : public RegExpNode<CLASS_TYPE>
 		 */
 		~RegExpNodeValue(void) { };
 		
-		int32_t generate(const etk::Vector<etk::UniChar>& _data)
+		int32_t generate(const etk::Vector<etk::UChar>& _data)
 		{
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse \"Value\" data="; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
@@ -234,7 +234,7 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public RegExpNode<CLASS_TYP
 {
 	protected :
 		// SubNodes :
-		etk::Vector<etk::UniChar> m_data;
+		etk::Vector<etk::UChar> m_data;
 	public :
 		
 		/**
@@ -247,13 +247,13 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public RegExpNode<CLASS_TYP
 		 */
 		~RegExpNodeBracket(void) { };
 		
-		int32_t generate(const etk::Vector<etk::UniChar>& _data)
+		int32_t generate(const etk::Vector<etk::UChar>& _data)
 		{
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse [...] data="; displayElem(_data););
 			m_data.clear();
 			
-			etk::UniChar lastElement = 'a';
+			etk::UChar lastElement = 'a';
 			bool multipleElement = false;
 			//
 			for (int32_t kkk=0; kkk<RegExpNode<CLASS_TYPE>::m_RegExpData.size(); kkk++) {
@@ -261,7 +261,7 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public RegExpNode<CLASS_TYP
 					TK_ERROR("Can not have 2 consecutive - in [...]");
 					return 0;
 				} else if (multipleElement == true) {
-					etk::UniChar jjj='\0';
+					etk::UChar jjj='\0';
 					for (jjj=lastElement+1; jjj <= RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]; jjj+=1) {
 						m_data.pushBack(jjj);
 					}
@@ -347,7 +347,7 @@ template<class CLASS_TYPE> class RegExpNodeDigit : public RegExpNode<CLASS_TYPE>
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UniChar tmpVal = _data[_currentPos+jjj];
+				etk::UChar tmpVal = _data[_currentPos+jjj];
 				TK_REG_EXP_DBG_MODE("compare : " << tmpVal);
 				if(    tmpVal >= '0'
 				    && tmpVal <= '9')
@@ -402,7 +402,7 @@ template<class CLASS_TYPE> class RegExpNodeDigitNot : public RegExpNode<CLASS_TY
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UniChar tmpVal = _data[_currentPos+jjj];
+				etk::UChar tmpVal = _data[_currentPos+jjj];
 				if(    tmpVal < '0'
 				    || tmpVal > '9') {
 					_findLen += 1;
@@ -451,7 +451,7 @@ template<class CLASS_TYPE> class RegExpNodeLetter : public RegExpNode<CLASS_TYPE
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UniChar tmpVal = _data[_currentPos+jjj];
+				etk::UChar tmpVal = _data[_currentPos+jjj];
 				if(    (    tmpVal >= 'a'
 				         && tmpVal <= 'z')
 				    || (    tmpVal >= 'A'
@@ -505,7 +505,7 @@ template<class CLASS_TYPE> class RegExpNodeLetterNot : public RegExpNode<CLASS_T
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UniChar tmpVal = _data[_currentPos+jjj];
+				etk::UChar tmpVal = _data[_currentPos+jjj];
 				if(    (    tmpVal < 'a'
 				         && tmpVal > 'Z')
 				    || tmpVal < 'A'
@@ -559,7 +559,7 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpace : public RegExpNode<CLASS_
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UniChar tmpVal = _data[_currentPos+jjj];
+				etk::UChar tmpVal = _data[_currentPos+jjj];
 				if(    tmpVal == ' '
 				    || tmpVal == '\t'
 				    || tmpVal == '\n'
@@ -615,7 +615,7 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpaceNot : public RegExpNode<CLA
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UniChar tmpVal = _data[_currentPos+jjj];
+				etk::UChar tmpVal = _data[_currentPos+jjj];
 				if(    tmpVal != ' '
 				    && tmpVal != '\t'
 				    && tmpVal != '\n'
@@ -670,7 +670,7 @@ template<class CLASS_TYPE> class RegExpNodeWordChar : public RegExpNode<CLASS_TY
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UniChar tmpVal = _data[_currentPos+jjj];
+				etk::UChar tmpVal = _data[_currentPos+jjj];
 				if(    (    tmpVal >= 'a'
 				         && tmpVal <= 'z' )
 				    || (    tmpVal >= 'A'
@@ -725,7 +725,7 @@ template<class CLASS_TYPE> class RegExpNodeWordCharNot : public RegExpNode<CLASS
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UniChar tmpVal = _data[_currentPos+jjj];
+				etk::UChar tmpVal = _data[_currentPos+jjj];
 				if(    (    tmpVal < 'A'
 				         && tmpVal > '9' )
 				    || (    tmpVal < 'a'
@@ -782,7 +782,7 @@ template<class CLASS_TYPE> class RegExpNodeDot : public RegExpNode<CLASS_TYPE>
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UniChar tmpVal = _data[_currentPos+jjj];
+				etk::UChar tmpVal = _data[_currentPos+jjj];
 				if(    (    tmpVal > 0x08
 				         && tmpVal < 0x0A )
 				    || (    tmpVal > 0x1F
@@ -908,13 +908,13 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 		 */
 		~RegExpNodePTheseElem(void) { };
 		
-		int32_t generate(const etk::Vector<etk::UniChar>& _data)
+		int32_t generate(const etk::Vector<etk::UChar>& _data)
 		{
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse (elem) data="; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
 			esize_t pos = 0;
 			esize_t elementSize = 0;
-			etk::Vector<etk::UniChar> tmpData;
+			etk::Vector<etk::UChar> tmpData;
 			while (pos < RegExpNode<CLASS_TYPE>::m_RegExpData.size()) {
 				tmpData.clear();
 				switch (RegExpNode<CLASS_TYPE>::m_RegExpData[pos].get()) {
@@ -1123,7 +1123,7 @@ template<class CLASS_TYPE> class RegExpNodePThese : public RegExpNode<CLASS_TYPE
 			
 		};
 		
-		int32_t generate(const etk::Vector<etk::UniChar>& _data)
+		int32_t generate(const etk::Vector<etk::UChar>& _data)
 		{
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse (...) data="; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
@@ -1133,7 +1133,7 @@ template<class CLASS_TYPE> class RegExpNodePThese : public RegExpNode<CLASS_TYPE
 			// generate all the "elemTypePTheseElem" of the Node
 			while (elementSize>0) {
 				// geerate output deta ...
-				etk::Vector<etk::UniChar> tmpData;
+				etk::Vector<etk::UChar> tmpData;
 				for (esize_t kkk=pos; kkk<pos+elementSize; kkk++) {
 					tmpData.pushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
 				}
@@ -1248,7 +1248,7 @@ template<class CLASS_TYPE> class RegExp
 		void setRegExp(const etk::UString &_regexp)
 		{
 			m_expressionRequested = _regexp;
-			etk::Vector<etk::UniChar> tmpExp;
+			etk::Vector<etk::UChar> tmpExp;
 			
 			TK_REG_EXP_DBG_MODE("---------------------------------------------------------------------");
 			TK_REG_EXP_DBG_MODE("Parse RegExp : (" << _regexp << ")" );
@@ -1409,7 +1409,7 @@ template<class CLASS_TYPE> class RegExp
 		bool process(const CLASS_TYPE& _SearchIn,
 		             esize_t _startPos,
 		             esize_t _endPos,
-		             etk::UniChar _escapeChar=0)
+		             etk::UChar _escapeChar=0)
 		{
 			if (false == m_isOk) {
 				return false;
@@ -1426,7 +1426,7 @@ template<class CLASS_TYPE> class RegExp
 				esize_t maxlen = _endPos-iii;
 				if (true == m_notBeginWithChar) {
 					if (iii>0) {
-						etk::UniChar tmpVal = _SearchIn[iii-1];
+						etk::UChar tmpVal = _SearchIn[iii-1];
 						if(    (    tmpVal >= 'a'
 						         && tmpVal <= 'z' )
 						    || (    tmpVal >= 'A'
@@ -1451,7 +1451,7 @@ template<class CLASS_TYPE> class RegExp
 					// Check end :
 					if (true == m_notEndWithChar) {
 						if (iii+findLen < _SearchIn.size() ) {
-							etk::UniChar tmpVal = _SearchIn[iii+findLen];
+							etk::UChar tmpVal = _SearchIn[iii+findLen];
 							if(    (    tmpVal >= 'a'
 							         && tmpVal <= 'z' )
 							    || (    tmpVal >= 'A'
@@ -1487,7 +1487,7 @@ template<class CLASS_TYPE> class RegExp
 		bool processOneElement( const CLASS_TYPE& _SearchIn,
 		                        esize_t _startPos,
 		                        esize_t _endPos,
-		                        etk::UniChar _escapeChar=0)
+		                        etk::UChar _escapeChar=0)
 		{
 			if (false == m_isOk) {
 				return false;
@@ -1503,7 +1503,7 @@ template<class CLASS_TYPE> class RegExp
 			esize_t maxlen = _endPos-_startPos;
 			if (true == m_notBeginWithChar) {
 				if (_startPos>0) {
-					etk::UniChar tmpVal = _SearchIn[_startPos-1];
+					etk::UChar tmpVal = _SearchIn[_startPos-1];
 					if(    (    tmpVal >= 'a'
 					         && tmpVal <= 'z' )
 					    || (    tmpVal >= 'A'
@@ -1528,7 +1528,7 @@ template<class CLASS_TYPE> class RegExp
 				// Check end :
 				if (true == m_notEndWithChar) {
 					if (_startPos+findLen < _SearchIn.size() ) {
-						etk::UniChar tmpVal = _SearchIn[_startPos+findLen];
+						etk::UChar tmpVal = _SearchIn[_startPos+findLen];
 						if(    (    tmpVal >= 'a'
 						         && tmpVal <= 'z' )
 						    || (    tmpVal >= 'A'
@@ -1574,10 +1574,10 @@ template<class CLASS_TYPE> class RegExp
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool checkGoodPosition(const etk::Vector<etk::UniChar>& _tmpExp, esize_t& _pos)
+		bool checkGoodPosition(const etk::Vector<etk::UChar>& _tmpExp, esize_t& _pos)
 		{
-			etk::UniChar curentCode = _tmpExp[_pos];
-			etk::UniChar endCode = REGEXP_OPCODE_PTHESE_OUT;
+			etk::UChar curentCode = _tmpExp[_pos];
+			etk::UChar endCode = REGEXP_OPCODE_PTHESE_OUT;
 			const char *input = "(...)";
 			if (curentCode == REGEXP_OPCODE_BRACKET_IN) {
 				endCode = REGEXP_OPCODE_BRACKET_OUT;
@@ -1679,7 +1679,7 @@ template<class CLASS_TYPE> class RegExp
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool checkGoodPosition(const etk::Vector<etk::UniChar>& _tmpExp)
+		bool checkGoodPosition(const etk::Vector<etk::UChar>& _tmpExp)
 		{
 			esize_t pos = 0;
 			while (pos < _tmpExp.size()) {
