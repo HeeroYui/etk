@@ -9,7 +9,7 @@
 #include <etk/Debug.h>
 #include <etk/Vector.h>
 #include <etk/UString.h>
-#include <etk/Hach.h>
+#include <etk/Hash.h>
 #include <etk/os/FSNode.h>
 #include <etk/DebugInternal.h>
 #include <etk/archive/Archive.h>

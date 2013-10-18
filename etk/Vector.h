@@ -53,8 +53,7 @@ namespace etk
 	template<class MY_TYPE=int32_t> class Vector
 	{
 		public:
-			class Iterator
-			{
+			class Iterator {
 				// Private data :
 				private:
 					esize_t m_current; //!< curent Id on the vector
@@ -64,19 +63,17 @@ namespace etk
 					 * @brief Basic itarator constructor with no link with an etkVector
 					 */
 					Iterator(void):
-						m_current(0),
-						m_vector(NULL)
-					{
+					  m_current(0),
+					  m_vector(NULL) {
 						// nothing to do ...
 					}
 					/**
 					 * @brief Recopy constructor on a specific etkVector.
-					 * @param[in] _otherIterator The Iterator that might be copy
+					 * @param[in] _obj The Iterator that might be copy
 					 */
-					Iterator(const Iterator & _otherIterator):
-						m_current(_otherIterator.m_current),
-						m_vector(_otherIterator.m_vector)
-					{
+					Iterator(const Iterator & _obj):
+					  m_current(_obj.m_current),
+					  m_vector(_obj.m_vector) {
 						// nothing to do ...
 					}
 					/**
@@ -84,8 +81,7 @@ namespace etk
 					 * @param[in] _otherIterator The Iterator that might be copy
 					 * @return reference on the curent Iterator
 					 */
-					Iterator& operator=(const Iterator & _otherIterator)
-					{
+					Iterator& operator=(const Iterator & _otherIterator) {
 						m_current = _otherIterator.m_current;
 						m_vector = _otherIterator.m_vector;
 						return *this;
@@ -93,8 +89,7 @@ namespace etk
 					/**
 					 * @brief Basic destructor
 					 */
-					~Iterator(void)
-					{
+					~Iterator(void) {
 						m_current = 0;
 						m_vector = NULL;
 					}
@@ -102,18 +97,16 @@ namespace etk
 					 * @brief basic boolean cast
 					 * @return true if the element is present in the etkVector size
 					 */
-					operator bool (void)
-					{
-						return (m_current < m_vector->Size());
+					operator bool (void) {
+						return (m_current < m_vector->size());
 					}
 					/**
 					 * @brief Incremental operator
 					 * @return Reference on the current iterator incremented
 					 */
-					Iterator& operator++ (void)
-					{
-						if(    NULL != m_vector
-						    && m_current < m_vector->Size() )
+					Iterator& operator++ (void) {
+						if (    m_vector != NULL
+						     && m_current < m_vector->size() )
 						{
 							m_current++;
 						}
@@ -123,9 +116,9 @@ namespace etk
 					 * @brief Decremental operator
 					 * @return Reference on the current iterator decremented
 					 */
-					Iterator& operator-- (void)
-					{
-						if (m_current > 0) {
+					Iterator& operator-- (void) {
+						if (    m_vector != NULL
+						     && m_current > 0) {
 							m_current--;
 						}
 						return *this;
@@ -134,8 +127,7 @@ namespace etk
 					 * @brief Incremental operator
 					 * @return Reference on a new iterator and increment the other one
 					 */
-					Iterator operator++ (int32_t)
-					{
+					Iterator operator++ (int32_t) {
 						Iterator it(*this);
 						++(*this);
 						return it;
@@ -144,8 +136,7 @@ namespace etk
 					 * @brief Decremental operator
 					 * @return Reference on a new iterator and decrement the other one
 					 */
-					Iterator operator-- (int32_t)
-					{
+					Iterator operator-- (int32_t) {
 						Iterator it(*this);
 						--(*this);
 						return it;
@@ -154,25 +145,22 @@ namespace etk
 					 * @brief Get reference on the current Element
 					 * @return the reference on the current Element 
 					 */
-					MY_TYPE & operator-> (void) const
-					{
-						TK_CHECK_INOUT(m_current < m_vector->Size());
-						return &m_vector->Get(m_current);
+					MY_TYPE & operator-> (void) const {
+						TK_CHECK_INOUT(m_current < m_vector->size());
+						return &m_vector->get(m_current);
 					}
 					/**
 					 * @brief Get reference on the current Element
 					 * @return the reference on the current Element 
 					 */
-					MY_TYPE & operator* (void) const
-					{
-						TK_CHECK_INOUT(m_current < m_vector->Size());
-						return m_vector->Get(m_current);
+					MY_TYPE & operator* (void) const {
+						TK_CHECK_INOUT(m_current < m_vector->size());
+						return m_vector->get(m_current);
 					}
 				private:
 					Iterator(Vector<MY_TYPE> * _obj, int32_t _pos):
-						m_current(_pos),
-						m_vector(_obj)
-					{
+					  m_current(_pos),
+					  m_vector(_obj) {
 						// nothing to do ...
 					}
 					friend class Vector;
@@ -188,18 +176,16 @@ namespace etk
 			 * @param[in] _count Minimum request size of the Buffer
 			 */
 			Vector(int32_t _count = 0):
-				m_data(NULL),
-				m_size(0),
-				m_allocated(0)
-			{
+			  m_data(NULL),
+			  m_size(0),
+			  m_allocated(0) {
 				changeAllocation(_count);
 			}
 			/**
 			 * @brief Re-copy constructor (copy all needed data)
 			 * @param[in] _obj Vector that might be copy
 			 */
-			Vector(const etk::Vector<MY_TYPE>& _obj)
-			{
+			Vector(const etk::Vector<MY_TYPE>& _obj) {
 				m_allocated = _obj.m_allocated;
 				m_size      = _obj.m_size;
 				m_data      = NULL;
@@ -219,8 +205,7 @@ namespace etk
 			/**
 			 * @brief Destructor of the current Class
 			 */
-			~Vector(void)
-			{
+			~Vector(void) {
 				if (NULL!=m_data) {
 					delete [] m_data;
 					m_data = NULL;
@@ -232,8 +217,7 @@ namespace etk
 			 * @brief Swap the data of 2 Vectors
 			 * @param[in] _obj second vector to swap data.
 			 */
-			void wwap(etk::Vector<MY_TYPE>& _obj)
-			{
+			void wwap(etk::Vector<MY_TYPE>& _obj) {
 				// avoid Swap of itself
 				if(this != &_obj) {
 					MY_TYPE* tmpData = m_data;
@@ -252,11 +236,9 @@ namespace etk
 			 * @param[in] _obj Vector that might be copy
 			 * @return reference on the curent re-copy vector
 			 */
-			Vector& operator=(const etk::Vector<MY_TYPE> & _obj)
-			{
+			Vector& operator=(const etk::Vector<MY_TYPE> & _obj) {
 				//TK_DEBUG("USE RECOPY vector ... Evb.m_size=" << Evb.m_size << " Evb.m_increment=" << Evb.m_increment);
-				if( this != &_obj ) // avoid copy to itself
-				{
+				if( this != &_obj ) {
 					if (NULL!=m_data) {
 						delete[] m_data;
 						m_data = NULL;
@@ -283,8 +265,7 @@ namespace etk
 			 * @brief Add at the Last position of the Vector
 			 * @param[in] _obj Element to add at the end of vector
 			 */
-			Vector& operator+= (const etk::Vector<MY_TYPE> & _obj)
-			{
+			Vector& operator+= (const etk::Vector<MY_TYPE> & _obj) {
 				esize_t nbElememt = _obj.size();
 				esize_t idx = m_size;
 				resize(m_size+nbElememt);
@@ -303,16 +284,14 @@ namespace etk
 			 * @brief Get the number of element in the vector
 			 * @return The number requested
 			 */
-			esize_t size(void) const
-			{
+			esize_t size(void) const {
 				return m_size;
 			}
 			/**
 			 * @brief Get the number of element in the vector
 			 * @return The number requested
 			 */
-			void reSize(esize_t _newSize, const MY_TYPE& _basicElement)
-			{
+			void reSize(esize_t _newSize, const MY_TYPE& _basicElement) {
 				esize_t idx = m_size;
 				resize(_newSize);
 				if (m_size != _newSize) {
@@ -330,8 +309,7 @@ namespace etk
 			 * @brief Get the Allocated size in the vector
 			 * @return The size of allocation
 			 */
-			esize_t allocatedSize(void) const
-			{
+			esize_t allocatedSize(void) const {
 				return m_allocated;
 			}
 			/**
@@ -339,8 +317,7 @@ namespace etk
 			 * @param[in] _pos Desired position read
 			 * @return Reference on the Element
 			 */
-			MY_TYPE& get(esize_t _pos)
-			{
+			MY_TYPE& get(esize_t _pos) {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
 					if(_pos>m_size){
@@ -354,8 +331,7 @@ namespace etk
 			 * @param[in] _pos Position in the vector that might be get [0..Size()]
 			 * @return An reference on the copy of selected element
 			 */
-			MY_TYPE& operator[] (esize_t _pos)
-			{
+			MY_TYPE& operator[] (esize_t _pos) {
 				return get(_pos);
 			}
 			/**
@@ -363,8 +339,7 @@ namespace etk
 			 * @param[in] _pos Position in the vector that might be get [0..Size()]
 			 * @return An reference on the selected element
 			 */
-			const MY_TYPE& operator[] (esize_t _pos) const
-			{
+			const MY_TYPE& operator[] (esize_t _pos) const {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
 					if(_pos>m_size){
@@ -377,8 +352,7 @@ namespace etk
 			 * @brief Add at the First position of the Vector
 			 * @param[in] _item Element to add at the end of vector
 			 */
-			void pushFront(const MY_TYPE& _item)
-			{
+			void pushFront(const MY_TYPE& _item) {
 				insert(0, &_item, 1);
 			}
 			/**
@@ -386,16 +360,14 @@ namespace etk
 			 * @param[in] _item Pointer on a list of Element to add at the start of vector
 			 * @param[in] _nbElement Number of element to add.
 			 */
-			void pushFront(const MY_TYPE * _item, esize_t _nbElement)
-			{
+			void pushFront(const MY_TYPE * _item, esize_t _nbElement) {
 				insert(0, _item, _nbElement);
 			}
 			/**
 			 * @brief Add at the Last position of the Vector
 			 * @param[in] _item Element to add at the end of vector
 			 */
-			void pushBack(const MY_TYPE& _item)
-			{
+			void pushBack(const MY_TYPE& _item) {
 				esize_t idx = m_size;
 				resize(m_size+1);
 				if (idx < m_size) {
@@ -409,8 +381,7 @@ namespace etk
 			 * @param[in] _item Pointer on a list of Element to add at the end of vector
 			 * @param[in] _nbElement Number of element to add.
 			 */
-			void pushBack(const MY_TYPE * _item, esize_t _nbElement)
-			{
+			void pushBack(const MY_TYPE * _item, esize_t _nbElement) {
 				if (NULL == _item) {
 					return;
 				}
@@ -427,8 +398,7 @@ namespace etk
 			/**
 			 * @brief Remove the last element of the vector
 			 */
-			void popBack(void)
-			{
+			void popBack(void) {
 				if(m_size>0) {
 					resize(m_size-1);
 				}
@@ -436,8 +406,7 @@ namespace etk
 			/**
 			 * @brief Remove all alement in the current vector
 			 */
-			void clear(void)
-			{
+			void clear(void) {
 				if(m_size>0) {
 					resize(0);
 				}
@@ -448,8 +417,7 @@ namespace etk
 			 * @param[in] _item Pointer on a table of the elements to add.
 			 * @param[in] _nbElement Number of element to add in the Vector
 			 */
-			void insert(esize_t _pos, const MY_TYPE * _item, esize_t _nbElement)
-			{
+			void insert(esize_t _pos, const MY_TYPE * _item, esize_t _nbElement) {
 				if (_pos>m_size) {
 					TK_WARNING(" can not insert Element at this position : " << _pos << " > " << m_size << " add it at the end ... ");
 					pushBack(_item, _nbElement);
@@ -479,8 +447,7 @@ namespace etk
 			 * @param[in] _pos Position to add the elements.
 			 * @param[in] _item Element to add.
 			 */
-			void insert(esize_t _pos, const MY_TYPE& _item)
-			{
+			void insert(esize_t _pos, const MY_TYPE& _item) {
 				insert(_pos, &_item, 1);
 			}
 			/**
@@ -488,8 +455,7 @@ namespace etk
 			 * @param[in] _pos Position to remove the data
 			 * @param[in] _nbElement number of element to remove
 			 */
-			void eraseLen(esize_t _pos, esize_t _nbElement)
-			{
+			void eraseLen(esize_t _pos, esize_t _nbElement) {
 				if (_pos>m_size) {
 					TK_ERROR(" can not Erase Len Element at this position : " << _pos << " > " << m_size);
 					return;
@@ -512,16 +478,14 @@ namespace etk
 			 * @brief Remove one element
 			 * @param[in] _pos Position to remove the data
 			 */
-			inline void erase(esize_t _pos)
-			{
+			inline void erase(esize_t _pos) {
 				eraseLen(_pos, 1);
 			}
 			/**
 			 * @brief Remove one element
 			 * @param[in] _pos Position to remove the data
 			 */
-			inline void remove(esize_t _pos)
-			{
+			inline void remove(esize_t _pos) {
 				eraseLen(_pos, 1);
 			}
 			/**
@@ -529,8 +493,7 @@ namespace etk
 			 * @param[in] _pos Position to remove the data
 			 * @param[in] _posEnd Last position number
 			 */
-			void erase(esize_t _pos, esize_t _posEnd)
-			{
+			void erase(esize_t _pos, esize_t _posEnd) {
 				if (_pos>m_size) {
 					TK_ERROR(" can not Erase Element at this position : " << _pos << " > " << m_size);
 					return;
@@ -556,8 +519,7 @@ namespace etk
 			 * @param[in] _posEnd End position to extract data
 			 * @return the extracted vector
 			 */
-			Vector<MY_TYPE> extract(esize_t _posStart = 0, esize_t _posEnd=0x7FFFFFFF) const
-			{
+			Vector<MY_TYPE> extract(esize_t _posStart = 0, esize_t _posEnd=0x7FFFFFFF) const {
 				Vector<MY_TYPE> out;
 				if (_posStart >= size() ) {
 					return out;
@@ -572,8 +534,7 @@ namespace etk
 			 * @brief Get the pointer on the sata
 			 * @return the type pointer on data
 			 */
-			MY_TYPE* dataPointer(void)
-			{
+			MY_TYPE* dataPointer(void) {
 				return &m_data[0];
 			}
 			/**
@@ -581,24 +542,21 @@ namespace etk
 			 * @param[in] _pos Requested position of the iterator in the vector
 			 * @return The Iterator
 			 */
-			Iterator position(esize_t _pos)
-			{
+			Iterator position(esize_t _pos) {
 				return iterator(this, _pos);
 			}
 			/**
 			 * @brief Get an Iterator on the start position of the Vector
 			 * @return The Iterator
 			 */
-			Iterator begin(void)
-			{
+			Iterator begin(void) {
 				return position(0);
 			}
 			/**
 			 * @brief Get an Iterator on the end position of the Vector
 			 * @return The Iterator
 			 */
-			Iterator end(void)
-			{
+			Iterator end(void) {
 				return position( size()-1 );
 			}
 		private:
@@ -606,8 +564,7 @@ namespace etk
 			 * @brief Change the current size of the vector
 			 * @param[in] _newSize New requested size of element in the vector
 			 */
-			void resize(esize_t _newSize)
-			{
+			void resize(esize_t _newSize) {
 				// Reallocate memory
 				if (_newSize > m_allocated) {
 					changeAllocation(_newSize);
@@ -618,8 +575,7 @@ namespace etk
 			 * @brief Change the current allocation to the corect one (depend on the current size)
 			 * @param[in] _newSize Minimum number of element needed
 			 */
-			void changeAllocation(esize_t _newSize)
-			{
+			void changeAllocation(esize_t _newSize) {
 				// set the minimal size to 1
 				if(_newSize == 0) {
 					_newSize = 1;
@@ -682,8 +638,7 @@ namespace etk
 			/*****************************************************
 			 *    == operator
 			 *****************************************************/
-			bool operator== (const Vector<MY_TYPE>& _obj) const
-			{
+			bool operator== (const Vector<MY_TYPE>& _obj) const {
 				// check if it was the same pointer
 				if( this == &_obj ) {
 					return true;
@@ -706,8 +661,7 @@ namespace etk
 			/*****************************************************
 			 *    != operator
 			 *****************************************************/
-			bool operator!= (const Vector<MY_TYPE>& _obj) const
-			{
+			bool operator!= (const Vector<MY_TYPE>& _obj) const {
 				// check if it was the same pointer
 				if( this == &_obj ) {
 					return false;
