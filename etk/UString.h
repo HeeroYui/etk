@@ -144,7 +144,7 @@ namespace etk
 			void add(int32_t _currentID, const char* _inputData);
 			void add(int32_t _currentID, const etk::UChar* _inputData);
 			void add(int32_t _currentID, const etk::UChar  _inputData);
-			void remove(int32_t _currentID, int32_t _len);
+			void remove(int32_t _currentID, int32_t _len = 1);
 			void clear(void);
 			void append(const etk::UChar& _inputData);
 			
