@@ -217,7 +217,7 @@ namespace etk
 			 * @brief Swap the data of 2 Vectors
 			 * @param[in] _obj second vector to swap data.
 			 */
-			void wwap(etk::Vector<MY_TYPE>& _obj) {
+			void swap(etk::Vector<MY_TYPE>& _obj) {
 				// avoid Swap of itself
 				if(this != &_obj) {
 					MY_TYPE* tmpData = m_data;
