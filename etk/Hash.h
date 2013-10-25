@@ -10,7 +10,7 @@
 #define __ETK_HACH_H__
 
 #include <etk/types.h>
-#include <etk/DebugInternal.h>
+#include <etk/debug.h>
 #include <etk/Vector.h>
 #include <etk/UString.h>
 

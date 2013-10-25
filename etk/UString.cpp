@@ -8,7 +8,7 @@
 
 #include <etk/UString.h>
 #include <etk/unicode.h>
-#include <etk/Debug.h>
+#include <etk/debug.h>
 
 int32_t strlen(const etk::UChar * _data)
 {

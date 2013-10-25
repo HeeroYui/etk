@@ -8,7 +8,7 @@
 
 
 #include <etk/os/Semaphore.h>
-#include <etk/DebugInternal.h>
+#include <etk/debug.h>
 #include <sys/time.h>
 
 etk::Semaphore::Semaphore(uint32_t _nbBasicElement, uint32_t _nbMessageMax)

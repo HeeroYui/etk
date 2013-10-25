@@ -8,7 +8,7 @@
 
 #include <etk/archive/Archive.h>
 #include <etk/archive/Zip.h>
-#include <etk/DebugInternal.h>
+#include <etk/debug.h>
 
 const etk::Archive::Content& etk::Archive::getContent(const etk::UString& _key) const
 {

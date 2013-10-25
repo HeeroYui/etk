@@ -6,11 +6,10 @@
  * @license BSD v3 (see license file)
  */
 
-#include "etk/Debug.h"
+#ifndef __ETK_DEBUG_H__
+#define __ETK_DEBUG_H__
 
-#ifndef __ETK_DEBUG_INTERNAL_H__
-#define __ETK_DEBUG_INTERNAL_H__
-
+#include <etk/debugGeneric.h>
 
 extern const char * etkLibName;
 

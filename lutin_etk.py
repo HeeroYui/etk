@@ -8,8 +8,8 @@ def Create(target):
 	# add the file to compile:
 	
 	myModule.AddSrcFile([
-		'etk/Debug.cpp',
-		'etk/DebugInternal.cpp',
+		'etk/debugGeneric.cpp',
+		'etk/debug.cpp',
 		'etk/unicode.cpp',
 		'etk/unicodeTable.cpp',
 		'etk/Char.cpp',

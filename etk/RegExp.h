@@ -10,7 +10,7 @@
 #define __TK_REG_EXP_H__
 
 #include <etk/types.h>
-#include <etk/DebugInternal.h>
+#include <etk/debug.h>
 #include <etk/UString.h>
 #include <etk/Vector.h>
 

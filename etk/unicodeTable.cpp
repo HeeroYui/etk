@@ -7,7 +7,7 @@
  */
 
 #include <etk/types.h>
-#include <etk/Debug.h>
+#include <etk/debug.h>
 #include <etk/unicodeTable.h>
 
 extern "C" {

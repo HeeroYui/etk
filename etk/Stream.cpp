@@ -8,7 +8,7 @@
 
 #include <etk/types.h>
 #include <etk/Stream.h>
-#include <etk/DebugInternal.h>
+#include <etk/debug.h>
 
 #if defined(__TARGET_OS__Linux) && DEBUG_LEVEL > 2
 	#include <execinfo.h>

@@ -10,7 +10,7 @@
 #include <etk/UChar.h>
 #include <etk/unicode.h>
 
-#include <etk/DebugInternal.h>
+#include <etk/debug.h>
 #include <etk/Stream.h>
 #include <etk/Vector.h>
 #include <etk/Char.h>

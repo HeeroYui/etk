@@ -7,7 +7,7 @@
  */
 
 #include <etk/archive/Zip.h>
-#include <etk/DebugInternal.h>
+#include <etk/debug.h>
 
 etk::archive::Zip::Zip(const etk::UString& _fileName) :
 	etk::Archive(_fileName),

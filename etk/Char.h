@@ -9,8 +9,6 @@
 #ifndef __ETK_CHAR_H__
 #define __ETK_CHAR_H__
 
-#include <etk/DebugInternal.h>
-#include <etk/Stream.h>
 #include <etk/Vector.h>
 
 namespace etk

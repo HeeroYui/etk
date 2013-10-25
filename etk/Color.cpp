@@ -9,7 +9,7 @@
 #include <etk/types.h>
 #include <etk/tool.h>
 #include <etk/Color.h>
-#include <etk/DebugInternal.h>
+#include <etk/debug.h>
 
 static bool strnCmpNoCase(const char * input1, const char * input2, int32_t maxLen)
 {

@@ -7,7 +7,8 @@
  */
 
 #include <etk/Char.h>
-
+#include <etk/debug.h>
+#include <etk/Stream.h>
 
 etk::Char::Char(void) {
 	m_data.pushBack('\0');

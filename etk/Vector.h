@@ -10,7 +10,7 @@
 #define __ETK_VECTOR_H__
 
 #include <etk/types.h>
-#include <etk/DebugInternal.h>
+#include <etk/debug.h>
 
 #undef __class__
 #define __class__	"etk::Vector"

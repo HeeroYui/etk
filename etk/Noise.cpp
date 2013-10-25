@@ -8,7 +8,7 @@
 
 
 #include <etk/types.h>
-#include <etk/Debug.h>
+#include <etk/debug.h>
 #include <etk/tool.h>
 #include <etk/Noise.h>
 // for the rand ...

@@ -8,7 +8,7 @@
 
 
 #include <etk/types.h>
-#include <etk/DebugInternal.h>
+#include <etk/debug.h>
 #include <etk/os/FSNodeRight.h>
 
 // Right Flags :

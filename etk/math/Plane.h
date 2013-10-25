@@ -9,44 +9,38 @@
 #ifndef __ETK_TYPES_PLANE_H__
 #define __ETK_TYPES_PLANE_H__
 
-#include <etk/DebugInternal.h>
-#include <etk/math/Vector3D.h>
+#include <etk/debug.h>
 #include <etk/Vector.h>
 
 namespace etk {
-	template <typename T> class Plane
-	{
+	template <typename T> class Plane {
 		public :
 			//member variables
-			etk::Vector3D<T> m_normal;	//X.N+intercept=0
-			T                m_intercept;
+			etk::Vector3D<T> m_normal; //!< X.N+intercept=0
+			T m_intercept;
 		public:
 			/*****************************************************
 			 *    Constructor
 			 *****************************************************/
 			Plane(void) :
-				m_normal(0, 0, 0),
-				m_intercept(0)
-			{
+			  m_normal(0, 0, 0),
+			  m_intercept(0) {
 				
 			}
 			Plane(etk::Vector3D<T> _normal, T _intercept=0) :
-				m_normal(_normal),
-				m_intercept(_intercept)
-			{
+			  m_normal(_normal),
+			  m_intercept(_intercept) {
 				
 			}
 			Plane(const Plane& obj) :
-				m_normal(obj.m_normal),
-				m_intercept(obj.m_intercept)
-			{
+			  m_normal(obj.m_normal),
+			  m_intercept(obj.m_intercept) {
 				
 			}
 			/*****************************************************
 			 *    Destructor
 			 *****************************************************/
-			~Plane(void)
-			{
+			~Plane(void) {
 				
 			};
 			
@@ -55,9 +49,8 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			void setNormal(const etk::Vector3D<T>& obj)
-			{
-				m_normal=obj;
+			void setNormal(const etk::Vector3D<T>& _obj) {
+				m_normal = _obj;
 			};
 			
 			/**
@@ -65,8 +58,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			void setIntercept(float _intercept)
-			{
+			void setIntercept(float _intercept) {
 				m_intercept=_intercept;
 			};
 			
@@ -75,13 +67,12 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			void setFromPoints(const etk::Vector3D<T> & p0,
-			                   const etk::Vector3D<T> & p1,
-			                   const etk::Vector3D<T> & p2)
-			{
-				m_normal=(p1-p0).crossProduct(p2-p0);
+			void setFromPoints(const etk::Vector3D<T>& p0,
+			                   const etk::Vector3D<T>& p1,
+			                   const etk::Vector3D<T>& p2) {
+				m_normal = (_p1 - _p0).crossProduct(_p2 - _p0);
 				m_normal.normalize();
-				calculateIntercept(p0);
+				calculateIntercept(_p0);
 			};
 			
 			/**
@@ -89,9 +80,8 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			void calculateIntercept(const etk::Vector3D<T>& pointOnPlane)
-			{
-				m_intercept=-m_normal.dotProduct(pointOnPlane);
+			void calculateIntercept(const etk::Vector3D<T>& _pointOnPlane) {
+				m_intercept=-m_normal.dotProduct(_pointOnPlane);
 			}
 			
 			/**
@@ -99,8 +89,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			void normalize(void)
-			{
+			void normalize(void) {
 				float normalLength=m_normal.getLength();
 				m_normal/=normalLength;
 				m_intercept/=normalLength;
@@ -111,8 +100,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			etk::Vector3D<T> getNormal(void)
-			{
+			etk::Vector3D<T> getNormal(void) {
 				return m_normal;
 			};
 			
@@ -121,8 +109,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			float getIntercept()
-			{
+			float getIntercept(void) {
 				return m_intercept;
 			}
 			
@@ -132,20 +119,19 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			bool intersect3(const Plane<T>& p2,
-			                const Plane<T> & p3,
-			                etk::Vector3D<T> & result)
-			{
-				float denominator=m_normal.dotProduct((p2.m_normal).crossProduct(p3.m_normal));
+			bool intersect3(const Plane<T>& _p2,
+			                const Plane<T>& _p3,
+			                etk::Vector3D<T>& _result) {
+				float denominator = m_normal.dotProduct((_p2.m_normal).crossProduct(_p3.m_normal));
 				//scalar triple product of normals
 				if(denominator==0.0f) {
 					//no intersection
 					return false;
 				}
 				etk::Vector3D<T> temp1, temp2, temp3;
-				temp1=(p2.m_normal.crossProduct(p3.m_normal))*m_intercept;
-				temp2=(p3.m_normal.crossProduct(m_normal))*p2.m_intercept;
-				temp3=(m_normal.crossProduct(p2.m_normal))*p3.m_intercept;
+				temp1 = (_p2.m_normal.crossProduct(_p3.m_normal))*m_intercept;
+				temp2 = (_p3.m_normal.crossProduct(m_normal)) * _p2.m_intercept;
+				temp3 = (m_normal.crossProduct(_p2.m_normal)) * _p3.m_intercept;
 				
 				result=(temp1+temp2+temp3)/(-denominator);
 				
@@ -157,11 +143,10 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			float getDistance(const etk::Vector3D<T> & point) const
-			{
-				return   point.x*m_normal.x
-				       + point.y*m_normal.y
-				       + point.z*m_normal.z
+			float getDistance(const etk::Vector3D<T>& _point) const {
+				return   _point.x * m_normal.x
+				       + _point.y * m_normal.y
+				       + _point.z * m_normal.z
 				       + m_intercept;
 			};
 			
@@ -170,12 +155,11 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			Plane<T> linearInterpolate(const Plane<T> & p2, float factor)
-			{
+			Plane<T> linearInterpolate(const Plane<T>& _p2, float _factor) {
 				Plane<T> result;
-				result.m_normal=m_normal*(1.0f-factor) + p2.m_normal*factor;
+				result.m_normal=m_normal*(1.0f-_factor) + _p2.m_normal*_factor;
 				result.m_normal.normalize();
-				result.m_intercept=m_intercept*(1.0f-factor) + p2.m_intercept*factor;
+				result.m_intercept=m_intercept*(1.0f-_factor) + _p2.m_intercept*_factor;
 				return result;
 			};
 			
@@ -185,10 +169,9 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			bool operator==(const Plane<T> & obj) const
-			{
-				if(    m_normal==obj.m_normal
-				    && m_intercept==obj.m_intercept) {
+			bool operator==(const Plane<T> & _obj) const {
+				if(    m_normal == _obj.m_normal
+				    && m_intercept == _obj.m_intercept) {
 					return true;
 				}
 				return false;
@@ -199,9 +182,8 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			bool operator!=(const Plane<T> & obj) const
-			{
-				return!((*this)==obj);
+			bool operator!=(const Plane<T>& _obj) const {
+				return!((*this) == _obj);
 			}
 			
 			//unary operators
@@ -210,8 +192,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			Plane<T> operator-(void) const
-			{
+			Plane<T> operator-(void) const {
 				return Plane<T>(-m_normal, -m_intercept);
 			}
 			
@@ -220,8 +201,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			Plane<T> operator+(void) const
-			{
+			Plane<T> operator+(void) const {
 				return *this;
 			}
 	};

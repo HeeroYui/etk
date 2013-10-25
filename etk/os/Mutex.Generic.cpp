@@ -7,7 +7,7 @@
  */
 
 #include <etk/os/Mutex.h>
-#include <etk/DebugInternal.h>
+#include <etk/debug.h>
 
 etk::Mutex::Mutex(void)
 {

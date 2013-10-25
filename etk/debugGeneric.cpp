@@ -6,7 +6,7 @@
  * @license BSD v3 (see license file)
  */
 
-#include <etk/Debug.h>
+#include <etk/debugGeneric.h>
 #include <time.h>
 
 // Max string size : (wide screan console nb caractere)

@@ -8,7 +8,7 @@
 
 #include <etk/types.h>
 #include <etk/math/Matrix4.h>
-#include <etk/DebugInternal.h>
+#include <etk/debug.h>
 #include <math.h>
 
 

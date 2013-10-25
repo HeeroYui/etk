@@ -9,8 +9,7 @@
 #ifndef __ETK_USTRING_H__
 #define __ETK_USTRING_H__
 
-#include <etk/DebugInternal.h>
-#include <etk/Stream.h>
+#include <etk/debug.h>
 #include <etk/Vector.h>
 #include <etk/Char.h>
 #include <etk/unicode.h>
