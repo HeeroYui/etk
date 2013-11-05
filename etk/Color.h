@@ -67,15 +67,18 @@ namespace etk {
 			uint32_t get(void) const;
 			void set(float _r, float _g, float _b, float _a=255);
 			void set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a=255);
-			void set(int _r, int _g, int _b, int _a=255)
-			{
+			void set(int _r, int _g, int _b, int _a=255) {
 				set((uint8_t)(etk_avg(0,_r,255)),
 				    (uint8_t)(etk_avg(0,_g,255)),
 				    (uint8_t)(etk_avg(0,_b,255)),
 				    (uint8_t)(etk_avg(0,_a,255)) );
 			}
-			etk::UString getHexString(void) const { return etk::UString(get(), etk::UString::printModeHexadecimal, true); };
-			etk::UString getString(void) const { return etk::UString("#") + etk::UString(get(), etk::UString::printModeHexadecimal); };
+			etk::UString getHexString(void) const {
+				return etk::UString(get(), etk::UString::printModeHexadecimal, true);
+			};
+			etk::UString getString(void) const {
+				return etk::UString("#") + etk::UString(get(), etk::UString::printModeHexadecimal);
+			};
 			MY_TYPE r(void) const { return m_r; };
 			MY_TYPE g(void) const { return m_g; };
 			MY_TYPE b(void) const { return m_b; };
