@@ -14,18 +14,16 @@
 #include <etk/Char.h>
 #include <etk/unicode.h>
 
-namespace etk
-{
-	class UString
-	{
+namespace etk {
+	class UString {
 		public:
-			typedef enum {
+			enum printMode {
 				printModeBinary,
 				printModeOctal,
 				printModeDecimal,
 				printModeHexadecimal,
 				printModeString,
-			} printMode_te;
+			};
 		private :
 			etk::Vector<etk::UChar> m_data; //!< internal data is stored in the Unicode properties ...
 		public:
@@ -37,19 +35,35 @@ namespace etk
 			UString(const etk::UString& _obj);
 			
 			// single element adding
-			UString(const bool _inputData, printMode_te _mode=printModeString, bool _preset=false);
+			UString(const bool _inputData, enum printMode _mode=printModeString, bool _preset=false);
 			UString(const etk::UChar& _inputData);
-			UString(const char* _data, unicode::charset_te _inputCharset);
+			UString(const char* _data, enum unicode::charset _inputCharset);
 			UString(const float _inputData);
 			UString(const double _inputData);
-			UString(const int8_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set((int64_t)_inputData, _mode, _preset, _leadingZero); };
-			UString(const int16_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set((int64_t)_inputData, _mode, _preset, _leadingZero); };
-			UString(const int32_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set((int64_t)_inputData, _mode, _preset, _leadingZero); };
-			UString(const int64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set(_inputData, _mode, _preset, _leadingZero); };
-			UString(const uint8_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set((uint64_t)_inputData, _mode, _preset, _leadingZero); };
-			UString(const uint16_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set((uint64_t)_inputData, _mode, _preset, _leadingZero); };
-			UString(const uint32_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set((uint64_t)_inputData, _mode, _preset, _leadingZero); };
-			UString(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) { set(_inputData, _mode, _preset, _leadingZero); };
+			UString(const int8_t& _inputData, enum printMode _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) {
+				set((int64_t)_inputData, _mode, _preset, _leadingZero);
+			};
+			UString(const int16_t& _inputData, enum printMode _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) {
+				set((int64_t)_inputData, _mode, _preset, _leadingZero);
+			};
+			UString(const int32_t& _inputData, enum printMode _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) {
+				set((int64_t)_inputData, _mode, _preset, _leadingZero);
+			};
+			UString(const int64_t& _inputData, enum printMode _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) {
+				set(_inputData, _mode, _preset, _leadingZero);
+			};
+			UString(const uint8_t& _inputData, enum printMode _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) {
+				set((uint64_t)_inputData, _mode, _preset, _leadingZero);
+			};
+			UString(const uint16_t& _inputData, enum printMode _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) {
+				set((uint64_t)_inputData, _mode, _preset, _leadingZero);
+			};
+			UString(const uint32_t& _inputData, enum printMode _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) {
+				set((uint64_t)_inputData, _mode, _preset, _leadingZero);
+			};
+			UString(const uint64_t& _inputData, enum printMode _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0) {
+				set(_inputData, _mode, _preset, _leadingZero);
+			};
 			// multiple element add
 			UString(const etk::UChar* _inputData, int32_t _len = -1);
 			UString(const char* _inputData, int32_t _len = -1);
@@ -63,10 +77,10 @@ namespace etk
 			void set(const etk::Vector<int8_t>& _inputData);
 			void set(const etk::Vector<etk::UChar>& _inputData);
 		private:
-			void setNumber(bool _negative, const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero);
+			void setNumber(bool _negative, const uint64_t& _inputData, enum printMode _mode, bool _preset, int32_t _leadingZero);
 		public:
-			void set(const int64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0);
-			void set(const uint64_t& _inputData, printMode_te _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0);
+			void set(const int64_t& _inputData, enum printMode _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0);
+			void set(const uint64_t& _inputData, enum printMode _mode=printModeDecimal, bool _preset=false, int32_t _leadingZero=0);
 			
 			/*****************************************************
 			 *    = assigment

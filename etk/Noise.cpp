@@ -93,7 +93,7 @@ float etk::Noise::turbulenceNoSmooth(float _x, float _y, float _size, const etk:
 }
 
 
-etk::Noise::Noise(noise_te _type, ivec2 _size, int32_t _depth) :
+etk::Noise::Noise(enum noise _type, ivec2 _size, int32_t _depth) :
 	m_data(_size.x()*_size.y()),
 	m_size(_size),
 	m_type(_type)

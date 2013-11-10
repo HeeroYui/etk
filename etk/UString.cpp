@@ -10,8 +10,7 @@
 #include <etk/unicode.h>
 #include <etk/debug.h>
 
-int32_t strlen(const etk::UChar * _data)
-{
+int32_t strlen(const etk::UChar * _data) {
 	if (NULL == _data) {
 		return 0;
 	}
@@ -29,8 +28,7 @@ int32_t strlen(const etk::UChar * _data)
 #undef __class__
 #define __class__	"etk::UString"
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const etk::UString& _obj)
-{
+etk::CCout& etk::operator <<(etk::CCout& _os, const etk::UString& _obj) {
 	etk::Vector<char> output_UTF8;
 	unicode::convertUnicodeToUtf8(_obj.m_data, output_UTF8);
 	output_UTF8.pushBack('\0');
@@ -38,8 +36,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const etk::UString& _obj)
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector<etk::UString>& _obj)
-{
+etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector<etk::UString>& _obj) {
 	_os << "{";
 	for (int32_t iii=0; iii< _obj.size(); iii++) {
 		if (iii>0) {
@@ -58,8 +55,7 @@ etk::UString::UString(void)
 }
 
 
-etk::UString::UString(const char* _data, unicode::charset_te _inputCharset)
-{
+etk::UString::UString(const char* _data, enum unicode::charset _inputCharset) {
 	// TODO : Change this ...
 	etk::Vector<char> transformData;
 	while (*_data != '\0') {
@@ -67,7 +63,7 @@ etk::UString::UString(const char* _data, unicode::charset_te _inputCharset)
 		_data++;
 	}
 	m_data.clear();
-	if (unicode::EDN_CHARSET_UTF8==_inputCharset) {
+	if (unicode::charsetUTF8 == _inputCharset) {
 		unicode::convertUtf8ToUnicode(transformData, m_data);
 	} else {
 		unicode::convertIsoToUnicode(_inputCharset, transformData, m_data);
@@ -80,8 +76,7 @@ etk::UString::UString(const char* _data, unicode::charset_te _inputCharset)
 
 
 // single element adding
-etk::UString::UString(const bool _inputData, etk::UString::printMode_te _mode, bool _preset)
-{
+etk::UString::UString(const bool _inputData, enum etk::UString::printMode _mode, bool _preset) {
 	m_data.clear();
 	if (_preset==true) {
 		switch(_mode) {
@@ -200,7 +195,7 @@ etk::UString etk::UString::WrapHidenChar(void) const
 */
 
 
-void etk::UString::setNumber(bool _negative, const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero)
+void etk::UString::setNumber(bool _negative, const uint64_t& _inputData, enum etk::UString::printMode _mode, bool _preset, int32_t _leadingZero)
 {
 	m_data.clear();
 	if (true==_negative) {
@@ -296,7 +291,7 @@ void etk::UString::setNumber(bool _negative, const uint64_t& _inputData, etk::US
 	//TK_ERROR(" convert : " << _inputData << " in : " << *this << " len=" << m_data.Size());
 }
 
-void etk::UString::set(const int64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero)
+void etk::UString::set(const int64_t& _inputData, enum etk::UString::printMode _mode, bool _preset, int32_t _leadingZero)
 {
 	if (_preset==true && _mode != etk::UString::printModeString) {
 		setNumber(false, (uint64_t)_inputData, _mode, _preset, _leadingZero);
@@ -310,7 +305,7 @@ void etk::UString::set(const int64_t& _inputData, etk::UString::printMode_te _mo
 	}
 }
 
-void etk::UString::set(const uint64_t& _inputData, etk::UString::printMode_te _mode, bool _preset, int32_t _leadingZero)
+void etk::UString::set(const uint64_t& _inputData, enum etk::UString::printMode _mode, bool _preset, int32_t _leadingZero)
 {
 	setNumber(false, (uint64_t)_inputData, _mode, _preset, _leadingZero);
 }

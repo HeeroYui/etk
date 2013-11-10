@@ -12,7 +12,7 @@
 namespace etk {
 	//in the unicode section we have : [E000..F8FF]   private area ==> we will store element in this area:
 	// internal define to permit to have all needed system
-	typedef enum {
+	enum regExpPrivateSection {
 		REGEXP_OPCODE_PTHESE_IN=0xE000,	/* ( */
 		REGEXP_OPCODE_PTHESE_OUT,/* ) */
 		REGEXP_OPCODE_BRACKET_IN,/* [ */
@@ -37,7 +37,7 @@ namespace etk {
 		REGEXP_OPCODE_WORD_NOT,/* \W */
 		REGEXP_OPCODE_NO_CHAR,/* \@ */
 		REGEXP_OPCODE_ERROR, // not used
-	} regExpPrivateSection_te;
+	};
 	
 	class UChar {
 		public: // classic unicar code :
@@ -64,7 +64,7 @@ namespace etk {
 			  m_value((uint32_t)_obj){
 				
 			};
-			UChar(const regExpPrivateSection_te _obj) :
+			UChar(const enum regExpPrivateSection _obj) :
 			  m_value((uint32_t)_obj) {
 				
 			};

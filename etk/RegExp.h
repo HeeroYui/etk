@@ -50,7 +50,7 @@ typedef struct {
 	bool haveBackSlash;
 	char inputValue;
 	char newValue;
-	etk::regExpPrivateSection_te specialChar;
+	enum etk::regExpPrivateSection specialChar;
 }convertionTable_ts;
 
 extern const convertionTable_ts constConvertionTable[];

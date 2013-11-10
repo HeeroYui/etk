@@ -12,22 +12,21 @@
 #include <etk/types.h>
 #include <etk/os/Mutex.h>
 
-namespace etk
-{
+namespace etk {
 	#define MAX_LOG_SIZE		(16000)
 	#define MAX_LOG_SIZE_TMP	(512)
 
-	class CEndl{};
-	class CStart{};
+	class CEndl {};
+	class CStart {};
 	
-	class CCout{
+	class CCout {
 		private:
-			char             m_tmpChar[MAX_LOG_SIZE+1];
-			char             tmp[MAX_LOG_SIZE_TMP];
-			etk::Mutex       m_mutex;
+			char m_tmpChar[MAX_LOG_SIZE+1];
+			char tmp[MAX_LOG_SIZE_TMP];
+			etk::Mutex m_mutex;
 			#if defined(__TARGET_OS__Android)
 			public:
-				int8_t       m_levelAndroid; //!< specific level for Android
+				int8_t m_levelAndroid; //!< specific level for Android
 			#endif
 		public:
 			CCout(void);
@@ -54,20 +53,20 @@ namespace etk
 	extern etk::CEndl endl;
 	extern etk::CStart cstart;
 	
-	typedef enum {
-		LOG_LEVEL_NONE,
-		LOG_LEVEL_CRITICAL,
-		LOG_LEVEL_ERROR,
-		LOG_LEVEL_WARNING,
-		LOG_LEVEL_INFO,
-		LOG_LEVEL_DEBUG,
-		LOG_LEVEL_VERBOSE
-	} logLevel_te;
+	enum logLevel {
+		logLevelNone,
+		logLevelCritical,
+		logLevelError,
+		logLevelWarning,
+		logLevelInfo,
+		logLevelDebug,
+		logLevelVerbose
+	};
 	
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information
 	 */
-	etk::CCout& operator <<(etk::CCout &_os, const etk::logLevel_te _obj);
+	etk::CCout& operator <<(etk::CCout &_os, const enum etk::logLevel _obj);
 	
 	void displayBacktrace(bool _breakAtEnd=true);
 };

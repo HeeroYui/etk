@@ -16,13 +16,13 @@ namespace debug {
 	// Log Message System For EDN
 	void displayFuncName(int32_t _ligne, const char* _className, const char* _funcName, const char* _libName);
 	void displayTime(void);
-	void setGeneralLevel(etk::logLevel_te _ccc);
+	void setGeneralLevel(enum etk::logLevel _ccc);
 }
 
 #undef  __class__
 #define __class__ (NULL)
 
-extern etk::logLevel_te g_requestedLevel;
+extern enum etk::logLevel g_requestedLevel;
 
 #define ETK_DBG_COMMON(libName,info,data) do { \
 	if (info <= g_requestedLevel) { \
@@ -36,32 +36,32 @@ extern etk::logLevel_te g_requestedLevel;
 
 
 #define ETK_CRITICAL(libName,data) do { \
-	ETK_DBG_COMMON(libName, etk::LOG_LEVEL_CRITICAL, data); \
+	ETK_DBG_COMMON(libName, etk::logLevelCritical, data); \
 	etk::displayBacktrace(); \
 }while(0)
 
 #if DEBUG_LEVEL > 0
-#	define ETK_WARNING(libName,data) ETK_DBG_COMMON(libName, etk::LOG_LEVEL_WARNING, data)
-#	define ETK_ERROR(libName,data)   ETK_DBG_COMMON(libName, etk::LOG_LEVEL_ERROR, data)
+#	define ETK_WARNING(libName,data) ETK_DBG_COMMON(libName, etk::logLevelWarning, data)
+#	define ETK_ERROR(libName,data)   ETK_DBG_COMMON(libName, etk::logLevelError, data)
 #else
 #	define ETK_WARNING(libName,data) do {}while(0)
 #	define ETK_ERROR(libName,data)   do {}while(0)
 #endif
 
 #if DEBUG_LEVEL > 1
-#	define ETK_INFO(libName,data) ETK_DBG_COMMON(libName, etk::LOG_LEVEL_INFO, data)
+#	define ETK_INFO(libName,data) ETK_DBG_COMMON(libName, etk::logLevelInfo, data)
 #else
 #	define ETK_INFO(libName,data) do {}while(0)
 #endif
 
 #if DEBUG_LEVEL > 2
-#	define ETK_DEBUG(libName,data) ETK_DBG_COMMON(libName, etk::LOG_LEVEL_DEBUG, data)
+#	define ETK_DEBUG(libName,data) ETK_DBG_COMMON(libName, etk::logLevelDebug, data)
 #else
 #	define ETK_DEBUG(libName,data) do {}while(0)
 #endif
 
 #if DEBUG_LEVEL > 3
-#	define ETK_VERBOSE(libName,data) ETK_DBG_COMMON(libName, etk::LOG_LEVEL_VERBOSE, data)
+#	define ETK_VERBOSE(libName,data) ETK_DBG_COMMON(libName, etk::logLevelVerbose, data)
 #else
 #	define ETK_VERBOSE(libName,data) do {}while(0)
 #endif

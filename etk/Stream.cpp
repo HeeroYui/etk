@@ -59,11 +59,11 @@ etk::CStart etk::cstart;
 #	include <android/log.h>
 #endif
 
-etk::CCout& etk::operator <<(etk::CCout &_os, const etk::logLevel_te _obj)
+etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj)
 {
 	switch (_obj)
 	{
-		case LOG_LEVEL_CRITICAL:
+		case logLevelCritical:
 			#if !defined(__TARGET_OS__Windows)
 				_os << ETK_BASH_COLOR_BOLD_RED;
 			#endif
@@ -73,7 +73,7 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const etk::logLevel_te _obj)
 				_os << "[C]";
 			#endif
 			break;
-		case LOG_LEVEL_ERROR:
+		case logLevelError:
 			#if !defined(__TARGET_OS__Windows)
 				_os << ETK_BASH_COLOR_RED;
 			#endif
@@ -83,7 +83,7 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const etk::logLevel_te _obj)
 				_os << "[E]";
 			#endif
 			break;
-		case LOG_LEVEL_WARNING:
+		case logLevelWarning:
 			#if !defined(__TARGET_OS__Windows)
 				_os << ETK_BASH_COLOR_MAGENTA;
 			#endif
@@ -93,7 +93,7 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const etk::logLevel_te _obj)
 				_os << "[W]";
 			#endif
 			break;
-		case LOG_LEVEL_INFO:
+		case logLevelInfo:
 			#if !defined(__TARGET_OS__Windows)
 				_os << ETK_BASH_COLOR_CYAN;
 			#endif
@@ -103,7 +103,7 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const etk::logLevel_te _obj)
 				_os << "[I]";
 			#endif
 			break;
-		case LOG_LEVEL_DEBUG:
+		case logLevelDebug:
 			#if !defined(__TARGET_OS__Windows)
 				_os << ETK_BASH_COLOR_YELLOW;
 			#endif
@@ -113,7 +113,7 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const etk::logLevel_te _obj)
 				_os << "[D]";
 			#endif
 			break;
-		case LOG_LEVEL_VERBOSE:
+		case logLevelVerbose:
 			#if !defined(__TARGET_OS__Windows)
 				_os << ETK_BASH_COLOR_WHITE;
 			#endif

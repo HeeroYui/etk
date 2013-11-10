@@ -58,11 +58,11 @@ void debug::displayTime(void)
 
 
 #ifdef __TARGET_OS__Android
-etk::logLevel_te g_requestedLevel = etk::LOG_LEVEL_VERBOSE;
+enum etk::logLevel g_requestedLevel = etk::logLevelError;
 #else
-etk::logLevel_te g_requestedLevel = etk::LOG_LEVEL_ERROR;
+enum etk::logLevel g_requestedLevel = etk::logLevelWarning;
 #endif
-void debug::setGeneralLevel(etk::logLevel_te _ccc) {
+void debug::setGeneralLevel(enum etk::logLevel _ccc) {
 	g_requestedLevel = _ccc;
 }
 

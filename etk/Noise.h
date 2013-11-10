@@ -27,7 +27,7 @@ namespace etk {
 	class Noise
 	{
 		public:
-			typedef enum {
+			enum noise {
 				NOISE_BASE,
 				NOISE_SMOOTH,
 				NOISE_TURBULENCE,
@@ -35,16 +35,16 @@ namespace etk {
 				NOISE_CLOUD,
 				NOISE_MARBLE,
 				NOISE_WOOD
-			} noise_te;
+			};
 		private:
 			etk::Vector<float> m_data;
 			ivec2    m_size;
-			noise_te m_type;
+			enum noise m_type;
 			float smoothNoise(float _x, float _y, const etk::BaseNoise& _noise);
 			float turbulence(float _x, float _y, float _size, const etk::BaseNoise& _noise);
 			float turbulenceNoSmooth(float _x, float _y, float _size, const etk::BaseNoise& _noise);
 		public:
-			Noise(noise_te _type, ivec2 _size, int32_t _depth);
+			Noise(enum noise _type, ivec2 _size, int32_t _depth);
 			~Noise(void);
 			float get(int32_t _x, int32_t _y) const;
 	};
