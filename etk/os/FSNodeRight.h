@@ -49,7 +49,7 @@ namespace etk
 			void setOtherWritable(bool _newStatus);
 			void setOtherRunable(bool _newStatus);
 			
-			etk::UString getRight(void) const;
+			std::u32string getRight(void) const;
 	};
 	etk::CCout& operator <<(etk::CCout &_os, const etk::FSNodeRight &_obj);
 };

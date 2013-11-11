@@ -12,7 +12,7 @@
 #include <etk/types.h>
 #include <etk/debug.h>
 #include <etk/UString.h>
-#include <etk/Vector.h>
+#include <vector>
 
 
 #define TK_REG_EXP_DBG_MODE TK_VERBOSE
@@ -56,14 +56,14 @@ typedef struct {
 extern const convertionTable_ts constConvertionTable[];
 extern const esize_t constConvertionTableSize;
 
-void displayElem(const etk::Vector<etk::UChar>& _data, esize_t _start=0, esize_t _stop=0x7FFFFFFF);
+void displayElem(const std::vector<char32_t>& _data, esize_t _start=0, esize_t _stop=0x7FFFFFFF);
 char * levelSpace(uint32_t _level);
-esize_t getLenOfPTheseElem(const etk::Vector<etk::UChar>& _data, esize_t _startPos);
-esize_t getLenOfPThese(const etk::Vector<etk::UChar>& _data, esize_t _startPos);
-esize_t getLenOfBracket(const etk::Vector<etk::UChar>& _data, esize_t _startPos);
-esize_t getLenOfBrace(const etk::Vector<etk::UChar>& _data, esize_t _startPos);
-esize_t getLenOfNormal(const etk::Vector<etk::UChar>& _data, esize_t _startPos);
-bool parseBrace(const etk::Vector<etk::UChar>& _data, uint32_t& _min, uint32_t& _max);
+esize_t getLenOfPTheseElem(const std::vector<char32_t>& _data, esize_t _startPos);
+esize_t getLenOfPThese(const std::vector<char32_t>& _data, esize_t _startPos);
+esize_t getLenOfBracket(const std::vector<char32_t>& _data, esize_t _startPos);
+esize_t getLenOfBrace(const std::vector<char32_t>& _data, esize_t _startPos);
+esize_t getLenOfNormal(const std::vector<char32_t>& _data, esize_t _startPos);
+bool parseBrace(const std::vector<char32_t>& _data, uint32_t& _min, uint32_t& _max);
 
 
 #undef __class__
@@ -78,7 +78,7 @@ template<class CLASS_TYPE> class RegExpNode
 		uint32_t m_multipleMin; //!< minimum repetition (included)
 		uint32_t m_multipleMax; //!< maximum repetition (included)
 		// Data Section ... (can have no data...)
-		etk::Vector<etk::UChar> m_RegExpData; //!< data to parse and compare in some case ...
+		std::vector<char32_t> m_RegExpData; //!< data to parse and compare in some case ...
 	public :
 		/**
 		 * @brief Constructor
@@ -98,7 +98,7 @@ template<class CLASS_TYPE> class RegExpNode
 		 * @param[in] _data Property of the regexp
 		 * @return the number of element used
 		 */
-		virtual int32_t generate(const etk::Vector<etk::UChar>& _data)
+		virtual int32_t generate(const std::vector<char32_t>& _data)
 		{
 			return 0;
 		};
@@ -151,7 +151,7 @@ template<class CLASS_TYPE> class RegExpNodeValue : public RegExpNode<CLASS_TYPE>
 {
 	protected :
 		// SubNodes :
-		etk::Vector<etk::UChar> m_data;
+		std::vector<char32_t> m_data;
 	public :
 		
 		/**
@@ -164,13 +164,13 @@ template<class CLASS_TYPE> class RegExpNodeValue : public RegExpNode<CLASS_TYPE>
 		 */
 		~RegExpNodeValue(void) { };
 		
-		int32_t generate(const etk::Vector<etk::UChar>& _data)
+		int32_t generate(const std::vector<char32_t>& _data)
 		{
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse \"Value\" data="; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
 			m_data.clear();
 			for (int32_t i=0; i<RegExpNode<CLASS_TYPE>::m_RegExpData.size(); i++) {
-				m_data.pushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[i]);
+				m_data.push_back(RegExpNode<CLASS_TYPE>::m_RegExpData[i]);
 			}
 			return _data.size();
 		};
@@ -234,7 +234,7 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public RegExpNode<CLASS_TYP
 {
 	protected :
 		// SubNodes :
-		etk::Vector<etk::UChar> m_data;
+		std::vector<char32_t> m_data;
 	public :
 		
 		/**
@@ -247,13 +247,13 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public RegExpNode<CLASS_TYP
 		 */
 		~RegExpNodeBracket(void) { };
 		
-		int32_t generate(const etk::Vector<etk::UChar>& _data)
+		int32_t generate(const std::vector<char32_t>& _data)
 		{
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse [...] data="; displayElem(_data););
 			m_data.clear();
 			
-			etk::UChar lastElement = 'a';
+			char32_t lastElement = 'a';
 			bool multipleElement = false;
 			//
 			for (int32_t kkk=0; kkk<RegExpNode<CLASS_TYPE>::m_RegExpData.size(); kkk++) {
@@ -261,16 +261,16 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public RegExpNode<CLASS_TYP
 					TK_ERROR("Can not have 2 consecutive - in [...]");
 					return 0;
 				} else if (multipleElement == true) {
-					etk::UChar jjj='\0';
+					char32_t jjj='\0';
 					for (jjj=lastElement+1; jjj <= RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]; jjj+=1) {
-						m_data.pushBack(jjj);
+						m_data.push_back(jjj);
 					}
 					multipleElement = false;
 				} else if(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk] == REGEXP_OPCODE_TO) {
 					multipleElement = true;
 				} else {
 					lastElement = RegExpNode<CLASS_TYPE>::m_RegExpData[kkk];
-					m_data.pushBack(lastElement);
+					m_data.push_back(lastElement);
 				}
 			}
 			// check size ...
@@ -347,7 +347,7 @@ template<class CLASS_TYPE> class RegExpNodeDigit : public RegExpNode<CLASS_TYPE>
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UChar tmpVal = _data[_currentPos+jjj];
+				char32_t tmpVal = _data[_currentPos+jjj];
 				TK_REG_EXP_DBG_MODE("compare : " << tmpVal);
 				if(    tmpVal >= '0'
 				    && tmpVal <= '9')
@@ -402,7 +402,7 @@ template<class CLASS_TYPE> class RegExpNodeDigitNot : public RegExpNode<CLASS_TY
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UChar tmpVal = _data[_currentPos+jjj];
+				char32_t tmpVal = _data[_currentPos+jjj];
 				if(    tmpVal < '0'
 				    || tmpVal > '9') {
 					_findLen += 1;
@@ -451,7 +451,7 @@ template<class CLASS_TYPE> class RegExpNodeLetter : public RegExpNode<CLASS_TYPE
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UChar tmpVal = _data[_currentPos+jjj];
+				char32_t tmpVal = _data[_currentPos+jjj];
 				if(    (    tmpVal >= 'a'
 				         && tmpVal <= 'z')
 				    || (    tmpVal >= 'A'
@@ -505,7 +505,7 @@ template<class CLASS_TYPE> class RegExpNodeLetterNot : public RegExpNode<CLASS_T
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UChar tmpVal = _data[_currentPos+jjj];
+				char32_t tmpVal = _data[_currentPos+jjj];
 				if(    (    tmpVal < 'a'
 				         && tmpVal > 'Z')
 				    || tmpVal < 'A'
@@ -559,7 +559,7 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpace : public RegExpNode<CLASS_
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UChar tmpVal = _data[_currentPos+jjj];
+				char32_t tmpVal = _data[_currentPos+jjj];
 				if(    tmpVal == ' '
 				    || tmpVal == '\t'
 				    || tmpVal == '\n'
@@ -615,7 +615,7 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpaceNot : public RegExpNode<CLA
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UChar tmpVal = _data[_currentPos+jjj];
+				char32_t tmpVal = _data[_currentPos+jjj];
 				if(    tmpVal != ' '
 				    && tmpVal != '\t'
 				    && tmpVal != '\n'
@@ -670,7 +670,7 @@ template<class CLASS_TYPE> class RegExpNodeWordChar : public RegExpNode<CLASS_TY
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UChar tmpVal = _data[_currentPos+jjj];
+				char32_t tmpVal = _data[_currentPos+jjj];
 				if(    (    tmpVal >= 'a'
 				         && tmpVal <= 'z' )
 				    || (    tmpVal >= 'A'
@@ -725,7 +725,7 @@ template<class CLASS_TYPE> class RegExpNodeWordCharNot : public RegExpNode<CLASS
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UChar tmpVal = _data[_currentPos+jjj];
+				char32_t tmpVal = _data[_currentPos+jjj];
 				if(    (    tmpVal < 'A'
 				         && tmpVal > '9' )
 				    || (    tmpVal < 'a'
@@ -782,7 +782,7 @@ template<class CLASS_TYPE> class RegExpNodeDot : public RegExpNode<CLASS_TYPE>
 			bool tmpFind = true;
 			uint32_t jjj;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				etk::UChar tmpVal = _data[_currentPos+jjj];
+				char32_t tmpVal = _data[_currentPos+jjj];
 				if(    (    tmpVal > 0x08
 				         && tmpVal < 0x0A )
 				    || (    tmpVal > 0x1F
@@ -896,7 +896,7 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 {
 	protected :
 		// SubNodes :
-		etk::Vector<RegExpNode<CLASS_TYPE>*> m_subNode;
+		std::vector<RegExpNode<CLASS_TYPE>*> m_subNode;
 	public :
 		/**
 		 * @brief Constructor
@@ -908,13 +908,13 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 		 */
 		~RegExpNodePTheseElem(void) { };
 		
-		int32_t generate(const etk::Vector<etk::UChar>& _data)
+		int32_t generate(const std::vector<char32_t>& _data)
 		{
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse (elem) data="; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
 			esize_t pos = 0;
 			esize_t elementSize = 0;
-			etk::Vector<etk::UChar> tmpData;
+			std::vector<char32_t> tmpData;
 			while (pos < RegExpNode<CLASS_TYPE>::m_RegExpData.size()) {
 				tmpData.clear();
 				switch (RegExpNode<CLASS_TYPE>::m_RegExpData[pos].get()) {
@@ -922,12 +922,12 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 						{
 							elementSize=getLenOfPThese(RegExpNode<CLASS_TYPE>::m_RegExpData, pos);
 							for (esize_t kkk=pos+1; kkk<pos+elementSize+1; kkk++) {
-								tmpData.pushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
+								tmpData.push_back(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
 							}
 							RegExpNodePThese<CLASS_TYPE> * myElem = new RegExpNodePThese<CLASS_TYPE>();
 							(void)myElem->generate(tmpData);
 							// add to the subnode list : 
-							m_subNode.pushBack(myElem);
+							m_subNode.push_back(myElem);
 							// move current position ...
 							pos += elementSize+1;
 						}
@@ -939,12 +939,12 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 						{
 							elementSize=getLenOfBracket(RegExpNode<CLASS_TYPE>::m_RegExpData, pos);
 							for (esize_t kkk=pos+1; kkk<pos+elementSize+1; kkk++) {
-								tmpData.pushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
+								tmpData.push_back(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
 							}
 							RegExpNodeBracket<CLASS_TYPE> * myElem = new RegExpNodeBracket<CLASS_TYPE>();
 							(void)myElem->generate(tmpData);
 							// add to the subnode list : 
-							m_subNode.pushBack(myElem);
+							m_subNode.push_back(myElem);
 							// move current position ...
 							pos += elementSize+1;
 						}
@@ -956,7 +956,7 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 						{
 							elementSize=getLenOfBrace(RegExpNode<CLASS_TYPE>::m_RegExpData, pos);
 							for (esize_t kkk=pos+1; kkk<pos+elementSize+1; kkk++) {
-								tmpData.pushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
+								tmpData.push_back(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
 							}
 							uint32_t min = 0;
 							uint32_t max = 0;
@@ -986,49 +986,49 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 						TK_ERROR("Impossible case :  '|' " << pos);
 						return false;
 					case REGEXP_OPCODE_DOT:
-						m_subNode.pushBack(new RegExpNodeDot<CLASS_TYPE>());
+						m_subNode.push_back(new RegExpNodeDot<CLASS_TYPE>());
 						break;
 					case REGEXP_OPCODE_START_OF_LINE:
-						m_subNode.pushBack(new RegExpNodeSOL<CLASS_TYPE>());
+						m_subNode.push_back(new RegExpNodeSOL<CLASS_TYPE>());
 						break;
 					case REGEXP_OPCODE_END_OF_LINE:
-						m_subNode.pushBack(new RegExpNodeEOL<CLASS_TYPE>());
+						m_subNode.push_back(new RegExpNodeEOL<CLASS_TYPE>());
 						break;
 					case REGEXP_OPCODE_DIGIT:
-						m_subNode.pushBack(new RegExpNodeDigit<CLASS_TYPE>());
+						m_subNode.push_back(new RegExpNodeDigit<CLASS_TYPE>());
 						break;
 					case REGEXP_OPCODE_DIGIT_NOT:
-						m_subNode.pushBack(new RegExpNodeDigitNot<CLASS_TYPE>());
+						m_subNode.push_back(new RegExpNodeDigitNot<CLASS_TYPE>());
 						break;
 					case REGEXP_OPCODE_LETTER:
-						m_subNode.pushBack(new RegExpNodeLetter<CLASS_TYPE>());
+						m_subNode.push_back(new RegExpNodeLetter<CLASS_TYPE>());
 						break;
 					case REGEXP_OPCODE_LETTER_NOT:
-						m_subNode.pushBack(new RegExpNodeLetterNot<CLASS_TYPE>());
+						m_subNode.push_back(new RegExpNodeLetterNot<CLASS_TYPE>());
 						break;
 					case REGEXP_OPCODE_SPACE:
-						m_subNode.pushBack(new RegExpNodeWhiteSpace<CLASS_TYPE>());
+						m_subNode.push_back(new RegExpNodeWhiteSpace<CLASS_TYPE>());
 						break;
 					case REGEXP_OPCODE_SPACE_NOT:
-						m_subNode.pushBack(new RegExpNodeWhiteSpaceNot<CLASS_TYPE>());
+						m_subNode.push_back(new RegExpNodeWhiteSpaceNot<CLASS_TYPE>());
 						break;
 					case REGEXP_OPCODE_WORD:
-						m_subNode.pushBack(new RegExpNodeWordChar<CLASS_TYPE>());
+						m_subNode.push_back(new RegExpNodeWordChar<CLASS_TYPE>());
 						break;
 					case REGEXP_OPCODE_WORD_NOT:
-						m_subNode.pushBack(new RegExpNodeWordCharNot<CLASS_TYPE>());
+						m_subNode.push_back(new RegExpNodeWordCharNot<CLASS_TYPE>());
 						break;
 					
 					default:
 						{
 							elementSize = getLenOfNormal(RegExpNode<CLASS_TYPE>::m_RegExpData, pos);
 							for (esize_t kkk=pos; kkk<pos+elementSize; kkk++) {
-								tmpData.pushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
+								tmpData.push_back(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
 							}
 							RegExpNodeValue<CLASS_TYPE> * myElem = new RegExpNodeValue<CLASS_TYPE>();
 							(void)myElem->generate(tmpData);
 							// add to the subnode list : 
-							m_subNode.pushBack(myElem);
+							m_subNode.push_back(myElem);
 							// move current position ...
 							pos += elementSize-1;
 						}
@@ -1105,7 +1105,7 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 template<class CLASS_TYPE> class RegExpNodePThese : public RegExpNode<CLASS_TYPE>
 {
 	protected :
-		etk::Vector<RegExpNode<CLASS_TYPE>*> m_subNode; //!< Subnode list 
+		std::vector<RegExpNode<CLASS_TYPE>*> m_subNode; //!< Subnode list 
 	public :
 		/**
 		 * @brief Constructor
@@ -1123,7 +1123,7 @@ template<class CLASS_TYPE> class RegExpNodePThese : public RegExpNode<CLASS_TYPE
 			
 		};
 		
-		int32_t generate(const etk::Vector<etk::UChar>& _data)
+		int32_t generate(const std::vector<char32_t>& _data)
 		{
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse (...) data="; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
@@ -1133,14 +1133,14 @@ template<class CLASS_TYPE> class RegExpNodePThese : public RegExpNode<CLASS_TYPE
 			// generate all the "elemTypePTheseElem" of the Node
 			while (elementSize>0) {
 				// geerate output deta ...
-				etk::Vector<etk::UChar> tmpData;
+				std::vector<char32_t> tmpData;
 				for (esize_t kkk=pos; kkk<pos+elementSize; kkk++) {
-					tmpData.pushBack(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
+					tmpData.push_back(RegExpNode<CLASS_TYPE>::m_RegExpData[kkk]);
 				}
 				RegExpNodePTheseElem<CLASS_TYPE> * myElem = new RegExpNodePTheseElem<CLASS_TYPE>();
 				(void)myElem->generate(tmpData);
 				// add to the subnode list : 
-				m_subNode.pushBack(myElem);
+				m_subNode.push_back(myElem);
 				pos += elementSize+1;
 				TK_REG_EXP_DBG_MODE("plop="; displayElem(_data, pos, pos+1););
 				elementSize = getLenOfPTheseElem(RegExpNode<CLASS_TYPE>::m_RegExpData, pos);
@@ -1207,7 +1207,7 @@ template<class CLASS_TYPE> class RegExpNodePThese : public RegExpNode<CLASS_TYPE
 template<class CLASS_TYPE> class RegExp
 {
 	private:
-		etk::UString m_expressionRequested; //!< Regular expression parsed ...
+		std::u32string m_expressionRequested; //!< Regular expression parsed ...
 		elementPos_ts m_areaFind; //!< position around selection
 		RegExpNodePThese<CLASS_TYPE> m_exprRootNode; //!< The tree where data is set
 		bool m_isOk; //!< Known if we can process with this regExp
@@ -1220,8 +1220,8 @@ template<class CLASS_TYPE> class RegExp
 		 * @brief Constructor
 		 * @param[in,out] _exp Regular expression to parse
 		 */
-		RegExp(const etk::UString &_exp="") :
-			m_expressionRequested(""),
+		RegExp(const std::u32string &_exp=U"") :
+			m_expressionRequested(U""),
 			m_isOk(false),
 			m_notBeginWithChar(false),
 			m_notEndWithChar(false)
@@ -1245,10 +1245,10 @@ template<class CLASS_TYPE> class RegExp
 		 * @brief Set a new regular expression matching
 		 * @param[in] _regexp the new expression to search
 		 */
-		void setRegExp(const etk::UString &_regexp)
+		void setRegExp(const std::u32string &_regexp)
 		{
 			m_expressionRequested = _regexp;
-			etk::Vector<etk::UChar> tmpExp;
+			std::vector<char32_t> tmpExp;
 			
 			TK_REG_EXP_DBG_MODE("---------------------------------------------------------------------");
 			TK_REG_EXP_DBG_MODE("Parse RegExp : (" << _regexp << ")" );
@@ -1279,9 +1279,9 @@ template<class CLASS_TYPE> class RegExp
 							&&	_regexp[iii+1] == constConvertionTable[jjj].inputValue)
 						{
 							if (constConvertionTable[jjj].newValue==0) {
-								tmpExp.pushBack(constConvertionTable[jjj].specialChar);
+								tmpExp.push_back(constConvertionTable[jjj].specialChar);
 							} else {
-								tmpExp.pushBack(constConvertionTable[jjj].newValue);
+								tmpExp.push_back(constConvertionTable[jjj].newValue);
 							}
 							break;
 						}
@@ -1315,9 +1315,9 @@ template<class CLASS_TYPE> class RegExp
 							&&	_regexp[iii] == constConvertionTable[jjj].inputValue)
 						{
 							if (constConvertionTable[jjj].newValue==0) {
-								tmpExp.pushBack(constConvertionTable[jjj].specialChar);
+								tmpExp.push_back(constConvertionTable[jjj].specialChar);
 							} else {
-								tmpExp.pushBack(constConvertionTable[jjj].newValue);
+								tmpExp.push_back(constConvertionTable[jjj].newValue);
 							}
 							break;
 						}
@@ -1325,7 +1325,7 @@ template<class CLASS_TYPE> class RegExp
 					// not find : normal element
 					if (jjj==constConvertionTableSize) {
 						//TK_REG_EXP_DBG_MODE("parse : '" << _regexp[iii] << "'" );
-						tmpExp.pushBack(_regexp[iii]);
+						tmpExp.push_back(_regexp[iii]);
 					}
 				}
 			}
@@ -1357,7 +1357,7 @@ template<class CLASS_TYPE> class RegExp
 				//TK_DEBUG("=> must not begin with char");
 				m_notBeginWithChar = true;
 				// remove element
-				tmpExp.erase(0);
+				tmpExp.erase(tmpExp.begin());
 			}
 			if (    tmpExp.size()>0
 			     && tmpExp[tmpExp.size()-1] == REGEXP_OPCODE_NO_CHAR)
@@ -1365,7 +1365,7 @@ template<class CLASS_TYPE> class RegExp
 				//TK_DEBUG("=> must not end with char");
 				m_notEndWithChar = true;
 				// remove element
-				tmpExp.erase(tmpExp.size()-1);
+				tmpExp.erase(tmpExp.end());
 			}
 			
 			if (tmpExp.size() != m_exprRootNode.generate(tmpExp) ) {
@@ -1382,7 +1382,7 @@ template<class CLASS_TYPE> class RegExp
 		 * @brief Get the regular expression string
 		 * @return the string representing the RegExp
 		 */
-		const etk::UString& getRegExp(void) const
+		const std::u32string& getRegExp(void) const
 		{
 			return m_expressionRequested;
 		};
@@ -1409,7 +1409,7 @@ template<class CLASS_TYPE> class RegExp
 		bool process(const CLASS_TYPE& _SearchIn,
 		             esize_t _startPos,
 		             esize_t _endPos,
-		             etk::UChar _escapeChar=0)
+		             char32_t _escapeChar=0)
 		{
 			if (false == m_isOk) {
 				return false;
@@ -1426,7 +1426,7 @@ template<class CLASS_TYPE> class RegExp
 				esize_t maxlen = _endPos-iii;
 				if (true == m_notBeginWithChar) {
 					if (iii>0) {
-						etk::UChar tmpVal = _SearchIn[iii-1];
+						char32_t tmpVal = _SearchIn[iii-1];
 						if(    (    tmpVal >= 'a'
 						         && tmpVal <= 'z' )
 						    || (    tmpVal >= 'A'
@@ -1451,7 +1451,7 @@ template<class CLASS_TYPE> class RegExp
 					// Check end :
 					if (true == m_notEndWithChar) {
 						if (iii+findLen < _SearchIn.size() ) {
-							etk::UChar tmpVal = _SearchIn[iii+findLen];
+							char32_t tmpVal = _SearchIn[iii+findLen];
 							if(    (    tmpVal >= 'a'
 							         && tmpVal <= 'z' )
 							    || (    tmpVal >= 'A'
@@ -1487,7 +1487,7 @@ template<class CLASS_TYPE> class RegExp
 		bool processOneElement( const CLASS_TYPE& _SearchIn,
 		                        esize_t _startPos,
 		                        esize_t _endPos,
-		                        etk::UChar _escapeChar=0)
+		                        char32_t _escapeChar=0)
 		{
 			if (false == m_isOk) {
 				return false;
@@ -1503,7 +1503,7 @@ template<class CLASS_TYPE> class RegExp
 			esize_t maxlen = _endPos-_startPos;
 			if (true == m_notBeginWithChar) {
 				if (_startPos>0) {
-					etk::UChar tmpVal = _SearchIn[_startPos-1];
+					char32_t tmpVal = _SearchIn[_startPos-1];
 					if(    (    tmpVal >= 'a'
 					         && tmpVal <= 'z' )
 					    || (    tmpVal >= 'A'
@@ -1528,7 +1528,7 @@ template<class CLASS_TYPE> class RegExp
 				// Check end :
 				if (true == m_notEndWithChar) {
 					if (_startPos+findLen < _SearchIn.size() ) {
-						etk::UChar tmpVal = _SearchIn[_startPos+findLen];
+						char32_t tmpVal = _SearchIn[_startPos+findLen];
 						if(    (    tmpVal >= 'a'
 						         && tmpVal <= 'z' )
 						    || (    tmpVal >= 'A'
@@ -1574,10 +1574,10 @@ template<class CLASS_TYPE> class RegExp
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool checkGoodPosition(const etk::Vector<etk::UChar>& _tmpExp, esize_t& _pos)
+		bool checkGoodPosition(const std::vector<char32_t>& _tmpExp, esize_t& _pos)
 		{
-			etk::UChar curentCode = _tmpExp[_pos];
-			etk::UChar endCode = REGEXP_OPCODE_PTHESE_OUT;
+			char32_t curentCode = _tmpExp[_pos];
+			char32_t endCode = REGEXP_OPCODE_PTHESE_OUT;
 			const char *input = "(...)";
 			if (curentCode == REGEXP_OPCODE_BRACKET_IN) {
 				endCode = REGEXP_OPCODE_BRACKET_OUT;
@@ -1603,7 +1603,7 @@ template<class CLASS_TYPE> class RegExp
 					} else {
 						// otherwise, we check the error in the element ...
 						char *find = NULL;
-						switch (_tmpExp[_pos].get())
+						switch (_tmpExp[_pos])
 						{
 							case REGEXP_OPCODE_PTHESE_IN:		find = (char*)"(";			break;
 							case REGEXP_OPCODE_BRACKET_IN:		find = (char*)"[";			break;
@@ -1679,7 +1679,7 @@ template<class CLASS_TYPE> class RegExp
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool checkGoodPosition(const etk::Vector<etk::UChar>& _tmpExp)
+		bool checkGoodPosition(const std::vector<char32_t>& _tmpExp)
 		{
 			esize_t pos = 0;
 			while (pos < _tmpExp.size()) {

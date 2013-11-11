@@ -15,24 +15,24 @@
 
 
 
-void unicode::convertIsoToUnicode(enum charset _inputCharset, const char _input_ISO, etk::UChar & _output_Unicode)
+void unicode::convertIsoToUnicode(enum charset _inputCharset, const char _input_ISO, char32_t & _output_Unicode)
 {
 	switch(_inputCharset)
 	{
-		case charsetIso8859_1:  _output_Unicode.set(tableIso8859_1[(uint32_t)_input_ISO&0xFF]); break;
-		case charsetIso8859_2:  _output_Unicode.set(tableIso8859_2[(uint32_t)_input_ISO&0xFF]); break;
-		case charsetIso8859_3:  _output_Unicode.set(tableIso8859_3[(uint32_t)_input_ISO&0xFF]); break;
-		case charsetIso8859_4:  _output_Unicode.set(tableIso8859_4[(uint32_t)_input_ISO&0xFF]); break;
-		case charsetIso8859_5:  _output_Unicode.set(tableIso8859_5[(uint32_t)_input_ISO&0xFF]); break;
-		case charsetIso8859_6:  _output_Unicode.set(tableIso8859_6[(uint32_t)_input_ISO&0xFF]); break;
-		case charsetIso8859_7:  _output_Unicode.set(tableIso8859_7[(uint32_t)_input_ISO&0xFF]); break;
-		case charsetIso8859_8:  _output_Unicode.set(tableIso8859_8[(uint32_t)_input_ISO&0xFF]); break;
-		case charsetIso8859_9:  _output_Unicode.set(tableIso8859_9[(uint32_t)_input_ISO&0xFF]); break;
-		case charsetIso8859_10: _output_Unicode.set(tableIso8859_10[(uint32_t)_input_ISO&0xFF]); break;
-		case charsetIso8859_11: _output_Unicode.set(tableIso8859_11[(uint32_t)_input_ISO&0xFF]); break;
-		case charsetIso8859_13: _output_Unicode.set(tableIso8859_13[(uint32_t)_input_ISO&0xFF]); break;
-		case charsetIso8859_14: _output_Unicode.set(tableIso8859_14[(uint32_t)_input_ISO&0xFF]); break;
-		case charsetIso8859_15: _output_Unicode.set(tableIso8859_15[(uint32_t)_input_ISO&0xFF]); break;
+		case charsetIso8859_1:  _output_Unicode = tableIso8859_1[(uint32_t)_input_ISO&0xFF]; break;
+		case charsetIso8859_2:  _output_Unicode = tableIso8859_2[(uint32_t)_input_ISO&0xFF]; break;
+		case charsetIso8859_3:  _output_Unicode = tableIso8859_3[(uint32_t)_input_ISO&0xFF]; break;
+		case charsetIso8859_4:  _output_Unicode = tableIso8859_4[(uint32_t)_input_ISO&0xFF]; break;
+		case charsetIso8859_5:  _output_Unicode = tableIso8859_5[(uint32_t)_input_ISO&0xFF]; break;
+		case charsetIso8859_6:  _output_Unicode = tableIso8859_6[(uint32_t)_input_ISO&0xFF]; break;
+		case charsetIso8859_7:  _output_Unicode = tableIso8859_7[(uint32_t)_input_ISO&0xFF]; break;
+		case charsetIso8859_8:  _output_Unicode = tableIso8859_8[(uint32_t)_input_ISO&0xFF]; break;
+		case charsetIso8859_9:  _output_Unicode = tableIso8859_9[(uint32_t)_input_ISO&0xFF]; break;
+		case charsetIso8859_10: _output_Unicode = tableIso8859_10[(uint32_t)_input_ISO&0xFF]; break;
+		case charsetIso8859_11: _output_Unicode = tableIso8859_11[(uint32_t)_input_ISO&0xFF]; break;
+		case charsetIso8859_13: _output_Unicode = tableIso8859_13[(uint32_t)_input_ISO&0xFF]; break;
+		case charsetIso8859_14: _output_Unicode = tableIso8859_14[(uint32_t)_input_ISO&0xFF]; break;
+		case charsetIso8859_15: _output_Unicode = tableIso8859_15[(uint32_t)_input_ISO&0xFF]; break;
 		default :
 			TK_WARNING("Unknow charset ... " << _inputCharset);
 			_output_Unicode = '?';
@@ -41,7 +41,7 @@ void unicode::convertIsoToUnicode(enum charset _inputCharset, const char _input_
 }
 
 
-void unicode::convertUnicodeToIso(enum charset _inputCharset, const etk::UChar _input_Unicode, char & _output_ISO)
+void unicode::convertUnicodeToIso(enum charset _inputCharset, const char32_t _input_Unicode, char & _output_ISO)
 {
 	const uint32_t *tmpTable = NULL;
 	switch(_inputCharset)
@@ -67,7 +67,7 @@ void unicode::convertUnicodeToIso(enum charset _inputCharset, const etk::UChar _
 	}
 	int32_t i;
 	for (i=0; i<256; i++) {
-		if (tmpTable[i] == _input_Unicode.get()) {
+		if (tmpTable[i] == _input_Unicode) {
 			_output_ISO = (char)i;
 			return;
 		}
@@ -75,107 +75,111 @@ void unicode::convertUnicodeToIso(enum charset _inputCharset, const etk::UChar _
 }
 
 
-int32_t unicode::convertIsoToUnicode(enum charset _inputCharset, const etk::Vector<char>& _input_ISO, etk::Vector<etk::UChar>& _output_Unicode)
+int32_t unicode::convertIsoToUnicode(enum charset _inputCharset, const std::vector<char>& _input_ISO, std::vector<char32_t>& _output_Unicode)
 {
 	_output_Unicode.clear();
-	etk::UChar output;
+	char32_t output;
 	for(int32_t iii=0; iii<_input_ISO.size(); iii++) {
 		convertIsoToUnicode(_inputCharset, (char)_input_ISO[iii], output);
-		_output_Unicode.pushBack(output);
+		_output_Unicode.push_back(output);
 	}
 	if (_output_Unicode.size() == 0) {
-		_output_Unicode.pushBack(0);
+		_output_Unicode.push_back(0);
 	} else if (_output_Unicode[_output_Unicode.size()-1] != 0) {
-		_output_Unicode.pushBack(0);
+		_output_Unicode.push_back(0);
 	}
 	return _output_Unicode.size();
 }
 
-int32_t unicode::convertIsoToUnicode(enum charset _inputCharset, const etk::Vector<int8_t>& _input_ISO, etk::Vector<etk::UChar>& _output_Unicode)
+int32_t unicode::convertIsoToUnicode(enum charset _inputCharset, const std::vector<int8_t>& _input_ISO, std::vector<char32_t>& _output_Unicode)
 {
 	_output_Unicode.clear();
-	etk::UChar output;
+	char32_t output;
 	for(int32_t iii=0; iii<_input_ISO.size(); iii++) {
 		convertIsoToUnicode(_inputCharset, (char)_input_ISO[iii], output);
-		_output_Unicode.pushBack(output);
+		_output_Unicode.push_back(output);
 	}
 	if (_output_Unicode.size() == 0) {
-		_output_Unicode.pushBack(0);
+		_output_Unicode.push_back(0);
 	} else if (_output_Unicode[_output_Unicode.size()-1] != 0) {
-		_output_Unicode.pushBack(0);
+		_output_Unicode.push_back(0);
 	}
 	return _output_Unicode.size();
 }
 
 
-int32_t unicode::convertUnicodeToIso(enum charset _inputCharset, const etk::Vector<etk::UChar>& _input_Unicode, etk::Vector<char>&    _output_ISO)
+int32_t unicode::convertUnicodeToIso(enum charset _inputCharset, const std::vector<char32_t>& _input_Unicode, std::vector<char>&    _output_ISO)
 {
+/*
 	_output_ISO.clear();
 	char output[10];
 	for(int32_t iii=0; iii<_input_Unicode.size(); iii++) {
 		_input_Unicode[iii].getUtf8(output);
 		char * tmp = output;
 		while(*tmp != '\0') {
-			_output_ISO.pushBack(*tmp);
+			_output_ISO.push_back(*tmp);
 			tmp++;
 		}
 	}
-	_output_ISO.pushBack(0);
+	_output_ISO.push_back(0);
 	return _output_ISO.size();
+*/
 }
 
-int32_t unicode::convertUnicodeToIso(enum charset _inputCharset, const etk::Vector<etk::UChar>& _input_Unicode, etk::Vector<int8_t>&    _output_ISO)
+int32_t unicode::convertUnicodeToIso(enum charset _inputCharset, const std::vector<char32_t>& _input_Unicode, std::vector<int8_t>&    _output_ISO)
 {
+/*
 	_output_ISO.clear();
 	char output[10];
 	for(int32_t iii=0; iii<_input_Unicode.size(); iii++) {
 		_input_Unicode[iii].getUtf8(output);
 		char * tmp = output;
 		while(*tmp != '\0') {
-			_output_ISO.pushBack(*tmp);
+			_output_ISO.push_back(*tmp);
 			tmp++;
 		}
 	}
-	_output_ISO.pushBack(0);
+	_output_ISO.push_back(0);
 	return _output_ISO.size();
+*/
 }
 
 
 
-int32_t unicode::convertUnicodeToUtf8(const etk::Vector<etk::UChar>& _input_Unicode, etk::Vector<char>& _output_UTF8)
+int32_t unicode::convertUnicodeToUtf8(const std::vector<char32_t>& _input_Unicode, std::vector<char>& _output_UTF8)
 {
 	char output[10];
 	
 	for (int32_t iii=0; iii<_input_Unicode.size(); iii++) {
-		_input_Unicode[iii].getUtf8(output);
+		etk::getUtf8(_input_Unicode[iii], output);
 		char * tmp = output ;
 		while (*tmp != '\0') {
-			_output_UTF8.pushBack(*tmp);
+			_output_UTF8.push_back(*tmp);
 			tmp++;
 		}
 	}
-	_output_UTF8.pushBack('\0');
+	_output_UTF8.push_back('\0');
 	return _output_UTF8.size()-1;
 }
 
-int32_t unicode::convertUnicodeToUtf8(const etk::Vector<etk::UChar>& _input_Unicode, etk::Vector<int8_t>& _output_UTF8)
+int32_t unicode::convertUnicodeToUtf8(const std::vector<char32_t>& _input_Unicode, std::vector<int8_t>& _output_UTF8)
 {
 	char output[10];
 	
 	for (int32_t iii=0; iii<_input_Unicode.size(); iii++) {
-		_input_Unicode[iii].getUtf8(output);
+		etk::getUtf8(_input_Unicode[iii], output);
 		char * tmp = output ;
 		while (*tmp != '\0') {
-			_output_UTF8.pushBack((int8_t)*tmp);
+			_output_UTF8.push_back((int8_t)*tmp);
 			tmp++;
 		}
 	}
-	_output_UTF8.pushBack('\0');
+	_output_UTF8.push_back('\0');
 	return _output_UTF8.size()-1;
 }
 
 
-int32_t unicode::convertUtf8ToUnicode(const etk::Vector<char>& _input_UTF8, etk::Vector<etk::UChar>& _output_Unicode)
+int32_t unicode::convertUtf8ToUnicode(const std::vector<char>& _input_UTF8, std::vector<char32_t>& _output_Unicode)
 {
 	char tmpData[20];
 	int32_t pos = 0;
@@ -219,14 +223,12 @@ int32_t unicode::convertUtf8ToUnicode(const etk::Vector<char>& _input_UTF8, etk:
 			tmpData[0] = '\0';
 			pos += 1;
 		}
-		etk::UChar tmpUnicode;
-		tmpUnicode.setUtf8(tmpData);
-		_output_Unicode.pushBack(tmpUnicode);
+		_output_Unicode.push_back(etk::setUtf8(tmpData));
 	}
 	return 0;
 }
 
-int32_t unicode::convertUtf8ToUnicode(const etk::Vector<int8_t>& _input_UTF8, etk::Vector<etk::UChar>& _output_Unicode)
+int32_t unicode::convertUtf8ToUnicode(const std::vector<int8_t>& _input_UTF8, std::vector<char32_t>& _output_Unicode)
 {
 	char tmpData[20];
 	int32_t pos = 0;
@@ -270,14 +272,12 @@ int32_t unicode::convertUtf8ToUnicode(const etk::Vector<int8_t>& _input_UTF8, et
 			tmpData[0] = '\0';
 			pos += 1;
 		}
-		etk::UChar tmpUnicode;
-		tmpUnicode.setUtf8(tmpData);
-		_output_Unicode.pushBack(tmpUnicode);
+		_output_Unicode.push_back(etk::setUtf8(tmpData));
 	}
 	return 0;
 }
 
-int32_t unicode::convertUtf8ToUnicode(const char * _input_UTF8, etk::Vector<etk::UChar>& _output_Unicode)
+int32_t unicode::convertUtf8ToUnicode(const char * _input_UTF8, std::vector<char32_t>& _output_Unicode)
 {
 	char tmpData[20];
 	int32_t pos = 0;
@@ -325,9 +325,7 @@ int32_t unicode::convertUtf8ToUnicode(const char * _input_UTF8, etk::Vector<etk:
 			tmpData[0] = '\0';
 			pos += 1;
 		}
-		etk::UChar tmpUnicode;
-		tmpUnicode.setUtf8(tmpData);
-		_output_Unicode.pushBack(tmpUnicode);
+		_output_Unicode.push_back(etk::setUtf8(tmpData));
 	}
 	return 0;
 }
@@ -336,32 +334,36 @@ int32_t unicode::convertUtf8ToUnicode(const char * _input_UTF8, etk::Vector<etk:
 // Transform ISO <==> UTF-8
 void unicode::convertIsoToUtf8(enum charset _inputCharset, const char _input_ISO, char * _output_UTF8)
 {
-	etk::UChar tmpUnicode;
+	/*
+	char32_t tmpUnicode;
 	// concert Iso in UniCode
 	convertIsoToUnicode(_inputCharset, _input_ISO, tmpUnicode );
 	// convert UniCode in Utf-8
 	tmpUnicode.getUtf8(_output_UTF8);
+	*/
 }
 
 
 void unicode::convertUtf8ToIso(enum charset _inputCharset, const char * _input_UTF8, char & _output_ISO)
 {
-	etk::UChar tmpUnicode;
+	/*
+	char32_t tmpUnicode;
 	// convert Utf-8 in UniCode
 	tmpUnicode.setUtf8(_input_UTF8);
 	// concert UniCode in Iso
 	convertUnicodeToIso(_inputCharset, tmpUnicode, _output_ISO);
+	*/
 }
 
 
-int32_t unicode::convertIsoToUtf8(enum charset _inputCharset, const etk::Vector<char>& _input_ISO, etk::Vector<char>& _output_UTF8)
+int32_t unicode::convertIsoToUtf8(enum charset _inputCharset, const std::vector<char>& _input_ISO, std::vector<char>& _output_UTF8)
 {
 	TK_WARNING("TODO : not coded...");
 	return 0;
 }
 
 
-int32_t unicode::convertUtf8ToIso(enum charset _inputCharset, const etk::Vector<char>& _input_UTF8, etk::Vector<char>& _output_ISO)
+int32_t unicode::convertUtf8ToIso(enum charset _inputCharset, const std::vector<char>& _input_UTF8, std::vector<char>& _output_ISO)
 {
 	TK_WARNING("TODO : not coded...");
 	return 0;

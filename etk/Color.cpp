@@ -10,9 +10,10 @@
 #include <etk/tool.h>
 #include <etk/Color.h>
 #include <etk/debug.h>
+#include <string>
+#include <sstream>
 
-static bool strnCmpNoCase(const char * input1, const char * input2, int32_t maxLen)
-{
+static bool strnCmpNoCase(const char * input1, const char * input2, int32_t maxLen) {
 	int32_t iii=0;
 	while ('\0' != *input1 && '\0' != *input2 && iii < maxLen) {
 		char in1 = *input1;
@@ -43,110 +44,103 @@ typedef struct {
 static esize_t getColorSize(void);
 static const colorList_ts* getColorList(void);
 
-namespace etk
-{
-	template<> void Color<uint8_t>::set(float _r, float _g, float _b, float _a)
-	{
+namespace etk {
+	template<> void Color<uint8_t>::set(float _r, float _g, float _b, float _a) {
 		m_r = (uint8_t)(_r*255.0f);
 		m_g = (uint8_t)(_g*255.0f);
 		m_b = (uint8_t)(_b*255.0f);
 		m_a = (uint8_t)(_a*255.0f);
 	}
 	
-	template<> void Color<float>::set(float _r, float _g, float _b, float _a)
-	{
+	template<> void Color<float>::set(float _r, float _g, float _b, float _a) {
 		m_r = _r;
 		m_g = _g;
 		m_b = _b;
 		m_a = _a;
 	}
 	
-	template<> void Color<uint8_t>::set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a)
-	{
+	template<> void Color<uint8_t>::set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a) {
 		m_r = _r;
 		m_g = _g;
 		m_b = _b;
 		m_a = _a;
 	}
 	
-	template<> void Color<float>::set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a)
-	{
+	template<> void Color<float>::set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a) {
 		m_r = ((float)_r)/255.0f;
 		m_g = ((float)_g)/255.0f;
 		m_b = ((float)_b)/255.0f;
 		m_a = ((float)_a)/255.0f;
 	}
 	
-	template<> uint32_t Color<uint8_t>::get(void) const
-	{
+	template<> uint32_t Color<uint8_t>::get(void) const {
 		return   (((uint32_t)m_r)<<24)
 		       + (((uint32_t)m_g)<<16)
 		       + (((uint32_t)m_b)<<8)
 		       + (uint32_t)m_a;
 	}
 	
-	template<> uint32_t Color<float>::get(void) const
-	{
+	template<> uint32_t Color<float>::get(void) const {
 		return Color<uint8_t>(*this).get();
 	}
 	
-	template<> Color<uint8_t>::Color(const etk::UString& _input) :
-		m_r(255),
-		m_g(255),
-		m_b(255),
-		m_a(255)
-	{
-		etk::Char input = _input.c_str();
-		const char* inputData = input;
-		size_t len = strlen(input);
-		if(    len >=1
-		    && inputData[0] == '#') {
-			if(len == 4) {
-				int32_t red=0, green=0, blue=0;
-				if (sscanf(inputData + 1, "%1x%1x%1x", &red, &green, &blue) == 3) {
-					m_r = (red | red << 4);
-					m_g = (green | green << 4);
-					m_b = (blue | blue << 4);
-				} else {
-					TK_ERROR(" pb in parsing the color : \"" << inputData << "\"");
-				}
-			} else if (len==5) {
-				int32_t red=0, green=0, blue=0, alpha=0;
-				if (sscanf(inputData + 1, "%1x%1x%1x%1x", &red, &green, &blue, &alpha) == 4) {
-					m_r = (red | red << 4);
-					m_g = (green | green << 4);
-					m_b = (blue | blue << 4);
-					m_a = (alpha | alpha << 4);
-				} else {
-					TK_ERROR(" pb in parsing the color : \"" << inputData << "\"");
-				}
-			} else if (len == 7) {
-				int32_t red=0, green=0, blue=0;
-				if (sscanf(inputData + 1, "%2x%2x%2x", &red, &green, &blue) == 3) {
-					m_r = red;
-					m_g = green;
-					m_b = blue;
-				} else {
-					TK_ERROR(" pb in parsing the color : \"" << inputData << "\"");
-				}
-			} else if (len == 9) {
-				int32_t red=0, green=0, blue=0, alpha=0;
-				if (sscanf(inputData + 1, "%2x%2x%2x%2x", &red, &green, &blue, &alpha) == 4) {
-					m_r = red;
-					m_g = green;
-					m_b = blue;
-					m_a = alpha;
-				} else {
-					TK_ERROR(" pb in parsing the color : \"" << inputData << "\"");
-				}
+	template<> Color<uint8_t>::Color(std::u32string _input) :
+	  m_r(255),
+	  m_g(255),
+	  m_b(255),
+	  m_a(255) {
+		if (    _input.size() >=1
+		     && _input[0] == '#') {
+			// remove '#'
+			_input.erase(0, 1);
+			uint32_t val = 0;
+			//std::ostringstream oss;
+			//oss << to_u8string(_input);
+			//oss >> std::hex >> val;
+			std::string plop = to_u8string(_input);
+			val = stoul(plop);
+			if(_input.size() == 3) {
+				m_r = (val & 0x00000F00) >> 8;
+				m_r = (m_r | m_r << 4);
+				m_g = (val & 0x000000F0) >> 4;
+				m_g = (m_g | m_g << 4);
+				m_b = (val & 0x0000000F) >> 0;
+				m_b = (m_b | m_b << 4);
+			} else if (_input.size() == 4) {
+				m_r = (val & 0x0000F000) >> 12;
+				m_r = (m_r | m_r << 4);
+				m_g = (val & 0x00000F00) >> 8;
+				m_g = (m_g | m_g << 4);
+				m_b = (val & 0x000000F0) >> 4;
+				m_b = (m_b | m_b << 4);
+				m_a = (val & 0x0000000F) >> 0;
+				m_a = (m_a | m_a << 4);
+			} else if (_input.size() == 6) {
+				m_r = (val & 0x00FF0000) >> 16;
+				m_r = (m_r | m_r << 4);
+				m_g = (val & 0x0000FF00) >> 8;
+				m_g = (m_g | m_g << 4);
+				m_b = (val & 0x000000FF) >> 0;
+				m_b = (m_b | m_b << 4);
+			} else if (_input.size() == 8) {
+				m_r = (val & 0xFF000000) >> 24;
+				m_r = (m_r | m_r << 4);
+				m_g = (val & 0x00FF0000) >> 16;
+				m_g = (m_g | m_g << 4);
+				m_b = (val & 0x0000FF00) >> 8;
+				m_b = (m_b | m_b << 4);
+				m_a = (val & 0x000000FF) >> 0;
+				m_a = (m_a | m_a << 4);
 			} else {
-				TK_ERROR(" pb in parsing the color : \"" << inputData << "\" ==> unknown methode ...");
+				TK_ERROR(" pb in parsing the color : \"" << _input << "\" ==> unknown methode ...");
 			}
-		} else if(    4 <= len
-		           && inputData[0] == 'r'
-		           && inputData[1] == 'g'
-		           && inputData[2] == 'b'
-		           && inputData[3] == '(' ) {
+		} else if(    _input.size() >= 4
+		           && _input[0] == 'r'
+		           && _input[1] == 'g'
+		           && _input[2] == 'b'
+		           && _input[3] == '(' ) {
+			/*
+			
 			int32_t _red=0, _green=0, _blue=0, _alpha=0;
 			float   fred=0, fgreen=0, fblue=0, falpha=0;
 			if (sscanf(inputData + 4, "%u,%u,%u,%u", &_red, &_green, &_blue, &_alpha) == 4) {
@@ -177,11 +171,13 @@ namespace etk
 			} else {
 				TK_ERROR(" pb in parsing the color : \"" << inputData << "\" ==> unknown methode ...");
 			}
+			*/
 		} else {
 			bool findIt = false;
+			std::string tmputf8string = to_u8string(_input);
 			// direct named color ...
 			for (esize_t iii=0; iii<getColorSize(); iii++) {
-				if (strnCmpNoCase(getColorList()[iii].colorName, inputData, strlen(getColorList()[iii].colorName)) == true) {
+				if (strnCmpNoCase(getColorList()[iii].colorName, tmputf8string.c_str(), strlen(getColorList()[iii].colorName)) == true) {
 					findIt = true;
 					*this = getColorList()[iii].color;
 					// stop searching
@@ -190,13 +186,13 @@ namespace etk
 			}
 			// not find color ...
 			if (findIt == false) {
-				TK_ERROR(" pb in parsing the color : \"" << inputData << "\" not find ...");
+				TK_ERROR(" pb in parsing the color : \"" << _input << "\" not find ...");
 			}
 		}
-		TK_VERBOSE("Parse color : \"" << inputData << "\" ==> " << *this);
+		TK_VERBOSE("Parse color : \"" << _input << "\" ==> " << *this);
 	}
 	
-	template<> Color<float>::Color(const etk::UString& _input)
+	template<> Color<float>::Color(std::u32string _input)
 	{
 		etk::Color<uint8_t> tmpColor(_input);
 		*this = tmpColor;

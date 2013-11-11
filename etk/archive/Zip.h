@@ -14,17 +14,14 @@ extern "C" {
 	#include <minizip/unzip.h>
 }
 
-namespace etk
-{
-	namespace archive
-	{
-		class Zip : public etk::Archive
-		{
+namespace etk {
+	namespace archive {
+		class Zip : public etk::Archive {
 			private:
 				unzFile m_ctx; //!< mini zip context
 				unz_global_info m_info; //!< global information of the Zip
 			public:
-				Zip(const etk::UString& _fileName);
+				Zip(const std::u32string& _fileName);
 				virtual ~Zip(void);
 			protected: // herited functions :
 				virtual void loadFile(int32_t _id);

@@ -149,10 +149,10 @@ etk::CCout::~CCout()
 };
 
 
-etk::CCout& etk::CCout::operator << (const etk::UChar& _t)
+etk::CCout& etk::CCout::operator << (char32_t _t)
 {
 	char output[5];
-	_t.getUtf8(output);
+	getUtf8(_t, output);
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%s", output);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;

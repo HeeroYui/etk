@@ -7,8 +7,8 @@
  */
 
 #include <etk/debug.h>
-#include <etk/Vector.h>
-#include <etk/UString.h>
+#include <vector>
+#include <string>
 #include <etk/Hash.h>
 #include <etk/os/FSNode.h>
 #include <etk/archive/Archive.h>
@@ -16,33 +16,30 @@
 #undef __class__
 #define __class__	"etktest"
 
-void testVector(void)
-{
+void testVector(void) {
 	
 }
 
-void testUChar(void)
-{
+void testUChar(void) {
 	
 }
 
-void testUString(void)
-{
+void testUString(void) {
 	
 	for(int32_t iii=0; iii<64; iii++) {
 		int64_t kkk=((int64_t)1)<<iii;
-		etk::UString plop(kkk, etk::UString::printModeBinary);
+		std::u32string plop(kkk, std::u32string::printModeBinary);
 		TK_DEBUG(" test : " << plop);
 	}
 	for(int32_t iii=0; iii<64; iii++) {
 		int64_t kkk=((int64_t)1)<<iii;
-		etk::UString plop(kkk, etk::UString::printModeOctal);
+		std::u32string plop(kkk, std::u32string::printModeOctal);
 		TK_DEBUG(" test : " << plop);
 	}
 	
 	for(int32_t iii=0; iii<64; iii++) {
 		int64_t kkk=((int64_t)1)<<iii;
-		etk::UString plop(kkk, etk::UString::printModeDecimal);
+		std::u32string plop(kkk, std::u32string::printModeDecimal);
 		TK_DEBUG(" test : " << plop);
 		int64_t resTest = plop.toInt32();
 		TK_DEBUG(" test : " << resTest);
@@ -50,15 +47,14 @@ void testUString(void)
 	
 	for(int32_t iii=0; iii<64; iii++) {
 		int64_t kkk=((int64_t)1)<<iii;
-		etk::UString plop(kkk, etk::UString::printModeHexadecimal);
+		std::u32string plop(kkk, std::u32string::printModeHexadecimal);
 		TK_DEBUG(" test : " << plop);
 	}
 }
 
-void testHash(void)
-{
+void testHash(void) {
 	TK_INFO("==> Start test of Hach table");
-	etk::Hash<etk::UString> testData;
+	etk::Hash<std::u32string> testData;
 	testData.add("TEST", "testData");
 	testData.add("TEST", "testData333");
 	testData.add("TEST2", "22222222222222222");
@@ -74,10 +70,9 @@ void testHash(void)
 	TK_INFO("==> End test of Hach table");
 }
 
-void testFSNode(void)
-{
+void testFSNode(void) {
 	TK_INFO("==> Start test of FSNode");
-	etk::UString fileName("USERDATA:myFileTest.txt");
+	std::u32string fileName("USERDATA:myFileTest.txt");
 	etk::FSNode myNodeTest1(fileName);
 	TK_INFO("********************************************");
 	TK_INFO("** Filename=\"" << fileName << "\"");
@@ -116,8 +111,7 @@ void testFSNode(void)
 }
 
 
-void testArchive(void)
-{
+void testArchive(void) {
 	TK_INFO("==> Start test of archive");
 	etk::Archive* tmpArchive = etk::Archive::load("testzip.zip");
 	tmpArchive->display();
@@ -126,8 +120,7 @@ void testArchive(void)
 }
 
 /*
-void testDimension(void)
-{
+void testDimension(void) {
 	TK_INFO("==> test of Dimension (START)");
 	
 	ewol::Dimension myDimention(vec2(5,5), ewol::Dimension::Centimeter);
@@ -145,10 +138,9 @@ void testDimension(void)
 	exit(0);
 }
 */
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]) {
 	// the only one init for etk:
-	debug::setGeneralLevel(etk::LOG_LEVEL_VERBOSE);
+	debug::setGeneralLevel(etk::logLevelVerbose);
 	//testVector();
 	//testUChar();
 	//testUString();

@@ -39,7 +39,8 @@ namespace etk {
 		REGEXP_OPCODE_ERROR, // not used
 	};
 	
-	class UChar {
+	#if 0
+	class UChar : public char32_t{
 		public: // classic unicar code :
 			static const UChar Null; //!< '\0' 
 			static const UChar Return; //!< '\n' 
@@ -49,126 +50,14 @@ namespace etk {
 			static const UChar Delete; //!< DEL
 			static const UChar Space; //!< ' ' SPACE
 			static const UChar Escape; //!< ESC Escape
-		private:
-			uint32_t m_value;
-		public:
-			// note : No preset at this element to prevent unneded set
-			UChar(void) {
-				
-			};
-			UChar(const etk::UChar& _obj) :
-			  m_value(_obj.m_value) {
-				
-			};
-			UChar(const char _obj) :
-			  m_value((uint32_t)_obj){
-				
-			};
-			UChar(const enum regExpPrivateSection _obj) :
-			  m_value((uint32_t)_obj) {
-				
-			};
-			~UChar(void) {}
-			
-			/*****************************************************
-			 *    = assigment
-			 *****************************************************/
-			const etk::UChar& operator= (const etk::UChar& _obj ) {
-				m_value = _obj.m_value;
-				return *this;
-			};
-			/*****************************************************
-			 *    == operator
-			 *****************************************************/
-			bool operator== (const etk::UChar& _obj) const {
-				return m_value == _obj.m_value;
-			};
-			bool compareNoCase(const etk::UChar& _obj) const;
-			/*****************************************************
-			 *    != operator
-			 *****************************************************/
-			bool operator!= (const etk::UChar& _obj) const {
-				return m_value != _obj.m_value;
-			};
-			/*****************************************************
-			 *    > < >= <= operator
-			 *****************************************************/
-			bool operator> (const etk::UChar& _obj) const {
-				return m_value > _obj.m_value;
-			};
-			bool operator>= (const etk::UChar& _obj) const {
-				return m_value >= _obj.m_value;
-			};
-			bool operator< (const etk::UChar& _obj) const {
-				return m_value < _obj.m_value;
-			};
-			bool operator<= (const etk::UChar& _obj) const {
-				return m_value <= _obj.m_value;
-			};
-			/*****************************************************
-			 *    += operator
-			 *****************************************************/
-			const etk::UChar& operator+= (const etk::UChar& _obj) {
-				m_value += _obj.m_value;
-				return *this;
-			};
-			/*****************************************************
-			 *    + operator
-			 *****************************************************/
-			etk::UChar operator+ (const etk::UChar& _obj) const {
-				etk::UChar tmp = *this;
-				tmp += _obj;
-				return tmp;
-			};
-			/*****************************************************
-			 *    -= operator
-			 *****************************************************/
-			const etk::UChar& operator-= (const etk::UChar& _obj) {
-				if (_obj.m_value >= m_value) {
-					m_value = 0;
-				} else {
-					m_value -= _obj.m_value;
-				}
-				return *this;
-			};
-			/*****************************************************
-			 *    - operator
-			 *****************************************************/
-			etk::UChar operator- (const etk::UChar& _obj) const {
-				etk::UChar tmp = *this;
-				tmp -= _obj;
-				return tmp;
-			};
-			/*****************************************************
-			 *    () operator
-			 *****************************************************/
-			//operator uint32_t() const { return m_value; };
-			/**
-			 * @brief check if the curent element is white or not : '\t' '\n' '\r' ' '
-			 * @return tue if it is white char
-			 */
-			bool isWhiteChar(void) const;
-			bool isSpecialChar(void) const;
-			/**
-			 * @brief check if the curent element is number or not
-			 * @return tue if it is a number char
-			 */
-			bool isInteger(void) const;
-			int32_t toInt32(void) const;
-			
-			void lower(void);
-			UChar toLower(void) const;
-			void upper(void);
-			UChar toUpper(void) const;
-			
-			UChar changeOrder(void) const;
+	};
 			
 			uint32_t get(void) const { return m_value; };
 			void set(uint32_t _val) { m_value = _val; };
 			
 			uint32_t getUtf8(void) const;
 			int8_t getUtf8(char _output[5]) const;
-			//etk::Vector<int8_t> GetUtf8(void) const;
+			//std::vector<int8_t> GetUtf8(void) const;
 			int8_t setUtf8(const char* _input);
 		public:
 			/**
@@ -184,6 +73,30 @@ namespace etk {
 			 */
 			static bool theoricUTF8First(const char _input);
 	};
+	#endif
+	/**
+	 * @brief check if the curent element is white or not : '\t' '\n' '\r' ' '
+	 * @return tue if it is white char
+	 */
+	bool isWhiteChar(char32_t _val);
+	bool isSpecialChar(char32_t _val);
+	/**
+	 * @brief check if the curent element is number or not
+	 * @return tue if it is a number char
+	 */
+	bool isInteger(char32_t _val);
+	int32_t toInt32(char32_t _val);
+	
+	char32_t toLower(char32_t _val);
+	char32_t toUpper(char32_t _val);
+	bool compareNoCase(char32_t _val1, char32_t _val2);
+	char32_t changeOrder(char32_t _val);
+	
+	int8_t getUtf8(char32_t _val, char _output[5]);
+	char32_t setUtf8(const char* _input);
+	// TODO : Not needed : tolower(int ...)
+	char32_t toLower(char32_t _val);
+	char32_t toUpper(char32_t _val);
 };
 
 #endif

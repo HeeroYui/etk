@@ -10,7 +10,7 @@
 #define __ETK_TYPES_PLANE_H__
 
 #include <etk/debug.h>
-#include <etk/Vector.h>
+#include <vector>
 
 namespace etk {
 	template <typename T> class Plane {

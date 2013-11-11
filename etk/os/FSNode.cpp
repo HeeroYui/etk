@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <etk/tool.h>
-#include <etk/Vector.h>
+#include <vector>
 #ifdef __TARGET_OS__Windows
 	#include "windows.h"
 #endif
@@ -36,10 +36,10 @@ extern "C" {
 
 
 
-static etk::UString simplifyPathAbstractPath(etk::UString _input)
+static std::u32string simplifyPathAbstractPath(std::u32string _input)
 {
-	int32_t findStartPos = _input.findForward('/') + 1;
-	int32_t findPos = _input.findForward('/', findStartPos);
+	int32_t findStartPos = _input.find('/') + 1;
+	int32_t findPos = _input.find('/', findStartPos);
 	//TK_DEBUG("Siplify : \"" << input << "\"");
 	int32_t preventBadCode = 0;
 	while (findPos!=-1)
@@ -54,7 +54,7 @@ static etk::UString simplifyPathAbstractPath(etk::UString _input)
 		    || (    _input[findPos+1] == '.'
 		         && _input.size()==findPos+2 )) {
 			// cleane the element path
-			_input.remove(findPos+1, 1);
+			_input.erase(findPos+1, 1);
 			//TK_DEBUG("      Remove // string=\"" << input << "\"");
 		} else {
 			if (_input.size()<findPos+2) {
@@ -64,18 +64,18 @@ static etk::UString simplifyPathAbstractPath(etk::UString _input)
 			if(    _input[findPos+1] == '.'
 			    && _input[findPos+2] == '.') {
 				// cleane the element path
-				_input.remove(findStartPos, findPos+3 - findStartPos );
+				_input.erase(findStartPos, findPos+3 - findStartPos );
 				//TK_DEBUG("      Remove xxx/.. string=\"" << input << "\"");
 			} else if(    _input[findPos+1] == '.'
 			           && _input[findPos+2] == '/') {
 				// cleane the element path
-				_input.remove(findPos+1, 2);
+				_input.erase(findPos+1, 2);
 				//TK_DEBUG("      Remove ./ string=\"" << input << "\"");
 			} else {
 				findStartPos = findPos+1;
 			}
 		}
-		findPos = _input.findForward('/', findStartPos);
+		findPos = _input.find('/', findStartPos);
 		preventBadCode++;
 		if (preventBadCode>5000) {
 			TK_CRITICAL("ERROR when getting the small path ... this is loop prevention...");
@@ -90,7 +90,7 @@ static etk::UString simplifyPathAbstractPath(etk::UString _input)
 		char * ok = realpath(input.c_str(), buf);
 		if (!ok) {
 			TK_ERROR("Error to get the real path");
-			input = "/";
+			input = U"/";
 		} else {
 			input = buf;
 		}
@@ -103,30 +103,30 @@ static etk::UString simplifyPathAbstractPath(etk::UString _input)
 
 
 // zip file of the apk file for Android ==> set to zip file apk access
-static etk::UString s_fileAPK = "";
-static etk::UString baseApplName = "ewolNoName";
-static etk::UString baseRunPath = "/";
+static std::u32string s_fileAPK = U"";
+static std::u32string baseApplName = U"ewolNoName";
+static std::u32string baseRunPath = U"/";
 #if defined(__TARGET_OS__Android)
-	static etk::UString baseFolderHome     = "/sdcard/";                 // home folder
-	static etk::UString baseFolderData     = "assets/";                  // program Data
-	static etk::UString baseFolderDataUser = "/sdcard/.tmp/userData/";   // Data specific user (local modification)
-	static etk::UString baseFolderCache    = "/sdcard/.tmp/cache/";      // Temporary data (can be removed the next time)
+	static std::u32string baseFolderHome     = U"/sdcard/";                 // home folder
+	static std::u32string baseFolderData     = U"assets/";                  // program Data
+	static std::u32string baseFolderDataUser = U"/sdcard/.tmp/userData/";   // Data specific user (local modification)
+	static std::u32string baseFolderCache    = U"/sdcard/.tmp/cache/";      // Temporary data (can be removed the next time)
 #elif defined(__TARGET_OS__Windows)
-	static etk::UString baseFolderHome     = "c:/test";                  // home folder
-	static etk::UString baseFolderData     = "c:/test/share/";           // program Data
-	static etk::UString baseFolderDataUser = "c:/test/userData/";        // Data specific user (local modification)
-	static etk::UString baseFolderCache    = "c:/Windows/Temp/ewol/";    // Temporary data (can be removed the next time)
+	static std::u32string baseFolderHome     = U"c:/test";                  // home folder
+	static std::u32string baseFolderData     = U"c:/test/share/";           // program Data
+	static std::u32string baseFolderDataUser = U"c:/test/userData/";        // Data specific user (local modification)
+	static std::u32string baseFolderCache    = U"c:/Windows/Temp/ewol/";    // Temporary data (can be removed the next time)
 #else
-	static etk::UString baseFolderHome     = "~";                  // home folder
-	static etk::UString baseFolderData     = "share/";             // program Data
-	static etk::UString baseFolderDataUser = "~/.tmp/userData/";   // Data specific user (local modification)
-	static etk::UString baseFolderCache    = "~/.tmp/cache/";      // Temporary data (can be removed the next time)
+	static std::u32string baseFolderHome     = U"~";                  // home folder
+	static std::u32string baseFolderData     = U"share/";             // program Data
+	static std::u32string baseFolderDataUser = U"~/.tmp/userData/";   // Data specific user (local modification)
+	static std::u32string baseFolderCache    = U"~/.tmp/cache/";      // Temporary data (can be removed the next time)
 #endif
 
 
 #ifdef __TARGET_OS__Android
 	static etk::Archive* s_APKArchive = NULL;
-	static void loadAPK(etk::UString& _apkPath)
+	static void loadAPK(std::u32string& _apkPath)
 	{
 		TK_DEBUG("Loading APK \"" << _apkPath << "\"");
 		s_APKArchive = etk::Archive::load(_apkPath);
@@ -140,7 +140,7 @@ static etk::UString baseRunPath = "/";
 void etk::setBaseFolderData(const char* _folder)
 {
 	#ifdef __TARGET_OS__Android
-		baseFolderData = "assets/";
+		baseFolderData = U"assets/";
 		s_fileAPK = _folder;
 		loadAPK(s_fileAPK);
 	#else
@@ -166,8 +166,8 @@ void etk::setBaseFolderCache(const char* _folder)
 	#endif
 }
 
-etk::UString l_argZero="";
-void etk::setArgZero(const etk::UString& _val)
+std::u32string l_argZero = U"";
+void etk::setArgZero(const std::u32string& _val)
 {
 	l_argZero = _val;
 }
@@ -185,9 +185,9 @@ void etk::setArgZero(const etk::UString& _val)
 		Note that it is up to the calling process to set argv[0] correctly. It is right most of the times however there are occasions when the calling process cannot be trusted (ex. setuid executable).
 		On Windows: use GetModuleFileName(NULL, buf, bufsize)
 	*/
-etk::UString getApplicationPath(void)
+std::u32string getApplicationPath(void)
 {
-	etk::UString binaryName = "no-name";
+	std::u32string binaryName = U"no-name";
 	char binaryCompleatePath[FILENAME_MAX];
 	memset(binaryCompleatePath, 0, FILENAME_MAX);
 	#ifdef __TARGET_OS__Windows
@@ -201,22 +201,22 @@ etk::UString getApplicationPath(void)
 		// check it to prevent test mode in local folder ...
 		// Generic Linux system
 		readlink("/proc/self/exe", binaryCompleatePath, FILENAME_MAX);
-		if(0!=strlen(binaryCompleatePath)) {
-			binaryName = binaryCompleatePath;
+		if(strlen(binaryCompleatePath) != 0) {
+			binaryName = to_u32string(binaryCompleatePath);
 			return binaryName;
 		}
 		// generic FreeBSD system
 		memset(binaryCompleatePath, 0, FILENAME_MAX);
 		readlink("/proc/curproc/file", binaryCompleatePath, FILENAME_MAX);
-		if(0!=strlen(binaryCompleatePath)) {
-			binaryName = binaryCompleatePath;
+		if(strlen(binaryCompleatePath) != 0) {
+			binaryName = to_u32string(binaryCompleatePath);
 			return binaryName;
 		}
 		// generic Solaris system 
 		memset(binaryCompleatePath, 0, FILENAME_MAX);
 		readlink("/proc/self/path/a.out", binaryCompleatePath, FILENAME_MAX);
-		if(0!=strlen(binaryCompleatePath)) {
-			binaryName = binaryCompleatePath;
+		if(strlen(binaryCompleatePath) != 0) {
+			binaryName = to_u32string(binaryCompleatePath);
 			return binaryName;
 		}
 		// now we are in a really bad case ...
@@ -225,21 +225,21 @@ etk::UString getApplicationPath(void)
 			return binaryName;
 		}
 		TK_VERBOSE("Parse arg0 = '" << l_argZero << "' start with '/' ???");
-		if (l_argZero.startWith("/")==true) {
+		if (l_argZero[0] == '/') {
 			binaryName = l_argZero;
 			return simplifyPathAbstractPath(binaryName);
 		}
 		TK_VERBOSE("Parse arg0 = '" << l_argZero << "' try add PWD");
 		char * basicPathPWD = getenv("PWD");
 		if (NULL != basicPathPWD) {
-			etk::UString testCompleatePath = basicPathPWD;
-			testCompleatePath += "/";
+			std::u32string testCompleatePath = to_u32string(basicPathPWD);
+			testCompleatePath += U"/";
 			testCompleatePath += l_argZero;
 			// check if the element existed : 
 			TK_VERBOSE("test path: '" << testCompleatePath << "'");
 			memset(binaryCompleatePath, 0, FILENAME_MAX);
 			struct stat statProperty;
-			if (-1 != stat(testCompleatePath.c_str(), &statProperty)) {
+			if (-1 != stat(to_u8string(testCompleatePath).c_str(), &statProperty)) {
 				//Normal case when the file does not exist ... ==> the it was in unknow mode ...
 				binaryName = testCompleatePath;
 				TK_VERBOSE("find real name = '" << binaryName << "'");
@@ -258,57 +258,57 @@ etk::UString getApplicationPath(void)
 
 void etk::initDefaultFolder(const char* _applName)
 {
-	baseApplName = _applName;
+	baseApplName = to_u32string(_applName);
 	char cCurrentPath[FILENAME_MAX];
 	
 	char * basicPath = getenv("HOME");
 	if (NULL == basicPath) {
 		TK_ERROR("ERROR while trying to get the path of the home folder");
 		#if defined(__TARGET_OS__Windows)
-			baseFolderHome = "c:/";
+			baseFolderHome = U"c:/";
 		#elif defined(__TARGET_OS__Android)
-			baseFolderHome = "/sdcard";
+			baseFolderHome = U"/sdcard";
 		#else
-			baseFolderHome = "~";
+			baseFolderHome = U"~";
 		#endif
 	} else {
-		baseFolderHome = basicPath;
+		baseFolderHome = to_u32string(basicPath);
 	}
 	if (!getcwd(cCurrentPath, FILENAME_MAX)) {
-		baseRunPath = ".";
+		baseRunPath = U".";
 	} else {
 		cCurrentPath[FILENAME_MAX - 1] = '\0';
 		if (cCurrentPath[0] == '/') {
-			baseRunPath = cCurrentPath+1;
+			baseRunPath = to_u32string(cCurrentPath+1);
 		} else {
-			baseRunPath = cCurrentPath;
+			baseRunPath = to_u32string(cCurrentPath);
 		}
 	}
 	TK_DBG_MODE("Find Basic running PATH : \"" << baseRunPath << "\"");
 	
 	#ifndef __TARGET_OS__Android
-		etk::UString binaryPath = getApplicationPath();
-		binaryPath.replace('\\', '/');
-		int32_t pos = binaryPath.findBack('/');
-		etk::UString binaryName = binaryPath.extract(pos);
-		binaryPath.remove(pos, binaryName.size());
+		std::u32string binaryPath = getApplicationPath();
+		binaryPath = replace(binaryPath, '\\', '/');
+		int32_t pos = binaryPath.rfind('/');
+		std::u32string binaryName(binaryPath, pos);
+		binaryPath.erase(binaryName.begin() + pos, binaryName.end());
 		TK_INFO("Bianry name : '" << binaryPath << "' && '" << binaryName << "'" );
 		#ifdef __TARGET_OS__Windows
 			baseFolderData = binaryPath;
-			baseFolderData += "/data/";
+			baseFolderData += U"/data/";
 			
 			baseFolderDataUser  = binaryPath;
-			baseFolderDataUser += "/user/";
+			baseFolderDataUser += U"/user/";
 			
 			baseFolderCache  = binaryPath;
-			baseFolderCache += "/tmp/";
+			baseFolderCache += U"/tmp/";
 		#else
 			// if element is installed :
-			baseFolderData = "/usr/share";
+			baseFolderData = U"/usr/share";
 			baseFolderData += binaryName;
-			baseFolderData += "/";
+			baseFolderData += U"/";
 			
-			etk::UString theoricInstalledName = "/usr/bin";
+			std::u32string theoricInstalledName = U"/usr/bin";
 			theoricInstalledName += binaryName;
 			TK_VERBOSE(" position : '" << binaryPath << "' installed position : '" << theoricInstalledName << "'");
 			if (binaryPath != theoricInstalledName) {
@@ -316,22 +316,22 @@ void etk::initDefaultFolder(const char* _applName)
 				// remove bin/applName
 				baseFolderData = binaryPath;
 				#ifdef __TARGET_OS__MacOs
-					baseFolderData += "/../../Resources/";
+					baseFolderData += U"/../../Resources/";
 				#else
-					baseFolderData += "/../../share";
+					baseFolderData += U"/../../share";
 					baseFolderData += binaryName;
-					baseFolderData += "/";
+					baseFolderData += U"/";
 				#endif
 				baseFolderData = simplifyPathAbstractPath(baseFolderData);
 			}
 			baseFolderDataUser  = baseFolderHome;
-			baseFolderDataUser += "/.local/share/";
+			baseFolderDataUser += U"/.local/share/";
 			baseFolderDataUser += binaryName;
-			baseFolderDataUser += "/";
+			baseFolderDataUser += U"/";
 			
-			baseFolderCache  = "/tmp/";
+			baseFolderCache  = U"/tmp/";
 			baseFolderCache += binaryName;
-			baseFolderCache += "/";
+			baseFolderCache += U"/";
 		#endif
 	#endif
 	TK_INFO("baseFolderHome     : '" << baseFolderHome << "'");
@@ -340,12 +340,12 @@ void etk::initDefaultFolder(const char* _applName)
 	TK_INFO("baseFolderCache    : '" << baseFolderCache << "'");
 }
 
-etk::UString etk::getUserHomeFolder(void)
+std::u32string etk::getUserHomeFolder(void)
 {
 	return baseFolderHome;
 }
 
-etk::UString etk::getUserRunFolder(void)
+std::u32string etk::getUserRunFolder(void)
 {
 	return baseRunPath;
 }
@@ -429,8 +429,8 @@ static int32_t FSNODE_LOCAL_mkPath(const char* _path, mode_t _mode)
 #undef __class__
 #define __class__ "FSNode"
 
-etk::FSNode::FSNode(const etk::UString& _nodeName) :
-  m_userFileName(""),
+etk::FSNode::FSNode(const std::u32string& _nodeName) :
+  m_userFileName(U""),
   m_type(etk::FSN_TYPE_UNKNOW),
   m_typeNode(etk::FSN_UNKNOW),
   m_PointerFile(NULL),
@@ -458,8 +458,8 @@ etk::FSNode::~FSNode(void) {
 }
 
 
-void etk::FSNode::sortElementList(etk::Vector<etk::FSNode *>& _list) {
-	etk::Vector<etk::FSNode *> tmpList = _list;
+void etk::FSNode::sortElementList(std::vector<etk::FSNode *>& _list) {
+	std::vector<etk::FSNode *> tmpList = _list;
 	_list.clear();
 	for(int32_t iii=0; iii<tmpList.size(); iii++) {
 		if (NULL != tmpList[iii]) {
@@ -473,12 +473,12 @@ void etk::FSNode::sortElementList(etk::Vector<etk::FSNode *>& _list) {
 				}
 			}
 			//EWOL_DEBUG("position="<<findPos);
-			_list.insert(findPos, tmpList[iii]);
+			_list.insert(_list.begin() + findPos, tmpList[iii]);
 		}
 	}
 }
 
-void etk::FSNode::privateSetName(const etk::UString& _newName)
+void etk::FSNode::privateSetName(const std::u32string& _newName)
 {
 	if(    NULL != m_PointerFile
 	#ifdef __TARGET_OS__Android
@@ -496,15 +496,15 @@ void etk::FSNode::privateSetName(const etk::UString& _newName)
 		m_zipReadingOffset = 0;
 	#endif
 	// Reset ALL DATA :
-	m_userFileName = "";
+	m_userFileName = U"";
 	m_type = etk::FSN_TYPE_UNKNOW;
 	TK_DBG_MODE("1 : Set Name :              \"" << _newName << "\"");
 	
 	// generate destination name in case of the input error
-	etk::UString destFilename;
+	std::u32string destFilename;
 	if (_newName.size() == 0) {
 		// if no name ==> go to the root Folder
-		destFilename = "ROOT:";
+		destFilename = U"ROOT:";
 	} else {
 		destFilename = _newName;
 	}
@@ -523,69 +523,69 @@ void etk::FSNode::privateSetName(const etk::UString& _newName)
 			}
 		}
 	#else
-		isRootFolder = destFilename.startWith("/");
+		isRootFolder = destFilename[0] == '/';
 	#endif
-	if (true == destFilename.startWith(baseFolderHome) ) {
+	if (true == start_with(destFilename, baseFolderHome) ) {
 		TK_DBG_MODE("    ==> detect home");
-		destFilename.remove(0, baseFolderHome.size());
+		destFilename.erase(0, baseFolderHome.size());
 		m_type = etk::FSN_TYPE_HOME;
 	} else if(true == isRootFolder) {
 		TK_DBG_MODE("    ==> detect root");
 		#ifdef __TARGET_OS__Windows
-			destFilename.remove(0, 3);
+			destFilename.erase(0, 3);
 		#else
-			destFilename.remove(0, 1);
+			destFilename.erase(0, 1);
 		#endif
 		m_type = etk::FSN_TYPE_DIRECT;
-	} else if(    true == destFilename.startWith("ROOT:")
-	           || true == destFilename.startWith("root:") ) {
+	} else if(    true == start_with(destFilename, U"ROOT:")
+	           || true == start_with(destFilename, U"root:") ) {
 		TK_DBG_MODE("    ==> detect root 2 ");
-		destFilename.remove(0, 5);
+		destFilename.erase(0, 5);
 		m_type = etk::FSN_TYPE_DIRECT;
-		if(true == destFilename.startWith("~")) {
-			destFilename.remove(0, 1);
+		if(true == start_with(destFilename, U"~")) {
+			destFilename.erase(0, 1);
 			m_type = etk::FSN_TYPE_HOME;
 		}
-	} else if(    true == destFilename.startWith("DIRECT:")
-	           || true == destFilename.startWith("direct:") ) {
+	} else if(    true == start_with(destFilename, U"DIRECT:")
+	           || true == start_with(destFilename, U"direct:") ) {
 		TK_DBG_MODE("    ==> detect direct");
-		destFilename.remove(0, 7);
+		destFilename.erase(0, 7);
 		m_type = etk::FSN_TYPE_DIRECT;
-		if(true == destFilename.startWith("~")) {
-			destFilename.remove(0, 1);
+		if(true == start_with(destFilename, U"~")) {
+			destFilename.erase(0, 1);
 			m_type = etk::FSN_TYPE_HOME;
 		}
-	} else if(    true == destFilename.startWith("DATA:")
-	           || true == destFilename.startWith("data:") ) {
+	} else if(    true == start_with(destFilename, U"DATA:")
+	           || true == start_with(destFilename, U"data:") ) {
 		TK_DBG_MODE("    ==> detect data");
-		destFilename.remove(0, 5);
+		destFilename.erase(0, 5);
 		m_type = etk::FSN_TYPE_DATA;
-	} else if(    true == destFilename.startWith("USERDATA:")
-	           || true == destFilename.startWith("userdata:") ) {
+	} else if(    true == start_with(destFilename, U"USERDATA:")
+	           || true == start_with(destFilename, U"userdata:") ) {
 		TK_DBG_MODE("    ==> detect User-data");
-		destFilename.remove(0, 9);
+		destFilename.erase(0, 9);
 		m_type = etk::FSN_TYPE_USER_DATA;
-	} else if(    true == destFilename.startWith("CACHE:")
-	           || true == destFilename.startWith("cache:") ) {
+	} else if(    true == start_with(destFilename, U"CACHE:")
+	           || true == start_with(destFilename, U"cache:") ) {
 		TK_DBG_MODE("    ==> detect Cach");
-		destFilename.remove(0, 6);
+		destFilename.erase(0, 6);
 		m_type = etk::FSN_TYPE_CACHE;
-	} else if(    true == destFilename.startWith("THEME:")
-	           || true == destFilename.startWith("theme:") ) {
+	} else if(    true == start_with(destFilename, U"THEME:")
+	           || true == start_with(destFilename, U"theme:") ) {
 		TK_DBG_MODE("    ==> detect theme");
-		destFilename.remove(0, 6);
+		destFilename.erase(0, 6);
 		m_type = etk::FSN_TYPE_THEME;
-	} else if(true == destFilename.startWith("~")) {
+	} else if(true == start_with(destFilename, U"~")) {
 		TK_DBG_MODE("    ==> detect home 2");
-		destFilename.remove(0, 1);
+		destFilename.erase(0, 1);
 		m_type = etk::FSN_TYPE_HOME;
-	} else if(    true == destFilename.startWith("HOME:")
-	           || true == destFilename.startWith("home:") ) {
+	} else if(    true == start_with(destFilename, U"HOME:")
+	           || true == start_with(destFilename, U"home:") ) {
 		TK_DBG_MODE("    ==> detect home 3");
-		destFilename.remove(0, 5);
+		destFilename.erase(0, 5);
 		m_type = etk::FSN_TYPE_HOME;
-		if(true == destFilename.startWith("~")) {
-			destFilename.remove(0, 1);
+		if(true == start_with(destFilename, U"~")) {
+			destFilename.erase(0, 1);
 		}
 	} /*else if(true == destFilename.StartWith(baseRunPath)) {
 		destFilename.Remove(0, baseRunPath.Size());
@@ -597,7 +597,7 @@ void etk::FSNode::privateSetName(const etk::UString& _newName)
 		m_type = etk::FSN_TYPE_RELATIF;
 		
 		// we force to have the correct name : (can generate many problem otherwise ...
-		etk::UString tmpName = etk::getUserRunFolder() + "/" + destFilename;
+		std::u32string tmpName = etk::getUserRunFolder() + U"/" + destFilename;
 		destFilename = tmpName;
 		m_type = etk::FSN_TYPE_DIRECT;
 		
@@ -620,8 +620,7 @@ void etk::FSNode::privateSetName(const etk::UString& _newName)
 }
 
 
-bool directCheckFile(etk::UString _tmpFileNameDirect, bool _checkInAPKIfNeeded=false)
-{
+bool directCheckFile(std::u32string _tmpFileNameDirect, bool _checkInAPKIfNeeded = false) {
 	#ifdef __TARGET_OS__Android
 	if (true == _checkInAPKIfNeeded) {
 		if(    NULL != s_APKArchive
@@ -633,23 +632,21 @@ bool directCheckFile(etk::UString _tmpFileNameDirect, bool _checkInAPKIfNeeded=f
 	#endif
 	// tmpStat Buffer :
 	struct stat statProperty;
-	if (-1 == stat(_tmpFileNameDirect.c_str(), &statProperty)) {
+	if (-1 == stat(to_u8string(_tmpFileNameDirect).c_str(), &statProperty)) {
 		return false;
 	}
 	return true;
 }
 
 // Now we generate the real FS path:
-void etk::FSNode::generateFileSystemPath(void)
-{
-	switch (m_type)
-	{
+void etk::FSNode::generateFileSystemPath(void) {
+	switch (m_type) {
 		default:
 		case etk::FSN_TYPE_UNKNOW:
 			m_systemFileName = baseFolderHome;
 			break;
 		case etk::FSN_TYPE_DIRECT:
-			m_systemFileName = "/";
+			m_systemFileName = U"/";
 			break;
 		case etk::FSN_TYPE_RELATIF:
 			{
@@ -661,8 +658,8 @@ void etk::FSNode::generateFileSystemPath(void)
 					cCurrentPath[1] = '\0';
 				}
 				cCurrentPath[FILENAME_MAX - 1] = '\0';
-				m_systemFileName = cCurrentPath;
-				m_systemFileName += "/";
+				m_systemFileName = to_u32string(cCurrentPath);
+				m_systemFileName += U"/";
 			}
 			break;
 		case etk::FSN_TYPE_HOME:
@@ -680,44 +677,44 @@ void etk::FSNode::generateFileSystemPath(void)
 		case etk::FSN_TYPE_THEME:
 		case etk::FSN_TYPE_THEME_DATA:
 			{
-				//etk::UString myCompleateName=baseFolderData + "/theme/";
-				etk::UString themeName("");
-				etk::UString basicName(m_userFileName);
-				int32_t firstPos = m_userFileName.findForward(':');
-				if (-1 != firstPos) {
+				//std::u32string myCompleateName=baseFolderData + "/theme/";
+				std::u32string themeName(U"");
+				std::u32string basicName(m_userFileName);
+				size_t firstPos = m_userFileName.find(':');
+				if (0 != firstPos) {
 					// we find a theme name : We extracted it :
-					themeName = m_userFileName.extract(0, firstPos);
-					basicName = m_userFileName.extract(firstPos+1);
+					themeName = std::u32string(m_userFileName, 0, firstPos);
+					basicName = std::u32string(m_userFileName, firstPos+1);
 				}
 				TK_DBG_MODE(" THEME party : \"" << themeName << "\" => \"" << basicName << "\"");
 				themeName = etk::theme::getName(themeName);
 				TK_DBG_MODE("      ==> theme Folder \"" << themeName << "\"");
 				// search the corect folder : 
-				if (themeName == "") {
+				if (themeName == U"") {
 					TK_WARNING("no theme name detected : set it to \"default\"");
-				} else if (themeName != "default") {
+				} else if (themeName != U"default") {
 					// Selected theme :
 					// check in the user data :
-					m_systemFileName = baseFolderDataUser + "theme/" + themeName + "/" + basicName;
-					if (true==directCheckFile(m_systemFileName)) {
+					m_systemFileName = baseFolderDataUser + U"theme/" + themeName + U"/" + basicName;
+					if (directCheckFile(m_systemFileName) == true) {
 						return;
 					}
 					// check in the Appl data :
-					m_systemFileName = baseFolderData + "theme/" + themeName + "/" + basicName;
-					if (true==directCheckFile(m_systemFileName, true)) {
+					m_systemFileName = baseFolderData + U"theme/" + themeName + U"/" + basicName;
+					if (directCheckFile(m_systemFileName, true) == true) {
 						m_type = etk::FSN_TYPE_THEME_DATA;
 						return;
 					}
 				}
-				themeName = "default";
+				themeName = U"default";
 				// default theme :
 				// check in the user data :
-				m_systemFileName = baseFolderDataUser + "theme/" + themeName + "/" + basicName;
+				m_systemFileName = baseFolderDataUser + U"theme/" + themeName + U"/" + basicName;
 				if (true==directCheckFile(m_systemFileName)) {
 					return;
 				}
 				// check in the Appl data : In every case we return this one ...
-				m_systemFileName = baseFolderData + "theme/" + themeName + "/" + basicName;
+				m_systemFileName = baseFolderData + U"theme/" + themeName + U"/" + basicName;
 				if (true==directCheckFile(m_systemFileName, true)) {
 					m_type = etk::FSN_TYPE_THEME_DATA;
 					return;
@@ -750,8 +747,8 @@ void etk::FSNode::updateFileSystemProperty(void)
 		// ----------------------------------------
 		// = Check if it was a folder :           =
 		// ----------------------------------------
-		etk::UString folderName="/";
-		if (true==m_systemFileName.endWith(folderName)) {
+		std::u32string folderName = U"/";
+		if (true == m_systemFileName.endWith(folderName)) {
 			folderName = m_systemFileName;
 		} else {
 			folderName = m_systemFileName + "/";
@@ -771,7 +768,7 @@ void etk::FSNode::updateFileSystemProperty(void)
 	#endif
 	// tmpStat Buffer :
 	struct stat statProperty;
-	if (-1 == stat(m_systemFileName.c_str(), &statProperty)) {
+	if (-1 == stat(to_u8string(m_systemFileName).c_str(), &statProperty)) {
 		//Normal case when the file does not exist ... ==> the it was in unknow mode ...
 		return;
 	}
@@ -808,54 +805,52 @@ bool etk::FSNode::setRight(etk::FSNodeRight _newRight)
 	return false;
 }
 
-void etk::FSNode::setName(const etk::UString& _newName)
+void etk::FSNode::setName(const std::u32string& _newName)
 {
 	privateSetName(_newName);
 }
 
-etk::UString etk::FSNode::getNameFolder(void) const
-{
-	int32_t lastPos = m_systemFileName.findBack('/');
-	if (-1 != lastPos) {
-		return m_systemFileName.extract(0, lastPos);
+std::u32string etk::FSNode::getNameFolder(void) const {
+	size_t lastPos = m_systemFileName.rfind('/');
+	if (0 != lastPos) {
+		return std::u32string(m_systemFileName, 0, lastPos);
 	}
-	return "";
+	return U"";
 }
-etk::UString etk::FSNode::getFileSystemName(void) const
-{
+
+std::u32string etk::FSNode::getFileSystemName(void) const {
 	return m_systemFileName;
 }
 
-etk::UString etk::FSNode::getName(void) const
-{
-	etk::UString output;
+std::u32string etk::FSNode::getName(void) const {
+	std::u32string output;
 	switch (m_type)
 	{
 		default:
 		case etk::FSN_TYPE_UNKNOW:
-			output = "HOME:";
+			output = U"HOME:";
 			break;
 		case etk::FSN_TYPE_DIRECT:
-			output = "/";
+			output = U"/";
 			break;
 		case etk::FSN_TYPE_RELATIF:
-			output = "";
+			output = U"";
 			break;
 		case etk::FSN_TYPE_HOME:
-			output = "~";
+			output = U"~";
 			break;
 		case etk::FSN_TYPE_DATA:
-			output = "DATA:";
+			output = U"DATA:";
 			break;
 		case etk::FSN_TYPE_USER_DATA:
-			output = "USERDATA:";
+			output = U"USERDATA:";
 			break;
 		case etk::FSN_TYPE_CACHE:
-			output = "CACHE:";
+			output = U"CACHE:";
 			break;
 		case etk::FSN_TYPE_THEME:
 		case etk::FSN_TYPE_THEME_DATA:
-			output = "THEME:";
+			output = U"THEME:";
 			break;
 	}
 	output += m_userFileName;
@@ -863,30 +858,28 @@ etk::UString etk::FSNode::getName(void) const
 }
 
 
-etk::UString etk::FSNode::getNameFile(void) const
-{
-	int32_t lastPos = m_systemFileName.findBack('/');
-	if (-1 != lastPos) {
-		return m_systemFileName.extract(lastPos+1);
+std::u32string etk::FSNode::getNameFile(void) const {
+	size_t lastPos = m_systemFileName.rfind('/');
+	if (0 != lastPos) {
+		return std::u32string(m_systemFileName, lastPos+1);
 	}
-	return "";
+	return U"";
 }
 
-etk::UString etk::FSNode::getRelativeFolder(void) const
-{
-	etk::UString tmppp = getName();
+std::u32string etk::FSNode::getRelativeFolder(void) const {
+	std::u32string tmppp = getName();
 	TK_DBG_MODE("get REF folder : " << tmppp );
 	switch (m_typeNode)
 	{
 		case etk::FSN_UNKNOW:
 		case etk::FSN_FOLDER:
 		case etk::FSN_LINK:
-			if (tmppp.endWith("/") == true) {
+			if (*tmppp.end() == '/') {
 				TK_DBG_MODE("     ==> : " << tmppp );
 				return tmppp;
 			} else {
-				etk::UString tmpVal = tmppp;
-				tmpVal += "/";
+				std::u32string tmpVal = tmppp;
+				tmpVal += U"/";
 				TK_DBG_MODE("     ==> : " << tmppp );
 				return tmpVal;
 			}
@@ -899,26 +892,25 @@ etk::UString etk::FSNode::getRelativeFolder(void) const
 		default:
 			break;
 	}
-	int32_t lastPos = tmppp.findBack('/');
-	if (-1 != lastPos) {
+	size_t lastPos = tmppp.rfind('/');
+	if (0 != lastPos) {
 		TK_DBG_MODE("     ==> : " << tmppp.extract(0, lastPos+1) );
-		return tmppp.extract(0, lastPos+1);
+		return std::u32string(tmppp, 0, lastPos+1);
 	}
-	lastPos = tmppp.findBack(':');
-	if (-1 != lastPos) {
+	lastPos = tmppp.rfind(':');
+	if (0 != lastPos) {
 		TK_DBG_MODE("     ==> : " << tmppp.extract(0, lastPos+1) );
-		return tmppp.extract(0, lastPos+1);
+		return std::u32string(tmppp, 0, lastPos+1);
 	}
 	TK_DBG_MODE("     ==> : \"\"" );
-	return "";
+	return U"";
 }
 
 
-bool etk::FSNode::touch(void)
-{
+bool etk::FSNode::touch(void) {
 	TK_DEBUG("Touch FILE : " << getName());
 	//just open in write an close ==> this will update the time
-	if (false==fileOpenAppend()) {
+	if (fileOpenAppend() == false) {
 		return false;
 	}
 	bool ret = fileClose();
@@ -927,14 +919,13 @@ bool etk::FSNode::touch(void)
 	return ret;
 }
 
-bool etk::FSNode::move(const etk::UString& _path)
-{
+bool etk::FSNode::move(const std::u32string& _path) {
 	etk::FSNode tmpDst(_path);
 	if (tmpDst.exist()==true) {
 		tmpDst.remove();
 	}
 	TK_DEBUG("Move : \"" << getFileSystemName() << "\" ==> \"" << tmpDst.getFileSystemName() << "\"");
-	int32_t res = rename(getFileSystemName().c_str(), tmpDst.getFileSystemName().c_str());
+	int32_t res = rename(to_u8string(getFileSystemName()).c_str(), to_u8string(tmpDst.getFileSystemName()).c_str());
 	if (res!=0) {
 		return false;
 	} else {
@@ -942,18 +933,17 @@ bool etk::FSNode::move(const etk::UString& _path)
 	}
 }
 
-bool etk::FSNode::remove(void)
-{
+bool etk::FSNode::remove(void) {
 	if (getNodeType()==etk::FSN_FOLDER) {
 		// remove the folder
-		if( 0!=rmdir(m_systemFileName.c_str()) ) {
+		if( 0!=rmdir(to_u8string(m_systemFileName).c_str()) ) {
 			if (ENOTEMPTY == errno) {
 				TK_ERROR("The Directory is not empty...");
 			}
 			return false;
 		}
 	} else {
-		if( 0!=unlink(m_systemFileName.c_str()) ) {
+		if( 0!=unlink(to_u8string(m_systemFileName).c_str()) ) {
 			return false;
 		}
 	}
@@ -967,12 +957,12 @@ uint64_t etk::FSNode::timeCreated(void) const
 	return m_timeCreate;
 }
 
-etk::UString etk::FSNode::timeCreatedString(void) const
+std::u32string etk::FSNode::timeCreatedString(void) const
 {
 	time_t tmpVal = (int32_t)m_timeCreate;
-	etk::UString tmpTime = ctime(&tmpVal);
+	std::u32string tmpTime = to_u32string(ctime(&tmpVal));
 	if (tmpTime[tmpTime.size()-1] == '\n') {
-		tmpTime.remove(tmpTime.size()-1, 1);
+		tmpTime.erase(tmpTime.end());
 	}
 	return tmpTime;
 }
@@ -982,12 +972,12 @@ uint64_t etk::FSNode::timeModified(void) const
 	return m_timeModify;
 }
 
-etk::UString etk::FSNode::timeModifiedString(void) const
+std::u32string etk::FSNode::timeModifiedString(void) const
 {
 	time_t tmpVal = (int32_t)m_timeModify;
-	etk::UString tmpTime = ctime(&tmpVal);
+	std::u32string tmpTime = to_u32string(ctime(&tmpVal));
 	if (tmpTime[tmpTime.size()-1] == '\n') {
-		tmpTime.remove(tmpTime.size()-1, 1);
+		tmpTime.erase(tmpTime.end());
 	}
 	return tmpTime;
 }
@@ -997,12 +987,12 @@ uint64_t etk::FSNode::timeAccessed(void) const
 	return m_timeAccess;
 }
 
-etk::UString etk::FSNode::timeAccessedString(void) const
+std::u32string etk::FSNode::timeAccessedString(void) const
 {
 	time_t tmpVal = (int32_t)m_timeAccess;
-	etk::UString tmpTime = ctime(&tmpVal);
+	std::u32string tmpTime = to_u32string(ctime(&tmpVal));
 	if (tmpTime[tmpTime.size()-1] == '\n') {
-		tmpTime.remove(tmpTime.size()-1, 1);
+		tmpTime.erase(tmpTime.end());
 	}
 	return tmpTime;
 }
@@ -1027,7 +1017,7 @@ const etk::FSNode& etk::FSNode::operator=  (const etk::FSNode &_obj )
 			m_zipContent = NULL;
 			m_zipReadingOffset = 0;
 		#endif
-		etk::UString tmppp = _obj.getName();
+		std::u32string tmppp = _obj.getName();
 		privateSetName(tmppp);
 	}
 	return *this;
@@ -1139,13 +1129,13 @@ int64_t etk::FSNode::folderCount(void)
 	int64_t counter=0;
 	DIR *dir = NULL;
 	struct dirent *ent = NULL;
-	dir = opendir(m_systemFileName.c_str());
+	dir = opendir(to_u8string(m_systemFileName).c_str());
 	if (dir != NULL) {
 		// for each element in the drectory...
 		while ((ent = readdir(dir)) != NULL) {
-			etk::UString tmpName(ent->d_name);
-			if(    tmpName=="." 
-			    || tmpName==".." ) {
+			std::u32string tmpName(to_u32string(ent->d_name));
+			if(    tmpName == U"." 
+			    || tmpName == U".." ) {
 				// do nothing ...
 				continue;
 			}
@@ -1158,9 +1148,9 @@ int64_t etk::FSNode::folderCount(void)
 	}
 	return counter;
 }
-etk::Vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bool _getFolderAndOther, bool _getFile, bool _temporaryFile)
+std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bool _getFolderAndOther, bool _getFile, bool _temporaryFile)
 {
-	etk::Vector<etk::FSNode*> tmpp;
+	std::vector<etk::FSNode*> tmpp;
 	if (m_typeNode != etk::FSN_FOLDER ) {
 		return tmpp;
 	}
@@ -1169,18 +1159,18 @@ etk::Vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 	etk::FSNode * tmpEmement;
 	DIR *dir = NULL;
 	struct dirent *ent = NULL;
-	dir = opendir(m_systemFileName.c_str());
+	dir = opendir(to_u8string(m_systemFileName).c_str());
 	if (dir != NULL) {
 		// for each element in the drectory...
 		while ((ent = readdir(dir)) != NULL) {
-			etk::UString tmpName(ent->d_name);
+			std::u32string tmpName(to_u32string(ent->d_name));
 			TK_VERBOSE(" search in folder\"" << tmpName << "\"");
-			if(    tmpName=="." 
-			    || tmpName==".." ) {
+			if(    tmpName == U"." 
+			    || tmpName == U".." ) {
 				// do nothing ...
 				continue;
 			}
-			if(    false == tmpName.startWith(".")
+			if(    false == start_with(tmpName, U".")
 			    || true == _showHidenFile) {
 				tmpEmement = new etk::FSNode(getRelativeFolder()+tmpName);
 				if (NULL == tmpEmement) {
@@ -1189,13 +1179,13 @@ etk::Vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 				}
 				if(tmpEmement->getNodeType() == etk::FSN_FILE) {
 					if (true == _getFile) {
-						tmpp.pushBack(tmpEmement);
+						tmpp.push_back(tmpEmement);
 					} else {
 						delete(tmpEmement);
 						tmpEmement = NULL;
 					}
 				} else if (_getFolderAndOther) {
-					tmpp.pushBack(tmpEmement);
+					tmpp.push_back(tmpEmement);
 				} else {
 					delete(tmpEmement);
 					tmpEmement = NULL;
@@ -1218,30 +1208,30 @@ etk::FSNode etk::FSNode::folderGetParent(void)
 	return tmpp;
 }
 
-void etk::FSNode::folderGetRecursiveFiles(etk::Vector<etk::UString>& _output, bool _recursiveEnable)
+void etk::FSNode::folderGetRecursiveFiles(std::vector<std::u32string>& _output, bool _recursiveEnable)
 {
 	#ifdef __TARGET_OS__Android
 	if(    m_type == etk::FSN_TYPE_DATA
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
-		etk::UString assetsName = "assets/";
-		etk::UString FolderName = getNameFolder();
+		std::u32string assetsName = U"assets/";
+		std::u32string FolderName = getNameFolder();
 		if (s_APKArchive==NULL) {
 			return;
 		}
 		for (int iii=0; iii<s_APKArchive->size(); iii++) {
-			etk::UString filename = s_APKArchive->getName(iii);
+			std::u32string filename = s_APKArchive->getName(iii);
 			if (filename.startWith(FolderName) == true) {
-				etk::UString tmpString;
+				std::u32string tmpString;
 				if(m_type == etk::FSN_TYPE_DATA) {
-					tmpString = "DATA:";
+					tmpString = U"DATA:";
 				} else {
-					tmpString = "THEME:";
+					tmpString = U"THEME:";
 				}
 				if (true == filename.startWith(assetsName)) {
 					filename.remove(0,assetsName.size());
 				}
 				tmpString += filename;
-				_output.pushBack(tmpString);
+				_output.push_back(tmpString);
 			}
 		}
 		return;
@@ -1251,14 +1241,14 @@ void etk::FSNode::folderGetRecursiveFiles(etk::Vector<etk::UString>& _output, bo
 	etk::FSNode * tmpEmement;
 	DIR *dir = NULL;
 	struct dirent *ent = NULL;
-	dir = opendir(m_systemFileName.c_str());
+	dir = opendir(to_u8string(m_systemFileName).c_str());
 	//TK_DEBUG(" ** open Folder : " << m_systemFileName );
 	if (dir != NULL) {
 		// for each element in the drectory...
 		while ((ent = readdir(dir)) != NULL) {
-			etk::UString tmpName(ent->d_name);
-			if(    tmpName=="." 
-			    || tmpName==".." ) {
+			std::u32string tmpName(to_u32string(ent->d_name));
+			if(    tmpName == U"." 
+			    || tmpName == U".." ) {
 				// do nothing ...
 				continue;
 			}
@@ -1266,8 +1256,8 @@ void etk::FSNode::folderGetRecursiveFiles(etk::Vector<etk::UString>& _output, bo
 			tmpEmement = new etk::FSNode(getRelativeFolder()+tmpName);
 			if (NULL != tmpEmement) {
 				if(tmpEmement->getNodeType() == etk::FSN_FILE) {
-					etk::UString tmpVal = tmpEmement->getName();
-					_output.pushBack(tmpVal);
+					std::u32string tmpVal = tmpEmement->getName();
+					_output.push_back(tmpVal);
 				}
 				if(tmpEmement->getNodeType() == etk::FSN_FOLDER) {
 					if (true==_recursiveEnable) {
@@ -1293,9 +1283,8 @@ void etk::FSNode::folderGetRecursiveFiles(etk::Vector<etk::UString>& _output, bo
 */
 bool etk::FSNode::fileHasExtention(void)
 {
-	int32_t lastPos = m_userFileName.findBack('.');
-	if(    -1 != lastPos // not find the .
-	    && 0  != lastPos // Find a . at the fist position .jdlskjdfklj ==> hiden file
+	size_t lastPos = m_userFileName.rfind('.');
+	if(    0 != lastPos // Find a . at the fist position .jdlskjdfklj ==> hiden file
 	    && m_userFileName.size() != lastPos ) // Remove file ended with .
 	{
 		return true;
@@ -1304,18 +1293,16 @@ bool etk::FSNode::fileHasExtention(void)
 	}
 }
 
-etk::UString etk::FSNode::fileGetExtention(void)
+std::u32string etk::FSNode::fileGetExtention(void)
 {
-	etk::UString tmpExt = "";
-	int32_t lastPos = m_userFileName.findBack('.');
-	if(    -1 != lastPos // not find the .
-	    && 0  != lastPos // Find a . at the fist position .jdlskjdfklj ==> hiden file
+	size_t lastPos = m_userFileName.rfind('.');
+	if(    0  != lastPos // Find a . at the fist position .jdlskjdfklj ==> hiden file
 	    && m_userFileName.size() != lastPos ) // Remove file ended with .
 	{
 		// Get the FileName
-		tmpExt = m_userFileName.extract(lastPos+1);
+		return std::u32string(m_userFileName, lastPos+1);
 	}
-	return tmpExt;
+	return U"";
 }
 
 uint64_t etk::FSNode::fileSize(void)
@@ -1336,7 +1323,7 @@ uint64_t etk::FSNode::fileSize(void)
 	// Note : this is a proper methode to get the file size for Big files ... otherwithe the size is limited at 2^31 bytes
 	// tmpStat Buffer :
 	struct stat statProperty;
-	if (-1 == stat(m_systemFileName.c_str(), &statProperty)) {
+	if (-1 == stat(to_u8string(m_systemFileName).c_str(), &statProperty)) {
 		//Normal case when the file does not exist ... ==> the it was in unknow mode ...
 		TK_ERROR("mlkmlkmlkmlkmlkmlk");
 		return 0;
@@ -1366,7 +1353,7 @@ bool etk::FSNode::fileOpenRead(void)
 		return true;
 	}
 	TK_VERBOSE(" Read file : " << m_systemFileName);
-	m_PointerFile=fopen(m_systemFileName.c_str(),"rb");
+	m_PointerFile=fopen(to_u8string(m_systemFileName).c_str(),"rb");
 	if(NULL == m_PointerFile) {
 		TK_ERROR("Can not find the file " << *this );
 		return false;
@@ -1385,9 +1372,9 @@ bool etk::FSNode::fileOpenWrite(void)
 		TK_CRITICAL("File Already open : " << *this);
 		return true;
 	}
-	FSNODE_LOCAL_mkPath(getNameFolder().c_str() , 0777);
+	FSNODE_LOCAL_mkPath(to_u8string(getNameFolder()).c_str() , 0777);
 	TK_VERBOSE(" write file : " << m_systemFileName);
-	m_PointerFile=fopen(m_systemFileName.c_str(),"wb");
+	m_PointerFile=fopen(to_u8string(m_systemFileName).c_str(),"wb");
 	if(NULL == m_PointerFile) {
 		TK_ERROR("Can not find the file " << *this);
 		return false;
@@ -1406,11 +1393,11 @@ bool etk::FSNode::fileOpenAppend(void)
 		TK_CRITICAL("File Already open : " << *this);
 		return true;
 	}
-	FSNODE_LOCAL_mkPath(getNameFolder().c_str() , 0777);
+	FSNODE_LOCAL_mkPath(to_u8string(getNameFolder()).c_str() , 0777);
 	
 	TK_VERBOSE(" append file : " << m_systemFileName);
 	
-	m_PointerFile=fopen(m_systemFileName.c_str(),"ab");
+	m_PointerFile=fopen(to_u8string(m_systemFileName).c_str(),"ab");
 	if(NULL == m_PointerFile) {
 		TK_ERROR("Can not find the file " << *this);
 		return false;
@@ -1606,14 +1593,14 @@ void etk::FSNode::fileFlush(void)
 class tmpThemeElement
 {
 	public:
-		etk::UString refName;
-		etk::UString folderName;
+		std::u32string refName;
+		std::u32string folderName;
 };
 
-static etk::Vector<tmpThemeElement*> g_listTheme;
+static std::vector<tmpThemeElement*> g_listTheme;
 
 // set the Folder of a subset of a theme ...
-void etk::theme::setName(etk::UString _refName, etk::UString _folderName)
+void etk::theme::setName(std::u32string _refName, std::u32string _folderName)
 {
 	for(int32_t iii=0; iii<g_listTheme.size(); iii++) {
 		if (NULL != g_listTheme[iii]) {
@@ -1632,12 +1619,11 @@ void etk::theme::setName(etk::UString _refName, etk::UString _folderName)
 	}
 	tmpp->refName = _refName;
 	tmpp->folderName = _folderName;
-	g_listTheme.pushBack(tmpp);
+	g_listTheme.push_back(tmpp);
 }
 
 // get the folder from a Reference theme
-etk::UString etk::theme::getName(etk::UString _refName)
-{
+std::u32string etk::theme::getName(std::u32string _refName) {
 	for(int32_t iii=0; iii<g_listTheme.size(); iii++) {
 		if (NULL != g_listTheme[iii]) {
 			if (g_listTheme[iii]->refName==_refName) {
@@ -1650,9 +1636,8 @@ etk::UString etk::theme::getName(etk::UString _refName)
 }
 
 // get the list of all the theme folder availlable in the user Home/appl
-etk::Vector<etk::UString> etk::theme::list(void)
-{
-	etk::Vector<etk::UString> tmpp;
+std::vector<std::u32string> etk::theme::list(void) {
+	std::vector<std::u32string> tmpp;
 	return tmpp;
 	// TODO :
 }
@@ -1663,7 +1648,7 @@ etk::Vector<etk::UString> etk::theme::list(void)
  *  Simple direct wrapper on the FileSystem node access :
  * 
  * -------------------------------------------------------------------------- */
-bool etk::FSNodeRemove(const etk::UString& _path)
+bool etk::FSNodeRemove(const std::u32string& _path)
 {
 	etk::FSNode tmpNode(_path);
 	if (false==tmpNode.exist()) {
@@ -1672,7 +1657,7 @@ bool etk::FSNodeRemove(const etk::UString& _path)
 	return tmpNode.remove();
 }
 
-int64_t etk::FSNodeGetCount(const etk::UString& _path)
+int64_t etk::FSNodeGetCount(const std::u32string& _path)
 {
 	etk::FSNode tmpNode(_path);
 	if (false==tmpNode.exist()) {
@@ -1681,19 +1666,19 @@ int64_t etk::FSNodeGetCount(const etk::UString& _path)
 	return tmpNode.folderCount();
 }
 
-bool etk::FSNodeCreate(const etk::UString& _path, etk::FSNodeRight _right, enum etk::typeNode _type)
+bool etk::FSNodeCreate(const std::u32string& _path, etk::FSNodeRight _right, enum etk::typeNode _type)
 {
 	// TODO :
 	return false;
 }
 
-bool etk::FSNodeExist(const etk::UString& _path)
+bool etk::FSNodeExist(const std::u32string& _path)
 {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.exist();
 }
 
-bool etk::FSNodeMove(const etk::UString& _path1, const etk::UString& _path2)
+bool etk::FSNodeMove(const std::u32string& _path1, const std::u32string& _path2)
 {
 	etk::FSNode tmpNode(_path1);
 	if (false==tmpNode.exist()) {
@@ -1706,43 +1691,43 @@ bool etk::FSNodeMove(const etk::UString& _path1, const etk::UString& _path2)
 	return tmpNode.move(_path2);
 }
 
-etk::FSNodeRight etk::FSNodeGetRight(const etk::UString& _path)
+etk::FSNodeRight etk::FSNodeGetRight(const std::u32string& _path)
 {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.getRight();
 }
 
-enum etk::typeNode etk::FSNodeGetType(const etk::UString& _path)
+enum etk::typeNode etk::FSNodeGetType(const std::u32string& _path)
 {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.getNodeType();
 }
 
-uint64_t etk::FSNodeGetTimeCreated(const etk::UString& _path)
+uint64_t etk::FSNodeGetTimeCreated(const std::u32string& _path)
 {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.timeCreated();
 }
 
-uint64_t etk::FSNodeGetTimeModified(const etk::UString& _path)
+uint64_t etk::FSNodeGetTimeModified(const std::u32string& _path)
 {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.timeModified();
 }
 
-uint64_t etk::FSNodeGetTimeAccessed(const etk::UString& _path)
+uint64_t etk::FSNodeGetTimeAccessed(const std::u32string& _path)
 {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.timeAccessed();
 }
 
-bool etk::FSNodeTouch(const etk::UString& _path)
+bool etk::FSNodeTouch(const std::u32string& _path)
 {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.touch();
 }
 
-bool etk::FSNodeEcho(const etk::UString& _path, const etk::UString& _dataTowrite)
+bool etk::FSNodeEcho(const std::u32string& _path, const std::u32string& _dataTowrite)
 {
 	etk::FSNode tmpNode(_path);
 	if (false==tmpNode.exist()) {
@@ -1755,16 +1740,15 @@ bool etk::FSNodeEcho(const etk::UString& _path, const etk::UString& _dataTowrite
 		return false;
 	}
 	// convert in UTF8 :
-	etk::Char tmpChar = _dataTowrite.c_str();
-	int32_t nbChar = strlen(tmpChar);
-	if (nbChar != tmpNode.fileWrite(tmpChar, 1, nbChar)) {
+	std::string tmpChar = to_u8string(_dataTowrite);
+	if (tmpChar.size() != tmpNode.fileWrite((char*)tmpChar.c_str(), 1, tmpChar.size())) {
 		tmpNode.fileClose();
 		return false;
 	}
 	return tmpNode.fileClose();
 }
 
-bool etk::FSNodeEchoAdd(const etk::UString& _path, const etk::UString& _dataTowrite)
+bool etk::FSNodeEchoAdd(const std::u32string& _path, const std::u32string& _dataTowrite)
 {
 	etk::FSNode tmpNode(_path);
 	if (false==tmpNode.exist()) {
@@ -1777,25 +1761,24 @@ bool etk::FSNodeEchoAdd(const etk::UString& _path, const etk::UString& _dataTowr
 		return false;
 	}
 	// convert in UTF8 :
-	etk::Char tmpChar = _dataTowrite.c_str();
-	int32_t nbChar = strlen(tmpChar);
-	if (nbChar != tmpNode.fileWrite(tmpChar, 1, nbChar)) {
+	std::string tmpChar = to_u8string(_dataTowrite);
+	if (tmpChar.size() != tmpNode.fileWrite((char*)tmpChar.c_str(), 1, tmpChar.size())) {
 		tmpNode.fileClose();
 		return false;
 	}
 	return tmpNode.fileClose();
 }
 
-void etk::FSNodeHistory(const etk::UString& _path, int32_t _historyCount)
+void etk::FSNodeHistory(const std::u32string& _path, int32_t _historyCount)
 {
 	// step 1 : Move the file to prevent writing error
 	//Get the first oldest save :
 	for (int32_t iii=_historyCount-1; iii>0 ; iii--) {
-		if (true==etk::FSNodeExist(_path+"-"+iii) ) {
-			etk::FSNodeMove(_path+"-"+iii,_path+"-"+(iii+1));
+		if (true==etk::FSNodeExist(_path + U"-" + to_u32string(iii)) ) {
+			etk::FSNodeMove(_path + U"-" + to_u32string(iii), _path + U"-" + to_u32string(iii+1));
 		}
 	}
 	if (true==etk::FSNodeExist(_path) ) {
-		etk::FSNodeMove(_path,_path+"-1");
+		etk::FSNodeMove(_path, _path + U"-1");
 	}
 }

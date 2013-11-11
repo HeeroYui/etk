@@ -11,7 +11,7 @@
 
 #include <etk/types.h>
 #include <etk/math/Vector2D.h>
-#include <etk/Vector.h>
+#include <vector>
 
 namespace etk
 {
@@ -19,7 +19,7 @@ namespace etk
 	{
 		private:
 			etk::Vector2D<int32_t> m_size;
-			etk::Vector<T>         m_data;
+			std::vector<T>         m_data;
 		public:
 			/*****************************************************
 			 *    Constructor

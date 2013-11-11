@@ -11,7 +11,7 @@
 
 #include <etk/types.h>
 #include <etk/debug.h>
-#include <etk/Vector.h>
+#include <vector>
 #include <etk/UString.h>
 
 #undef __class__
@@ -21,9 +21,9 @@
 namespace etk {
 	template<class MY_TYPE> class HashData {
 		public:
-			etk::UString m_key; //!< name of the current hash
+			std::u32string m_key; //!< name of the current hash
 			MY_TYPE m_value; //!< data of the current Hash
-			HashData(const etk::UString& _key, const MY_TYPE& _val) :
+			HashData(const std::u32string& _key, const MY_TYPE& _val) :
 			  m_key(_key),
 			  m_value(_val) {
 				// nothing to do ...
@@ -32,7 +32,7 @@ namespace etk {
 	
 	template<class MY_TYPE> class Hash {
 		private:
-			etk::Vector<HashData<MY_TYPE>* > m_data; //!< Data of the hash ==> the Hash table is composed of pointer, this permit to have high speed when resize the vestor ...
+			std::vector<HashData<MY_TYPE>* > m_data; //!< Data of the hash ==> the Hash table is composed of pointer, this permit to have high speed when resize the vestor ...
 		public:
 			Hash(int32_t _count=0) :
 			  m_data(_count) {
@@ -58,7 +58,7 @@ namespace etk {
 			 * @param[in] _key Name of the hash requested
 			 * @return Id of the element in the table or -1 of it does not existed
 			 */
-			int64_t getId(const etk::UString& _key) const {
+			int64_t getId(const std::u32string& _key) const {
 				for (int32_t iii=0; iii<m_data.size(); iii++) {
 					if (m_data[iii] != NULL) {
 						//TK_INFO("Compare key : '" << m_data[iii]->m_key << "' with '" << _key << "'" );
@@ -75,7 +75,7 @@ namespace etk {
 			 * @param[in] _key Name of the hash requested
 			 * @return true if the element exist
 			 */
-			bool exist(const etk::UString& _name) const {
+			bool exist(const std::u32string& _name) const {
 				int64_t elementId = getId(_name);
 				//TK_INFO(" Exist ? '" << _name << "' id=" << elementId );
 				if (elementId<0) {
@@ -90,7 +90,7 @@ namespace etk {
 			 * @param[in] _key Name of the hash requested
 			 * @return Reference on the Element
 			 */
-			MY_TYPE& get(const etk::UString& _key) const {
+			MY_TYPE& get(const std::u32string& _key) const {
 				static MY_TYPE g_error;
 				int64_t elementId = getId(_key);
 				if (elementId<0) {
@@ -104,14 +104,14 @@ namespace etk {
 			 * @param[in] _key Name of the hash requested
 			 * @return An reference on the copy of selected element
 			 */
-			MY_TYPE& operator[] (const etk::UString& _key) {
+			MY_TYPE& operator[] (const std::u32string& _key) {
 				return get(_key);
 			}
-			const MY_TYPE& operator[] (const etk::UString& _key) const {
+			const MY_TYPE& operator[] (const std::u32string& _key) const {
 				return get(_key);
 			}
 			
-			void add(const etk::UString& _key, const MY_TYPE& _value) {
+			void add(const std::u32string& _key, const MY_TYPE& _value) {
 				int64_t elementId = getId(_key);
 				if (elementId <0) {
 					HashData<MY_TYPE>* tmp = new HashData<MY_TYPE>(_key, _value);
@@ -119,15 +119,15 @@ namespace etk {
 						TK_ERROR("allocation error in Hash table : '" << _key << "'");
 						return;
 					}
-					m_data.pushBack(tmp);
+					m_data.push_back(tmp);
 					return;
 				}
 				m_data[elementId]->m_value = _value;
 			}
-			void set(const etk::UString& _key, const MY_TYPE& _value) {
+			void set(const std::u32string& _key, const MY_TYPE& _value) {
 				add(_key, _value);
 			}
-			void remove(const etk::UString& _key) {
+			void remove(const std::u32string& _key) {
 				int64_t elementId = getId(_key);
 				if (elementId <0) {
 					//nothing to do ==> not existed
@@ -150,7 +150,7 @@ namespace etk {
 			const MY_TYPE& operator[] (esize_t _pos) const {
 				return getValue(_pos);
 			}
-			const etk::UString& getKey(esize_t _pos) const {
+			const std::u32string& getKey(esize_t _pos) const {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
 					if(_pos>m_data.size()){

@@ -176,53 +176,53 @@ void etk::FSNodeRight::setOtherRunable(bool _newStatus)
 		m_rights |= RIGHT_OTHER_EXECUTE;
 	}
 }
-etk::UString etk::FSNodeRight::getRight(void) const
+std::u32string etk::FSNodeRight::getRight(void) const
 {
-	etk::UString tmp;
+	std::u32string tmp;
 	if (isUserReadable() == true) {
-		tmp += "r";
+		tmp += U"r";
 	} else {
-		tmp += "-";
+		tmp += U"-";
 	}
 	if (isUserWritable() == true) {
-		tmp += "w";
+		tmp += U"w";
 	} else {
-		tmp += "-";
+		tmp += U"-";
 	}
 	if (isUserRunable() == true) {
-		tmp += "x";
+		tmp += U"x";
 	} else {
-		tmp += "-";
+		tmp += U"-";
 	}
 	if (isGroupReadable() == true) {
-		tmp += "r";
+		tmp += U"r";
 	} else {
-		tmp += "-";
+		tmp += U"-";
 	}
 	if (isGroupWritable() == true) {
-		tmp += "w";
+		tmp += U"w";
 	} else {
-		tmp += "-";
+		tmp += U"-";
 	}
 	if (isGroupRunable() == true) {
-		tmp += "x";
+		tmp += U"x";
 	} else {
-		tmp += "-";
+		tmp += U"-";
 	}
 	if (isOtherReadable() == true) {
-		tmp += "r";
+		tmp += U"r";
 	} else {
-		tmp += "-";
+		tmp += U"-";
 	}
 	if (isOtherWritable() == true) {
-		tmp += "w";
+		tmp += U"w";
 	} else {
-		tmp += "-";
+		tmp += U"-";
 	}
 	if (isOtherRunable() == true) {
-		tmp += "x";
+		tmp += U"x";
 	} else {
-		tmp += "-";
+		tmp += U"-";
 	}
 	return tmp;
 }

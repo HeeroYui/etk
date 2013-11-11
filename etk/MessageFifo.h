@@ -11,7 +11,7 @@
 
 #include <etk/os/Mutex.h>
 #include <etk/os/Semaphore.h>
-#include <etk/Vector.h>
+#include <vector>
 
 namespace etk
 {
@@ -20,7 +20,7 @@ namespace etk
 		private :
 			etk::Mutex m_mutex;
 			etk::Semaphore m_semaphore;
-			etk::Vector<MY_TYPE> m_data;
+			std::vector<MY_TYPE> m_data;
 		public :
 			MessageFifo(void)
 			{
@@ -85,7 +85,7 @@ namespace etk
 			void post(MY_TYPE &_data)
 			{
 				m_mutex.lock();
-				m_data.pushBack(_data);
+				m_data.push_back(_data);
 				m_semaphore.post();
 				m_mutex.unLock();
 			};

@@ -25,9 +25,9 @@ int32_t etk::tool::irand(int32_t _a, int32_t _b)
 	return (int32_t)(( rand()/(float)RAND_MAX ) * ((float)_b-(float)_a) + (float)_a);
 }
 
-void etk::tool::sortList(etk::Vector<etk::UString *> &_list)
+void etk::tool::sortList(std::vector<std::u32string *> &_list)
 {
-	etk::Vector<etk::UString *> tmpList = _list;
+	std::vector<std::u32string *> tmpList = _list;
 	_list.clear();
 	for(int32_t iii=0; iii<tmpList.size(); iii++) {
 		
@@ -39,7 +39,7 @@ void etk::tool::sortList(etk::Vector<etk::UString *> &_list)
 			}
 		}
 		//EWOL_DEBUG("position="<<findPos);
-		_list.insert(findPos, tmpList[iii]);
+		_list.insert(_list.begin()+findPos, tmpList[iii]);
 	}
 }
 
@@ -69,13 +69,13 @@ bool etk::tool::strnCmpNoCase(const char * _input1, const char * _input2, int32_
 }
 
 
-etk::UString etk::tool::simplifyPath(etk::UString _input)
+std::u32string etk::tool::simplifyPath(std::u32string _input)
 {
-	int32_t findStartPos = _input.findForward('/') + 1;
-	int32_t findPos = _input.findForward('/', findStartPos);
+	size_t findStartPos = _input.find('/') + 1;
+	size_t findPos = _input.find('/', findStartPos);
 	//TK_DEBUG("Siplify : \"" << input << "\"");
 	int32_t preventBadCode = 0;
-	while (findPos!=-1)
+	while (findPos!=0)
 	{
 		//TK_DEBUG("      string=\"" << input << "\"");
 		//TK_DEBUG("      '/' @" << findPos);
@@ -87,7 +87,7 @@ etk::UString etk::tool::simplifyPath(etk::UString _input)
 		    || (    _input[findPos+1] == '.'
 		         && _input.size()==findPos+2 )) {
 			// cleane the element path
-			_input.remove(findPos+1, 1);
+			_input.erase(findPos+1, 1);
 			//TK_DEBUG("      Remove // string=\"" << input << "\"");
 		} else {
 			if (_input.size()<findPos+2) {
@@ -97,18 +97,18 @@ etk::UString etk::tool::simplifyPath(etk::UString _input)
 			if(    _input[findPos+1] == '.'
 			    && _input[findPos+2] == '.') {
 				// cleane the element path
-				_input.remove(findStartPos, findPos+3 - findStartPos );
+				_input.erase(findStartPos, findPos+3 - findStartPos );
 				//TK_DEBUG("      Remove xxx/.. string=\"" << input << "\"");
 			} else if(    _input[findPos+1] == '.'
 			           && _input[findPos+2] == '/') {
 				// cleane the element path
-				_input.remove(findPos+1, 2);
+				_input.erase(findPos+1, 2);
 				//TK_DEBUG("      Remove ./ string=\"" << input << "\"");
 			} else {
 				findStartPos = findPos+1;
 			}
 		}
-		findPos = _input.findForward('/', findStartPos);
+		findPos = _input.find('/', findStartPos);
 		preventBadCode++;
 		if (preventBadCode>5000) {
 			TK_CRITICAL("ERROR when getting the small path ... this is loop prevention...");
@@ -119,12 +119,12 @@ etk::UString etk::tool::simplifyPath(etk::UString _input)
 		// for the target that supported the Realpath system :
 		char buf[MAX_FILE_NAME];
 		memset(buf, 0, MAX_FILE_NAME);
-		char * ok = realpath(_input.c_str(), buf);
+		char * ok = realpath(to_u8string(_input).c_str(), buf);
 		if (!ok) {
 			TK_ERROR("Error to get the real path");
-			_input = "/";
+			_input = U"/";
 		} else {
-			_input = buf;
+			_input = to_u32string(buf);
 		}
 	#endif
 	

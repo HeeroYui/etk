@@ -211,18 +211,18 @@ namespace etk
 			 * @param[in] _nbElement Number of element needed.
 			 * @return The data requested
 			 */
-			etk::Vector<int8_t> get(int32_t _pos, int32_t _nbElement) {
-				etk::Vector<int8_t> tmpBuffer;
+			std::vector<int8_t> get(int32_t _pos, int32_t _nbElement) {
+				std::vector<int8_t> tmpBuffer;
 				tmpBuffer.clear();
 				if (_pos < m_gapStart) {
 					if (_pos + _nbElement < m_gapStart) {
-						tmpBuffer.pushBack(&m_data[_pos], _nbElement);
+						tmpBuffer.push_back(&m_data[_pos], _nbElement);
 					} else {
-						tmpBuffer.pushBack(&m_data[_pos], m_gapStart - _pos);
-						tmpBuffer.pushBack(&m_data[m_gapEnd], _nbElement - (m_gapStart - _pos) );
+						tmpBuffer.push_back(&m_data[_pos], m_gapStart - _pos);
+						tmpBuffer.push_back(&m_data[m_gapEnd], _nbElement - (m_gapStart - _pos) );
 					}
 				} else {
-					tmpBuffer.pushBack(&m_data[_pos+(m_gapEnd-m_gapStart)], _nbElement);
+					tmpBuffer.push_back(&m_data[_pos+(m_gapEnd-m_gapStart)], _nbElement);
 				}
 				return tmpBuffer;
 			}
@@ -230,7 +230,7 @@ namespace etk
 			 * @brief Add at the Last position of the Vector
 			 * @param[in] _item Element to add at the end of vector
 			 */
-			void pushBack(const int8_t& _item) {
+			void push_back(const int8_t& _item) {
 				insert(size(), _item);
 			}
 			/**
@@ -270,7 +270,7 @@ namespace etk
 			 * @param[in] _pos Position where data might be inserted
 			 * @param[in] _items Data that might be inserted.
 			 */
-			void insert(int32_t _pos, etk::Vector<int8_t>& _items) {
+			void insert(int32_t _pos, std::vector<int8_t>& _items) {
 				insert(_pos, _items.dataPointer(), _items.size());
 			}
 			/**
@@ -323,7 +323,7 @@ namespace etk
 			 * @param[in] _nbRemoveElement number of element to remove.
 			 * @param[in] _items Data that might be inserted.
 			 */
-			void replace(int32_t _pos, int32_t _nbRemoveElement, etk::Vector<int8_t>& _items) {
+			void replace(int32_t _pos, int32_t _nbRemoveElement, std::vector<int8_t>& _items) {
 				replace(_pos, _nbRemoveElement, _items.dataPointer(), _items.size());
 			}
 			/**

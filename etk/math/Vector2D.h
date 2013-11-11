@@ -42,7 +42,7 @@ namespace etk
 			Vector2D(const Vector2D<double>& obj)  { m_floats[0] = (T)obj.x(); m_floats[1] = (T)obj.y(); };
 			Vector2D(const Vector2D<float>& obj)   { m_floats[0] = (T)obj.x(); m_floats[1] = (T)obj.y(); };
 			Vector2D(const Vector2D<int32_t>& obj) { m_floats[0] = (T)obj.x(); m_floats[1] = (T)obj.y(); };
-			Vector2D(const etk::UString& str);
+			Vector2D(const std::u32string& str);
 			~Vector2D(void) { };
 			/*****************************************************
 			 *    = assigment
@@ -364,8 +364,8 @@ namespace etk
 				return m_floats[0] == 0 && m_floats[1] == 0;
 			}
 			//!< string cast :
-			operator etk::UString(void) const;
-			//etk::UString UString(void) const { return *this; };
+			operator std::u32string(void) const;
+			//std::u32string UString(void) const { return *this; };
 	};
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information

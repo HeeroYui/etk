@@ -17,7 +17,7 @@ namespace etk {
 	class BaseNoise
 	{
 		private:
-			etk::Vector<float> m_data;
+			std::vector<float> m_data;
 			ivec2    m_size;
 		public:
 			BaseNoise(ivec2 _size, float _min, float _max);
@@ -37,7 +37,7 @@ namespace etk {
 				NOISE_WOOD
 			};
 		private:
-			etk::Vector<float> m_data;
+			std::vector<float> m_data;
 			ivec2    m_size;
 			enum noise m_type;
 			float smoothNoise(float _x, float _y, const etk::BaseNoise& _noise);

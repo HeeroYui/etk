@@ -21,7 +21,7 @@ etk::BaseNoise::BaseNoise(ivec2 _size, float _min, float _max) :
 	m_data(_size.x()*_size.y()),
 	m_size(_size)
 {
-	m_data.reSize(_size.x()*_size.y(), 0);
+	m_data.resize(_size.x()*_size.y(), 0);
 	
 	for(int32_t iii=0; iii<m_size.x()*m_size.y(); iii++) {
 		m_data[iii] = etk::tool::frand(_min, _max);
@@ -98,7 +98,7 @@ etk::Noise::Noise(enum noise _type, ivec2 _size, int32_t _depth) :
 	m_size(_size),
 	m_type(_type)
 {
-	m_data.reSize(_size.x()*_size.y(), 0);
+	m_data.resize(_size.x()*_size.y(), 0);
 	switch(m_type) {
 		default:
 		case etk::Noise::NOISE_BASE:

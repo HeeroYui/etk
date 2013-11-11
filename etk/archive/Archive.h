@@ -10,7 +10,7 @@
 #define __ETK_ARCHIVE_H__
 
 #include <etk/UString.h>
-#include <etk/Vector.h>
+#include <vector>
 #include <etk/Hash.h>
 
 namespace etk
@@ -31,24 +31,24 @@ namespace etk
 				public:
 					esize_t getTheoricSize(void) const { return m_theoricSize; };
 				private:
-					etk::Vector<char> m_data;
+					std::vector<char> m_data;
 				public:
 					Content(esize_t _basicSize=0) : m_link(-1), m_theoricSize(_basicSize) { };
 					esize_t size(void) const { return m_data.size(); };
 					void* data(void) const { return (void*)&m_data[0]; };
-					etk::Vector<char>& getDataVector(void) { return m_data; };
+					std::vector<char>& getDataVector(void) { return m_data; };
 			};
 		public:
-			Archive(const etk::UString& _fileName) : m_fileName(_fileName) { };
+			Archive(const std::u32string& _fileName) : m_fileName(_fileName) { };
 			virtual ~Archive(void) { };
 		protected:
-			etk::UString m_fileName; //!< File name when it came from an file
+			std::u32string m_fileName; //!< File name when it came from an file
 		public:
 			/**
 			 * @brief Get the current file name.
 			 * @return the requested file name.
 			 */
-			const etk::UString& getFileName(void) { return m_fileName; };
+			const std::u32string& getFileName(void) { return m_fileName; };
 		protected:
 			etk::Hash<Content> m_content;
 		public:
@@ -62,7 +62,7 @@ namespace etk
 			 * @param[in] _id id of the element (must be < Size())
 			 * @return FileName of the requested id
 			 */
-			const etk::UString& getName(esize_t _id) const { return m_content.getKey(_id); };
+			const std::u32string& getName(esize_t _id) const { return m_content.getKey(_id); };
 			/**
 			 * @brief Get the File name of the ID
 			 * @param[in] _id id of the element (must be < Size())
@@ -74,23 +74,23 @@ namespace etk
 			 * @param[in] _key name of the file
 			 * @return FileName of the requested id
 			 */
-			const Content& getContent(const etk::UString& _key) const;
+			const Content& getContent(const std::u32string& _key) const;
 			/**
 			 * @brief Check if a file exist
 			 * @param[in] _key Name of the file
 			 * @return true if the file is present
 			 */
-			bool exist(const etk::UString& _key) const { return m_content.exist(_key); };
+			bool exist(const std::u32string& _key) const { return m_content.exist(_key); };
 			/**
 			 * @brief Load the specific file in the memory
 			 * @param[in] _key Name of the file
 			 */
-			void open(const etk::UString& _key);
+			void open(const std::u32string& _key);
 			/**
 			 * @brief Un-Load the specific file from the memory
 			 * @param[in] _key Name of the file
 			 */
-			void close(const etk::UString& _key);
+			void close(const std::u32string& _key);
 			/**
 			 * @brief Display all Element in the archive
 			 */
@@ -107,14 +107,14 @@ namespace etk
 			 * @param[in] _fileName File name of the specific archive.
 			 * @return A pointer an the specified archive, the user might delete it.
 			 */
-			static Archive* load(const etk::UString& _fileName);
+			static Archive* load(const std::u32string& _fileName);
 			
 			/**
 			 * @brief Create an Achive with a specific name.
 			 * @param[in] _fileName File name of the specific archive.
 			 * @return A pointer an the specified archive. it is empty due to the fact of create a new archive file.
 			 */
-			//Archive* create(const etk::UString& _fileName);
+			//Archive* create(const std::u32string& _fileName);
 	};
 };
 #endif
