@@ -264,6 +264,8 @@ namespace etk {
 	};
 	#endif
 
+	etk::CCout& operator <<(etk::CCout& _os, const std::string& _obj);
+	etk::CCout& operator <<(etk::CCout& _os, const std::vector<std::string>& _obj);
 	etk::CCout& operator <<(etk::CCout& _os, const std::u32string& _obj);
 	etk::CCout& operator <<(etk::CCout& _os, const std::vector<std::u32string>& _obj);
 };
@@ -310,7 +312,12 @@ bool stobool(const std::string& _str);
 std::u32string to_lower(const std::u32string& _obj);
 std::u32string to_upper(const std::u32string& _obj);
 
+std::string to_lower(const std::string& _obj);
+std::string to_upper(const std::string& _obj);
+
+bool end_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = false);
 bool end_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = false);
+bool start_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = false);
 bool start_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = false);
 
 bool compare_no_case(const std::u32string& _obj, const std::u32string& _val);
@@ -321,8 +328,10 @@ std::string replace(const std::string& _obj, char _val, char _replace);
 
 int32_t strlen(const char32_t * _data);
 
+std::string extract_line(const std::string& _obj, int32_t _pos);
 std::u32string extract_line(const std::u32string& _obj, int32_t _pos);
 
+std::vector<std::string> string_split(const std::string& _input, char _val);
 
 #endif
 

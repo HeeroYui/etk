@@ -38,7 +38,16 @@ namespace etk {
 		REGEXP_OPCODE_NO_CHAR,/* \@ */
 		REGEXP_OPCODE_ERROR, // not used
 	};
-	
+	namespace UChar {
+		extern const char32_t Null; //!< '\0' 
+		extern const char32_t Return; //!< '\n' 
+		extern const char32_t CarrierReturn; //!< '\r' CR
+		extern const char32_t Tabulation; //!< '\t' TAB
+		extern const char32_t Suppress; //!< BS (SUPPRESS)
+		extern const char32_t Delete; //!< DEL
+		extern const char32_t Space; //!< ' ' SPACE
+		extern const char32_t Escape; //!< ESC Escape
+	};
 	#if 0
 	class UChar : public char32_t{
 		public: // classic unicar code :

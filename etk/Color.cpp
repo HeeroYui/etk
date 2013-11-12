@@ -84,7 +84,7 @@ namespace etk {
 		return Color<uint8_t>(*this).get();
 	}
 	
-	template<> Color<uint8_t>::Color(std::u32string _input) :
+	template<> Color<uint8_t>::Color(std::string _input) :
 	  m_r(255),
 	  m_g(255),
 	  m_b(255),
@@ -97,8 +97,7 @@ namespace etk {
 			//std::ostringstream oss;
 			//oss << to_u8string(_input);
 			//oss >> std::hex >> val;
-			std::string plop = to_u8string(_input);
-			val = stoul(plop);
+			val = std::stoul(_input);
 			if(_input.size() == 3) {
 				m_r = (val & 0x00000F00) >> 8;
 				m_r = (m_r | m_r << 4);
@@ -139,20 +138,18 @@ namespace etk {
 		           && _input[1] == 'g'
 		           && _input[2] == 'b'
 		           && _input[3] == '(' ) {
-			/*
-			
 			int32_t _red=0, _green=0, _blue=0, _alpha=0;
 			float   fred=0, fgreen=0, fblue=0, falpha=0;
-			if (sscanf(inputData + 4, "%u,%u,%u,%u", &_red, &_green, &_blue, &_alpha) == 4) {
+			if (sscanf(_input.c_str() + 4, "%u,%u,%u,%u", &_red, &_green, &_blue, &_alpha) == 4) {
 				m_r = etk_min(0xFF, _red);
 				m_g = etk_min(0xFF, _green);
 				m_b = etk_min(0xFF, _blue);
 				m_a = etk_min(0xFF, _alpha);
-			} else if (sscanf(inputData + 4, "%u,%u,%u", &_red, &_green, &_blue) == 3) {
+			} else if (sscanf(_input.c_str() + 4, "%u,%u,%u", &_red, &_green, &_blue) == 3) {
 				m_r = etk_min(0xFF, _red);
 				m_g = etk_min(0xFF, _green);
 				m_b = etk_min(0xFF, _blue);
-			} else if (sscanf(inputData + 4, "%f%%,%f%%,%f%%,%f%%", &fred, &fgreen, &fblue, &falpha) == 4) {
+			} else if (sscanf(_input.c_str() + 4, "%f%%,%f%%,%f%%,%f%%", &fred, &fgreen, &fblue, &falpha) == 4) {
 				fred   = etk_avg(0.0, fred, 1.0);
 				fgreen = etk_avg(0.0, fgreen, 1.0);
 				fblue  = etk_avg(0.0, fblue, 1.0);
@@ -161,7 +158,7 @@ namespace etk {
 				m_g = (uint8_t)(fgreen * 255.);
 				m_b = (uint8_t)(fblue * 255.);
 				m_a = (uint8_t)(falpha * 255.);
-			} else if (sscanf(inputData + 4, "%f%%,%f%%,%f%%", &fred, &fgreen, &fblue) == 3) {
+			} else if (sscanf(_input.c_str() + 4, "%f%%,%f%%,%f%%", &fred, &fgreen, &fblue) == 3) {
 				fred  = etk_avg(0.0, fred, 1.0);
 				fgreen= etk_avg(0.0, fgreen, 1.0);
 				fblue = etk_avg(0.0, fblue, 1.0);
@@ -169,15 +166,13 @@ namespace etk {
 				m_g = (uint8_t)(fgreen * 255.);
 				m_b = (uint8_t)(fblue * 255.);
 			} else {
-				TK_ERROR(" pb in parsing the color : \"" << inputData << "\" ==> unknown methode ...");
+				TK_ERROR(" pb in parsing the color : \"" << _input << "\" ==> unknown methode ...");
 			}
-			*/
 		} else {
 			bool findIt = false;
-			std::string tmputf8string = to_u8string(_input);
 			// direct named color ...
 			for (esize_t iii=0; iii<getColorSize(); iii++) {
-				if (strnCmpNoCase(getColorList()[iii].colorName, tmputf8string.c_str(), strlen(getColorList()[iii].colorName)) == true) {
+				if (strnCmpNoCase(getColorList()[iii].colorName, _input.c_str(), strlen(getColorList()[iii].colorName)) == true) {
 					findIt = true;
 					*this = getColorList()[iii].color;
 					// stop searching
@@ -192,8 +187,7 @@ namespace etk {
 		TK_VERBOSE("Parse color : \"" << _input << "\" ==> " << *this);
 	}
 	
-	template<> Color<float>::Color(std::u32string _input)
-	{
+	template<> Color<float>::Color(std::string _input) {
 		etk::Color<uint8_t> tmpColor(_input);
 		*this = tmpColor;
 	}

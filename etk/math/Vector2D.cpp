@@ -50,16 +50,49 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector2D<bool>& _obj)
 
 
 namespace etk {
+	template<> Vector2D<bool>::operator std::string(void) const {
+		std::string str;
+		str = "(";
+		str += std::to_string(x());
+		str += ",";
+		str += std::to_string(y());
+		str += ")";
+		return str;
+	}
 	template<> Vector2D<bool>::operator std::u32string(void) const {
 		std::u32string str;
 		str = U"(";
-		str += x();
+		str += to_u32string(x());
 		str += U",";
-		str += y();
+		str += to_u32string(y());
 		str += U")";
 		return str;
 	}
 	
+	template<> Vector2D<bool>::Vector2D(const std::string& _str) {
+		m_floats[0] = false;
+		m_floats[1] = false;
+		// copy to permit to modify it :
+		std::string tmpStr = _str;
+		if (_str[0] == '(') {
+			tmpStr.erase(tmpStr.begin());
+		}
+		if (*tmpStr.end() == ')') {
+			tmpStr.erase(tmpStr.end());
+		}
+		size_t posComa = tmpStr.find(',');
+		if (posComa == 0) {
+			// no coma ...
+			// in every case, we parse the first element :
+			m_floats[0] = stobool(tmpStr);
+			m_floats[1] = m_floats[0];
+		} else {
+			m_floats[0] = stobool(std::string(tmpStr, 0, posComa));
+			tmpStr.erase(0, posComa+1);
+			m_floats[1] = stobool(tmpStr);
+		}
+		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
+	}
 	template<> Vector2D<bool>::Vector2D(const std::u32string& _str) {
 		m_floats[0] = false;
 		m_floats[1] = false;
@@ -85,16 +118,50 @@ namespace etk {
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
 	
+	template<> Vector2D<int32_t>::operator std::string(void) const {
+		std::string str;
+		str = "(";
+		str += std::to_string(x());
+		str += ",";
+		str += std::to_string(y());
+		str += ")";
+		return str;
+	}
 	template<> Vector2D<int32_t>::operator std::u32string(void) const {
 		std::u32string str;
 		str = U"(";
-		str += x();
+		str += to_u32string(x());
 		str += U",";
-		str += y();
+		str += to_u32string(y());
 		str += U")";
 		return str;
 	}
 	
+	template<> Vector2D<int32_t>::Vector2D(const std::string& _str) {
+		m_floats[0] = 0;
+		m_floats[1] = 0;
+		// copy to permit to modify it :
+		std::string tmpStr = _str;
+		if (_str[0] == '(') {
+			tmpStr.erase(tmpStr.begin());
+		}
+		if (*tmpStr.end() == ')') {
+			tmpStr.erase(tmpStr.end());
+		}
+		
+		size_t posComa = tmpStr.find(',');
+		if (posComa == 0) {
+			// no coma ...
+			// in every case, we parse the first element :
+			m_floats[0] = stoi(tmpStr);
+			m_floats[1] = m_floats[0];
+		} else {
+			m_floats[0] = stoi(std::string(tmpStr, 0, posComa));
+			tmpStr.erase(0,posComa+1);
+			m_floats[1] = stoi(tmpStr);
+		}
+		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
+	}
 	template<> Vector2D<int32_t>::Vector2D(const std::u32string& _str) {
 		m_floats[0] = 0;
 		m_floats[1] = 0;
@@ -121,16 +188,51 @@ namespace etk {
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
 	
+	template<> Vector2D<uint32_t>::operator std::string(void) const {
+		std::string str;
+		str = "(";
+		str += std::to_string(x());
+		str += ",";
+		str += std::to_string(y());
+		str += ")";
+		return str;
+	}
+	
 	template<> Vector2D<uint32_t>::operator std::u32string(void) const {
 		std::u32string str;
 		str = U"(";
-		str += x();
+		str += to_u32string(x());
 		str += U",";
-		str += y();
+		str += to_u32string(y());
 		str += U")";
 		return str;
 	}
 	
+	template<> Vector2D<uint32_t>::Vector2D(const std::string& _str)
+	{
+		m_floats[0] = 0;
+		m_floats[1] = 0;
+		// copy to permit to modify it :
+		std::string tmpStr = _str;
+		if (_str[0] == '(') {
+			tmpStr.erase(tmpStr.begin());
+		}
+		if (*tmpStr.end() == ')') {
+			tmpStr.erase(tmpStr.end());
+		}
+		size_t posComa = tmpStr.find(',');
+		if (posComa == 0) {
+			// no coma ...
+			// in every case, we parse the first element :
+			m_floats[0] = stoi(tmpStr);
+			m_floats[1] = m_floats[0];
+		} else {
+			m_floats[0] = stoi(std::string(tmpStr, 0, posComa));
+			tmpStr.erase(0,posComa+1);
+			m_floats[1] = stoi(tmpStr);
+		}
+		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
+	}
 	template<> Vector2D<uint32_t>::Vector2D(const std::u32string& _str)
 	{
 		m_floats[0] = 0;
@@ -157,16 +259,49 @@ namespace etk {
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
 	
+	template<> Vector2D<float>::operator std::string(void) const {
+		std::string str;
+		str = "(";
+		str += std::to_string(x());
+		str += ",";
+		str += std::to_string(y());
+		str += ")";
+		return str;
+	}
 	template<> Vector2D<float>::operator std::u32string(void) const {
 		std::u32string str;
 		str = U"(";
-		str += x();
+		str += to_u32string(x());
 		str += U",";
-		str += y();
+		str += to_u32string(y());
 		str += U")";
 		return str;
 	}
 	
+	template<> Vector2D<float>::Vector2D(const std::string& _str) {
+		m_floats[0] = 0;
+		m_floats[1] = 0;
+		// copy to permit to modify it :
+		std::string tmpStr = _str;
+		if (_str[0] == '(') {
+			tmpStr.erase(tmpStr.begin());
+		}
+		if (*tmpStr.end() == ')') {
+			tmpStr.erase(tmpStr.end());
+		}
+		size_t posComa = tmpStr.find(',');
+		if (posComa == 0) {
+			// no coma ...
+			// in every case, we parse the first element :
+			m_floats[0] = stof(tmpStr);
+			m_floats[1] = m_floats[0];
+		} else {
+			m_floats[0] = stof(std::string(tmpStr, 0, posComa));
+			tmpStr.erase(0,posComa+1);
+			m_floats[1] = stof(tmpStr);
+		}
+		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
+	}
 	template<> Vector2D<float>::Vector2D(const std::u32string& _str) {
 		m_floats[0] = 0;
 		m_floats[1] = 0;

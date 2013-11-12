@@ -13,13 +13,10 @@
 #include <vector>
 #include <etk/Hash.h>
 
-namespace etk
-{
-	class Archive
-	{
+namespace etk {
+	class Archive {
 		public:
-			class Content
-			{
+			class Content {
 				private:
 					int32_t m_link; //!< number of element open on this file
 				public:
@@ -39,16 +36,21 @@ namespace etk
 					std::vector<char>& getDataVector(void) { return m_data; };
 			};
 		public:
-			Archive(const std::u32string& _fileName) : m_fileName(_fileName) { };
+			Archive(const std::string& _fileName) :
+			  m_fileName(_fileName) {
+				
+			};
 			virtual ~Archive(void) { };
 		protected:
-			std::u32string m_fileName; //!< File name when it came from an file
+			std::string m_fileName; //!< File name when it came from an file
 		public:
 			/**
 			 * @brief Get the current file name.
 			 * @return the requested file name.
 			 */
-			const std::u32string& getFileName(void) { return m_fileName; };
+			const std::string& getFileName(void) {
+				return m_fileName;
+			};
 		protected:
 			etk::Hash<Content> m_content;
 		public:
@@ -56,41 +58,49 @@ namespace etk
 			 * @brief Get the number of elements
 			 * @return nb files in the archive
 			 */
-			esize_t size(void) const { return m_content.size(); };
+			esize_t size(void) const {
+				return m_content.size();
+			};
 			/**
 			 * @brief Get the File name of the ID
 			 * @param[in] _id id of the element (must be < Size())
 			 * @return FileName of the requested id
 			 */
-			const std::u32string& getName(esize_t _id) const { return m_content.getKey(_id); };
+			const std::string& getName(esize_t _id) const {
+				return m_content.getKey(_id);
+			};
 			/**
 			 * @brief Get the File name of the ID
 			 * @param[in] _id id of the element (must be < Size())
 			 * @return the archive content
 			 */
-			const Content& getContent(esize_t _id) const { return m_content.getValue(_id); };
+			const Content& getContent(esize_t _id) const {
+				return m_content.getValue(_id);
+			};
 			/**
 			 * @brief Get the File name of the ID
 			 * @param[in] _key name of the file
 			 * @return FileName of the requested id
 			 */
-			const Content& getContent(const std::u32string& _key) const;
+			const Content& getContent(const std::string& _key) const;
 			/**
 			 * @brief Check if a file exist
 			 * @param[in] _key Name of the file
 			 * @return true if the file is present
 			 */
-			bool exist(const std::u32string& _key) const { return m_content.exist(_key); };
+			bool exist(const std::string& _key) const {
+				return m_content.exist(_key);
+			};
 			/**
 			 * @brief Load the specific file in the memory
 			 * @param[in] _key Name of the file
 			 */
-			void open(const std::u32string& _key);
+			void open(const std::string& _key);
 			/**
 			 * @brief Un-Load the specific file from the memory
 			 * @param[in] _key Name of the file
 			 */
-			void close(const std::u32string& _key);
+			void close(const std::string& _key);
 			/**
 			 * @brief Display all Element in the archive
 			 */
@@ -107,7 +117,7 @@ namespace etk
 			 * @param[in] _fileName File name of the specific archive.
 			 * @return A pointer an the specified archive, the user might delete it.
 			 */
-			static Archive* load(const std::u32string& _fileName);
+			static Archive* load(const std::string& _fileName);
 			
 			/**
 			 * @brief Create an Achive with a specific name.

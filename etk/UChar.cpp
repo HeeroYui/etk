@@ -15,6 +15,14 @@
 #include <vector>
 #include <etk/Char.h>
 
+const char32_t etk::UChar::Null('\0');
+const char32_t etk::UChar::Return('\n');
+const char32_t etk::UChar::CarrierReturn('\r');
+const char32_t etk::UChar::Tabulation('\t');
+const char32_t etk::UChar::Suppress((const char)127);
+const char32_t etk::UChar::Delete((const char)8);
+const char32_t etk::UChar::Space(' ');
+const char32_t etk::UChar::Escape((const char)27);
 
 bool etk::isWhiteChar(char32_t _val) {
 	if(    _val == ' '
@@ -210,14 +218,6 @@ char32_t etk::setUtf8(const char* _input) {
 }
 
 #if 0
-const char32_t char32_t::Null('\0');
-const char32_t char32_t::Return('\n');
-const char32_t char32_t::CarrierReturn('\r');
-const char32_t char32_t::Tabulation('\t');
-const char32_t char32_t::Suppress((const char)127);
-const char32_t char32_t::Delete((const char)8);
-const char32_t char32_t::Space(' ');
-const char32_t char32_t::Escape((const char)27);
 
 
 

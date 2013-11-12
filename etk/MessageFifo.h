@@ -45,7 +45,7 @@ namespace etk
 					// copy element :
 					_data = m_data[0];
 					// remove element :
-					m_data.erase(0);
+					m_data.erase(m_data.begin());
 					// remove lock
 					m_mutex.unLock();
 					return true;

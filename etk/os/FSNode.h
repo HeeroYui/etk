@@ -22,7 +22,7 @@
 
 namespace etk
 {
-	void setArgZero(const std::u32string& _val);
+	void setArgZero(const std::string& _val);
 	/**
 	 * List of Type that a node can have (this wrap some type that not exist on Windows)
 	 */
@@ -123,8 +123,8 @@ namespace etk
 	class FSNode
 	{
 		private:
-			std::u32string m_userFileName; //!< the name requested by the User
-			std::u32string m_systemFileName; //!< the compleate filename for the system
+			std::string m_userFileName; //!< the name requested by the User
+			std::string m_systemFileName; //!< the compleate filename for the system
 			enum FSNType m_type; //!< the Type of data requested by the User
 			enum typeNode m_typeNode; //!< type of the current file/Folder/Link
 			etk::FSNodeRight m_rights; //!< IO right of the current file
@@ -140,7 +140,8 @@ namespace etk
 			 * @brief Constructor
 			 * @param[in] _path Path of the curent file /folder ...
 			 */
-			FSNode(const std::u32string& _path = U"~");
+			FSNode(const std::string& _path = "~");
+			FSNode(const std::u32string& _path);
 			/**
 			 * @brief Destructor
 			 * @note you will have some warning if you did not close your files
@@ -159,6 +160,7 @@ namespace etk
 			 * @brief Common set name of the Node (if the user decide to change the node selection
 			 * @param[in] _newName Name of the Node
 			 */
+			void privateSetName(const std::string& _newName);
 			void privateSetName(const std::u32string& _newName);
 		private:
 			#ifdef __TARGET_OS__Android
@@ -207,35 +209,41 @@ namespace etk
 			 * @return true : action done
 			 * @return false : action not done
 			 */
+			void setName(const std::string& _newName);
 			void setName(const std::u32string& _newName);
 			/**
 			 * @brief Get the Generate FileSystem name
 			 * @return the requested filename
 			 */
-			std::u32string getFileSystemName(void) const;
+			std::string getFileSystemName(void) const;
+			std::u32string getUFileSystemName(void) const;
 			/**
 			 * @brief Get the current folder of the Node. (file system name)
 			 * @return the common name define (like /xxxxx/xxxxx/ or c:/xxxxx/xxxxx/)
 			 * @note Auto remove of ../../../ and //
 			 */
-			std::u32string getNameFolder(void) const;
+			std::string getNameFolder(void) const;
+			std::u32string getUNameFolder(void) const;
 			/**
 			 * @brief Get the current compleate node name (file system name)
 			 * @return All the user name definition (like /xxxxx/xxxxx/myFile.kkk or c:/xxxxx/xxxxx/myFile.kkk)
 			 * @note Auto remove of ../../../ and //
 			 */
-			std::u32string getName(void) const;
+			std::string getName(void) const;
+			std::u32string getUName(void) const;
 			/**
 			 * @brief Get the file or current folder name (if it was a folder)
 			 * @return the name of the node (like myFile.kkk)
 			 */
-			std::u32string getNameFile(void) const;
+			std::string getNameFile(void) const;
+			std::u32string getUNameFile(void) const;
 			/**
 			 * @brief Get the current folder of the Node.
 			 * @return the common name define (like DATA:xxxxx/xxxxx/)
 			 * @note Auto remove of ../../../ and //
 			 */
-			std::u32string getRelativeFolder(void) const;
+			std::string getRelativeFolder(void) const;
+			std::u32string getURelativeFolder(void) const;
 			/**
 			 * @brief update the Time of the file with the current time
 			 * @return true : action done
@@ -248,6 +256,7 @@ namespace etk
 			 * @return true : action done
 			 * @return false : action not done
 			 */
+			bool move(const std::string& _path);
 			bool move(const std::u32string& _path);
 			/**
 			 * @brief Get the node type (DATA/DIRECT...)
@@ -271,7 +280,8 @@ namespace etk
 			 * @brief Get the creating time of the File
 			 * @return The time requested (in string)
 			 */
-			std::u32string timeCreatedString(void) const;
+			std::string timeCreatedString(void) const;
+			std::u32string timeUCreatedString(void) const;
 			/**
 			 * @brief Get the modifying time of the File
 			 * @return The time requested
@@ -281,7 +291,8 @@ namespace etk
 			 * @brief Get the modifying time of the File
 			 * @return The time requested (in string)
 			 */
-			std::u32string timeModifiedString(void) const;
+			std::string timeModifiedString(void) const;
+			std::u32string timeUModifiedString(void) const;
 			/**
 			 * @brief Get the Accessed time of the File
 			 * @return The time requested
@@ -291,7 +302,8 @@ namespace etk
 			 * @brief Get the Accessed time of the File
 			 * @return The time requested (in string)
 			 */
-			std::u32string timeAccessedString(void) const;
+			std::string timeAccessedString(void) const;
+			std::u32string timeUAccessedString(void) const;
 			/**
 			 * @brief copy the other FSnode ==> for vector
 			 * @param[in] _obj input node
@@ -346,6 +358,7 @@ namespace etk
 			 * @param[out] _output List of all the File names (You must clear it before set it in)
 			 * @param[in] _recursiveEnable Activate the recursive mode (enable by default)
 			 */
+			void folderGetRecursiveFiles(std::vector<std::string>& _output, bool _recursiveEnable=true);
 			void folderGetRecursiveFiles(std::vector<std::u32string>& _output, bool _recursiveEnable=true);
 			/**
 			 * @brief Check if the file have an extention ( ***.ccc)
@@ -357,7 +370,8 @@ namespace etk
 			 * @brief Get the extention of the Node
 			 * @return the requested extention
 			 */
-			std::u32string fileGetExtention(void);
+			std::string fileGetExtention(void);
+			std::u32string fileUGetExtention(void);
 			/**
 			 * @brief Get the File size
 			 * @return the requested size
@@ -463,12 +477,14 @@ namespace etk
 	 * @brief Get the home folder of the user
 	 * @return the home folder : like : "/home/machin/"
 	 */
-	std::u32string getUserHomeFolder(void);
+	std::string getUserHomeFolder(void);
+	std::u32string getUUserHomeFolder(void);
 	/**
 	 * @brief Get the folder of the Program is running
 	 * @return the basic folder name (ex : run ./appl in the pwd=/home/machin/sousFolder ==> this return the pwd folder)
 	 */
-	std::u32string getUserRunFolder(void);
+	std::string getUserRunFolder(void);
+	std::u32string getUUserRunFolder(void);
 	
 	namespace theme {
 		// TODO : Add an INIT ...
@@ -477,18 +493,21 @@ namespace etk
 		 * @param[in] _refName Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" 
 		 * @param[in] _folderName The associated folder of the Theme (like "myTheme/folder/folder2/")
 		 */
-		void setName(std::u32string _refName, std::u32string _folderName);
+		void setName(const std::string& _refName, const std::string& _folderName);
+		void setName(const std::u32string& _refName, const std::u32string& _folderName);
 		/**
 		 * @brief get the folder from a Reference theme
 		 * @param[in] _refName Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" 
 		 * @return the path of the theme
 		 */
-		std::u32string getName(std::u32string _refName);
+		std::string getName(const std::string& _refName);
+		std::u32string getName(const std::u32string& _refName);
 		/**
 		 * @brief Get the list of all the theme folder availlable in the user Home/appl
 		 * @return The list of elements
 		 */
-		std::vector<std::u32string> list(void);
+		std::vector<std::string> list(void);
+		std::vector<std::u32string> listU(void);
 	};
 	
 	/**
@@ -497,6 +516,7 @@ namespace etk
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
+	bool FSNodeRemove(const std::string& _path);
 	bool FSNodeRemove(const std::u32string& _path);
 	/**
 	 * @brief Simple access for : count the number of element in a path (if it is not a path ==> return -1)
@@ -504,6 +524,7 @@ namespace etk
 	 * @return number of File inside
 	 * @return -1 : An error occured
 	 */
+	int64_t FSNodeGetCount(const std::string& _path);
 	int64_t FSNodeGetCount(const std::u32string& _path);
 	/**
 	 * @brief Simple access for : Create a file or a folder depending of the request
@@ -513,6 +534,7 @@ namespace etk
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
+	bool FSNodeCreate(const std::string& _path, etk::FSNodeRight _right, enum etk::typeNode _type=etk::FSN_FOLDER);
 	bool FSNodeCreate(const std::u32string& _path, etk::FSNodeRight _right, enum etk::typeNode _type=etk::FSN_FOLDER);
 	/**
 	 * @brief Simple access for : chexk the exestance of an element
@@ -520,6 +542,7 @@ namespace etk
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
+	bool FSNodeExist(const std::string& _path);
 	bool FSNodeExist(const std::u32string& _path);
 	/**
 	 * @brief Simple access for : chexk the exestance of an element
@@ -528,6 +551,7 @@ namespace etk
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
+	bool FSNodeMove(const std::string& _path1, const std::string& _path2);
 	bool FSNodeMove(const std::u32string& _path1, const std::u32string& _path2);
 	/**
 	 * @brief Simple access for : Get right of the current Node
@@ -535,6 +559,7 @@ namespace etk
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
+	etk::FSNodeRight FSNodeGetRight(const std::string& _path);
 	etk::FSNodeRight FSNodeGetRight(const std::u32string& _path);
 	/**
 	 * @brief Simple access for : Get type of the current node
@@ -542,6 +567,7 @@ namespace etk
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
+	enum etk::typeNode FSNodeGetType(const std::string& _path);
 	enum etk::typeNode FSNodeGetType(const std::u32string& _path);
 	/**
 	 * @brief Simple access for : Getting creation time of the current node
@@ -549,6 +575,7 @@ namespace etk
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
+	uint64_t FSNodeGetTimeCreated(const std::string& _path);
 	uint64_t FSNodeGetTimeCreated(const std::u32string& _path);
 	/**
 	 * @brief Simple access for : Getting Modification time of the current node
@@ -556,6 +583,7 @@ namespace etk
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
+	uint64_t FSNodeGetTimeModified(const std::string& _path);
 	uint64_t FSNodeGetTimeModified(const std::u32string& _path);
 	/**
 	 * @brief Simple access for : Getting Accessing time of the current node
@@ -563,6 +591,7 @@ namespace etk
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
+	uint64_t FSNodeGetTimeAccessed(const std::string& _path);
 	uint64_t FSNodeGetTimeAccessed(const std::u32string& _path);
 	/**
 	 * @brief Simple access for : Update Modification time with the current time of the node (>)
@@ -570,6 +599,7 @@ namespace etk
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
+	bool FSNodeTouch(const std::string& _path);
 	bool FSNodeTouch(const std::u32string& _path);
 	/**
 	 * @brief Simple access for : Basic write on the node (like console echo)
@@ -578,6 +608,7 @@ namespace etk
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
+	bool FSNodeEcho(const std::string& _path, const std::string& _dataTowrite);
 	bool FSNodeEcho(const std::u32string& _path, const std::u32string& _dataTowrite);
 	/**
 	 * @brief Simple access for : Basic write on the node (like console echo) in adding mode (>>)
@@ -586,12 +617,14 @@ namespace etk
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
+	bool FSNodeEchoAdd(const std::string& _path, const std::string& _dataTowrite);
 	bool FSNodeEchoAdd(const std::u32string& _path, const std::u32string& _dataTowrite);
 	/**
 	 * @brief move file to generate an history of the current file
 	 * @param[in] _path Folder/File/Pipe path of the node
 	 * @param[in] _historyCount number of saved file in the history (-xxx)
 	 */
+	void FSNodeHistory(const std::string& _path, int32_t _historyCount);
 	void FSNodeHistory(const std::u32string& _path, int32_t _historyCount);
 };
 

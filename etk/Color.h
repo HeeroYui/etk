@@ -34,7 +34,7 @@ namespace etk {
 			};
 			Color(const etk::Color<float>& _obj) { set(_obj.r(), _obj.g(), _obj.b(), _obj.a()); };
 			Color(const etk::Color<uint8_t>& _obj) { set(_obj.r(), _obj.g(), _obj.b(), _obj.a()); };
-			Color(std::u32string _input);
+			Color(std::string _input);
 			~Color(void) { };
 			Color<MY_TYPE>& operator=(const etk::Color<MY_TYPE>& _input)
 			{

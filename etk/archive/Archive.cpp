@@ -10,7 +10,7 @@
 #include <etk/archive/Zip.h>
 #include <etk/debug.h>
 
-const etk::Archive::Content& etk::Archive::getContent(const std::u32string& _key) const {
+const etk::Archive::Content& etk::Archive::getContent(const std::string& _key) const {
 	static const etk::Archive::Content g_error;
 	if (m_content.exist(_key)==false) {
 		TK_ERROR("File does not exist : " << _key);
@@ -28,12 +28,12 @@ void etk::Archive::display(void)
 	}
 }
 
-etk::Archive* etk::Archive::load(const std::u32string& _fileName) {
+etk::Archive* etk::Archive::load(const std::string& _fileName) {
 	etk::Archive* output=NULL;
-	std::u32string tmpName = to_lower(_fileName);
+	std::string tmpName = to_lower(_fileName);
 	// select the corect Loader :
-	if(    true == end_with(tmpName, U".zip") 
-	    || true == end_with(tmpName, U".apk")  ) {
+	if(    true == end_with(tmpName, ".zip") 
+	    || true == end_with(tmpName, ".apk")  ) {
 		output = new etk::archive::Zip(_fileName);
 		if (NULL==output) {
 			TK_ERROR("An error occured when load archive : " << _fileName);
@@ -45,7 +45,7 @@ etk::Archive* etk::Archive::load(const std::u32string& _fileName) {
 }
 
 
-void etk::Archive::open(const std::u32string& _key) {
+void etk::Archive::open(const std::string& _key) {
 	if (m_content.exist(_key)==false) {
 		TK_ERROR("Try open an unexistant file : '" << _key << "'");
 		return;
@@ -57,7 +57,7 @@ void etk::Archive::open(const std::u32string& _key) {
 	m_content[_key].increaseRef();
 }
 
-void etk::Archive::close(const std::u32string& _key) {
+void etk::Archive::close(const std::string& _key) {
 	if (m_content.exist(_key)==false) {
 		TK_ERROR("Try close an unexistant file : '" << _key << "'");
 		return;

@@ -21,9 +21,9 @@
 namespace etk {
 	template<class MY_TYPE> class HashData {
 		public:
-			std::u32string m_key; //!< name of the current hash
+			std::string m_key; //!< name of the current hash
 			MY_TYPE m_value; //!< data of the current Hash
-			HashData(const std::u32string& _key, const MY_TYPE& _val) :
+			HashData(const std::string& _key, const MY_TYPE& _val) :
 			  m_key(_key),
 			  m_value(_val) {
 				// nothing to do ...
@@ -45,7 +45,7 @@ namespace etk {
 			 * @brief Remove all entry in the Hash table
 			 */
 			void clear(void) {
-				for (int32_t iii=0; iii<m_data.size(); iii++) {
+				for (size_t iii=0; iii<m_data.size(); iii++) {
 					if (m_data[iii] != NULL) {
 						delete(m_data[iii]);
 						m_data[iii]=NULL;
@@ -58,8 +58,8 @@ namespace etk {
 			 * @param[in] _key Name of the hash requested
 			 * @return Id of the element in the table or -1 of it does not existed
 			 */
-			int64_t getId(const std::u32string& _key) const {
-				for (int32_t iii=0; iii<m_data.size(); iii++) {
+			int64_t getId(const std::string& _key) const {
+				for (size_t iii=0; iii<m_data.size(); iii++) {
 					if (m_data[iii] != NULL) {
 						//TK_INFO("Compare key : '" << m_data[iii]->m_key << "' with '" << _key << "'" );
 						if (m_data[iii]->m_key == _key) {
@@ -75,7 +75,7 @@ namespace etk {
 			 * @param[in] _key Name of the hash requested
 			 * @return true if the element exist
 			 */
-			bool exist(const std::u32string& _name) const {
+			bool exist(const std::string& _name) const {
 				int64_t elementId = getId(_name);
 				//TK_INFO(" Exist ? '" << _name << "' id=" << elementId );
 				if (elementId<0) {
@@ -90,7 +90,7 @@ namespace etk {
 			 * @param[in] _key Name of the hash requested
 			 * @return Reference on the Element
 			 */
-			MY_TYPE& get(const std::u32string& _key) const {
+			MY_TYPE& get(const std::string& _key) const {
 				static MY_TYPE g_error;
 				int64_t elementId = getId(_key);
 				if (elementId<0) {
@@ -104,14 +104,14 @@ namespace etk {
 			 * @param[in] _key Name of the hash requested
 			 * @return An reference on the copy of selected element
 			 */
-			MY_TYPE& operator[] (const std::u32string& _key) {
+			MY_TYPE& operator[] (const std::string& _key) {
 				return get(_key);
 			}
-			const MY_TYPE& operator[] (const std::u32string& _key) const {
+			const MY_TYPE& operator[] (const std::string& _key) const {
 				return get(_key);
 			}
 			
-			void add(const std::u32string& _key, const MY_TYPE& _value) {
+			void add(const std::string& _key, const MY_TYPE& _value) {
 				int64_t elementId = getId(_key);
 				if (elementId <0) {
 					HashData<MY_TYPE>* tmp = new HashData<MY_TYPE>(_key, _value);
@@ -124,10 +124,10 @@ namespace etk {
 				}
 				m_data[elementId]->m_value = _value;
 			}
-			void set(const std::u32string& _key, const MY_TYPE& _value) {
+			void set(const std::string& _key, const MY_TYPE& _value) {
 				add(_key, _value);
 			}
-			void remove(const std::u32string& _key) {
+			void remove(const std::string& _key) {
 				int64_t elementId = getId(_key);
 				if (elementId <0) {
 					//nothing to do ==> not existed
@@ -144,13 +144,13 @@ namespace etk {
 			esize_t size(void) const {
 				return m_data.size();
 			}
-			MY_TYPE& operator[] (esize_t _pos) {
+			MY_TYPE& operator[] (size_t _pos) {
 				return getValue(_pos);
 			}
-			const MY_TYPE& operator[] (esize_t _pos) const {
+			const MY_TYPE& operator[] (size_t _pos) const {
 				return getValue(_pos);
 			}
-			const std::u32string& getKey(esize_t _pos) const {
+			const std::string& getKey(size_t _pos) const {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
 					if(_pos>m_data.size()){
@@ -159,7 +159,7 @@ namespace etk {
 				#endif
 				return m_data[_pos]->m_key;
 			}
-			const MY_TYPE& getValue(esize_t _pos) const {
+			const MY_TYPE& getValue(size_t _pos) const {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
 					if(_pos>m_data.size()){
@@ -168,7 +168,7 @@ namespace etk {
 				#endif
 				return m_data[_pos]->m_value;
 			}
-			MY_TYPE& getValue(esize_t _pos) {
+			MY_TYPE& getValue(size_t _pos) {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
 					if(_pos>m_data.size()){

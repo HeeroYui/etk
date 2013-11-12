@@ -13,6 +13,23 @@
 #undef __class__
 #define __class__	"std::u32string"
 
+etk::CCout& etk::operator <<(etk::CCout& _os, const std::string& _obj) {
+	_os << _obj.c_str();
+	return _os;
+}
+
+etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<std::string>& _obj) {
+	_os << "{";
+	for (int32_t iii=0; iii< _obj.size(); iii++) {
+		if (iii>0) {
+			_os << " ~ ";
+		}
+		_os << _obj[iii];
+	}
+	_os << "}";
+	return _os;
+}
+
 etk::CCout& etk::operator <<(etk::CCout& _os, const std::u32string& _obj) {
 	_os << to_u8string(_obj).c_str();
 	return _os;
@@ -204,10 +221,25 @@ bool compare_no_case(const std::string& _obj, const std::string& _val) {
 	return true;
 }
 
+std::string to_lower(const std::string& _obj) {
+	std::string out;
+	for(size_t iii=0 ; iii<_obj.size() ; iii++) {
+		out.push_back(tolower(_obj[iii]));
+	}
+	return out;
+}
 std::u32string to_lower(const std::u32string& _obj) {
 	std::u32string out;
 	for(size_t iii=0 ; iii<_obj.size() ; iii++) {
 		out.push_back(tolower(_obj[iii]));
+	}
+	return out;
+}
+
+std::string to_upper(const std::string& _obj) {
+	std::string out;
+	for(size_t iii=0 ; iii<_obj.size() ; iii++) {
+		out.push_back(toupper(_obj[iii]));
 	}
 	return out;
 }
@@ -218,6 +250,33 @@ std::u32string to_upper(const std::u32string& _obj) {
 		out.push_back(toupper(_obj[iii]));
 	}
 	return out;
+}
+
+bool end_with(const std::string& _obj, const std::string& _val, bool _caseSensitive) {
+	if (_val.size() == 0) {
+		return false;
+	}
+	if (_val.size() > _obj.size()) {
+		return false;
+	}
+	if (true == _caseSensitive) {
+		for( int64_t iii=_val.size()-1, jjj=_obj.size()-1;
+		     iii>=0 && jjj>=0;
+		     iii--, jjj--) {
+			if (_obj[jjj] != _val[iii]) {
+				return false;
+			}
+		}
+		return true;
+	}
+	for( int64_t iii=_val.size()-1, jjj=_obj.size()-1;
+	     iii>=0 && jjj>=0;
+	     iii--, jjj--) {
+		if (tolower(_val[iii]) != tolower(_obj[jjj])) {
+			return false;
+		}
+	}
+	return true;
 }
 
 bool end_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive) {
@@ -241,6 +300,33 @@ bool end_with(const std::u32string& _obj, const std::u32string& _val, bool _case
 	     iii>=0 && jjj>=0;
 	     iii--, jjj--) {
 		if (tolower(_val[iii]) != tolower(_obj[jjj])) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool start_with(const std::string& _obj, const std::string& _val, bool _caseSensitive) {
+	if (_val.size() == 0) {
+		return false;
+	}
+	if (_val.size() > _obj.size()) {
+		return false;
+	}
+	if (true == _caseSensitive) {
+		for( size_t iii = 0;
+		     iii < _obj.size();
+		     iii++) {
+			if (_obj[iii] != _val[iii]) {
+				return false;
+			}
+		}
+		return true;
+	}
+	for( size_t iii = 0;
+	     iii < _obj.size();
+	     iii++) {
+		if (tolower(_val[iii]) != tolower(_obj[iii])) {
 			return false;
 		}
 	}
@@ -298,9 +384,38 @@ std::string replace(const std::string& _obj, char _val, char _replace) {
 	return copy;
 }
 
+std::string extract_line(const std::string& _obj, int32_t _pos) {
+	// search back : '\n'
+	size_t startPos = _obj.rfind('\n', _pos);
+	if (startPos == _pos) {
+		startPos = 0;
+	} else {
+		startPos++;
+	}
+	// search forward : '\n'
+	size_t stopPos = _pos;
+	if (_obj[_pos] != '\n') {
+		stopPos = _obj.find('\n', _pos);
+		if (stopPos == _pos) {
+			stopPos = _obj.size();
+		}
+	}
+	if (startPos < 0) {
+		startPos = 0;
+	} else if (startPos >= _obj.size() ) {
+		return "";
+	}
+	if (stopPos < 0) {
+		return "";
+	} else if (stopPos >= _obj.size() ) {
+		stopPos = _obj.size();
+	}
+	return std::string(_obj, startPos, stopPos);
+}
+
 std::u32string extract_line(const std::u32string& _obj, int32_t _pos) {
 	// search back : '\n'
-	esize_t startPos = _obj.rfind('\n', _pos);
+	size_t startPos = _obj.rfind('\n', _pos);
 	if (startPos == _pos) {
 		startPos = 0;
 	} else {
@@ -327,6 +442,20 @@ std::u32string extract_line(const std::u32string& _obj, int32_t _pos) {
 	return std::u32string(_obj, startPos, stopPos);
 }
 
+std::vector<std::string> string_split(const std::string& _input, char _val) {
+	std::vector<std::string> list;
+	size_t lastStartPos=0;
+	for(size_t iii=0; iii<_input.size(); iii++) {
+		if (_input[iii]==_val) {
+			list.push_back(std::string(_input, lastStartPos, iii));
+			lastStartPos = iii+1;
+		}
+	}
+	if (lastStartPos<_input.size()) {
+		list.push_back(std::string(_input, lastStartPos));
+	}
+	return list;
+}
 
 #if 0
 

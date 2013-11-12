@@ -10,12 +10,12 @@
 #include <etk/debug.h>
 #include <etk/UString.h>
 
-etk::archive::Zip::Zip(const std::u32string& _fileName) :
+etk::archive::Zip::Zip(const std::string& _fileName) :
 	etk::Archive(_fileName),
 	m_ctx(NULL)
 {
 	/* Open the zip file */
-	m_ctx = unzOpen(to_u8string(m_fileName).c_str());
+	m_ctx = unzOpen(m_fileName.c_str());
 	if(!m_ctx) {
 		TK_ERROR("Unable to open the zip file '" << m_fileName << "'");
 		return;
@@ -38,7 +38,7 @@ etk::archive::Zip::Zip(const std::u32string& _fileName) :
 		if(tmpFileName[strlen(tmpFileName) - 1] == '/' ) {
 			// find directory ...
 		} else {
-			m_content.add(to_u32string(tmpFileName), etk::Archive::Content(tmpFileInfo.uncompressed_size));
+			m_content.add(tmpFileName, etk::Archive::Content(tmpFileInfo.uncompressed_size));
 		}
 		/* Go the the next entry listed in the zip file. */
 		if((iii+1) < m_info.number_entry) {
@@ -60,7 +60,7 @@ etk::archive::Zip::~Zip(void)
 
 void etk::archive::Zip::loadFile(int32_t _id)
 {
-	std::u32string fileNameRequested = m_content.getKey(_id);
+	std::string fileNameRequested = m_content.getKey(_id);
 	TK_VERBOSE("Real load file : " << _id << " = '" << fileNameRequested << "'");
 	
 	unzGoToFirstFile(m_ctx);
@@ -74,7 +74,7 @@ void etk::archive::Zip::loadFile(int32_t _id)
 			TK_ERROR("Could not read file info from the zip file '" << m_fileName << "'");
 			return;
 		}
-		if (fileNameRequested == to_u32string(tmpFileName) ) {
+		if (fileNameRequested == tmpFileName ) {
 			// Entry is a file, so extract it.
 			if(unzOpenCurrentFile(m_ctx) != UNZ_OK) {
 				TK_ERROR("Could not open file '" << fileNameRequested << "' into the zip file '" << m_fileName << "'");

@@ -176,8 +176,8 @@ void etk::FSNodeRight::setOtherRunable(bool _newStatus)
 		m_rights |= RIGHT_OTHER_EXECUTE;
 	}
 }
-std::u32string etk::FSNodeRight::getRight(void) const
-{
+
+std::u32string etk::FSNodeRight::getURight(void) const {
 	std::u32string tmp;
 	if (isUserReadable() == true) {
 		tmp += U"r";
@@ -223,6 +223,56 @@ std::u32string etk::FSNodeRight::getRight(void) const
 		tmp += U"x";
 	} else {
 		tmp += U"-";
+	}
+	return tmp;
+}
+
+std::string etk::FSNodeRight::getRight(void) const {
+	std::string tmp;
+	if (isUserReadable() == true) {
+		tmp += "r";
+	} else {
+		tmp += "-";
+	}
+	if (isUserWritable() == true) {
+		tmp += "w";
+	} else {
+		tmp += "-";
+	}
+	if (isUserRunable() == true) {
+		tmp += "x";
+	} else {
+		tmp += "-";
+	}
+	if (isGroupReadable() == true) {
+		tmp += "r";
+	} else {
+		tmp += "-";
+	}
+	if (isGroupWritable() == true) {
+		tmp += "w";
+	} else {
+		tmp += "-";
+	}
+	if (isGroupRunable() == true) {
+		tmp += "x";
+	} else {
+		tmp += "-";
+	}
+	if (isOtherReadable() == true) {
+		tmp += "r";
+	} else {
+		tmp += "-";
+	}
+	if (isOtherWritable() == true) {
+		tmp += "w";
+	} else {
+		tmp += "-";
+	}
+	if (isOtherRunable() == true) {
+		tmp += "x";
+	} else {
+		tmp += "-";
 	}
 	return tmp;
 }
