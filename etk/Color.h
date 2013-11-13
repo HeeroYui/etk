@@ -73,11 +73,11 @@ namespace etk {
 				    (uint8_t)(etk_avg(0,_b,255)),
 				    (uint8_t)(etk_avg(0,_a,255)) );
 			}
-			std::u32string getHexString(void) const {
-				return U"0x" + to_u32string<uint32_t>(get(), std::hex);
+			std::string getHexString(void) const {
+				return "0x" + to_string<uint32_t>(get(), std::hex);
 			};
-			std::u32string getString(void) const {
-				return U"#"  + to_u32string<uint32_t>(get(), std::hex);
+			std::string getString(void) const {
+				return "#"  + to_string<uint32_t>(get(), std::hex);
 			};
 			MY_TYPE r(void) const {
 				return m_r;

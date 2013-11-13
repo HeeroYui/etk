@@ -178,53 +178,7 @@ void etk::FSNodeRight::setOtherRunable(bool _newStatus)
 }
 
 std::u32string etk::FSNodeRight::getURight(void) const {
-	std::u32string tmp;
-	if (isUserReadable() == true) {
-		tmp += U"r";
-	} else {
-		tmp += U"-";
-	}
-	if (isUserWritable() == true) {
-		tmp += U"w";
-	} else {
-		tmp += U"-";
-	}
-	if (isUserRunable() == true) {
-		tmp += U"x";
-	} else {
-		tmp += U"-";
-	}
-	if (isGroupReadable() == true) {
-		tmp += U"r";
-	} else {
-		tmp += U"-";
-	}
-	if (isGroupWritable() == true) {
-		tmp += U"w";
-	} else {
-		tmp += U"-";
-	}
-	if (isGroupRunable() == true) {
-		tmp += U"x";
-	} else {
-		tmp += U"-";
-	}
-	if (isOtherReadable() == true) {
-		tmp += U"r";
-	} else {
-		tmp += U"-";
-	}
-	if (isOtherWritable() == true) {
-		tmp += U"w";
-	} else {
-		tmp += U"-";
-	}
-	if (isOtherRunable() == true) {
-		tmp += U"x";
-	} else {
-		tmp += U"-";
-	}
-	return tmp;
+	return to_u32string(getRight());
 }
 
 std::string etk::FSNodeRight::getRight(void) const {

@@ -315,7 +315,7 @@ bool start_with(const std::string& _obj, const std::string& _val, bool _caseSens
 	}
 	if (true == _caseSensitive) {
 		for( size_t iii = 0;
-		     iii < _obj.size();
+		     iii < _val.size();
 		     iii++) {
 			if (_obj[iii] != _val[iii]) {
 				return false;
@@ -324,7 +324,7 @@ bool start_with(const std::string& _obj, const std::string& _val, bool _caseSens
 		return true;
 	}
 	for( size_t iii = 0;
-	     iii < _obj.size();
+	     iii < _val.size();
 	     iii++) {
 		if (tolower(_val[iii]) != tolower(_obj[iii])) {
 			return false;
@@ -342,7 +342,7 @@ bool start_with(const std::u32string& _obj, const std::u32string& _val, bool _ca
 	}
 	if (true == _caseSensitive) {
 		for( size_t iii = 0;
-		     iii < _obj.size();
+		     iii < _val.size();
 		     iii++) {
 			if (_obj[iii] != _val[iii]) {
 				return false;
@@ -351,7 +351,7 @@ bool start_with(const std::u32string& _obj, const std::u32string& _val, bool _ca
 		return true;
 	}
 	for( size_t iii = 0;
-	     iii < _obj.size();
+	     iii < _val.size();
 	     iii++) {
 		if (tolower(_val[iii]) != tolower(_obj[iii])) {
 			return false;
@@ -400,12 +400,12 @@ std::string extract_line(const std::string& _obj, int32_t _pos) {
 			stopPos = _obj.size();
 		}
 	}
-	if (startPos < 0) {
+	if (startPos == std::string::npos) {
 		startPos = 0;
 	} else if (startPos >= _obj.size() ) {
 		return "";
 	}
-	if (stopPos < 0) {
+	if (stopPos == std::string::npos) {
 		return "";
 	} else if (stopPos >= _obj.size() ) {
 		stopPos = _obj.size();
@@ -429,12 +429,12 @@ std::u32string extract_line(const std::u32string& _obj, int32_t _pos) {
 			stopPos = _obj.size();
 		}
 	}
-	if (startPos < 0) {
+	if (startPos == std::string::npos) {
 		startPos = 0;
 	} else if (startPos >= _obj.size() ) {
 		return U"";
 	}
-	if (stopPos < 0) {
+	if (stopPos == std::string::npos) {
 		return U"";
 	} else if (stopPos >= _obj.size() ) {
 		stopPos = _obj.size();
@@ -444,7 +444,7 @@ std::u32string extract_line(const std::u32string& _obj, int32_t _pos) {
 
 std::vector<std::string> string_split(const std::string& _input, char _val) {
 	std::vector<std::string> list;
-	size_t lastStartPos=0;
+	size_t lastStartPos = 0;
 	for(size_t iii=0; iii<_input.size(); iii++) {
 		if (_input[iii]==_val) {
 			list.push_back(std::string(_input, lastStartPos, iii));

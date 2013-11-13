@@ -20,7 +20,6 @@ namespace etk {
 		
 		void sortList(std::vector<std::u32string *>& _list);
 		bool strnCmpNoCase(const char* _input1, const char* _input2, int32_t _maxLen);
-		std::u32string simplifyPath(std::u32string _input);
 		
 	};
 };

@@ -917,7 +917,7 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 			std::vector<char32_t> tmpData;
 			while (pos < RegExpNode<CLASS_TYPE>::m_RegExpData.size()) {
 				tmpData.clear();
-				switch (RegExpNode<CLASS_TYPE>::m_RegExpData[pos].get()) {
+				switch (RegExpNode<CLASS_TYPE>::m_RegExpData[pos]) {
 					case REGEXP_OPCODE_PTHESE_IN:
 						{
 							elementSize=getLenOfPThese(RegExpNode<CLASS_TYPE>::m_RegExpData, pos);
@@ -1221,32 +1221,45 @@ template<class CLASS_TYPE> class RegExp
 		 * @param[in,out] _exp Regular expression to parse
 		 */
 		RegExp(const std::u32string &_exp=U"") :
-			m_expressionRequested(U""),
-			m_isOk(false),
-			m_notBeginWithChar(false),
-			m_notEndWithChar(false)
-		{
+		  m_expressionRequested(U""),
+		  m_isOk(false),
+		  m_notBeginWithChar(false),
+		  m_notEndWithChar(false) {
 			m_areaFind.start=0;
 			m_areaFind.stop=0;
 			if (_exp.size() != 0) {
 				setRegExp(_exp);
 			}
 		};
+		RegExp(const std::string &_exp="") :
+		  m_expressionRequested(U""),
+		  m_isOk(false),
+		  m_notBeginWithChar(false),
+		  m_notEndWithChar(false) {
+			m_areaFind.start=0;
+			m_areaFind.stop=0;
+			if (_exp.size() != 0) {
+				setRegExp(to_u32string(_exp));
+			}
+		};
 		
 		/**
 		 * @brief Destructor
 		 */
-		~RegExp(void)
-		{
+		~RegExp(void) {
 			m_isOk = false;
 		};
 		
 		/**
 		 * @brief Set a new regular expression matching
-		 * @param[in] _regexp the new expression to search
+		 * @param[in] _exp the new expression to search
 		 */
-		void setRegExp(const std::u32string &_regexp)
-		{
+		void setRegExp(const std::string &_exp) {
+			if (_exp.size() != 0) {
+				setRegExp(to_u32string(_exp));
+			}
+		}
+		void setRegExp(const std::u32string &_regexp) {
 			m_expressionRequested = _regexp;
 			std::vector<char32_t> tmpExp;
 			
@@ -1382,8 +1395,10 @@ template<class CLASS_TYPE> class RegExp
 		 * @brief Get the regular expression string
 		 * @return the string representing the RegExp
 		 */
-		const std::u32string& getRegExp(void) const
-		{
+		std::string getRegExp(void) const {
+			return to_u8string(m_expressionRequested);
+		};
+		const std::u32string& getURegExp(void) const {
 			return m_expressionRequested;
 		};
 		
@@ -1392,8 +1407,7 @@ template<class CLASS_TYPE> class RegExp
 		 * @return true : the regExp is correctly parsed
 		 * @return false : an error occcured (check log ...)
 		 */
-		bool getStatus(void)
-		{
+		bool getStatus(void) {
 			return m_isOk;
 		};
 		// process the regular expression

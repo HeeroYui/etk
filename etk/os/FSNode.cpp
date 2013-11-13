@@ -36,66 +36,52 @@ extern "C" {
 
 
 
-static std::string simplifyPathAbstractPath(std::string _input)
-{
-	int32_t findStartPos = _input.find('/') + 1;
-	int32_t findPos = _input.find('/', findStartPos);
-	//TK_DEBUG("Siplify : \"" << input << "\"");
-	int32_t preventBadCode = 0;
-	while (findPos!=0) {
-		//TK_DEBUG("      string=\"" << input << "\"");
-		//TK_DEBUG("      '/' @" << findPos);
-		if (_input.size()<findPos+1) {
-			// no more element ...
-			break;
+std::string etk::simplifyPath(std::string _input) {
+	// step 1 : for windows change \ in /:
+	TK_DEBUG("Siplify(1) : \"" << _input << "\"");
+	size_t currentPos = 0;
+	while(currentPos <= _input.size()) {
+		if (_input[currentPos] == '\\') {
+			_input[currentPos] = '/';
 		}
-		if(    _input[findPos+1] == '/'
-		    || (    _input[findPos+1] == '.'
-		         && _input.size()==findPos+2 )) {
-			// cleane the element path
-			_input.erase(findPos+1, 1);
-			//TK_DEBUG("      Remove // string=\"" << input << "\"");
-		} else {
-			if (_input.size()<findPos+2) {
-				// no more element ...
-				break;
-			}
-			if(    _input[findPos+1] == '.'
-			    && _input[findPos+2] == '.') {
-				// cleane the element path
-				_input.erase(findStartPos, findPos+3 - findStartPos );
-				//TK_DEBUG("      Remove xxx/.. string=\"" << input << "\"");
-			} else if(    _input[findPos+1] == '.'
-			           && _input[findPos+2] == '/') {
-				// cleane the element path
-				_input.erase(findPos+1, 2);
-				//TK_DEBUG("      Remove ./ string=\"" << input << "\"");
-			} else {
-				findStartPos = findPos+1;
-			}
-		}
-		findPos = _input.find('/', findStartPos);
-		preventBadCode++;
-		if (preventBadCode>5000) {
-			TK_CRITICAL("ERROR when getting the small path ... this is loop prevention...");
-			break;
-		}
+		currentPos++;
+		continue;
 	}
-	/*
-	#ifndef __TARGET_OS__Windows
-		// for the target that supported the Realpath system :
-		char buf[MAX_FILE_NAME];
-		memset(buf, 0, MAX_FILE_NAME);
-		char * ok = realpath(input.c_str(), buf);
-		if (!ok) {
-			TK_ERROR("Error to get the real path");
-			input = "/";
-		} else {
-			input = buf;
+	// step 2 : remove all '//'
+	TK_DEBUG("Siplify(2) : \"" << _input << "\"");
+	currentPos = 0;
+	while(currentPos <= _input.size()-1) {
+		if (    _input[currentPos] != '/'
+		     || _input[currentPos+1] != '/') {
+			currentPos++;
+			continue;
 		}
-	#endif
-	*/
-	//TK_DEBUG("   ==> \"" << input << "\"");
+		_input.erase(currentPos, 1);
+	}
+	// step 3 remove xxx/..
+	TK_DEBUG("Siplify(3) : \"" << _input << "\"");
+	size_t lastSlashPos = std::string::npos;
+	currentPos = 0;
+	while(currentPos <= _input.size()-2) {
+		if (    _input[currentPos] != '/'
+		     || _input[currentPos+1] != '.'
+		     || _input[currentPos+2] != '.') {
+			if (_input[currentPos] == '/') {
+				lastSlashPos = currentPos;
+			}
+			currentPos++;
+			continue;
+		}
+		if (lastSlashPos == std::string::npos) {
+			currentPos++;
+			continue;
+		}
+		_input.erase(lastSlashPos, currentPos+2-lastSlashPos+1);
+		TK_DEBUG("update : \"" << _input << "\"");
+		lastSlashPos = std::string::npos;
+		currentPos = 0;
+	}
+	TK_DEBUG("Siplify(4) : \"" << _input << "\"");
 	return _input;
 }
 
@@ -224,7 +210,7 @@ std::string getApplicationPath(void) {
 		TK_VERBOSE("Parse arg0 = '" << l_argZero << "' start with '/' ???");
 		if (l_argZero[0] == '/') {
 			binaryName = l_argZero;
-			return simplifyPathAbstractPath(binaryName);
+			return etk::simplifyPath(binaryName);
 		}
 		TK_VERBOSE("Parse arg0 = '" << l_argZero << "' try add PWD");
 		char * basicPathPWD = getenv("PWD");
@@ -240,7 +226,7 @@ std::string getApplicationPath(void) {
 				//Normal case when the file does not exist ... ==> the it was in unknow mode ...
 				binaryName = testCompleatePath;
 				TK_VERBOSE("find real name = '" << binaryName << "'");
-				return simplifyPathAbstractPath(binaryName);
+				return etk::simplifyPath(binaryName);
 			}
 		}
 		//char * basicPathPATH = getenv("PATH");
@@ -288,9 +274,9 @@ void etk::initDefaultFolder(const char* _applName) {
 	#ifndef __TARGET_OS__Android
 		std::string binaryPath = getApplicationPath();
 		binaryPath = replace(binaryPath, '\\', '/');
-		int32_t pos = binaryPath.rfind('/');
+		size_t pos = binaryPath.rfind('/');
 		std::string binaryName(binaryPath, pos);
-		binaryPath.erase(binaryName.begin() + pos, binaryName.end());
+		binaryPath.erase(binaryPath.begin() + pos, binaryPath.end());
 		TK_INFO("Bianry name : '" << binaryPath << "' && '" << binaryName << "'" );
 		#ifdef __TARGET_OS__Windows
 			baseFolderData  = binaryPath;
@@ -321,7 +307,7 @@ void etk::initDefaultFolder(const char* _applName) {
 					baseFolderData += binaryName;
 					baseFolderData += "/";
 				#endif
-				baseFolderData = simplifyPathAbstractPath(baseFolderData);
+				baseFolderData = simplifyPath(baseFolderData);
 			}
 			baseFolderDataUser  = baseFolderHome;
 			baseFolderDataUser += "/.local/share/";
@@ -623,7 +609,7 @@ void etk::FSNode::privateSetName(const std::string& _newName) {
 	
 	// Now we reduce the path with all un-needed ../ and other thinks ...
 	// TODO : Do it whith link and the other sub thinks ...
-	m_userFileName = simplifyPathAbstractPath(m_userFileName);
+	m_userFileName = simplifyPath(m_userFileName);
 	TK_DBG_MODE("4 : Path simplification :   [" << m_type << "]->\"" << m_userFileName << "\"");
 	
 	// Now we generate the real FS path:
@@ -700,7 +686,7 @@ void etk::FSNode::generateFileSystemPath(void) {
 				std::string themeName("");
 				std::string basicName(m_userFileName);
 				size_t firstPos = m_userFileName.find(':');
-				if (0 != firstPos) {
+				if (firstPos != std::string::npos) {
 					// we find a theme name : We extracted it :
 					themeName = std::string(m_userFileName, 0, firstPos);
 					basicName = std::string(m_userFileName, firstPos+1);
@@ -831,7 +817,7 @@ void etk::FSNode::setName(const std::u32string& _newName) {
 
 std::string etk::FSNode::getNameFolder(void) const {
 	size_t lastPos = m_systemFileName.rfind('/');
-	if (0 != lastPos) {
+	if (lastPos != std::string::npos) {
 		return std::string(m_systemFileName, 0, lastPos);
 	}
 	return "";
@@ -886,7 +872,7 @@ std::u32string etk::FSNode::getUName(void) const {
 
 std::string etk::FSNode::getNameFile(void) const {
 	size_t lastPos = m_systemFileName.rfind('/');
-	if (0 != lastPos) {
+	if (lastPos != std::string::npos) {
 		return std::string(m_systemFileName, lastPos+1);
 	}
 	return "";
@@ -898,12 +884,11 @@ std::u32string etk::FSNode::getUNameFile(void) const {
 std::string etk::FSNode::getRelativeFolder(void) const {
 	std::string tmppp = getName();
 	TK_DBG_MODE("get REF folder : " << tmppp );
-	switch (m_typeNode)
-	{
+	switch (m_typeNode) {
 		case etk::FSN_UNKNOW:
 		case etk::FSN_FOLDER:
 		case etk::FSN_LINK:
-			if (*tmppp.end() == '/') {
+			if (tmppp.back() == '/') {
 				TK_DBG_MODE("     ==> : " << tmppp );
 				return tmppp;
 			} else {
@@ -922,13 +907,13 @@ std::string etk::FSNode::getRelativeFolder(void) const {
 			break;
 	}
 	size_t lastPos = tmppp.rfind('/');
-	if (0 != lastPos) {
-		TK_DBG_MODE("     ==> : " << tmppp.extract(0, lastPos+1) );
+	if (lastPos != std::string::npos) {
+		TK_DBG_MODE("     ==> : " << std::string(tmppp, 0, lastPos+1) );
 		return std::string(tmppp, 0, lastPos+1);
 	}
 	lastPos = tmppp.rfind(':');
-	if (0 != lastPos) {
-		TK_DBG_MODE("     ==> : " << tmppp.extract(0, lastPos+1) );
+	if (lastPos != std::string::npos) {
+		TK_DBG_MODE("     ==> : " << std::string(tmppp, 0, lastPos+1) );
 		return std::string(tmppp, 0, lastPos+1);
 	}
 	TK_DBG_MODE("     ==> : \"\"" );
@@ -994,8 +979,8 @@ uint64_t etk::FSNode::timeCreated(void) const {
 std::string etk::FSNode::timeCreatedString(void) const {
 	time_t tmpVal = (int32_t)m_timeCreate;
 	std::string tmpTime = ctime(&tmpVal);
-	if (tmpTime[tmpTime.size()-1] == '\n') {
-		tmpTime.erase(tmpTime.end());
+	if (tmpTime.back() == '\n') {
+		tmpTime.pop_back();
 	}
 	return tmpTime;
 }
@@ -1010,8 +995,8 @@ uint64_t etk::FSNode::timeModified(void) const {
 std::string etk::FSNode::timeModifiedString(void) const {
 	time_t tmpVal = (int32_t)m_timeModify;
 	std::string tmpTime = ctime(&tmpVal);
-	if (tmpTime[tmpTime.size()-1] == '\n') {
-		tmpTime.erase(tmpTime.end());
+	if (tmpTime.back() == '\n') {
+		tmpTime.pop_back();
 	}
 	return tmpTime;
 }
@@ -1026,8 +1011,8 @@ uint64_t etk::FSNode::timeAccessed(void) const {
 std::string etk::FSNode::timeAccessedString(void) const {
 	time_t tmpVal = (int32_t)m_timeAccess;
 	std::string tmpTime = ctime(&tmpVal);
-	if (tmpTime[tmpTime.size()-1] == '\n') {
-		tmpTime.erase(tmpTime.end());
+	if (tmpTime.back() == '\n') {
+		tmpTime.pop_back();
 	}
 	return tmpTime;
 }
@@ -1320,7 +1305,7 @@ void etk::FSNode::folderGetRecursiveFiles(std::vector<std::u32string>& _output, 
 */
 bool etk::FSNode::fileHasExtention(void) {
 	size_t lastPos = m_userFileName.rfind('.');
-	if(    0 != lastPos // Find a . at the fist position .jdlskjdfklj ==> hiden file
+	if(    lastPos != std::string::npos // Find a . at the fist position .jdlskjdfklj ==> hiden file
 	    && m_userFileName.size() != lastPos ) { // Remove file ended with .
 		return true;
 	} else {
@@ -1330,7 +1315,7 @@ bool etk::FSNode::fileHasExtention(void) {
 
 std::string etk::FSNode::fileGetExtention(void) {
 	size_t lastPos = m_userFileName.rfind('.');
-	if(    0  != lastPos // Find a . at the fist position .jdlskjdfklj ==> hiden file
+	if(    lastPos != std::string::npos // Find a . at the fist position .jdlskjdfklj ==> hiden file
 	    && m_userFileName.size() != lastPos ) { // Remove file ended with .
 		// Get the FileName
 		return std::string(m_userFileName, lastPos+1);

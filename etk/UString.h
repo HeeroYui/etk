@@ -315,10 +315,10 @@ std::u32string to_upper(const std::u32string& _obj);
 std::string to_lower(const std::string& _obj);
 std::string to_upper(const std::string& _obj);
 
-bool end_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = false);
-bool end_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = false);
-bool start_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = false);
-bool start_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = false);
+bool end_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = true);
+bool end_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = true);
+bool start_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = true);
+bool start_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = true);
 
 bool compare_no_case(const std::u32string& _obj, const std::u32string& _val);
 bool compare_no_case(const std::string& _obj, const std::string& _val);

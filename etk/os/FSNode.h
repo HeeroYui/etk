@@ -20,9 +20,9 @@
 
 //http://developer.android.com/guide/topics/data/data-storage.html
 
-namespace etk
-{
+namespace etk {
 	void setArgZero(const std::string& _val);
+	std::string simplifyPath(std::string _input);
 	/**
 	 * List of Type that a node can have (this wrap some type that not exist on Windows)
 	 */

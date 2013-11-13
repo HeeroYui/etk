@@ -74,14 +74,14 @@ namespace etk {
 		m_floats[1] = false;
 		// copy to permit to modify it :
 		std::string tmpStr = _str;
-		if (_str[0] == '(') {
+		if (tmpStr.front() == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (*tmpStr.end() == ')') {
-			tmpStr.erase(tmpStr.end());
+		if (tmpStr.back() == ')') {
+			tmpStr.pop_back();
 		}
 		size_t posComa = tmpStr.find(',');
-		if (posComa == 0) {
+		if (posComa == std::string::npos) {
 			// no coma ...
 			// in every case, we parse the first element :
 			m_floats[0] = stobool(tmpStr);
@@ -98,14 +98,14 @@ namespace etk {
 		m_floats[1] = false;
 		// copy to permit to modify it :
 		std::u32string tmpStr = _str;
-		if (_str[0] == '(') {
+		if (tmpStr.front() == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (*tmpStr.end() == ')') {
-			tmpStr.erase(tmpStr.end());
+		if (tmpStr.back() == ')') {
+			tmpStr.pop_back();
 		}
 		size_t posComa = tmpStr.find(',');
-		if (posComa == 0) {
+		if (posComa == std::string::npos) {
 			// no coma ...
 			// in every case, we parse the first element :
 			m_floats[0] = stobool(tmpStr);
@@ -142,15 +142,15 @@ namespace etk {
 		m_floats[1] = 0;
 		// copy to permit to modify it :
 		std::string tmpStr = _str;
-		if (_str[0] == '(') {
+		if (tmpStr.front() == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (*tmpStr.end() == ')') {
-			tmpStr.erase(tmpStr.end());
+		if (tmpStr.back() == ')') {
+			tmpStr.pop_back();
 		}
 		
 		size_t posComa = tmpStr.find(',');
-		if (posComa == 0) {
+		if (posComa == std::string::npos) {
 			// no coma ...
 			// in every case, we parse the first element :
 			m_floats[0] = stoi(tmpStr);
@@ -167,11 +167,11 @@ namespace etk {
 		m_floats[1] = 0;
 		// copy to permit to modify it :
 		std::u32string tmpStr = _str;
-		if (_str[0] == '(') {
+		if (tmpStr.front() == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (*tmpStr.end() == ')') {
-			tmpStr.erase(tmpStr.end());
+		if (tmpStr.back() == ')') {
+			tmpStr.pop_back();
 		}
 		
 		size_t posComa = tmpStr.find(',');
@@ -214,14 +214,14 @@ namespace etk {
 		m_floats[1] = 0;
 		// copy to permit to modify it :
 		std::string tmpStr = _str;
-		if (_str[0] == '(') {
+		if (tmpStr.front() == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (*tmpStr.end() == ')') {
-			tmpStr.erase(tmpStr.end());
+		if (tmpStr.back() == ')') {
+			tmpStr.pop_back();
 		}
 		size_t posComa = tmpStr.find(',');
-		if (posComa == 0) {
+		if (posComa == std::string::npos) {
 			// no coma ...
 			// in every case, we parse the first element :
 			m_floats[0] = stoi(tmpStr);
@@ -239,14 +239,14 @@ namespace etk {
 		m_floats[1] = 0;
 		// copy to permit to modify it :
 		std::u32string tmpStr = _str;
-		if (_str[0] == '(') {
+		if (tmpStr.front() == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (*tmpStr.end() == ')') {
-			tmpStr.erase(tmpStr.end());
+		if (tmpStr.back() == ')') {
+			tmpStr.pop_back();
 		}
 		size_t posComa = tmpStr.find(',');
-		if (posComa == 0) {
+		if (posComa == std::string::npos) {
 			// no coma ...
 			// in every case, we parse the first element :
 			m_floats[0] = stoi(tmpStr);
@@ -283,14 +283,14 @@ namespace etk {
 		m_floats[1] = 0;
 		// copy to permit to modify it :
 		std::string tmpStr = _str;
-		if (_str[0] == '(') {
+		if (tmpStr.front() == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (*tmpStr.end() == ')') {
-			tmpStr.erase(tmpStr.end());
+		if (tmpStr.back() == ')') {
+			tmpStr.pop_back();
 		}
 		size_t posComa = tmpStr.find(',');
-		if (posComa == 0) {
+		if (posComa == std::string::npos) {
 			// no coma ...
 			// in every case, we parse the first element :
 			m_floats[0] = stof(tmpStr);
@@ -307,14 +307,14 @@ namespace etk {
 		m_floats[1] = 0;
 		// copy to permit to modify it :
 		std::u32string tmpStr = _str;
-		if (_str[0] == '(') {
+		if (tmpStr.front() == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (*tmpStr.end() == ')') {
-			tmpStr.erase(tmpStr.end());
+		if (tmpStr.back() == ')') {
+			tmpStr.pop_back();
 		}
 		size_t posComa = tmpStr.find(',');
-		if (posComa == 0) {
+		if (posComa == std::string::npos) {
 			// no coma ...
 			// in every case, we parse the first element :
 			m_floats[0] = stof(tmpStr);
