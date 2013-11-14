@@ -47,6 +47,18 @@ namespace etk {
 		extern const char32_t Delete; //!< DEL
 		extern const char32_t Space; //!< ' ' SPACE
 		extern const char32_t Escape; //!< ESC Escape
+		/**
+		 * @brief Get the size of an utf8 char with his first char.
+		 * @param[in] _input Char to parse
+		 * @return number of char needed
+		 */
+		int8_t theoricUTF8Len(const char _input);
+		/**
+		 * @brief When parsing a string in a reverse mode, we need to know if we get the first char
+		 * @param[in] _input Char to parse.
+		 * @return true if it was the first char.
+		 */
+		bool theoricUTF8First(const char _input);
 	};
 	#if 0
 	class UChar : public char32_t{
@@ -69,18 +81,6 @@ namespace etk {
 			//std::vector<int8_t> GetUtf8(void) const;
 			int8_t setUtf8(const char* _input);
 		public:
-			/**
-			 * @brief Get the size of an utf8 char with his first char.
-			 * @param[in] _input Char to parse
-			 * @return number of char needed
-			 */
-			static int8_t theoricUTF8Len(const char _input);
-			/**
-			 * @brief When parsing a string in a reverse mode, we need to know if we get the first char
-			 * @param[in] _input Char to parse.
-			 * @return true if it was the first char.
-			 */
-			static bool theoricUTF8First(const char _input);
 	};
 	#endif
 	/**

@@ -40,13 +40,11 @@
     |____________________________________________________________________________________|
 */
 
-namespace etk
-{
+namespace etk {
 	/**
 	 * @brief Buffer classes. Designed for access o
 	 */
-	class Buffer
-	{
+	class Buffer {
 		private:
 			int8_t* m_data; //!< pointer on the curetn table of Data
 			int32_t m_allocated; //!< Current allocated size
@@ -216,13 +214,21 @@ namespace etk
 				tmpBuffer.clear();
 				if (_pos < m_gapStart) {
 					if (_pos + _nbElement < m_gapStart) {
-						tmpBuffer.push_back(&m_data[_pos], _nbElement);
+						for (size_t iii = _pos; iii<_pos+_nbElement; ++iii) {
+							tmpBuffer.push_back(m_data[iii]);
+						}
 					} else {
-						tmpBuffer.push_back(&m_data[_pos], m_gapStart - _pos);
-						tmpBuffer.push_back(&m_data[m_gapEnd], _nbElement - (m_gapStart - _pos) );
+						for (size_t iii = _pos; iii<m_gapStart; ++iii) {
+							tmpBuffer.push_back(m_data[iii]);
+						}
+						for (size_t iii = m_gapEnd; iii<m_gapEnd - (_nbElement - (m_gapStart - _pos)); ++iii) {
+							tmpBuffer.push_back(m_data[iii]);
+						}
 					}
 				} else {
-					tmpBuffer.push_back(&m_data[_pos+(m_gapEnd-m_gapStart)], _nbElement);
+					for (size_t iii = _pos+(m_gapEnd-m_gapStart); iii<_pos+(m_gapEnd-m_gapStart)+_nbElement; ++iii) {
+						tmpBuffer.push_back(m_data[iii]);
+					}
 				}
 				return tmpBuffer;
 			}
@@ -271,7 +277,7 @@ namespace etk
 			 * @param[in] _items Data that might be inserted.
 			 */
 			void insert(int32_t _pos, std::vector<int8_t>& _items) {
-				insert(_pos, _items.dataPointer(), _items.size());
+				insert(_pos, &_items[0], _items.size());
 			}
 			/**
 			 * @brief Insert data in the buffer
@@ -324,7 +330,7 @@ namespace etk
 			 * @param[in] _items Data that might be inserted.
 			 */
 			void replace(int32_t _pos, int32_t _nbRemoveElement, std::vector<int8_t>& _items) {
-				replace(_pos, _nbRemoveElement, _items.dataPointer(), _items.size());
+				replace(_pos, _nbRemoveElement, &_items[0], _items.size());
 			}
 			/**
 			 * @brief Replace specified data.
@@ -386,7 +392,7 @@ namespace etk
 			/**
 			 * @brief Remove the last element of the Buffer.
 			 */
-			void popBack(void) {
+			void pop_back(void) {
 				if (size()>0) {
 					remove( size() );
 				}

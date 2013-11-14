@@ -164,8 +164,7 @@ template<class CLASS_TYPE> class RegExpNodeValue : public RegExpNode<CLASS_TYPE>
 		 */
 		~RegExpNodeValue(void) { };
 		
-		int32_t generate(const std::vector<char32_t>& _data)
-		{
+		int32_t generate(const std::vector<char32_t>& _data) {
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse \"Value\" data="; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
 			m_data.clear();
@@ -1199,6 +1198,12 @@ template<class CLASS_TYPE> class RegExpNodePThese : public RegExpNode<CLASS_TYPE
 				}
 			}
 		};
+		/**
+		 * @brief Just display the regExp in color ...
+		 */
+		void drawColoredRegEx(void) {
+			TK_INFO("regExp :"; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+		}
 };
 #undef __class__
 #define __class__	"etk::RegExp"
@@ -1231,7 +1236,7 @@ template<class CLASS_TYPE> class RegExp
 				setRegExp(_exp);
 			}
 		};
-		RegExp(const std::string &_exp="") :
+		RegExp(const std::string &_exp) :
 		  m_expressionRequested(U""),
 		  m_isOk(false),
 		  m_notBeginWithChar(false),
@@ -1256,6 +1261,7 @@ template<class CLASS_TYPE> class RegExp
 		 */
 		void setRegExp(const std::string &_exp) {
 			if (_exp.size() != 0) {
+				TK_REG_EXP_DBG_MODE("normal string parse : '" << _exp << "'");
 				setRegExp(to_u32string(_exp));
 			}
 		}
@@ -1278,7 +1284,7 @@ template<class CLASS_TYPE> class RegExp
 			int32_t countPTheseOut = 0;
 			int32_t countBracketIn = 0;
 			int32_t countBracketOut = 0;
-			for (esize_t iii=0; iii<_regexp.size(); iii++) {
+			for (size_t iii=0; iii<_regexp.size(); iii++) {
 				if (_regexp[iii] == '\\') {
 					if(iii+1>=_regexp.size()) {
 						TK_ERROR("Dangerous parse of the element pos " << iii << " \\ with nothing after");
@@ -1378,14 +1384,15 @@ template<class CLASS_TYPE> class RegExp
 				//TK_DEBUG("=> must not end with char");
 				m_notEndWithChar = true;
 				// remove element
-				tmpExp.erase(tmpExp.end());
+				tmpExp.erase(tmpExp.end()-1);
 			}
 			
 			if (tmpExp.size() != m_exprRootNode.generate(tmpExp) ) {
 				return;
 			}
 			// TODO : optimize node here ...
-			//Display();
+			//drawColoredRegEx();
+			//display();
 		
 			// all OK ... play again 
 			m_isOk = true;
@@ -1423,8 +1430,7 @@ template<class CLASS_TYPE> class RegExp
 		bool process(const CLASS_TYPE& _SearchIn,
 		             esize_t _startPos,
 		             esize_t _endPos,
-		             char32_t _escapeChar=0)
-		{
+		             char32_t _escapeChar=0) {
 			if (false == m_isOk) {
 				return false;
 			}
@@ -1498,11 +1504,10 @@ template<class CLASS_TYPE> class RegExp
 			return false;
 		};
 		
-		bool processOneElement( const CLASS_TYPE& _SearchIn,
-		                        esize_t _startPos,
-		                        esize_t _endPos,
-		                        char32_t _escapeChar=0)
-		{
+		bool processOneElement(const CLASS_TYPE& _SearchIn,
+		                       esize_t _startPos,
+		                       esize_t _endPos,
+		                       char32_t _escapeChar=0) {
 			if (false == m_isOk) {
 				return false;
 			}
@@ -1567,29 +1572,37 @@ template<class CLASS_TYPE> class RegExp
 		 * @brief Get the expression start position detected
 		 * @return position of the start regExp
 		 */
-		int32_t	start(void) { return m_areaFind.start; };
+		int32_t	start(void) {
+			return m_areaFind.start;
+		};
 		
 		/**
 		 * @brief Get the expression stop position detected
 		 * @return position of the stop regExp
 		 */
-		int32_t	stop(void) { return m_areaFind.stop; };
+		int32_t	stop(void) {
+			return m_areaFind.stop;
+		};
 		
 		/**
 		 * @brief Display the reg Exp
 		 */
-		void display(void)
-		{
+		void display(void) {
 			m_exprRootNode.display(0);
 		};
+		/**
+		 * @brief Just display the regExp in color ...
+		 */
+		void drawColoredRegEx(void) {
+			m_exprRootNode.drawColoredRegEx();
+		}
 	private:
 		/**
 		 * @brief
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool checkGoodPosition(const std::vector<char32_t>& _tmpExp, esize_t& _pos)
-		{
+		bool checkGoodPosition(const std::vector<char32_t>& _tmpExp, esize_t& _pos) {
 			char32_t curentCode = _tmpExp[_pos];
 			char32_t endCode = REGEXP_OPCODE_PTHESE_OUT;
 			const char *input = "(...)";
@@ -1693,8 +1706,7 @@ template<class CLASS_TYPE> class RegExp
 		 * @param[in,out] 
 		 * @return
 		 */
-		bool checkGoodPosition(const std::vector<char32_t>& _tmpExp)
-		{
+		bool checkGoodPosition(const std::vector<char32_t>& _tmpExp) {
 			esize_t pos = 0;
 			while (pos < _tmpExp.size()) {
 				//TK_DEBUG("check : " << tmpExp[pos]);

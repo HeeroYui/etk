@@ -12,6 +12,7 @@
 #include <etk/debug.h>
 #include <string>
 #include <sstream>
+#include <stdexcept>
 
 static bool strnCmpNoCase(const char * input1, const char * input2, int32_t maxLen) {
 	int32_t iii=0;
@@ -89,67 +90,68 @@ namespace etk {
 	  m_g(255),
 	  m_b(255),
 	  m_a(255) {
-		if (    _input.size() >=1
-		     && _input[0] == '#') {
-			// remove '#'
-			_input.erase(0, 1);
-			uint32_t val = 0;
-			//std::ostringstream oss;
-			//oss << to_u8string(_input);
-			//oss >> std::hex >> val;
-			val = std::stoul(_input);
-			if(_input.size() == 3) {
-				m_r = (val & 0x00000F00) >> 8;
-				m_r = (m_r | m_r << 4);
-				m_g = (val & 0x000000F0) >> 4;
-				m_g = (m_g | m_g << 4);
-				m_b = (val & 0x0000000F) >> 0;
-				m_b = (m_b | m_b << 4);
-			} else if (_input.size() == 4) {
-				m_r = (val & 0x0000F000) >> 12;
-				m_r = (m_r | m_r << 4);
-				m_g = (val & 0x00000F00) >> 8;
-				m_g = (m_g | m_g << 4);
-				m_b = (val & 0x000000F0) >> 4;
-				m_b = (m_b | m_b << 4);
-				m_a = (val & 0x0000000F) >> 0;
-				m_a = (m_a | m_a << 4);
-			} else if (_input.size() == 6) {
-				m_r = (val & 0x00FF0000) >> 16;
-				m_r = (m_r | m_r << 4);
-				m_g = (val & 0x0000FF00) >> 8;
-				m_g = (m_g | m_g << 4);
-				m_b = (val & 0x000000FF) >> 0;
-				m_b = (m_b | m_b << 4);
-			} else if (_input.size() == 8) {
-				m_r = (val & 0xFF000000) >> 24;
-				m_r = (m_r | m_r << 4);
-				m_g = (val & 0x00FF0000) >> 16;
-				m_g = (m_g | m_g << 4);
-				m_b = (val & 0x0000FF00) >> 8;
-				m_b = (m_b | m_b << 4);
-				m_a = (val & 0x000000FF) >> 0;
-				m_a = (m_a | m_a << 4);
+		const char* inputData = _input.c_str();
+		size_t len = _input.size();
+		if(    len >=1
+		    && inputData[0] == '#') {
+			if(len == 4) {
+				int32_t red=0, green=0, blue=0;
+				if (sscanf(inputData + 1, "%1x%1x%1x", &red, &green, &blue) == 3) {
+					m_r = (red | red << 4);
+					m_g = (green | green << 4);
+					m_b = (blue | blue << 4);
+				} else {
+					TK_ERROR(" pb in parsing the color : \"" << inputData << "\"");
+				}
+			} else if (len==5) {
+				int32_t red=0, green=0, blue=0, alpha=0;
+				if (sscanf(inputData + 1, "%1x%1x%1x%1x", &red, &green, &blue, &alpha) == 4) {
+					m_r = (red | red << 4);
+					m_g = (green | green << 4);
+					m_b = (blue | blue << 4);
+					m_a = (alpha | alpha << 4);
+				} else {
+					TK_ERROR(" pb in parsing the color : \"" << inputData << "\"");
+				}
+			} else if (len == 7) {
+				int32_t red=0, green=0, blue=0;
+				if (sscanf(inputData + 1, "%2x%2x%2x", &red, &green, &blue) == 3) {
+					m_r = red;
+					m_g = green;
+					m_b = blue;
+				} else {
+					TK_ERROR(" pb in parsing the color : \"" << inputData << "\"");
+				}
+			} else if (len == 9) {
+				int32_t red=0, green=0, blue=0, alpha=0;
+				if (sscanf(inputData + 1, "%2x%2x%2x%2x", &red, &green, &blue, &alpha) == 4) {
+					m_r = red;
+					m_g = green;
+					m_b = blue;
+					m_a = alpha;
+				} else {
+					TK_ERROR(" pb in parsing the color : \"" << inputData << "\"");
+				}
 			} else {
-				TK_ERROR(" pb in parsing the color : \"" << _input << "\" ==> unknown methode ...");
+				TK_ERROR(" pb in parsing the color : \"" << inputData << "\" ==> unknown methode ...");
 			}
-		} else if(    _input.size() >= 4
-		           && _input[0] == 'r'
-		           && _input[1] == 'g'
-		           && _input[2] == 'b'
-		           && _input[3] == '(' ) {
-			int32_t _red=0, _green=0, _blue=0, _alpha=0;
+		} else if(    len >= 4
+		           && inputData[0] == 'r'
+		           && inputData[1] == 'g'
+		           && inputData[2] == 'b'
+		           && inputData[3] == '(' ) {
+			int32_t red=0, green=0, blue=0, alpha=0;
 			float   fred=0, fgreen=0, fblue=0, falpha=0;
-			if (sscanf(_input.c_str() + 4, "%u,%u,%u,%u", &_red, &_green, &_blue, &_alpha) == 4) {
-				m_r = etk_min(0xFF, _red);
-				m_g = etk_min(0xFF, _green);
-				m_b = etk_min(0xFF, _blue);
-				m_a = etk_min(0xFF, _alpha);
-			} else if (sscanf(_input.c_str() + 4, "%u,%u,%u", &_red, &_green, &_blue) == 3) {
-				m_r = etk_min(0xFF, _red);
-				m_g = etk_min(0xFF, _green);
-				m_b = etk_min(0xFF, _blue);
-			} else if (sscanf(_input.c_str() + 4, "%f%%,%f%%,%f%%,%f%%", &fred, &fgreen, &fblue, &falpha) == 4) {
+			if (sscanf(inputData + 4, "%u,%u,%u,%u", &red, &green, &blue, &alpha) == 4) {
+				m_r = etk_min(0xFF, red);
+				m_g = etk_min(0xFF, green);
+				m_b = etk_min(0xFF, blue);
+				m_a = etk_min(0xFF, alpha);
+			} else if (sscanf(inputData + 4, "%u,%u,%u", &red, &green, &blue) == 3) {
+				m_r = etk_min(0xFF, red);
+				m_g = etk_min(0xFF, green);
+				m_b = etk_min(0xFF, blue);
+			} else if (sscanf(inputData + 4, "%f%%,%f%%,%f%%,%f%%", &fred, &fgreen, &fblue, &falpha) == 4) {
 				fred   = etk_avg(0.0, fred, 1.0);
 				fgreen = etk_avg(0.0, fgreen, 1.0);
 				fblue  = etk_avg(0.0, fblue, 1.0);
@@ -158,7 +160,7 @@ namespace etk {
 				m_g = (uint8_t)(fgreen * 255.);
 				m_b = (uint8_t)(fblue * 255.);
 				m_a = (uint8_t)(falpha * 255.);
-			} else if (sscanf(_input.c_str() + 4, "%f%%,%f%%,%f%%", &fred, &fgreen, &fblue) == 3) {
+			} else if (sscanf(inputData + 4, "%f%%,%f%%,%f%%", &fred, &fgreen, &fblue) == 3) {
 				fred  = etk_avg(0.0, fred, 1.0);
 				fgreen= etk_avg(0.0, fgreen, 1.0);
 				fblue = etk_avg(0.0, fblue, 1.0);
@@ -166,13 +168,13 @@ namespace etk {
 				m_g = (uint8_t)(fgreen * 255.);
 				m_b = (uint8_t)(fblue * 255.);
 			} else {
-				TK_ERROR(" pb in parsing the color : \"" << _input << "\" ==> unknown methode ...");
+				TK_ERROR(" pb in parsing the color : \"" << inputData << "\" ==> unknown methode ...");
 			}
 		} else {
 			bool findIt = false;
 			// direct named color ...
 			for (esize_t iii=0; iii<getColorSize(); iii++) {
-				if (strnCmpNoCase(getColorList()[iii].colorName, _input.c_str(), strlen(getColorList()[iii].colorName)) == true) {
+				if (strnCmpNoCase(getColorList()[iii].colorName, inputData, strlen(getColorList()[iii].colorName)) == true) {
 					findIt = true;
 					*this = getColorList()[iii].color;
 					// stop searching
@@ -181,10 +183,10 @@ namespace etk {
 			}
 			// not find color ...
 			if (findIt == false) {
-				TK_ERROR(" pb in parsing the color : \"" << _input << "\" not find ...");
+				TK_ERROR(" pb in parsing the color : \"" << inputData << "\" not find ...");
 			}
 		}
-		TK_VERBOSE("Parse color : \"" << _input << "\" ==> " << *this);
+		TK_VERBOSE("Parse color : \"" << inputData << "\" ==> " << *this);
 	}
 	
 	template<> Color<float>::Color(std::string _input) {

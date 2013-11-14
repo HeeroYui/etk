@@ -38,9 +38,12 @@ extern "C" {
 
 std::string etk::simplifyPath(std::string _input) {
 	// step 1 : for windows change \ in /:
-	TK_DEBUG("Siplify(1) : \"" << _input << "\"");
+	TK_DBG_MODE("Siplify(1) : \"" << _input << "\"");
 	size_t currentPos = 0;
-	while(currentPos <= _input.size()) {
+	if (_input.size() == 0) {
+		return _input;
+	}
+	while(currentPos < _input.size()) {
 		if (_input[currentPos] == '\\') {
 			_input[currentPos] = '/';
 		}
@@ -48,9 +51,12 @@ std::string etk::simplifyPath(std::string _input) {
 		continue;
 	}
 	// step 2 : remove all '//'
-	TK_DEBUG("Siplify(2) : \"" << _input << "\"");
+	TK_DBG_MODE("Siplify(2) : \"" << _input << "\"");
 	currentPos = 0;
-	while(currentPos <= _input.size()-1) {
+	if (_input.size() <= 1) {
+		return _input;
+	}
+	while(currentPos < _input.size()-1) {
 		if (    _input[currentPos] != '/'
 		     || _input[currentPos+1] != '/') {
 			currentPos++;
@@ -59,10 +65,13 @@ std::string etk::simplifyPath(std::string _input) {
 		_input.erase(currentPos, 1);
 	}
 	// step 3 remove xxx/..
-	TK_DEBUG("Siplify(3) : \"" << _input << "\"");
+	TK_DBG_MODE("Siplify(3) : \"" << _input << "\"");
 	size_t lastSlashPos = std::string::npos;
 	currentPos = 0;
-	while(currentPos <= _input.size()-2) {
+	if (_input.size() <= 2) {
+		return _input;
+	}
+	while(currentPos < _input.size()-2) {
 		if (    _input[currentPos] != '/'
 		     || _input[currentPos+1] != '.'
 		     || _input[currentPos+2] != '.') {
@@ -81,7 +90,7 @@ std::string etk::simplifyPath(std::string _input) {
 		lastSlashPos = std::string::npos;
 		currentPos = 0;
 	}
-	TK_DEBUG("Siplify(4) : \"" << _input << "\"");
+	TK_DBG_MODE("Siplify(4) : \"" << _input << "\"");
 	return _input;
 }
 

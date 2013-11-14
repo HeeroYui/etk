@@ -286,7 +286,10 @@ template<class T> std::u32string to_u32string(T t, std::ios_base & (*f)(std::ios
 	oss << f << t;
 	return to_u32string(oss.str());
 }
-
+namespace std {
+	std::string to_string(bool _val);
+}
+std::u32string to_u32string(bool _val);
 std::u32string to_u32string(int _val);
 std::u32string to_u32string(long _val);
 std::u32string to_u32string(long long _val);

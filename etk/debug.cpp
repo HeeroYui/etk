@@ -8,4 +8,4 @@
 
 #include <etk/debug.h>
 
-const char * etkLibName = "Etk      ";
+const char * etkLibName = "etk      ";

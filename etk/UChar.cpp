@@ -217,6 +217,35 @@ char32_t etk::setUtf8(const char* _input) {
 	}
 }
 
+int8_t etk::UChar::theoricUTF8Len(const char _input) {
+	if((_input&0x80) == 0x00 ) {
+		return 1;
+	}
+	if((_input&0xE0) == 0xC0) {
+		return 2;
+	}
+	if((_input&0xF0) == 0xE0) {
+		return 3;
+	}
+	if((_input&0xF8) == 0xF0) {
+		return 4;
+	}
+	return 1;
+}
+
+bool etk::UChar::theoricUTF8First(const char _input) {
+	// When started with the bit 0 then the size is signle element.
+	if((_input&0x80) == 0x00 ) {
+		return true;
+	}
+	// for multiple element size, we just need to check the second element (might be != 1)
+	if((_input&0x40) == 0x40 ) {
+		return true;
+	}
+	return false;
+}
+
+
 #if 0
 
 
@@ -355,36 +384,6 @@ int8_t char32_t::setUtf8(const char* _input)
 			m_value +=  ((uint8_t)_input[3]) & 0x3F;
 			return 4;
 	}
-}
-
-int8_t char32_t::theoricUTF8Len(const char _input)
-{
-	if((_input&0x80) == 0x00 ) {
-		return 1;
-	}
-	if((_input&0xE0) == 0xC0) {
-		return 2;
-	}
-	if((_input&0xF0) == 0xE0) {
-		return 3;
-	}
-	if((_input&0xF8) == 0xF0) {
-		return 4;
-	}
-	return 1;
-}
-
-bool char32_t::theoricUTF8First(const char _input)
-{
-	// When started with the bit 0 then the size is signle element.
-	if((_input&0x80) == 0x00 ) {
-		return true;
-	}
-	// for multiple element size, we just need to check the second element (might be != 1)
-	if((_input&0x40) == 0x40 ) {
-		return true;
-	}
-	return false;
 }
 
 #endif

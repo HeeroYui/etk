@@ -47,55 +47,67 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<std::u32string>&
 	return _os;
 }
 
-std::string to_u8string(const std::u32string& _obj) {
-	std::vector<char32_t> tmpp;
-	for (size_t iii=0; iii<_obj.size(); ++iii) {
-		tmpp.push_back(_obj[iii]);
+std::string to_u8string(const std::u32string& _input) {
+	std::string out;
+	for (int32_t iii=0; iii<_input.size(); ++iii) {
+		char output[10];
+		etk::getUtf8(_input[iii], output);
+		out += output;
 	}
-	std::vector<char> output_UTF8;
-	unicode::convertUnicodeToUtf8(tmpp, output_UTF8);
-	output_UTF8.push_back('\0');
-	std::string out = &output_UTF8[0];
 	return out;
 }
 
-std::u32string to_u32string(const std::string& _obj) {
-	// TODO : Change this ...
-	std::vector<char> transformData;
-	for ( size_t iii=0; iii< _obj.size(); ++iii) {
-		transformData.push_back(_obj[iii]);
-	}
-	std::vector<char32_t> output_Unicode;
-	unicode::convertUtf8ToUnicode(transformData, output_Unicode);
-	if(    0 == output_Unicode.size()
-	    || output_Unicode[output_Unicode.size()-1] != 0) {
-		return U"";
-	}
-	std::u32string out;
-	for ( size_t iii=0; iii< output_Unicode.size(); ++iii) {
-		transformData.push_back((char32_t)output_Unicode[iii]);
-	}
-	return out;
+std::u32string to_u32string(const std::string& _input) {
+	return to_u32string(_input.c_str());
 }
-std::u32string to_u32string(const char* _obj) {
-	if (_obj == NULL) {
-		return U"";
-	}
-	int64_t len = strlen(_obj);
-	// TODO : Change this ...
-	std::vector<char> transformData;
-	for ( size_t iii=0; iii < len; ++iii) {
-		transformData.push_back(_obj[iii]);
-	}
-	std::vector<char32_t> output_Unicode;
-	unicode::convertUtf8ToUnicode(transformData, output_Unicode);
-	if(    0 == output_Unicode.size()
-	    || output_Unicode[output_Unicode.size()-1] != 0) {
+std::u32string to_u32string(const char* _input) {
+	if (_input == NULL) {
 		return U"";
 	}
 	std::u32string out;
-	for ( size_t iii=0; iii< output_Unicode.size(); ++iii) {
-		transformData.push_back((char32_t)output_Unicode[iii]);
+	char tmpData[20];
+	int64_t pos = 0;
+	int64_t inputLen = strlen(_input);
+	while (pos < inputLen) {
+		int32_t lenMax = inputLen - pos;
+		//4 case
+		if (    1<=lenMax
+		     && 0x00 == (_input[pos+0] & 0x80) ) {
+			tmpData[0] = _input[pos+0];
+			tmpData[1] = '\0';
+			pos += 1;
+		} else if (    2<=lenMax
+		            && 0xC0 == (_input[pos+0] & 0xE0)
+		            && 0x80 == (_input[pos+1] & 0xC0) ) {
+			tmpData[0] = _input[pos+0];
+			tmpData[1] = _input[pos+1];
+			tmpData[2] = '\0';
+			pos += 2;
+		} else if (    3<=lenMax
+		            && 0xE0 == (_input[pos+0] & 0xF0)
+		            && 0x80 == (_input[pos+1] & 0xC0)
+		            && 0x80 == (_input[pos+2] & 0xC0)) {
+			tmpData[0] = _input[pos+0];
+			tmpData[1] = _input[pos+1];
+			tmpData[2] = _input[pos+2];
+			tmpData[3] = '\0';
+			pos += 3;
+		} else if (    4<=lenMax
+		            && 0xF0 == (_input[pos+0] & 0xF8)
+		            && 0x80 == (_input[pos+1] & 0xC0)
+		            && 0x80 == (_input[pos+2] & 0xC0)
+		            && 0x80 == (_input[pos+3] & 0xC0)) {
+			tmpData[0] = _input[pos+0];
+			tmpData[1] = _input[pos+1];
+			tmpData[2] = _input[pos+2];
+			tmpData[3] = _input[pos+3];
+			tmpData[4] = '\0';
+			pos += 4;
+		} else {
+			tmpData[0] = '\0';
+			pos += 1;
+		}
+		out += etk::setUtf8(tmpData);
 	}
 	return out;
 }
@@ -195,6 +207,20 @@ bool stobool(const std::string& _str) {
 		return true;
 	}
 	return false;
+}
+
+std::string std::to_string(bool _val) {
+	if (_val == true) {
+		return "true";
+	}
+	return "false";
+}
+
+std::u32string to_u32string(bool _val) {
+	if (_val == true) {
+		return U"true";
+	}
+	return U"false";
 }
 
 bool compare_no_case(const std::u32string& _obj, const std::u32string& _val) {
