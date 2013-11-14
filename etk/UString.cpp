@@ -410,7 +410,7 @@ std::string extract_line(const std::string& _obj, int32_t _pos) {
 	} else if (stopPos >= _obj.size() ) {
 		stopPos = _obj.size();
 	}
-	return std::string(_obj, startPos, stopPos);
+	return std::string(_obj, startPos, stopPos - startPos);
 }
 
 std::u32string extract_line(const std::u32string& _obj, int32_t _pos) {
@@ -439,7 +439,7 @@ std::u32string extract_line(const std::u32string& _obj, int32_t _pos) {
 	} else if (stopPos >= _obj.size() ) {
 		stopPos = _obj.size();
 	}
-	return std::u32string(_obj, startPos, stopPos);
+	return std::u32string(_obj, startPos, stopPos - startPos);
 }
 
 std::vector<std::string> string_split(const std::string& _input, char _val) {
@@ -447,7 +447,7 @@ std::vector<std::string> string_split(const std::string& _input, char _val) {
 	size_t lastStartPos = 0;
 	for(size_t iii=0; iii<_input.size(); iii++) {
 		if (_input[iii]==_val) {
-			list.push_back(std::string(_input, lastStartPos, iii));
+			list.push_back(std::string(_input, lastStartPos, iii - lastStartPos));
 			lastStartPos = iii+1;
 		}
 	}

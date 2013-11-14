@@ -303,7 +303,7 @@ void etk::initDefaultFolder(const char* _applName) {
 				#ifdef __TARGET_OS__MacOs
 					baseFolderData += "/../../Resources/";
 				#else
-					baseFolderData += "/../../share";
+					baseFolderData += "/../share";
 					baseFolderData += binaryName;
 					baseFolderData += "/";
 				#endif
