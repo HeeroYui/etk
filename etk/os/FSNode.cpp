@@ -120,7 +120,7 @@ static std::string baseRunPath = "/";
 
 #ifdef __TARGET_OS__Android
 	static etk::Archive* s_APKArchive = NULL;
-	static void loadAPK(std::u32string& _apkPath)
+	static void loadAPK(std::string& _apkPath)
 	{
 		TK_DEBUG("Loading APK \"" << _apkPath << "\"");
 		s_APKArchive = etk::Archive::load(_apkPath);
@@ -761,7 +761,7 @@ void etk::FSNode::updateFileSystemProperty(void) {
 		// = Check if it was a folder :           =
 		// ----------------------------------------
 		std::string folderName = "/";
-		if (true == m_systemFileName.endWith(folderName)) {
+		if (true == end_with(m_systemFileName, folderName)) {
 			folderName = m_systemFileName;
 		} else {
 			folderName = m_systemFileName + "/";
@@ -1243,15 +1243,15 @@ void etk::FSNode::folderGetRecursiveFiles(std::vector<std::string>& _output, boo
 		}
 		for (int iii=0; iii<s_APKArchive->size(); iii++) {
 			std::string filename = s_APKArchive->getName(iii);
-			if (filename.startWith(FolderName) == true) {
+			if (start_with(filename, FolderName) == true) {
 				std::string tmpString;
 				if(m_type == etk::FSN_TYPE_DATA) {
 					tmpString = "DATA:";
 				} else {
 					tmpString = "THEME:";
 				}
-				if (true == filename.startWith(assetsName)) {
-					filename.remove(0,assetsName.size());
+				if (start_with(filename, assetsName) == true) {
+					filename.erase(0,assetsName.size());
 				}
 				tmpString += filename;
 				_output.push_back(tmpString);
