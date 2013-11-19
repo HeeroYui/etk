@@ -8,7 +8,7 @@
 
 #ifndef __ETK_TYPES_H__
 #define __ETK_TYPES_H__
-
+/*
 #ifdef __TARGET_OS__Android
 	// NOTE : This is for compatibility with the C++ stdlib (missing this declaration on android ...
 	namespace std {
@@ -19,6 +19,7 @@
 	#include <wchar.h>
 	#include <stdio.h>
 #endif
+*/
 #include <iostream>
 
 #include <stdlib.h>

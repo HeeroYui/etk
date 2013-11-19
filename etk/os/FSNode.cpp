@@ -257,7 +257,7 @@ void etk::initDefaultFolder(const char* _applName) {
 	
 	char * basicPath = getenv("HOME");
 	if (NULL == basicPath) {
-		TK_ERROR("ERROR while trying to get the path of the home folder");
+		TK_WARNING("ERROR while trying to get the path of the home folder");
 		#if defined(__TARGET_OS__Windows)
 			baseFolderHome = "c:/";
 		#elif defined(__TARGET_OS__Android)
@@ -709,12 +709,12 @@ void etk::FSNode::generateFileSystemPath(void) {
 				} else if (themeName != "default") {
 					// Selected theme :
 					// check in the user data :
-					m_systemFileName = baseFolderDataUser + "theme/" + themeName + "/" + basicName;
+					m_systemFileName = simplifyPath(baseFolderDataUser + "theme/" + themeName + "/" + basicName);
 					if (directCheckFile(m_systemFileName) == true) {
 						return;
 					}
 					// check in the Appl data :
-					m_systemFileName = baseFolderData + "theme/" + themeName + "/" + basicName;
+					m_systemFileName = simplifyPath(baseFolderData + "theme/" + themeName + "/" + basicName);
 					if (directCheckFile(m_systemFileName, true) == true) {
 						m_type = etk::FSN_TYPE_THEME_DATA;
 						return;
@@ -723,12 +723,12 @@ void etk::FSNode::generateFileSystemPath(void) {
 				themeName = "default";
 				// default theme :
 				// check in the user data :
-				m_systemFileName = baseFolderDataUser + "theme/" + themeName + "/" + basicName;
+				m_systemFileName = simplifyPath(baseFolderDataUser + "theme/" + themeName + "/" + basicName);
 				if (true==directCheckFile(m_systemFileName)) {
 					return;
 				}
 				// check in the Appl data : In every case we return this one ...
-				m_systemFileName = baseFolderData + "theme/" + themeName + "/" + basicName;
+				m_systemFileName = simplifyPath(baseFolderData + "theme/" + themeName + "/" + basicName);
 				if (true==directCheckFile(m_systemFileName, true)) {
 					m_type = etk::FSN_TYPE_THEME_DATA;
 					return;

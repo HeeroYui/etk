@@ -58,7 +58,7 @@ void debug::displayTime(void)
 
 
 #ifdef __TARGET_OS__Android
-enum etk::logLevel g_requestedLevel = etk::logLevelError;
+enum etk::logLevel g_requestedLevel = etk::logLevelDebug;
 #else
 enum etk::logLevel g_requestedLevel = etk::logLevelWarning;
 #endif

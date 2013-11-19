@@ -215,6 +215,53 @@ std::string std::to_string(bool _val) {
 	}
 	return "false";
 }
+#ifdef __TARGET_OS__Android
+	std::string std::to_string(int _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%d", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(long _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%ld", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(long long _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%lld", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(unsigned _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%u", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(unsigned long _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%lu", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(unsigned long long _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%llu", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(float _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%f", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(double _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%d", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(long double _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%ld", _val);
+		return tmpVal;
+	}
+#endif
 
 std::u32string to_u32string(bool _val) {
 	if (_val == true) {

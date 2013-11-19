@@ -10,9 +10,10 @@
 #define __ETK_USTRING_H__
 
 #include <etk/debug.h>
-#include <string>
 #include <vector>
 #include <sstream>
+#include <iostream>
+#include <string>
 
 namespace etk {
 
@@ -41,7 +42,15 @@ template<class T> std::u32string to_u32string(T t, std::ios_base & (*f)(std::ios
 namespace std {
 	std::string to_string(bool _val);
 	#ifdef __TARGET_OS__Android
-	
+		std::string to_string(int _val);
+		std::string to_string(long _val);
+		std::string to_string(long long _val);
+		std::string to_string(unsigned _val);
+		std::string to_string(unsigned long _val);
+		std::string to_string(unsigned long long _val);
+		std::string to_string(float _val);
+		std::string to_string(double _val);
+		std::string to_string(long double _val);
 	#endif
 }
 std::u32string to_u32string(bool _val);
