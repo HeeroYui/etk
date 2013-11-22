@@ -62,11 +62,11 @@ const etk::convertionTable_ts etk::constConvertionTable[] = {
 	{ true			, '0'  , '\0', REGEXP_OPCODE_ERROR},
 	{ true			, '@'  , 0   , REGEXP_OPCODE_NO_CHAR},
 };
-const esize_t etk::constConvertionTableSize = sizeof(etk::constConvertionTable) / sizeof(etk::convertionTable_ts) ;
+const int64_t etk::constConvertionTableSize = sizeof(etk::constConvertionTable) / sizeof(etk::convertionTable_ts) ;
 
-void etk::displayElem(const std::vector<char32_t>& _data, esize_t _start, esize_t _stop) {
+void etk::displayElem(const std::vector<char32_t>& _data, int64_t _start, int64_t _stop) {
 	etk::cout<< ETK_BASH_COLOR_NORMAL;
-	for (esize_t iii=_start; iii<_data.size() && iii<_stop ; iii++) {
+	for (int64_t iii=_start; iii<_data.size() && iii<_stop ; iii++) {
 		switch(_data[iii])
 		{
 			case REGEXP_OPCODE_PTHESE_IN:		etk::cout<<ETK_BASH_COLOR_RED		<< (char*)"(" << ETK_BASH_COLOR_NORMAL;		break;
@@ -124,11 +124,11 @@ char * etk::levelSpace(uint32_t _level) {
 }
 
 
-esize_t etk::getLenOfPTheseElem(const std::vector<char32_t>& _data, esize_t _startPos) {
+int64_t etk::getLenOfPTheseElem(const std::vector<char32_t>& _data, int64_t _startPos) {
 	if (_startPos>=_data.size()){
 		return 0;
 	}
-	esize_t pos = _startPos;
+	int64_t pos = _startPos;
 	int32_t nbOpen = 0;
 	// special case of the (...) or | ==> we search '|' or ')'
 	if(    _data[pos] == REGEXP_OPCODE_PTHESE_OUT
@@ -164,8 +164,8 @@ esize_t etk::getLenOfPTheseElem(const std::vector<char32_t>& _data, esize_t _sta
 	return pos - _startPos;
 }
 
-esize_t etk::getLenOfPThese(const std::vector<char32_t>& _data, esize_t _startPos) {
-	esize_t pos = _startPos;
+int64_t etk::getLenOfPThese(const std::vector<char32_t>& _data, int64_t _startPos) {
+	int64_t pos = _startPos;
 	int32_t nbOpen = 0;
 	// special case of the (...) or | ==> we search '|' or ')'
 	if(_data[pos]==REGEXP_OPCODE_PTHESE_OUT) {
@@ -205,8 +205,8 @@ esize_t etk::getLenOfPThese(const std::vector<char32_t>& _data, esize_t _startPo
 }
 
 
-esize_t etk::getLenOfBracket(const std::vector<char32_t>& _data, esize_t _startPos) {
-	esize_t pos = _startPos;
+int64_t etk::getLenOfBracket(const std::vector<char32_t>& _data, int64_t _startPos) {
+	int64_t pos = _startPos;
 	// special case of the (...) or | ==> we search '|' or ')'
 	if(_data[pos]==REGEXP_OPCODE_BRACKET_OUT) {
 		return 0;
@@ -238,7 +238,7 @@ esize_t etk::getLenOfBracket(const std::vector<char32_t>& _data, esize_t _startP
 }
 
 
-esize_t etk::getLenOfBrace(const std::vector<char32_t>& _data, esize_t _startPos) {
+int64_t etk::getLenOfBrace(const std::vector<char32_t>& _data, int64_t _startPos) {
 	int32_t pos = _startPos;
 	// special case of the (...) or | ==> we search '|' or ')'
 	if(_data[pos]==REGEXP_OPCODE_BRACE_OUT) {
@@ -272,8 +272,8 @@ esize_t etk::getLenOfBrace(const std::vector<char32_t>& _data, esize_t _startPos
 }
 
 
-esize_t etk::getLenOfNormal(const std::vector<char32_t>& _data, esize_t _startPos) {
-	esize_t pos = _startPos;
+int64_t etk::getLenOfNormal(const std::vector<char32_t>& _data, int64_t _startPos) {
+	int64_t pos = _startPos;
 	// find size ...
 	while (pos < _data.size() ) {
 		switch(_data[pos]) {
@@ -324,7 +324,7 @@ esize_t etk::getLenOfNormal(const std::vector<char32_t>& _data, esize_t _startPo
 bool etk::parseBrace(const std::vector<char32_t>& _data, uint32_t& _min, uint32_t& _max)
 {
 	//TK_INFO("parse {...} in "; DisplayElem(data); );
-	esize_t k=0;
+	int64_t k=0;
 	
 	int32_t firstElement = 0;
 	int32_t SecondElement = 0;

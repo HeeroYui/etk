@@ -395,8 +395,7 @@ namespace etk
 			 * @brief Set each element to the max of the current values and the values of another btVector3
 			 * @param other The other btVector3 to compare with 
 			 */
-			void setMax(const Vector3D<T>& other)
-			{
+			void setMax(const Vector3D<T>& other) {
 				btSetMax(m_floats[0], other.m_floats[0]);
 				btSetMax(m_floats[1], other.m_floats[1]);
 				btSetMax(m_floats[2], other.m_floats[2]);
@@ -407,16 +406,14 @@ namespace etk
 			 * @brief Set each element to the min of the current values and the values of another btVector3
 			 * @param other The other btVector3 to compare with 
 			 */
-			void setMin(const Vector3D<T>& other)
-			{
+			void setMin(const Vector3D<T>& other) {
 				btSetMin(m_floats[0], other.m_floats[0]);
 				btSetMin(m_floats[1], other.m_floats[1]);
 				btSetMin(m_floats[2], other.m_floats[2]);
 				btSetMin(m_floats[3], other.m_floats[3]);
 			}
 			
-			void setValue(const T& _x, const T& _y, const T& _z)
-			{
+			void setValue(const T& _x, const T& _y, const T& _z) {
 				m_floats[0]=_x;
 				m_floats[1]=_y;
 				m_floats[2]=_z;
