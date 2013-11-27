@@ -27,7 +27,7 @@ etk::archive::Zip::Zip(const std::string& _fileName) :
 	}
 	
 	// Store all the file in the standard structure
-	for(int32_t iii=0; iii<m_info.number_entry; iii++) {
+	for(uint32_t iii=0; iii<m_info.number_entry; iii++) {
 		char tmpFileName[FILENAME_MAX];
 		unz_file_info tmpFileInfo;
 		/* Get info about current file. */
@@ -66,7 +66,7 @@ void etk::archive::Zip::loadFile(int32_t _id)
 	unzGoToFirstFile(m_ctx);
 	
 	// Store all the file in the standard structure
-	for(int32_t iii=0; iii<m_info.number_entry; iii++) {
+	for(uint32_t iii=0; iii<m_info.number_entry; iii++) {
 		char tmpFileName[FILENAME_MAX];
 		unz_file_info tmpFileInfo;
 		/* Get info about current file. */

@@ -29,10 +29,10 @@ void etk::tool::sortList(std::vector<std::u32string *> &_list)
 {
 	std::vector<std::u32string *> tmpList = _list;
 	_list.clear();
-	for(int32_t iii=0; iii<tmpList.size(); iii++) {
+	for(size_t iii=0; iii<tmpList.size(); iii++) {
 		
-		int32_t findPos = 0;
-		for(int32_t jjj=0; jjj<_list.size(); jjj++) {
+		size_t findPos = 0;
+		for(size_t jjj=0; jjj<_list.size(); jjj++) {
 			//EWOL_DEBUG("compare : \""<<*tmpList[iii] << "\" and \"" << *m_listDirectory[jjj] << "\"");
 			if (*tmpList[iii] > *_list[jjj]) {
 				findPos = jjj+1;

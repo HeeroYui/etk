@@ -79,7 +79,7 @@ int32_t unicode::convertIsoToUnicode(enum charset _inputCharset, const std::vect
 {
 	_output_Unicode.clear();
 	char32_t output;
-	for(int32_t iii=0; iii<_input_ISO.size(); iii++) {
+	for(size_t iii=0; iii<_input_ISO.size(); iii++) {
 		convertIsoToUnicode(_inputCharset, (char)_input_ISO[iii], output);
 		_output_Unicode.push_back(output);
 	}
@@ -95,7 +95,7 @@ int32_t unicode::convertIsoToUnicode(enum charset _inputCharset, const std::vect
 {
 	_output_Unicode.clear();
 	char32_t output;
-	for(int32_t iii=0; iii<_input_ISO.size(); iii++) {
+	for(size_t iii=0; iii<_input_ISO.size(); iii++) {
 		convertIsoToUnicode(_inputCharset, (char)_input_ISO[iii], output);
 		_output_Unicode.push_back(output);
 	}
@@ -124,6 +124,7 @@ int32_t unicode::convertUnicodeToIso(enum charset _inputCharset, const std::vect
 	_output_ISO.push_back(0);
 	return _output_ISO.size();
 */
+	return 0;
 }
 
 int32_t unicode::convertUnicodeToIso(enum charset _inputCharset, const std::vector<char32_t>& _input_Unicode, std::vector<int8_t>&    _output_ISO)
@@ -142,6 +143,7 @@ int32_t unicode::convertUnicodeToIso(enum charset _inputCharset, const std::vect
 	_output_ISO.push_back(0);
 	return _output_ISO.size();
 */
+	return 0;
 }
 
 
@@ -150,7 +152,7 @@ int32_t unicode::convertUnicodeToUtf8(const std::vector<char32_t>& _input_Unicod
 {
 	char output[10];
 	
-	for (int32_t iii=0; iii<_input_Unicode.size(); iii++) {
+	for (size_t iii=0; iii<_input_Unicode.size(); iii++) {
 		etk::getUtf8(_input_Unicode[iii], output);
 		char * tmp = output ;
 		while (*tmp != '\0') {
@@ -166,7 +168,7 @@ int32_t unicode::convertUnicodeToUtf8(const std::vector<char32_t>& _input_Unicod
 {
 	char output[10];
 	
-	for (int32_t iii=0; iii<_input_Unicode.size(); iii++) {
+	for (size_t iii=0; iii<_input_Unicode.size(); iii++) {
 		etk::getUtf8(_input_Unicode[iii], output);
 		char * tmp = output ;
 		while (*tmp != '\0') {
@@ -182,7 +184,7 @@ int32_t unicode::convertUnicodeToUtf8(const std::vector<char32_t>& _input_Unicod
 int32_t unicode::convertUtf8ToUnicode(const std::vector<char>& _input_UTF8, std::vector<char32_t>& _output_Unicode)
 {
 	char tmpData[20];
-	int32_t pos = 0;
+	size_t pos = 0;
 	while (pos < _input_UTF8.size()) {
 		int32_t lenMax = _input_UTF8.size() - pos;
 		//4 case
@@ -231,7 +233,7 @@ int32_t unicode::convertUtf8ToUnicode(const std::vector<char>& _input_UTF8, std:
 int32_t unicode::convertUtf8ToUnicode(const std::vector<int8_t>& _input_UTF8, std::vector<char32_t>& _output_Unicode)
 {
 	char tmpData[20];
-	int32_t pos = 0;
+	size_t pos = 0;
 	while (pos < _input_UTF8.size()) {
 		int32_t lenMax = _input_UTF8.size() - pos;
 		//4 case

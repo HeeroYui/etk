@@ -24,14 +24,14 @@ namespace etk {
 					void decreaseRef(void) { m_link--; };
 					int32_t getNumberOfRef(void) const { return m_link; };
 				private:
-					esize_t m_theoricSize; //!< number of element open on this file
+					int32_t m_theoricSize; //!< number of element open on this file
 				public:
-					esize_t getTheoricSize(void) const { return m_theoricSize; };
+					int32_t getTheoricSize(void) const { return m_theoricSize; };
 				private:
 					std::vector<char> m_data;
 				public:
-					Content(esize_t _basicSize=0) : m_link(-1), m_theoricSize(_basicSize) { };
-					esize_t size(void) const { return m_data.size(); };
+					Content(int32_t _basicSize=0) : m_link(-1), m_theoricSize(_basicSize) { };
+					int32_t size(void) const { return m_data.size(); };
 					void* data(void) const { return (void*)&m_data[0]; };
 					std::vector<char>& getDataVector(void) { return m_data; };
 			};
@@ -58,7 +58,7 @@ namespace etk {
 			 * @brief Get the number of elements
 			 * @return nb files in the archive
 			 */
-			esize_t size(void) const {
+			int32_t size(void) const {
 				return m_content.size();
 			};
 			/**
@@ -66,7 +66,7 @@ namespace etk {
 			 * @param[in] _id id of the element (must be < Size())
 			 * @return FileName of the requested id
 			 */
-			const std::string& getName(esize_t _id) const {
+			const std::string& getName(int32_t _id) const {
 				return m_content.getKey(_id);
 			};
 			/**
@@ -74,7 +74,7 @@ namespace etk {
 			 * @param[in] _id id of the element (must be < Size())
 			 * @return the archive content
 			 */
-			const Content& getContent(esize_t _id) const {
+			const Content& getContent(int32_t _id) const {
 				return m_content.getValue(_id);
 			};
 			/**

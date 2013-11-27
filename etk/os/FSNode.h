@@ -232,7 +232,7 @@ namespace etk {
 			std::string getName(void) const;
 			std::u32string getUName(void) const;
 			/**
-			 * @brief Get the file or current folder name (if it was a folder)
+			 * @brief Get the file or current file name (if it was a file)
 			 * @return the name of the node (like myFile.kkk)
 			 */
 			std::string getNameFile(void) const;

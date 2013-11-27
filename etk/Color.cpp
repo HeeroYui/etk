@@ -42,7 +42,7 @@ typedef struct {
 	etk::Color<> color;
 } colorList_ts;
 
-static esize_t getColorSize(void);
+static int32_t getColorSize(void);
 static const colorList_ts* getColorList(void);
 
 namespace etk {
@@ -173,7 +173,7 @@ namespace etk {
 		} else {
 			bool findIt = false;
 			// direct named color ...
-			for (esize_t iii=0; iii<getColorSize(); iii++) {
+			for (int32_t iii=0; iii<getColorSize(); iii++) {
 				if (strnCmpNoCase(getColorList()[iii].colorName, inputData, strlen(getColorList()[iii].colorName)) == true) {
 					findIt = true;
 					*this = getColorList()[iii].color;
@@ -523,8 +523,8 @@ static const colorList_ts* getColorList(void)
 	return listOfColor;
 }
 
-static esize_t getColorSize(void)
+static int32_t getColorSize(void)
 {
-	static const esize_t tmpp = sizeof(listOfColor) / sizeof(colorList_ts);
+	static const int32_t tmpp = sizeof(listOfColor) / sizeof(colorList_ts);
 	return tmpp;
 }

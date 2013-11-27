@@ -57,13 +57,6 @@
 #define etk_avg(minimim,elem,maximum) (((minimim)>(elem)) ? (minimim) : ((maximum)<(elem)) ? (maximum) : (elem))
 
 #include <etk/UChar.h>
-#if 0
-	typedef size_t esize_t;
-	#define ESIZE_T_IS_UNSIGNED
-#else
-	typedef int32_t esize_t;
-	#define ESIZE_T_IS_SIGNED
-#endif
 
 typedef float float_t;
 #endif

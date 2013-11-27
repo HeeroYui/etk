@@ -473,10 +473,10 @@ etk::FSNode::~FSNode(void) {
 void etk::FSNode::sortElementList(std::vector<etk::FSNode *>& _list) {
 	std::vector<etk::FSNode *> tmpList = _list;
 	_list.clear();
-	for(int32_t iii=0; iii<tmpList.size(); iii++) {
+	for(size_t iii=0; iii<tmpList.size(); iii++) {
 		if (NULL != tmpList[iii]) {
-			int32_t findPos = 0;
-			for(int32_t jjj=0; jjj<_list.size(); jjj++) {
+			size_t findPos = 0;
+			for(size_t jjj=0; jjj<_list.size(); jjj++) {
 				//EWOL_DEBUG("compare : \""<<*tmpList[iii] << "\" and \"" << *m_listDirectory[jjj] << "\"");
 				if (_list[jjj]!=NULL) {
 					if (tmpList[iii]->getNameFile() > _list[jjj]->getNameFile()) {
@@ -1618,7 +1618,7 @@ static std::vector<tmpThemeElement*> g_listTheme;
 
 // set the Folder of a subset of a theme ...
 void etk::theme::setName(const std::string& _refName, const std::string& _folderName) {
-	for(int32_t iii=0; iii<g_listTheme.size(); iii++) {
+	for(size_t iii=0; iii<g_listTheme.size(); iii++) {
 		if (NULL != g_listTheme[iii]) {
 			if (g_listTheme[iii]->refName==_refName) {
 				g_listTheme[iii]->folderName = _folderName;
@@ -1643,7 +1643,7 @@ void etk::theme::setName(const std::u32string& _refName, const std::u32string& _
 
 // get the folder from a Reference theme
 std::string etk::theme::getName(const std::string& _refName) {
-	for(int32_t iii=0; iii<g_listTheme.size(); iii++) {
+	for(size_t iii=0; iii<g_listTheme.size(); iii++) {
 		if (NULL != g_listTheme[iii]) {
 			if (g_listTheme[iii]->refName==_refName) {
 				return g_listTheme[iii]->folderName;
@@ -1788,7 +1788,7 @@ bool etk::FSNodeEcho(const std::string& _path, const std::string& _dataTowrite) 
 		return false;
 	}
 	// convert in UTF8 :
-	if (_dataTowrite.size() != tmpNode.fileWrite((char*)_dataTowrite.c_str(), 1, _dataTowrite.size())) {
+	if ((int64_t)_dataTowrite.size() != tmpNode.fileWrite((char*)_dataTowrite.c_str(), 1, _dataTowrite.size())) {
 		tmpNode.fileClose();
 		return false;
 	}
@@ -1810,7 +1810,7 @@ bool etk::FSNodeEchoAdd(const std::string& _path, const std::string& _dataTowrit
 		return false;
 	}
 	// convert in UTF8 :
-	if (_dataTowrite.size() != tmpNode.fileWrite((char*)_dataTowrite.c_str(), 1, _dataTowrite.size())) {
+	if ((int64_t)_dataTowrite.size() != tmpNode.fileWrite((char*)_dataTowrite.c_str(), 1, _dataTowrite.size())) {
 		tmpNode.fileClose();
 		return false;
 	}

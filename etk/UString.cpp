@@ -20,7 +20,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const std::string& _obj) {
 
 etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<std::string>& _obj) {
 	_os << "{";
-	for (int32_t iii=0; iii< _obj.size(); iii++) {
+	for (size_t iii=0; iii< _obj.size(); iii++) {
 		if (iii>0) {
 			_os << " ~ ";
 		}
@@ -37,7 +37,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const std::u32string& _obj) {
 
 etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<std::u32string>& _obj) {
 	_os << "{";
-	for (int32_t iii=0; iii< _obj.size(); iii++) {
+	for (size_t iii=0; iii< _obj.size(); iii++) {
 		if (iii>0) {
 			_os << " ~ ";
 		}
@@ -49,7 +49,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<std::u32string>&
 
 std::string to_u8string(const std::u32string& _input) {
 	std::string out;
-	for (int32_t iii=0; iii<_input.size(); ++iii) {
+	for (size_t iii=0; iii<_input.size(); ++iii) {
 		char output[10];
 		etk::getUtf8(_input[iii], output);
 		out += output;
@@ -460,7 +460,7 @@ std::string replace(const std::string& _obj, char _val, char _replace) {
 std::string extract_line(const std::string& _obj, int32_t _pos) {
 	// search back : '\n'
 	size_t startPos = _obj.rfind('\n', _pos);
-	if (startPos == _pos) {
+	if ((int64_t)startPos == (int64_t)_pos) {
 		startPos = 0;
 	} else {
 		startPos++;
@@ -469,7 +469,7 @@ std::string extract_line(const std::string& _obj, int32_t _pos) {
 	size_t stopPos = _pos;
 	if (_obj[_pos] != '\n') {
 		stopPos = _obj.find('\n', _pos);
-		if (stopPos == _pos) {
+		if ((int64_t)stopPos == _pos) {
 			stopPos = _obj.size();
 		}
 	}
@@ -489,7 +489,7 @@ std::string extract_line(const std::string& _obj, int32_t _pos) {
 std::u32string extract_line(const std::u32string& _obj, int32_t _pos) {
 	// search back : '\n'
 	size_t startPos = _obj.rfind('\n', _pos);
-	if (startPos == _pos) {
+	if ((int64_t)startPos == _pos) {
 		startPos = 0;
 	} else {
 		startPos++;
@@ -498,7 +498,7 @@ std::u32string extract_line(const std::u32string& _obj, int32_t _pos) {
 	size_t stopPos = _pos;
 	if (_obj[_pos] != '\n') {
 		stopPos = _obj.find('\n', _pos);
-		if (stopPos == _pos) {
+		if ((int64_t)stopPos == _pos) {
 			stopPos = _obj.size();
 		}
 	}

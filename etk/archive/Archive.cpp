@@ -21,9 +21,9 @@ const etk::Archive::Content& etk::Archive::getContent(const std::string& _key) c
 
 void etk::Archive::display(void)
 {
-	for (esize_t iii=0; iii<m_content.size(); iii++) {
-		esize_t size = m_content.getValue(iii).getTheoricSize();
-		esize_t sizeR = m_content.getValue(iii).size();
+	for (int32_t iii=0; iii<m_content.size(); iii++) {
+		int32_t size = m_content.getValue(iii).getTheoricSize();
+		int32_t sizeR = m_content.getValue(iii).size();
 		TK_INFO(" element : " << m_content.getKey(iii) << " size=" << size << " allocated=" << sizeR);
 	}
 }

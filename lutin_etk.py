@@ -5,8 +5,9 @@ import lutinTools
 def Create(target):
 	# module name is 'edn' and type binary.
 	myModule = lutinModule.module(__file__, 'etk', 'LIBRARY')
+	# add extra compilation flags :
+	myModule.add_extra_compile_flags()
 	# add the file to compile:
-	
 	myModule.AddSrcFile([
 		'etk/debugGeneric.cpp',
 		'etk/debug.cpp',
@@ -39,10 +40,6 @@ def Create(target):
 	# name of the dependency
 	myModule.AddModuleDepend('linearmath')
 	myModule.AddModuleDepend('minizip')
-	
-	myModule.CompileFlags_CC([
-		'-Wno-write-strings',
-		'-Wall'])
 	
 	if target.buildMode == "release":
 		# TODO : The other way is to remove this ...

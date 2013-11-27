@@ -194,7 +194,7 @@ namespace etk {
 			 * @param[in] _pos Desired position read
 			 * @return Reference on the Element
 			 */
-			esize_t get(esize_t _pos, UChar& _value, charset_te _charset) const
+			int32_t get(int32_t _pos, UChar& _value, charset_te _charset) const
 			{
 				TK_ASSERT(0 <= pos || pos < size(), "try to read an element non existing");
 				if (pos < m_gapStart) {
@@ -300,7 +300,7 @@ namespace etk {
 						return;
 					}
 				}
-				for(esize_t iii=0; iii<_nbElement; iii++) {
+				for(int32_t iii=0; iii<_nbElement; iii++) {
 					m_data[m_gapStart+iii] = _items[iii];
 				}
 				m_gapStart += _nbElement;
