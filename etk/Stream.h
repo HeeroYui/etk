@@ -31,7 +31,8 @@ namespace etk {
 		public:
 			CCout(void);
 			~CCout(void);
-			CCout& operator << (char32_t _t);;
+			CCout& operator << (char32_t _t);
+			CCout& operator << (size_t _t);
 			CCout& operator << (int8_t _t);
 			CCout& operator << (int16_t _t);
 			CCout& operator << (int32_t _t);

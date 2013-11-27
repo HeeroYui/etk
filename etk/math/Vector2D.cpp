@@ -74,11 +74,11 @@ namespace etk {
 		m_floats[1] = false;
 		// copy to permit to modify it :
 		std::string tmpStr = _str;
-		if (tmpStr.front() == '(') {
+		if (tmpStr[0] == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (tmpStr.back() == ')') {
-			tmpStr.pop_back();
+		if (tmpStr[tmpStr.size()-1] == ')') {
+			tmpStr.erase(tmpStr.end()-1);
 		}
 		size_t posComa = tmpStr.find(',');
 		if (posComa == std::string::npos) {
@@ -98,11 +98,11 @@ namespace etk {
 		m_floats[1] = false;
 		// copy to permit to modify it :
 		std::u32string tmpStr = _str;
-		if (tmpStr.front() == '(') {
+		if (tmpStr[0] == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (tmpStr.back() == ')') {
-			tmpStr.pop_back();
+		if (tmpStr[tmpStr.size()-1] == ')') {
+			tmpStr.erase(tmpStr.end()-1);
 		}
 		size_t posComa = tmpStr.find(',');
 		if (posComa == std::string::npos) {
@@ -142,11 +142,11 @@ namespace etk {
 		m_floats[1] = 0;
 		// copy to permit to modify it :
 		std::string tmpStr = _str;
-		if (tmpStr.front() == '(') {
+		if (tmpStr[0] == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (tmpStr.back() == ')') {
-			tmpStr.pop_back();
+		if (tmpStr[tmpStr.size()-1] == ')') {
+			tmpStr.erase(tmpStr.end()-1);
 		}
 		
 		size_t posComa = tmpStr.find(',');
@@ -167,11 +167,11 @@ namespace etk {
 		m_floats[1] = 0;
 		// copy to permit to modify it :
 		std::u32string tmpStr = _str;
-		if (tmpStr.front() == '(') {
+		if (tmpStr[0] == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (tmpStr.back() == ')') {
-			tmpStr.pop_back();
+		if (tmpStr[tmpStr.size()-1] == ')') {
+			tmpStr.erase(tmpStr.end()-1);
 		}
 		
 		size_t posComa = tmpStr.find(',');
@@ -214,11 +214,11 @@ namespace etk {
 		m_floats[1] = 0;
 		// copy to permit to modify it :
 		std::string tmpStr = _str;
-		if (tmpStr.front() == '(') {
+		if (tmpStr[0] == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (tmpStr.back() == ')') {
-			tmpStr.pop_back();
+		if (tmpStr[tmpStr.size()-1] == ')') {
+			tmpStr.erase(tmpStr.end()-1);
 		}
 		size_t posComa = tmpStr.find(',');
 		if (posComa == std::string::npos) {
@@ -239,11 +239,11 @@ namespace etk {
 		m_floats[1] = 0;
 		// copy to permit to modify it :
 		std::u32string tmpStr = _str;
-		if (tmpStr.front() == '(') {
+		if (tmpStr[0] == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (tmpStr.back() == ')') {
-			tmpStr.pop_back();
+		if (tmpStr[tmpStr.size()-1] == ')') {
+			tmpStr.erase(tmpStr.end()-1);
 		}
 		size_t posComa = tmpStr.find(',');
 		if (posComa == std::string::npos) {
@@ -283,11 +283,11 @@ namespace etk {
 		m_floats[1] = 0;
 		// copy to permit to modify it :
 		std::string tmpStr = _str;
-		if (tmpStr.front() == '(') {
+		if (tmpStr[0] == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (tmpStr.back() == ')') {
-			tmpStr.pop_back();
+		if (tmpStr[tmpStr.size()-1] == ')') {
+			tmpStr.erase(tmpStr.end()-1);
 		}
 		size_t posComa = tmpStr.find(',');
 		if (posComa == std::string::npos) {
@@ -307,11 +307,11 @@ namespace etk {
 		m_floats[1] = 0;
 		// copy to permit to modify it :
 		std::u32string tmpStr = _str;
-		if (tmpStr.front() == '(') {
+		if (tmpStr[0] == '(') {
 			tmpStr.erase(tmpStr.begin());
 		}
-		if (tmpStr.back() == ')') {
-			tmpStr.pop_back();
+		if (tmpStr[tmpStr.size()-1] == ')') {
+			tmpStr.erase(tmpStr.end()-1);
 		}
 		size_t posComa = tmpStr.find(',');
 		if (posComa == std::string::npos) {

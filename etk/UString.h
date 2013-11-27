@@ -41,7 +41,7 @@ template<class T> std::u32string to_u32string(T t, std::ios_base & (*f)(std::ios
 }
 namespace std {
 	std::string to_string(bool _val);
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
 		std::string to_string(int _val);
 		std::string to_string(long _val);
 		std::string to_string(long long _val);
@@ -65,7 +65,7 @@ std::u32string to_u32string(double _val);
 std::u32string to_u32string(long double _val);
 
 namespace std {
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
 	double stod(const std::string& _str, size_t* _idx = 0);
 	float stof(const std::string& _str, size_t* _idx = 0);
 	int stoi(const std::string& _str, size_t* _idx = 0, int _base = 10);

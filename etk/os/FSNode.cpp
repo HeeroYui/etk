@@ -310,7 +310,7 @@ void etk::initDefaultFolder(const char* _applName) {
 				// remove bin/applName
 				baseFolderData = binaryPath;
 				#ifdef __TARGET_OS__MacOs
-					baseFolderData += "/../../Resources/";
+					baseFolderData += "/../Resources/";
 				#else
 					baseFolderData += "/../share";
 					baseFolderData += binaryName;
@@ -897,7 +897,7 @@ std::string etk::FSNode::getRelativeFolder(void) const {
 		case etk::FSN_UNKNOW:
 		case etk::FSN_FOLDER:
 		case etk::FSN_LINK:
-			if (tmppp.back() == '/') {
+		if (tmppp[tmppp.size()-1] == '/') {
 				TK_DBG_MODE("     ==> : " << tmppp );
 				return tmppp;
 			} else {
@@ -988,8 +988,8 @@ uint64_t etk::FSNode::timeCreated(void) const {
 std::string etk::FSNode::timeCreatedString(void) const {
 	time_t tmpVal = (int32_t)m_timeCreate;
 	std::string tmpTime = ctime(&tmpVal);
-	if (tmpTime.back() == '\n') {
-		tmpTime.pop_back();
+	if (tmpTime[tmpTime.size()-1] == '\n') {
+		tmpTime.erase(tmpTime.end()-1);
 	}
 	return tmpTime;
 }
@@ -1004,8 +1004,8 @@ uint64_t etk::FSNode::timeModified(void) const {
 std::string etk::FSNode::timeModifiedString(void) const {
 	time_t tmpVal = (int32_t)m_timeModify;
 	std::string tmpTime = ctime(&tmpVal);
-	if (tmpTime.back() == '\n') {
-		tmpTime.pop_back();
+	if (tmpTime[tmpTime.size()-1] == '\n') {
+		tmpTime.erase(tmpTime.end()-1);
 	}
 	return tmpTime;
 }
@@ -1020,8 +1020,8 @@ uint64_t etk::FSNode::timeAccessed(void) const {
 std::string etk::FSNode::timeAccessedString(void) const {
 	time_t tmpVal = (int32_t)m_timeAccess;
 	std::string tmpTime = ctime(&tmpVal);
-	if (tmpTime.back() == '\n') {
-		tmpTime.pop_back();
+	if (tmpTime[tmpTime.size()-1] == '\n') {
+		tmpTime.erase(tmpTime.end()-1);
 	}
 	return tmpTime;
 }

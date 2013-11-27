@@ -8,18 +8,7 @@
 
 #ifndef __ETK_TYPES_H__
 #define __ETK_TYPES_H__
-/*
-#ifdef __TARGET_OS__Android
-	// NOTE : This is for compatibility with the C++ stdlib (missing this declaration on android ...
-	namespace std {
-		typedef struct {
-			int  dummy;
-		} mbstate_t;
-	};
-	#include <wchar.h>
-	#include <stdio.h>
-#endif
-*/
+
 #include <iostream>
 
 #include <stdlib.h>
@@ -57,6 +46,13 @@
 #define etk_avg(minimim,elem,maximum) (((minimim)>(elem)) ? (minimim) : ((maximum)<(elem)) ? (maximum) : (elem))
 
 #include <etk/UChar.h>
+
+#include <string>
+#ifdef __TARGET_OS__MacOs
+	namespace std {
+		typedef std::basic_string<char32_t> u32string;
+	};
+#endif
 
 typedef float float_t;
 #endif

@@ -158,6 +158,12 @@ etk::CCout& etk::CCout::operator << (char32_t _t)
 	return *this;
 }
 
+etk::CCout& etk::CCout::operator << (size_t _t)
+{
+	snprintf(tmp, MAX_LOG_SIZE_TMP, "%lld", (uint64_t)_t);
+	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
+	return *this;
+}
 etk::CCout& etk::CCout::operator << (int8_t _t)
 {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%d", _t);

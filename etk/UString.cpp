@@ -215,7 +215,7 @@ std::string std::to_string(bool _val) {
 	}
 	return "false";
 }
-#ifdef __TARGET_OS__Android
+#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
 	std::string std::to_string(int _val) {
 		char tmpVal[256];
 		sprintf(tmpVal, "%d", _val);
@@ -253,12 +253,12 @@ std::string std::to_string(bool _val) {
 	}
 	std::string std::to_string(double _val) {
 		char tmpVal[256];
-		sprintf(tmpVal, "%d", _val);
+		sprintf(tmpVal, "%f", _val);
 		return tmpVal;
 	}
 	std::string std::to_string(long double _val) {
 		char tmpVal[256];
-		sprintf(tmpVal, "%ld", _val);
+		sprintf(tmpVal, "%lf", _val);
 		return tmpVal;
 	}
 #endif
@@ -530,10 +530,10 @@ std::vector<std::string> string_split(const std::string& _input, char _val) {
 	return list;
 }
 
-#ifdef __TARGET_OS__Android
+#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
 double std::stod(const std::string& _str, size_t* _idx) {
 	double ret = 0;
-	sscanf(_str.c_str(), "%lf", &ret);
+	sscanf(_str.c_str(), "%Lf", &ret);
 	return ret;
 }
 
@@ -557,7 +557,7 @@ long std::stol(const std::string& _str, size_t* _idx, int _base) {
 
 long double std::stold(const std::string& _str, size_t* _idx) {
 	long double ret = 0;
-	sscanf(_str.c_str(), "%llf", &ret);
+	sscanf(_str.c_str(), "%Lf", &ret);
 	return ret;
 }
 
