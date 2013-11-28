@@ -32,7 +32,9 @@ namespace etk {
 			CCout(void);
 			~CCout(void);
 			CCout& operator << (char32_t _t);
+			#if defined(__TARGET_OS__MacOs)
 			CCout& operator << (size_t _t);
+			#endif
 			CCout& operator << (int8_t _t);
 			CCout& operator << (int16_t _t);
 			CCout& operator << (int32_t _t);
