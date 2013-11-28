@@ -64,8 +64,23 @@ std::string etk::simplifyPath(std::string _input) {
 		}
 		_input.erase(currentPos, 1);
 	}
-	// step 3 remove xxx/..
+	// step 3 : remove all '/./'
 	TK_DBG_MODE("Siplify(3) : \"" << _input << "\"");
+	currentPos = 0;
+	if (_input.size() <= 1) {
+		return _input;
+	}
+	while(currentPos < _input.size()-2) {
+		if (    _input[currentPos] != '/'
+		     || _input[currentPos+1] != '.'
+		     || _input[currentPos+2] != '/') {
+			currentPos++;
+			continue;
+		}
+		_input.erase(currentPos, 2);
+	}
+	// step 4 remove xxx/..
+	TK_DBG_MODE("Siplify(4) : \"" << _input << "\"");
 	size_t lastSlashPos = std::string::npos;
 	currentPos = 0;
 	if (_input.size() <= 2) {
@@ -90,7 +105,7 @@ std::string etk::simplifyPath(std::string _input) {
 		lastSlashPos = std::string::npos;
 		currentPos = 0;
 	}
-	TK_DBG_MODE("Siplify(4) : \"" << _input << "\"");
+	TK_DBG_MODE("Siplify(5) : \"" << _input << "\"");
 	return _input;
 }
 
