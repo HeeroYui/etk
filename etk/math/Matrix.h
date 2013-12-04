@@ -426,13 +426,14 @@ namespace etk
 			 * @param[in] input The compared Matix.
 			 * @return The absolute max value.
 			 */
-			T maxDifference(const Matrix<T>& input)
-			{
+			T maxDifference(const Matrix<T>& input) {
 				if (m_size != input.m_size)
 					TK_WARNING("better to do with same size Matrix");
 				}
 				T max = 0;
-				for(int32_t iii=0; iii<m_data.size() && iii<input.m_data.size(); iii++) {
+				for(int32_t iii = 0;
+				    iii < m_data.size() && iii < input.m_data.size();
+				    ++iii) {
 					T diff = m_data[iii] - input.m_data[iii];
 					if (diff<0) {
 						diff = -diff;
@@ -446,8 +447,7 @@ namespace etk
 			/**
 			 * @brief Clear all the matrix.
 			 */
-			void clear(void)
-			{
+			void clear(void) {
 				// copy data for the same size :
 				for (int32_t iii=0; iii< m_size.x*m_size.y; iii++) {
 					m_data[iii] = (T)0;
