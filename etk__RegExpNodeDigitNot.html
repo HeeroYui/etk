@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>etk Library</title>
+	<link rel="stylesheet" href="base.css">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<h1>etk Library</h1>
+				<li>etk</li>
+				<ul>
+				<li><a href="etk__Archive.html">Archive</a></li>
+				<li><a href="etk__Archive__Content.html">Archive::Content</a></li>
+				<li><a href="etk__BaseNoise.html">BaseNoise</a></li>
+				<li><a href="etk__Buffer.html">Buffer</a></li>
+				<li><a href="etk__CCout.html">CCout</a></li>
+				<li><a href="etk__CEndl.html">CEndl</a></li>
+				<li><a href="etk__CStart.html">CStart</a></li>
+				<li><a href="etk__Color.html">Color</a></li>
+				<li><a href="etk__FSNode.html">FSNode</a></li>
+				<li><a href="etk__FSNodeRight.html">FSNodeRight</a></li>
+				<li><a href="etk__Hash.html">Hash</a></li>
+				<li><a href="etk__HashData.html">HashData</a></li>
+				<li><a href="etk__Matrix4.html">Matrix4</a></li>
+				<li><a href="etk__MessageFifo.html">MessageFifo</a></li>
+				<li><a href="etk__Mutex.html">Mutex</a></li>
+				<li><a href="etk__Noise.html">Noise</a></li>
+				<li><a href="etk__Plane.html">Plane</a></li>
+				<li><a href="etk__RegExp.html">RegExp</a></li>
+				<li><a href="etk__RegExpNode.html">RegExpNode</a></li>
+				<li><a href="etk__RegExpNodeBracket.html">RegExpNodeBracket</a></li>
+				<li><a href="etk__RegExpNodeDigit.html">RegExpNodeDigit</a></li>
+				<li><a href="etk__RegExpNodeDigitNot.html">RegExpNodeDigitNot</a></li>
+				<li><a href="etk__RegExpNodeDot.html">RegExpNodeDot</a></li>
+				<li><a href="etk__RegExpNodeEOL.html">RegExpNodeEOL</a></li>
+				<li><a href="etk__RegExpNodeLetter.html">RegExpNodeLetter</a></li>
+				<li><a href="etk__RegExpNodeLetterNot.html">RegExpNodeLetterNot</a></li>
+				<li><a href="etk__RegExpNodePThese.html">RegExpNodePThese</a></li>
+				<li><a href="etk__RegExpNodePTheseElem.html">RegExpNodePTheseElem</a></li>
+				<li><a href="etk__RegExpNodeSOL.html">RegExpNodeSOL</a></li>
+				<li><a href="etk__RegExpNodeValue.html">RegExpNodeValue</a></li>
+				<li><a href="etk__RegExpNodeWhiteSpace.html">RegExpNodeWhiteSpace</a></li>
+				<li><a href="etk__RegExpNodeWhiteSpaceNot.html">RegExpNodeWhiteSpaceNot</a></li>
+				<li><a href="etk__RegExpNodeWordChar.html">RegExpNodeWordChar</a></li>
+				<li><a href="etk__RegExpNodeWordCharNot.html">RegExpNodeWordCharNot</a></li>
+				<li><a href="etk__Semaphore.html">Semaphore</a></li>
+				<li><a href="etk__UChar.html">UChar</a></li>
+				<li><a href="etk__Vector2D.html">Vector2D</a></li>
+				<li><a href="etk__Vector3D.html">Vector3D</a></li>
+				<li><a href="etk__Vector4D.html">Vector4D</a></li>
+				<li><a href="etk__archive__Zip.html">archive::Zip</a></li>
+				<li><a href="etk__elementPos_ts.html">elementPos_ts</a></li>
+				</ul>
+				<li><a href="etk__FSNType.html">FSNType</a></li>
+				<li><a href="etk__logLevel.html">logLevel</a></li>
+				<li><a href="etk__regExpPrivateSection.html">regExpPrivateSection</a></li>
+				<li><a href="etk__seekNode.html">seekNode</a></li>
+				<li><a href="etk__typeNode.html">typeNode</a></li>
+				</ul>
+				<li>unicode</li>
+				<ul>
+				<li><a href="unicode__charset.html">charset</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="container" id="content">
+<h1>Class: etk::RegExpNodeDigitNot</h1>
+<br/>
+<h2>Synopsis:</h2>
+<pre>
++        <a class="code-function" href="#RegExpNodeDigitNot">RegExpNodeDigitNot</a>  (<span class="code-type">void</span>);<br>+       ~<a class="code-function" href="#RegExpNodeDigitNot">RegExpNodeDigitNot</a>  (<span class="code-type">void</span>);<br>+  <span class="code-type">bool</span>  <a class="code-function" href="#parse">parse</a>               (<span class="code-storage-keyword">const</span> CLASS_TYPE & <span class="code-argument">_data</span>,<br/>                              <span class="code-type">int64_t</span> <span class="code-argument">_currentPos</span>,<br/>                              <span class="code-type">int64_t</span> <span class="code-argument">_lenMax</span>,<br/>                              <span class="code-type">int64_t</span> & <span class="code-argument">_findLen</span>);<br>+  <span class="code-type">void</span>  <a class="code-function" href="#display">display</a>             (<span class="code-type">uint32_t</span> <span class="code-argument">_level</span>);<br></pre>
+
+
+<h2>Object Hierarchy:</h2>
+<pre>
+<a href="">RegExpNode<CLASS_TYPE></a>
+    +--> <b>etk::RegExpNodeDigitNot</b>
+</pre>
+<br/>
+<h2>Detail:<h2>
+<h3>etk::<a id="RegExpNodeDigitNot">RegExpNodeDigitNot</a> ()</h3>
+
+<pre>
+<span class="code-function">RegExpNodeDigitNot</span>(<span class="code-type">void</span>);</pre>
+<br/>
+Constructor
+<br/><br/>
+
+<hr/>
+<h3>etk::~<a id="RegExpNodeDigitNot">RegExpNodeDigitNot</a> ()</h3>
+
+<pre>
+~<span class="code-function">RegExpNodeDigitNot</span>(<span class="code-type">void</span>);</pre>
+<br/>
+Destructor
+<br/><br/>
+
+<hr/>
+<h3><a id="parse">parse</a> ()</h3>
+
+<pre>
+<span class="code-type">bool</span> <span class="code-function">parse</span>(<span class="code-storage-keyword">const</span> CLASS_TYPE & <span class="code-argument">_data</span>,
+           <span class="code-type">int64_t</span> <span class="code-argument">_currentPos</span>,
+           <span class="code-type">int64_t</span> <span class="code-argument">_lenMax</span>,
+           <span class="code-type">int64_t</span> & <span class="code-argument">_findLen</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3><a id="display">display</a> ()</h3>
+
+<pre>
+<span class="code-type">void</span> <span class="code-function">display</span>(<span class="code-type">uint32_t</span> <span class="code-argument">_level</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+	</div>
+</body>
+</html>

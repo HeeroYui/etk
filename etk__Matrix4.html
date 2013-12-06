@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>etk Library</title>
+	<link rel="stylesheet" href="base.css">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<h1>etk Library</h1>
+				<li>etk</li>
+				<ul>
+				<li><a href="etk__Archive.html">Archive</a></li>
+				<li><a href="etk__Archive__Content.html">Archive::Content</a></li>
+				<li><a href="etk__BaseNoise.html">BaseNoise</a></li>
+				<li><a href="etk__Buffer.html">Buffer</a></li>
+				<li><a href="etk__CCout.html">CCout</a></li>
+				<li><a href="etk__CEndl.html">CEndl</a></li>
+				<li><a href="etk__CStart.html">CStart</a></li>
+				<li><a href="etk__Color.html">Color</a></li>
+				<li><a href="etk__FSNode.html">FSNode</a></li>
+				<li><a href="etk__FSNodeRight.html">FSNodeRight</a></li>
+				<li><a href="etk__Hash.html">Hash</a></li>
+				<li><a href="etk__HashData.html">HashData</a></li>
+				<li><a href="etk__Matrix4.html">Matrix4</a></li>
+				<li><a href="etk__MessageFifo.html">MessageFifo</a></li>
+				<li><a href="etk__Mutex.html">Mutex</a></li>
+				<li><a href="etk__Noise.html">Noise</a></li>
+				<li><a href="etk__Plane.html">Plane</a></li>
+				<li><a href="etk__RegExp.html">RegExp</a></li>
+				<li><a href="etk__RegExpNode.html">RegExpNode</a></li>
+				<li><a href="etk__RegExpNodeBracket.html">RegExpNodeBracket</a></li>
+				<li><a href="etk__RegExpNodeDigit.html">RegExpNodeDigit</a></li>
+				<li><a href="etk__RegExpNodeDigitNot.html">RegExpNodeDigitNot</a></li>
+				<li><a href="etk__RegExpNodeDot.html">RegExpNodeDot</a></li>
+				<li><a href="etk__RegExpNodeEOL.html">RegExpNodeEOL</a></li>
+				<li><a href="etk__RegExpNodeLetter.html">RegExpNodeLetter</a></li>
+				<li><a href="etk__RegExpNodeLetterNot.html">RegExpNodeLetterNot</a></li>
+				<li><a href="etk__RegExpNodePThese.html">RegExpNodePThese</a></li>
+				<li><a href="etk__RegExpNodePTheseElem.html">RegExpNodePTheseElem</a></li>
+				<li><a href="etk__RegExpNodeSOL.html">RegExpNodeSOL</a></li>
+				<li><a href="etk__RegExpNodeValue.html">RegExpNodeValue</a></li>
+				<li><a href="etk__RegExpNodeWhiteSpace.html">RegExpNodeWhiteSpace</a></li>
+				<li><a href="etk__RegExpNodeWhiteSpaceNot.html">RegExpNodeWhiteSpaceNot</a></li>
+				<li><a href="etk__RegExpNodeWordChar.html">RegExpNodeWordChar</a></li>
+				<li><a href="etk__RegExpNodeWordCharNot.html">RegExpNodeWordCharNot</a></li>
+				<li><a href="etk__Semaphore.html">Semaphore</a></li>
+				<li><a href="etk__UChar.html">UChar</a></li>
+				<li><a href="etk__Vector2D.html">Vector2D</a></li>
+				<li><a href="etk__Vector3D.html">Vector3D</a></li>
+				<li><a href="etk__Vector4D.html">Vector4D</a></li>
+				<li><a href="etk__archive__Zip.html">archive::Zip</a></li>
+				<li><a href="etk__elementPos_ts.html">elementPos_ts</a></li>
+				</ul>
+				<li><a href="etk__FSNType.html">FSNType</a></li>
+				<li><a href="etk__logLevel.html">logLevel</a></li>
+				<li><a href="etk__regExpPrivateSection.html">regExpPrivateSection</a></li>
+				<li><a href="etk__seekNode.html">seekNode</a></li>
+				<li><a href="etk__typeNode.html">typeNode</a></li>
+				</ul>
+				<li>unicode</li>
+				<ul>
+				<li><a href="unicode__charset.html">charset</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="container" id="content">
+<h1>Class: etk::Matrix4</h1>
+<br/>
+<h2>Synopsis:</h2>
+<pre>
++  <span class="code-type">void</span>             <a class="code-function" href="#identity">identity</a>    (<span class="code-type">void</span>);<br>+                   <a class="code-function" href="#Matrix4">Matrix4</a>     (<span class="code-type">void</span>);<br>+                   <a class="code-function" href="#Matrix4">Matrix4</a>     (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br>+                   <a class="code-function" href="#Matrix4">Matrix4</a>     (<span class="code-type">float</span> <span class="code-argument">a1</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">b1</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">c1</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">d1</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">a2</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">b2</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">c2</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">d2</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">a3</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">b3</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">c3</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">d3</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">a4</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">b4</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">c4</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">d4</span>);<br>+                   <a class="code-function" href="#Matrix4">Matrix4</a>     (<span class="code-type">float</span> * <span class="code-argument">obj</span>);<br>+                  ~<a class="code-function" href="#Matrix4">Matrix4</a>     (<span class="code-type">void</span>);<br>+  <span class="code-storage-keyword">const</span> Matrix4 &  <a class="code-function" href="#operator=">operator=</a>   (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br>+  <span class="code-type">bool</span>             <a class="code-function" href="#operator==">operator==</a>  (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br>+  <span class="code-type">bool</span>             <a class="code-function" href="#operator!=">operator!=</a>  (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br>+  <span class="code-storage-keyword">const</span> Matrix4 &  <a class="code-function" href="#operator+=">operator+=</a>  (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br>+  Matrix4          <a class="code-function" href="#operator+">operator+</a>   (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br>+  <span class="code-storage-keyword">const</span> Matrix4 &  <a class="code-function" href="#operator-=">operator-=</a>  (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br>+  Matrix4          <a class="code-function" href="#operator-">operator-</a>   (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br>+  <span class="code-storage-keyword">const</span> Matrix4 &  <a class="code-function" href="#operator*=">operator*=</a>  (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br>+  Matrix4          <a class="code-function" href="#operator*">operator*</a>   (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br>+  vec3             <a class="code-function" href="#operator*">operator*</a>   (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">point</span>);<br>+  <span class="code-type">void</span>             <a class="code-function" href="#transpose">transpose</a>   (<span class="code-type">void</span>);<br>+  <span class="code-type">void</span>             <a class="code-function" href="#scale">scale</a>       (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">p</span>);<br>+  <span class="code-type">void</span>             <a class="code-function" href="#scale">scale</a>       (<span class="code-type">float</span> <span class="code-argument">sx</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">sy</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">sz</span>);<br>+  <span class="code-type">void</span>             <a class="code-function" href="#rotate">rotate</a>      (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">vect</span>,<br/>                                 <span class="code-type">float</span> <span class="code-argument">angleRad</span>);<br>+  <span class="code-type">void</span>             <a class="code-function" href="#translate">translate</a>   (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">vect</span>);<br>+  <span class="code-type">float</span>            <a class="code-function" href="#coFactor">coFactor</a>    (<span class="code-type">int32_t</span> <span class="code-argument">row</span>,<br/>                                 <span class="code-type">int32_t</span> <span class="code-argument">col</span>);<br>+  <span class="code-type">float</span>            <a class="code-function" href="#determinant">determinant</a> (<span class="code-type">void</span>);<br>+  Matrix4          <a class="code-function" href="#invert">invert</a>      (<span class="code-type">void</span>);<br></pre>
+
+
+<h2>Detail:<h2>
+<h3><a id="identity">identity</a> ()</h3>
+
+<pre>
+<span class="code-type">void</span> <span class="code-function">identity</span>(<span class="code-type">void</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3>etk::<a id="Matrix4">Matrix4</a> ()</h3>
+
+<pre>
+<span class="code-function">Matrix4</span>(<span class="code-type">void</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3>etk::<a id="Matrix4">Matrix4</a> ()</h3>
+
+<pre>
+<span class="code-function">Matrix4</span>(<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3>etk::<a id="Matrix4">Matrix4</a> ()</h3>
+
+<pre>
+<span class="code-function">Matrix4</span>(<span class="code-type">float</span> <span class="code-argument">a1</span>,
+        <span class="code-type">float</span> <span class="code-argument">b1</span>,
+        <span class="code-type">float</span> <span class="code-argument">c1</span>,
+        <span class="code-type">float</span> <span class="code-argument">d1</span>,
+        <span class="code-type">float</span> <span class="code-argument">a2</span>,
+        <span class="code-type">float</span> <span class="code-argument">b2</span>,
+        <span class="code-type">float</span> <span class="code-argument">c2</span>,
+        <span class="code-type">float</span> <span class="code-argument">d2</span>,
+        <span class="code-type">float</span> <span class="code-argument">a3</span>,
+        <span class="code-type">float</span> <span class="code-argument">b3</span>,
+        <span class="code-type">float</span> <span class="code-argument">c3</span>,
+        <span class="code-type">float</span> <span class="code-argument">d3</span>,
+        <span class="code-type">float</span> <span class="code-argument">a4</span>,
+        <span class="code-type">float</span> <span class="code-argument">b4</span>,
+        <span class="code-type">float</span> <span class="code-argument">c4</span>,
+        <span class="code-type">float</span> <span class="code-argument">d4</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3>etk::<a id="Matrix4">Matrix4</a> ()</h3>
+
+<pre>
+<span class="code-function">Matrix4</span>(<span class="code-type">float</span> * <span class="code-argument">obj</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3>etk::~<a id="Matrix4">Matrix4</a> ()</h3>
+
+<pre>
+~<span class="code-function">Matrix4</span>(<span class="code-type">void</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3><a id="operator=">operator=</a> ()</h3>
+
+<pre>
+<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-function">operator=</span>(<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3><a id="operator==">operator==</a> ()</h3>
+
+<pre>
+<span class="code-type">bool</span> <span class="code-function">operator==</span>(<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3><a id="operator!=">operator!=</a> ()</h3>
+
+<pre>
+<span class="code-type">bool</span> <span class="code-function">operator!=</span>(<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3><a id="operator+=">operator+=</a> ()</h3>
+
+<pre>
+<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-function">operator+=</span>(<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3><a id="operator+">operator+</a> ()</h3>
+
+<pre>
+Matrix4 <span class="code-function">operator+</span>(<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3><a id="operator-=">operator-=</a> ()</h3>
+
+<pre>
+<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-function">operator-=</span>(<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3><a id="operator-">operator-</a> ()</h3>
+
+<pre>
+Matrix4 <span class="code-function">operator-</span>(<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3><a id="operator*=">operator*=</a> ()</h3>
+
+<pre>
+<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-function">operator*=</span>(<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3><a id="operator*">operator*</a> ()</h3>
+
+<pre>
+Matrix4 <span class="code-function">operator*</span>(<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3><a id="operator*">operator*</a> ()</h3>
+
+<pre>
+vec3 <span class="code-function">operator*</span>(<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">point</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3><a id="transpose">transpose</a> ()</h3>
+
+<pre>
+<span class="code-type">void</span> <span class="code-function">transpose</span>(<span class="code-type">void</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3><a id="scale">scale</a> ()</h3>
+
+<pre>
+<span class="code-type">void</span> <span class="code-function">scale</span>(<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">p</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3><a id="scale">scale</a> ()</h3>
+
+<pre>
+<span class="code-type">void</span> <span class="code-function">scale</span>(<span class="code-type">float</span> <span class="code-argument">sx</span>,
+           <span class="code-type">float</span> <span class="code-argument">sy</span>,
+           <span class="code-type">float</span> <span class="code-argument">sz</span>);</pre>
+<br/>
+<br/>
+
+<hr/>
+<h3><a id="rotate">rotate</a> ()</h3>
+
+<pre>
+<span class="code-type">void</span> <span class="code-function">rotate</span>(<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">vect</span>,
+            <span class="code-type">float</span> <span class="code-argument">angleRad</span>);</pre>
+<br/>
+Makes a rotation matrix about an arbitrary axis.
+<br/><ul>
+<b>Parameter [input]:</b> <span class="code-argument">vect</span>  vector to apply the angle.
+<br/><b>Parameter [input]:</b> <span class="code-argument">angleRad</span>  angle to apply.
+<br/></ul>
+<br/>
+
+<hr/>
+<h3><a id="translate">translate</a> ()</h3>
+
+<pre>
+<span class="code-type">void</span> <span class="code-function">translate</span>(<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">vect</span>);</pre>
+<br/>
+Makes a translation of the matrix
+<br/><ul>
+<b>Parameter [input]:</b> <span class="code-argument">vect</span>  Translation to apply.
+<br/></ul>
+<br/>
+
+<hr/>
+<h3><a id="coFactor">coFactor</a> ()</h3>
+
+<pre>
+<span class="code-type">float</span> <span class="code-function">coFactor</span>(<span class="code-type">int32_t</span> <span class="code-argument">row</span>,
+               <span class="code-type">int32_t</span> <span class="code-argument">col</span>);</pre>
+<br/>
+Computes a cofactor. Used for matrix inversion.
+<br/><ul>
+<b>Parameter [input]:</b> <span class="code-argument">row</span>  Id of raw.
+<br/><b>Parameter [input]:</b> <span class="code-argument">col</span>  Id of colomn.
+<br/><b>Return:</b> the coFactorValue.
+<br/></ul>
+<br/>
+
+<hr/>
+<h3><a id="determinant">determinant</a> ()</h3>
+
+<pre>
+<span class="code-type">float</span> <span class="code-function">determinant</span>(<span class="code-type">void</span>);</pre>
+<br/>
+Computes the determinant of the matrix.
+<br/><ul>
+<b>Return:</b> The determinent Value.
+<br/></ul>
+<br/>
+
+<hr/>
+<h3><a id="invert">invert</a> ()</h3>
+
+<pre>
+Matrix4 <span class="code-function">invert</span>(<span class="code-type">void</span>);</pre>
+<br/>
+Inverts the matrix.
+<br/><b>Notes:</b> The determinant must be != 0, otherwithe the matrix can't be inverted.
+<br/> <ul>
+<b>Return:</b> The inverted matrix.
+<br/></ul>
+<br/>
+
+<hr/>
+	</div>
+</body>
+</html>
