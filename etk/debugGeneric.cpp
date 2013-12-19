@@ -18,19 +18,16 @@
 void debug::displayFuncName(int32_t _ligne, const char* _className, const char* _funcName, const char* _libName)
 {
 	char tmpName[FUNCTION_NAME_SIZE] = "";
-	
+	if (NULL == _libName) {
+		_libName = "????????";
+	}
+	#if defined(__TARGET_OS__Android)
+		_className = NULL;
+	#endif
 	if (NULL == _className) {
-		if (NULL == _libName) {
-			snprintf(tmpName, FUNCTION_NAME_SIZE-1, "???????? | (l=%5d) %s                                             ",_ligne, _funcName);
-		} else {
-			snprintf(tmpName, FUNCTION_NAME_SIZE-1, "%s | (l=%5d) %s                                             ",_libName, _ligne, _funcName);
-		}
+		snprintf(tmpName, FUNCTION_NAME_SIZE-1, "%s | (l=%5d) %s                                             ",_libName, _ligne, _funcName);
 	} else {
-		if (NULL == _libName) {
-			snprintf(tmpName, FUNCTION_NAME_SIZE-1, "???????? | (l=%5d) %s::%s                                             ",_ligne, _className, _funcName);
-		} else {
-			snprintf(tmpName, FUNCTION_NAME_SIZE-1, "%s | (l=%5d) %s::%s                                             ", _libName, _ligne, _className, _funcName);
-		}
+		snprintf(tmpName, FUNCTION_NAME_SIZE-1, "%s | (l=%5d) %s::%s                                             ", _libName, _ligne, _className, _funcName);
 	}
 	tmpName[FUNCTION_NAME_SIZE-4] = ' ';
 	tmpName[FUNCTION_NAME_SIZE-3] = '|';

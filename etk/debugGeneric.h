@@ -60,7 +60,7 @@ extern enum etk::logLevel g_requestedLevel;
 #	define ETK_DEBUG(libName,data) do {}while(0)
 #endif
 
-#if DEBUG_LEVEL > 3
+#if (DEBUG_LEVEL > 3 || defined(DEBUG_ENABLE_VERBOSE))
 #	define ETK_VERBOSE(libName,data) ETK_DBG_COMMON(libName, etk::logLevelVerbose, data)
 #else
 #	define ETK_VERBOSE(libName,data) do {}while(0)
