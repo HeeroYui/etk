@@ -46,14 +46,14 @@ multiplicity :
 	{x,y} ==> {x, y}
 */
 
-typedef struct {
+struct convertionTable {
 	bool haveBackSlash;
 	char inputValue;
 	char newValue;
 	enum etk::regExpPrivateSection specialChar;
-}convertionTable_ts;
+};
 
-extern const convertionTable_ts constConvertionTable[];
+extern const struct convertionTable constConvertionTable[];
 extern const int64_t constConvertionTableSize;
 
 void displayElem(const std::vector<char32_t>& _data, int64_t _start=0, int64_t _stop=0x7FFFFFFF);

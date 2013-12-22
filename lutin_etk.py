@@ -5,11 +5,6 @@ import lutinTools
 def Create(target):
 	# module name is 'edn' and type binary.
 	myModule = lutinModule.module(__file__, 'etk', 'LIBRARY')
-	# enable doculentation :
-	myModule.doc_enable()
-	myModule.documentation.set_website("http://HeeroYui.github.io/etk/")
-	myModule.documentation.set_path(lutinTools.GetCurrentPath(__file__) + "/etk/")
-	myModule.documentation.set_external_link(['linearmath','minizip'])
 	# add extra compilation flags :
 	myModule.add_extra_compile_flags()
 	# add the file to compile:
