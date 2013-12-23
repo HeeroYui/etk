@@ -1,14 +1,18 @@
 #!/usr/bin/python
-import lutinModule
-import lutinTools
+import lutinModule as module
+import lutinTools as tools
 
-def Create(target):
+def get_desc():
+	return "e-tk : Ewol tool kit"
+
+
+def create(target):
 	# module name is 'edn' and type binary.
-	myModule = lutinModule.module(__file__, 'etk', 'LIBRARY')
+	myModule = module.Module(__file__, 'etk', 'LIBRARY')
 	# add extra compilation flags :
 	myModule.add_extra_compile_flags()
 	# add the file to compile:
-	myModule.AddSrcFile([
+	myModule.add_src_file([
 		'etk/debugGeneric.cpp',
 		'etk/debug.cpp',
 		'etk/unicode.cpp',
@@ -31,35 +35,35 @@ def Create(target):
 		'etk/archive/Zip.cpp'])
 	
 	if target.name=="Windows":
-		myModule.AddSrcFile('etk/os/Mutex.Windows.cpp')
-		myModule.AddSrcFile('etk/os/Semaphore.Windows.cpp')
+		myModule.add_src_file('etk/os/Mutex.Windows.cpp')
+		myModule.add_src_file('etk/os/Semaphore.Windows.cpp')
 	else:
-		myModule.AddSrcFile('etk/os/Mutex.Generic.cpp')
-		myModule.AddSrcFile('etk/os/Semaphore.Generic.cpp')
+		myModule.add_src_file('etk/os/Mutex.Generic.cpp')
+		myModule.add_src_file('etk/os/Semaphore.Generic.cpp')
 	
 	# name of the dependency
-	myModule.AddModuleDepend('linearmath')
-	myModule.AddModuleDepend('minizip')
+	myModule.add_module_depend('linearmath')
+	myModule.add_module_depend('minizip')
 	
 	if target.buildMode == "release":
 		# TODO : The other way is to remove this ...
 		# TODO : Fore release mode : the etk folder are absolutly not at the same position in the tree ...
-		myModule.CompileFlags_CC("-DMODE_RELEASE")
+		myModule.compile_flags_CC("-DMODE_RELEASE")
 	else:
-		myModule.AddExportFlag_CC("-DDEBUG_LEVEL=3")
-		myModule.AddExportFlag_CC("-DDEBUG=1")
+		myModule.add_export_flag_CC("-DDEBUG_LEVEL=3")
+		myModule.add_export_flag_CC("-DDEBUG=1")
 		# Bor backtrace display :
 		if target.name!="Windows":
-			myModule.AddExportflag_LD("-ldl -rdynamic")
+			myModule.add_export_flag_LD("-ldl -rdynamic")
 	
 	if target.name=="Windows":
 		None
 	elif target.name=="Android":
 		None
 	else:
-		myModule.AddExportflag_LD("-lpthread")
+		myModule.add_export_flag_LD("-lpthread")
 	
-	myModule.AddExportPath(lutinTools.GetCurrentPath(__file__))
+	myModule.add_export_path(tools.get_current_path(__file__))
 	
 	# add the currrent module at the 
 	return myModule

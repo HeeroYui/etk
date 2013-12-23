@@ -2,6 +2,10 @@
 import monkModule as module
 import monkTools as tools
 
+def get_desc():
+	return "e-tk : Ewol tool kit"
+
+
 def create():
 	# module name is 'edn' and type binary.
 	myModule = module.Module(__file__, 'etk', 'LIBRARY')
@@ -11,5 +15,3 @@ def create():
 	# add the currrent module at the 
 	return myModule
 
-def get_desc():
-	return ""

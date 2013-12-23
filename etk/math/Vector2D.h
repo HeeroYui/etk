@@ -15,14 +15,12 @@
 #include <etk/UString.h>
 #include <math.h>
 
-namespace etk
-{
-	template <typename T> class Vector2D
-	{
+namespace etk {
+	template <typename T> class Vector2D {
 		public:
 			T m_floats[2];
 		public:
-			/*****************************************************
+			/* ****************************************************
 			 *    Constructor
 			 *****************************************************/
 			Vector2D(void) {
@@ -43,7 +41,7 @@ namespace etk
 			Vector2D(const std::string& str);
 			Vector2D(const std::u32string& str);
 			~Vector2D(void) { };
-			/*****************************************************
+			/* ****************************************************
 			 *    = assigment
 			 *****************************************************/
 			const Vector2D<T>& operator= (const Vector2D<T>& obj ) {
@@ -56,21 +54,21 @@ namespace etk
 				m_floats[1] = val;
 				return *this;
 			}
-			/*****************************************************
+			/* ****************************************************
 			 *    == operator
 			 *****************************************************/
 			bool  operator== (const Vector2D<T>& obj) const {
 				return (    (T)obj.m_floats[0] == m_floats[0]
 				         && (T)obj.m_floats[1] == m_floats[1]);
 			}
-			/*****************************************************
+			/* ****************************************************
 			 *    != operator
 			 *****************************************************/
 			bool  operator!= (const Vector2D<T>& obj) const {
 				return (    (T)obj.m_floats[0] != m_floats[0]
 				         || (T)obj.m_floats[1] != m_floats[1]);
 			}
-			/*****************************************************
+			/* ****************************************************
 			 *    += operator
 			 *****************************************************/
 			const Vector2D<T>& operator+= (const Vector2D<T>& obj) {
@@ -83,7 +81,7 @@ namespace etk
 				m_floats[1] += val;
 				return *this;
 			}
-			/*****************************************************
+			/* ****************************************************
 			 *    + operator
 			 *****************************************************/
 			Vector2D<T> operator+ (const Vector2D<T>& obj) const {
@@ -98,7 +96,7 @@ namespace etk
 				tmpp.m_floats[1] += val;
 				return tmpp;
 			}
-			/*****************************************************
+			/* ****************************************************
 			 *    -= operator
 			 *****************************************************/
 			const Vector2D<T>& operator-= (const Vector2D<T>& obj) {
@@ -111,7 +109,7 @@ namespace etk
 				m_floats[1] -= val;
 				return *this;
 			}
-			/*****************************************************
+			/* ****************************************************
 			 *    - operator
 			 *****************************************************/
 			Vector2D<T> operator- (const Vector2D<T>& obj) const {
@@ -126,7 +124,7 @@ namespace etk
 				tmpp.m_floats[1] -= val;
 				return tmpp;
 			}
-			/*****************************************************
+			/* ****************************************************
 			 *    *= operator
 			 *****************************************************/
 			const Vector2D<T>& operator*= (const Vector2D<T>& obj) {
@@ -139,7 +137,7 @@ namespace etk
 				m_floats[1] *= val;
 				return *this;
 			}
-			/*****************************************************
+			/* ****************************************************
 			 *    * operator
 			 *****************************************************/
 			Vector2D<T> operator* (const Vector2D<T>& obj) const {
@@ -154,7 +152,7 @@ namespace etk
 				tmpp.m_floats[1] *= val;
 				return tmpp;
 			}
-			/*****************************************************
+			/* ****************************************************
 			 *    / operator
 			 *****************************************************/
 			Vector2D<T> operator/ (const Vector2D<T>& obj) const{
@@ -169,10 +167,10 @@ namespace etk
 				tmpp.m_floats[1] /= val;
 				return tmpp;
 			}
-			/*****************************************************
+			/* ****************************************************
 			 *    ++ operator
 			 *****************************************************/
-			Vector2D<T>& operator++() {
+			Vector2D<T>& operator++(void) {
 				++m_floats[0];
 				++m_floats[1];
 				return *this;
@@ -182,10 +180,10 @@ namespace etk
 				++(*this);
 				return result;
 			}
-			/*****************************************************
+			/* ****************************************************
 			 *    -- operator
 			 *****************************************************/
-			Vector2D<T>& operator--() {
+			Vector2D<T>& operator--(void) {
 				--m_floats[0];
 				--m_floats[1];
 				return *this;
@@ -272,13 +270,13 @@ namespace etk
 			/**
 			 * @brief Return the x value
 			 */
-			const T& getX() const {
+			const T& getX(void) const {
 				return m_floats[0];
 			}
 			/**
 			 * @brief Return the y value
 			 */
-			const T& getY() const {
+			const T& getY(void) const {
 				return m_floats[1];
 			}
 			/**
@@ -296,19 +294,19 @@ namespace etk
 			/**
 			 * @brief Return the x value
 			 */
-			const T& x() const {
+			const T& x(void) const {
 				return m_floats[0];
 			}
 			/**
 			 * @brief Return the y value
 			 */
-			const T& y() const {
+			const T& y(void) const {
 				return m_floats[1];
 			}
-			operator T *() {
+			operator T *(void) {
 				return &m_floats[0];
 			}
-			operator const T *() const {
+			operator const T *(void) const {
 				return &m_floats[0];
 			}
 			/**
@@ -348,8 +346,6 @@ namespace etk
 	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<float>& obj);
 	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<uint32_t>& obj);
 	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<bool>& obj);
-	
-	
 };
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
 typedef etk::Vector2D<float>      vec2;

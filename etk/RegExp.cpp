@@ -11,7 +11,7 @@
 
 
 
-const etk::convertionTable_ts etk::constConvertionTable[] = {
+const struct etk::convertionTable etk::constConvertionTable[] = {
 	// haveBackSlash, inputValue, newValue
 	{ false			, '('  , 0   , REGEXP_OPCODE_PTHESE_IN},
 	{ true			, '('  , '(' , REGEXP_OPCODE_ERROR},
@@ -62,13 +62,12 @@ const etk::convertionTable_ts etk::constConvertionTable[] = {
 	{ true			, '0'  , '\0', REGEXP_OPCODE_ERROR},
 	{ true			, '@'  , 0   , REGEXP_OPCODE_NO_CHAR},
 };
-const int64_t etk::constConvertionTableSize = sizeof(etk::constConvertionTable) / sizeof(etk::convertionTable_ts) ;
+const int64_t etk::constConvertionTableSize = sizeof(etk::constConvertionTable) / sizeof(struct etk::convertionTable) ;
 
 void etk::displayElem(const std::vector<char32_t>& _data, int64_t _start, int64_t _stop) {
 	etk::cout<< ETK_BASH_COLOR_NORMAL;
 	for (int64_t iii=_start; iii<(int64_t)_data.size() && iii<_stop ; iii++) {
-		switch(_data[iii])
-		{
+		switch(_data[iii]) {
 			case REGEXP_OPCODE_PTHESE_IN:		etk::cout<<ETK_BASH_COLOR_RED		<< (char*)"(" << ETK_BASH_COLOR_NORMAL;		break;
 			case REGEXP_OPCODE_PTHESE_OUT:		etk::cout<<ETK_BASH_COLOR_RED		<< (char*)")" << ETK_BASH_COLOR_NORMAL;		break;
 			case REGEXP_OPCODE_BRACKET_IN:		etk::cout<<ETK_BASH_COLOR_YELLOW	<< (char*)"[" << ETK_BASH_COLOR_NORMAL;		break;
@@ -100,8 +99,7 @@ void etk::displayElem(const std::vector<char32_t>& _data, int64_t _start, int64_
 }
 
 char * etk::levelSpace(uint32_t _level) {
-	switch(_level)
-	{
+	switch(_level) {
 		case 0:		return (char*)"";
 		case 1:		return (char*)"  ";
 		case 2:		return (char*)"    ";
