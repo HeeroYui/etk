@@ -6,6 +6,8 @@
  * @license BSD v3 (see license file)
  */
 
+#include <etk/types.h>
+
 #ifndef __ETK_MESSAGE_FIFO_H__
 #define __ETK_MESSAGE_FIFO_H__
 
@@ -33,6 +35,7 @@ namespace etk {
 			};
 			/**
 			 * @brief Remove the fifo and all message inside.
+			 */
 			~Fifo(void) {
 				// nothing to do ...
 			};
@@ -94,6 +97,7 @@ namespace etk {
 			/**
 			 * @brief Get the number of message in the fifo.
 			 * @return Number of message in the fifo.
+			 */
 			int32_t count(void) {
 				m_mutex.lock();
 				int32_t nbElement = m_data.size();

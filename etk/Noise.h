@@ -6,10 +6,11 @@
  * @license BSD v3 (see license file)
  */
 
+#include <etk/types.h>
+
 #ifndef __ETK_NOISE_H__
 #define __ETK_NOISE_H__
 
-#include <etk/types.h>
 #include <etk/math/Vector2D.h>
 
 namespace etk {

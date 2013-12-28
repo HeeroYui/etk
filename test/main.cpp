@@ -6,6 +6,7 @@
  * @license BSD v3 (see license file)
  */
 
+#include <etk/types.h>
 #include <etk/debug.h>
 #include <vector>
 #include <string>

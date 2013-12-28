@@ -6,10 +6,10 @@
  * @license BSD v3 (see license file)
  */
 
+#include <etk/types.h>
+
 #ifndef __ETK_HACH_H__
 #define __ETK_HACH_H__
-
-#include <etk/types.h>
 
 #undef __class__
 #define __class__ "etk::Hash"

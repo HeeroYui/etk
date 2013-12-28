@@ -6,10 +6,11 @@
  * @license BSD v3 (see license file)
  */
 
+#include <etk/types.h>
+
 #ifndef __ETK_MATH_VECTOR4D_H__
 #define __ETK_MATH_VECTOR4D_H__
 
-#include <etk/types.h>
 #include <etk/debug.h>
 #include <math.h>
 #include <etk/Stream.h>

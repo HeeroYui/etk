@@ -6,15 +6,13 @@
  * @license BSD v3 (see license file)
  */
 
+#include <etk/types.h>
+
 #ifndef __ETK_FILE_SYSTEM_NODE_RIGHT_H__
 #define __ETK_FILE_SYSTEM_NODE_RIGHT_H__
 
-#include <etk/types.h>
-
-namespace etk
-{
-	class FSNodeRight
-	{
+namespace etk {
+	class FSNodeRight {
 		private:
 			uint16_t m_rights;
 		public:

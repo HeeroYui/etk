@@ -6,10 +6,10 @@
  * @license BSD v3 (see license file)
  */
 
+#include <etk/types.h>
+
 #ifndef __ETK_COLOR_H__
 #define __ETK_COLOR_H__
-
-#include <etk/types.h>
 
 namespace etk {
 	/**

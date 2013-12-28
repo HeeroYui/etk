@@ -6,6 +6,8 @@
  * @license BSD v3 (see license file)
  */
 
+#include <etk/types.h>
+
 #ifndef __ETK_TYPES_PLANE_H__
 #define __ETK_TYPES_PLANE_H__
 

@@ -6,10 +6,11 @@
  * @license BSD v3 (see license file)
  */
 
+#include <etk/types.h>
+
 #ifndef __TK_REG_EXP_H__
 #define __TK_REG_EXP_H__
 
-#include <etk/types.h>
 #include <etk/debug.h>
 #include <etk/stdTools.h>
 #include <vector>
@@ -1415,7 +1416,7 @@ template<class CLASS_TYPE> class RegExp {
 		 * @return the string representing the RegExp
 		 */
 		std::string getRegExp(void) const {
-			return to_u8string(m_expressionRequested);
+			return std::to_string(m_expressionRequested);
 		};
 		/**
 		 * @previous

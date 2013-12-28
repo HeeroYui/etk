@@ -6,20 +6,19 @@
  * @license BSD v3 (see license file)
  */
 
+#include <etk/types.h>
+
 #ifndef __ETK_TYPES_MATRIX4_H__
 #define __ETK_TYPES_MATRIX4_H__
 
-#include <etk/types.h>
 #include <math.h>
 #include <etk/math/Vector3D.h>
 
 #define DEG_TO_RAD(a)       ((a)*M_PI/180.0f)
 #define RAD_TO_DEG(a)       ((a)*180.0f/M_PI)
 
-namespace etk
-{
-	class Matrix4
-	{
+namespace etk {
+	class Matrix4 {
 		public:
 			float m_mat[4*4];
 			void identity(void) {

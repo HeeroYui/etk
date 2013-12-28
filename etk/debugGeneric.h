@@ -6,10 +6,11 @@
  * @license BSD v3 (see license file)
  */
 
+#include <etk/types.h>
+
 #ifndef __ETK_DEBUG_GENERIC_H__
 #define __ETK_DEBUG_GENERIC_H__
 
-#include <etk/types.h>
 #include <etk/Stream.h>
 
 namespace debug {
