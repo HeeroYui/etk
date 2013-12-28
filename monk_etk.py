@@ -12,6 +12,7 @@ def create():
 	# enable doculentation :
 	myModule.set_website("http://heeroyui.github.io/etk/")
 	myModule.set_path(tools.get_current_path(__file__) + "/etk/")
+	myModule.set_path_general_doc(tools.get_current_path(__file__) + "/doc/")
 	# add the currrent module at the 
 	return myModule
 
