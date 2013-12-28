@@ -268,7 +268,7 @@ template<class CLASS_TYPE> class RegExpNodeValue : public etk::RegExpNode<CLASS_
 /**
  * @not-in-doc
  */
-template<class CLASS_TYPE> class RegExpNodeBracket : public RegExpNode<CLASS_TYPE> {
+template<class CLASS_TYPE> class RegExpNodeBracket : public etk::RegExpNode<CLASS_TYPE> {
 	protected :
 		// SubNodes :
 		std::vector<char32_t> m_data;
@@ -359,7 +359,7 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public RegExpNode<CLASS_TYP
 /**
  * @not-in-doc
  */
-template<class CLASS_TYPE> class RegExpNodeDigit : public RegExpNode<CLASS_TYPE> {
+template<class CLASS_TYPE> class RegExpNodeDigit : public etk::RegExpNode<CLASS_TYPE> {
 	public :
 		/**
 		 * @brief Constructor
@@ -411,7 +411,7 @@ template<class CLASS_TYPE> class RegExpNodeDigit : public RegExpNode<CLASS_TYPE>
 /**
  * @not-in-doc
  */
-template<class CLASS_TYPE> class RegExpNodeDigitNot : public RegExpNode<CLASS_TYPE> {
+template<class CLASS_TYPE> class RegExpNodeDigitNot : public etk::RegExpNode<CLASS_TYPE> {
 	public :
 		/**
 		 * @brief Constructor
@@ -456,7 +456,7 @@ template<class CLASS_TYPE> class RegExpNodeDigitNot : public RegExpNode<CLASS_TY
 /**
  * @not-in-doc
  */
-template<class CLASS_TYPE> class RegExpNodeLetter : public RegExpNode<CLASS_TYPE> {
+template<class CLASS_TYPE> class RegExpNodeLetter : public etk::RegExpNode<CLASS_TYPE> {
 	public:
 		/**
 		 * @brief Constructor
@@ -506,7 +506,7 @@ template<class CLASS_TYPE> class RegExpNodeLetter : public RegExpNode<CLASS_TYPE
 /**
  * @not-in-doc
  */
-template<class CLASS_TYPE> class RegExpNodeLetterNot : public RegExpNode<CLASS_TYPE> {
+template<class CLASS_TYPE> class RegExpNodeLetterNot : public etk::RegExpNode<CLASS_TYPE> {
 	public :
 		/**
 		 * @brief Constructor
@@ -556,7 +556,7 @@ template<class CLASS_TYPE> class RegExpNodeLetterNot : public RegExpNode<CLASS_T
 /**
  * @not-in-doc
  */
-template<class CLASS_TYPE> class RegExpNodeWhiteSpace : public RegExpNode<CLASS_TYPE> {
+template<class CLASS_TYPE> class RegExpNodeWhiteSpace : public etk::RegExpNode<CLASS_TYPE> {
 	public :
 		/**
 		 * @brief Constructor
@@ -608,7 +608,7 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpace : public RegExpNode<CLASS_
 /**
  * @not-in-doc
  */
-template<class CLASS_TYPE> class RegExpNodeWhiteSpaceNot : public RegExpNode<CLASS_TYPE> {
+template<class CLASS_TYPE> class RegExpNodeWhiteSpaceNot : public etk::RegExpNode<CLASS_TYPE> {
 	public :
 		/**
 		 * @brief Constructor
@@ -660,7 +660,7 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpaceNot : public RegExpNode<CLA
 /**
  * @not-in-doc
  */
-template<class CLASS_TYPE> class RegExpNodeWordChar : public RegExpNode<CLASS_TYPE> {
+template<class CLASS_TYPE> class RegExpNodeWordChar : public etk::RegExpNode<CLASS_TYPE> {
 	public :
 		/**
 		 * @brief Constructor
@@ -708,8 +708,10 @@ template<class CLASS_TYPE> class RegExpNodeWordChar : public RegExpNode<CLASS_TY
 };
 #undef __class__
 #define __class__	"etk::RegExpNodeWordCharNot"
-
-template<class CLASS_TYPE> class RegExpNodeWordCharNot : public RegExpNode<CLASS_TYPE> {
+/**
+ * @not-in-doc
+ */
+template<class CLASS_TYPE> class RegExpNodeWordCharNot : public etk::RegExpNode<CLASS_TYPE> {
 	public :
 		/**
 		 * @brief Constructor
@@ -761,7 +763,7 @@ template<class CLASS_TYPE> class RegExpNodeWordCharNot : public RegExpNode<CLASS
 /**
  * @not-in-doc
  */
-template<class CLASS_TYPE> class RegExpNodeDot : public RegExpNode<CLASS_TYPE> {
+template<class CLASS_TYPE> class RegExpNodeDot : public etk::RegExpNode<CLASS_TYPE> {
 	public :
 		/**
 		 * @brief Constructor
@@ -815,7 +817,7 @@ template<class CLASS_TYPE> class RegExpNodeDot : public RegExpNode<CLASS_TYPE> {
 /**
  * @not-in-doc
  */
-template<class CLASS_TYPE> class RegExpNodeSOL : public RegExpNode<CLASS_TYPE> {
+template<class CLASS_TYPE> class RegExpNodeSOL : public etk::RegExpNode<CLASS_TYPE> {
 	public :
 		/**
 		 * @brief Constructor
@@ -845,7 +847,7 @@ template<class CLASS_TYPE> class RegExpNodeSOL : public RegExpNode<CLASS_TYPE> {
 /**
  * @not-in-doc
  */
-template<class CLASS_TYPE> class RegExpNodeEOL : public RegExpNode<CLASS_TYPE> {
+template<class CLASS_TYPE> class RegExpNodeEOL : public etk::RegExpNode<CLASS_TYPE> {
 	public :
 		/**
 		 * @brief Constructor
@@ -883,7 +885,7 @@ template<class CLASS_TYPE> class RegExpNodePThese;
 /**
  * @not-in-doc
  */
-template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_TYPE> {
+template<class CLASS_TYPE> class RegExpNodePTheseElem : public etk::RegExpNode<CLASS_TYPE> {
 	protected :
 		// SubNodes :
 		std::vector<RegExpNode<CLASS_TYPE>*> m_subNode;
@@ -1085,7 +1087,7 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public RegExpNode<CLASS_
 /**
  * @not-in-doc
  */
-template<class CLASS_TYPE> class RegExpNodePThese : public RegExpNode<CLASS_TYPE> {
+template<class CLASS_TYPE> class RegExpNodePThese : public etk::RegExpNode<CLASS_TYPE> {
 	protected :
 		std::vector<RegExpNode<CLASS_TYPE>*> m_subNode; //!< Subnode list 
 	public :
@@ -1182,6 +1184,34 @@ template<class CLASS_TYPE> class RegExpNodePThese : public RegExpNode<CLASS_TYPE
 
 /**
  * @brief Regular expression interface template.
+ * 
+ * List of elment that can be displayed :
+ * 
+ * [pre]
+ *     (...)                 sub element is separate with |
+ *     \d                    Digits                         [0-9]
+ *     \D                    NOT a digit                    [^0-9]
+ *     \l                    Letters                        [a-zA-Z]
+ *     \L                    NOT a Letter                   [^a-zA-Z]
+ *     \s                    Whitespace                     [ \t\n\r\f\v]
+ *     \S                    NOT Whitespace                 [^ \t\n\r\f\v]
+ *     \w                    "Word" character               [a-zA-Z0-9_]
+ *     \W                    NOT a "Word" character         [^a-zA-Z0-9_]
+ *     \@                    at the start or the end        not in the parsing of element ==> check if \w is not present   (other regExp will be <> ...)
+ *     [anjdi] or [a-gt-j]   range
+ *     .                     dot                            [^\x00-\x08\x0A-\x1F\x7F]
+ * ==> TODO :
+ *     $                     End / Start of line of line    ==> ce sera un truc suplé comme le \@
+ *     ^in the []            invertion of the range element
+ * 
+ * multiplicity :
+ *     *     ==> {0, 2147483647}
+ *     ?     ==> {0, 1}
+ *     +     ==> {1, 2147483647}
+ *     {x}   ==> {x, x}
+ *     {x,y} ==> {x, y}
+ * [/pre]
+ * 
  * @param[in] CLASS_TYPE Type of theclass that might be parsed. This class might have a interface : operator[] that return a char or a char32_t.
  * 
  * Regular is easy to use:

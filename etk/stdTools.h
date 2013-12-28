@@ -63,29 +63,50 @@ namespace std {
 		typedef std::basic_string<char32_t> u32string;
 	#endif
 	std::string to_string(const std::u32string& _obj);
+	//! @previous
 	std::string to_string(bool _val);
 	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+		//! @previous
 		std::string to_string(int _val);
+		//! @previous
 		std::string to_string(long _val);
+		//! @previous
 		std::string to_string(long long _val);
+		//! @previous
 		std::string to_string(unsigned _val);
+		//! @previous
 		std::string to_string(unsigned long _val);
+		//! @previous
 		std::string to_string(unsigned long long _val);
+		//! @previous
 		std::string to_string(float _val);
+		//! @previous
 		std::string to_string(double _val);
+		//! @previous
 		std::string to_string(long double _val);
 	#endif
 	std::u32string to_u32string(const char* _obj);
+	//! @previous
 	std::u32string to_u32string(const std::string& _obj);
+	//! @previous
 	std::u32string to_u32string(bool _val);
+	//! @previous
 	std::u32string to_u32string(int _val);
+	//! @previous
 	std::u32string to_u32string(long _val);
+	//! @previous
 	std::u32string to_u32string(long long _val);
+	//! @previous
 	std::u32string to_u32string(unsigned _val);
+	//! @previous
 	std::u32string to_u32string(unsigned long _val);
+	//! @previous
 	std::u32string to_u32string(unsigned long long _val);
+	//! @previous
 	std::u32string to_u32string(float _val);
+	//! @previous
 	std::u32string to_u32string(double _val);
+	//! @previous
 	std::u32string to_u32string(long double _val);
 	
 	template<class T> std::string to_string(T t, std::ios_base & (*f)(std::ios_base&)) {
@@ -101,52 +122,92 @@ namespace std {
 	
 	
 	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
-	double stod(const std::string& _str, size_t* _idx = 0);
-	float stof(const std::string& _str, size_t* _idx = 0);
-	int stoi(const std::string& _str, size_t* _idx = 0, int _base = 10);
-	long stol(const std::string& _str, size_t* _idx = 0, int _base = 10);
-	long double stold(const std::string& _str, size_t* _idx = 0);
-	long long stoll(const std::string& _str, size_t* _idx = 0, int _base = 10);
-	unsigned long stoul(const std::string& _str, size_t* _idx = 0, int _base = 10);
-	unsigned long long stoull(const std::string& _str, size_t* _idx = 0, int _base = 10);
+		double stod(const std::string& _str, size_t* _idx = 0);
 	#endif
-	bool stob(const std::string& _str);
-	
+	//! @previous
 	double stod(const std::u32string& _str, size_t* _idx = 0);
+	
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+		float stof(const std::string& _str, size_t* _idx = 0);
+	#endif
+	//! @previous
 	float stof(const std::u32string& _str, size_t* _idx = 0);
+	
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+		int stoi(const std::string& _str, size_t* _idx = 0, int _base = 10);
+	#endif
+	//! @previous
 	int stoi(const std::u32string& _str, size_t* _idx = 0, int _base = 10);
+	
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+		long stol(const std::string& _str, size_t* _idx = 0, int _base = 10);
+	#endif
+	//! @previous
 	long stol(const std::u32string& _str, size_t* _idx = 0, int _base = 10);
+	
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+		long double stold(const std::string& _str, size_t* _idx = 0);
+	#endif
+	//! @previous
 	long double stold(const std::u32string& _str, size_t* _idx = 0);
+	
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+		long long stoll(const std::string& _str, size_t* _idx = 0, int _base = 10);
+	#endif
+	//! @previous
 	long long stoll(const std::u32string& _str, size_t* _idx = 0, int _base = 10);
+	
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+		unsigned long stoul(const std::string& _str, size_t* _idx = 0, int _base = 10);
+	#endif
+	//! @previous
 	unsigned long stoul(const std::u32string& _str, size_t* _idx = 0, int _base = 10);
+	
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+		unsigned long long stoull(const std::string& _str, size_t* _idx = 0, int _base = 10);
+	#endif
+	//! @previous
 	unsigned long long stoull(const std::u32string& _str, size_t* _idx = 0, int _base = 10);
+	
+	bool stob(const std::string& _str);
+	//! @previous
 	bool stob(const std::u32string& _str);
 	
 	
+	
 	std::string tolower(std::string _obj);
+	//! @previous
 	std::u32string tolower(std::u32string _obj);
 	std::string toupper(std::string _obj);
+	//! @previous
 	std::u32string toupper(std::u32string _obj);
 	
 	bool compare_no_case(const std::string& _obj, const std::string& _val);
+	//! @previous
 	bool compare_no_case(const std::u32string& _obj, const std::u32string& _val);
 	
 	bool end_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = true);
+	//! @previous
 	bool end_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = true);
 	
 	bool start_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = true);
+	//! @previous
 	bool start_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = true);
 	
 	std::string replace(const std::string& _obj, char _val, char _replace);
+	//! @previous
 	std::u32string replace(const std::u32string& _obj, char32_t _val, char32_t _replace);
 	
 	std::string extract_line(const std::string& _obj, int32_t _pos);
+	//! @previous
 	std::u32string extract_line(const std::u32string& _obj, int32_t _pos);
 	
 	std::vector<std::string> split(const std::string& _input, char _val);
+	//! @previous
 	std::vector<std::u32string> split(const std::u32string& _input, char32_t _val);
 	
 	void sort(std::vector<std::u32string *>& _list);
+	//! @previous
 	void sort(std::vector<std::string *>& _list);
 };
 namespace etk {

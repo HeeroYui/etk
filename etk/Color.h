@@ -112,7 +112,8 @@ namespace etk {
 			/**
 			 * @brief Different comparaison operator.
 			 * @param[in] _obj Color object to compare.
-			 * @return true This is not the same color, false otherwise.
+			 * @return true This is not the same color
+			 * @return false This is the same color.
 			 */
 			bool operator!= (const etk::Color<MY_TYPE>& _obj) const {
 				if(    m_r != _obj.m_r
@@ -123,7 +124,12 @@ namespace etk {
 				}
 				return false;
 			}
-			
+			/**
+			 * @brief Equality comparaison operator.
+			 * @param[in] _obj Color object to compare.
+			 * @return true This is the same color.
+			 * @return false The color are different.
+			 */
 			bool operator== (const etk::Color<MY_TYPE>& _obj) const {
 				if(    m_r != _obj.m_r
 				    || m_g != _obj.m_g
@@ -133,18 +139,39 @@ namespace etk {
 				}
 				return true;
 			}
+			/**
+			 * @breif Get the Generic uint32_t value of the color
+			 * @return Color in unsigned integer
+			 */
 			uint32_t get(void) const;
+			/**
+			 * @brief Set the specified color elements.
+			 * @param[in] _r Red color.
+			 * @param[in] _g Green color.
+			 * @param[in] _b Blue color.
+			 * @param[in] _a Alpha blending.
+			 */
 			void set(float _r, float _g, float _b, float _a=255);
+			//! @previous
 			void set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a=255);
+			//! @previous
 			void set(int _r, int _g, int _b, int _a=255) {
 				set((uint8_t)(etk_avg(0,_r,255)),
 				    (uint8_t)(etk_avg(0,_g,255)),
 				    (uint8_t)(etk_avg(0,_b,255)),
 				    (uint8_t)(etk_avg(0,_a,255)) );
 			}
+			/**
+			 * @brief Convert the color in an hexedecimal string ("0xFEDCBA98")
+			 * @return The formated string
+			 */
 			std::string getHexString(void) const {
 				return "0x" + std::to_string<uint32_t>(get(), std::hex);
 			};
+			/**
+			 * @brief Convert the color in an generic string value ("#FEDCBA98")
+			 * @return The formated string
+			 */
 			std::string getString(void) const {
 				return "#"  + std::to_string<uint32_t>(get(), std::hex);
 			};
@@ -205,158 +232,162 @@ namespace etk {
 				m_a=_a;
 			};
 	};
+	//! @not-in-doc
 	etk::CCout& operator <<(etk::CCout &_os, const Color<uint8_t>& _obj);
+	//! @not-in-doc
 	etk::CCout& operator <<(etk::CCout &_os, const Color<float>& _obj);
-	
+	/**
+	 * @brief List of all native define colors ...
+	 */
 	namespace color {
-		extern const Color<> none;
-		extern const Color<> aliceBlue;
-		extern const Color<> antiqueWhite;
-		extern const Color<> aqua;
-		extern const Color<> aquamarine;
-		extern const Color<> azure;
-		extern const Color<> beige;
-		extern const Color<> bisque;
-		extern const Color<> black;
-		extern const Color<> blanchedAlmond;
-		extern const Color<> blue;
-		extern const Color<> blueViolet;
-		extern const Color<> brown;
-		extern const Color<> burlyWood;
-		extern const Color<> cadetBlue;
-		extern const Color<> chartreuse;
-		extern const Color<> chocolate;
-		extern const Color<> coral;
-		extern const Color<> cornflowerBlue;
-		extern const Color<> cornsilk;
-		extern const Color<> crimson;
-		extern const Color<> cyan;
-		extern const Color<> darkBlue;
-		extern const Color<> darkCyan;
-		extern const Color<> darkGoldenRod;
-		extern const Color<> darkGray;
-		extern const Color<> darkGrey;
-		extern const Color<> darkGreen;
-		extern const Color<> darkKhaki;
-		extern const Color<> darkMagenta;
-		extern const Color<> darkOliveGreen;
-		extern const Color<> darkorange;
-		extern const Color<> darkOrchid;
-		extern const Color<> darkRed;
-		extern const Color<> darkSalmon;
-		extern const Color<> darkSeaGreen;
-		extern const Color<> darkSlateBlue;
-		extern const Color<> darkSlateGray;
-		extern const Color<> darkSlateGrey;
-		extern const Color<> darkTurquoise;
-		extern const Color<> darkViolet;
-		extern const Color<> deepPink;
-		extern const Color<> deepSkyBlue;
-		extern const Color<> dimGray;
-		extern const Color<> dimGrey;
-		extern const Color<> dodgerBlue;
-		extern const Color<> fireBrick;
-		extern const Color<> floralWhite;
-		extern const Color<> forestGreen;
-		extern const Color<> fuchsia;
-		extern const Color<> gainsboro;
-		extern const Color<> ghostWhite;
-		extern const Color<> gold;
-		extern const Color<> goldenRod;
-		extern const Color<> gray;
-		extern const Color<> grey;
-		extern const Color<> green;
-		extern const Color<> greenYellow;
-		extern const Color<> honeyDew;
-		extern const Color<> hotPink;
-		extern const Color<> indianRed;
-		extern const Color<> indigo;
-		extern const Color<> ivory;
-		extern const Color<> khaki;
-		extern const Color<> lavender;
-		extern const Color<> lavenderBlush;
-		extern const Color<> lawnGreen;
-		extern const Color<> lemonChiffon;
-		extern const Color<> lightBlue;
-		extern const Color<> lightCoral;
-		extern const Color<> lightCyan;
-		extern const Color<> lightGoldenRodYellow;
-		extern const Color<> lightGray;
-		extern const Color<> lightGrey;
-		extern const Color<> lightGreen;
-		extern const Color<> lightPink;
-		extern const Color<> lightSalmon;
-		extern const Color<> lightSeaGreen;
-		extern const Color<> lightSkyBlue;
-		extern const Color<> lightSlateGray;
-		extern const Color<> lightSlateGrey;
-		extern const Color<> lightSteelBlue;
-		extern const Color<> lightYellow;
-		extern const Color<> lime;
-		extern const Color<> limeGreen;
-		extern const Color<> linen;
-		extern const Color<> magenta;
-		extern const Color<> maroon;
-		extern const Color<> mediumAquaMarine;
-		extern const Color<> mediumBlue;
-		extern const Color<> mediumOrchid;
-		extern const Color<> mediumPurple;
-		extern const Color<> mediumSeaGreen;
-		extern const Color<> mediumSlateBlue;
-		extern const Color<> mediumSpringGreen;
-		extern const Color<> mediumTurquoise;
-		extern const Color<> mediumVioletRed;
-		extern const Color<> midnightBlue;
-		extern const Color<> mintCream;
-		extern const Color<> mistyRose;
-		extern const Color<> moccasin;
-		extern const Color<> navajoWhite;
-		extern const Color<> navy;
-		extern const Color<> oldLace;
-		extern const Color<> olive;
-		extern const Color<> oliveDrab;
-		extern const Color<> orange;
-		extern const Color<> orangeRed;
-		extern const Color<> orchid;
-		extern const Color<> paleGoldenRod;
-		extern const Color<> paleGreen;
-		extern const Color<> paleTurquoise;
-		extern const Color<> paleVioletRed;
-		extern const Color<> papayaWhip;
-		extern const Color<> peachPuff;
-		extern const Color<> peru;
-		extern const Color<> pink;
-		extern const Color<> plum;
-		extern const Color<> powderBlue;
-		extern const Color<> purple;
-		extern const Color<> red;
-		extern const Color<> rosyBrown;
-		extern const Color<> royalBlue;
-		extern const Color<> saddleBrown;
-		extern const Color<> salmon;
-		extern const Color<> sandyBrown;
-		extern const Color<> seaGreen;
-		extern const Color<> seaShell;
-		extern const Color<> sienna;
-		extern const Color<> silver;
-		extern const Color<> skyBlue;
-		extern const Color<> slateBlue;
-		extern const Color<> slateGray;
-		extern const Color<> slateGrey;
-		extern const Color<> snow;
-		extern const Color<> springGreen;
-		extern const Color<> steelBlue;
-		extern const Color<> tan;
-		extern const Color<> teal;
-		extern const Color<> thistle;
-		extern const Color<> tomato;
-		extern const Color<> turquoise;
-		extern const Color<> violet;
-		extern const Color<> wheat;
-		extern const Color<> white;
-		extern const Color<> whiteSmoke;
-		extern const Color<> yellow;
-		extern const Color<> yellowGreen;
+		extern const Color<> none;            //!< No color (alpha = 0)
+		extern const Color<> aliceBlue;       //!< ++ [color=aliceBlue] aliceBlue color [/color] ++
+		extern const Color<> antiqueWhite;    //!< ++ [color=antiqueWhite] antiqueWhite color [/color] ++
+		extern const Color<> aqua;            //!< ++ [color=aqua] aqua color [/color] ++
+		extern const Color<> aquamarine;      //!< ++ [color=aquamarine] aquamarine color [/color] ++
+		extern const Color<> azure;           //!< ++ [color=azure] azure color [/color] ++
+		extern const Color<> beige;           //!< ++ [color=beige] beige color [/color] ++
+		extern const Color<> bisque;          //!< ++ [color=bisque] bisque color [/color] ++
+		extern const Color<> black;           //!< ++ [color=black] black color [/color] ++
+		extern const Color<> blanchedAlmond;  //!< ++ [color=blanchedAlmond] blanchedAlmond color [/color] ++
+		extern const Color<> blue;            //!< ++ [color=blue] blue color [/color] ++
+		extern const Color<> blueViolet;      //!< ++ [color=blueViolet] blueViolet color [/color] ++
+		extern const Color<> brown;           //!< ++ [color=brown] brown color [/color] ++
+		extern const Color<> burlyWood;       //!< ++ [color=burlyWood] burlyWood color [/color] ++
+		extern const Color<> cadetBlue;       //!< ++ [color=cadetBlue] cadetBlue color [/color] ++
+		extern const Color<> chartreuse;      //!< ++ [color=chartreuse] chartreuse color [/color] ++
+		extern const Color<> chocolate;       //!< ++ [color=chocolate] chocolate color [/color] ++
+		extern const Color<> coral;           //!< ++ [color=coral] coral color [/color] ++
+		extern const Color<> cornflowerBlue;  //!< ++ [color=cornflowerBlue] cornflowerBlue color [/color] ++
+		extern const Color<> cornsilk;        //!< ++ [color=cornsilk] cornsilk color [/color] ++
+		extern const Color<> crimson;         //!< ++ [color=crimson] crimson color [/color] ++
+		extern const Color<> cyan;            //!< ++ [color=cyan] cyan color [/color] ++
+		extern const Color<> darkBlue;        //!< ++ [color=darkBlue] darkBlue color [/color] ++
+		extern const Color<> darkCyan;        //!< ++ [color=darkCyan] darkCyan color [/color] ++
+		extern const Color<> darkGoldenRod;   //!< ++ [color=darkGoldenRod] darkGoldenRod color [/color] ++
+		extern const Color<> darkGray;        //!< ++ [color=darkGray] darkGray color [/color] ++
+		extern const Color<> darkGrey;        //!< ++ [color=darkGrey] darkGrey color [/color] ++
+		extern const Color<> darkGreen;       //!< ++ [color=darkGreen] darkGreen color [/color] ++
+		extern const Color<> darkKhaki;       //!< ++ [color=darkKhaki] darkKhaki color [/color] ++
+		extern const Color<> darkMagenta;     //!< ++ [color=darkMagenta] darkMagenta color [/color] ++
+		extern const Color<> darkOliveGreen;  //!< ++ [color=darkOliveGreen] darkOliveGreen color [/color] ++
+		extern const Color<> darkorange;      //!< ++ [color=darkorange] darkorange color [/color] ++
+		extern const Color<> darkOrchid;      //!< ++ [color=darkOrchid] darkOrchid color [/color] ++
+		extern const Color<> darkRed;         //!< ++ [color=darkRed] darkRed color [/color] ++
+		extern const Color<> darkSalmon;      //!< ++ [color=darkSalmon] darkSalmon color [/color] ++
+		extern const Color<> darkSeaGreen;    //!< ++ [color=darkSeaGreen] darkSeaGreen color [/color] ++
+		extern const Color<> darkSlateBlue;   //!< ++ [color=darkSlateBlue] darkSlateBlue color [/color] ++
+		extern const Color<> darkSlateGray;   //!< ++ [color=darkSlateGray] darkSlateGray color [/color] ++
+		extern const Color<> darkSlateGrey;   //!< ++ [color=darkSlateGrey] darkSlateGrey color [/color] ++
+		extern const Color<> darkTurquoise;   //!< ++ [color=darkTurquoise] darkTurquoise color [/color] ++
+		extern const Color<> darkViolet;      //!< ++ [color=darkViolet] darkViolet color [/color] ++
+		extern const Color<> deepPink;        //!< ++ [color=deepPink] deepPink color [/color] ++
+		extern const Color<> deepSkyBlue;     //!< ++ [color=deepSkyBlue] deepSkyBlue color [/color] ++
+		extern const Color<> dimGray;         //!< ++ [color=dimGray] dimGray color [/color] ++
+		extern const Color<> dimGrey;         //!< ++ [color=dimGrey] dimGrey color [/color] ++
+		extern const Color<> dodgerBlue;      //!< ++ [color=dodgerBlue] dodgerBlue color [/color] ++
+		extern const Color<> fireBrick;       //!< ++ [color=fireBrick] fireBrick color [/color] ++
+		extern const Color<> floralWhite;     //!< ++ [color=floralWhite] floralWhite color [/color] ++
+		extern const Color<> forestGreen;     //!< ++ [color=forestGreen] forestGreen color [/color] ++
+		extern const Color<> fuchsia;         //!< ++ [color=fuchsia] fuchsia color [/color] ++
+		extern const Color<> gainsboro;       //!< ++ [color=gainsboro] gainsboro color [/color] ++
+		extern const Color<> ghostWhite;      //!< ++ [color=ghostWhite] ghostWhite color [/color] ++
+		extern const Color<> gold;            //!< ++ [color=gold] gold color [/color] ++
+		extern const Color<> goldenRod;       //!< ++ [color=goldenRod] goldenRod color [/color] ++
+		extern const Color<> gray;            //!< ++ [color=gray] gray color [/color] ++
+		extern const Color<> grey;            //!< ++ [color=grey] grey color [/color] ++
+		extern const Color<> green;           //!< ++ [color=green] green color [/color] ++
+		extern const Color<> greenYellow;     //!< ++ [color=greenYellow] greenYellow color [/color] ++
+		extern const Color<> honeyDew;        //!< ++ [color=honeyDew] honeyDew color [/color] ++
+		extern const Color<> hotPink;         //!< ++ [color=hotPink] hotPink color [/color] ++
+		extern const Color<> indianRed;       //!< ++ [color=indianRed] indianRed color [/color] ++
+		extern const Color<> indigo;          //!< ++ [color=indigo] indigo color [/color] ++
+		extern const Color<> ivory;           //!< ++ [color=ivory] ivory color [/color] ++
+		extern const Color<> khaki;           //!< ++ [color=khaki] khaki color [/color] ++
+		extern const Color<> lavender;        //!< ++ [color=lavender] lavender color [/color] ++
+		extern const Color<> lavenderBlush;   //!< ++ [color=lavenderBlush] lavenderBlush color [/color] ++
+		extern const Color<> lawnGreen;       //!< ++ [color=lawnGreen] lawnGreen color [/color] ++
+		extern const Color<> lemonChiffon;    //!< ++ [color=lemonChiffon] lemonChiffon color [/color] ++
+		extern const Color<> lightBlue;       //!< ++ [color=lightBlue] lightBlue color [/color] ++
+		extern const Color<> lightCoral;      //!< ++ [color=lightCoral] lightCoral color [/color] ++
+		extern const Color<> lightCyan;       //!< ++ [color=lightCyan] lightCyan color [/color] ++
+		extern const Color<> lightGoldenRodYellow; //!< ++ [color=lightGoldenRodYellow] lightGoldenRodYellow color [/color] ++
+		extern const Color<> lightGray;       //!< ++ [color=lightGray] lightGray color [/color] ++
+		extern const Color<> lightGrey;       //!< ++ [color=lightGrey] lightGrey color [/color] ++
+		extern const Color<> lightGreen;      //!< ++ [color=lightGreen] lightGreen color [/color] ++
+		extern const Color<> lightPink;       //!< ++ [color=lightPink] lightPink color [/color] ++
+		extern const Color<> lightSalmon;     //!< ++ [color=lightSalmon] lightSalmon color [/color] ++
+		extern const Color<> lightSeaGreen;   //!< ++ [color=lightSeaGreen] lightSeaGreen color [/color] ++
+		extern const Color<> lightSkyBlue;    //!< ++ [color=lightSkyBlue] lightSkyBlue color [/color] ++
+		extern const Color<> lightSlateGray;  //!< ++ [color=lightSlateGray] lightSlateGray color [/color] ++
+		extern const Color<> lightSlateGrey;  //!< ++ [color=lightSlateGrey] lightSlateGrey color [/color] ++
+		extern const Color<> lightSteelBlue;  //!< ++ [color=lightSteelBlue] lightSteelBlue color [/color] ++
+		extern const Color<> lightYellow;     //!< ++ [color=lightYellow] lightYellow color [/color] ++
+		extern const Color<> lime;            //!< ++ [color=lime] lime color [/color] ++
+		extern const Color<> limeGreen;       //!< ++ [color=limeGreen] limeGreen color [/color] ++
+		extern const Color<> linen;           //!< ++ [color=linen] linen color [/color] ++
+		extern const Color<> magenta;         //!< ++ [color=magenta] magenta color [/color] ++
+		extern const Color<> maroon;          //!< ++ [color=maroon] maroon color [/color] ++
+		extern const Color<> mediumAquaMarine; //!< ++ [color=mediumAquaMarine] mediumAquaMarine color [/color] ++
+		extern const Color<> mediumBlue;      //!< ++ [color=mediumBlue] mediumBlue color [/color] ++
+		extern const Color<> mediumOrchid;    //!< ++ [color=mediumOrchid] mediumOrchid color [/color] ++
+		extern const Color<> mediumPurple;    //!< ++ [color=mediumPurple] mediumPurple color [/color] ++
+		extern const Color<> mediumSeaGreen;  //!< ++ [color=mediumSeaGreen] mediumSeaGreen color [/color] ++
+		extern const Color<> mediumSlateBlue; //!< ++ [color=mediumSlateBlue] mediumSlateBlue color [/color] ++
+		extern const Color<> mediumSpringGreen; //!< ++ [color=mediumSpringGreen] mediumSpringGreen color [/color] ++
+		extern const Color<> mediumTurquoise; //!< ++ [color=mediumTurquoise] mediumTurquoise color [/color] ++
+		extern const Color<> mediumVioletRed; //!< ++ [color=mediumVioletRed] mediumVioletRed color [/color] ++
+		extern const Color<> midnightBlue;    //!< ++ [color=midnightBlue] midnightBlue color [/color] ++
+		extern const Color<> mintCream;       //!< ++ [color=mintCream] mintCream color [/color] ++
+		extern const Color<> mistyRose;       //!< ++ [color=mistyRose] mistyRose color [/color] ++
+		extern const Color<> moccasin;        //!< ++ [color=moccasin] moccasin color [/color] ++
+		extern const Color<> navajoWhite;     //!< ++ [color=navajoWhite] navajoWhite color [/color] ++
+		extern const Color<> navy;            //!< ++ [color=navy] navy color [/color] ++
+		extern const Color<> oldLace;         //!< ++ [color=oldLace] oldLace color [/color] ++
+		extern const Color<> olive;           //!< ++ [color=olive] olive color [/color] ++
+		extern const Color<> oliveDrab;       //!< ++ [color=oliveDrab] oliveDrab color [/color] ++
+		extern const Color<> orange;          //!< ++ [color=orange] orange color [/color] ++
+		extern const Color<> orangeRed;       //!< ++ [color=orangeRed] orangeRed color [/color] ++
+		extern const Color<> orchid;          //!< ++ [color=orchid] orchid color [/color] ++
+		extern const Color<> paleGoldenRod;   //!< ++ [color=paleGoldenRod] paleGoldenRod color [/color] ++
+		extern const Color<> paleGreen;       //!< ++ [color=paleGreen] paleGreen color [/color] ++
+		extern const Color<> paleTurquoise;   //!< ++ [color=paleTurquoise] paleTurquoise color [/color] ++
+		extern const Color<> paleVioletRed;   //!< ++ [color=paleVioletRed] paleVioletRed color [/color] ++
+		extern const Color<> papayaWhip;      //!< ++ [color=papayaWhip] papayaWhip color [/color] ++
+		extern const Color<> peachPuff;       //!< ++ [color=peachPuff] peachPuff color [/color] ++
+		extern const Color<> peru;            //!< ++ [color=peru] peru color [/color] ++
+		extern const Color<> pink;            //!< ++ [color=pink] pink color [/color] ++
+		extern const Color<> plum;            //!< ++ [color=plum] plum color [/color] ++
+		extern const Color<> powderBlue;      //!< ++ [color=powderBlue] powderBlue color [/color] ++
+		extern const Color<> purple;          //!< ++ [color=purple] purple color [/color] ++
+		extern const Color<> red;             //!< ++ [color=red] red color [/color] ++
+		extern const Color<> rosyBrown;       //!< ++ [color=rosyBrown] rosyBrown color [/color] ++
+		extern const Color<> royalBlue;       //!< ++ [color=royalBlue] royalBlue color [/color] ++
+		extern const Color<> saddleBrown;     //!< ++ [color=saddleBrown] saddleBrown color [/color] ++
+		extern const Color<> salmon;          //!< ++ [color=salmon] salmon color [/color] ++
+		extern const Color<> sandyBrown;      //!< ++ [color=sandyBrown] sandyBrown color [/color] ++
+		extern const Color<> seaGreen;        //!< ++ [color=seaGreen] seaGreen color [/color] ++
+		extern const Color<> seaShell;        //!< ++ [color=seaShell] seaShell color [/color] ++
+		extern const Color<> sienna;          //!< ++ [color=sienna] sienna color [/color] ++
+		extern const Color<> silver;          //!< ++ [color=silver] silver color [/color] ++
+		extern const Color<> skyBlue;         //!< ++ [color=skyBlue] skyBlue color [/color] ++
+		extern const Color<> slateBlue;       //!< ++ [color=slateBlue] slateBlue color [/color] ++
+		extern const Color<> slateGray;       //!< ++ [color=slateGray] slateGray color [/color] ++
+		extern const Color<> slateGrey;       //!< ++ [color=slateGrey] slateGrey color [/color] ++
+		extern const Color<> snow;            //!< ++ [color=snow] snow color [/color] ++
+		extern const Color<> springGreen;     //!< ++ [color=springGreen] springGreen color [/color] ++
+		extern const Color<> steelBlue;       //!< ++ [color=steelBlue] steelBlue color [/color] ++
+		extern const Color<> tan;             //!< ++ [color=tan] tan color [/color] ++
+		extern const Color<> teal;            //!< ++ [color=teal] teal color [/color] ++
+		extern const Color<> thistle;         //!< ++ [color=thistle] thistle color [/color] ++
+		extern const Color<> tomato;          //!< ++ [color=tomato] tomato color [/color] ++
+		extern const Color<> turquoise;       //!< ++ [color=turquoise] turquoise color [/color] ++
+		extern const Color<> violet;          //!< ++ [color=violet] violet color [/color] ++
+		extern const Color<> wheat;           //!< ++ [color=wheat] wheat color [/color] ++
+		extern const Color<> white;           //!< ++ [color=white] white color [/color] ++
+		extern const Color<> whiteSmoke;      //!< ++ [color=whiteSmoke] whiteSmoke color [/color] ++
+		extern const Color<> yellow;          //!< ++ [color=yellow] yellow color [/color] ++
+		extern const Color<> yellowGreen;     //!< ++ [color=yellowGreen] yellowGreen color [/color] ++
 	};
 };
 
