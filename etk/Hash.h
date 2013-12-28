@@ -10,39 +10,79 @@
 #define __ETK_HACH_H__
 
 #include <etk/types.h>
-#include <etk/debug.h>
-#include <vector>
-#include <etk/UString.h>
 
 #undef __class__
 #define __class__ "etk::Hash"
 
 
 namespace etk {
+	/**
+	 * @brief internel data of the [class[etk::hash]] class, it contain
+	 * the name and the value of the hash vector.
+	 * @not-in-doc
+	 */
 	template<class MY_TYPE> class HashData {
 		public:
 			std::string m_key; //!< name of the current hash
 			MY_TYPE m_value; //!< data of the current Hash
+			/**
+			 * @brief Constructor of the data for hash table.
+			 * @param[in] _key name of the hash table.
+			 * @param[in] _val Value of the hash element.
+			 */
 			HashData(const std::string& _key, const MY_TYPE& _val) :
 			  m_key(_key),
 			  m_value(_val) {
 				// nothing to do ...
 			}
 	};
-	
+	/**
+	 * @brief Hash table tamplate is a simple classical hash interface.
+	 * A hash table is a equivalent of the dictionary in python, this is a
+	 * simple interfaace between a name and a value:
+	 * :** "name" : 19
+	 * :** "name 2" : 99
+	 * 
+	 * [note]The name is unique and the value is what you want.[/note]
+	 * 
+	 * A simple example of use:
+	 * [code style=c++]
+	 * // Create a integer hash table
+	 * Hash<int> myValue;
+	 * // add some element (note add and set is the same function)
+	 * myValue.add("example", 98837);
+	 * myValue.add("plop", 88);
+	 * // Display an element:
+	 * printf("my value is : %d", myValue["example"]);
+	 * // Change value of an element:
+	 * myValue.set("example", 99);
+	 * // Remove an element:
+	 * myValue.remove("plop");
+	 * //Clean all the table:
+	 * myValue.clear();
+	 * [/code]
+	 */
 	template<class MY_TYPE> class Hash {
 		private:
 			std::vector<HashData<MY_TYPE>* > m_data; //!< Data of the hash ==> the Hash table is composed of pointer, this permit to have high speed when resize the vestor ...
 		public:
+			/**
+			 * @brief Contructor of the Hach table.
+			 * @param[in] _count Number ob basic elent in the vector.
+			 */
 			Hash(int32_t _count=0) :
 			  m_data(_count) {
-				
+				// nothing to do
 			}
+			/**
+			 * @brief Destructor of the Hash table(clear all element in the table)
+			 */
 			~Hash(void) {
 				clear();
 			}
 			/**
-			 * @brief Remove all entry in the Hash table
+			 * @brief Remove all entry in the Hash table.
+			 * @note It does not delete pointer if your value is a pointer type...
 			 */
 			void clear(void) {
 				for (size_t iii=0; iii<m_data.size(); iii++) {
@@ -71,7 +111,7 @@ namespace etk {
 				return -1;
 			}
 			/**
-			 *@brief Check if an element exist or not
+			 * @brief Check if an element exist or not
 			 * @param[in] _key Name of the hash requested
 			 * @return true if the element exist
 			 */
@@ -86,7 +126,7 @@ namespace etk {
 				return true;
 			}
 			/**
-			 * @brief Get a current element in the vector
+			 * @brief Get a current element in the hash table, with his name.
 			 * @param[in] _key Name of the hash requested
 			 * @return Reference on the Element
 			 */
@@ -107,10 +147,18 @@ namespace etk {
 			MY_TYPE& operator[] (const std::string& _key) {
 				return get(_key);
 			}
+			/**
+			 * @previous
+			 */
 			const MY_TYPE& operator[] (const std::string& _key) const {
 				return get(_key);
 			}
-			
+			/**
+			 * @brief Add an element OR set an element value
+			 * @note add and set is the same function.
+			 * @param[in] _key Name of the value to set in the hash table.
+			 * @param[in] _value Value to set in the hash table.
+			 */
 			void add(const std::string& _key, const MY_TYPE& _value) {
 				int64_t elementId = getId(_key);
 				if (elementId <0) {
@@ -124,9 +172,16 @@ namespace etk {
 				}
 				m_data[elementId]->m_value = _value;
 			}
+			/**
+			 * @previous
+			 */
 			void set(const std::string& _key, const MY_TYPE& _value) {
 				add(_key, _value);
 			}
+			/**
+			 * @brief Remove an element in the hash table.
+			 * @param[in] _key Name of the element to remove.
+			 */
 			void remove(const std::string& _key) {
 				int64_t elementId = getId(_key);
 				if (elementId <0) {
@@ -144,12 +199,26 @@ namespace etk {
 			int32_t size(void) const {
 				return m_data.size();
 			}
+			/**
+			 * @brief get an element with his id.
+			 * @param[in] _pos Position on the element in the hash table.
+			 * @return requested element at this position.
+			 * @note this is a dangerous use of the hash table. Maybe you will use a simple vector.
+			 */
 			MY_TYPE& operator[] (size_t _pos) {
 				return getValue(_pos);
 			}
+			/**
+			 * @previous
+			 */
 			const MY_TYPE& operator[] (size_t _pos) const {
 				return getValue(_pos);
 			}
+			/**
+			 * @brief Get the name of the element at a specific position.
+			 * @param[in] _pos Position of the element in the hash table.
+			 * @return name of the element (key).
+			 */
 			const std::string& getKey(size_t _pos) const {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
@@ -159,6 +228,11 @@ namespace etk {
 				#endif
 				return m_data[_pos]->m_key;
 			}
+			/**
+			 * @brief Get a value of the hash table at a specific position.
+			 * @param[in] _posPosition of the element in the hash table.
+			 * @return Value availlable at this position.
+			 */
 			const MY_TYPE& getValue(size_t _pos) const {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
@@ -168,6 +242,9 @@ namespace etk {
 				#endif
 				return m_data[_pos]->m_value;
 			}
+			/**
+			 * @previous
+			 */
 			MY_TYPE& getValue(size_t _pos) {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2

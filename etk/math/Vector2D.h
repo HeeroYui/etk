@@ -12,7 +12,6 @@
 #include <etk/types.h>
 #include <etk/Stream.h>
 #include <etk/math/Vector3D.h>
-#include <etk/UString.h>
 #include <math.h>
 
 namespace etk {

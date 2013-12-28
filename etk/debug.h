@@ -9,6 +9,7 @@
 #ifndef __ETK_DEBUG_H__
 #define __ETK_DEBUG_H__
 
+#include <etk/types.h>
 #include <etk/debugGeneric.h>
 
 extern const char * etkLibName;

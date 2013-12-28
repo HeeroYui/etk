@@ -62,9 +62,9 @@ namespace etk {
 	template<> Vector2D<bool>::operator std::u32string(void) const {
 		std::u32string str;
 		str = U"(";
-		str += to_u32string(x());
+		str += std::to_u32string(x());
 		str += U",";
-		str += to_u32string(y());
+		str += std::to_u32string(y());
 		str += U")";
 		return str;
 	}
@@ -84,12 +84,12 @@ namespace etk {
 		if (posComa == std::string::npos) {
 			// no coma ...
 			// in every case, we parse the first element :
-			m_floats[0] = stobool(tmpStr);
+			m_floats[0] = std::stob(tmpStr);
 			m_floats[1] = m_floats[0];
 		} else {
-			m_floats[0] = stobool(std::string(tmpStr, 0, posComa));
+			m_floats[0] = std::stob(std::string(tmpStr, 0, posComa));
 			tmpStr.erase(0, posComa+1);
-			m_floats[1] = stobool(tmpStr);
+			m_floats[1] = std::stob(tmpStr);
 		}
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
@@ -108,12 +108,12 @@ namespace etk {
 		if (posComa == std::string::npos) {
 			// no coma ...
 			// in every case, we parse the first element :
-			m_floats[0] = stobool(tmpStr);
+			m_floats[0] = std::stob(tmpStr);
 			m_floats[1] = m_floats[0];
 		} else {
-			m_floats[0] = stobool(std::u32string(tmpStr, 0, posComa));
+			m_floats[0] = std::stob(std::u32string(tmpStr, 0, posComa));
 			tmpStr.erase(0, posComa+1);
-			m_floats[1] = stobool(tmpStr);
+			m_floats[1] = std::stob(tmpStr);
 		}
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
@@ -130,9 +130,9 @@ namespace etk {
 	template<> Vector2D<int32_t>::operator std::u32string(void) const {
 		std::u32string str;
 		str = U"(";
-		str += to_u32string(x());
+		str += std::to_u32string(x());
 		str += U",";
-		str += to_u32string(y());
+		str += std::to_u32string(y());
 		str += U")";
 		return str;
 	}
@@ -153,12 +153,12 @@ namespace etk {
 		if (posComa == std::string::npos) {
 			// no coma ...
 			// in every case, we parse the first element :
-			m_floats[0] = stoi(tmpStr);
+			m_floats[0] = std::stoi(tmpStr);
 			m_floats[1] = m_floats[0];
 		} else {
-			m_floats[0] = stoi(std::string(tmpStr, 0, posComa));
+			m_floats[0] = std::stoi(std::string(tmpStr, 0, posComa));
 			tmpStr.erase(0,posComa+1);
-			m_floats[1] = stoi(tmpStr);
+			m_floats[1] = std::stoi(tmpStr);
 		}
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
@@ -178,12 +178,12 @@ namespace etk {
 		if (posComa == 0) {
 			// no coma ...
 			// in every case, we parse the first element :
-			m_floats[0] = stoi(tmpStr);
+			m_floats[0] = std::stoi(tmpStr);
 			m_floats[1] = m_floats[0];
 		} else {
-			m_floats[0] = stoi(std::u32string(tmpStr, 0, posComa));
+			m_floats[0] = std::stoi(std::u32string(tmpStr, 0, posComa));
 			tmpStr.erase(0,posComa+1);
-			m_floats[1] = stoi(tmpStr);
+			m_floats[1] = std::stoi(tmpStr);
 		}
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
@@ -201,9 +201,9 @@ namespace etk {
 	template<> Vector2D<uint32_t>::operator std::u32string(void) const {
 		std::u32string str;
 		str = U"(";
-		str += to_u32string(x());
+		str += std::to_u32string(x());
 		str += U",";
-		str += to_u32string(y());
+		str += std::to_u32string(y());
 		str += U")";
 		return str;
 	}
@@ -224,12 +224,12 @@ namespace etk {
 		if (posComa == std::string::npos) {
 			// no coma ...
 			// in every case, we parse the first element :
-			m_floats[0] = stoi(tmpStr);
+			m_floats[0] = std::stoi(tmpStr);
 			m_floats[1] = m_floats[0];
 		} else {
-			m_floats[0] = stoi(std::string(tmpStr, 0, posComa));
+			m_floats[0] = std::stoi(std::string(tmpStr, 0, posComa));
 			tmpStr.erase(0,posComa+1);
-			m_floats[1] = stoi(tmpStr);
+			m_floats[1] = std::stoi(tmpStr);
 		}
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
@@ -249,12 +249,12 @@ namespace etk {
 		if (posComa == std::string::npos) {
 			// no coma ...
 			// in every case, we parse the first element :
-			m_floats[0] = stoi(tmpStr);
+			m_floats[0] = std::stoi(tmpStr);
 			m_floats[1] = m_floats[0];
 		} else {
-			m_floats[0] = stoi(std::u32string(tmpStr, 0, posComa));
+			m_floats[0] = std::stoi(std::u32string(tmpStr, 0, posComa));
 			tmpStr.erase(0,posComa+1);
-			m_floats[1] = stoi(tmpStr);
+			m_floats[1] = std::stoi(tmpStr);
 		}
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
@@ -271,9 +271,9 @@ namespace etk {
 	template<> Vector2D<float>::operator std::u32string(void) const {
 		std::u32string str;
 		str = U"(";
-		str += to_u32string(x());
+		str += std::to_u32string(x());
 		str += U",";
-		str += to_u32string(y());
+		str += std::to_u32string(y());
 		str += U")";
 		return str;
 	}
@@ -293,12 +293,12 @@ namespace etk {
 		if (posComa == std::string::npos) {
 			// no coma ...
 			// in every case, we parse the first element :
-			m_floats[0] = stof(tmpStr);
+			m_floats[0] = std::stof(tmpStr);
 			m_floats[1] = m_floats[0];
 		} else {
-			m_floats[0] = stof(std::string(tmpStr, 0, posComa));
+			m_floats[0] = std::stof(std::string(tmpStr, 0, posComa));
 			tmpStr.erase(0,posComa+1);
-			m_floats[1] = stof(tmpStr);
+			m_floats[1] = std::stof(tmpStr);
 		}
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
@@ -317,12 +317,12 @@ namespace etk {
 		if (posComa == std::string::npos) {
 			// no coma ...
 			// in every case, we parse the first element :
-			m_floats[0] = stof(tmpStr);
+			m_floats[0] = std::stof(tmpStr);
 			m_floats[1] = m_floats[0];
 		} else {
-			m_floats[0] = stof(std::u32string(tmpStr, 0, posComa));
+			m_floats[0] = std::stof(std::u32string(tmpStr, 0, posComa));
 			tmpStr.erase(0,posComa+1);
-			m_floats[1] = stof(tmpStr);
+			m_floats[1] = std::stof(tmpStr);
 		}
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}

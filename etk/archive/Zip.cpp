@@ -7,13 +7,11 @@
  */
 
 #include <etk/archive/Zip.h>
-#include <etk/debug.h>
-#include <etk/UString.h>
+#include <etk/types.h>
 
 etk::archive::Zip::Zip(const std::string& _fileName) :
-	etk::Archive(_fileName),
-	m_ctx(NULL)
-{
+  etk::Archive(_fileName),
+  m_ctx(NULL) {
 	/* Open the zip file */
 	m_ctx = unzOpen(m_fileName.c_str());
 	if(!m_ctx) {
@@ -50,16 +48,14 @@ etk::archive::Zip::Zip(const std::string& _fileName) :
 	}
 }
 
-etk::archive::Zip::~Zip(void)
-{
+etk::archive::Zip::~Zip(void) {
 	if (m_ctx!= NULL) {
 		unzClose(m_ctx);
 		m_ctx = NULL;
 	};
-};
+}
 
-void etk::archive::Zip::loadFile(int32_t _id)
-{
+void etk::archive::Zip::loadFile(int32_t _id) {
 	std::string fileNameRequested = m_content.getKey(_id);
 	TK_VERBOSE("Real load file : " << _id << " = '" << fileNameRequested << "'");
 	

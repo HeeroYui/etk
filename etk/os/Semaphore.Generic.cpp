@@ -5,14 +5,12 @@
  * 
  * @license BSD v3 (see license file)
  */
-
-
+#include <etk/types.h>
 #include <etk/os/Semaphore.h>
 #include <etk/debug.h>
 #include <sys/time.h>
 
-etk::Semaphore::Semaphore(uint32_t _nbBasicElement, uint32_t _nbMessageMax)
-{
+etk::Semaphore::Semaphore(uint32_t _nbBasicElement, uint32_t _nbMessageMax) {
 	// create interface mutex :
 	int ret = pthread_mutex_init(&m_mutex, NULL);
 	TK_ASSERT(ret == 0, "Error creating Mutex ...");
@@ -28,8 +26,7 @@ etk::Semaphore::Semaphore(uint32_t _nbBasicElement, uint32_t _nbMessageMax)
 }
 
 
-etk::Semaphore::~Semaphore(void)
-{
+etk::Semaphore::~Semaphore(void) {
 	// Remove condition
 	int ret = pthread_cond_destroy(&m_condition);
 	TK_ASSERT(ret == 0, "Error destroying Condition ...");
@@ -38,8 +35,7 @@ etk::Semaphore::~Semaphore(void)
 	TK_ASSERT(ret == 0, "Error destroying Mutex ...");
 }
 
-uint32_t etk::Semaphore::getCount(void)
-{
+uint32_t etk::Semaphore::getCount(void) {
 	int32_t tmpData = 0;
 	pthread_mutex_lock(&m_mutex);
 	tmpData = m_data;
@@ -47,8 +43,7 @@ uint32_t etk::Semaphore::getCount(void)
 	return tmpData;
 }
 
-void etk::Semaphore::post(void)
-{
+void etk::Semaphore::post(void) {
 	pthread_mutex_lock(&m_mutex);
 	if (m_data>=m_maximum) {
 		m_data = m_maximum;
@@ -61,8 +56,7 @@ void etk::Semaphore::post(void)
 }
 
 
-void etk::Semaphore::wait(void)
-{
+void etk::Semaphore::wait(void) {
 	pthread_mutex_lock(&m_mutex);
 	while(m_data == 0) {
 		pthread_cond_wait(&m_condition, &m_mutex);
@@ -72,8 +66,7 @@ void etk::Semaphore::wait(void)
 }
 
 
-bool etk::Semaphore::wait(uint64_t _timeOutInUs)
-{
+bool etk::Semaphore::wait(uint64_t _timeOutInUs) {
 	pthread_mutex_lock(&m_mutex);
 	if(m_data == 0) {
 		struct timeval tp;

@@ -6,6 +6,6 @@
  * @license BSD v3 (see license file)
  */
 
-#include <etk/debug.h>
+#include <etk/types.h>
 
 const char * etkLibName = "etk      ";

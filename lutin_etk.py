@@ -15,11 +15,7 @@ def create(target):
 	myModule.add_src_file([
 		'etk/debugGeneric.cpp',
 		'etk/debug.cpp',
-		'etk/unicode.cpp',
-		'etk/unicodeTable.cpp',
-		'etk/Char.cpp',
-		'etk/UChar.cpp',
-		'etk/UString.cpp',
+		'etk/stdTools.cpp',
 		'etk/Stream.cpp',
 		'etk/RegExp.cpp',
 		'etk/tool.cpp',

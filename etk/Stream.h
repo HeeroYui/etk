@@ -15,10 +15,13 @@
 namespace etk {
 	#define MAX_LOG_SIZE		(16000)
 	#define MAX_LOG_SIZE_TMP	(512)
-
+	//! @not-in-doc
 	class CEndl {};
+	//! @not-in-doc
 	class CStart {};
-	
+	/**
+	 * @brief Generic log output system. it change automaticly from generic console to Android console.
+	 */
 	class CCout {
 		private:
 			char m_tmpChar[MAX_LOG_SIZE+1];
@@ -55,22 +58,27 @@ namespace etk {
 	extern etk::CCout cout;
 	extern etk::CEndl endl;
 	extern etk::CStart cstart;
-	
+	/**
+	 * @brief Log level is a simple list of all log availlable. This enum is used when setting a log and when user chose the level of log displayed.
+	 */
 	enum logLevel {
-		logLevelNone,
-		logLevelCritical,
-		logLevelError,
-		logLevelWarning,
-		logLevelInfo,
-		logLevelDebug,
-		logLevelVerbose
+		logLevelNone, //!< no display requested
+		logLevelCritical, //!< Display only critical logs (note that critical generally assert with a backtrace (when we can))
+		logLevelError, //!< Display Error and critical logs
+		logLevelWarning, //!< Display log critical to warning
+		logLevelInfo, //!< Display log critical to information (removed in release mode)
+		logLevelDebug, //!< Display log critical to debug (removed in release mode)
+		logLevelVerbose //!< Display all logs (removed in release and debug mode)
 	};
 	
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information
 	 */
 	etk::CCout& operator <<(etk::CCout &_os, const enum etk::logLevel _obj);
-	
+	/**
+	 * @brief Display the current backtrace (only implemented in linux debug mode)
+	 * @param[in] _breakAtEnd Request an assert after displaying the backtrace.
+	 */
 	void displayBacktrace(bool _breakAtEnd=true);
 };
 

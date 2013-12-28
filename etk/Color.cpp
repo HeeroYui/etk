@@ -14,11 +14,13 @@
 #include <sstream>
 #include <stdexcept>
 
-static bool strnCmpNoCase(const char * input1, const char * input2, int32_t maxLen) {
+static bool strnCmpNoCase(const char * _input1, const char * _input2, int32_t _maxLen) {
 	int32_t iii=0;
-	while ('\0' != *input1 && '\0' != *input2 && iii < maxLen) {
-		char in1 = *input1;
-		char in2 = *input2;
+	while (    '\0' != *_input1
+	        && '\0' != *_input2
+	        && iii < _maxLen) {
+		char in1 = *_input1;
+		char in2 = *_input2;
 		if (in1 != in2) {
 			if (in1 <= 'Z' && in1 >= 'A') {
 				in1 = in1 - 'A' + 'a';
@@ -31,8 +33,8 @@ static bool strnCmpNoCase(const char * input1, const char * input2, int32_t maxL
 			}
 		}
 		iii++;
-		input1++;
-		input2++;
+		_input1++;
+		_input2++;
 	}
 	return true;
 }
@@ -85,7 +87,7 @@ namespace etk {
 		return Color<uint8_t>(*this).get();
 	}
 	
-	template<> Color<uint8_t>::Color(std::string _input) :
+	template<> Color<uint8_t>::Color(const std::string& _input) :
 	  m_r(255),
 	  m_g(255),
 	  m_b(255),
@@ -189,15 +191,15 @@ namespace etk {
 		TK_VERBOSE("Parse color : \"" << inputData << "\" ==> " << *this);
 	}
 	
-	template<> Color<float>::Color(std::string _input) {
+	template<> Color<float>::Color(const std::string& _input) {
 		etk::Color<uint8_t> tmpColor(_input);
 		*this = tmpColor;
 	}
 };
 
-etk::CCout& etk::operator <<(etk::CCout &_os, const etk::Color<uint8_t>& _obj)
-{
-	_os << _obj.getString();
+etk::CCout& etk::operator <<(etk::CCout &_os, const etk::Color<uint8_t>& _obj) {
+	_os << "#";
+	_os << (std::to_string<uint32_t>(_obj.get(), std::hex)).c_str();
 	return _os;
 }
 etk::CCout& etk::operator <<(etk::CCout &_os, const etk::Color<float>& _obj)

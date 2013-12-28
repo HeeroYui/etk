@@ -9,8 +9,7 @@
 #ifndef __ETK_ARCHIVE_H__
 #define __ETK_ARCHIVE_H__
 
-#include <etk/UString.h>
-#include <vector>
+#include <etk/types.h>
 #include <etk/Hash.h>
 
 namespace etk {
@@ -20,20 +19,36 @@ namespace etk {
 				private:
 					int32_t m_link; //!< number of element open on this file
 				public:
-					void increaseRef(void) { m_link++; };
-					void decreaseRef(void) { m_link--; };
-					int32_t getNumberOfRef(void) const { return m_link; };
+					void increaseRef(void) {
+						m_link++;
+					};
+					void decreaseRef(void) {
+						m_link--;
+					};
+					int32_t getNumberOfRef(void) const {
+						return m_link;
+					};
 				private:
 					int32_t m_theoricSize; //!< number of element open on this file
 				public:
-					int32_t getTheoricSize(void) const { return m_theoricSize; };
+					int32_t getTheoricSize(void) const {
+						return m_theoricSize;
+					};
 				private:
 					std::vector<char> m_data;
 				public:
-					Content(int32_t _basicSize=0) : m_link(-1), m_theoricSize(_basicSize) { };
-					int32_t size(void) const { return m_data.size(); };
-					void* data(void) const { return (void*)&m_data[0]; };
-					std::vector<char>& getDataVector(void) { return m_data; };
+					Content(int32_t _basicSize=0) :
+					  m_link(-1),
+					  m_theoricSize(_basicSize) { };
+					int32_t size(void) const {
+						return m_data.size();
+					};
+					void* data(void) const {
+						return (void*)&m_data[0];
+					};
+					std::vector<char>& getDataVector(void) {
+						return m_data;
+					};
 			};
 		public:
 			Archive(const std::string& _fileName) :

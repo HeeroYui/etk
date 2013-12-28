@@ -30,7 +30,7 @@ void etk::Archive::display(void)
 
 etk::Archive* etk::Archive::load(const std::string& _fileName) {
 	etk::Archive* output=NULL;
-	std::string tmpName = to_lower(_fileName);
+	std::string tmpName = std::tolower(_fileName);
 	// select the corect Loader :
 	if(    true == end_with(tmpName, ".zip") 
 	    || true == end_with(tmpName, ".apk")  ) {

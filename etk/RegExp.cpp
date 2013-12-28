@@ -13,54 +13,54 @@
 
 const struct etk::convertionTable etk::constConvertionTable[] = {
 	// haveBackSlash, inputValue, newValue
-	{ false			, '('  , 0   , REGEXP_OPCODE_PTHESE_IN},
-	{ true			, '('  , '(' , REGEXP_OPCODE_ERROR},
-	{ false			, ')'  , 0   , REGEXP_OPCODE_PTHESE_OUT},
-	{ true			, ')'  , ')' , REGEXP_OPCODE_ERROR},
-	{ false			, '['  , 0   , REGEXP_OPCODE_BRACKET_IN},
-	{ true			, '['  , '[' , REGEXP_OPCODE_ERROR},
-	{ false			, ']'  , 0   , REGEXP_OPCODE_BRACKET_OUT},
-	{ true			, ']'  , ']' , REGEXP_OPCODE_ERROR},
-	{ false			, '{'  , 0   , REGEXP_OPCODE_BRACE_IN},
-	{ true			, '{'  , '{' , REGEXP_OPCODE_ERROR},
-	{ false			, '}'  , 0   , REGEXP_OPCODE_BRACE_OUT},
-	{ true			, '}'  , '}' , REGEXP_OPCODE_ERROR},
-	{ false			, '-'  , 0   , REGEXP_OPCODE_TO},
-	{ true			, '-'  , '-' , REGEXP_OPCODE_ERROR},
-	{ false			, '*'  , 0   , REGEXP_OPCODE_STAR},
-	{ true			, '*'  , '*' , REGEXP_OPCODE_ERROR},
-	{ false			, '.'  , 0   , REGEXP_OPCODE_DOT},
-	{ true			, '.'  , '.' , REGEXP_OPCODE_ERROR},
-	{ false			, '?'  , 0   , REGEXP_OPCODE_QUESTION},
-	{ true			, '?'  , '?' , REGEXP_OPCODE_ERROR},
-	{ false			, '+'  , 0   , REGEXP_OPCODE_PLUS},
-	{ true			, '+'  , '+' , REGEXP_OPCODE_ERROR},
-	{ false			, '|'  , 0   , REGEXP_OPCODE_PIPE},
-	{ true			, '|'  , '|' , REGEXP_OPCODE_ERROR},
-	{ false			, '^'  , 0   , REGEXP_OPCODE_START_OF_LINE},
-	{ true			, '^'  , '^' , REGEXP_OPCODE_ERROR},
-	{ false			, '$'  , 0   , REGEXP_OPCODE_END_OF_LINE},
-	{ true			, '$'  , '$' , REGEXP_OPCODE_ERROR},
-	{ true			, 'd'  , 0   , REGEXP_OPCODE_DIGIT},
-	{ true			, 'D'  , 0   , REGEXP_OPCODE_DIGIT_NOT},
-	{ true			, 'l'  , 0   , REGEXP_OPCODE_LETTER},
-	{ true			, 'L'  , 0   , REGEXP_OPCODE_LETTER_NOT},
-	{ true			, 's'  , 0   , REGEXP_OPCODE_SPACE},
-	{ true			, 'S'  , 0   , REGEXP_OPCODE_SPACE_NOT},
-	{ true			, 'w'  , 0   , REGEXP_OPCODE_WORD},
-	{ true			, 'W'  , 0   , REGEXP_OPCODE_WORD_NOT},
-	{ true			, 'a'  , '\a', REGEXP_OPCODE_ERROR},
-	{ true			, 'b'  , '\b', REGEXP_OPCODE_ERROR},
-	{ true			, 'e'  , 0x1B, REGEXP_OPCODE_ERROR}, // Escape character <Esc>
-	{ true			, 'f'  , '\f', REGEXP_OPCODE_ERROR},
-	{ true			, 'n'  , '\n', REGEXP_OPCODE_ERROR},
-	{ true			, 'r'  , '\r', REGEXP_OPCODE_ERROR},
-	{ true			, 't'  , '\t', REGEXP_OPCODE_ERROR},
-	{ true			, 'v'  , '\v', REGEXP_OPCODE_ERROR},
-	{ true			, '\\' , '\\', REGEXP_OPCODE_ERROR},
-	{ true			, '&'  , '&' , REGEXP_OPCODE_ERROR},
-	{ true			, '0'  , '\0', REGEXP_OPCODE_ERROR},
-	{ true			, '@'  , 0   , REGEXP_OPCODE_NO_CHAR},
+	{ false			, '('  , 0   , regexpOpcodePTheseIn},
+	{ true			, '('  , '(' , regexpOpcodeError},
+	{ false			, ')'  , 0   , regexpOpcodePTheseOut},
+	{ true			, ')'  , ')' , regexpOpcodeError},
+	{ false			, '['  , 0   , regexpOpcodeBracketIn},
+	{ true			, '['  , '[' , regexpOpcodeError},
+	{ false			, ']'  , 0   , regexpOpcodeBracketOut},
+	{ true			, ']'  , ']' , regexpOpcodeError},
+	{ false			, '{'  , 0   , regexpOpcodeBracetIn},
+	{ true			, '{'  , '{' , regexpOpcodeError},
+	{ false			, '}'  , 0   , regexpOpcodeBracetOut},
+	{ true			, '}'  , '}' , regexpOpcodeError},
+	{ false			, '-'  , 0   , regexpOpcodeTo},
+	{ true			, '-'  , '-' , regexpOpcodeError},
+	{ false			, '*'  , 0   , regexpOpcodeStar},
+	{ true			, '*'  , '*' , regexpOpcodeError},
+	{ false			, '.'  , 0   , regexpOpcodeDot},
+	{ true			, '.'  , '.' , regexpOpcodeError},
+	{ false			, '?'  , 0   , regexpOpcodeQuestion},
+	{ true			, '?'  , '?' , regexpOpcodeError},
+	{ false			, '+'  , 0   , regexpOpcodePlus},
+	{ true			, '+'  , '+' , regexpOpcodeError},
+	{ false			, '|'  , 0   , regexpOpcodePipe},
+	{ true			, '|'  , '|' , regexpOpcodeError},
+	{ false			, '^'  , 0   , regexpOpcodeStartOfLine},
+	{ true			, '^'  , '^' , regexpOpcodeError},
+	{ false			, '$'  , 0   , regexpOpcodeEndOfLine},
+	{ true			, '$'  , '$' , regexpOpcodeError},
+	{ true			, 'd'  , 0   , regexpOpcodeDigit},
+	{ true			, 'D'  , 0   , regexpOpcodeDigitNot},
+	{ true			, 'l'  , 0   , regexpOpcodeLetter},
+	{ true			, 'L'  , 0   , regexpOpcodeLetterNot},
+	{ true			, 's'  , 0   , regexpOpcodeSpace},
+	{ true			, 'S'  , 0   , regexpOpcodeSpaceNot},
+	{ true			, 'w'  , 0   , regexpOpcodeWord},
+	{ true			, 'W'  , 0   , regexpOpcodeWordNot},
+	{ true			, 'a'  , '\a', regexpOpcodeError},
+	{ true			, 'b'  , '\b', regexpOpcodeError},
+	{ true			, 'e'  , 0x1B, regexpOpcodeError}, // Escape character <Esc>
+	{ true			, 'f'  , '\f', regexpOpcodeError},
+	{ true			, 'n'  , '\n', regexpOpcodeError},
+	{ true			, 'r'  , '\r', regexpOpcodeError},
+	{ true			, 't'  , '\t', regexpOpcodeError},
+	{ true			, 'v'  , '\v', regexpOpcodeError},
+	{ true			, '\\' , '\\', regexpOpcodeError},
+	{ true			, '&'  , '&' , regexpOpcodeError},
+	{ true			, '0'  , '\0', regexpOpcodeError},
+	{ true			, '@'  , 0   , regexpOpcodeNoChar},
 };
 const int64_t etk::constConvertionTableSize = sizeof(etk::constConvertionTable) / sizeof(struct etk::convertionTable) ;
 
@@ -68,32 +68,32 @@ void etk::displayElem(const std::vector<char32_t>& _data, int64_t _start, int64_
 	etk::cout<< ETK_BASH_COLOR_NORMAL;
 	for (int64_t iii=_start; iii<(int64_t)_data.size() && iii<_stop ; iii++) {
 		switch(_data[iii]) {
-			case REGEXP_OPCODE_PTHESE_IN:		etk::cout<<ETK_BASH_COLOR_RED		<< (char*)"(" << ETK_BASH_COLOR_NORMAL;		break;
-			case REGEXP_OPCODE_PTHESE_OUT:		etk::cout<<ETK_BASH_COLOR_RED		<< (char*)")" << ETK_BASH_COLOR_NORMAL;		break;
-			case REGEXP_OPCODE_BRACKET_IN:		etk::cout<<ETK_BASH_COLOR_YELLOW	<< (char*)"[" << ETK_BASH_COLOR_NORMAL;		break;
-			case REGEXP_OPCODE_BRACKET_OUT:		etk::cout<<ETK_BASH_COLOR_YELLOW	<< (char*)"]" << ETK_BASH_COLOR_NORMAL;		break;
-			case REGEXP_OPCODE_TO:				etk::cout<<ETK_BASH_COLOR_YELLOW	<< (char*)"-" << ETK_BASH_COLOR_NORMAL;		break;
-			case REGEXP_OPCODE_BRACE_IN:		etk::cout<<ETK_BASH_COLOR_GREEN		<< (char*)"{" << ETK_BASH_COLOR_NORMAL;		break;
-			case REGEXP_OPCODE_BRACE_OUT:		etk::cout<<ETK_BASH_COLOR_GREEN		<< (char*)"}" << ETK_BASH_COLOR_NORMAL;		break;
-			case REGEXP_OPCODE_STAR:			etk::cout<<ETK_BASH_COLOR_BLUE		<< (char*)"*" << ETK_BASH_COLOR_NORMAL;		break;
-			case REGEXP_OPCODE_DOT:				etk::cout<<ETK_BASH_COLOR_BLUE		<< (char*)"." << ETK_BASH_COLOR_NORMAL;		break;
-			case REGEXP_OPCODE_QUESTION:		etk::cout<<ETK_BASH_COLOR_BLUE		<< (char*)"?" << ETK_BASH_COLOR_NORMAL;		break;
-			case REGEXP_OPCODE_PLUS:			etk::cout<<ETK_BASH_COLOR_BLUE		<< (char*)"+" << ETK_BASH_COLOR_NORMAL;		break;
-			case REGEXP_OPCODE_PIPE:			etk::cout<<ETK_BASH_COLOR_BLUE		<< (char*)"|" << ETK_BASH_COLOR_NORMAL;		break;
-			case REGEXP_OPCODE_NO_CHAR:			etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"@" << ETK_BASH_COLOR_NORMAL;		break;
-			case REGEXP_OPCODE_START_OF_LINE:	etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"^" << ETK_BASH_COLOR_NORMAL;		break;
-			case REGEXP_OPCODE_END_OF_LINE:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"$" << ETK_BASH_COLOR_NORMAL;		break;
-			case REGEXP_OPCODE_DIGIT:			etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\d" << ETK_BASH_COLOR_NORMAL;	break;
-			case REGEXP_OPCODE_DIGIT_NOT:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\D" << ETK_BASH_COLOR_NORMAL;	break;
-			case REGEXP_OPCODE_LETTER:			etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\l" << ETK_BASH_COLOR_NORMAL;	break;
-			case REGEXP_OPCODE_LETTER_NOT:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\L" << ETK_BASH_COLOR_NORMAL;	break;
-			case REGEXP_OPCODE_SPACE:			etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\s" << ETK_BASH_COLOR_NORMAL;	break;
-			case REGEXP_OPCODE_SPACE_NOT:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\S" << ETK_BASH_COLOR_NORMAL;	break;
-			case REGEXP_OPCODE_WORD:			etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\w" << ETK_BASH_COLOR_NORMAL;	break;
-			case REGEXP_OPCODE_WORD_NOT:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\W" << ETK_BASH_COLOR_NORMAL;	break;
-			case '\n':							etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\n" << ETK_BASH_COLOR_NORMAL;	break;
-			case '\t':							etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\t" << ETK_BASH_COLOR_NORMAL;	break;
-			default:							etk::cout<< _data[iii];									break;
+			case regexpOpcodePTheseIn:		etk::cout<<ETK_BASH_COLOR_RED		<< (char*)"(" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodePTheseOut:		etk::cout<<ETK_BASH_COLOR_RED		<< (char*)")" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeBracketIn:		etk::cout<<ETK_BASH_COLOR_YELLOW	<< (char*)"[" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeBracketOut:	etk::cout<<ETK_BASH_COLOR_YELLOW	<< (char*)"]" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeTo:			etk::cout<<ETK_BASH_COLOR_YELLOW	<< (char*)"-" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeBracetIn:		etk::cout<<ETK_BASH_COLOR_GREEN		<< (char*)"{" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeBracetOut:		etk::cout<<ETK_BASH_COLOR_GREEN		<< (char*)"}" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeStar:			etk::cout<<ETK_BASH_COLOR_BLUE		<< (char*)"*" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeDot:			etk::cout<<ETK_BASH_COLOR_BLUE		<< (char*)"." << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeQuestion:		etk::cout<<ETK_BASH_COLOR_BLUE		<< (char*)"?" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodePlus:			etk::cout<<ETK_BASH_COLOR_BLUE		<< (char*)"+" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodePipe:			etk::cout<<ETK_BASH_COLOR_BLUE		<< (char*)"|" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeNoChar:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"@" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeStartOfLine:	etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"^" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeEndOfLine:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"$" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeDigit:			etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\d" << ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeDigitNot:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\D" << ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeLetter:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\l" << ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeLetterNot:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\L" << ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeSpace:			etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\s" << ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeSpaceNot:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\S" << ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeWord:			etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\w" << ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeWordNot:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\W" << ETK_BASH_COLOR_NORMAL;	break;
+			case '\n':						etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\n" << ETK_BASH_COLOR_NORMAL;	break;
+			case '\t':						etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\t" << ETK_BASH_COLOR_NORMAL;	break;
+			default:						etk::cout<< _data[iii];									break;
 		}
 	}
 }
@@ -129,25 +129,25 @@ int64_t etk::getLenOfPTheseElem(const std::vector<char32_t>& _data, int64_t _sta
 	int64_t pos = _startPos;
 	int32_t nbOpen = 0;
 	// special case of the (...) or | ==> we search '|' or ')'
-	if(    _data[pos] == REGEXP_OPCODE_PTHESE_OUT
-	    || _data[pos] == REGEXP_OPCODE_PIPE) {
+	if(    _data[pos] == regexpOpcodePTheseOut
+	    || _data[pos] == regexpOpcodePipe) {
 		return 0;
 	}
 	// find size ...
 	while (pos < (int64_t)_data.size() ) {
-		if(_data[pos] == REGEXP_OPCODE_PTHESE_IN) {
+		if(_data[pos] == regexpOpcodePTheseIn) {
 			// find a sub section : 
 			nbOpen++;
 		} else if(0 < nbOpen) {
-			if (_data[pos] == REGEXP_OPCODE_PTHESE_OUT) {
+			if (_data[pos] == regexpOpcodePTheseOut) {
 				nbOpen--;
 				if (0 > nbOpen) {
 					TK_ERROR("Error in the (...) find element at "<< pos);
 					return -1;
 				}
 			}
-		} else if(    _data[pos] == REGEXP_OPCODE_PTHESE_OUT
-		           || _data[pos] == REGEXP_OPCODE_PIPE) {
+		} else if(    _data[pos] == regexpOpcodePTheseOut
+		           || _data[pos] == regexpOpcodePipe) {
 			// Find the end of the (...)
 			// just return the size inside
 			int32_t sizeInside = pos - _startPos;
@@ -166,28 +166,28 @@ int64_t etk::getLenOfPThese(const std::vector<char32_t>& _data, int64_t _startPo
 	int64_t pos = _startPos;
 	int32_t nbOpen = 0;
 	// special case of the (...) or | ==> we search '|' or ')'
-	if(_data[pos]==REGEXP_OPCODE_PTHESE_OUT) {
+	if(_data[pos]==regexpOpcodePTheseOut) {
 		return 0;
 	}
-	if(_data[pos]!=REGEXP_OPCODE_PTHESE_IN) {
+	if(_data[pos]!=regexpOpcodePTheseIn) {
 		TK_ERROR(" find error in  PThese");
 		return 0;
 	}
 	pos++;
 	// find size ...
 	while (pos < (int64_t)_data.size() ) {
-		if(_data[pos]==REGEXP_OPCODE_PTHESE_IN) {
+		if(_data[pos]==regexpOpcodePTheseIn) {
 			// find a sub section : 
 			nbOpen++;
 		} else if(0 < nbOpen) {
-			if (_data[pos]==REGEXP_OPCODE_PTHESE_OUT) {
+			if (_data[pos]==regexpOpcodePTheseOut) {
 				nbOpen--;
 				if (0 > nbOpen) {
 					TK_ERROR("Error in the (...) find element at "<< pos);
 					return 0;
 				}
 			}
-		} else if(_data[pos]==REGEXP_OPCODE_PTHESE_OUT) {
+		} else if(_data[pos]==regexpOpcodePTheseOut) {
 			// Find the end of the (...)
 			// just return the size inside
 			int32_t sizeInside = pos - _startPos-1;
@@ -206,17 +206,17 @@ int64_t etk::getLenOfPThese(const std::vector<char32_t>& _data, int64_t _startPo
 int64_t etk::getLenOfBracket(const std::vector<char32_t>& _data, int64_t _startPos) {
 	int64_t pos = _startPos;
 	// special case of the (...) or | ==> we search '|' or ')'
-	if(_data[pos]==REGEXP_OPCODE_BRACKET_OUT) {
+	if(_data[pos]==regexpOpcodeBracketOut) {
 		return 0;
 	}
-	if(_data[pos] != REGEXP_OPCODE_BRACKET_IN) {
+	if(_data[pos] != regexpOpcodeBracketIn) {
 		TK_ERROR("find no {...");
 		return 0;
 	}
 	pos++;
 	// find size ...
 	while (pos < (int64_t)_data.size() ) {
-		if(_data[pos]==REGEXP_OPCODE_BRACKET_OUT) {
+		if(_data[pos]==regexpOpcodeBracketOut) {
 			// Find the end of the [...]
 			// just return the size inside
 			int32_t sizeInside = pos - _startPos -1 ;
@@ -225,7 +225,7 @@ int64_t etk::getLenOfBracket(const std::vector<char32_t>& _data, int64_t _startP
 				return 0;
 			}
 			return sizeInside;
-		} else if(    _data[pos] != REGEXP_OPCODE_TO
+		} else if(    _data[pos] != regexpOpcodeTo
 		           && _data[pos] > 0xFF ) {
 			TK_ERROR("Error in the [...] not permited element at "<< pos << " '" << (char)_data[pos] << "'");
 			return 0;
@@ -239,17 +239,17 @@ int64_t etk::getLenOfBracket(const std::vector<char32_t>& _data, int64_t _startP
 int64_t etk::getLenOfBrace(const std::vector<char32_t>& _data, int64_t _startPos) {
 	int32_t pos = _startPos;
 	// special case of the (...) or | ==> we search '|' or ')'
-	if(_data[pos]==REGEXP_OPCODE_BRACE_OUT) {
+	if(_data[pos]==regexpOpcodeBracetOut) {
 		return 0;
 	}
-	if(_data[pos]!=REGEXP_OPCODE_BRACE_IN) {
+	if(_data[pos]!=regexpOpcodeBracetIn) {
 		TK_ERROR(" did not find brace IN { ");
 		return 0;
 	}
 	pos++;
 	// find size ...
 	while (pos < (int64_t)_data.size() ) {
-		if(_data[pos]==REGEXP_OPCODE_BRACE_OUT) {
+		if(_data[pos]==regexpOpcodeBracetOut) {
 			// Find the end of the [...]
 			// just return the size inside
 			int32_t sizeInside = pos - _startPos -1 ;
@@ -275,28 +275,28 @@ int64_t etk::getLenOfNormal(const std::vector<char32_t>& _data, int64_t _startPo
 	// find size ...
 	while (pos < (int64_t)_data.size() ) {
 		switch(_data[pos]) {
-			case REGEXP_OPCODE_PTHESE_IN:
-			case REGEXP_OPCODE_PTHESE_OUT:
-			case REGEXP_OPCODE_BRACKET_IN:
-			case REGEXP_OPCODE_BRACKET_OUT:
-			case REGEXP_OPCODE_BRACE_IN:
-			case REGEXP_OPCODE_BRACE_OUT:
-			case REGEXP_OPCODE_TO:
-			case REGEXP_OPCODE_STAR:
-			case REGEXP_OPCODE_DOT:
-			case REGEXP_OPCODE_QUESTION:
-			case REGEXP_OPCODE_PLUS:
-			case REGEXP_OPCODE_PIPE:
-			case REGEXP_OPCODE_START_OF_LINE:
-			case REGEXP_OPCODE_END_OF_LINE:
-			case REGEXP_OPCODE_DIGIT:
-			case REGEXP_OPCODE_DIGIT_NOT:
-			case REGEXP_OPCODE_LETTER:
-			case REGEXP_OPCODE_LETTER_NOT:
-			case REGEXP_OPCODE_SPACE:
-			case REGEXP_OPCODE_SPACE_NOT:
-			case REGEXP_OPCODE_WORD:
-			case REGEXP_OPCODE_WORD_NOT:
+			case regexpOpcodePTheseIn:
+			case regexpOpcodePTheseOut:
+			case regexpOpcodeBracketIn:
+			case regexpOpcodeBracketOut:
+			case regexpOpcodeBracetIn:
+			case regexpOpcodeBracetOut:
+			case regexpOpcodeTo:
+			case regexpOpcodeStar:
+			case regexpOpcodeDot:
+			case regexpOpcodeQuestion:
+			case regexpOpcodePlus:
+			case regexpOpcodePipe:
+			case regexpOpcodeStartOfLine:
+			case regexpOpcodeEndOfLine:
+			case regexpOpcodeDigit:
+			case regexpOpcodeDigitNot:
+			case regexpOpcodeLetter:
+			case regexpOpcodeLetterNot:
+			case regexpOpcodeSpace:
+			case regexpOpcodeSpaceNot:
+			case regexpOpcodeWord:
+			case regexpOpcodeWordNot:
 				{
 					// just return the size inside
 					int32_t sizeInside = pos - _startPos;
@@ -334,9 +334,9 @@ bool etk::parseBrace(const std::vector<char32_t>& _data, uint32_t& _min, uint32_
 		} if (_data[k] == '}' ) {
 			SecondElement = firstElement;
 			goto allIsSet;
-		} else if(etk::isInteger(_data[k]) == true) {
+		} else if(u32char::isInteger(_data[k]) == true) {
 			firstElement *= 10;
-			firstElement += etk::toInt32(_data[k]);
+			firstElement += u32char::toInt(_data[k]);
 		} else {
 			TK_ERROR("Can not parse this element " << (char)_data[k] << " at pos " << k);
 			return false;
@@ -352,9 +352,9 @@ bool etk::parseBrace(const std::vector<char32_t>& _data, uint32_t& _min, uint32_
 			return false;
 		} if (_data[k] == '}') {
 			goto allIsSet;
-		} else if (true == etk::isInteger(_data[k])) {
+		} else if (true == u32char::isInteger(_data[k])) {
 			SecondElement *= 10;
-			SecondElement += etk::toInt32(_data[k]);
+			SecondElement += u32char::toInt(_data[k]);
 		} else {
 			TK_ERROR("Can not parse this element " << _data[k] << " at pos " << k);
 			return false;

@@ -8,12 +8,10 @@
 
 
 #include <etk/types.h>
-#include <etk/debug.h>
 #include <etk/os/FSNode.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <etk/tool.h>
-#include <vector>
 #ifdef __TARGET_OS__Windows
 	#include "windows.h"
 #endif
@@ -645,7 +643,7 @@ void etk::FSNode::privateSetName(const std::string& _newName) {
 	TK_DBG_MODE("6 : type :                  [" << m_typeNode << "]  right :" << m_rights);
 }
 void etk::FSNode::privateSetName(const std::u32string& _newName) {
-	privateSetName(to_u8string(_newName));
+	privateSetName(std::to_string(_newName));
 }
 
 bool directCheckFile(std::string _tmpFileNameDirect, bool _checkInAPKIfNeeded = false) {
@@ -666,7 +664,7 @@ bool directCheckFile(std::string _tmpFileNameDirect, bool _checkInAPKIfNeeded = 
 	return true;
 }
 bool directCheckFile(std::u32string _tmpFileNameDirect, bool _checkInAPKIfNeeded = false) {
-	return directCheckFile(to_u8string(_tmpFileNameDirect));
+	return directCheckFile(std::to_string(_tmpFileNameDirect));
 }
 // Now we generate the real FS path:
 void etk::FSNode::generateFileSystemPath(void) {
@@ -974,7 +972,7 @@ bool etk::FSNode::move(const std::string& _path) {
 	}
 }
 bool etk::FSNode::move(const std::u32string& _path) {
-	return move(to_u8string(_path));
+	return move(std::to_string(_path));
 }
 
 bool etk::FSNode::remove(void) {
@@ -1653,7 +1651,7 @@ void etk::theme::setName(const std::string& _refName, const std::string& _folder
 	g_listTheme.push_back(tmpp);
 }
 void etk::theme::setName(const std::u32string& _refName, const std::u32string& _folderName) {
-	setName(to_u8string(_refName), to_u8string(_folderName));
+	setName(std::to_string(_refName), std::to_string(_folderName));
 }
 
 // get the folder from a Reference theme
@@ -1669,7 +1667,7 @@ std::string etk::theme::getName(const std::string& _refName) {
 	return _refName;
 }
 std::u32string etk::theme::getName(const std::u32string& _refName) {
-	return to_u32string(getName(to_u8string(_refName)));
+	return to_u32string(getName(std::to_string(_refName)));
 }
 
 // get the list of all the theme folder availlable in the user Home/appl
@@ -1698,7 +1696,7 @@ bool etk::FSNodeRemove(const std::string& _path) {
 	return tmpNode.remove();
 }
 bool etk::FSNodeRemove(const std::u32string& _path) {
-	return FSNodeRemove(to_u8string(_path));
+	return FSNodeRemove(std::to_string(_path));
 }
 
 int64_t etk::FSNodeGetCount(const std::string& _path) {
@@ -1709,7 +1707,7 @@ int64_t etk::FSNodeGetCount(const std::string& _path) {
 	return tmpNode.folderCount();
 }
 int64_t etk::FSNodeGetCount(const std::u32string& _path) {
-	return FSNodeGetCount(to_u8string(_path));
+	return FSNodeGetCount(std::to_string(_path));
 }
 
 bool etk::FSNodeCreate(const std::string& _path, etk::FSNodeRight _right, enum etk::typeNode _type) {
@@ -1717,7 +1715,7 @@ bool etk::FSNodeCreate(const std::string& _path, etk::FSNodeRight _right, enum e
 	return false;
 }
 bool etk::FSNodeCreate(const std::u32string& _path, etk::FSNodeRight _right, enum etk::typeNode _type) {
-	return FSNodeCreate(to_u8string(_path), _right, _type);
+	return FSNodeCreate(std::to_string(_path), _right, _type);
 }
 
 bool etk::FSNodeExist(const std::string& _path) {
@@ -1725,7 +1723,7 @@ bool etk::FSNodeExist(const std::string& _path) {
 	return tmpNode.exist();
 }
 bool etk::FSNodeExist(const std::u32string& _path) {
-	return FSNodeExist(to_u8string(_path));
+	return FSNodeExist(std::to_string(_path));
 }
 
 bool etk::FSNodeMove(const std::string& _path1, const std::string& _path2) {
@@ -1740,7 +1738,7 @@ bool etk::FSNodeMove(const std::string& _path1, const std::string& _path2) {
 	return tmpNode.move(_path2);
 }
 bool etk::FSNodeMove(const std::u32string& _path1, const std::u32string& _path2) {
-	return FSNodeMove(to_u8string(_path1), to_u8string(_path2));
+	return FSNodeMove(std::to_string(_path1), std::to_string(_path2));
 }
 
 etk::FSNodeRight etk::FSNodeGetRight(const std::string& _path) {
@@ -1748,7 +1746,7 @@ etk::FSNodeRight etk::FSNodeGetRight(const std::string& _path) {
 	return tmpNode.getRight();
 }
 etk::FSNodeRight etk::FSNodeGetRight(const std::u32string& _path) {
-	return FSNodeGetRight(to_u8string(_path));
+	return FSNodeGetRight(std::to_string(_path));
 }
 
 enum etk::typeNode etk::FSNodeGetType(const std::string& _path) {
@@ -1756,7 +1754,7 @@ enum etk::typeNode etk::FSNodeGetType(const std::string& _path) {
 	return tmpNode.getNodeType();
 }
 enum etk::typeNode etk::FSNodeGetType(const std::u32string& _path) {
-	return FSNodeGetType(to_u8string(_path));
+	return FSNodeGetType(std::to_string(_path));
 }
 
 uint64_t etk::FSNodeGetTimeCreated(const std::string& _path) {
@@ -1764,7 +1762,7 @@ uint64_t etk::FSNodeGetTimeCreated(const std::string& _path) {
 	return tmpNode.timeCreated();
 }
 uint64_t etk::FSNodeGetTimeCreated(const std::u32string& _path) {
-	return FSNodeGetTimeCreated(to_u8string(_path));
+	return FSNodeGetTimeCreated(std::to_string(_path));
 }
 
 uint64_t etk::FSNodeGetTimeModified(const std::string& _path) {
@@ -1772,7 +1770,7 @@ uint64_t etk::FSNodeGetTimeModified(const std::string& _path) {
 	return tmpNode.timeModified();
 }
 uint64_t etk::FSNodeGetTimeModified(const std::u32string& _path) {
-	return FSNodeGetTimeModified(to_u8string(_path));
+	return FSNodeGetTimeModified(std::to_string(_path));
 }
 
 uint64_t etk::FSNodeGetTimeAccessed(const std::string& _path) {
@@ -1780,7 +1778,7 @@ uint64_t etk::FSNodeGetTimeAccessed(const std::string& _path) {
 	return tmpNode.timeAccessed();
 }
 uint64_t etk::FSNodeGetTimeAccessed(const std::u32string& _path) {
-	return FSNodeGetTimeAccessed(to_u8string(_path));
+	return FSNodeGetTimeAccessed(std::to_string(_path));
 }
 
 bool etk::FSNodeTouch(const std::string& _path) {
@@ -1788,7 +1786,7 @@ bool etk::FSNodeTouch(const std::string& _path) {
 	return tmpNode.touch();
 }
 bool etk::FSNodeTouch(const std::u32string& _path) {
-	return FSNodeTouch(to_u8string(_path));
+	return FSNodeTouch(std::to_string(_path));
 }
 
 bool etk::FSNodeEcho(const std::string& _path, const std::string& _dataTowrite) {
@@ -1810,7 +1808,7 @@ bool etk::FSNodeEcho(const std::string& _path, const std::string& _dataTowrite) 
 	return tmpNode.fileClose();
 }
 bool etk::FSNodeEcho(const std::u32string& _path, const std::u32string& _dataTowrite) {
-	return FSNodeEcho(to_u8string(_path), to_u8string(_dataTowrite));
+	return FSNodeEcho(std::to_string(_path), std::to_string(_dataTowrite));
 }
 
 bool etk::FSNodeEchoAdd(const std::string& _path, const std::string& _dataTowrite) {
@@ -1832,7 +1830,7 @@ bool etk::FSNodeEchoAdd(const std::string& _path, const std::string& _dataTowrit
 	return tmpNode.fileClose();
 }
 bool etk::FSNodeEchoAdd(const std::u32string& _path, const std::u32string& _dataTowrite) {
-	return FSNodeEchoAdd(to_u8string(_path), to_u8string(_dataTowrite));
+	return FSNodeEchoAdd(std::to_string(_path), std::to_string(_dataTowrite));
 }
 
 void etk::FSNodeHistory(const std::string& _path, int32_t _historyCount) {
@@ -1848,5 +1846,5 @@ void etk::FSNodeHistory(const std::string& _path, int32_t _historyCount) {
 	}
 }
 void etk::FSNodeHistory(const std::u32string& _path, int32_t _historyCount) {
-	return FSNodeHistory(to_u8string(_path), _historyCount);
+	return FSNodeHistory(std::to_string(_path), _historyCount);
 }

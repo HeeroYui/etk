@@ -7,8 +7,6 @@
  */
 
 
-#include <etk/types.h>
-#include <etk/debug.h>
 #include <etk/os/FSNodeRight.h>
 
 // Right Flags :

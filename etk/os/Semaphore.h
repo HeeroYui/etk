@@ -17,10 +17,11 @@
 	#include <pthread.h>
 #endif
 
-namespace etk
-{
-	class Semaphore
-	{
+namespace etk {
+	/**
+	 * @brief Generic semaphore wrapper ( it is os independent)
+	 */
+	class Semaphore {
 		private:
 			#ifdef __TARGET_OS__Windows
 				HANDLE m_semaphore;
@@ -31,15 +32,38 @@ namespace etk
 				uint32_t m_maximum;
 			#endif
 		public:
+			/**
+			 * @brief Contruct the inithialized semaphore.
+			 * @param[in] _nbBasicElement Number of element basicly set in the semaphore list
+			 * @param[in] _nbMessageMax Nunber of maximun message that can be set.
+			 */
 			Semaphore(uint32_t _nbBasicElement=0, uint32_t _nbMessageMax=1);
+			/**
+			 * @brief Generic destructor.
+			 */
 			~Semaphore(void);
+			/**
+			 * @brief Get the number of element in the semaphore.
+			 * @return Number of stored elements.
+			 */
 			uint32_t getCount(void);
+			/**
+			 * @brief Post a new semaphore
+			 */
 			void post(void);
+			/**
+			 * @brief Wait for a new semaphore post by an other thread.
+			 */
 			void wait(void);
-			// wait with a timeout in us; return true if get the semaphore
+			/**
+			 * @brief Wait for a new semaphore post by an other thread,
+			 * with a timeout in micro-second.
+			 * @param[in] _timeOutInUs Number of micro-second to wait a semaphore.
+			 * @return true The function get a semaphore.
+			 * @return false The time-out appear or an error occured.
+			 */
 			bool wait(uint64_t _timeOutInUs);
 	};
-	
 };
 
 #endif

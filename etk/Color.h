@@ -9,43 +9,112 @@
 #ifndef __ETK_COLOR_H__
 #define __ETK_COLOR_H__
 
-#include <etk/UString.h>
+#include <etk/types.h>
 
 namespace etk {
-	template<class MY_TYPE=uint8_t> class Color
-	{
+	/**
+	 * @brief The color class is a template to abstract the color implementation choice.
+	 * 
+	 * It is important to note that the color choice denpznd on the level of developent.
+	 * For example :
+	 * :** Graphic application use:
+	 * ::** Image in 3/4 bytes for rgb(a)
+	 * ::** Color description in char : '#F6780FFF' or the equivalent number:0xF6780FFF
+	 * :** middleware will mainely use a the 4 separate value with 1 byte for each.
+	 * :** graphic interface (openGL) store image in 1/2/3/4 bytes color and interpolate it in 'n' float. And note that the user color is sored in float.
+	 * 
+	 * Then with this class we abstract the transformation format and set an easy same way to use the color independing of the developpement level.
+	 * 
+	 * Some of the basic color is defined in the namespace: [namespace[etk::color]].
+	 * 
+	 * @template-param MY_TYPE Type of the internal template value. The generic value is uint8_t and float
+	 */
+	template<class MY_TYPE=uint8_t> class Color {
 		private:
-			MY_TYPE m_r;
-			MY_TYPE m_g;
-			MY_TYPE m_b;
-			MY_TYPE m_a;
-		public :
+			MY_TYPE m_r; //!< Red color value.
+			MY_TYPE m_g; //!< Green color value.
+			MY_TYPE m_b; //!< Blue color value
+			MY_TYPE m_a; //!< Alpha blending value.
+		public:
+			/**
+			 * @brief Constructor. It does not initialise element of class.
+			 */
 			Color(void) { };
-			Color(double _r, double _g, double _b, double _a=255) { set((float)_r, (float)_g, (float)_b, (float)_a); };
-			Color(float _r, float _g, float _b, float _a=255) { set(_r, _g, _b, _a); };
-			Color(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a=255) { set(_r, _g, _b, _a); };
-			Color(int _r, int _g, int _b, int _a=255) { set(_r, _g, _b, _a); };
-			Color(uint32_t _input)
-			{
+			/**
+			 * @brief Contructor with request initialisation.
+			 * @param[in] _r Red color.
+			 * @param[in] _g Green color.
+			 * @param[in] _b Blue color.
+			 * @param[in] _a Alpha blending.
+			 */
+			Color(double _r, double _g, double _b, double _a=255) {
+				set((float)_r, (float)_g, (float)_b, (float)_a);
+			};
+			/**
+			 * @previous
+			 */
+			Color(float _r, float _g, float _b, float _a=255) {
+				set(_r, _g, _b, _a);
+			};
+			/**
+			 * @previous
+			 */
+			Color(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a=255) {
+				set(_r, _g, _b, _a);
+			};
+			/**
+			 * @previous
+			 */
+			Color(int _r, int _g, int _b, int _a=255) {
+				set(_r, _g, _b, _a);
+			};
+			/**
+			 * @brief Constructor with the single integer input.
+			 * @note Not forger the alpha blending at the end
+			 * @param[in] _input rgba integer value : 0xrrggbbaa >> 0x99AF6DFF
+			 */
+			Color(uint32_t _input) {
 				set((uint8_t)((_input&0xFF000000)>>24),
 				    (uint8_t)((_input&0x00FF0000)>>16),
 				    (uint8_t)((_input&0x0000FF00)>>8),
 				    (uint8_t)((_input&0x000000FF)));
 			};
-			Color(const etk::Color<float>& _obj) { set(_obj.r(), _obj.g(), _obj.b(), _obj.a()); };
-			Color(const etk::Color<uint8_t>& _obj) { set(_obj.r(), _obj.g(), _obj.b(), _obj.a()); };
-			Color(std::string _input);
-			~Color(void) { };
-			Color<MY_TYPE>& operator=(const etk::Color<MY_TYPE>& _input)
-			{
+			/**
+			 * @brief Copy contructor or convert contructor
+			 * @param[in] _obj Element to copy in this new color class.
+			 */
+			Color(const etk::Color<float>& _obj) {
+				set(_obj.r(), _obj.g(), _obj.b(), _obj.a());
+			};
+			/**
+			 * @previous
+			 */
+			Color(const etk::Color<uint8_t>& _obj) {
+				set(_obj.r(), _obj.g(), _obj.b(), _obj.a());
+			};
+			/**
+			 * @brief String extractor constructor.
+			 * @param[in] _input Color string to parse. it can be : "#rrggbb", "rgb", "rrggbbaa", "rgba", "blueviolet" ...
+			 */
+			Color(const std::string& _input);
+			/**
+			 * @brief Asignemement operator
+			 * @param[in] _input Color object to set in this class.
+			 * @return reference on this element.
+			 */
+			Color<MY_TYPE>& operator=(const etk::Color<MY_TYPE>& _input) {
 				m_r = _input.m_r;
 				m_g = _input.m_g;
 				m_b = _input.m_b;
 				m_a = _input.m_a;
 				return *this;
 			};
-			bool operator!= (const etk::Color<MY_TYPE>& _obj) const
-			{
+			/**
+			 * @brief Different comparaison operator.
+			 * @param[in] _obj Color object to compare.
+			 * @return true This is not the same color, false otherwise.
+			 */
+			bool operator!= (const etk::Color<MY_TYPE>& _obj) const {
 				if(    m_r != _obj.m_r
 				    || m_g != _obj.m_g
 				    || m_b != _obj.m_b
@@ -54,8 +123,8 @@ namespace etk {
 				}
 				return false;
 			}
-			bool operator== (const etk::Color<MY_TYPE>& _obj) const
-			{
+			
+			bool operator== (const etk::Color<MY_TYPE>& _obj) const {
 				if(    m_r != _obj.m_r
 				    || m_g != _obj.m_g
 				    || m_b != _obj.m_b
@@ -74,32 +143,64 @@ namespace etk {
 				    (uint8_t)(etk_avg(0,_a,255)) );
 			}
 			std::string getHexString(void) const {
-				return "0x" + to_string<uint32_t>(get(), std::hex);
+				return "0x" + std::to_string<uint32_t>(get(), std::hex);
 			};
 			std::string getString(void) const {
-				return "#"  + to_string<uint32_t>(get(), std::hex);
+				return "#"  + std::to_string<uint32_t>(get(), std::hex);
 			};
+			/**
+			 * @brief Get red color.
+			 * @return The red color.
+			 */
 			MY_TYPE r(void) const {
 				return m_r;
 			};
+			/**
+			 * @brief Get green color.
+			 * @return The green color.
+			 */
 			MY_TYPE g(void) const {
 				return m_g;
 			};
+			/**
+			 * @brief Get blue color.
+			 * @return The blue color.
+			 */
 			MY_TYPE b(void) const {
 				return m_b;
 			};
+			/**
+			 * @brief Get alpha blending.
+			 * @return The alpha blending.
+			 */
 			MY_TYPE a(void) const {
 				return m_a;
 			};
+			/**
+			 * @brief Set red color.
+			 * @param[in] _r The red color to set.
+			 */
 			void setR(MY_TYPE _r) {
 				m_r=_r;
 			};
+			/**
+			 * @brief Set green color.
+			 * @param[in] _g The green color to set.
+			 */
 			void setG(MY_TYPE _g) {
 				m_g=_g;
 			};
+			/**
+			 * @brief Set blue color.
+			 * @param[in] _b The blue color to set.
+			 */
 			void setB(MY_TYPE _b) {
 				m_b=_b;
 			};
+			/**
+			 * @brief Set alpha blending.
+			 * @param[in] _a The alpha blending to set.
+			 */
 			void setA(MY_TYPE _a) {
 				m_a=_a;
 			};

@@ -17,10 +17,11 @@
 	#include <pthread.h>
 #endif
 
-namespace etk
-{
-	class Mutex
-	{
+namespace etk {
+	/**
+	 * @brief Generic mutex interface (OS independent)
+	 */
+	class Mutex {
 		private:
 			#ifdef __TARGET_OS__Windows
 				CRITICAL_SECTION m_mutex;
@@ -28,10 +29,27 @@ namespace etk
 				pthread_mutex_t  m_mutex;
 			#endif
 		public:
+			/**
+			 * @brief Create a new mutex
+			 */
 			Mutex(void);
+			/**
+			 * @brief Destroy the mutex.
+			 */
 			~Mutex(void);
+			/**
+			 * @brief Lock the mutex (Wait while the mutex is not lock)
+			 */
 			void lock(void);
+			/**
+			 * @brief Try to lock the mutex (exit if mutex is already locked)
+			 * @return true The mutex is locked
+			 * @return false The mutex is already locked.
+			 */
 			bool tryLock(void);
+			/**
+			 * @brief Unloc the mutex
+			 */
 			void unLock(void);
 	};
 	

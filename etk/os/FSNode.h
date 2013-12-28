@@ -9,7 +9,7 @@
 #ifndef __ETK_FILE_SYSTEM_NODE_H__
 #define __ETK_FILE_SYSTEM_NODE_H__
 
-#include <etk/UString.h>
+#include <etk/types.h>
 #include <etk/os/FSNodeRight.h>
 
 #ifdef __TARGET_OS__Android

@@ -45,14 +45,7 @@
 #define etk_max(elemA,elemB) (((elemA)<(elemB)) ? (elemB) : (elemA))
 #define etk_avg(minimim,elem,maximum) (((minimim)>(elem)) ? (minimim) : ((maximum)<(elem)) ? (maximum) : (elem))
 
-#include <etk/UChar.h>
-
-#include <string>
-#ifdef __TARGET_OS__MacOs
-	namespace std {
-		typedef std::basic_string<char32_t> u32string;
-	};
-#endif
+#include <etk/stdTools.h>
 
 typedef float float_t;
 #endif

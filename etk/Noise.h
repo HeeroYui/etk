@@ -10,7 +10,6 @@
 #define __ETK_NOISE_H__
 
 #include <etk/types.h>
-#include <etk/UString.h>
 #include <etk/math/Vector2D.h>
 
 namespace etk {
@@ -24,8 +23,7 @@ namespace etk {
 			~BaseNoise(void);
 			float get(int32_t _x, int32_t _y) const;
 	};
-	class Noise
-	{
+	class Noise {
 		public:
 			enum noise {
 				NOISE_BASE,
@@ -38,7 +36,7 @@ namespace etk {
 			};
 		private:
 			std::vector<float> m_data;
-			ivec2    m_size;
+			ivec2 m_size;
 			enum noise m_type;
 			float smoothNoise(float _x, float _y, const etk::BaseNoise& _noise);
 			float turbulence(float _x, float _y, float _size, const etk::BaseNoise& _noise);

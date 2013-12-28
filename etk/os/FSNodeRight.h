@@ -9,7 +9,7 @@
 #ifndef __ETK_FILE_SYSTEM_NODE_RIGHT_H__
 #define __ETK_FILE_SYSTEM_NODE_RIGHT_H__
 
-#include <etk/UString.h>
+#include <etk/types.h>
 
 namespace etk
 {
