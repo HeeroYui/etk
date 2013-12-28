@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>etk Library</title>
+	<link rel="stylesheet" href="base.css">
+	<link rel="stylesheet" href="menu.css">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<h1><a href="index.html">etk library</a></h1>
+			<h4><a href="http://github.com/heeroyui/etk/">&nbsp;&nbsp;&nbsp;[ sources ]</a></h4>
+<h3>API:</h3>			<div id="menu">
+<ul class="niveau1">
+	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
+<ul class="niveau2">
+	<li><a href="namespace_etk__color.html">color</a>
+	</li>
+	<li><a href="namespace_etk__tool.html">tool</a>
+	</li>
+	<li><a href="namespace_etk__archive.html">archive</a>
+	</li>
+	<li><a href="namespace_etk__theme.html">theme</a>
+	</li>
+</ul>
+	</li>
+	<li><a href="namespace_u32char.html">u32char</a>
+	</li>
+	<li><a href="namespace_utf8.html">utf8</a>
+	</li>
+	<li><a href="namespace_std.html">std</a>
+	</li>
+	<li><a href="namespace_debug.html">debug</a>
+	</li>
+</ul>
+			</div>
+<h3>Documentation:</h3><div id="menu">
+</div>
+<br/><h3>Associate libraries:</h3><div id="menu">
+<ul class="niveau1"><li><a href="../ewol/index.html">ewol</a></li>
+</ul><ul class="niveau1"><li><a href="../ejson/index.html">ejson</a></li>
+</ul><ul class="niveau1"><li><a href="../egami/index.html">egami</a></li>
+</ul><ul class="niveau1"><li><a href="../ege/index.html">ege</a></li>
+</ul><ul class="niveau1"><li><a href="../esvg/index.html">esvg</a></li>
+</ul><ul class="niveau1"><li><a href="../exml/index.html">exml</a></li>
+</ul></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+		</div>
+	</div>
+	<div class="container" id="content">
+<h1>class: etk::Matrix4</h1><hr/><h2>Description:</h2>
+
+<br/><br/>
+<h2>Constructor and Destructor:</h2>
+<pre>
++                 <a class="code-function" href="#8460">Matrix4</a>     (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+                 <a class="code-function" href="#8462">Matrix4</a>     (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br/>+                 <a class="code-function" href="#8464">Matrix4</a>     (<span class="code-type" >float</span> <span class="code-argument">a1</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">b1</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">c1</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">d1</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">a2</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">b2</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">c2</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">d2</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">a3</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">b3</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">c3</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">d3</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">a4</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">b4</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">c4</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">d4</span>);<br/>+                 <a class="code-function" href="#8481">Matrix4</a>     (<span class="code-type" >float</span>* <span class="code-argument">obj</span>);<br/>+ <span class="code-storage-keyword">virtual</span>                 <a class="code-function" href="#8483">~Matrix4</a>    (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<br/>
+<h2>Synopsis:</h2>
+<pre>
++ <span class="code-type" >float</span>           <a class="code-member" href="#8457">m_mat</a>;<br/>+ <span class="code-type" >void</span>            <a class="code-function" href="#8458">identity</a>    (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-storage-keyword">const</span> Matrix4 & <a class="code-function" href="#8485">operator =</a>  (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br/>+ <span class="code-type" >bool</span>            <a class="code-function" href="#8487">operator ==</a> (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>            <a class="code-function" href="#8489">operator !=</a> (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> Matrix4 & <a class="code-function" href="#8491">operator +=</a> (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br/>+ Matrix4         <a class="code-function" href="#8493">operator +</a>  (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> Matrix4 & <a class="code-function" href="#8495">operator -=</a> (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br/>+ Matrix4         <a class="code-function" href="#8497">operator -</a>  (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> Matrix4 & <a class="code-function" href="#8499">operator *=</a> (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br/>+ Matrix4         <a class="code-function" href="#8501">operator *</a>  (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/>+ vec3            <a class="code-function" href="#8503">operator *</a>  (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">point</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >void</span>            <a class="code-function" href="#8505">transpose</a>   (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >void</span>            <a class="code-function" href="#8507">scale</a>       (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">p</span>);<br/>+ <span class="code-type" >void</span>            <a class="code-function" href="#8509">scale</a>       (<span class="code-type" >float</span> <span class="code-argument">sx</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">sy</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">sz</span>);<br/>+ <span class="code-type" >void</span>            <a class="code-function" href="#8513">rotate</a>      (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">vect</span>,<br/>                               <span class="code-type" >float</span> <span class="code-argument">angleRad</span>);<br/>+ <span class="code-type" >void</span>            <a class="code-function" href="#8516">translate</a>   (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">vect</span>);<br/>+ <span class="code-type" >float</span>           <a class="code-function" href="#8518">coFactor</a>    (<span class="code-type" >int32_t</span> <span class="code-argument">row</span>,<br/>                               <span class="code-type" >int32_t</span> <span class="code-argument">col</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >float</span>           <a class="code-function" href="#8521">determinant</a> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ Matrix4         <a class="code-function" href="#8523">invert</a>      (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<br/>
+<h2>Detail:</h2>
+<a id="8457"/><a id="8458"/><h3>m_mat</h3><pre>
++ <span class="code-type" >float</span> <span class="code-member">m_mat</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8460"/><h3>identity</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">identity</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8462"/><h3>Matrix4</h3><pre>
++  <span class="code-function">Matrix4</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+Constructor<br/>
+<br/>
+<hr/>
+<a id="8464"/><h3>Matrix4</h3><pre>
++  <span class="code-function">Matrix4</span> (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8481"/><h3>Matrix4</h3><pre>
++  <span class="code-function">Matrix4</span> (<span class="code-type" >float</span> <span class="code-argument">a1</span>,<br/>            <span class="code-type" >float</span> <span class="code-argument">b1</span>,<br/>            <span class="code-type" >float</span> <span class="code-argument">c1</span>,<br/>            <span class="code-type" >float</span> <span class="code-argument">d1</span>,<br/>            <span class="code-type" >float</span> <span class="code-argument">a2</span>,<br/>            <span class="code-type" >float</span> <span class="code-argument">b2</span>,<br/>            <span class="code-type" >float</span> <span class="code-argument">c2</span>,<br/>            <span class="code-type" >float</span> <span class="code-argument">d2</span>,<br/>            <span class="code-type" >float</span> <span class="code-argument">a3</span>,<br/>            <span class="code-type" >float</span> <span class="code-argument">b3</span>,<br/>            <span class="code-type" >float</span> <span class="code-argument">c3</span>,<br/>            <span class="code-type" >float</span> <span class="code-argument">d3</span>,<br/>            <span class="code-type" >float</span> <span class="code-argument">a4</span>,<br/>            <span class="code-type" >float</span> <span class="code-argument">b4</span>,<br/>            <span class="code-type" >float</span> <span class="code-argument">c4</span>,<br/>            <span class="code-type" >float</span> <span class="code-argument">d4</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8483"/><h3>Matrix4</h3><pre>
++  <span class="code-function">Matrix4</span> (<span class="code-type" >float</span>* <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8485"/><h3>~Matrix4</h3><pre>
++ <span class="code-storage-keyword">virtual</span>  <span class="code-function">~Matrix4</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+Destructor<br/>
+<br/>
+<hr/>
+<a id="8487"/><h3>operator =</h3><pre>
++ <span class="code-storage-keyword">const</span> Matrix4 & <span class="code-function">operator =</span> (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br/></pre>
+
+= assigment<br/>
+<br/>
+<hr/>
+<a id="8489"/><h3>operator ==</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">operator ==</span> (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+== operator<br/>
+<br/>
+<hr/>
+<a id="8491"/><h3>operator !=</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">operator !=</span> (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+!= operator<br/>
+<br/>
+<hr/>
+<a id="8493"/><h3>operator +=</h3><pre>
++ <span class="code-storage-keyword">const</span> Matrix4 & <span class="code-function">operator +=</span> (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br/></pre>
+
++= operator<br/>
+<br/>
+<hr/>
+<a id="8495"/><h3>operator +</h3><pre>
++ Matrix4 <span class="code-function">operator +</span> (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
++ operator<br/>
+<br/>
+<hr/>
+<a id="8497"/><h3>operator -=</h3><pre>
++ <span class="code-storage-keyword">const</span> Matrix4 & <span class="code-function">operator -=</span> (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br/></pre>
+
+-= operator<br/>
+<br/>
+<hr/>
+<a id="8499"/><h3>operator -</h3><pre>
++ Matrix4 <span class="code-function">operator -</span> (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+- operator<br/>
+<br/>
+<hr/>
+<a id="8501"/><h3>operator *=</h3><pre>
++ <span class="code-storage-keyword">const</span> Matrix4 & <span class="code-function">operator *=</span> (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>);<br/></pre>
+
+= operator<br/>
+<br/>
+<hr/>
+<a id="8503"/><h3>operator *</h3><pre>
++ Matrix4 <span class="code-function">operator *</span> (<span class="code-storage-keyword">const</span> Matrix4 & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+operator<br/>
+<br/>
+<hr/>
+<a id="8505"/><h3>operator *</h3><pre>
++ vec3 <span class="code-function">operator *</span> (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">point</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8507"/><h3>transpose</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">transpose</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+other basic function :<br/>
+<br/>
+<hr/>
+<a id="8509"/><h3>scale</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">scale</span> (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">p</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8513"/><h3>scale</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">scale</span> (<span class="code-type" >float</span> <span class="code-argument">sx</span>,<br/>              <span class="code-type" >float</span> <span class="code-argument">sy</span>,<br/>              <span class="code-type" >float</span> <span class="code-argument">sz</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8516"/><h3>rotate</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">rotate</span> (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">vect</span>,<br/>               <span class="code-type" >float</span> <span class="code-argument">angleRad</span>);<br/></pre>
+Makes a rotation matrix about an arbitrary axis.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">vect</span> </td><td> vector to apply the angle.</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">angleRad</span> </td><td> angle to apply.</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="8518"/><h3>translate</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">translate</span> (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">vect</span>);<br/></pre>
+Makes a translation of the matrix<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">vect</span> </td><td> Translation to apply.</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="8521"/><h3>coFactor</h3><pre>
++ <span class="code-type" >float</span> <span class="code-function">coFactor</span> (<span class="code-type" >int32_t</span> <span class="code-argument">row</span>,<br/>                  <span class="code-type" >int32_t</span> <span class="code-argument">col</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Computes a cofactor. Used for matrix inversion.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">row</span> </td><td> Id of raw.</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">col</span> </td><td> Id of colomn.</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>the coFactorValue.</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="8523"/><h3>determinant</h3><pre>
++ <span class="code-type" >float</span> <span class="code-function">determinant</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Computes the determinant of the matrix.<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>The determinent Value.</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<h3>invert</h3><pre>
++ Matrix4 <span class="code-function">invert</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Inverts the matrix.<br/><b>Note:</b> The determinant must be != 0, otherwithe the matrix can't be inverted.<br/> <ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>The inverted matrix.</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+	</div>
+</body>
+</html>

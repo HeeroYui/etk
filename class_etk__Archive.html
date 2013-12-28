@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>etk Library</title>
+	<link rel="stylesheet" href="base.css">
+	<link rel="stylesheet" href="menu.css">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<h1><a href="index.html">etk library</a></h1>
+			<h4><a href="http://github.com/heeroyui/etk/">&nbsp;&nbsp;&nbsp;[ sources ]</a></h4>
+<h3>API:</h3>			<div id="menu">
+<ul class="niveau1">
+	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
+<ul class="niveau2">
+	<li><a href="namespace_etk__color.html">color</a>
+	</li>
+	<li><a href="namespace_etk__tool.html">tool</a>
+	</li>
+	<li><a href="namespace_etk__archive.html">archive</a>
+	</li>
+	<li><a href="namespace_etk__theme.html">theme</a>
+	</li>
+</ul>
+	</li>
+	<li><a href="namespace_u32char.html">u32char</a>
+	</li>
+	<li><a href="namespace_utf8.html">utf8</a>
+	</li>
+	<li><a href="namespace_std.html">std</a>
+	</li>
+	<li><a href="namespace_debug.html">debug</a>
+	</li>
+</ul>
+			</div>
+<h3>Documentation:</h3><div id="menu">
+</div>
+<br/><h3>Associate libraries:</h3><div id="menu">
+<ul class="niveau1"><li><a href="../ewol/index.html">ewol</a></li>
+</ul><ul class="niveau1"><li><a href="../ejson/index.html">ejson</a></li>
+</ul><ul class="niveau1"><li><a href="../egami/index.html">egami</a></li>
+</ul><ul class="niveau1"><li><a href="../ege/index.html">ege</a></li>
+</ul><ul class="niveau1"><li><a href="../esvg/index.html">esvg</a></li>
+</ul><ul class="niveau1"><li><a href="../exml/index.html">exml</a></li>
+</ul></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+		</div>
+	</div>
+	<div class="container" id="content">
+<h1>class: etk::Archive</h1><hr/><h2>Description:</h2>
+
+<br/><br/>
+<h2>Associated Namespace:</h2><ul>
+<a href="namespace_etk__archive.html">archive</a></ul>
+<h2>class:</h2>
+<ul>
+<li><a href="class_etk__Archive__Content.html">Content</a></li></ul>
+<h2>Constructor and Destructor:</h2>
+<pre>
++                             <a class="code-function" href="#8991">Archive</a>     (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_fileName</span>);<br/>+ <span class="code-storage-keyword">virtual</span>                     <a class="code-function" href="#8993">~Archive</a>    (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<br/>
+<h2>Synopsis:</h2>
+<pre>
+#         <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>         <a class="code-member" href="#8995">m_fileName</a>;<br/>+         <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <a class="code-function" href="#8996">getFileName</a> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>#         <a class="code-type" href="class_etk__Hash.html">etk::Hash</a>&lt;Content&gt;  <a class="code-member" href="#8998">m_content</a>;<br/>+         <span class="code-type" >int32_t</span>             <a class="code-function" href="#8999">size</a>        (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+         <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <a class="code-function" href="#9001">getName</a>     (<span class="code-type" >int32_t</span> <span class="code-argument">_id</span>) <span class="code-storage-keyword">const</span>;<br/>+         <span class="code-storage-keyword">const</span> Content &     <a class="code-function" href="#9003">getContent</a>  (<span class="code-type" >int32_t</span> <span class="code-argument">_id</span>) <span class="code-storage-keyword">const</span>;<br/>+         <span class="code-storage-keyword">const</span> Content &     <a class="code-function" href="#9005">getContent</a>  (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>) <span class="code-storage-keyword">const</span>;<br/>+         <span class="code-type" >bool</span>                <a class="code-function" href="#9007">exist</a>       (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>) <span class="code-storage-keyword">const</span>;<br/>+         <span class="code-type" >void</span>                <a class="code-function" href="#9009">open</a>        (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>);<br/>+         <span class="code-type" >void</span>                <a class="code-function" href="#9011">close</a>       (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>);<br/>+         <span class="code-type" >void</span>                <a class="code-function" href="#9013">display</a>     (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/># <span class="code-storage-keyword">virtual</span> <span class="code-type" >void</span>                <a class="code-function" href="#9015">loadFile</a>    (<span class="code-type" >int32_t</span> <span class="code-argument">_id</span>);<br/>+         Archive*            <a class="code-function" href="#9017">load</a>        (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_fileName</span>);<br/></pre>
+<br/>
+<h2>Object Hierarchy:<h2>
+<pre>
+etk::Archive<br/>  +--> <a href="class_etk__archive__Zip.html">etk::archive::Zip</a><br/></pre>
+<h2>Detail:</h2>
+<a id="8991"/><a id="8993"/><h3>Archive</h3><pre>
++  <span class="code-function">Archive</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_fileName</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8995"/><h3>~Archive</h3><pre>
++ <span class="code-storage-keyword">virtual</span>  <span class="code-function">~Archive</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8996"/><h3>m_fileName</h3><pre>
+# <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-member">m_fileName</span>;<br/></pre>
+
+File name when it came from an file<br/>
+<br/>
+<hr/>
+<a id="8998"/><h3>getFileName</h3><pre>
++ <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-function">getFileName</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Get the current file name.<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>the requested file name.</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="8999"/><h3>m_content</h3><pre>
+# <a class="code-type" href="class_etk__Hash.html">etk::Hash</a>&lt;Content&gt; <span class="code-member">m_content</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9001"/><h3>size</h3><pre>
++ <span class="code-type" >int32_t</span> <span class="code-function">size</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the number of elements<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>nb files in the archive</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9003"/><h3>getName</h3><pre>
++ <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-function">getName</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_id</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the File name of the ID<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_id</span> </td><td> id of the element (must be &lt; Size())</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>FileName of the requested id</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9005"/><h3>getContent</h3><pre>
++ <span class="code-storage-keyword">const</span> Content & <span class="code-function">getContent</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_id</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the File name of the ID<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_id</span> </td><td> id of the element (must be &lt; Size())</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>the archive content</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9007"/><h3>getContent</h3><pre>
++ <span class="code-storage-keyword">const</span> Content & <span class="code-function">getContent</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the File name of the ID<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_key</span> </td><td> name of the file</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>FileName of the requested id</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9009"/><h3>exist</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">exist</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Check if a file exist<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_key</span> </td><td> Name of the file</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true if the file is present</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9011"/><h3>open</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">open</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>);<br/></pre>
+Load the specific file in the memory<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_key</span> </td><td> Name of the file</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9013"/><h3>close</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">close</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>);<br/></pre>
+Un-Load the specific file from the memory<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_key</span> </td><td> Name of the file</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9015"/><h3>display</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">display</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Display all Element in the archive<br/>
+<br/>
+<hr/>
+<a id="9017"/><h3>loadFile</h3><pre>
+# <span class="code-storage-keyword">virtual</span> <span class="code-type" >void</span> <span class="code-function">loadFile</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_id</span>);<br/></pre>
+Request the load in memory of the concerned file.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_id</span> </td><td> Id of the file to load.</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<h3>load</h3><pre>
++ Archive* <span class="code-function">load</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_fileName</span>);<br/></pre>
+Load an Achive with a specific name.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_fileName</span> </td><td> File name of the specific archive.</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>A pointer an the specified archive, the user might delete it.</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+	</div>
+</body>
+</html>

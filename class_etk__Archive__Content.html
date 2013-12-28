@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>etk Library</title>
+	<link rel="stylesheet" href="base.css">
+	<link rel="stylesheet" href="menu.css">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<h1><a href="index.html">etk library</a></h1>
+			<h4><a href="http://github.com/heeroyui/etk/">&nbsp;&nbsp;&nbsp;[ sources ]</a></h4>
+<h3>API:</h3>			<div id="menu">
+<ul class="niveau1">
+	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
+<ul class="niveau2">
+	<li><a href="namespace_etk__color.html">color</a>
+	</li>
+	<li><a href="namespace_etk__tool.html">tool</a>
+	</li>
+	<li><a href="namespace_etk__archive.html">archive</a>
+	</li>
+	<li><a href="namespace_etk__theme.html">theme</a>
+	</li>
+</ul>
+	</li>
+	<li><a href="namespace_u32char.html">u32char</a>
+	</li>
+	<li><a href="namespace_utf8.html">utf8</a>
+	</li>
+	<li><a href="namespace_std.html">std</a>
+	</li>
+	<li><a href="namespace_debug.html">debug</a>
+	</li>
+</ul>
+			</div>
+<h3>Documentation:</h3><div id="menu">
+</div>
+<br/><h3>Associate libraries:</h3><div id="menu">
+<ul class="niveau1"><li><a href="../ewol/index.html">ewol</a></li>
+</ul><ul class="niveau1"><li><a href="../ejson/index.html">ejson</a></li>
+</ul><ul class="niveau1"><li><a href="../egami/index.html">egami</a></li>
+</ul><ul class="niveau1"><li><a href="../ege/index.html">ege</a></li>
+</ul><ul class="niveau1"><li><a href="../esvg/index.html">esvg</a></li>
+</ul><ul class="niveau1"><li><a href="../exml/index.html">exml</a></li>
+</ul></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+		</div>
+	</div>
+	<div class="container" id="content">
+<h1>class: etk::Archive::Content</h1><hr/><h2>Description:</h2>
+
+<br/><br/>
+<h2>Constructor and Destructor:</h2>
+<pre>
++                     <a class="code-function" href="#8983">Content</a>        (<span class="code-type" >int32_t</span> <span class="code-argument">_basicSize</span>);<br/></pre>
+<br/>
+<h2>Synopsis:</h2>
+<pre>
++ <span class="code-type" >void</span>                <a class="code-function" href="#8973">increaseRef</a>    (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#8975">decreaseRef</a>    (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >int32_t</span>             <a class="code-function" href="#8977">getNumberOfRef</a> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >int32_t</span>             <a class="code-function" href="#8980">getTheoricSize</a> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >int32_t</span>             <a class="code-function" href="#8985">size</a>           (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >void</span>*               <a class="code-function" href="#8987">data</a>           (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;char&gt; & <a class="code-function" href="#8989">getDataVector</a>  (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<br/>
+<h2>Detail:</h2>
+<a id="8973"/><a id="8975"/><h3>increaseRef</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">increaseRef</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8977"/><h3>decreaseRef</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">decreaseRef</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8980"/><h3>getNumberOfRef</h3><pre>
++ <span class="code-type" >int32_t</span> <span class="code-function">getNumberOfRef</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8983"/><h3>getTheoricSize</h3><pre>
++ <span class="code-type" >int32_t</span> <span class="code-function">getTheoricSize</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8985"/><h3>Content</h3><pre>
++  <span class="code-function">Content</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_basicSize</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8987"/><h3>size</h3><pre>
++ <span class="code-type" >int32_t</span> <span class="code-function">size</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8989"/><h3>data</h3><pre>
++ <span class="code-type" >void</span>* <span class="code-function">data</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<h3>getDataVector</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;char&gt; & <span class="code-function">getDataVector</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+	</div>
+</body>
+</html>

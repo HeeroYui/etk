@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>etk Library</title>
+	<link rel="stylesheet" href="base.css">
+	<link rel="stylesheet" href="menu.css">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<h1><a href="index.html">etk library</a></h1>
+			<h4><a href="http://github.com/heeroyui/etk/">&nbsp;&nbsp;&nbsp;[ sources ]</a></h4>
+<h3>API:</h3>			<div id="menu">
+<ul class="niveau1">
+	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
+<ul class="niveau2">
+	<li><a href="namespace_etk__color.html">color</a>
+	</li>
+	<li><a href="namespace_etk__tool.html">tool</a>
+	</li>
+	<li><a href="namespace_etk__archive.html">archive</a>
+	</li>
+	<li><a href="namespace_etk__theme.html">theme</a>
+	</li>
+</ul>
+	</li>
+	<li><a href="namespace_u32char.html">u32char</a>
+	</li>
+	<li><a href="namespace_utf8.html">utf8</a>
+	</li>
+	<li><a href="namespace_std.html">std</a>
+	</li>
+	<li><a href="namespace_debug.html">debug</a>
+	</li>
+</ul>
+			</div>
+<h3>Documentation:</h3><div id="menu">
+</div>
+<br/><h3>Associate libraries:</h3><div id="menu">
+<ul class="niveau1"><li><a href="../ewol/index.html">ewol</a></li>
+</ul><ul class="niveau1"><li><a href="../ejson/index.html">ejson</a></li>
+</ul><ul class="niveau1"><li><a href="../egami/index.html">egami</a></li>
+</ul><ul class="niveau1"><li><a href="../ege/index.html">ege</a></li>
+</ul><ul class="niveau1"><li><a href="../esvg/index.html">esvg</a></li>
+</ul><ul class="niveau1"><li><a href="../exml/index.html">exml</a></li>
+</ul></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+		</div>
+	</div>
+	<div class="container" id="content">
+<h1>class: etk::FSNode</h1><hr/><h2>Description:</h2>
+FS node is for File system IO access This class is independent of the OS, If you acces to a file in windows, it might generate the right loke Linux (it is important to know that windows right is lighter than linux)<br/><br/>
+<h2>Constructor and Destructor:</h2>
+<pre>
++                              <a class="code-function" href="#9101">FSNode</a>                   (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/>+                              <a class="code-function" href="#9103">FSNode</a>                   (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/>+                              <a class="code-function" href="#9105">~FSNode</a>                  (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<br/>
+<h2>Synopsis:</h2>
+<pre>
++ <span class="code-type" >bool</span>                         <a class="code-function" href="#9119">exist</a>                    (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">enum</span> typeNode                <a class="code-function" href="#9121">getNodeType</a>              (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a>             <a class="code-function" href="#9123">getRight</a>                 (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#9125">setRight</a>                 (<a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> <span class="code-argument">_newRight</span>);<br/>+ <span class="code-type" >void</span>                         <a class="code-function" href="#9127">setName</a>                  (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_newName</span>);<br/>+ <span class="code-type" >void</span>                         <a class="code-function" href="#9129">setName</a>                  (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_newName</span>);<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>                  <a class="code-function" href="#9131">getFileSystemName</a>        (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>               <a class="code-function" href="#9133">getUFileSystemName</a>       (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>                  <a class="code-function" href="#9135">getNameFolder</a>            (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>               <a class="code-function" href="#9137">getUNameFolder</a>           (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>                  <a class="code-function" href="#9139">getName</a>                  (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>               <a class="code-function" href="#9141">getUName</a>                 (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>                  <a class="code-function" href="#9143">getNameFile</a>              (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>               <a class="code-function" href="#9145">getUNameFile</a>             (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>                  <a class="code-function" href="#9147">getRelativeFolder</a>        (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>               <a class="code-function" href="#9149">getURelativeFolder</a>       (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#9151">touch</a>                    (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#9153">move</a>                     (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#9155">move</a>                     (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/>+ <span class="code-storage-keyword">enum</span> FSNType                 <a class="code-function" href="#9157">getTypeAccess</a>            (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#9159">remove</a>                   (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >uint64_t</span>                     <a class="code-function" href="#9161">timeCreated</a>              (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>                  <a class="code-function" href="#9163">timeCreatedString</a>        (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>               <a class="code-function" href="#9165">timeUCreatedString</a>       (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >uint64_t</span>                     <a class="code-function" href="#9167">timeModified</a>             (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>                  <a class="code-function" href="#9169">timeModifiedString</a>       (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>               <a class="code-function" href="#9171">timeUModifiedString</a>      (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >uint64_t</span>                     <a class="code-function" href="#9173">timeAccessed</a>             (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>                  <a class="code-function" href="#9175">timeAccessedString</a>       (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>               <a class="code-function" href="#9177">timeUAccessedString</a>      (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNode.html">etk::FSNode</a> &          <a class="code-function" href="#9179">operator =</a>               (<span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNode.html">etk::FSNode</a> & <span class="code-argument">_obj</span>);<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#9181">operator ==</a>              (<span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNode.html">etk::FSNode</a> & <span class="code-argument">_obj</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#9183">operator !=</a>              (<span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNode.html">etk::FSNode</a> & <span class="code-argument">_obj</span>) <span class="code-storage-keyword">const</span>;<br/>+ friendetk::CCout &           <a class="code-function" href="#9185">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                                                         <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNode.html">etk::FSNode</a> & <span class="code-argument">_obj</span>);<br/>+ <span class="code-type" >int64_t</span>                      <a class="code-function" href="#9188">folderCount</a>              (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;etk::FSNode*&gt;    <a class="code-function" href="#9190">folderGetSubList</a>         (<span class="code-type" >bool</span> <span class="code-argument">_showHidenFile</span>,<br/>                                                         <span class="code-type" >bool</span> <span class="code-argument">_getFolderAndOther</span>,<br/>                                                         <span class="code-type" >bool</span> <span class="code-argument">_getFile</span>,<br/>                                                         <span class="code-type" >bool</span> <span class="code-argument">_temporaryFile</span>);<br/>+ <a class="code-type" href="class_etk__FSNode.html">etk::FSNode</a>                  <a class="code-function" href="#9195">folderGetParent</a>          (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >void</span>                         <a class="code-function" href="#9197">folderGetRecursiveFiles</a>  (<a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::string&gt; & <span class="code-argument">_output</span>,<br/>                                                         <span class="code-type" >bool</span> <span class="code-argument">_recursiveEnable</span>);<br/>+ <span class="code-type" >void</span>                         <a class="code-function" href="#9200">folderGetRecursiveFiles</a>  (<a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::u32string&gt; & <span class="code-argument">_output</span>,<br/>                                                         <span class="code-type" >bool</span> <span class="code-argument">_recursiveEnable</span>);<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#9203">fileHasExtention</a>         (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>                  <a class="code-function" href="#9205">fileGetExtention</a>         (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>               <a class="code-function" href="#9207">fileUGetExtention</a>        (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >uint64_t</span>                     <a class="code-function" href="#9209">fileSize</a>                 (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#9211">fileOpenRead</a>             (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#9213">fileOpenWrite</a>            (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#9215">fileOpenAppend</a>           (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#9217">fileClose</a>                (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >char</span>*                        <a class="code-function" href="#9219">fileGets</a>                 (<span class="code-type" >char</span>* <span class="code-argument">_elementLine</span>,<br/>                                                         <span class="code-type" >int64_t</span> <span class="code-argument">_maxData</span>);<br/>+ <span class="code-type" >char</span>                         <a class="code-function" href="#9222">fileGet</a>                  (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >int64_t</span>                      <a class="code-function" href="#9224">fileRead</a>                 (<span class="code-type" >void</span>* <span class="code-argument">_data</span>,<br/>                                                         <span class="code-type" >int64_t</span> <span class="code-argument">_blockSize</span>,<br/>                                                         <span class="code-type" >int64_t</span> <span class="code-argument">_nbBlock</span>);<br/>+ <span class="code-type" >int64_t</span>                      <a class="code-function" href="#9228">fileWrite</a>                (<span class="code-type" >void</span>* <span class="code-argument">_data</span>,<br/>                                                         <span class="code-type" >int64_t</span> <span class="code-argument">_blockSize</span>,<br/>                                                         <span class="code-type" >int64_t</span> <span class="code-argument">_nbBlock</span>);<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#9232">fileSeek</a>                 (longint <span class="code-argument">_offset</span>,<br/>                                                         <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__seekNode.html">etk::seekNode</a> <span class="code-argument">_origin</span>);<br/>+ <span class="code-type" >void</span>                         <a class="code-function" href="#9235">fileFlush</a>                (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<br/>
+<h2>Detail:</h2>
+<a id="9101"/><a id="9103"/><h3>FSNode</h3><pre>
++  <span class="code-function">FSNode</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/></pre>
+Constructor<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path</span> </td><td> Path of the curent file /folder ...</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9105"/><h3>FSNode</h3><pre>
++  <span class="code-function">FSNode</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9119"/><h3>~FSNode</h3><pre>
++  <span class="code-function">~FSNode</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Destructor<br/><b>Note:</b> you will have some warning if you did not close your files<br/> 
+<br/>
+<hr/>
+<a id="9121"/><h3>exist</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">exist</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Check if the node exist.<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>true : The node existed.&lt;br/&gt;false : The node does not exist.</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9123"/><h3>getNodeType</h3><pre>
++ <span class="code-storage-keyword">enum</span> typeNode <span class="code-function">getNodeType</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the node type<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>the requested type, FSN_UNKNOW if it does not existed</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9125"/><h3>getRight</h3><pre>
++ <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> <span class="code-function">getRight</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the node Right<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>the requested right</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9127"/><h3>setRight</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">setRight</span> (<a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> <span class="code-argument">_newRight</span>);<br/></pre>
+Set the specific right of the node<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_newRight</span> </td><td> new right to set</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : action done&lt;br/&gt;false : action not done</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9129"/><h3>setName</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">setName</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_newName</span>);<br/></pre>
+Change the Node seeing (not rename the node, for this @ref Move)<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_newName</span> </td><td> New node name to show</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : action done&lt;br/&gt;false : action not done</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9131"/><h3>setName</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">setName</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_newName</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9133"/><h3>getFileSystemName</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">getFileSystemName</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the Generate FileSystem name<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>the requested filename</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9135"/><h3>getUFileSystemName</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">getUFileSystemName</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9137"/><h3>getNameFolder</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">getNameFolder</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the current folder of the Node. (file system name)<br/><b>Note:</b> Auto remove of ../../../ and //<br/> <ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>the common name define (like /xxxxx/xxxxx/ or c:/xxxxx/xxxxx/)</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9139"/><h3>getUNameFolder</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">getUNameFolder</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9141"/><h3>getName</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">getName</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the current compleate node name (file system name)<br/><b>Note:</b> Auto remove of ../../../ and //<br/> <ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>All the user name definition (like /xxxxx/xxxxx/myFile.kkk or c:/xxxxx/xxxxx/myFile.kkk)</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9143"/><h3>getUName</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">getUName</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9145"/><h3>getNameFile</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">getNameFile</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the file or current file name (if it was a file)<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>the name of the node (like myFile.kkk)</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9147"/><h3>getUNameFile</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">getUNameFile</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9149"/><h3>getRelativeFolder</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">getRelativeFolder</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the current folder of the Node.<br/><b>Note:</b> Auto remove of ../../../ and //<br/> <ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>the common name define (like DATA:xxxxx/xxxxx/)</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9151"/><h3>getURelativeFolder</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">getURelativeFolder</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9153"/><h3>touch</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">touch</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+update the Time of the file with the current time<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>true : action done&lt;br/&gt;false : action not done</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9155"/><h3>move</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">move</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/></pre>
+Move the Node at a new path<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path</span> </td><td> The new path</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : action done&lt;br/&gt;false : action not done</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9157"/><h3>move</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">move</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9159"/><h3>getTypeAccess</h3><pre>
++ <span class="code-storage-keyword">enum</span> FSNType <span class="code-function">getTypeAccess</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the node type (DATA/DIRECT...)<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>the requested type</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9161"/><h3>remove</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">remove</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Remove the current node ( if folder, this remove all subfolder but not the Link subfolder)<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>true : action done&lt;br/&gt;false : action not done</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9163"/><h3>timeCreated</h3><pre>
++ <span class="code-type" >uint64_t</span> <span class="code-function">timeCreated</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the creating time of the File<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>The time requested</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9165"/><h3>timeCreatedString</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">timeCreatedString</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the creating time of the File<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>The time requested (in string)</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9167"/><h3>timeUCreatedString</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">timeUCreatedString</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9169"/><h3>timeModified</h3><pre>
++ <span class="code-type" >uint64_t</span> <span class="code-function">timeModified</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the modifying time of the File<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>The time requested</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9171"/><h3>timeModifiedString</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">timeModifiedString</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the modifying time of the File<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>The time requested (in string)</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9173"/><h3>timeUModifiedString</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">timeUModifiedString</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9175"/><h3>timeAccessed</h3><pre>
++ <span class="code-type" >uint64_t</span> <span class="code-function">timeAccessed</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the Accessed time of the File<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>The time requested</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9177"/><h3>timeAccessedString</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">timeAccessedString</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the Accessed time of the File<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>The time requested (in string)</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9179"/><h3>timeUAccessedString</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">timeUAccessedString</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9181"/><h3>operator =</h3><pre>
++ <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNode.html">etk::FSNode</a> & <span class="code-function">operator =</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNode.html">etk::FSNode</a> & <span class="code-argument">_obj</span>);<br/></pre>
+copy the other FSnode ==&gt; for vector<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_obj</span> </td><td> input node</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>the current modify node</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9183"/><h3>operator ==</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">operator ==</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNode.html">etk::FSNode</a> & <span class="code-argument">_obj</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Check if the 2 node are link with the same file<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_obj</span> </td><td> input node</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : same node, false otherwise</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9185"/><h3>operator !=</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">operator !=</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNode.html">etk::FSNode</a> & <span class="code-argument">_obj</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Check if the 2 node are NOT link with the same file<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_obj</span> </td><td> input node</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>false : same node, true otherwise</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9188"/><h3>operator <<</h3><pre>
++ friendetk::CCout & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                                  <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNode.html">etk::FSNode</a> & <span class="code-argument">_obj</span>);<br/></pre>
+Write in the statard debug IO the current node<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_os</span> </td><td> std debug IO</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_obj</span> </td><td> Node to display</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>std debug IO</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9190"/><h3>folderCount</h3><pre>
++ <span class="code-type" >int64_t</span> <span class="code-function">folderCount</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Count the number of subFolder in the curent Folder<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>&gt;=0 nb of subElement&lt;br/&gt;-1 an error occured ==&gt; not a folder ???</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9195"/><h3>folderGetSubList</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;etk::FSNode*&gt; <span class="code-function">folderGetSubList</span> (<span class="code-type" >bool</span> <span class="code-argument">_showHidenFile</span>,<br/>                                              <span class="code-type" >bool</span> <span class="code-argument">_getFolderAndOther</span>,<br/>                                              <span class="code-type" >bool</span> <span class="code-argument">_getFile</span>,<br/>                                              <span class="code-type" >bool</span> <span class="code-argument">_temporaryFile</span>);<br/></pre>
+Get the List of all node inside a node (folder only)<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_showHidenFile</span> </td><td> Add hidden file/folder/...</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_getFolderAndOther</span> </td><td> get folder</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_getFile</span> </td><td> Get files</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_temporaryFile</span> </td><td> add Tmp file like .bck or ~</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>The requested list</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9197"/><h3>folderGetParent</h3><pre>
++ <a class="code-type" href="class_etk__FSNode.html">etk::FSNode</a> <span class="code-function">folderGetParent</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Get the father node of this node<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>The requested node</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9200"/><h3>folderGetRecursiveFiles</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">folderGetRecursiveFiles</span> (<a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::string&gt; & <span class="code-argument">_output</span>,<br/>                                <span class="code-type" >bool</span> <span class="code-argument">_recursiveEnable</span>);<br/></pre>
+Get all the File inside a Folder (done recursively)<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [output]:</b></td><td><span class="code-argument">_output</span> </td><td> List of all the File names (You must clear it before set it in)</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_recursiveEnable</span> </td><td> Activate the recursive mode (enable by default)</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9203"/><h3>folderGetRecursiveFiles</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">folderGetRecursiveFiles</span> (<a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::u32string&gt; & <span class="code-argument">_output</span>,<br/>                                <span class="code-type" >bool</span> <span class="code-argument">_recursiveEnable</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9205"/><h3>fileHasExtention</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">fileHasExtention</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Check if the file have an extention (.ccc)<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>true The file have an extention.&lt;br/&gt;false The file have NO extention.</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9207"/><h3>fileGetExtention</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">fileGetExtention</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Get the extention of the Node<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>the requested extention</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9209"/><h3>fileUGetExtention</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">fileUGetExtention</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9211"/><h3>fileSize</h3><pre>
++ <span class="code-type" >uint64_t</span> <span class="code-function">fileSize</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Get the File size<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>the requested size</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9213"/><h3>fileOpenRead</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">fileOpenRead</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Open the file in Read mode<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>true : action done&lt;br/&gt;false : action not done</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9215"/><h3>fileOpenWrite</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">fileOpenWrite</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Open the file in write Mode<br/><b>Note:</b> You can not do it with the DATA: file ==&gt; this is not allowed in some Board like Android)<br/> <ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>true : action done&lt;br/&gt;false : action not done</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9217"/><h3>fileOpenAppend</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">fileOpenAppend</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Open the file in write Append Mode<br/><b>Note:</b> You can not do it with the DATA: file ==&gt; this is not allowed in some Board like Android)<br/> <ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>true : action done&lt;br/&gt;false : action not done</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9219"/><h3>fileClose</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">fileClose</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Close the cuurent file<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>true : action done&lt;br/&gt;false : action not done</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9222"/><h3>fileGets</h3><pre>
++ <span class="code-type" >char</span>* <span class="code-function">fileGets</span> (<span class="code-type" >char</span>* <span class="code-argument">_elementLine</span>,<br/>                  <span class="code-type" >int64_t</span> <span class="code-argument">_maxData</span>);<br/></pre>
+Get the pointer on the start line and the next line (or null)<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input] [output]:</b></td><td><span class="code-argument">_elementLine</span> </td><td> Pointer to an array of chars where the string read is copied.</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_maxData</span> </td><td> Maximum number of characters to be copied into str (including the terminating null-character).</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>the pointer on the end of the cuurent line.</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9224"/><h3>fileGet</h3><pre>
++ <span class="code-type" >char</span> <span class="code-function">fileGet</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Get a unique data in the file<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>the next element in the file.</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9228"/><h3>fileRead</h3><pre>
++ <span class="code-type" >int64_t</span> <span class="code-function">fileRead</span> (<span class="code-type" >void</span>* <span class="code-argument">_data</span>,<br/>                    <span class="code-type" >int64_t</span> <span class="code-argument">_blockSize</span>,<br/>                    <span class="code-type" >int64_t</span> <span class="code-argument">_nbBlock</span>);<br/></pre>
+Read data from the file<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input] [output]:</b></td><td><span class="code-argument">_data</span> </td><td> Pointer on the buffer that might be set the data</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_blockSize</span> </td><td> Size of one block of data</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_nbBlock</span> </td><td> Number of block needed</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>Number of element read (in block number)</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9232"/><h3>fileWrite</h3><pre>
++ <span class="code-type" >int64_t</span> <span class="code-function">fileWrite</span> (<span class="code-type" >void</span>* <span class="code-argument">_data</span>,<br/>                     <span class="code-type" >int64_t</span> <span class="code-argument">_blockSize</span>,<br/>                     <span class="code-type" >int64_t</span> <span class="code-argument">_nbBlock</span>);<br/></pre>
+Write data on the file<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_data</span> </td><td> Pointer on the buffer that might be set on the file</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_blockSize</span> </td><td> Size of one block of data</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_nbBlock</span> </td><td> Number of block needed</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>Number of element written (in block number)</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9235"/><h3>fileSeek</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">fileSeek</span> (longint <span class="code-argument">_offset</span>,<br/>                 <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__seekNode.html">etk::seekNode</a> <span class="code-argument">_origin</span>);<br/></pre>
+Move in the file Position<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_offset</span> </td><td> Offset to apply at the file</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_origin</span> </td><td> Origin  of the position</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : action done&lt;br/&gt;false : action not done</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<h3>fileFlush</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">fileFlush</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Flush the current file<br/>
+<br/>
+<hr/>
+	</div>
+</body>
+</html>

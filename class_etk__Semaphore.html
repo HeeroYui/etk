@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>etk Library</title>
+	<link rel="stylesheet" href="base.css">
+	<link rel="stylesheet" href="menu.css">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<h1><a href="index.html">etk library</a></h1>
+			<h4><a href="http://github.com/heeroyui/etk/">&nbsp;&nbsp;&nbsp;[ sources ]</a></h4>
+<h3>API:</h3>			<div id="menu">
+<ul class="niveau1">
+	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
+<ul class="niveau2">
+	<li><a href="namespace_etk__color.html">color</a>
+	</li>
+	<li><a href="namespace_etk__tool.html">tool</a>
+	</li>
+	<li><a href="namespace_etk__archive.html">archive</a>
+	</li>
+	<li><a href="namespace_etk__theme.html">theme</a>
+	</li>
+</ul>
+	</li>
+	<li><a href="namespace_u32char.html">u32char</a>
+	</li>
+	<li><a href="namespace_utf8.html">utf8</a>
+	</li>
+	<li><a href="namespace_std.html">std</a>
+	</li>
+	<li><a href="namespace_debug.html">debug</a>
+	</li>
+</ul>
+			</div>
+<h3>Documentation:</h3><div id="menu">
+</div>
+<br/><h3>Associate libraries:</h3><div id="menu">
+<ul class="niveau1"><li><a href="../ewol/index.html">ewol</a></li>
+</ul><ul class="niveau1"><li><a href="../ejson/index.html">ejson</a></li>
+</ul><ul class="niveau1"><li><a href="../egami/index.html">egami</a></li>
+</ul><ul class="niveau1"><li><a href="../ege/index.html">ege</a></li>
+</ul><ul class="niveau1"><li><a href="../esvg/index.html">esvg</a></li>
+</ul><ul class="niveau1"><li><a href="../exml/index.html">exml</a></li>
+</ul></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+		</div>
+	</div>
+	<div class="container" id="content">
+<h1>class: etk::Semaphore</h1><hr/><h2>Description:</h2>
+Generic semaphore wrapper ( it is os independent)<br/><br/>
+<h2>Constructor and Destructor:</h2>
+<pre>
++                 <a class="code-function" href="#9027">Semaphore</a>   (<span class="code-type" >uint32_t</span> <span class="code-argument">_nbBasicElement</span>,<br/>                               <span class="code-type" >uint32_t</span> <span class="code-argument">_nbMessageMax</span>);<br/>+                 <a class="code-function" href="#9030">~Semaphore</a>  (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<br/>
+<h2>Synopsis:</h2>
+<pre>
++ <span class="code-type" >uint32_t</span>        <a class="code-function" href="#9032">getCount</a>    (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >void</span>            <a class="code-function" href="#9034">post</a>        (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >void</span>            <a class="code-function" href="#9036">wait</a>        (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >bool</span>            <a class="code-function" href="#9038">wait</a>        (<span class="code-type" >uint64_t</span> <span class="code-argument">_timeOutInUs</span>);<br/></pre>
+<br/>
+<h2>Detail:</h2>
+<a id="9027"/><a id="9030"/><h3>Semaphore</h3><pre>
++  <span class="code-function">Semaphore</span> (<span class="code-type" >uint32_t</span> <span class="code-argument">_nbBasicElement</span>,<br/>              <span class="code-type" >uint32_t</span> <span class="code-argument">_nbMessageMax</span>);<br/></pre>
+Contruct the inithialized semaphore.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_nbBasicElement</span> </td><td> Number of element basicly set in the semaphore list</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_nbMessageMax</span> </td><td> Nunber of maximun message that can be set.</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9032"/><h3>~Semaphore</h3><pre>
++  <span class="code-function">~Semaphore</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Generic destructor.<br/>
+<br/>
+<hr/>
+<a id="9034"/><h3>getCount</h3><pre>
++ <span class="code-type" >uint32_t</span> <span class="code-function">getCount</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Get the number of element in the semaphore.<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>Number of stored elements.</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9036"/><h3>post</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">post</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Post a new semaphore<br/>
+<br/>
+<hr/>
+<a id="9038"/><h3>wait</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">wait</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Wait for a new semaphore post by an other thread.<br/>
+<br/>
+<hr/>
+<h3>wait</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">wait</span> (<span class="code-type" >uint64_t</span> <span class="code-argument">_timeOutInUs</span>);<br/></pre>
+Wait for a new semaphore post by an other thread,
+with a timeout in micro-second.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_timeOutInUs</span> </td><td> Number of micro-second to wait a semaphore.</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true The function get a semaphore.&lt;br/&gt;false The time-out appear or an error occured.</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+	</div>
+</body>
+</html>

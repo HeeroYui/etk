@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>etk Library</title>
+	<link rel="stylesheet" href="base.css">
+	<link rel="stylesheet" href="menu.css">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<h1><a href="index.html">etk library</a></h1>
+			<h4><a href="http://github.com/heeroyui/etk/">&nbsp;&nbsp;&nbsp;[ sources ]</a></h4>
+<h3>API:</h3>			<div id="menu">
+<ul class="niveau1">
+	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
+<ul class="niveau2">
+	<li><a href="namespace_etk__color.html">color</a>
+	</li>
+	<li><a href="namespace_etk__tool.html">tool</a>
+	</li>
+	<li><a href="namespace_etk__archive.html">archive</a>
+	</li>
+	<li><a href="namespace_etk__theme.html">theme</a>
+	</li>
+</ul>
+	</li>
+	<li><a href="namespace_u32char.html">u32char</a>
+	</li>
+	<li><a href="namespace_utf8.html">utf8</a>
+	</li>
+	<li><a href="namespace_std.html">std</a>
+	</li>
+	<li><a href="namespace_debug.html">debug</a>
+	</li>
+</ul>
+			</div>
+<h3>Documentation:</h3><div id="menu">
+</div>
+<br/><h3>Associate libraries:</h3><div id="menu">
+<ul class="niveau1"><li><a href="../ewol/index.html">ewol</a></li>
+</ul><ul class="niveau1"><li><a href="../ejson/index.html">ejson</a></li>
+</ul><ul class="niveau1"><li><a href="../egami/index.html">egami</a></li>
+</ul><ul class="niveau1"><li><a href="../ege/index.html">ege</a></li>
+</ul><ul class="niveau1"><li><a href="../esvg/index.html">esvg</a></li>
+</ul><ul class="niveau1"><li><a href="../exml/index.html">exml</a></li>
+</ul></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+		</div>
+	</div>
+	<div class="container" id="content">
+<h1>class: etk::Matrix</h1><hr/><h2>Description:</h2>
+
+<br/><br/>
+<h2>Constructor and Destructor:</h2>
+<pre>
++                        <a class="code-function" href="#8390">Matrix</a>             (Vector2D&lt;int32_t&gt; <span class="code-argument">size</span>,<br/>                                             <span class="code-type" >T</span>* <span class="code-argument">defaultVal</span>);<br/>+                        <a class="code-function" href="#8393">Matrix</a>             (<span class="code-type" >int32_t</span> <span class="code-argument">width</span>,<br/>                                             <span class="code-type" >int32_t</span> <span class="code-argument">heigh</span>,<br/>                                             <span class="code-type" >T</span>* <span class="code-argument">defaultVal</span>);<br/>+                        <a class="code-function" href="#8397">Matrix</a>             (<span class="code-storage-keyword">const</span> Matrix&lt;double&gt; & <span class="code-argument">obj</span>);<br/>+                        <a class="code-function" href="#8399">Matrix</a>             (<span class="code-storage-keyword">const</span> Matrix&lt;float&gt; & <span class="code-argument">obj</span>);<br/>+                        <a class="code-function" href="#8401">Matrix</a>             (<span class="code-storage-keyword">const</span> Matrix&lt;int32_t&gt; & <span class="code-argument">obj</span>);<br/>+ <span class="code-storage-keyword">virtual</span>                        <a class="code-function" href="#8403">~Matrix</a>            (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<br/>
+<h2>Synopsis:</h2>
+<pre>
++ <span class="code-storage-keyword">const</span> Matrix&lt;T&gt; &      <a class="code-function" href="#8405">operator =</a>         (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>);<br/>+ <span class="code-storage-keyword">const</span> Matrix&lt;T&gt; &      <a class="code-function" href="#8407">operator =</a>         (<span class="code-type" >T</span> & <span class="code-argument">value</span>);<br/>+ <span class="code-type" >bool</span>                   <a class="code-function" href="#8409">operator ==</a>        (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                   <a class="code-function" href="#8411">operator !=</a>        (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> Matrix&lt;T&gt; &      <a class="code-function" href="#8413">operator +=</a>        (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>);<br/>+ Matrix&lt;T&gt;              <a class="code-function" href="#8415">operator +</a>         (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>);<br/>+ <span class="code-storage-keyword">const</span> Matrix&lt;T&gt; &      <a class="code-function" href="#8417">operator -=</a>        (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>);<br/>+ Matrix&lt;T&gt;              <a class="code-function" href="#8419">operator -</a>         (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>);<br/>+ <span class="code-storage-keyword">const</span> Matrix&lt;T&gt; &      <a class="code-function" href="#8421">operator *=</a>        (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>);<br/>+ Matrix&lt;T&gt;              <a class="code-function" href="#8423">operator *</a>         (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>);<br/>+ <span class="code-storage-keyword">const</span> <span class="code-type" >T</span>*               <a class="code-function" href="#8425">operator [ ]</a>       (<span class="code-type" >int32_t</span> <span class="code-argument">line</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >T</span>*                     <a class="code-function" href="#8427">operator [ ]</a>       (<span class="code-type" >int32_t</span> <span class="code-argument">line</span>);<br/>+ <span class="code-type" >T</span> &                    <a class="code-function" href="#8429">operator</a>           ()(int32_tline,int32_t <span class="code-argument">colomn</span>);<br/>+ Matrix&lt;T&gt;              <a class="code-function" href="#8431">operator -</a>         (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >void</span>                   <a class="code-function" href="#8433">clearLowerTriangle</a> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<br/>
+<h2>Detail:</h2>
+<a id="8390"/><a id="8393"/><h3>Matrix</h3><pre>
++  <span class="code-function">Matrix</span> (Vector2D&lt;int32_t&gt; <span class="code-argument">size</span>,<br/>           <span class="code-type" >T</span>* <span class="code-argument">defaultVal</span>);<br/></pre>
+
+Constructor<br/>
+<br/>
+<hr/>
+<a id="8397"/><h3>Matrix</h3><pre>
++  <span class="code-function">Matrix</span> (<span class="code-type" >int32_t</span> <span class="code-argument">width</span>,<br/>           <span class="code-type" >int32_t</span> <span class="code-argument">heigh</span>,<br/>           <span class="code-type" >T</span>* <span class="code-argument">defaultVal</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8399"/><h3>Matrix</h3><pre>
++  <span class="code-function">Matrix</span> (<span class="code-storage-keyword">const</span> Matrix&lt;double&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8401"/><h3>Matrix</h3><pre>
++  <span class="code-function">Matrix</span> (<span class="code-storage-keyword">const</span> Matrix&lt;float&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8403"/><h3>Matrix</h3><pre>
++  <span class="code-function">Matrix</span> (<span class="code-storage-keyword">const</span> Matrix&lt;int32_t&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8405"/><h3>~Matrix</h3><pre>
++ <span class="code-storage-keyword">virtual</span>  <span class="code-function">~Matrix</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+Destructor<br/>
+<br/>
+<hr/>
+<a id="8407"/><h3>operator =</h3><pre>
++ <span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-function">operator =</span> (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+= assigment<br/>
+<br/>
+<hr/>
+<a id="8409"/><h3>operator =</h3><pre>
++ <span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-function">operator =</span> (<span class="code-type" >T</span> & <span class="code-argument">value</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8411"/><h3>operator ==</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">operator ==</span> (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+== operator<br/>
+<br/>
+<hr/>
+<a id="8413"/><h3>operator !=</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">operator !=</span> (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+!= operator<br/>
+<br/>
+<hr/>
+<a id="8415"/><h3>operator +=</h3><pre>
++ <span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-function">operator +=</span> (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
++= operator<br/>
+<br/>
+<hr/>
+<a id="8417"/><h3>operator +</h3><pre>
++ Matrix&lt;T&gt; <span class="code-function">operator +</span> (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
++ operator<br/>
+<br/>
+<hr/>
+<a id="8419"/><h3>operator -=</h3><pre>
++ <span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-function">operator -=</span> (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+-= operator<br/>
+<br/>
+<hr/>
+<a id="8421"/><h3>operator -</h3><pre>
++ Matrix&lt;T&gt; <span class="code-function">operator -</span> (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+- operator<br/>
+<br/>
+<hr/>
+<a id="8423"/><h3>operator *=</h3><pre>
++ <span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-function">operator *=</span> (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+= operator<br/>
+<br/>
+<hr/>
+<a id="8425"/><h3>operator *</h3><pre>
++ Matrix&lt;T&gt; <span class="code-function">operator *</span> (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+operator<br/>
+<br/>
+<hr/>
+<a id="8427"/><h3>operator [ ]</h3><pre>
++ <span class="code-storage-keyword">const</span> <span class="code-type" >T</span>* <span class="code-function">operator [ ]</span> (<span class="code-type" >int32_t</span> <span class="code-argument">line</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+[] operator<br/>
+<br/>
+<hr/>
+<a id="8429"/><h3>operator [ ]</h3><pre>
++ <span class="code-type" >T</span>* <span class="code-function">operator [ ]</span> (<span class="code-type" >int32_t</span> <span class="code-argument">line</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8431"/><h3>operator</h3><pre>
++ <span class="code-type" >T</span> & <span class="code-function">operator</span> ()(int32_tline,int32_t <span class="code-argument">colomn</span>);<br/></pre>
+
+() operator<br/>
+<br/>
+<hr/>
+<a id="8433"/><h3>operator -</h3><pre>
++ Matrix&lt;T&gt; <span class="code-function">operator -</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+- operator<br/>
+<br/>
+<hr/>
+<h3>clearLowerTriangle</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">clearLowerTriangle</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Clear the Lower triangle of the current Matrix
+&lt;pre&gt;
+  x x x x x
+  0 x x x x
+  0 0 x x x
+  0 0 0 x x
+  0 0 0 0 x
+&lt;/pre&gt;<br/>
+<br/>
+<hr/>
+	</div>
+</body>
+</html>

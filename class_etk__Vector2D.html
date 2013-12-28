@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>etk Library</title>
+	<link rel="stylesheet" href="base.css">
+	<link rel="stylesheet" href="menu.css">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<h1><a href="index.html">etk library</a></h1>
+			<h4><a href="http://github.com/heeroyui/etk/">&nbsp;&nbsp;&nbsp;[ sources ]</a></h4>
+<h3>API:</h3>			<div id="menu">
+<ul class="niveau1">
+	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
+<ul class="niveau2">
+	<li><a href="namespace_etk__color.html">color</a>
+	</li>
+	<li><a href="namespace_etk__tool.html">tool</a>
+	</li>
+	<li><a href="namespace_etk__archive.html">archive</a>
+	</li>
+	<li><a href="namespace_etk__theme.html">theme</a>
+	</li>
+</ul>
+	</li>
+	<li><a href="namespace_u32char.html">u32char</a>
+	</li>
+	<li><a href="namespace_utf8.html">utf8</a>
+	</li>
+	<li><a href="namespace_std.html">std</a>
+	</li>
+	<li><a href="namespace_debug.html">debug</a>
+	</li>
+</ul>
+			</div>
+<h3>Documentation:</h3><div id="menu">
+</div>
+<br/><h3>Associate libraries:</h3><div id="menu">
+<ul class="niveau1"><li><a href="../ewol/index.html">ewol</a></li>
+</ul><ul class="niveau1"><li><a href="../ejson/index.html">ejson</a></li>
+</ul><ul class="niveau1"><li><a href="../egami/index.html">egami</a></li>
+</ul><ul class="niveau1"><li><a href="../ege/index.html">ege</a></li>
+</ul><ul class="niveau1"><li><a href="../esvg/index.html">esvg</a></li>
+</ul><ul class="niveau1"><li><a href="../exml/index.html">exml</a></li>
+</ul></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+		</div>
+	</div>
+	<div class="container" id="content">
+<h1>class: etk::Vector2D</h1><hr/><h2>Description:</h2>
+
+<br/><br/>
+<h2>Constructor and Destructor:</h2>
+<pre>
++                     <a class="code-function" href="#8824">Vector2D</a>                (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+                     <a class="code-function" href="#8826">Vector2D</a>                (<span class="code-type" >T</span> <span class="code-argument">_x</span>,<br/>                                               <span class="code-type" >T</span> <span class="code-argument">_y</span>);<br/>+                     <a class="code-function" href="#8829">Vector2D</a>                (<span class="code-storage-keyword">const</span> Vector2D&lt;double&gt; & <span class="code-argument">obj</span>);<br/>+                     <a class="code-function" href="#8831">Vector2D</a>                (<span class="code-storage-keyword">const</span> Vector2D&lt;float&gt; & <span class="code-argument">obj</span>);<br/>+                     <a class="code-function" href="#8833">Vector2D</a>                (<span class="code-storage-keyword">const</span> Vector2D&lt;int32_t&gt; & <span class="code-argument">obj</span>);<br/>+                     <a class="code-function" href="#8835">Vector2D</a>                (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">str</span>);<br/>+                     <a class="code-function" href="#8837">Vector2D</a>                (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">str</span>);<br/>+                     <a class="code-function" href="#8839">~Vector2D</a>               (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<br/>
+<h2>Synopsis:</h2>
+<pre>
++ <span class="code-type" >T</span>                   <a class="code-member" href="#8823">m_floats</a>;<br/>+ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <a class="code-function" href="#8841">operator =</a>              (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>);<br/>+ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <a class="code-function" href="#8843">operator =</a>              (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>);<br/>+ <span class="code-type" >bool</span>                <a class="code-function" href="#8845">operator ==</a>             (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                <a class="code-function" href="#8847">operator !=</a>             (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <a class="code-function" href="#8849">operator +=</a>             (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>);<br/>+ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <a class="code-function" href="#8851">operator +=</a>             (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>);<br/>+ Vector2D&lt;T&gt;         <a class="code-function" href="#8853">operator +</a>              (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/>+ Vector2D&lt;T&gt;         <a class="code-function" href="#8855">operator +</a>              (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <a class="code-function" href="#8857">operator -=</a>             (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>);<br/>+ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <a class="code-function" href="#8859">operator -=</a>             (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>);<br/>+ Vector2D&lt;T&gt;         <a class="code-function" href="#8861">operator -</a>              (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/>+ Vector2D&lt;T&gt;         <a class="code-function" href="#8863">operator -</a>              (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <a class="code-function" href="#8865">operator *=</a>             (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>);<br/>+ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <a class="code-function" href="#8867">operator *=</a>             (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>);<br/>+ Vector2D&lt;T&gt;         <a class="code-function" href="#8869">operator *</a>              (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/>+ Vector2D&lt;T&gt;         <a class="code-function" href="#8871">operator *</a>              (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>) <span class="code-storage-keyword">const</span>;<br/>+ Vector2D&lt;T&gt;         <a class="code-function" href="#8873">operator</a>                (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/>+ Vector2D&lt;T&gt;         <a class="code-function" href="#8875">operator</a>                (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>) <span class="code-storage-keyword">const</span>;<br/>+ Vector2D&lt;T&gt; &       <a class="code-function" href="#8877">operator ++</a>             (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ Vector2D&lt;T&gt;         <a class="code-function" href="#8879">operator ++</a>             (<span class="code-type" >int</span> <span class="code-argument">unused</span>);<br/>+ Vector2D&lt;T&gt; &       <a class="code-function" href="#8881">operator --</a>             (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ Vector2D&lt;T&gt;         <a class="code-function" href="#8883">operator --</a>             (<span class="code-type" >int</span> <span class="code-argument">unused</span>);<br/>+ btScalar            <a class="code-function" href="#8885">dot</a>                     (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">v</span>) <span class="code-storage-keyword">const</span>;<br/>+ btScalar            <a class="code-function" href="#8887">length2</a>                 (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ btScalar            <a class="code-function" href="#8889">length</a>                  (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ btScalar            <a class="code-function" href="#8891">distance2</a>               (<span class="code-storage-keyword">const</span> btVector3 & <span class="code-argument">v</span>) <span class="code-storage-keyword">const</span>;<br/>+ btScalar            <a class="code-function" href="#8893">distance</a>                (<span class="code-storage-keyword">const</span> btVector3 & <span class="code-argument">v</span>) <span class="code-storage-keyword">const</span>;<br/>+ Vector3D&lt;T&gt; &       <a class="code-function" href="#8895">normalize</a>               (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ Vector2D&lt;T&gt;         <a class="code-function" href="#8897">normalized</a>              (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ Vector2D&lt;T&gt;         <a class="code-function" href="#8899">absolute</a>                (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >int32_t</span>             <a class="code-function" href="#8901">minAxis</a>                 (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >int32_t</span>             <a class="code-function" href="#8903">maxAxis</a>                 (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >int32_t</span>             <a class="code-function" href="#8905">furthestAxis</a>            (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >int32_t</span>             <a class="code-function" href="#8907">closestAxis</a>             (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> <span class="code-type" >T</span> &           <a class="code-function" href="#8909">getX</a>                    (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> <span class="code-type" >T</span> &           <a class="code-function" href="#8911">getY</a>                    (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#8913">setX</a>                    (<span class="code-type" >T</span> <span class="code-argument">_x</span>);<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#8915">setY</a>                    (<span class="code-type" >T</span> <span class="code-argument">_y</span>);<br/>+ <span class="code-storage-keyword">const</span> <span class="code-type" >T</span> &           <a class="code-function" href="#8917">x</a>                       (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> <span class="code-type" >T</span> &           <a class="code-function" href="#8919">y</a>                       (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+                     <a class="code-function" href="#8921">operator T *</a>            (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+                     <a class="code-function" href="#8923">operator const T *</a>      (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#8925">setMax</a>                  (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">other</span>);<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#8927">setMin</a>                  (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">other</span>);<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#8929">setValue</a>                (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> & <span class="code-argument">_x</span>,<br/>                                               <span class="code-storage-keyword">const</span> <span class="code-type" >T</span> & <span class="code-argument">_y</span>);<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#8932">setZero</a>                 (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >bool</span>                <a class="code-function" href="#8934">isZero</a>                  (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+                     <a class="code-function" href="#8936">operator std::string</a>    (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+                     <a class="code-function" href="#8938">operator std::u32string</a> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+<br/>
+<h2>Detail:</h2>
+<a id="8823"/><a id="8824"/><h3>m_floats</h3><pre>
++ <span class="code-type" >T</span> <span class="code-member">m_floats</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8826"/><h3>Vector2D</h3><pre>
++  <span class="code-function">Vector2D</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8829"/><h3>Vector2D</h3><pre>
++  <span class="code-function">Vector2D</span> (<span class="code-type" >T</span> <span class="code-argument">_x</span>,<br/>             <span class="code-type" >T</span> <span class="code-argument">_y</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8831"/><h3>Vector2D</h3><pre>
++  <span class="code-function">Vector2D</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;double&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8833"/><h3>Vector2D</h3><pre>
++  <span class="code-function">Vector2D</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;float&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8835"/><h3>Vector2D</h3><pre>
++  <span class="code-function">Vector2D</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;int32_t&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8837"/><h3>Vector2D</h3><pre>
++  <span class="code-function">Vector2D</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">str</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8839"/><h3>Vector2D</h3><pre>
++  <span class="code-function">Vector2D</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">str</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8841"/><h3>~Vector2D</h3><pre>
++  <span class="code-function">~Vector2D</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8843"/><h3>operator =</h3><pre>
++ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-function">operator =</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8845"/><h3>operator =</h3><pre>
++ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-function">operator =</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8847"/><h3>operator ==</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">operator ==</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8849"/><h3>operator !=</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">operator !=</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8851"/><h3>operator +=</h3><pre>
++ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-function">operator +=</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8853"/><h3>operator +=</h3><pre>
++ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-function">operator +=</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8855"/><h3>operator +</h3><pre>
++ Vector2D&lt;T&gt; <span class="code-function">operator +</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8857"/><h3>operator +</h3><pre>
++ Vector2D&lt;T&gt; <span class="code-function">operator +</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8859"/><h3>operator -=</h3><pre>
++ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-function">operator -=</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8861"/><h3>operator -=</h3><pre>
++ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-function">operator -=</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8863"/><h3>operator -</h3><pre>
++ Vector2D&lt;T&gt; <span class="code-function">operator -</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8865"/><h3>operator -</h3><pre>
++ Vector2D&lt;T&gt; <span class="code-function">operator -</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8867"/><h3>operator *=</h3><pre>
++ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-function">operator *=</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8869"/><h3>operator *=</h3><pre>
++ <span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-function">operator *=</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8871"/><h3>operator *</h3><pre>
++ Vector2D&lt;T&gt; <span class="code-function">operator *</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8873"/><h3>operator *</h3><pre>
++ Vector2D&lt;T&gt; <span class="code-function">operator *</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8875"/><h3>operator</h3><pre>
++ Vector2D&lt;T&gt; <span class="code-function">operator</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">obj</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8877"/><h3>operator</h3><pre>
++ Vector2D&lt;T&gt; <span class="code-function">operator</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> <span class="code-argument">val</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8879"/><h3>operator ++</h3><pre>
++ Vector2D&lt;T&gt; & <span class="code-function">operator ++</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8881"/><h3>operator ++</h3><pre>
++ Vector2D&lt;T&gt; <span class="code-function">operator ++</span> (<span class="code-type" >int</span> <span class="code-argument">unused</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8883"/><h3>operator --</h3><pre>
++ Vector2D&lt;T&gt; & <span class="code-function">operator --</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8885"/><h3>operator --</h3><pre>
++ Vector2D&lt;T&gt; <span class="code-function">operator --</span> (<span class="code-type" >int</span> <span class="code-argument">unused</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8887"/><h3>dot</h3><pre>
++ btScalar <span class="code-function">dot</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">v</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Return the dot product<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter:</b></td><td><span class="code-argument">v</span> </td><td> The other vector in the dot product</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="8889"/><h3>length2</h3><pre>
++ btScalar <span class="code-function">length2</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Return the length of the vector squared<br/>
+<br/>
+<hr/>
+<a id="8891"/><h3>length</h3><pre>
++ btScalar <span class="code-function">length</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Return the length of the vector<br/>
+<br/>
+<hr/>
+<a id="8893"/><h3>distance2</h3><pre>
++ btScalar <span class="code-function">distance2</span> (<span class="code-storage-keyword">const</span> btVector3 & <span class="code-argument">v</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Return the distance squared between the ends of this and another vector
+This is symantically treating the vector like a point<br/>
+<br/>
+<hr/>
+<a id="8895"/><h3>distance</h3><pre>
++ btScalar <span class="code-function">distance</span> (<span class="code-storage-keyword">const</span> btVector3 & <span class="code-argument">v</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Return the distance between the ends of this and another vector
+This is symantically treating the vector like a point<br/>
+<br/>
+<hr/>
+<a id="8897"/><h3>normalize</h3><pre>
++ Vector3D&lt;T&gt; & <span class="code-function">normalize</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Normalize this vector 
+x^2 + y^2 + z^2 = 1<br/>
+<br/>
+<hr/>
+<a id="8899"/><h3>normalized</h3><pre>
++ Vector2D&lt;T&gt; <span class="code-function">normalized</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Return a normalized version of this vector<br/>
+<br/>
+<hr/>
+<a id="8901"/><h3>absolute</h3><pre>
++ Vector2D&lt;T&gt; <span class="code-function">absolute</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Return a vector will the absolute values of each element<br/>
+<br/>
+<hr/>
+<a id="8903"/><h3>minAxis</h3><pre>
++ <span class="code-type" >int32_t</span> <span class="code-function">minAxis</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Return the axis with the smallest value 
+Note return values are 0,1,2 for x, y, or z<br/>
+<br/>
+<hr/>
+<a id="8905"/><h3>maxAxis</h3><pre>
++ <span class="code-type" >int32_t</span> <span class="code-function">maxAxis</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Return the axis with the largest value
+Note return values are 0,1,2 for x, y, or z<br/>
+<br/>
+<hr/>
+<a id="8907"/><h3>furthestAxis</h3><pre>
++ <span class="code-type" >int32_t</span> <span class="code-function">furthestAxis</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8909"/><h3>closestAxis</h3><pre>
++ <span class="code-type" >int32_t</span> <span class="code-function">closestAxis</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8911"/><h3>getX</h3><pre>
++ <span class="code-storage-keyword">const</span> <span class="code-type" >T</span> & <span class="code-function">getX</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Return the x value<br/>
+<br/>
+<hr/>
+<a id="8913"/><h3>getY</h3><pre>
++ <span class="code-storage-keyword">const</span> <span class="code-type" >T</span> & <span class="code-function">getY</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Return the y value<br/>
+<br/>
+<hr/>
+<a id="8915"/><h3>setX</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">setX</span> (<span class="code-type" >T</span> <span class="code-argument">_x</span>);<br/></pre>
+Set the x value<br/>
+<br/>
+<hr/>
+<a id="8917"/><h3>setY</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">setY</span> (<span class="code-type" >T</span> <span class="code-argument">_y</span>);<br/></pre>
+Set the y value<br/>
+<br/>
+<hr/>
+<a id="8919"/><h3>x</h3><pre>
++ <span class="code-storage-keyword">const</span> <span class="code-type" >T</span> & <span class="code-function">x</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Return the x value<br/>
+<br/>
+<hr/>
+<a id="8921"/><h3>y</h3><pre>
++ <span class="code-storage-keyword">const</span> <span class="code-type" >T</span> & <span class="code-function">y</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Return the y value<br/>
+<br/>
+<hr/>
+<a id="8923"/><h3>operator T *</h3><pre>
++  <span class="code-function">operator T *</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8925"/><h3>operator const T *</h3><pre>
++  <span class="code-function">operator const T *</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8927"/><h3>setMax</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">setMax</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">other</span>);<br/></pre>
+Set each element to the max of the current values and the values of another btVector3<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter:</b></td><td><span class="code-argument">other</span> </td><td> The other btVector3 to compare with</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="8929"/><h3>setMin</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">setMin</span> (<span class="code-storage-keyword">const</span> Vector2D&lt;T&gt; & <span class="code-argument">other</span>);<br/></pre>
+Set each element to the min of the current values and the values of another btVector3<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter:</b></td><td><span class="code-argument">other</span> </td><td> The other btVector3 to compare with</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="8932"/><h3>setValue</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">setValue</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >T</span> & <span class="code-argument">_x</span>,<br/>                 <span class="code-storage-keyword">const</span> <span class="code-type" >T</span> & <span class="code-argument">_y</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8934"/><h3>setZero</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">setZero</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8936"/><h3>isZero</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">isZero</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8938"/><h3>operator std::string</h3><pre>
++  <span class="code-function">operator std::string</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<h3>operator std::u32string</h3><pre>
++  <span class="code-function">operator std::u32string</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+	</div>
+</body>
+</html>

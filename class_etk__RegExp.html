@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>etk Library</title>
+	<link rel="stylesheet" href="base.css">
+	<link rel="stylesheet" href="menu.css">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<h1><a href="index.html">etk library</a></h1>
+			<h4><a href="http://github.com/heeroyui/etk/">&nbsp;&nbsp;&nbsp;[ sources ]</a></h4>
+<h3>API:</h3>			<div id="menu">
+<ul class="niveau1">
+	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
+<ul class="niveau2">
+	<li><a href="namespace_etk__color.html">color</a>
+	</li>
+	<li><a href="namespace_etk__tool.html">tool</a>
+	</li>
+	<li><a href="namespace_etk__archive.html">archive</a>
+	</li>
+	<li><a href="namespace_etk__theme.html">theme</a>
+	</li>
+</ul>
+	</li>
+	<li><a href="namespace_u32char.html">u32char</a>
+	</li>
+	<li><a href="namespace_utf8.html">utf8</a>
+	</li>
+	<li><a href="namespace_std.html">std</a>
+	</li>
+	<li><a href="namespace_debug.html">debug</a>
+	</li>
+</ul>
+			</div>
+<h3>Documentation:</h3><div id="menu">
+</div>
+<br/><h3>Associate libraries:</h3><div id="menu">
+<ul class="niveau1"><li><a href="../ewol/index.html">ewol</a></li>
+</ul><ul class="niveau1"><li><a href="../ejson/index.html">ejson</a></li>
+</ul><ul class="niveau1"><li><a href="../egami/index.html">egami</a></li>
+</ul><ul class="niveau1"><li><a href="../ege/index.html">ege</a></li>
+</ul><ul class="niveau1"><li><a href="../esvg/index.html">esvg</a></li>
+</ul><ul class="niveau1"><li><a href="../exml/index.html">exml</a></li>
+</ul></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+		</div>
+	</div>
+	<div class="container" id="content">
+<h1>class: etk::RegExp</h1><hr/><h2>Description:</h2>
+Regular expression interface template.<br/>
+List of elment that can be displayed :<br/>
+<br/>
+<pre>
+    (...)                 sub element is separate with |
+    \d                    Digits                         [0-9]
+    \D                    NOT a digit                    [^0-9]
+    \l                    Letters                        [a-zA-Z]
+    \L                    NOT a Letter                   [^a-zA-Z]
+    \s                    Whitespace                     [ \t\n\r\f\v]
+    \S                    NOT Whitespace                 [^ \t\n\r\f\v]
+    \w                    "Word" character               [a-zA-Z0-9_]
+    \W                    NOT a "Word" character         [^a-zA-Z0-9_]
+    \@                    at the start or the end        not in the parsing of element ==&gt; check if \w is not present   (other regExp will be &lt;&gt; ...)
+    [anjdi] or [a-gt-j]   range
+    .                     dot                            [^\x00-\x08\x0A-\x1F\x7F]
+==&gt; TODO :
+    $                     End / Start of line of line    ==&gt; ce sera un truc suplé comme le \@
+    ^in the []            invertion of the range element<br/>
+multiplicity :
+    ==&gt; {0, 2147483647}
+    ?     ==&gt; {0, 1}
+    +     ==&gt; {1, 2147483647}
+    {x}   ==&gt; {x, x}
+    {x,y} ==&gt; {x, y}
+</pre>
+<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">CLASS_TYPE</span> </td><td> Type of theclass that might be parsed. This class might have a interface : operator[] that return a char or a char32_t.<br/>
+Regular is easy to use:</td></tr>
+</table>
+</ul>
+<br/>
+<h2>Constructor and Destructor:</h2>
+<pre>
++                              <a class="code-function" href="#7655">RegExp</a>                (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_exp</span>);<br/>+                              <a class="code-function" href="#7657">RegExp</a>                (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_exp</span>);<br/>+                              <a class="code-function" href="#7659">~RegExp</a>               (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<br/>
+<h2>Synopsis:</h2>
+<pre>
++ <span class="code-type" >void</span>                         <a class="code-function" href="#7661">compile</a>               (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_exp</span>);<br/>+ <span class="code-type" >void</span>                         <a class="code-function" href="#7663">compile</a>               (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_regexp</span>);<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>                  <a class="code-function" href="#7665">getRegExp</a>             (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> &       <a class="code-function" href="#7667">getURegExp</a>            (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#7669">getStatus</a>             (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#7671">parse</a>                 (<span class="code-storage-keyword">const</span> <span class="code-type" >CLASS_TYPE</span> & <span class="code-argument">_SearchIn</span>,<br/>                                                      <span class="code-type" >int64_t</span> <span class="code-argument">_startPos</span>,<br/>                                                      <span class="code-type" >int64_t</span> <span class="code-argument">_endPos</span>,<br/>                                                      <span class="code-type" >char32_t</span> <span class="code-argument">_escapeChar</span>);<br/>+ <span class="code-type" >bool</span>                         <a class="code-function" href="#7676">processOneElement</a>     (<span class="code-storage-keyword">const</span> <span class="code-type" >CLASS_TYPE</span> & <span class="code-argument">_SearchIn</span>,<br/>                                                      <span class="code-type" >int64_t</span> <span class="code-argument">_startPos</span>,<br/>                                                      <span class="code-type" >int64_t</span> <span class="code-argument">_endPos</span>,<br/>                                                      <span class="code-type" >char32_t</span> <span class="code-argument">_escapeChar</span>);<br/>+ <span class="code-type" >int64_t</span>                      <a class="code-function" href="#7681">start</a>                 (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >int64_t</span>                      <a class="code-function" href="#7683">stop</a>                  (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >void</span>                         <a class="code-function" href="#7685">display</a>               (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >void</span>                         <a class="code-function" href="#7687">drawColoredRegEx</a>      (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>                  <a class="code-function" href="#7689">getRegExDecorated</a>     (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<br/>
+<h2>Detail:</h2>
+<a id="7655"/><a id="7657"/><a id="7659"/><h3>RegExp</h3><pre>
++  <span class="code-function">RegExp</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_exp</span>);<br/>+  <span class="code-function">RegExp</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_exp</span>);<br/></pre>
+Constructor<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input] [output]:</b></td><td><span class="code-argument">_exp</span> </td><td> Regular expression to parse</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7661"/><h3>~RegExp</h3><pre>
++  <span class="code-function">~RegExp</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Destructor<br/>
+<br/>
+<hr/>
+<a id="7663"/><a id="7665"/><h3>compile</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">compile</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_exp</span>);<br/>+ <span class="code-type" >void</span> <span class="code-function">compile</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_regexp</span>);<br/></pre>
+Set a new regular expression matching<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_exp</span> </td><td> the new expression to search</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7667"/><a id="7669"/><h3>getRegExp</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">getRegExp</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-function">getURegExp</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the regular expression string<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>the string representing the RegExp</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7671"/><h3>getStatus</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">getStatus</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Get the status if the regular expression parsing<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>true : the regExp is correctly parsed&lt;br/&gt;false : an error occcured (check log ...)</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7676"/><h3>parse</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">parse</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >CLASS_TYPE</span> & <span class="code-argument">_SearchIn</span>,<br/>              <span class="code-type" >int64_t</span> <span class="code-argument">_startPos</span>,<br/>              <span class="code-type" >int64_t</span> <span class="code-argument">_endPos</span>,<br/>              <span class="code-type" >char32_t</span> <span class="code-argument">_escapeChar</span>);<br/></pre>
+Parse the defined data with the compiled regular expression.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_SearchIn</span> </td><td> Data where to search the regular expression.</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_startPos</span> </td><td> start position to search</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_endPos</span> </td><td> end position to search</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_escapeChar</span> </td><td> special char that remove other char real type</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : find something, false otherwise</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7681"/><h3>processOneElement</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">processOneElement</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >CLASS_TYPE</span> & <span class="code-argument">_SearchIn</span>,<br/>                          <span class="code-type" >int64_t</span> <span class="code-argument">_startPos</span>,<br/>                          <span class="code-type" >int64_t</span> <span class="code-argument">_endPos</span>,<br/>                          <span class="code-type" >char32_t</span> <span class="code-argument">_escapeChar</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="7683"/><h3>start</h3><pre>
++ <span class="code-type" >int64_t</span> <span class="code-function">start</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Get the expression start position detected<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>position of the start regExp</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7685"/><h3>stop</h3><pre>
++ <span class="code-type" >int64_t</span> <span class="code-function">stop</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Get the expression stop position detected<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>position of the stop regExp</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7687"/><h3>display</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">display</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Display the reg Exp<br/>
+<br/>
+<hr/>
+<a id="7689"/><h3>drawColoredRegEx</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">drawColoredRegEx</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Just display the regExp in color ...<br/>
+<br/>
+<hr/>
+<h3>getRegExDecorated</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">getRegExDecorated</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Get decorated regular expression. This generate a <a href="ewol__compositing__Text.html">ewol::compositing::Text</a> decoration text. Note that can be use in <a href="ewol__widget__Label.html">ewol::widget::Label</a>.<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>The decorated string</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+	</div>
+</body>
+</html>

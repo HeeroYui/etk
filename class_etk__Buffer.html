@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>etk Library</title>
+	<link rel="stylesheet" href="base.css">
+	<link rel="stylesheet" href="menu.css">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<h1><a href="index.html">etk library</a></h1>
+			<h4><a href="http://github.com/heeroyui/etk/">&nbsp;&nbsp;&nbsp;[ sources ]</a></h4>
+<h3>API:</h3>			<div id="menu">
+<ul class="niveau1">
+	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
+<ul class="niveau2">
+	<li><a href="namespace_etk__color.html">color</a>
+	</li>
+	<li><a href="namespace_etk__tool.html">tool</a>
+	</li>
+	<li><a href="namespace_etk__archive.html">archive</a>
+	</li>
+	<li><a href="namespace_etk__theme.html">theme</a>
+	</li>
+</ul>
+	</li>
+	<li><a href="namespace_u32char.html">u32char</a>
+	</li>
+	<li><a href="namespace_utf8.html">utf8</a>
+	</li>
+	<li><a href="namespace_std.html">std</a>
+	</li>
+	<li><a href="namespace_debug.html">debug</a>
+	</li>
+</ul>
+			</div>
+<h3>Documentation:</h3><div id="menu">
+</div>
+<br/><h3>Associate libraries:</h3><div id="menu">
+<ul class="niveau1"><li><a href="../ewol/index.html">ewol</a></li>
+</ul><ul class="niveau1"><li><a href="../ejson/index.html">ejson</a></li>
+</ul><ul class="niveau1"><li><a href="../egami/index.html">egami</a></li>
+</ul><ul class="niveau1"><li><a href="../ege/index.html">ege</a></li>
+</ul><ul class="niveau1"><li><a href="../esvg/index.html">esvg</a></li>
+</ul><ul class="niveau1"><li><a href="../exml/index.html">exml</a></li>
+</ul></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+		</div>
+	</div>
+	<div class="container" id="content">
+<h1>class: etk::Buffer</h1><hr/><h2>Description:</h2>
+This is an access on raw data that contain an internal gap.
+       the gap size has an offset to increase an an offset to decrease.<br/><br/>
+<h2>Constructor and Destructor:</h2>
+<pre>
++                     <a class="code-function" href="#7959">Buffer</a>           (<span class="code-type" >int32_t</span> <span class="code-argument">_count</span>);<br/>+                     <a class="code-function" href="#7961">Buffer</a>           (<span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Buffer.html">etk::Buffer</a> & <span class="code-argument">_obj</span>);<br/>+                     <a class="code-function" href="#7963">~Buffer</a>          (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<br/>
+<h2>Synopsis:</h2>
+<pre>
++ <span class="code-type" >bool</span>                <a class="code-function" href="#7965">dumpIn</a>           (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_file</span>);<br/>+ <span class="code-type" >bool</span>                <a class="code-function" href="#7967">dumpFrom</a>         (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_file</span>);<br/>+ <a class="code-type" href="class_etk__Buffer.html">etk::Buffer</a> &       <a class="code-function" href="#7969">operator =</a>       (<span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Buffer.html">etk::Buffer</a> & <span class="code-argument">_obj</span>);<br/>+ <span class="code-type" >int8_t</span>              <a class="code-function" href="#7971">operator [ ]</a>     (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >int8_t</span> &            <a class="code-function" href="#7973">get</a>              (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;int8_t&gt; <a class="code-function" href="#7975">get</a>              (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>                                        <span class="code-type" >int32_t</span> <span class="code-argument">_nbElement</span>);<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#7978">push_back</a>        (<span class="code-storage-keyword">const</span> <span class="code-type" >int8_t</span> & <span class="code-argument">_item</span>);<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#7980">insert</a>           (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>                                        <span class="code-storage-keyword">const</span> <span class="code-type" >int8_t</span> & <span class="code-argument">_item</span>);<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#7983">insert</a>           (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>                                        <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;int8_t&gt; & <span class="code-argument">_items</span>);<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#7986">insert</a>           (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>                                        <span class="code-storage-keyword">const</span> <span class="code-type" >int8_t</span>* <span class="code-argument">_items</span>,<br/>                                        <span class="code-type" >int32_t</span> <span class="code-argument">_nbElement</span>);<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#7990">replace</a>          (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>                                        <span class="code-storage-keyword">const</span> <span class="code-type" >int8_t</span> & <span class="code-argument">_item</span>);<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#7993">replace</a>          (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>                                        <span class="code-type" >int32_t</span> <span class="code-argument">_nbRemoveElement</span>,<br/>                                        <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;int8_t&gt; & <span class="code-argument">_items</span>);<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#7997">replace</a>          (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>                                        <span class="code-type" >int32_t</span> <span class="code-argument">_nbRemoveElement</span>,<br/>                                        <span class="code-storage-keyword">const</span> <span class="code-type" >int8_t</span>* <span class="code-argument">_items</span>,<br/>                                        <span class="code-type" >int32_t</span> <span class="code-argument">_nbElement</span>);<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#8002">remove</a>           (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>                                        <span class="code-type" >int32_t</span> <span class="code-argument">_nbRemoveElement</span>);<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#8005">pop_back</a>         (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >void</span>                <a class="code-function" href="#8007">clear</a>            (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/># <span class="code-type" >int8_t</span> &            <a class="code-function" href="#8009">getDirect</a>        (<span class="code-type" >int32_t</span> <span class="code-argument">_realElementPosition</span>);<br/>+ <span class="code-type" >int32_t</span>             <a class="code-function" href="#8011">size</a>             (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+<br/>
+<h2>Detail:</h2>
+<a id="7959"/><a id="7961"/><h3>Buffer</h3><pre>
++  <span class="code-function">Buffer</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_count</span>);<br/></pre>
+Create an empty vector<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_count</span> </td><td> Minimum request size of the Buffer</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7963"/><h3>Buffer</h3><pre>
++  <span class="code-function">Buffer</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Buffer.html">etk::Buffer</a> & <span class="code-argument">_obj</span>);<br/></pre>
+Re-copy constructor (copy all needed data)<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_obj</span> </td><td> Buffer that might be copy</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7965"/><h3>~Buffer</h3><pre>
++  <span class="code-function">~Buffer</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Destructor of the current Class<br/>
+<br/>
+<hr/>
+<a id="7967"/><h3>dumpIn</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">dumpIn</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_file</span>);<br/></pre>
+Store the selected data in the requested file.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_file</span> </td><td> Name of the file that might be written.</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true if the data corectly stored&lt;br/&gt;false if an error occured</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7969"/><h3>dumpFrom</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">dumpFrom</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_file</span>);<br/></pre>
+Load data fron a selected file name.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_file</span> </td><td> Name of the file to store buffer data.</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true if the data corectly stored&lt;br/&gt;false if an error occured</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7971"/><h3>operator =</h3><pre>
++ <a class="code-type" href="class_etk__Buffer.html">etk::Buffer</a> & <span class="code-function">operator =</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Buffer.html">etk::Buffer</a> & <span class="code-argument">_obj</span>);<br/></pre>
+Re-copy operator<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_obj</span> </td><td> Buffer that might be copy</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>reference on the curent copied Buffer</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7973"/><h3>operator [ ]</h3><pre>
++ <span class="code-type" >int8_t</span> <span class="code-function">operator [ ]</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the data at the requested position (gap abstraction done).<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_pos</span> </td><td> Position in the buffer.</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>Element at the request pos.</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7975"/><h3>get</h3><pre>
++ <span class="code-type" >int8_t</span> & <span class="code-function">get</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get a current element in the vector<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_pos</span> </td><td> Desired position read</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>Reference on the Element</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7978"/><h3>get</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;int8_t&gt; <span class="code-function">get</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>                           <span class="code-type" >int32_t</span> <span class="code-argument">_nbElement</span>);<br/></pre>
+Get elements from a specific position.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_pos</span> </td><td> Position of the first element.</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_nbElement</span> </td><td> Number of element needed.</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>The data requested</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7980"/><h3>push_back</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">push_back</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >int8_t</span> & <span class="code-argument">_item</span>);<br/></pre>
+Add at the Last position of the Buffer.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_item</span> </td><td> Element to add.</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7983"/><h3>insert</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">insert</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>               <span class="code-storage-keyword">const</span> <span class="code-type" >int8_t</span> & <span class="code-argument">_item</span>);<br/></pre>
+Insert One item at the specify position.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_pos</span> </td><td> Position where data might be inserted</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_items</span> </td><td> Data that might be inserted.</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7986"/><h3>insert</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">insert</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>               <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;int8_t&gt; & <span class="code-argument">_items</span>);<br/></pre>
+Insert data in the Buffer.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_pos</span> </td><td> Position where data might be inserted</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_items</span> </td><td> Data that might be inserted.</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7990"/><h3>insert</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">insert</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>               <span class="code-storage-keyword">const</span> <span class="code-type" >int8_t</span>* <span class="code-argument">_items</span>,<br/>               <span class="code-type" >int32_t</span> <span class="code-argument">_nbElement</span>);<br/></pre>
+Insert data in the buffer<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_pos</span> </td><td> Position where data might be inserted</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_items</span> </td><td> Data that might be inserted. (no need of '\0')</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_nbElement</span> </td><td> number of element to insert</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7993"/><h3>replace</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">replace</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>                <span class="code-storage-keyword">const</span> <span class="code-type" >int8_t</span> & <span class="code-argument">_item</span>);<br/></pre>
+Replace one element in the buffer with an other.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_pos</span> </td><td> Position of the element to remove.</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_items</span> </td><td> Element that might be inserted.</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7997"/><h3>replace</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">replace</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>                <span class="code-type" >int32_t</span> <span class="code-argument">_nbRemoveElement</span>,<br/>                <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;int8_t&gt; & <span class="code-argument">_items</span>);<br/></pre>
+Replace a part of the buffer with the specified data.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_pos</span> </td><td> The first element to remove.</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_nbRemoveElement</span> </td><td> number of element to remove.</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_items</span> </td><td> Data that will be inserted.</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="8002"/><h3>replace</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">replace</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>                <span class="code-type" >int32_t</span> <span class="code-argument">_nbRemoveElement</span>,<br/>                <span class="code-storage-keyword">const</span> <span class="code-type" >int8_t</span>* <span class="code-argument">_items</span>,<br/>                <span class="code-type" >int32_t</span> <span class="code-argument">_nbElement</span>);<br/></pre>
+Replace a part of the buffer with the specified data.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_pos</span> </td><td> The first element to remove.</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_nbRemoveElement</span> </td><td> number of element to remove.</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_items</span> </td><td> Data that might be inserted.</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_nbElement</span> </td><td> Number of element that might be added.</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="8005"/><h3>remove</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">remove</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_pos</span>,<br/>               <span class="code-type" >int32_t</span> <span class="code-argument">_nbRemoveElement</span>);<br/></pre>
+Remove specific data in the buffer.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_pos</span> </td><td> The first element to remove.</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_nbRemoveElement</span> </td><td> Number of element to remove.</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="8007"/><h3>pop_back</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">pop_back</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Remove the last element of the Buffer.<br/>
+<br/>
+<hr/>
+<a id="8009"/><h3>clear</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">clear</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Remove all the data in the buffer.<br/>
+<br/>
+<hr/>
+<a id="8011"/><h3>getDirect</h3><pre>
+# <span class="code-type" >int8_t</span> & <span class="code-function">getDirect</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_realElementPosition</span>);<br/></pre>
+Get a current element in the Buffer (iterator system)<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_realElementPosition</span> </td><td> Real position in the buffer (only use in the ITERATOR)</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>Reference on the Element</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<h3>size</h3><pre>
++ <span class="code-type" >int32_t</span> <span class="code-function">size</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+Get the number of element in the vector. This does not contain the gap size.<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>The size of the set data.</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+	</div>
+</body>
+</html>

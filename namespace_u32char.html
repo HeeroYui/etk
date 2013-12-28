@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>etk Library</title>
+	<link rel="stylesheet" href="base.css">
+	<link rel="stylesheet" href="menu.css">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<h1><a href="index.html">etk library</a></h1>
+			<h4><a href="http://github.com/heeroyui/etk/">&nbsp;&nbsp;&nbsp;[ sources ]</a></h4>
+<h3>API:</h3>			<div id="menu">
+<ul class="niveau1">
+	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
+<ul class="niveau2">
+	<li><a href="namespace_etk__color.html">color</a>
+	</li>
+	<li><a href="namespace_etk__tool.html">tool</a>
+	</li>
+	<li><a href="namespace_etk__archive.html">archive</a>
+	</li>
+	<li><a href="namespace_etk__theme.html">theme</a>
+	</li>
+</ul>
+	</li>
+	<li><a href="namespace_u32char.html">u32char</a>
+	</li>
+	<li><a href="namespace_utf8.html">utf8</a>
+	</li>
+	<li><a href="namespace_std.html">std</a>
+	</li>
+	<li><a href="namespace_debug.html">debug</a>
+	</li>
+</ul>
+			</div>
+<h3>Documentation:</h3><div id="menu">
+</div>
+<br/><h3>Associate libraries:</h3><div id="menu">
+<ul class="niveau1"><li><a href="../ewol/index.html">ewol</a></li>
+</ul><ul class="niveau1"><li><a href="../ejson/index.html">ejson</a></li>
+</ul><ul class="niveau1"><li><a href="../egami/index.html">egami</a></li>
+</ul><ul class="niveau1"><li><a href="../ege/index.html">ege</a></li>
+</ul><ul class="niveau1"><li><a href="../esvg/index.html">esvg</a></li>
+</ul><ul class="niveau1"><li><a href="../exml/index.html">exml</a></li>
+</ul></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+		</div>
+	</div>
+	<div class="container" id="content">
+<h1>namespace: u32char</h1><hr/><h2>Description:</h2>
+
+<br/><br/>
+<h2>Synopsis:</h2>
+<pre>
+  externconstchar32_t <a class="code-member" href="#7740">Null</a>;<br/>  externconstchar32_t <a class="code-member" href="#7741">Return</a>;<br/>  externconstchar32_t <a class="code-member" href="#7742">CarrierReturn</a>;<br/>  externconstchar32_t <a class="code-member" href="#7743">Tabulation</a>;<br/>  externconstchar32_t <a class="code-member" href="#7744">Suppress</a>;<br/>  externconstchar32_t <a class="code-member" href="#7745">Delete</a>;<br/>  externconstchar32_t <a class="code-member" href="#7746">Space</a>;<br/>  externconstchar32_t <a class="code-member" href="#7747">Escape</a>;<br/>  <span class="code-type" >bool</span>                <a class="code-function" href="#7748">isWhiteChar</a>   (<span class="code-type" >char32_t</span> <span class="code-argument">_val</span>);<br/>  <span class="code-type" >bool</span>                <a class="code-function" href="#7750">isSpecialChar</a> (<span class="code-type" >char32_t</span> <span class="code-argument">_val</span>);<br/>  <span class="code-type" >bool</span>                <a class="code-function" href="#7752">isInteger</a>     (<span class="code-type" >char32_t</span> <span class="code-argument">_val</span>);<br/>  <span class="code-type" >int32_t</span>             <a class="code-function" href="#7754">toInt</a>         (<span class="code-type" >char32_t</span> <span class="code-argument">_val</span>);<br/>  <span class="code-type" >char32_t</span>            <a class="code-function" href="#7756">changeOrder</a>   (<span class="code-type" >char32_t</span> <span class="code-argument">_val</span>);<br/>  <span class="code-type" >int8_t</span>              <a class="code-function" href="#7758">convertUtf8</a>   (<span class="code-type" >char32_t</span> <span class="code-argument">_val</span>,<br/>                                     <span class="code-type" >char</span> <span class="code-argument">_output</span>);<br/></pre>
+<br/>
+<h2>Detail:</h2>
+<a id="7740"/><a id="7741"/><h3>Null</h3><pre>
+  externconstchar32_t <span class="code-member">Null</span>;<br/></pre>
+
+'\0'<br/>
+<br/>
+<hr/>
+<a id="7742"/><h3>Return</h3><pre>
+  externconstchar32_t <span class="code-member">Return</span>;<br/></pre>
+
+'\n'<br/>
+<br/>
+<hr/>
+<a id="7743"/><h3>CarrierReturn</h3><pre>
+  externconstchar32_t <span class="code-member">CarrierReturn</span>;<br/></pre>
+
+'\r' CR<br/>
+<br/>
+<hr/>
+<a id="7744"/><h3>Tabulation</h3><pre>
+  externconstchar32_t <span class="code-member">Tabulation</span>;<br/></pre>
+
+'\t' TAB<br/>
+<br/>
+<hr/>
+<a id="7745"/><h3>Suppress</h3><pre>
+  externconstchar32_t <span class="code-member">Suppress</span>;<br/></pre>
+
+BS (SUPPRESS)<br/>
+<br/>
+<hr/>
+<a id="7746"/><h3>Delete</h3><pre>
+  externconstchar32_t <span class="code-member">Delete</span>;<br/></pre>
+
+DEL<br/>
+<br/>
+<hr/>
+<a id="7747"/><h3>Space</h3><pre>
+  externconstchar32_t <span class="code-member">Space</span>;<br/></pre>
+
+' ' SPACE<br/>
+<br/>
+<hr/>
+<a id="7748"/><h3>Escape</h3><pre>
+  externconstchar32_t <span class="code-member">Escape</span>;<br/></pre>
+
+ESC Escape<br/>
+<br/>
+<hr/>
+<a id="7750"/><h3>isWhiteChar</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">isWhiteChar</span> (<span class="code-type" >char32_t</span> <span class="code-argument">_val</span>);<br/></pre>
+check if the current element is white or not : '\t' '\n' '\r' ' '<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>tue if it is white char</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7752"/><h3>isSpecialChar</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">isSpecialChar</span> (<span class="code-type" >char32_t</span> <span class="code-argument">_val</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="7754"/><h3>isInteger</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">isInteger</span> (<span class="code-type" >char32_t</span> <span class="code-argument">_val</span>);<br/></pre>
+check if the curent element is number or not<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>tue if it is a number char</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="7756"/><h3>toInt</h3><pre>
+  <span class="code-type" >int32_t</span> <span class="code-function">toInt</span> (<span class="code-type" >char32_t</span> <span class="code-argument">_val</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="7758"/><h3>changeOrder</h3><pre>
+  <span class="code-type" >char32_t</span> <span class="code-function">changeOrder</span> (<span class="code-type" >char32_t</span> <span class="code-argument">_val</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<h3>convertUtf8</h3><pre>
+  <span class="code-type" >int8_t</span> <span class="code-function">convertUtf8</span> (<span class="code-type" >char32_t</span> <span class="code-argument">_val</span>,<br/>                      <span class="code-type" >char</span> <span class="code-argument">_output</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+	</div>
+</body>
+</html>

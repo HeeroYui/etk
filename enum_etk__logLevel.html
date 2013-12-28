@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>etk Library</title>
+	<link rel="stylesheet" href="base.css">
+	<link rel="stylesheet" href="menu.css">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<h1><a href="index.html">etk library</a></h1>
+			<h4><a href="http://github.com/heeroyui/etk/">&nbsp;&nbsp;&nbsp;[ sources ]</a></h4>
+<h3>API:</h3>			<div id="menu">
+<ul class="niveau1">
+	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
+<ul class="niveau2">
+	<li><a href="namespace_etk__color.html">color</a>
+	</li>
+	<li><a href="namespace_etk__tool.html">tool</a>
+	</li>
+	<li><a href="namespace_etk__archive.html">archive</a>
+	</li>
+	<li><a href="namespace_etk__theme.html">theme</a>
+	</li>
+</ul>
+	</li>
+	<li><a href="namespace_u32char.html">u32char</a>
+	</li>
+	<li><a href="namespace_utf8.html">utf8</a>
+	</li>
+	<li><a href="namespace_std.html">std</a>
+	</li>
+	<li><a href="namespace_debug.html">debug</a>
+	</li>
+</ul>
+			</div>
+<h3>Documentation:</h3><div id="menu">
+</div>
+<br/><h3>Associate libraries:</h3><div id="menu">
+<ul class="niveau1"><li><a href="../ewol/index.html">ewol</a></li>
+</ul><ul class="niveau1"><li><a href="../ejson/index.html">ejson</a></li>
+</ul><ul class="niveau1"><li><a href="../egami/index.html">egami</a></li>
+</ul><ul class="niveau1"><li><a href="../ege/index.html">ege</a></li>
+</ul><ul class="niveau1"><li><a href="../esvg/index.html">esvg</a></li>
+</ul><ul class="niveau1"><li><a href="../exml/index.html">exml</a></li>
+</ul></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+		</div>
+	</div>
+	<div class="container" id="content">
+<h1>enum: etk::logLevel</h1><hr/><h2>Description:</h2>
+Log level is a simple list of all log availlable. This enum is used when setting a log and when user chose the level of log displayed.<br/><br/>
+<h2>Value list</h2>
+<ul>
+<table class="enumeration-list"><tr>
+<tr>
+<td><a href="#logLevelNone">logLevelNone</a></td></tr>
+<tr>
+<td><a href="#logLevelCritical">logLevelCritical</a></td></tr>
+<tr>
+<td><a href="#logLevelError">logLevelError</a></td></tr>
+<tr>
+<td><a href="#logLevelWarning">logLevelWarning</a></td></tr>
+<tr>
+<td><a href="#logLevelInfo">logLevelInfo</a></td></tr>
+<tr>
+<td><a href="#logLevelDebug">logLevelDebug</a></td></tr>
+<tr>
+<td><a href="#logLevelVerbose">logLevelVerbose</a></td></tr>
+</table>
+</ul>
+<h2>Detail:</h2>
+<h3><a id="logLevelNone"/>logLevelNone</h3><pre>
+logLevelNone     = <span class="code-type">0<span></pre>
+
+no display requested<br/><hr/>
+<h3><a id="logLevelCritical"/>logLevelCritical</h3><pre>
+logLevelCritical = <span class="code-type">1<span></pre>
+
+Display only critical logs (note that critical generally assert with a backtrace (when we can))<br/><hr/>
+<h3><a id="logLevelError"/>logLevelError</h3><pre>
+logLevelError    = <span class="code-type">2<span></pre>
+
+Display Error and critical logs<br/><hr/>
+<h3><a id="logLevelWarning"/>logLevelWarning</h3><pre>
+logLevelWarning  = <span class="code-type">3<span></pre>
+
+Display log critical to warning<br/><hr/>
+<h3><a id="logLevelInfo"/>logLevelInfo</h3><pre>
+logLevelInfo     = <span class="code-type">4<span></pre>
+
+Display log critical to information (removed in release mode)<br/><hr/>
+<h3><a id="logLevelDebug"/>logLevelDebug</h3><pre>
+logLevelDebug    = <span class="code-type">5<span></pre>
+
+Display log critical to debug (removed in release mode)<br/><hr/>
+<h3><a id="logLevelVerbose"/>logLevelVerbose</h3><pre>
+logLevelVerbose  = <span class="code-type">6<span></pre>
+
+Display all logs (removed in release and debug mode)<br/>	</div>
+</body>
+</html>

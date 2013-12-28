@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>etk Library</title>
+	<link rel="stylesheet" href="base.css">
+	<link rel="stylesheet" href="menu.css">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<h1><a href="index.html">etk library</a></h1>
+			<h4><a href="http://github.com/heeroyui/etk/">&nbsp;&nbsp;&nbsp;[ sources ]</a></h4>
+<h3>API:</h3>			<div id="menu">
+<ul class="niveau1">
+	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
+<ul class="niveau2">
+	<li><a href="namespace_etk__color.html">color</a>
+	</li>
+	<li><a href="namespace_etk__tool.html">tool</a>
+	</li>
+	<li><a href="namespace_etk__archive.html">archive</a>
+	</li>
+	<li><a href="namespace_etk__theme.html">theme</a>
+	</li>
+</ul>
+	</li>
+	<li><a href="namespace_u32char.html">u32char</a>
+	</li>
+	<li><a href="namespace_utf8.html">utf8</a>
+	</li>
+	<li><a href="namespace_std.html">std</a>
+	</li>
+	<li><a href="namespace_debug.html">debug</a>
+	</li>
+</ul>
+			</div>
+<h3>Documentation:</h3><div id="menu">
+</div>
+<br/><h3>Associate libraries:</h3><div id="menu">
+<ul class="niveau1"><li><a href="../ewol/index.html">ewol</a></li>
+</ul><ul class="niveau1"><li><a href="../ejson/index.html">ejson</a></li>
+</ul><ul class="niveau1"><li><a href="../egami/index.html">egami</a></li>
+</ul><ul class="niveau1"><li><a href="../ege/index.html">ege</a></li>
+</ul><ul class="niveau1"><li><a href="../esvg/index.html">esvg</a></li>
+</ul><ul class="niveau1"><li><a href="../exml/index.html">exml</a></li>
+</ul></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+		</div>
+	</div>
+	<div class="container" id="content">
+<h1>class: etk::CCout</h1><hr/><h2>Description:</h2>
+Generic log output system. it change automaticly from generic console to Android console.<br/><br/>
+<h2>Constructor and Destructor:</h2>
+<pre>
++            <a class="code-function" href="#8334">CCout</a>          (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+            <a class="code-function" href="#8336">~CCout</a>         (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<br/>
+<h2>Synopsis:</h2>
+<pre>
++ <span class="code-type" >int8_t</span>     <a class="code-member" href="#8333">m_levelAndroid</a>;<br/>+ CCout &    <a class="code-function" href="#8338">operator <<</a>    (<span class="code-type" >char32_t</span> <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8340">operator <<</a>    (size_t <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8342">operator <<</a>    (<span class="code-type" >int8_t</span> <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8344">operator <<</a>    (<span class="code-type" >int16_t</span> <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8346">operator <<</a>    (<span class="code-type" >int32_t</span> <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8348">operator <<</a>    (<span class="code-type" >int64_t</span> <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8350">operator <<</a>    (<span class="code-type" >uint8_t</span> <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8352">operator <<</a>    (<span class="code-type" >uint16_t</span> <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8354">operator <<</a>    (<span class="code-type" >uint32_t</span> <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8356">operator <<</a>    (<span class="code-type" >uint64_t</span> <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8358">operator <<</a>    (<span class="code-type" >double</span> <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8360">operator <<</a>    (<span class="code-type" >float</span> <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8362">operator <<</a>    (<span class="code-type" >char</span>* <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8364">operator <<</a>    (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span>* <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8366">operator <<</a>    (<span class="code-type" >char</span> <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8368">operator <<</a>    (<span class="code-type" >bool</span> <span class="code-argument">_t</span>);<br/>+ CCout &    <a class="code-function" href="#8370">operator <<</a>    (CStart <span class="code-argument">_ccc</span>);<br/>+ CCout &    <a class="code-function" href="#8372">operator <<</a>    (<a class="code-type" href="class_etk__CEndl.html">etk::CEndl</a> <span class="code-argument">_t</span>);<br/></pre>
+<br/>
+<h2>Detail:</h2>
+<a id="8333"/><a id="8334"/><h3>m_levelAndroid</h3><pre>
++ <span class="code-type" >int8_t</span> <span class="code-member">m_levelAndroid</span>;<br/></pre>
+
+specific level for Android<br/>
+<br/>
+<hr/>
+<a id="8336"/><h3>CCout</h3><pre>
++  <span class="code-function">CCout</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8338"/><h3>~CCout</h3><pre>
++  <span class="code-function">~CCout</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8340"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<span class="code-type" >char32_t</span> <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8342"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (size_t <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8344"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<span class="code-type" >int8_t</span> <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8346"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<span class="code-type" >int16_t</span> <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8348"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8350"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<span class="code-type" >int64_t</span> <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8352"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<span class="code-type" >uint8_t</span> <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8354"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<span class="code-type" >uint16_t</span> <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8356"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<span class="code-type" >uint32_t</span> <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8358"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<span class="code-type" >uint64_t</span> <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8360"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<span class="code-type" >double</span> <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8362"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<span class="code-type" >float</span> <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8364"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<span class="code-type" >char</span>* <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8366"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span>* <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8368"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<span class="code-type" >char</span> <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8370"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<span class="code-type" >bool</span> <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8372"/><h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (CStart <span class="code-argument">_ccc</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<h3>operator <<</h3><pre>
++ CCout & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CEndl.html">etk::CEndl</a> <span class="code-argument">_t</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+	</div>
+</body>
+</html>

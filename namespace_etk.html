@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>etk Library</title>
+	<link rel="stylesheet" href="base.css">
+	<link rel="stylesheet" href="menu.css">
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="container">
+			<h1><a href="index.html">etk library</a></h1>
+			<h4><a href="http://github.com/heeroyui/etk/">&nbsp;&nbsp;&nbsp;[ sources ]</a></h4>
+<h3>API:</h3>			<div id="menu">
+<ul class="niveau1">
+	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
+<ul class="niveau2">
+	<li><a href="namespace_etk__color.html">color</a>
+	</li>
+	<li><a href="namespace_etk__tool.html">tool</a>
+	</li>
+	<li><a href="namespace_etk__archive.html">archive</a>
+	</li>
+	<li><a href="namespace_etk__theme.html">theme</a>
+	</li>
+</ul>
+	</li>
+	<li><a href="namespace_u32char.html">u32char</a>
+	</li>
+	<li><a href="namespace_utf8.html">utf8</a>
+	</li>
+	<li><a href="namespace_std.html">std</a>
+	</li>
+	<li><a href="namespace_debug.html">debug</a>
+	</li>
+</ul>
+			</div>
+<h3>Documentation:</h3><div id="menu">
+</div>
+<br/><h3>Associate libraries:</h3><div id="menu">
+<ul class="niveau1"><li><a href="../ewol/index.html">ewol</a></li>
+</ul><ul class="niveau1"><li><a href="../ejson/index.html">ejson</a></li>
+</ul><ul class="niveau1"><li><a href="../egami/index.html">egami</a></li>
+</ul><ul class="niveau1"><li><a href="../ege/index.html">ege</a></li>
+</ul><ul class="niveau1"><li><a href="../esvg/index.html">esvg</a></li>
+</ul><ul class="niveau1"><li><a href="../exml/index.html">exml</a></li>
+</ul></div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+		</div>
+	</div>
+	<div class="container" id="content">
+<h1>namespace: etk</h1><hr/><h2>Description:</h2>
+
+<br/><br/>
+<h2>namespace:</h2>
+<ul>
+<li><a href="namespace_etk__color.html">color</a></li><li><a href="namespace_etk__tool.html">tool</a></li><li><a href="namespace_etk__archive.html">archive</a></li><li><a href="namespace_etk__theme.html">theme</a></li></ul>
+<h2>class:</h2>
+<ul>
+<li><a href="class_etk__RegExpNodeValue.html">RegExpNodeValue</a></li><li><a href="class_etk__elementPos_ts.html">elementPos_ts</a></li><li><a href="class_etk__RegExp.html">RegExp</a></li><li><a href="class_etk__BaseNoise.html">BaseNoise</a></li><li><a href="class_etk__Noise.html">Noise</a></li><li><a href="class_etk__Buffer.html">Buffer</a></li><li><a href="class_etk__Color.html">Color</a></li><li><a href="class_etk__Hash.html">Hash</a></li><li><a href="class_etk__CCout.html">CCout</a></li><li><a href="class_etk__Matrix.html">Matrix</a></li><li><a href="class_etk__Matrix4.html">Matrix4</a></li><li><a href="class_etk__Plane.html">Plane</a></li><li><a href="class_etk__Vector3D.html">Vector3D</a></li><li><a href="class_etk__Vector4D.html">Vector4D</a></li><li><a href="class_etk__Vector2D.html">Vector2D</a></li><li><a href="class_etk__Archive.html">Archive</a></li><li><a href="class_etk__Semaphore.html">Semaphore</a></li><li><a href="class_etk__Mutex.html">Mutex</a></li><li><a href="class_etk__Fifo.html">Fifo</a></li><li><a href="class_etk__FSNode.html">FSNode</a></li><li><a href="class_etk__FSNodeRight.html">FSNodeRight</a></li></ul>
+<h2>enum:</h2>
+<ul>
+<li><a href="enum_etk__regExpPrivateSection.html">regExpPrivateSection</a></li><li><a href="enum_etk__logLevel.html">logLevel</a></li><li><a href="enum_etk__typeNode.html">typeNode</a></li><li><a href="enum_etk__seekNode.html">seekNode</a></li><li><a href="enum_etk__FSNType.html">FSNType</a></li></ul>
+<h2>Synopsis:</h2>
+<pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#7938">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#7941">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::string&gt; & <span class="code-argument">_obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#7944">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#7947">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::u32string&gt; & <span class="code-argument">_obj</span>);<br/>  externetk::CCout   <a class="code-member" href="#8374">cout</a>;<br/>  externetk::CEndl   <a class="code-member" href="#8375">endl</a>;<br/>  externetk::CStart  <a class="code-member" href="#8376">cstart</a>;<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#8378">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__logLevel.html">etk::logLevel</a> <span class="code-argument">_obj</span>);<br/>  <span class="code-type" >void</span>               <a class="code-function" href="#8381">displayBacktrace</a>         (<span class="code-type" >bool</span> <span class="code-argument">_breakAtEnd</span>);<br/>  <span class="code-type" >void</span>               <a class="code-function" href="#8435">makeRandom</a>               (<span class="code-type" >float</span> <span class="code-argument">range</span>);<br/>  <span class="code-type" >T</span>                  <a class="code-function" href="#8437">maxDifference</a>            (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">input</span>);<br/>  <span class="code-type" >T</span>                  <a class="code-member" href="#8439">max</a>;<br/>  for(int32_t        <a class="code-member" href="#8440">iii</a>;<br/>  iii&lt;m_data         <a class="code-function" href="#8441">size</a>                     ()&&iii&lt;inputm_datasize <span class="code-argument">(</span>);<br/>  ++iii              <a class="code-function" href="#8443"></a>                         (+ <span class="code-argument">iii</span>);<br/>  Matrix4            <a class="code-function" href="#8525">matFrustum</a>               (<span class="code-type" >float</span> <span class="code-argument">xmin</span>,<br/>                                               <span class="code-type" >float</span> <span class="code-argument">xmax</span>,<br/>                                               <span class="code-type" >float</span> <span class="code-argument">ymin</span>,<br/>                                               <span class="code-type" >float</span> <span class="code-argument">ymax</span>,<br/>                                               <span class="code-type" >float</span> <span class="code-argument">zNear</span>,<br/>                                               <span class="code-type" >float</span> <span class="code-argument">zFar</span>);<br/>  Matrix4            <a class="code-function" href="#8532">matPerspective</a>           (<span class="code-type" >float</span> <span class="code-argument">foxy</span>,<br/>                                               <span class="code-type" >float</span> <span class="code-argument">aspect</span>,<br/>                                               <span class="code-type" >float</span> <span class="code-argument">zNear</span>,<br/>                                               <span class="code-type" >float</span> <span class="code-argument">zFar</span>);<br/>  Matrix4            <a class="code-function" href="#8537">matOrtho</a>                 (<span class="code-type" >float</span> <span class="code-argument">left</span>,<br/>                                               <span class="code-type" >float</span> <span class="code-argument">right</span>,<br/>                                               <span class="code-type" >float</span> <span class="code-argument">bottom</span>,<br/>                                               <span class="code-type" >float</span> <span class="code-argument">top</span>,<br/>                                               <span class="code-type" >float</span> <span class="code-argument">nearVal</span>,<br/>                                               <span class="code-type" >float</span> <span class="code-argument">farVal</span>);<br/>  Matrix4            <a class="code-function" href="#8544">matTranslate</a>             (vec3 <span class="code-argument">vect</span>);<br/>  Matrix4            <a class="code-function" href="#8546">matScale</a>                 (vec3 <span class="code-argument">vect</span>);<br/>  Matrix4            <a class="code-function" href="#8548">matRotate</a>                (vec3 <span class="code-argument">vect</span>,<br/>                                               <span class="code-type" >float</span> <span class="code-argument">angleRad</span>);<br/>  Matrix4            <a class="code-function" href="#8551">matRotate2</a>               (vec3 <span class="code-argument">vect</span>);<br/>  Matrix4            <a class="code-function" href="#8553">matLookAt</a>                (vec3 <span class="code-argument">eye</span>,<br/>                                               vec3 <span class="code-argument">center</span>,<br/>                                               vec3 <span class="code-argument">up</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#8557">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Matrix4.html">etk::Matrix4</a> <span class="code-argument">obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#8712">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector3D.html">etk::Vector3D</a>&lt;int32_t&gt; <span class="code-argument">obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#8715">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                                               <span class="code-storage-keyword">const</span> btVector3 <span class="code-argument">obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#8718">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector3D.html">etk::Vector3D</a>&lt;uint32_t&gt; <span class="code-argument">obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#8721">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector3D.html">etk::Vector3D</a>&lt;bool&gt; <span class="code-argument">obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#8808">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector4D.html">etk::Vector4D</a>&lt;int32_t&gt; <span class="code-argument">obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#8811">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector4D.html">etk::Vector4D</a>&lt;float&gt; <span class="code-argument">obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#8814">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector4D.html">etk::Vector4D</a>&lt;uint32_t&gt; <span class="code-argument">obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#8817">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector4D.html">etk::Vector4D</a>&lt;bool&gt; <span class="code-argument">obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#8940">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector2D.html">etk::Vector2D</a>&lt;int32_t&gt; & <span class="code-argument">obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#8943">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector2D.html">etk::Vector2D</a>&lt;float&gt; & <span class="code-argument">obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#8946">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector2D.html">etk::Vector2D</a>&lt;uint32_t&gt; & <span class="code-argument">obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#8949">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector2D.html">etk::Vector2D</a>&lt;bool&gt; & <span class="code-argument">obj</span>);<br/>  <span class="code-type" >void</span>               <a class="code-function" href="#9078">setArgZero</a>               (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_val</span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>        <a class="code-function" href="#9080">simplifyPath</a>             (<a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-argument">_input</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#9083">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__typeNode.html">etk::typeNode</a> & <span class="code-argument">_obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#9088">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__FSNType.html">etk::FSNType</a> & <span class="code-argument">_obj</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#9239">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNode.html">etk::FSNode</a> & <span class="code-argument">_obj</span>);<br/>  <span class="code-type" >void</span>               <a class="code-function" href="#9242">setBaseFolderData</a>        (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span>* <span class="code-argument">_folder</span>);<br/>  <span class="code-type" >void</span>               <a class="code-function" href="#9244">setBaseFolderDataUser</a>    (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span>* <span class="code-argument">_folder</span>);<br/>  <span class="code-type" >void</span>               <a class="code-function" href="#9246">setBaseFolderCache</a>       (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span>* <span class="code-argument">_folder</span>);<br/>  <span class="code-type" >void</span>               <a class="code-function" href="#9248">initDefaultFolder</a>        (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span>* <span class="code-argument">_applName</span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>        <a class="code-function" href="#9250">getUserHomeFolder</a>        (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>     <a class="code-function" href="#9252">getUUserHomeFolder</a>       (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>        <a class="code-function" href="#9254">getUserRunFolder</a>         (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>     <a class="code-function" href="#9256">getUUserRunFolder</a>        (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>  <span class="code-type" >bool</span>               <a class="code-function" href="#9273">FSNodeRemove</a>             (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-type" >bool</span>               <a class="code-function" href="#9275">FSNodeRemove</a>             (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-type" >int64_t</span>            <a class="code-function" href="#9277">FSNodeGetCount</a>           (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-type" >int64_t</span>            <a class="code-function" href="#9279">FSNodeGetCount</a>           (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-type" >bool</span>               <a class="code-function" href="#9281">FSNodeCreate</a>             (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>,<br/>                                               <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> <span class="code-argument">_right</span>,<br/>                                               <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__typeNode.html">etk::typeNode</a> <span class="code-argument">_type</span>);<br/>  <span class="code-type" >bool</span>               <a class="code-function" href="#9285">FSNodeCreate</a>             (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>,<br/>                                               <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> <span class="code-argument">_right</span>,<br/>                                               <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__typeNode.html">etk::typeNode</a> <span class="code-argument">_type</span>);<br/>  <span class="code-type" >bool</span>               <a class="code-function" href="#9289">FSNodeExist</a>              (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-type" >bool</span>               <a class="code-function" href="#9291">FSNodeExist</a>              (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-type" >bool</span>               <a class="code-function" href="#9293">FSNodeMove</a>               (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path1</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path2</span>);<br/>  <span class="code-type" >bool</span>               <a class="code-function" href="#9296">FSNodeMove</a>               (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path1</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path2</span>);<br/>  <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a>   <a class="code-function" href="#9299">FSNodeGetRight</a>           (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/>  <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a>   <a class="code-function" href="#9301">FSNodeGetRight</a>           (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__typeNode.html">etk::typeNode</a> <a class="code-function" href="#9303">FSNodeGetType</a>            (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__typeNode.html">etk::typeNode</a> <a class="code-function" href="#9305">FSNodeGetType</a>            (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-type" >uint64_t</span>           <a class="code-function" href="#9307">FSNodeGetTimeCreated</a>     (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-type" >uint64_t</span>           <a class="code-function" href="#9309">FSNodeGetTimeCreated</a>     (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-type" >uint64_t</span>           <a class="code-function" href="#9311">FSNodeGetTimeModified</a>    (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-type" >uint64_t</span>           <a class="code-function" href="#9313">FSNodeGetTimeModified</a>    (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-type" >uint64_t</span>           <a class="code-function" href="#9315">FSNodeGetTimeAccessed</a>    (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-type" >uint64_t</span>           <a class="code-function" href="#9317">FSNodeGetTimeAccessed</a>    (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-type" >bool</span>               <a class="code-function" href="#9319">FSNodeTouch</a>              (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-type" >bool</span>               <a class="code-function" href="#9321">FSNodeTouch</a>              (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/>  <span class="code-type" >bool</span>               <a class="code-function" href="#9323">FSNodeEcho</a>               (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_dataTowrite</span>);<br/>  <span class="code-type" >bool</span>               <a class="code-function" href="#9326">FSNodeEcho</a>               (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_dataTowrite</span>);<br/>  <span class="code-type" >bool</span>               <a class="code-function" href="#9329">FSNodeEchoAdd</a>            (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_dataTowrite</span>);<br/>  <span class="code-type" >bool</span>               <a class="code-function" href="#9332">FSNodeEchoAdd</a>            (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_dataTowrite</span>);<br/>  <span class="code-type" >void</span>               <a class="code-function" href="#9335">FSNodeHistory</a>            (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>,<br/>                                               <span class="code-type" >int32_t</span> <span class="code-argument">_historyCount</span>);<br/>  <span class="code-type" >void</span>               <a class="code-function" href="#9338">FSNodeHistory</a>            (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>,<br/>                                               <span class="code-type" >int32_t</span> <span class="code-argument">_historyCount</span>);<br/>  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> &       <a class="code-function" href="#9397">operator <<</a>              (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                                               <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> & <span class="code-argument">_obj</span>);<br/></pre>
+<br/>
+<h2>Detail:</h2>
+<a id="7938"/><a id="7941"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="7944"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::string&gt; & <span class="code-argument">_obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="7947"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8374"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::u32string&gt; & <span class="code-argument">_obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8375"/><h3>cout</h3><pre>
+  externetk::CCout <span class="code-member">cout</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8376"/><h3>endl</h3><pre>
+  externetk::CEndl <span class="code-member">endl</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8378"/><h3>cstart</h3><pre>
+  externetk::CStart <span class="code-member">cstart</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8381"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                            <span class="code-storage-keyword">const</span> <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__logLevel.html">etk::logLevel</a> <span class="code-argument">_obj</span>);<br/></pre>
+Debug operator To display the curent element in a Human redeable information<br/>
+<br/>
+<hr/>
+<a id="8435"/><h3>displayBacktrace</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">displayBacktrace</span> (<span class="code-type" >bool</span> <span class="code-argument">_breakAtEnd</span>);<br/></pre>
+Display the current backtrace (only implemented in linux debug mode)<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_breakAtEnd</span> </td><td> Request an assert after displaying the backtrace.</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="8437"/><h3>makeRandom</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">makeRandom</span> (<span class="code-type" >float</span> <span class="code-argument">range</span>);<br/></pre>
+Generate a compleate random Matrix.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">range</span> </td><td> The min/max value of the random Generation [-range..range].</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="8439"/><h3>maxDifference</h3><pre>
+  <span class="code-type" >T</span> <span class="code-function">maxDifference</span> (<span class="code-storage-keyword">const</span> Matrix&lt;T&gt; & <span class="code-argument">input</span>);<br/></pre>
+Return the maximum of the diff for this Matrix.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">input</span> </td><td> The compared Matix.</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>The absolute max value.</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="8440"/><h3>max</h3><pre>
+  <span class="code-type" >T</span> <span class="code-member">max</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8441"/><h3>iii</h3><pre>
+  for(int32_t <span class="code-member">iii</span>;<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8443"/><h3>size</h3><pre>
+  iii&lt;m_data <span class="code-function">size</span> ()&&iii&lt;inputm_datasize <span class="code-argument">(</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8525"/><h3></h3><pre>
+  ++iii <span class="code-function"></span> (+ <span class="code-argument">iii</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8532"/><h3>matFrustum</h3><pre>
+  Matrix4 <span class="code-function">matFrustum</span> (<span class="code-type" >float</span> <span class="code-argument">xmin</span>,<br/>                      <span class="code-type" >float</span> <span class="code-argument">xmax</span>,<br/>                      <span class="code-type" >float</span> <span class="code-argument">ymin</span>,<br/>                      <span class="code-type" >float</span> <span class="code-argument">ymax</span>,<br/>                      <span class="code-type" >float</span> <span class="code-argument">zNear</span>,<br/>                      <span class="code-type" >float</span> <span class="code-argument">zFar</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8537"/><h3>matPerspective</h3><pre>
+  Matrix4 <span class="code-function">matPerspective</span> (<span class="code-type" >float</span> <span class="code-argument">foxy</span>,<br/>                          <span class="code-type" >float</span> <span class="code-argument">aspect</span>,<br/>                          <span class="code-type" >float</span> <span class="code-argument">zNear</span>,<br/>                          <span class="code-type" >float</span> <span class="code-argument">zFar</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8544"/><h3>matOrtho</h3><pre>
+  Matrix4 <span class="code-function">matOrtho</span> (<span class="code-type" >float</span> <span class="code-argument">left</span>,<br/>                    <span class="code-type" >float</span> <span class="code-argument">right</span>,<br/>                    <span class="code-type" >float</span> <span class="code-argument">bottom</span>,<br/>                    <span class="code-type" >float</span> <span class="code-argument">top</span>,<br/>                    <span class="code-type" >float</span> <span class="code-argument">nearVal</span>,<br/>                    <span class="code-type" >float</span> <span class="code-argument">farVal</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8546"/><h3>matTranslate</h3><pre>
+  Matrix4 <span class="code-function">matTranslate</span> (vec3 <span class="code-argument">vect</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8548"/><h3>matScale</h3><pre>
+  Matrix4 <span class="code-function">matScale</span> (vec3 <span class="code-argument">vect</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8551"/><h3>matRotate</h3><pre>
+  Matrix4 <span class="code-function">matRotate</span> (vec3 <span class="code-argument">vect</span>,<br/>                     <span class="code-type" >float</span> <span class="code-argument">angleRad</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8553"/><h3>matRotate2</h3><pre>
+  Matrix4 <span class="code-function">matRotate2</span> (vec3 <span class="code-argument">vect</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8557"/><h3>matLookAt</h3><pre>
+  Matrix4 <span class="code-function">matLookAt</span> (vec3 <span class="code-argument">eye</span>,<br/>                     vec3 <span class="code-argument">center</span>,<br/>                     vec3 <span class="code-argument">up</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8712"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Matrix4.html">etk::Matrix4</a> <span class="code-argument">obj</span>);<br/></pre>
+Debug operator To display the curent element in a Human redeable information<br/>
+<br/>
+<hr/>
+<a id="8715"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector3D.html">etk::Vector3D</a>&lt;int32_t&gt; <span class="code-argument">obj</span>);<br/></pre>
+Debug operator To display the curent element in a Human redeable information<br/>
+<br/>
+<hr/>
+<a id="8718"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                            <span class="code-storage-keyword">const</span> btVector3 <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8721"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector3D.html">etk::Vector3D</a>&lt;uint32_t&gt; <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8808"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector3D.html">etk::Vector3D</a>&lt;bool&gt; <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8811"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector4D.html">etk::Vector4D</a>&lt;int32_t&gt; <span class="code-argument">obj</span>);<br/></pre>
+Debug operator To display the curent element in a Human redeable information<br/>
+<br/>
+<hr/>
+<a id="8814"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector4D.html">etk::Vector4D</a>&lt;float&gt; <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8817"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector4D.html">etk::Vector4D</a>&lt;uint32_t&gt; <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8940"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector4D.html">etk::Vector4D</a>&lt;bool&gt; <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8943"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector2D.html">etk::Vector2D</a>&lt;int32_t&gt; & <span class="code-argument">obj</span>);<br/></pre>
+Debug operator To display the curent element in a Human redeable information<br/>
+<br/>
+<hr/>
+<a id="8946"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector2D.html">etk::Vector2D</a>&lt;float&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="8949"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector2D.html">etk::Vector2D</a>&lt;uint32_t&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9078"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__Vector2D.html">etk::Vector2D</a>&lt;bool&gt; & <span class="code-argument">obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9080"/><h3>setArgZero</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">setArgZero</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_val</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9083"/><h3>simplifyPath</h3><pre>
+  <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">simplifyPath</span> (<a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-argument">_input</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9088"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                            <span class="code-storage-keyword">const</span> <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__typeNode.html">etk::typeNode</a> & <span class="code-argument">_obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9239"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                            <span class="code-storage-keyword">const</span> <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__FSNType.html">etk::FSNType</a> & <span class="code-argument">_obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9242"/><h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNode.html">etk::FSNode</a> & <span class="code-argument">_obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9244"/><h3>setBaseFolderData</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">setBaseFolderData</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span>* <span class="code-argument">_folder</span>);<br/></pre>
+Set manualy the folder of the Data.(like /usr/shared/applName/ for linux)<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_folder</span> </td><td> folder path of the cathegorie</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9246"/><h3>setBaseFolderDataUser</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">setBaseFolderDataUser</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span>* <span class="code-argument">_folder</span>);<br/></pre>
+Set the user data folder (like /home/machin/.local/applName/ for linux)<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_folder</span> </td><td> folder path of the cathegorie</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9248"/><h3>setBaseFolderCache</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">setBaseFolderCache</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span>* <span class="code-argument">_folder</span>);<br/></pre>
+Set the Cach folder for the application (like /tmp)<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_folder</span> </td><td> folder path of the cathegorie</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9250"/><h3>initDefaultFolder</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">initDefaultFolder</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span>* <span class="code-argument">_applName</span>);<br/></pre>
+Initialyse all the subFolder usable by the user like DATA/HOME/CACHE/USERDATA<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_applName</span> </td><td> the name of the application</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9252"/><h3>getUserHomeFolder</h3><pre>
+  <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">getUserHomeFolder</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Get the home folder of the user<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>the home folder : like : "/home/machin/"</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9254"/><h3>getUUserHomeFolder</h3><pre>
+  <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">getUUserHomeFolder</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9256"/><h3>getUserRunFolder</h3><pre>
+  <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">getUserRunFolder</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+Get the folder of the Program is running<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>the basic folder name (ex : run ./appl in the pwd=/home/machin/sousFolder ==&gt; this return the pwd folder)</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9273"/><h3>getUUserRunFolder</h3><pre>
+  <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">getUUserRunFolder</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9275"/><h3>FSNodeRemove</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">FSNodeRemove</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/></pre>
+Simple access for : Remove folder and subFolder, files pipes ...<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path</span> </td><td> Folder/File/Pipe path of the node</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : Action done corectly&lt;br/&gt;false : An error occured</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9277"/><h3>FSNodeRemove</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">FSNodeRemove</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9279"/><h3>FSNodeGetCount</h3><pre>
+  <span class="code-type" >int64_t</span> <span class="code-function">FSNodeGetCount</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/></pre>
+Simple access for : count the number of element in a path (if it is not a path ==&gt; return -1)<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path</span> </td><td> Folder/File/Pipe path of the node</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>number of File inside&lt;br/&gt;-1 : An error occured</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9281"/><h3>FSNodeGetCount</h3><pre>
+  <span class="code-type" >int64_t</span> <span class="code-function">FSNodeGetCount</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9285"/><h3>FSNodeCreate</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">FSNodeCreate</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>,<br/>                     <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> <span class="code-argument">_right</span>,<br/>                     <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__typeNode.html">etk::typeNode</a> <span class="code-argument">_type</span>);<br/></pre>
+Simple access for : Create a file or a folder depending of the request<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path</span> </td><td> Folder/File/Pipe path of the node</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_right</span> </td><td> Right of the creation</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_type</span> </td><td> Type of the element that might be created</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : Action done corectly&lt;br/&gt;false : An error occured</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9289"/><h3>FSNodeCreate</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">FSNodeCreate</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>,<br/>                     <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> <span class="code-argument">_right</span>,<br/>                     <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__typeNode.html">etk::typeNode</a> <span class="code-argument">_type</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9291"/><h3>FSNodeExist</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">FSNodeExist</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/></pre>
+Simple access for : chexk the exestance of an element<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path</span> </td><td> Folder/File/Pipe path of the node</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : Action done corectly&lt;br/&gt;false : An error occured</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9293"/><h3>FSNodeExist</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">FSNodeExist</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9296"/><h3>FSNodeMove</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">FSNodeMove</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path1</span>,<br/>                   <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path2</span>);<br/></pre>
+Simple access for : chexk the exestance of an element<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path1</span> </td><td> Folder/File/Pipe path of the node sources</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path2</span> </td><td> Folder/File/Pipe path of the node destination</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : Action done corectly&lt;br/&gt;false : An error occured</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9299"/><h3>FSNodeMove</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">FSNodeMove</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path1</span>,<br/>                   <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path2</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9301"/><h3>FSNodeGetRight</h3><pre>
+  <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> <span class="code-function">FSNodeGetRight</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/></pre>
+Simple access for : Get right of the current Node<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path</span> </td><td> Folder/File/Pipe path of the node</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : Action done corectly&lt;br/&gt;false : An error occured</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9303"/><h3>FSNodeGetRight</h3><pre>
+  <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> <span class="code-function">FSNodeGetRight</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9305"/><h3>FSNodeGetType</h3><pre>
+  <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__typeNode.html">etk::typeNode</a> <span class="code-function">FSNodeGetType</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/></pre>
+Simple access for : Get type of the current node<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path</span> </td><td> Folder/File/Pipe path of the node</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : Action done corectly&lt;br/&gt;false : An error occured</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9307"/><h3>FSNodeGetType</h3><pre>
+  <span class="code-storage-keyword">enum</span> <a class="code-type" href="enum_etk__typeNode.html">etk::typeNode</a> <span class="code-function">FSNodeGetType</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9309"/><h3>FSNodeGetTimeCreated</h3><pre>
+  <span class="code-type" >uint64_t</span> <span class="code-function">FSNodeGetTimeCreated</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/></pre>
+Simple access for : Getting creation time of the current node<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path</span> </td><td> Folder/File/Pipe path of the node</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : Action done corectly&lt;br/&gt;false : An error occured</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9311"/><h3>FSNodeGetTimeCreated</h3><pre>
+  <span class="code-type" >uint64_t</span> <span class="code-function">FSNodeGetTimeCreated</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9313"/><h3>FSNodeGetTimeModified</h3><pre>
+  <span class="code-type" >uint64_t</span> <span class="code-function">FSNodeGetTimeModified</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/></pre>
+Simple access for : Getting Modification time of the current node<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path</span> </td><td> Folder/File/Pipe path of the node</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : Action done corectly&lt;br/&gt;false : An error occured</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9315"/><h3>FSNodeGetTimeModified</h3><pre>
+  <span class="code-type" >uint64_t</span> <span class="code-function">FSNodeGetTimeModified</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9317"/><h3>FSNodeGetTimeAccessed</h3><pre>
+  <span class="code-type" >uint64_t</span> <span class="code-function">FSNodeGetTimeAccessed</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/></pre>
+Simple access for : Getting Accessing time of the current node<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path</span> </td><td> Folder/File/Pipe path of the node</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : Action done corectly&lt;br/&gt;false : An error occured</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9319"/><h3>FSNodeGetTimeAccessed</h3><pre>
+  <span class="code-type" >uint64_t</span> <span class="code-function">FSNodeGetTimeAccessed</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9321"/><h3>FSNodeTouch</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">FSNodeTouch</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>);<br/></pre>
+Simple access for : Update Modification time with the current time of the node (&gt;)<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path</span> </td><td> Folder/File/Pipe path of the node</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : Action done corectly&lt;br/&gt;false : An error occured</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9323"/><h3>FSNodeTouch</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">FSNodeTouch</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9326"/><h3>FSNodeEcho</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">FSNodeEcho</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>,<br/>                   <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_dataTowrite</span>);<br/></pre>
+Simple access for : Basic write on the node (like console echo)<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path</span> </td><td> Folder/File/Pipe path of the node</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_dataTowrite</span> </td><td> write data in the Node</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : Action done corectly&lt;br/&gt;false : An error occured</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9329"/><h3>FSNodeEcho</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">FSNodeEcho</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>,<br/>                   <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_dataTowrite</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9332"/><h3>FSNodeEchoAdd</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">FSNodeEchoAdd</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>,<br/>                      <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_dataTowrite</span>);<br/></pre>
+Simple access for : Basic write on the node (like console echo) in adding mode (&gt;&gt;)<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path</span> </td><td> Folder/File/Pipe path of the node</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_dataTowrite</span> </td><td> write data in the Node</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>true : Action done corectly&lt;br/&gt;false : An error occured</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9335"/><h3>FSNodeEchoAdd</h3><pre>
+  <span class="code-type" >bool</span> <span class="code-function">FSNodeEchoAdd</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>,<br/>                      <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_dataTowrite</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<a id="9338"/><h3>FSNodeHistory</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">FSNodeHistory</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_path</span>,<br/>                      <span class="code-type" >int32_t</span> <span class="code-argument">_historyCount</span>);<br/></pre>
+move file to generate an history of the current file<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_path</span> </td><td> Folder/File/Pipe path of the node</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_historyCount</span> </td><td> number of saved file in the history (-xxx)</td></tr>
+</table>
+</ul>
+
+<br/>
+<hr/>
+<a id="9397"/><h3>FSNodeHistory</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">FSNodeHistory</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_path</span>,<br/>                      <span class="code-type" >int32_t</span> <span class="code-argument">_historyCount</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<h3>operator <<</h3><pre>
+  <a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-function">operator <<</span> (<a class="code-type" href="class_etk__CCout.html">etk::CCout</a> & <span class="code-argument">_os</span>,<br/>                            <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> & <span class="code-argument">_obj</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+	</div>
+</body>
+</html>
