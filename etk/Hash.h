@@ -147,9 +147,7 @@ namespace etk {
 			MY_TYPE& operator[] (const std::string& _key) {
 				return get(_key);
 			}
-			/**
-			 * @previous
-			 */
+			//! @previous
 			const MY_TYPE& operator[] (const std::string& _key) const {
 				return get(_key);
 			}
@@ -227,6 +225,19 @@ namespace etk {
 					}
 				#endif
 				return m_data[_pos]->m_key;
+			}
+			/**
+			 * @brief Get all the element name (keys).
+			 * @return a vector of all name (key).
+			 */
+			std::vector<std::string> getKeys(void) const {
+				std::vector<std::string> keys;
+				for (size_t iii = 0; iii < m_data.size(); ++iii) {
+					if (m_data[iii] != NULL) {
+						keys.push_back(m_data[iii]->m_key);
+					}
+				}
+				return keys;
 			}
 			/**
 			 * @brief Get a value of the hash table at a specific position.
