@@ -130,7 +130,8 @@ static uint32_t getUtf8Val(char32_t _val) {
 		output+= (_val & 0x00000FC0)<<2;
 		output+=  _val & 0x0000003F;
 	} else {
-		TK_ERROR("NON UTF8 caracter input...");
+		//TK_ERROR("NON UTF8 caracter input...");
+		printf("not an utf8 char : %#08x\n", _val);
 		return 0;
 	}
 	//printf("utf8convertion : %d=%08x ==> %08x\n",value, value, output);
@@ -495,29 +496,112 @@ bool std::compare_no_case(const std::string& _obj, const std::string& _val) {
 	return true;
 }
 
+struct doublette {
+	char32_t lower;
+	char32_t upper;
+};
+struct doublette convertionTable[] = {
+	{U'ç', U'Ç'},
+
+	{U'á', U'Á'},
+	{U'à', U'À'},
+	{U'ä', U'Ä'},
+	{U'â', U'Ä'},
+	{U'å', U'Å'},
+	{U'ã', U'Ã'},
+
+	{U'é', U'É'},
+	{U'è', U'È'},
+	{U'ë', U'Ë'},
+	{U'ê', U'Ê'},
+
+	{U'ú', U'Ú'},
+	{U'ù', U'Ù'},
+	{U'ü', U'Ü'},
+	{U'û', U'Û'},
+
+	{U'í', U'Í'},
+	{U'ì', U'Ì'},
+	{U'ï', U'Ï'},
+	{U'î', U'Î'},
+
+	{U'ó', U'Ó'},
+	{U'ò', U'Ò'},
+	{U'ö', U'Ö'},
+	{U'ô', U'Ô'},
+	{U'õ', U'Õ'},
+
+	{U'ý', U'Ý'},
+	{U'ỳ', U'Ỳ'},
+	{U'ÿ', U'Ÿ'},
+	{U'ŷ', U'Ŷ'},
+
+	{U'ñ', U'Ñ'},
+	{U'ǹ', U'Ǹ'},
+
+	{U'ḧ', U'Ḧ'},
+	{U'ĥ', U'Ĥ'},
+
+	{U'ẅ', U'Ẅ'},
+	{U'ŵ', U'Ŵ'},
+	{U'ẁ', U'Ẁ'},
+
+	{U'ẍ', U'Ẍ'},
+
+	{U'æ', U'Æ'},
+	{U'ð', U'Ð'},
+	{U'ø', U'Ø'}
+};
+size_t convertionTableSize = sizeof(convertionTable)/sizeof(struct doublette);
+
+static char32_t localToUpper(char32_t _input) {
+	if (_input >= 'a' && _input <= 'z') {
+		return _input + ((int)'A'-(int)'a');
+	}
+	for (size_t iii = 0; iii < convertionTableSize; ++iii) {
+		if (convertionTable[iii].lower == _input) {
+			return convertionTable[iii].upper;
+		}
+	}
+	return _input;
+}
+
+static char32_t localToLower(char32_t _input) {
+	if (_input >= 'A' && _input <= 'Z') {
+		return _input + ((int)'a'-(int)'A');
+	}
+	for (size_t iii = 0; iii < convertionTableSize; ++iii) {
+		if (convertionTable[iii].upper == _input) {
+			return convertionTable[iii].lower;
+		}
+	}
+	return _input;
+}
+
+
 std::string std::tolower(std::string _obj) {
 	for(size_t iii=0 ; iii<_obj.size() ; iii++) {
-		_obj[iii] = tolower(_obj[iii]);
+		_obj[iii] = std::tolower(_obj[iii]);
 	}
 	return _obj;
 }
 std::u32string std::tolower(std::u32string _obj) {
 	for(size_t iii=0 ; iii<_obj.size() ; iii++) {
-		_obj[iii] = tolower(_obj[iii]);
+		_obj[iii] = localToLower(_obj[iii]);
 	}
 	return _obj;
 }
 
 std::string std::toupper(std::string _obj) {
 	for(size_t iii=0 ; iii<_obj.size() ; iii++) {
-		_obj[iii] = toupper(_obj[iii]);
+		_obj[iii] = std::toupper(_obj[iii]);
 	}
 	return _obj;
 }
 
 std::u32string std::toupper(std::u32string _obj) {
 	for(size_t iii=0 ; iii<_obj.size() ; iii++) {
-		_obj[iii] = toupper(_obj[iii]);
+		_obj[iii] = localToUpper(_obj[iii]);
 	}
 	return _obj;
 }
