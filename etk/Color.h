@@ -11,6 +11,8 @@
 #ifndef __ETK_COLOR_H__
 #define __ETK_COLOR_H__
 
+#include <iomanip>
+
 namespace etk {
 	/**
 	 * @brief The color class is a template to abstract the color implementation choice.
@@ -166,14 +168,18 @@ namespace etk {
 			 * @return The formated string
 			 */
 			std::string getHexString(void) const {
-				return "0x" + std::to_string<uint32_t>(get(), std::hex);
+				std::ostringstream oss;
+				oss << "0x" << std::setw(8) << std::setfill('0') << std::hex << get();
+				return oss.str();
 			};
 			/**
 			 * @brief Convert the color in an generic string value ("#FEDCBA98")
 			 * @return The formated string
 			 */
 			std::string getString(void) const {
-				return "#"  + std::to_string<uint32_t>(get(), std::hex);
+				std::ostringstream oss;
+				oss << "#" << std::setw(8) << std::setfill('0') << std::hex << get();
+				return oss.str();
 			};
 			/**
 			 * @brief Get red color.
