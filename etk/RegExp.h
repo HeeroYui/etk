@@ -1618,6 +1618,7 @@ template<class CLASS_TYPE> class RegExp {
 		 */
 		std::string getRegExDecorated(void) {
 			// TODO : do it...
+			return "";
 		}
 	private:
 		/**

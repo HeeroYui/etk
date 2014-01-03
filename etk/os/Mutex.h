@@ -52,7 +52,29 @@ namespace etk {
 			 */
 			void unLock(void);
 	};
-	
+	/**
+	 * @brief AutoLock and un-lock when exit fuction.
+	 */
+	class AutoLockMutex {
+		private:
+			// Keep a reference on the mutex
+			etk::Mutex &m_protect;
+		public:
+			/**
+			 * @brief constructor that automaticly lock the mutex.
+			 * @param[in] _protect Mutex to Lock.
+			 */
+			AutoLockMutex(etk::Mutex& _protect) :
+			  m_protect(_protect) {
+				m_protect.lock();
+			}
+			/**
+			 * @brief Destructor that Auto Unlock mutex when remove.
+			 */
+			virtual ~AutoLockMutex(void){
+				m_protect.unLock();
+			}
+	};
 };
 
 #endif
