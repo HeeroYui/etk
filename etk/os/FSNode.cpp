@@ -1214,6 +1214,7 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 	#ifdef __TARGET_OS__Android
 	if(    m_type == etk::FSN_TYPE_DATA
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
+		std::vector<std::string> listAdded;
 		std::string assetsName = "assets/";
 		std::string FolderName = getNameFolder();
 		if (s_APKArchive==NULL) {
@@ -1230,14 +1231,24 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 					tmpString = std::string(tmpString, 0, pos+1);
 				}
 				tmpString = getName() + tmpString;
-				tmpEmement = new etk::FSNode(tmpString);
-				if (NULL == tmpEmement) {
-					TK_ERROR("allocation error ... of ewol::FSNode");
-					continue;
+				bool findIt = false;
+				for (size_t jjj = 0; jjj < listAdded.size(); ++jjj) {
+					if (listAdded[jjj] == tmpString) {
+						findIt = true;
+						break;
+					}
 				}
-				TK_VERBOSE("find element : '" << tmpString << "' --> " << *tmpEmement);
-				tmpp.push_back(tmpEmement);
-				tmpEmement = NULL;
+				if (findIt == false) {
+					listAdded.push_back(tmpString);
+					tmpEmement = new etk::FSNode(tmpString);
+					if (NULL == tmpEmement) {
+						TK_ERROR("allocation error ... of ewol::FSNode");
+						continue;
+					}
+					TK_VERBOSE("find element : '" << tmpString << "' --> " << *tmpEmement);
+					tmpp.push_back(tmpEmement);
+					tmpEmement = NULL;
+				}
 			}
 		}
 		return tmpp;
