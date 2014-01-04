@@ -492,7 +492,8 @@ void etk::FSNode::sortElementList(std::vector<etk::FSNode *>& _list) {
 			for(size_t jjj=0; jjj<_list.size(); jjj++) {
 				//EWOL_DEBUG("compare : \""<<*tmpList[iii] << "\" and \"" << *m_listDirectory[jjj] << "\"");
 				if (_list[jjj]!=NULL) {
-					if (tmpList[iii]->getNameFile() > _list[jjj]->getNameFile()) {
+					// TODO : Do something better : this methode is a litthe hard!!!
+					if (std::toupper(tmpList[iii]->getNameFile()) > std::toupper(_list[jjj]->getNameFile())) {
 						findPos = jjj+1;
 					}
 				}
@@ -780,15 +781,32 @@ void etk::FSNode::updateFileSystemProperty(void) {
 			folderName = m_systemFileName + "/";
 		}
 		// note : Zip does not support other think than file ...
-		
-		if (    s_APKArchive != NULL
-		     && s_APKArchive->exist(m_systemFileName) == true) {
-			m_typeNode=FSN_FILE;
+		if (s_APKArchive == NULL) {
+			TK_ERROR("NOT Find the File in APK : '" << m_systemFileName << "'");
+			return;
 		}
-		m_rights.setUserReadable(true);
+		if (s_APKArchive->exist(m_systemFileName) == true) {
+			m_typeNode=FSN_FILE;
+			m_rights.setUserReadable(true);
+			TK_DBG_MODE("Find a File in APK : '" << m_systemFileName << "'");
+			return;
+		}
 		// TODO : Set the time of the file (time program compilation)
 		// TODO : Set the USER ID in the group and the user Id ...
-		TK_DBG_MODE("File existed ... in APK : '" << m_systemFileName << "'");
+		if (m_systemFileName[m_systemFileName.size()-1] == '/') {
+			//Might be a folder ==> check if it existed in the start files ...
+			for (int iii=0; iii<s_APKArchive->size(); iii++) {
+				std::string filename = s_APKArchive->getName(iii);
+				if (start_with(filename, m_systemFileName) == true) {
+					m_typeNode=etk::FSN_FOLDER;
+					m_rights.setUserReadable(true);
+					m_rights.setUserRunable(true);
+					TK_DBG_MODE("Find a Folder in APK : '" << m_systemFileName << "'");
+					return;
+				}
+			}
+		}
+		TK_WARNING("File existed ??? in APK : '" << m_systemFileName << "'");
 		return;
 	}
 	#endif
@@ -1188,12 +1206,43 @@ int64_t etk::FSNode::folderCount(void) {
 
 std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bool _getFolderAndOther, bool _getFile, bool _temporaryFile) {
 	std::vector<etk::FSNode*> tmpp;
+	// regenerate the next list :
+	etk::FSNode * tmpEmement = NULL;
 	if (m_typeNode != etk::FSN_FOLDER ) {
 		return tmpp;
 	}
-	
-	// regenerate the next list :
-	etk::FSNode * tmpEmement;
+	#ifdef __TARGET_OS__Android
+	if(    m_type == etk::FSN_TYPE_DATA
+	    || m_type == etk::FSN_TYPE_THEME_DATA) {
+		std::string assetsName = "assets/";
+		std::string FolderName = getNameFolder();
+		if (s_APKArchive==NULL) {
+			return tmpp;
+		}
+		for (int iii=0; iii<s_APKArchive->size(); iii++) {
+			std::string filename = s_APKArchive->getName(iii);
+			if (start_with(filename, FolderName) == true) {
+				std::string tmpString(filename, FolderName.size()+1);
+				size_t pos = tmpString.find('/');
+				if (pos != std::string::npos) {
+					// a simple folder :
+					// TODO : Check if the path doesn not already exist !!! 
+					tmpString = std::string(tmpString, 0, pos+1);
+				}
+				tmpString = getName() + tmpString;
+				tmpEmement = new etk::FSNode(tmpString);
+				if (NULL == tmpEmement) {
+					TK_ERROR("allocation error ... of ewol::FSNode");
+					continue;
+				}
+				TK_VERBOSE("find element : '" << tmpString << "' --> " << *tmpEmement);
+				tmpp.push_back(tmpEmement);
+				tmpEmement = NULL;
+			}
+		}
+		return tmpp;
+	}
+	#endif
 	DIR *dir = NULL;
 	struct dirent *ent = NULL;
 	dir = opendir(m_systemFileName.c_str());
