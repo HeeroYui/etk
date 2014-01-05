@@ -417,7 +417,7 @@ std::string std::to_string(bool _val) {
 	}
 	return "false";
 }
-#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+#if (defined(__TARGET_OS__Android))
 	std::string std::to_string(int _val) {
 		char tmpVal[256];
 		sprintf(tmpVal, "%d", _val);
@@ -796,7 +796,7 @@ std::vector<std::u32string> std::split(const std::u32string& _input, char32_t _v
 	return list;
 }
 
-#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+#if (defined(__TARGET_OS__Android))
 double std::stod(const std::string& _str, size_t* _idx) {
 	double ret = 0;
 	sscanf(_str.c_str(), "%Lf", &ret);

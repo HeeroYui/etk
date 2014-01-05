@@ -59,13 +59,13 @@ etk::CStart etk::cstart;
 #	include <android/log.h>
 #endif
 
-etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj)
-{
-	switch (_obj)
-	{
+etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj) {
+	switch (_obj) {
 		case logLevelCritical:
 			#if !defined(__TARGET_OS__Windows)
-				_os << ETK_BASH_COLOR_BOLD_RED;
+				if (_os.m_enableColor == true) {
+					_os << ETK_BASH_COLOR_BOLD_RED;
+				}
 			#endif
 			#if defined(__TARGET_OS__Android)
 				_os.m_levelAndroid = ANDROID_LOG_FATAL;
@@ -75,7 +75,9 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj)
 			break;
 		case logLevelError:
 			#if !defined(__TARGET_OS__Windows)
-				_os << ETK_BASH_COLOR_RED;
+				if (_os.m_enableColor == true) {
+					_os << ETK_BASH_COLOR_RED;
+				}
 			#endif
 			#if defined(__TARGET_OS__Android)
 				_os.m_levelAndroid = ANDROID_LOG_ERROR;
@@ -85,7 +87,9 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj)
 			break;
 		case logLevelWarning:
 			#if !defined(__TARGET_OS__Windows)
-				_os << ETK_BASH_COLOR_MAGENTA;
+				if (_os.m_enableColor == true) {
+					_os << ETK_BASH_COLOR_MAGENTA;
+				}
 			#endif
 			#if defined(__TARGET_OS__Android)
 				_os.m_levelAndroid = ANDROID_LOG_WARN;
@@ -95,7 +99,9 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj)
 			break;
 		case logLevelInfo:
 			#if !defined(__TARGET_OS__Windows)
-				_os << ETK_BASH_COLOR_CYAN;
+				if (_os.m_enableColor == true) {
+					_os << ETK_BASH_COLOR_CYAN;
+				}
 			#endif
 			#if defined(__TARGET_OS__Android)
 				_os.m_levelAndroid = ANDROID_LOG_INFO;
@@ -105,7 +111,9 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj)
 			break;
 		case logLevelDebug:
 			#if !defined(__TARGET_OS__Windows)
-				_os << ETK_BASH_COLOR_YELLOW;
+				if (_os.m_enableColor == true) {
+					_os << ETK_BASH_COLOR_YELLOW;
+				}
 			#endif
 			#if defined(__TARGET_OS__Android)
 				_os.m_levelAndroid = ANDROID_LOG_DEBUG;
@@ -115,7 +123,9 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj)
 			break;
 		case logLevelVerbose:
 			#if !defined(__TARGET_OS__Windows)
-				_os << ETK_BASH_COLOR_WHITE;
+				if (_os.m_enableColor == true) {
+					_os << ETK_BASH_COLOR_WHITE;
+				}
 			#endif
 			#if defined(__TARGET_OS__Android)
 				_os.m_levelAndroid = ANDROID_LOG_VERBOSE;
@@ -133,9 +143,21 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj)
 }
 
 
+void etk::CCout::setColor(bool _enable) {
+	m_enableColor = _enable;
+}
 
-etk::CCout::CCout()
-{
+void etk::CCout::setOutputFile(bool _enable) {
+	if (m_outputFile != NULL) {
+		fclose(m_outputFile);
+		m_outputFile = NULL;
+	}
+	m_outputFile = fopen("~/dev/perso/out/MacOs/debug/staging/clang/output.log", "w");
+}
+
+etk::CCout::CCout() :
+  m_enableColor(true),
+  m_outputFile(NULL) {
 	#if defined(__TARGET_OS__Android)
 		m_levelAndroid = 0;
 	#endif
@@ -287,7 +309,9 @@ etk::CCout& etk::CCout::operator << (CStart _ccc)
 etk::CCout& etk::CCout::operator << (etk::CEndl _t)
 {
 #if !defined(__TARGET_OS__Windows)
-	strncat(m_tmpChar, ETK_BASH_COLOR_NORMAL, MAX_LOG_SIZE);
+	if (m_enableColor == true) {
+		strncat(m_tmpChar, ETK_BASH_COLOR_NORMAL, MAX_LOG_SIZE);
+	}
 #endif
 	strncat(m_tmpChar, "\n", MAX_LOG_SIZE);
 	m_tmpChar[MAX_LOG_SIZE] = '\0';
@@ -296,6 +320,9 @@ etk::CCout& etk::CCout::operator << (etk::CEndl _t)
 #else
 	printf("%s", m_tmpChar);
 #endif
+	if (m_outputFile != NULL) {
+		fprintf(m_outputFile, "%s", m_tmpChar);
+	}
 	memset(m_tmpChar, 0, (MAX_LOG_SIZE+1)*sizeof(char));
 	m_mutex.unLock();
 	return *this;

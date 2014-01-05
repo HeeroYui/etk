@@ -23,7 +23,10 @@ namespace etk {
 	 * @brief Generic log output system. it change automaticly from generic console to Android console.
 	 */
 	class CCout {
+		public:
+			bool m_enableColor;
 		private:
+			FILE* m_outputFile;
 			char m_tmpChar[MAX_LOG_SIZE+1];
 			char tmp[MAX_LOG_SIZE_TMP];
 			etk::Mutex m_mutex;
@@ -54,6 +57,8 @@ namespace etk {
 			CCout& operator << (bool _t);
 			CCout& operator << (CStart _ccc);
 			CCout& operator << (etk::CEndl _t);
+			void setColor(bool _enable);
+			void setOutputFile(bool _enable);
 	};
 	extern etk::CCout cout;
 	extern etk::CEndl endl;

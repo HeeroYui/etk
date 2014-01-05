@@ -65,7 +65,7 @@ namespace std {
 	std::string to_string(const std::u32string& _obj);
 	//! @previous
 	std::string to_string(bool _val);
-	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+	#if (defined(__TARGET_OS__Android))
 		//! @previous
 		std::string to_string(int _val);
 		//! @previous
@@ -121,49 +121,49 @@ namespace std {
 	}
 	
 	
-	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+	#if (defined(__TARGET_OS__Android))
 		double stod(const std::string& _str, size_t* _idx = 0);
 	#endif
 	//! @previous
 	double stod(const std::u32string& _str, size_t* _idx = 0);
 	
-	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+	#if (defined(__TARGET_OS__Android))
 		float stof(const std::string& _str, size_t* _idx = 0);
 	#endif
 	//! @previous
 	float stof(const std::u32string& _str, size_t* _idx = 0);
 	
-	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+	#if (defined(__TARGET_OS__Android))
 		int stoi(const std::string& _str, size_t* _idx = 0, int _base = 10);
 	#endif
 	//! @previous
 	int stoi(const std::u32string& _str, size_t* _idx = 0, int _base = 10);
 	
-	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+	#if (defined(__TARGET_OS__Android))
 		long stol(const std::string& _str, size_t* _idx = 0, int _base = 10);
 	#endif
 	//! @previous
 	long stol(const std::u32string& _str, size_t* _idx = 0, int _base = 10);
 	
-	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+	#if (defined(__TARGET_OS__Android))
 		long double stold(const std::string& _str, size_t* _idx = 0);
 	#endif
 	//! @previous
 	long double stold(const std::u32string& _str, size_t* _idx = 0);
 	
-	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+	#if (defined(__TARGET_OS__Android))
 		long long stoll(const std::string& _str, size_t* _idx = 0, int _base = 10);
 	#endif
 	//! @previous
 	long long stoll(const std::u32string& _str, size_t* _idx = 0, int _base = 10);
 	
-	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+	#if (defined(__TARGET_OS__Android))
 		unsigned long stoul(const std::string& _str, size_t* _idx = 0, int _base = 10);
 	#endif
 	//! @previous
 	unsigned long stoul(const std::u32string& _str, size_t* _idx = 0, int _base = 10);
 	
-	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__MacOs))
+	#if (defined(__TARGET_OS__Android))
 		unsigned long long stoull(const std::string& _str, size_t* _idx = 0, int _base = 10);
 	#endif
 	//! @previous
