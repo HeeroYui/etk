@@ -152,7 +152,13 @@ void etk::CCout::setOutputFile(bool _enable) {
 		fclose(m_outputFile);
 		m_outputFile = NULL;
 	}
-	m_outputFile = fopen("~/dev/perso/out/MacOs/debug/staging/clang/output.log", "w");
+	m_outputFile = fopen("/Users/edouarddupin/dev/perso/output.log", "w");
+	if (m_outputFile == NULL) {
+		TK_ERROR("Can not open log file ...");
+	} else {
+		TK_INFO("Log file opened");
+	}
+	TK_INFO("plop");
 }
 
 etk::CCout::CCout() :
@@ -322,6 +328,7 @@ etk::CCout& etk::CCout::operator << (etk::CEndl _t)
 #endif
 	if (m_outputFile != NULL) {
 		fprintf(m_outputFile, "%s", m_tmpChar);
+		fflush(m_outputFile);
 	}
 	memset(m_tmpChar, 0, (MAX_LOG_SIZE+1)*sizeof(char));
 	m_mutex.unLock();
