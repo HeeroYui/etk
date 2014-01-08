@@ -216,6 +216,24 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const etk::Color<float>& _obj)
 	return _os;
 }
 
+etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<etk::Color<uint8_t> >& _obj) {
+	for (size_t iii = 0; iii < _obj.size(); ++iii) {
+		if (iii != 0) {
+			_os << " ";
+		}
+		_os << _obj[iii];
+	}
+	return _os;
+}
+etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<etk::Color<float> >& _obj) {
+	for (size_t iii = 0; iii < _obj.size(); ++iii) {
+		if (iii != 0) {
+			_os << " ";
+		}
+		_os << _obj[iii];
+	}
+	return _os;
+}
 
 
 

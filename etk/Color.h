@@ -242,6 +242,8 @@ namespace etk {
 	etk::CCout& operator <<(etk::CCout &_os, const Color<uint8_t>& _obj);
 	//! @not-in-doc
 	etk::CCout& operator <<(etk::CCout &_os, const Color<float>& _obj);
+	etk::CCout& operator <<(etk::CCout& _os, const std::vector<Color<uint8_t> >& _obj);
+	etk::CCout& operator <<(etk::CCout& _os, const std::vector<Color<float> >& _obj);
 	/**
 	 * @brief List of all native define colors ...
 	 */

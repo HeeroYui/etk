@@ -57,6 +57,46 @@ etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector3D<bool> obj)
 }
 
 
+etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<vec3 >& _obj) {
+	for (size_t iii = 0; iii < _obj.size(); ++iii) {
+		if (iii != 0) {
+			_os << " ";
+		}
+		_os << _obj[iii];
+	}
+	return _os;
+}
+
+etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<ivec3 >& _obj) {
+	for (size_t iii = 0; iii < _obj.size(); ++iii) {
+		if (iii != 0) {
+			_os << " ";
+		}
+		_os << _obj[iii];
+	}
+	return _os;
+}
+
+etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<uivec3 >& _obj) {
+	for (size_t iii = 0; iii < _obj.size(); ++iii) {
+		if (iii != 0) {
+			_os << " ";
+		}
+		_os << _obj[iii];
+	}
+	return _os;
+}
+
+etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<bvec3 >& _obj) {
+	for (size_t iii = 0; iii < _obj.size(); ++iii) {
+		if (iii != 0) {
+			_os << " ";
+		}
+		_os << _obj[iii];
+	}
+	return _os;
+}
+
 vec3 quaternionToEulerXYZ(const btQuaternion& quat)
 {
 	// back to the euler angle : 

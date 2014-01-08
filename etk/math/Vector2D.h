@@ -35,136 +35,145 @@ namespace etk {
 				m_floats[0] = _x;
 				m_floats[1] = _y;
 			};
-			Vector2D(const Vector2D<double>& obj)  { m_floats[0] = (T)obj.x(); m_floats[1] = (T)obj.y(); };
-			Vector2D(const Vector2D<float>& obj)   { m_floats[0] = (T)obj.x(); m_floats[1] = (T)obj.y(); };
-			Vector2D(const Vector2D<int32_t>& obj) { m_floats[0] = (T)obj.x(); m_floats[1] = (T)obj.y(); };
-			Vector2D(const std::string& str);
-			Vector2D(const std::u32string& str);
+			Vector2D(const Vector2D<double>& _obj) {
+				m_floats[0] = (T)_obj.x();
+				m_floats[1] = (T)_obj.y();
+			};
+			Vector2D(const Vector2D<float>& _obj) {
+				m_floats[0] = (T)_obj.x();
+				m_floats[1] = (T)_obj.y();
+			};
+			Vector2D(const Vector2D<int32_t>& _obj) {
+				m_floats[0] = (T)_obj.x();
+				m_floats[1] = (T)_obj.y();
+			};
+			Vector2D(const std::string& _str);
+			Vector2D(const std::u32string& _str);
 			~Vector2D(void) { };
 			/* ****************************************************
 			 *    = assigment
 			 *****************************************************/
-			const Vector2D<T>& operator= (const Vector2D<T>& obj ) {
-				m_floats[0] = obj.m_floats[0];
-				m_floats[1] = obj.m_floats[1];
+			const Vector2D<T>& operator= (const Vector2D<T>& _obj ) {
+				m_floats[0] = _obj.m_floats[0];
+				m_floats[1] = _obj.m_floats[1];
 				return *this;
 			}
-			const Vector2D<T>& operator= (const T val ) {
-				m_floats[0] = val;
-				m_floats[1] = val;
+			const Vector2D<T>& operator= (const T _val ) {
+				m_floats[0] = _val;
+				m_floats[1] = _val;
 				return *this;
 			}
 			/* ****************************************************
 			 *    == operator
 			 *****************************************************/
-			bool  operator== (const Vector2D<T>& obj) const {
-				return (    (T)obj.m_floats[0] == m_floats[0]
-				         && (T)obj.m_floats[1] == m_floats[1]);
+			bool  operator== (const Vector2D<T>& _obj) const {
+				return (    (T)_obj.m_floats[0] == m_floats[0]
+				         && (T)_obj.m_floats[1] == m_floats[1]);
 			}
 			/* ****************************************************
 			 *    != operator
 			 *****************************************************/
-			bool  operator!= (const Vector2D<T>& obj) const {
-				return (    (T)obj.m_floats[0] != m_floats[0]
-				         || (T)obj.m_floats[1] != m_floats[1]);
+			bool  operator!= (const Vector2D<T>& _obj) const {
+				return (    (T)_obj.m_floats[0] != m_floats[0]
+				         || (T)_obj.m_floats[1] != m_floats[1]);
 			}
 			/* ****************************************************
 			 *    += operator
 			 *****************************************************/
-			const Vector2D<T>& operator+= (const Vector2D<T>& obj) {
-				m_floats[0] += obj.m_floats[0];
-				m_floats[1] += obj.m_floats[1];
+			const Vector2D<T>& operator+= (const Vector2D<T>& _obj) {
+				m_floats[0] += _obj.m_floats[0];
+				m_floats[1] += _obj.m_floats[1];
 				return *this;
 			}
-			const Vector2D<T>& operator+= (const T val) {
-				m_floats[0] += val;
-				m_floats[1] += val;
+			const Vector2D<T>& operator+= (const T _val) {
+				m_floats[0] += _val;
+				m_floats[1] += _val;
 				return *this;
 			}
 			/* ****************************************************
 			 *    + operator
 			 *****************************************************/
-			Vector2D<T> operator+ (const Vector2D<T>& obj) const {
+			Vector2D<T> operator+ (const Vector2D<T>& _obj) const {
 				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
-				tmpp.m_floats[0] += obj.m_floats[0];
-				tmpp.m_floats[1] += obj.m_floats[1];
+				tmpp.m_floats[0] += _obj.m_floats[0];
+				tmpp.m_floats[1] += _obj.m_floats[1];
 				return tmpp;
 			}
-			Vector2D<T> operator+ (const T val) const {
+			Vector2D<T> operator+ (const T _val) const {
 				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
-				tmpp.m_floats[0] += val;
-				tmpp.m_floats[1] += val;
+				tmpp.m_floats[0] += _val;
+				tmpp.m_floats[1] += _val;
 				return tmpp;
 			}
 			/* ****************************************************
 			 *    -= operator
 			 *****************************************************/
-			const Vector2D<T>& operator-= (const Vector2D<T>& obj) {
-				m_floats[0] -= obj.m_floats[0];
-				m_floats[1] -= obj.m_floats[1];
+			const Vector2D<T>& operator-= (const Vector2D<T>& _obj) {
+				m_floats[0] -= _obj.m_floats[0];
+				m_floats[1] -= _obj.m_floats[1];
 				return *this;
 			}
-			const Vector2D<T>& operator-= (const T val) {
-				m_floats[0] -= val;
-				m_floats[1] -= val;
+			const Vector2D<T>& operator-= (const T _val) {
+				m_floats[0] -= _val;
+				m_floats[1] -= _val;
 				return *this;
 			}
 			/* ****************************************************
 			 *    - operator
 			 *****************************************************/
-			Vector2D<T> operator- (const Vector2D<T>& obj) const {
+			Vector2D<T> operator- (const Vector2D<T>& _obj) const {
 				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
-				tmpp.m_floats[0] -= obj.m_floats[0];
-				tmpp.m_floats[1] -= obj.m_floats[1];
+				tmpp.m_floats[0] -= _obj.m_floats[0];
+				tmpp.m_floats[1] -= _obj.m_floats[1];
 				return tmpp;
 			}
-			Vector2D<T> operator- (const T val) const {
+			Vector2D<T> operator- (const T _val) const {
 				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
-				tmpp.m_floats[0] -= val;
-				tmpp.m_floats[1] -= val;
+				tmpp.m_floats[0] -= _val;
+				tmpp.m_floats[1] -= _val;
 				return tmpp;
 			}
 			/* ****************************************************
 			 *    *= operator
 			 *****************************************************/
-			const Vector2D<T>& operator*= (const Vector2D<T>& obj) {
-				m_floats[0] *= obj.m_floats[0];
-				m_floats[1] *= obj.m_floats[1];
+			const Vector2D<T>& operator*= (const Vector2D<T>& _obj) {
+				m_floats[0] *= _obj.m_floats[0];
+				m_floats[1] *= _obj.m_floats[1];
 				return *this;
 			}
-			const Vector2D<T>& operator*= (const T val) {
-				m_floats[0] *= val;
-				m_floats[1] *= val;
+			const Vector2D<T>& operator*= (const T _val) {
+				m_floats[0] *= _val;
+				m_floats[1] *= _val;
 				return *this;
 			}
 			/* ****************************************************
 			 *    * operator
 			 *****************************************************/
-			Vector2D<T> operator* (const Vector2D<T>& obj) const {
+			Vector2D<T> operator* (const Vector2D<T>& _obj) const {
 				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
-				tmpp.m_floats[0] *= obj.m_floats[0];
-				tmpp.m_floats[1] *= obj.m_floats[1];
+				tmpp.m_floats[0] *= _obj.m_floats[0];
+				tmpp.m_floats[1] *= _obj.m_floats[1];
 				return tmpp;
 			}
-			Vector2D<T> operator* (const T val) const {
+			Vector2D<T> operator* (const T _val) const {
 				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
-				tmpp.m_floats[0] *= val;
-				tmpp.m_floats[1] *= val;
+				tmpp.m_floats[0] *= _val;
+				tmpp.m_floats[1] *= _val;
 				return tmpp;
 			}
 			/* ****************************************************
 			 *    / operator
 			 *****************************************************/
-			Vector2D<T> operator/ (const Vector2D<T>& obj) const{
-				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
-				tmpp.m_floats[0] /= obj.m_floats[0];
-				tmpp.m_floats[1] /= obj.m_floats[1];
+			Vector2D<T> operator/ (const Vector2D<T>& _obj) const{
+				Vector2D<T> tmpp(m_floats[0], m_floats[1]);
+				tmpp.m_floats[0] /= _obj.m_floats[0];
+				tmpp.m_floats[1] /= _obj.m_floats[1];
 				return tmpp;
 			}
-			Vector2D<T> operator/ (const T val) const {
-				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
-				tmpp.m_floats[0] /= val;
-				tmpp.m_floats[1] /= val;
+			Vector2D<T> operator/ (const T _val) const {
+				Vector2D<T> tmpp(m_floats[0], m_floats[1]);
+				tmpp.m_floats[0] /= _val;
+				tmpp.m_floats[1] /= _val;
 				return tmpp;
 			}
 			/* ****************************************************
@@ -175,7 +184,7 @@ namespace etk {
 				++m_floats[1];
 				return *this;
 			}
-			Vector2D<T> operator++(int unused) {
+			Vector2D<T> operator++(int _unused) {
 				Vector2D<T> result = *this;
 				++(*this);
 				return result;
@@ -188,7 +197,7 @@ namespace etk {
 				--m_floats[1];
 				return *this;
 			}
-			Vector2D<T> operator--(int unused) {
+			Vector2D<T> operator--(int _unused) {
 				Vector2D<T> result = *this;
 				--(*this);
 				return result;
@@ -197,9 +206,9 @@ namespace etk {
 			 * @brief Return the dot product
 			 * @param v The other vector in the dot product
 			 */
-			btScalar dot(const Vector2D<T>& v) const {
-				return	m_floats[0] * v.m_floats[0] + 
-						m_floats[1] * v.m_floats[1];
+			btScalar dot(const Vector2D<T>& _v) const {
+				return   m_floats[0] * _v.m_floats[0]
+				       + m_floats[1] * _v.m_floats[1];
 			}
 			/**
 			 * @brief Return the length of the vector squared
@@ -217,8 +226,8 @@ namespace etk {
 			 * @brief Return the distance squared between the ends of this and another vector
 			 * This is symantically treating the vector like a point
 			 */
-			btScalar distance2(const btVector3& v) const {
-				return (v - *this).length2();
+			btScalar distance2(const btVector3& _v) const {
+				return (_v - *this).length2();
 			}
 			/**
 			 * @brief Return the distance between the ends of this and another vector
@@ -311,19 +320,19 @@ namespace etk {
 			}
 			/**
 			 * @brief Set each element to the max of the current values and the values of another btVector3
-			 * @param other The other btVector3 to compare with 
+			 * @param _other The other btVector3 to compare with 
 			 */
-			void setMax(const Vector2D<T>& other) {
-				btSetMax(m_floats[0], other.m_floats[0]);
-				btSetMax(m_floats[1], other.m_floats[1]);
+			void setMax(const Vector2D<T>& _other) {
+				btSetMax(m_floats[0], _other.m_floats[0]);
+				btSetMax(m_floats[1], _other.m_floats[1]);
 			}
 			/**
 			 * @brief Set each element to the min of the current values and the values of another btVector3
-			 * @param other The other btVector3 to compare with 
+			 * @param _other The other btVector3 to compare with 
 			 */
-			void setMin(const Vector2D<T>& other) {
-				btSetMin(m_floats[0], other.m_floats[0]);
-				btSetMin(m_floats[1], other.m_floats[1]);
+			void setMin(const Vector2D<T>& _other) {
+				btSetMin(m_floats[0], _other.m_floats[0]);
+				btSetMin(m_floats[1], _other.m_floats[1]);
 			}
 			void setValue(const T& _x, const T& _y) {
 				m_floats[0]=_x;
@@ -342,10 +351,13 @@ namespace etk {
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information
 	 */
-	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<int32_t>& obj);
-	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<float>& obj);
-	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<uint32_t>& obj);
-	etk::CCout& operator <<(etk::CCout &os, const etk::Vector2D<bool>& obj);
+	etk::CCout& operator <<(etk::CCout& _os, const etk::Vector2D<int32_t>& _obj);
+	//! @previous
+	etk::CCout& operator <<(etk::CCout& _os, const etk::Vector2D<float>& _obj);
+	//! @previous
+	etk::CCout& operator <<(etk::CCout& _os, const etk::Vector2D<uint32_t>& _obj);
+	//! @previous
+	etk::CCout& operator <<(etk::CCout& _os, const etk::Vector2D<bool>& _obj);
 };
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
 typedef etk::Vector2D<float>      vec2;
@@ -362,4 +374,14 @@ inline vec2 vec2ClipInt64(const vec2& _val) {
 	return vec2((int64_t)_val.x(), (int64_t)_val.y());
 }
 
+
+namespace etk {
+	etk::CCout& operator <<(etk::CCout& _os, const std::vector<vec2 >& _obj);
+	//! @previous
+	etk::CCout& operator <<(etk::CCout& _os, const std::vector<ivec2 >& _obj);
+	//! @previous
+	etk::CCout& operator <<(etk::CCout& _os, const std::vector<uivec2 >& _obj);
+	//! @previous
+	etk::CCout& operator <<(etk::CCout& _os, const std::vector<bvec2 >& _obj);
+};
 #endif
