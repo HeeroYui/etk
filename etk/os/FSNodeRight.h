@@ -20,11 +20,13 @@ namespace etk {
 			FSNodeRight(int16_t _newRight);
 			~FSNodeRight(void) { };
 			// copy operator :
-			const etk::FSNodeRight& operator=  (const etk::FSNodeRight &_obj );
+			const etk::FSNodeRight& operator= (const etk::FSNodeRight &_obj );
 			// set right :
-			const etk::FSNodeRight& operator=  (const int32_t _newVal );
+			const etk::FSNodeRight& operator= (const int32_t _newVal );
 			
-			void clear(void) { m_rights = 0; };
+			void clear(void) {
+				m_rights = 0;
+			};
 			// User
 			bool isUserReadable(void) const;
 			bool isUserWritable(void) const;

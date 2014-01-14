@@ -1227,7 +1227,6 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 				size_t pos = tmpString.find('/');
 				if (pos != std::string::npos) {
 					// a simple folder :
-					// TODO : Check if the path doesn not already exist !!! 
 					tmpString = std::string(tmpString, 0, pos+1);
 				}
 				tmpString = getName() + tmpString;
