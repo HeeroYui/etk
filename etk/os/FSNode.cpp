@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <etk/tool.h>
+#include <etk/Hash.h>
 #ifdef __TARGET_OS__Windows
 	#include "windows.h"
 #endif
@@ -716,11 +717,12 @@ void etk::FSNode::generateFileSystemPath(void) {
 				}
 				TK_DBG_MODE(" THEME party : \"" << themeName << "\" => \"" << basicName << "\"");
 				themeName = etk::theme::getName(themeName);
+				std::string themeNameDefault = etk::theme::getNameDefault(themeName);
 				TK_DBG_MODE("      ==> theme Folder \"" << themeName << "\"");
 				// search the corect folder : 
 				if (themeName == "") {
-					TK_WARNING("no theme name detected : set it to \"default\"");
-				} else if (themeName != "default") {
+					TK_WARNING("no theme name detected : set it to '" << themeNameDefault << "'");
+				} else if (themeName != themeNameDefault) {
 					// Selected theme :
 					// check in the user data :
 					m_systemFileName = simplifyPath(baseFolderDataUser + "theme/" + themeName + "/" + basicName);
@@ -734,15 +736,14 @@ void etk::FSNode::generateFileSystemPath(void) {
 						return;
 					}
 				}
-				themeName = "default";
 				// default theme :
 				// check in the user data :
-				m_systemFileName = simplifyPath(baseFolderDataUser + "theme/" + themeName + "/" + basicName);
+				m_systemFileName = simplifyPath(baseFolderDataUser + "theme/" + themeNameDefault + "/" + basicName);
 				if (true==directCheckFile(m_systemFileName)) {
 					return;
 				}
 				// check in the Appl data : In every case we return this one ...
-				m_systemFileName = simplifyPath(baseFolderData + "theme/" + themeName + "/" + basicName);
+				m_systemFileName = simplifyPath(baseFolderData + "theme/" + themeNameDefault + "/" + basicName);
 				if (true==directCheckFile(m_systemFileName, true)) {
 					m_type = etk::FSN_TYPE_THEME_DATA;
 					return;
@@ -1679,50 +1680,19 @@ void etk::FSNode::fileFlush(void) {
 
 
 // TODO : Add an INIT to reset all allocated parameter :
+static etk::Hash<std::string> g_listTheme;
 
-class tmpThemeElement {
-	public:
-		std::string refName;
-		std::string folderName;
-};
-
-static std::vector<tmpThemeElement*> g_listTheme;
-
-// set the Folder of a subset of a theme ...
 void etk::theme::setName(const std::string& _refName, const std::string& _folderName) {
-	for(size_t iii=0; iii<g_listTheme.size(); iii++) {
-		if (NULL != g_listTheme[iii]) {
-			if (g_listTheme[iii]->refName==_refName) {
-				g_listTheme[iii]->folderName = _folderName;
-				// action done
-				return;
-			}
-		}
-	}
-	// we did not find it ...
-	tmpThemeElement* tmpp = new tmpThemeElement();
-	if (NULL==tmpp) {
-		TK_ERROR("pb to add a reference theme");
-		return;
-	}
-	tmpp->refName = _refName;
-	tmpp->folderName = _folderName;
-	g_listTheme.push_back(tmpp);
+	g_listTheme.set(_refName, _folderName);
 }
 void etk::theme::setName(const std::u32string& _refName, const std::u32string& _folderName) {
 	setName(std::to_string(_refName), std::to_string(_folderName));
 }
 
-// get the folder from a Reference theme
 std::string etk::theme::getName(const std::string& _refName) {
-	for(size_t iii=0; iii<g_listTheme.size(); iii++) {
-		if (NULL != g_listTheme[iii]) {
-			if (g_listTheme[iii]->refName==_refName) {
-				return g_listTheme[iii]->folderName;
-			}
-		}
+	if (g_listTheme.exist(_refName) == true) {
+		return g_listTheme[_refName];
 	}
-	// We did not find the theme
 	return _refName;
 }
 std::u32string etk::theme::getName(const std::u32string& _refName) {
@@ -1740,6 +1710,24 @@ std::vector<std::u32string> etk::theme::listU(void) {
 	return tmpp;
 	// TODO :
 }
+
+static etk::Hash<std::string> g_listThemeDefault;
+void etk::theme::setNameDefault(const std::string& _refName, const std::string& _folderName) {
+	g_listThemeDefault.set(_refName, _folderName);
+}
+void etk::theme::setNameDefault(const std::u32string& _refName, const std::u32string& _folderName) {
+	setNameDefault(std::to_string(_refName), std::to_string(_folderName));
+}
+std::string etk::theme::getNameDefault(const std::string& _refName) {
+	if (g_listThemeDefault.exist(_refName) == true) {
+		return g_listThemeDefault[_refName];
+	}
+	return "default";
+}
+std::u32string etk::theme::getNameDefault(const std::u32string& _refName) {
+	return to_u32string(getNameDefault(std::to_string(_refName)));
+}
+
 
 
 /* --------------------------------------------------------------------------

@@ -70,7 +70,7 @@ namespace etk {
 			 * @brief Contructor of the Hach table.
 			 * @param[in] _count Number ob basic elent in the vector.
 			 */
-			Hash(int32_t _count=0) :
+			Hash(int32_t _count = 0) :
 			  m_data(_count) {
 				// nothing to do
 			}
@@ -85,7 +85,7 @@ namespace etk {
 			 * @note It does not delete pointer if your value is a pointer type...
 			 */
 			void clear(void) {
-				for (size_t iii=0; iii<m_data.size(); iii++) {
+				for (size_t iii = 0; iii < m_data.size(); ++iii) {
 					if (m_data[iii] != NULL) {
 						delete(m_data[iii]);
 						m_data[iii]=NULL;

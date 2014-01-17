@@ -495,6 +495,7 @@ namespace etk {
 		 * @param[in] _folderName The associated folder of the Theme (like "myTheme/folder/folder2/")
 		 */
 		void setName(const std::string& _refName, const std::string& _folderName);
+		//! @previous
 		void setName(const std::u32string& _refName, const std::u32string& _folderName);
 		/**
 		 * @brief get the folder from a Reference theme
@@ -502,12 +503,31 @@ namespace etk {
 		 * @return the path of the theme
 		 */
 		std::string getName(const std::string& _refName);
+		//! @previous
 		std::u32string getName(const std::u32string& _refName);
+		
+		/**
+		 * @brief Set the default folder of a subset of a theme ...
+		 * @param[in] _refName Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" 
+		 * @param[in] _folderName The associated default folder of the Theme (like "myTheme/color/default/")
+		 */
+		void setNameDefault(const std::string& _refName, const std::string& _folderName);
+		//! @previous
+		void setNameDefault(const std::u32string& _refName, const std::u32string& _folderName);
+		/**
+		 * @brief get the default folder from a Reference theme 
+		 * @param[in] _refName Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" 
+		 * @return the path of the theme
+		 */
+		std::string getNameDefault(const std::string& _refName);
+		//! @previous
+		std::u32string getNameDefault(const std::u32string& _refName);
 		/**
 		 * @brief Get the list of all the theme folder availlable in the user Home/appl
 		 * @return The list of elements
 		 */
 		std::vector<std::string> list(void);
+		//! @previous
 		std::vector<std::u32string> listU(void);
 	};
 	
