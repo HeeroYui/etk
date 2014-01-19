@@ -1585,6 +1585,20 @@ char etk::FSNode::fileGet(void) {
 	return data;
 }
 
+bool etk::FSNode::fileGets(std::string& _output) {
+	_output.clear();
+	char tmp = fileGet();
+	while (    tmp != '\0'
+	        && tmp != '\n') {
+		_output += tmp;
+		tmp = fileGet();
+	}
+	if (tmp == '\0') {
+		return false;
+	}
+	return true;
+}
+
 int64_t etk::FSNode::fileRead(void* _data, int64_t _blockSize, int64_t _nbBlock) {
 	#ifdef __TARGET_OS__Android
 	if(    m_type == etk::FSN_TYPE_DATA
@@ -1604,6 +1618,20 @@ int64_t etk::FSNode::fileRead(void* _data, int64_t _blockSize, int64_t _nbBlock)
 	}
 	#endif
 	return fread(_data, _blockSize, _nbBlock, m_PointerFile);
+}
+
+bool etk::FSNode::filePut(char _input) {
+	if (fileWrite(&_input, 1, 1) == 1) {
+		return true;
+	}
+	return false;
+}
+
+bool etk::FSNode::filePuts(const std::string& _input) {
+	if (fileWrite((void*)_input.c_str(), 1, _input.size()) == (int64_t)_input.size()) {
+		return true;
+	}
+	return false;
 }
 
 int64_t etk::FSNode::fileWrite(void * _data, int64_t _blockSize, int64_t _nbBlock) {

@@ -417,6 +417,27 @@ namespace etk {
 			 */
 			char fileGet(void);
 			/**
+			 * @brief Get a compleate line in a text file
+			 * @param[out] _output the next element in the file.
+			 * @return true The file is not ended.
+			 * @return false The file is ended.
+			 */
+			bool fileGets(std::string& _output);
+			/**
+			 * @brief Write data on the file
+			 * @param[in] _input data to write.
+			 * @return true Write done corectly.
+			 * @return false ErrorOn write.
+			 */
+			bool filePut(char _input);
+			/**
+			 * @brief Write data on the file
+			 * @param[in] _input data to write.
+			 * @return true Write done corectly.
+			 * @return false ErrorOn write.
+			 */
+			bool filePuts(const std::string& _input);
+			/**
 			 * @brief Read data from the file
 			 * @param[in,out] _data Pointer on the buffer that might be set the data
 			 * @param[in] _blockSize Size of one block of data
@@ -432,6 +453,7 @@ namespace etk {
 			 * @return Number of element written (in block number)
 			 */
 			int64_t fileWrite(void* _data, int64_t _blockSize, int64_t _nbBlock);
+			
 			/**
 			 * @brief Move in the file Position
 			 * @param[in] _offset Offset to apply at the file
