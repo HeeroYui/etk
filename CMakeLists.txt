@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 
 # Declare the project
-project(libetk CXX)
+project(etk CXX)
 
 ##
 ## Include C++ X11 dependency ... (check correct flags)
@@ -27,8 +27,6 @@ set(LIBRARY_OUTPUT_PATH lib/${CMAKE_BUILD_TYPE})
 
 include_directories(.)
 
-#include_directories(${bulletlib_INCLUDE_DIRS})
-include_directories(${linearmath_INCLUDE_DIRS})
 
 #Create src file list
 set(src_files
@@ -52,20 +50,22 @@ set(src_files
 	etk/os/Semaphore.Generic.cpp
 )
 
-#add_definitions( -DMODE_RELEASE )
-
-#add_definitions( -DDEBUG_LEVEL=3 )
-#add_definitions( -DDEBUG=1 )
-
+add_definitions( -DDEBUG_LEVEL=3 )
+add_definitions( -DDEBUG=1 )
 
 #Create a static Lib:
 add_library(etk STATIC ${src_files} )
 
-target_link_libraries(etk bulletlib)
+include_directories(${zlib_SOURCE_DIR}/contrib/)
+include_directories(${linearmath_SOURCE_DIR}/bullet/src/)
 
-#myModule.add_module_depend('linearmath')
-#myModule.add_module_depend('minizip')
-
+target_link_libraries(etk linearmath zlib)
 
 #myModule.add_export_flag_LD("-lpthread")
 
+
+# display all variable ...
+#get_cmake_property(_variableNames VARIABLES)
+#foreach (_variableName ${_variableNames})
+#    message(STATUS "${_variableName}=${${_variableName}}")
+#endforeach()
