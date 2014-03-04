@@ -24,7 +24,7 @@ namespace etk {
 				Zip(const std::string& _fileName);
 				virtual ~Zip(void);
 			protected: // herited functions :
-				virtual void loadFile(int32_t _id);
+				virtual void loadFile(const std::map<std::string, Content>::iterator& it);
 		};
 	};
 };

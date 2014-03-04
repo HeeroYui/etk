@@ -12,7 +12,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <etk/tool.h>
-#include <etk/Hash.h>
+#include <map>
 #ifdef __TARGET_OS__Windows
 	#include "windows.h"
 #endif
@@ -1708,18 +1708,19 @@ void etk::FSNode::fileFlush(void) {
 
 
 // TODO : Add an INIT to reset all allocated parameter :
-static etk::Hash<std::string> g_listTheme;
+static std::map<std::string, std::string> g_listTheme;
 
 void etk::theme::setName(const std::string& _refName, const std::string& _folderName) {
-	g_listTheme.set(_refName, _folderName);
+	g_listTheme.insert(std::pair<std::string,std::string>(_refName, _folderName));
 }
 void etk::theme::setName(const std::u32string& _refName, const std::u32string& _folderName) {
 	setName(std::to_string(_refName), std::to_string(_folderName));
 }
 
 std::string etk::theme::getName(const std::string& _refName) {
-	if (g_listTheme.exist(_refName) == true) {
-		return g_listTheme[_refName];
+	auto it=g_listTheme.find(_refName);
+	if (it != g_listTheme.end()) {
+		return it->second;
 	}
 	return _refName;
 }
@@ -1729,26 +1730,31 @@ std::u32string etk::theme::getName(const std::u32string& _refName) {
 
 // get the list of all the theme folder availlable in the user Home/appl
 std::vector<std::string> etk::theme::list(void) {
-	std::vector<std::string> tmpp;
-	return tmpp;
-	// TODO :
+	std::vector<std::string> keys;
+	for (auto &it : g_listTheme) {
+		keys.push_back(it.first);
+	}
+	return keys;
 }
 std::vector<std::u32string> etk::theme::listU(void) {
-	std::vector<std::u32string> tmpp;
-	return tmpp;
-	// TODO :
+	std::vector<std::u32string> keys;
+	for (auto &it : g_listTheme) {
+		keys.push_back(std::to_u32string(it.first));
+	}
+	return keys;
 }
 
-static etk::Hash<std::string> g_listThemeDefault;
+static std::map<std::string, std::string> g_listThemeDefault;
 void etk::theme::setNameDefault(const std::string& _refName, const std::string& _folderName) {
-	g_listThemeDefault.set(_refName, _folderName);
+	g_listThemeDefault.insert(std::pair<std::string,std::string>(_refName, _folderName));
 }
 void etk::theme::setNameDefault(const std::u32string& _refName, const std::u32string& _folderName) {
 	setNameDefault(std::to_string(_refName), std::to_string(_folderName));
 }
 std::string etk::theme::getNameDefault(const std::string& _refName) {
-	if (g_listThemeDefault.exist(_refName) == true) {
-		return g_listThemeDefault[_refName];
+	auto it=g_listThemeDefault.find(_refName);
+	if (it != g_listThemeDefault.end()) {
+		return it->second;
 	}
 	return "default";
 }

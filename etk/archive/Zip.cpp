@@ -36,7 +36,7 @@ etk::archive::Zip::Zip(const std::string& _fileName) :
 		if(tmpFileName[strlen(tmpFileName) - 1] == '/' ) {
 			// find directory ...
 		} else {
-			m_content.add(tmpFileName, etk::Archive::Content(tmpFileInfo.uncompressed_size));
+			m_content.insert(std::pair<std::string, etk::Archive::Content>(tmpFileName, etk::Archive::Content(tmpFileInfo.uncompressed_size)));
 		}
 		/* Go the the next entry listed in the zip file. */
 		if((iii+1) < m_info.number_entry) {
@@ -55,9 +55,8 @@ etk::archive::Zip::~Zip(void) {
 	};
 }
 
-void etk::archive::Zip::loadFile(int32_t _id) {
-	std::string fileNameRequested = m_content.getKey(_id);
-	TK_VERBOSE("Real load file : " << _id << " = '" << fileNameRequested << "'");
+void etk::archive::Zip::loadFile(const std::map<std::string, Content>::iterator& it) {
+	TK_VERBOSE("Real load file : '" << it->first << "'");
 	
 	unzGoToFirstFile(m_ctx);
 	
@@ -70,23 +69,23 @@ void etk::archive::Zip::loadFile(int32_t _id) {
 			TK_ERROR("Could not read file info from the zip file '" << m_fileName << "'");
 			return;
 		}
-		if (fileNameRequested == tmpFileName ) {
+		if (it->first == tmpFileName ) {
 			// Entry is a file, so extract it.
 			if(unzOpenCurrentFile(m_ctx) != UNZ_OK) {
-				TK_ERROR("Could not open file '" << fileNameRequested << "' into the zip file '" << m_fileName << "'");
+				TK_ERROR("Could not open file '" << it->first << "' into the zip file '" << m_fileName << "'");
 				return;
 			}
 			int error = UNZ_OK;
 			// request the resize of the data :
-			m_content.getValue(_id).getDataVector().resize(m_content.getValue(_id).getTheoricSize(), 0);
-			void* data = m_content.getValue(_id).data();
+			it->second.getDataVector().resize(it->second.getTheoricSize(), 0);
+			void* data = it->second.data();
 			if(NULL == data) {
 				TK_ERROR("Allocation error...");
 				return;
 			}
 			/* read the file */
 			do {
-				error = unzReadCurrentFile(m_ctx, data, m_content.getValue(_id).getTheoricSize());
+				error = unzReadCurrentFile(m_ctx, data, it->second.getTheoricSize());
 				if ( error < 0 ) {
 					TK_ERROR("Could not read file '" << tmpFileName << "' into the zip file '" << m_fileName << "': " <<  error);
 					unzCloseCurrentFile(m_ctx);

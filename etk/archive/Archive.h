@@ -11,7 +11,7 @@
 #ifndef __ETK_ARCHIVE_H__
 #define __ETK_ARCHIVE_H__
 
-#include <etk/Hash.h>
+#include <map>
 
 namespace etk {
 	class Archive {
@@ -68,7 +68,7 @@ namespace etk {
 				return m_fileName;
 			};
 		protected:
-			etk::Hash<Content> m_content;
+			std::map<std::string, Content> m_content;
 		public:
 			/**
 			 * @brief Get the number of elements
@@ -82,17 +82,13 @@ namespace etk {
 			 * @param[in] _id id of the element (must be < Size())
 			 * @return FileName of the requested id
 			 */
-			const std::string& getName(int32_t _id) const {
-				return m_content.getKey(_id);
-			};
+			const std::string& getName(size_t _id) const;
 			/**
 			 * @brief Get the File name of the ID
 			 * @param[in] _id id of the element (must be < Size())
 			 * @return the archive content
 			 */
-			const Content& getContent(int32_t _id) const {
-				return m_content.getValue(_id);
-			};
+			const Content& getContent(size_t _id) const;
 			/**
 			 * @brief Get the File name of the ID
 			 * @param[in] _key name of the file
@@ -104,9 +100,7 @@ namespace etk {
 			 * @param[in] _key Name of the file
 			 * @return true if the file is present
 			 */
-			bool exist(const std::string& _key) const {
-				return m_content.exist(_key);
-			};
+			bool exist(const std::string& _key) const;
 			/**
 			 * @brief Load the specific file in the memory
 			 * @param[in] _key Name of the file
@@ -126,7 +120,7 @@ namespace etk {
 			 * @brief Request the load in memory of the concerned file.
 			 * @param[in] _id Id of the file to load.
 			 */
-			virtual void loadFile(int32_t _id) { };
+			virtual void loadFile(const std::map<std::string, Content>::iterator& it) { };
 		public:
 			/**
 			 * @brief Load an Achive with a specific name.

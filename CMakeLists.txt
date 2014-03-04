@@ -31,27 +31,53 @@ include_directories(.)
 #Create src file list
 set(src_files
 	etk/debugGeneric.cpp
+	etk/debugGeneric.h
 	etk/debug.cpp
+	etk/debug.h
 	etk/stdTools.cpp
+	etk/stdTools.h
 	etk/Stream.cpp
+	etk/Stream.h
 	etk/RegExp.cpp
+	etk/RegExp.h
 	etk/tool.cpp
+	etk/tool.h
 	etk/Noise.cpp
+	etk/Noise.h
 	etk/Color.cpp
+	etk/Color.h
 	etk/math/Matrix4.cpp
+	etk/math/Matrix4.h
 	etk/math/Vector2D.cpp
+	etk/math/Vector2D.h
 	etk/math/Vector3D.cpp
+	etk/math/Vector3D.h
 	etk/math/Vector4D.cpp
+	etk/math/Vector4D.h
 	etk/os/FSNode.cpp
+	etk/os/FSNode.h
 	etk/os/FSNodeRight.cpp
+	etk/os/FSNodeRight.h
 	etk/archive/Archive.cpp
+	etk/archive/Archive.h
 	etk/archive/Zip.cpp
+	etk/archive/Zip.h
 	etk/os/Mutex.Generic.cpp
+	etk/os/Mutex.h
 	etk/os/Semaphore.Generic.cpp
+	etk/os/Semaphore.h
 )
 
 add_definitions( -DDEBUG_LEVEL=3 )
 add_definitions( -DDEBUG=1 )
+if (APPLE)
+	add_definitions( -D__TARGET_OS__MacOs )
+elseif (UNIX)
+	add_definitions( -D__TARGET_OS__Linux )
+elseif (WIN32)
+	add_definitions( -D__TARGET_OS__Windows )
+endif ()
+
 
 #Create a static Lib:
 add_library(etk STATIC ${src_files} )

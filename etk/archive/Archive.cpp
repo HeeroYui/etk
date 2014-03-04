@@ -10,21 +10,51 @@
 #include <etk/archive/Zip.h>
 #include <etk/debug.h>
 
+static const etk::Archive::Content g_error;
+
+
+const std::string& etk::Archive::getName(size_t _id) const {
+	size_t id = 0;
+	for (auto &it : m_content) {
+		if (id == _id) {
+			return it.first;
+		}
+		++id;
+	}
+	static const std::string error("");
+	return error;
+}
+
+const etk::Archive::Content& etk::Archive::getContent(size_t _id) const {
+	size_t id = 0;
+	for (auto &it : m_content) {
+		if (id == _id) {
+			return it.second;
+		}
+		++id;
+	}
+	return g_error;
+}
+
 const etk::Archive::Content& etk::Archive::getContent(const std::string& _key) const {
-	static const etk::Archive::Content g_error;
-	if (m_content.exist(_key)==false) {
-		TK_ERROR("File does not exist : " << _key);
+	auto it = m_content.find(_key);
+	if (it == m_content.end()) {
 		return g_error;
 	}
-	return m_content[_key];
+	return it->second;
+}
+
+
+bool etk::Archive::exist(const std::string& _key) const {
+	return m_content.find(_key) != m_content.end();
 }
 
 void etk::Archive::display(void)
 {
-	for (int32_t iii=0; iii<m_content.size(); iii++) {
-		int32_t size = m_content.getValue(iii).getTheoricSize();
-		int32_t sizeR = m_content.getValue(iii).size();
-		TK_INFO(" element : " << m_content.getKey(iii) << " size=" << size << " allocated=" << sizeR);
+	for (auto &it : m_content) {
+		int32_t size = it.second.getTheoricSize();
+		int32_t sizeR = it.second.size();
+		TK_INFO(" element : " << it.first << " size=" << size << " allocated=" << sizeR);
 	}
 }
 
@@ -46,25 +76,27 @@ etk::Archive* etk::Archive::load(const std::string& _fileName) {
 
 
 void etk::Archive::open(const std::string& _key) {
-	if (m_content.exist(_key)==false) {
+	auto it = m_content.find(_key);
+	if (it == m_content.end()) {
 		TK_ERROR("Try open an unexistant file : '" << _key << "'");
 		return;
 	}
-	if (m_content[_key].getNumberOfRef()==-1) {
-		loadFile(m_content.getId(_key));
-		m_content[_key].increaseRef();
+	if (it->second.getNumberOfRef()==-1) {
+		loadFile(it);
+		it->second.increaseRef();
 	}
-	m_content[_key].increaseRef();
+	it->second.increaseRef();
 }
 
 void etk::Archive::close(const std::string& _key) {
-	if (m_content.exist(_key)==false) {
+	auto it = m_content.find(_key);
+	if (it == m_content.end()) {
 		TK_ERROR("Try close an unexistant file : '" << _key << "'");
 		return;
 	}
-	if (m_content[_key].getNumberOfRef()==0){
+	if (it->second.getNumberOfRef()==0){
 		TK_ERROR("Try close one more time the file : '" << _key << "'");
 	} else {
-		m_content[_key].decreaseRef();
+		it->second.decreaseRef();
 	}
 }
