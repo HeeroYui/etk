@@ -1711,6 +1711,12 @@ void etk::FSNode::fileFlush(void) {
 static std::map<std::string, std::string> g_listTheme;
 
 void etk::theme::setName(const std::string& _refName, const std::string& _folderName) {
+	TK_WARNING("Change theme : '" << _refName << "' : '" << _folderName << "'");
+	auto it = g_listTheme.find(_refName);
+	if (it != g_listTheme.end()) {
+		it->second = _folderName;
+		return;
+	}
 	g_listTheme.insert(std::pair<std::string,std::string>(_refName, _folderName));
 }
 void etk::theme::setName(const std::u32string& _refName, const std::u32string& _folderName) {
@@ -1746,6 +1752,11 @@ std::vector<std::u32string> etk::theme::listU(void) {
 
 static std::map<std::string, std::string> g_listThemeDefault;
 void etk::theme::setNameDefault(const std::string& _refName, const std::string& _folderName) {
+	auto it = g_listThemeDefault.find(_refName);
+	if (it != g_listThemeDefault.end()) {
+		it->second = _folderName;
+		return;
+	}
 	g_listThemeDefault.insert(std::pair<std::string,std::string>(_refName, _folderName));
 }
 void etk::theme::setNameDefault(const std::u32string& _refName, const std::u32string& _folderName) {
