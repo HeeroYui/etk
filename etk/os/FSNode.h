@@ -453,7 +453,11 @@ namespace etk {
 			 * @return Number of element written (in block number)
 			 */
 			int64_t fileWrite(void* _data, int64_t _blockSize, int64_t _nbBlock);
-			
+			/**
+			 * @brief Get the position in the file.
+			 * @return the requested position.
+			 */
+			int64_t fileTell(void);
 			/**
 			 * @brief Move in the file Position
 			 * @param[in] _offset Offset to apply at the file

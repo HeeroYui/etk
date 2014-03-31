@@ -1693,6 +1693,19 @@ bool etk::FSNode::fileSeek(long int _offset, enum etk::seekNode _origin)
 		return true;
 	}
 }
+int64_t etk::FSNode::fileTell(void) {
+	#ifdef __TARGET_OS__Android
+	if(    m_type == etk::FSN_TYPE_DATA
+	    || m_type == etk::FSN_TYPE_THEME_DATA) {
+		if (NULL == m_zipContent) {
+			return false;
+		}
+		return m_zipReadingOffset;
+	}
+	#endif
+	return ftell(m_PointerFile);
+	
+}
 
 void etk::FSNode::fileFlush(void) {
 	#ifdef __TARGET_OS__Android
