@@ -8,6 +8,7 @@
 
 #include <etk/types.h>
 #include <etk/Stream.h>
+#include <etk/StreamIOs.h>
 #include <etk/debug.h>
 
 #if defined(__TARGET_OS__Linux) && DEBUG_LEVEL > 2
@@ -62,7 +63,7 @@ etk::CStart etk::cstart;
 etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj) {
 	switch (_obj) {
 		case logLevelCritical:
-			#if !defined(__TARGET_OS__Windows)
+			#if (!defined(__TARGET_OS__Windows) && !defined(__TARGET_OS__IOs))
 				if (_os.m_enableColor == true) {
 					_os << ETK_BASH_COLOR_BOLD_RED;
 				}
@@ -74,7 +75,7 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj) {
 			#endif
 			break;
 		case logLevelError:
-			#if !defined(__TARGET_OS__Windows)
+			#if (!defined(__TARGET_OS__Windows) && !defined(__TARGET_OS__IOs))
 				if (_os.m_enableColor == true) {
 					_os << ETK_BASH_COLOR_RED;
 				}
@@ -86,7 +87,7 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj) {
 			#endif
 			break;
 		case logLevelWarning:
-			#if !defined(__TARGET_OS__Windows)
+			#if (!defined(__TARGET_OS__Windows) && !defined(__TARGET_OS__IOs))
 				if (_os.m_enableColor == true) {
 					_os << ETK_BASH_COLOR_MAGENTA;
 				}
@@ -98,7 +99,7 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj) {
 			#endif
 			break;
 		case logLevelInfo:
-			#if !defined(__TARGET_OS__Windows)
+			#if (!defined(__TARGET_OS__Windows) && !defined(__TARGET_OS__IOs))
 				if (_os.m_enableColor == true) {
 					_os << ETK_BASH_COLOR_CYAN;
 				}
@@ -110,7 +111,7 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj) {
 			#endif
 			break;
 		case logLevelDebug:
-			#if !defined(__TARGET_OS__Windows)
+			#if (!defined(__TARGET_OS__Windows) && !defined(__TARGET_OS__IOs))
 				if (_os.m_enableColor == true) {
 					_os << ETK_BASH_COLOR_YELLOW;
 				}
@@ -122,7 +123,7 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj) {
 			#endif
 			break;
 		case logLevelVerbose:
-			#if !defined(__TARGET_OS__Windows)
+			#if (!defined(__TARGET_OS__Windows) && !defined(__TARGET_OS__IOs))
 				if (_os.m_enableColor == true) {
 					_os << ETK_BASH_COLOR_WHITE;
 				}
@@ -186,7 +187,7 @@ etk::CCout& etk::CCout::operator << (char32_t _t)
 	return *this;
 }
 
-#if defined(__TARGET_OS__MacOs)
+#if (defined(__TARGET_OS__MacOs) || defined(__TARGET_OS__IOs))
 etk::CCout& etk::CCout::operator << (size_t _t)
 {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%lld", (uint64_t)_t);
@@ -314,7 +315,7 @@ etk::CCout& etk::CCout::operator << (CStart _ccc)
 
 etk::CCout& etk::CCout::operator << (etk::CEndl _t)
 {
-#if !defined(__TARGET_OS__Windows)
+#if (!defined(__TARGET_OS__Windows) && !defined(__TARGET_OS__IOs))
 	if (m_enableColor == true) {
 		strncat(m_tmpChar, ETK_BASH_COLOR_NORMAL, MAX_LOG_SIZE);
 	}
@@ -323,6 +324,8 @@ etk::CCout& etk::CCout::operator << (etk::CEndl _t)
 	m_tmpChar[MAX_LOG_SIZE] = '\0';
 #if defined(__TARGET_OS__Android)
 	__android_log_print(m_levelAndroid, "EWOL", "%s", m_tmpChar);
+#elif defined(__TARGET_OS__IOs)
+	iosNSLog(m_tmpChar);
 #else
 	printf("%s", m_tmpChar);
 #endif

@@ -37,6 +37,9 @@ def create(target):
 		myModule.add_src_file('etk/os/Mutex.Generic.cpp')
 		myModule.add_src_file('etk/os/Semaphore.Generic.cpp')
 	
+	if target.name=="IOs":
+		myModule.add_src_file('etk/StreamIOs.m')
+
 	# name of the dependency
 	myModule.add_module_depend('linearmath')
 	myModule.add_module_depend('minizip')

@@ -323,8 +323,10 @@ void etk::initDefaultFolder(const char* _applName) {
 				TK_INFO(" base path is not correct try to find it : (must only appear in test and not when installed) base name : '" << binaryPath << "'");
 				// remove bin/applName
 				baseFolderData = binaryPath;
-				#ifdef __TARGET_OS__MacOs
+				#if defined(__TARGET_OS__MacOs)
 					baseFolderData += "/../Resources/";
+				#elif defined(__TARGET_OS__IOs)
+					baseFolderData += "/Resources/";
 				#else
 					baseFolderData += "/../share";
 					baseFolderData += binaryName;

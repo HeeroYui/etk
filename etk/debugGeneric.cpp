@@ -55,12 +55,12 @@ void debug::displayTime(void)
 }
 
 
-#ifdef __TARGET_OS__Android
+#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__IOs))
 enum etk::logLevel g_requestedLevel = etk::logLevelDebug;
 #else
 enum etk::logLevel g_requestedLevel = etk::logLevelWarning;
 #endif
 void debug::setGeneralLevel(enum etk::logLevel _ccc) {
-	g_requestedLevel = _ccc;
+	//g_requestedLevel = _ccc;
 }
 
