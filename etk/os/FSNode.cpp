@@ -326,7 +326,7 @@ void etk::initDefaultFolder(const char* _applName) {
 				#if defined(__TARGET_OS__MacOs)
 					baseFolderData += "/../Resources/";
 				#elif defined(__TARGET_OS__IOs)
-					baseFolderData += "/Resources/";
+					baseFolderData += "/share/";
 				#else
 					baseFolderData += "/../share";
 					baseFolderData += binaryName;
@@ -334,14 +334,25 @@ void etk::initDefaultFolder(const char* _applName) {
 				#endif
 				baseFolderData = simplifyPath(baseFolderData);
 			}
-			baseFolderDataUser  = baseFolderHome;
-			baseFolderDataUser += "/.local/share/";
-			baseFolderDataUser += binaryName;
-			baseFolderDataUser += "/";
-			
-			baseFolderCache  = "/tmp/";
-			baseFolderCache += binaryName;
-			baseFolderCache += "/";
+			#if defined(__TARGET_OS__IOs)
+				baseFolderDataUser  = binaryPath;
+				baseFolderDataUser += "/../Documents/";
+				baseFolderDataUser = simplifyPath(baseFolderDataUser);
+			#else
+				baseFolderDataUser  = baseFolderHome;
+				baseFolderDataUser += "/.local/share/";
+				baseFolderDataUser += binaryName;
+				baseFolderDataUser += "/";
+			#endif
+			#if defined(__TARGET_OS__IOs)
+				baseFolderCache  = binaryPath;
+				baseFolderCache += "/../tmp/";
+				baseFolderCache = simplifyPath(baseFolderCache);
+			#else
+				baseFolderCache  = "/tmp/";
+				baseFolderCache += binaryName;
+				baseFolderCache += "/";
+			#endif
 		#endif
 	#endif
 	TK_INFO("baseFolderHome     : '" << baseFolderHome << "'");
