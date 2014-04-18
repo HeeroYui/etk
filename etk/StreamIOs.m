@@ -11,7 +11,7 @@
 #include <etk/StreamIOs.h>
 
 void iosNSLog(const char * _value) {
-	NSLog(@"%s", _value);
+	NSLog(@"\r%s", _value);
 }
 
 

@@ -153,8 +153,7 @@ void etk::CCout::setOutputFile(bool _enable) {
 etk::CCout::CCout(void) :
   m_enableColor(true),
   m_outputFile(NULL) {
-	#if (    defined(__TARGET_OS__Windows) \
-	      || defined(__TARGET_OS__IOs))
+	#if (defined(__TARGET_OS__Windows))
 		m_enableColor = false;
 	#endif
 	#if defined(__TARGET_OS__Android)
