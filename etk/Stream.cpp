@@ -63,11 +63,9 @@ etk::CStart etk::cstart;
 etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj) {
 	switch (_obj) {
 		case logLevelCritical:
-			#if (!defined(__TARGET_OS__Windows) && !defined(__TARGET_OS__IOs))
-				if (_os.m_enableColor == true) {
-					_os << ETK_BASH_COLOR_BOLD_RED;
-				}
-			#endif
+			if (_os.m_enableColor == true) {
+				_os << ETK_BASH_COLOR_BOLD_RED;
+			}
 			#if defined(__TARGET_OS__Android)
 				_os.m_levelAndroid = ANDROID_LOG_FATAL;
 			#else
@@ -75,11 +73,9 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj) {
 			#endif
 			break;
 		case logLevelError:
-			#if (!defined(__TARGET_OS__Windows) && !defined(__TARGET_OS__IOs))
-				if (_os.m_enableColor == true) {
-					_os << ETK_BASH_COLOR_RED;
-				}
-			#endif
+			if (_os.m_enableColor == true) {
+				_os << ETK_BASH_COLOR_RED;
+			}
 			#if defined(__TARGET_OS__Android)
 				_os.m_levelAndroid = ANDROID_LOG_ERROR;
 			#else 
@@ -87,11 +83,9 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj) {
 			#endif
 			break;
 		case logLevelWarning:
-			#if (!defined(__TARGET_OS__Windows) && !defined(__TARGET_OS__IOs))
-				if (_os.m_enableColor == true) {
-					_os << ETK_BASH_COLOR_MAGENTA;
-				}
-			#endif
+			if (_os.m_enableColor == true) {
+				_os << ETK_BASH_COLOR_MAGENTA;
+			}
 			#if defined(__TARGET_OS__Android)
 				_os.m_levelAndroid = ANDROID_LOG_WARN;
 			#else
@@ -99,11 +93,9 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj) {
 			#endif
 			break;
 		case logLevelInfo:
-			#if (!defined(__TARGET_OS__Windows) && !defined(__TARGET_OS__IOs))
-				if (_os.m_enableColor == true) {
-					_os << ETK_BASH_COLOR_CYAN;
-				}
-			#endif
+			if (_os.m_enableColor == true) {
+				_os << ETK_BASH_COLOR_CYAN;
+			}
 			#if defined(__TARGET_OS__Android)
 				_os.m_levelAndroid = ANDROID_LOG_INFO;
 			#else
@@ -111,11 +103,9 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj) {
 			#endif
 			break;
 		case logLevelDebug:
-			#if (!defined(__TARGET_OS__Windows) && !defined(__TARGET_OS__IOs))
-				if (_os.m_enableColor == true) {
-					_os << ETK_BASH_COLOR_YELLOW;
-				}
-			#endif
+			if (_os.m_enableColor == true) {
+				_os << ETK_BASH_COLOR_YELLOW;
+			}
 			#if defined(__TARGET_OS__Android)
 				_os.m_levelAndroid = ANDROID_LOG_DEBUG;
 			#else
@@ -123,11 +113,9 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::logLevel _obj) {
 			#endif
 			break;
 		case logLevelVerbose:
-			#if (!defined(__TARGET_OS__Windows) && !defined(__TARGET_OS__IOs))
-				if (_os.m_enableColor == true) {
-					_os << ETK_BASH_COLOR_WHITE;
-				}
-			#endif
+			if (_os.m_enableColor == true) {
+				_os << ETK_BASH_COLOR_WHITE;
+			}
 			#if defined(__TARGET_OS__Android)
 				_os.m_levelAndroid = ANDROID_LOG_VERBOSE;
 			#else
@@ -162,24 +150,20 @@ void etk::CCout::setOutputFile(bool _enable) {
 	TK_INFO("plop");
 }
 
-etk::CCout::CCout() :
+etk::CCout::CCout(void) :
   m_enableColor(true),
   m_outputFile(NULL) {
+	#if (    defined(__TARGET_OS__Windows) \
+	      || defined(__TARGET_OS__IOs))
+		m_enableColor = false;
+	#endif
 	#if defined(__TARGET_OS__Android)
 		m_levelAndroid = 0;
 	#endif
 	memset(m_tmpChar, 0, (MAX_LOG_SIZE+1)*sizeof(char));
 };
 
-
-etk::CCout::~CCout()
-{
-	
-};
-
-
-etk::CCout& etk::CCout::operator << (char32_t _t)
-{
+etk::CCout& etk::CCout::operator << (char32_t _t) {
 	char output[5];
 	u32char::convertUtf8(_t, output);
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%s", output);
@@ -187,35 +171,34 @@ etk::CCout& etk::CCout::operator << (char32_t _t)
 	return *this;
 }
 
-#if (defined(__TARGET_OS__MacOs) || defined(__TARGET_OS__IOs))
-etk::CCout& etk::CCout::operator << (size_t _t)
-{
-	snprintf(tmp, MAX_LOG_SIZE_TMP, "%lld", (uint64_t)_t);
-	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
-	return *this;
-}
+#if (    defined(__TARGET_OS__MacOs) \
+      || defined(__TARGET_OS__IOs))
+	etk::CCout& etk::CCout::operator << (size_t _t) {
+		snprintf(tmp, MAX_LOG_SIZE_TMP, "%lld", (uint64_t)_t);
+		strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
+		return *this;
+	}
 #endif
 
-etk::CCout& etk::CCout::operator << (int8_t _t)
-{
+etk::CCout& etk::CCout::operator << (int8_t _t) {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%d", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
-etk::CCout& etk::CCout::operator << (int16_t _t)
-{
+
+etk::CCout& etk::CCout::operator << (int16_t _t) {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%d", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
-etk::CCout& etk::CCout::operator << (int32_t _t)
-{
+
+etk::CCout& etk::CCout::operator << (int32_t _t) {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%d", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
-etk::CCout& etk::CCout::operator << (int64_t _t)
-{
+
+etk::CCout& etk::CCout::operator << (int64_t _t) {
 	#if __WORDSIZE == 64
 		snprintf(tmp, MAX_LOG_SIZE_TMP, "%ld", _t);
 	#else
@@ -225,26 +208,25 @@ etk::CCout& etk::CCout::operator << (int64_t _t)
 	return *this;
 }
 
-etk::CCout& etk::CCout::operator << (uint8_t _t)
-{
+etk::CCout& etk::CCout::operator << (uint8_t _t) {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
-etk::CCout& etk::CCout::operator << (uint16_t _t)
-{
+
+etk::CCout& etk::CCout::operator << (uint16_t _t) {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
-etk::CCout& etk::CCout::operator << (uint32_t _t)
-{
+
+etk::CCout& etk::CCout::operator << (uint32_t _t) {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%u", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
-etk::CCout& etk::CCout::operator << (uint64_t _t)
-{
+
+etk::CCout& etk::CCout::operator << (uint64_t _t) {
 	#if __WORDSIZE == 64
 		snprintf(tmp, MAX_LOG_SIZE_TMP, "%lu", _t);
 	#else
@@ -255,48 +237,38 @@ etk::CCout& etk::CCout::operator << (uint64_t _t)
 }
 
 
-etk::CCout& etk::CCout::operator << (double _t)
-{
+etk::CCout& etk::CCout::operator << (double _t) {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%f", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
 
 
-etk::CCout& etk::CCout::operator << (float _t)
-{
+etk::CCout& etk::CCout::operator << (float _t) {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%f", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
 
-
-etk::CCout& etk::CCout::operator << (char * _t)
-{
+etk::CCout& etk::CCout::operator << (char * _t) {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%s", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
 
-
-etk::CCout& etk::CCout::operator << (const char * _t)
-{
+etk::CCout& etk::CCout::operator << (const char * _t) {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%s", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
 
-
-etk::CCout& etk::CCout::operator << (char _t)
-{
+etk::CCout& etk::CCout::operator << (char _t) {
 	snprintf(tmp, MAX_LOG_SIZE_TMP, "%c", _t);
 	strncat(m_tmpChar, tmp, MAX_LOG_SIZE);
 	return *this;
 }
 
-
-etk::CCout& etk::CCout::operator << (bool _t)
-{
+etk::CCout& etk::CCout::operator << (bool _t) {
 	if (_t) {
 		strncat(m_tmpChar, "true", MAX_LOG_SIZE);
 	} else {
@@ -305,30 +277,26 @@ etk::CCout& etk::CCout::operator << (bool _t)
 	return *this;
 }
 
-
-etk::CCout& etk::CCout::operator << (CStart _ccc)
-{
+etk::CCout& etk::CCout::operator << (CStart _ccc) {
 	m_mutex.lock();
 	return *this;
 }
 
-
-etk::CCout& etk::CCout::operator << (etk::CEndl _t)
-{
-#if (!defined(__TARGET_OS__Windows) && !defined(__TARGET_OS__IOs))
-	if (m_enableColor == true) {
-		strncat(m_tmpChar, ETK_BASH_COLOR_NORMAL, MAX_LOG_SIZE);
-	}
-#endif
+etk::CCout& etk::CCout::operator << (etk::CEndl _t) {
+	#if (!defined(__TARGET_OS__Windows) && !defined(__TARGET_OS__IOs))
+		if (m_enableColor == true) {
+			strncat(m_tmpChar, ETK_BASH_COLOR_NORMAL, MAX_LOG_SIZE);
+		}
+	#endif
 	strncat(m_tmpChar, "\n", MAX_LOG_SIZE);
 	m_tmpChar[MAX_LOG_SIZE] = '\0';
-#if defined(__TARGET_OS__Android)
-	__android_log_print(m_levelAndroid, "EWOL", "%s", m_tmpChar);
-#elif defined(__TARGET_OS__IOs)
-	iosNSLog(m_tmpChar);
-#else
-	printf("%s", m_tmpChar);
-#endif
+	#if defined(__TARGET_OS__Android)
+		__android_log_print(m_levelAndroid, "EWOL", "%s", m_tmpChar);
+	#elif defined(__TARGET_OS__IOs)
+		iosNSLog(m_tmpChar);
+	#else
+		printf("%s", m_tmpChar);
+	#endif
 	if (m_outputFile != NULL) {
 		fprintf(m_outputFile, "%s", m_tmpChar);
 		fflush(m_outputFile);

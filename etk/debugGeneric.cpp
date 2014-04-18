@@ -61,6 +61,6 @@ enum etk::logLevel g_requestedLevel = etk::logLevelDebug;
 enum etk::logLevel g_requestedLevel = etk::logLevelWarning;
 #endif
 void debug::setGeneralLevel(enum etk::logLevel _ccc) {
-	//g_requestedLevel = _ccc;
+	g_requestedLevel = _ccc;
 }
 

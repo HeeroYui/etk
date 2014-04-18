@@ -36,7 +36,6 @@ namespace etk {
 			#endif
 		public:
 			CCout(void);
-			~CCout(void);
 			CCout& operator << (char32_t _t);
 			#if (defined(__TARGET_OS__MacOs) || defined(__TARGET_OS__IOs))
 			CCout& operator << (size_t _t);
