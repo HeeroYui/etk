@@ -64,38 +64,39 @@ const struct etk::convertionTable etk::constConvertionTable[] = {
 };
 const int64_t etk::constConvertionTableSize = sizeof(etk::constConvertionTable) / sizeof(struct etk::convertionTable) ;
 
-void etk::displayElem(const std::vector<char32_t>& _data, int64_t _start, int64_t _stop) {
-	etk::cout<< ETK_BASH_COLOR_NORMAL;
+std::ostream& etk::displayElem(std::ostream& _os, const std::vector<char32_t>& _data, int64_t _start, int64_t _stop) {
+	_os << ETK_BASH_COLOR_NORMAL;
 	for (int64_t iii=_start; iii<(int64_t)_data.size() && iii<_stop ; iii++) {
 		switch(_data[iii]) {
-			case regexpOpcodePTheseIn:		etk::cout<<ETK_BASH_COLOR_RED		<< (char*)"(" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodePTheseOut:		etk::cout<<ETK_BASH_COLOR_RED		<< (char*)")" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeBracketIn:		etk::cout<<ETK_BASH_COLOR_YELLOW	<< (char*)"[" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeBracketOut:	etk::cout<<ETK_BASH_COLOR_YELLOW	<< (char*)"]" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeTo:			etk::cout<<ETK_BASH_COLOR_YELLOW	<< (char*)"-" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeBracetIn:		etk::cout<<ETK_BASH_COLOR_GREEN		<< (char*)"{" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeBracetOut:		etk::cout<<ETK_BASH_COLOR_GREEN		<< (char*)"}" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeStar:			etk::cout<<ETK_BASH_COLOR_BLUE		<< (char*)"*" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeDot:			etk::cout<<ETK_BASH_COLOR_BLUE		<< (char*)"." << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeQuestion:		etk::cout<<ETK_BASH_COLOR_BLUE		<< (char*)"?" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodePlus:			etk::cout<<ETK_BASH_COLOR_BLUE		<< (char*)"+" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodePipe:			etk::cout<<ETK_BASH_COLOR_BLUE		<< (char*)"|" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeNoChar:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"@" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeStartOfLine:	etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"^" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeEndOfLine:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"$" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeDigit:			etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\d" << ETK_BASH_COLOR_NORMAL;	break;
-			case regexpOpcodeDigitNot:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\D" << ETK_BASH_COLOR_NORMAL;	break;
-			case regexpOpcodeLetter:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\l" << ETK_BASH_COLOR_NORMAL;	break;
-			case regexpOpcodeLetterNot:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\L" << ETK_BASH_COLOR_NORMAL;	break;
-			case regexpOpcodeSpace:			etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\s" << ETK_BASH_COLOR_NORMAL;	break;
-			case regexpOpcodeSpaceNot:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\S" << ETK_BASH_COLOR_NORMAL;	break;
-			case regexpOpcodeWord:			etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\w" << ETK_BASH_COLOR_NORMAL;	break;
-			case regexpOpcodeWordNot:		etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\W" << ETK_BASH_COLOR_NORMAL;	break;
-			case '\n':						etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\n" << ETK_BASH_COLOR_NORMAL;	break;
-			case '\t':						etk::cout<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\t" << ETK_BASH_COLOR_NORMAL;	break;
-			default:						etk::cout<< _data[iii];									break;
+			case regexpOpcodePTheseIn:		_os <<ETK_BASH_COLOR_RED		<< (char*)"(" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodePTheseOut:		_os<<ETK_BASH_COLOR_RED		<< (char*)")" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeBracketIn:		_os<<ETK_BASH_COLOR_YELLOW	<< (char*)"[" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeBracketOut:	_os<<ETK_BASH_COLOR_YELLOW	<< (char*)"]" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeTo:			_os<<ETK_BASH_COLOR_YELLOW	<< (char*)"-" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeBracetIn:		_os<<ETK_BASH_COLOR_GREEN		<< (char*)"{" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeBracetOut:		_os<<ETK_BASH_COLOR_GREEN		<< (char*)"}" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeStar:			_os<<ETK_BASH_COLOR_BLUE		<< (char*)"*" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeDot:			_os<<ETK_BASH_COLOR_BLUE		<< (char*)"." << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeQuestion:		_os<<ETK_BASH_COLOR_BLUE		<< (char*)"?" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodePlus:			_os<<ETK_BASH_COLOR_BLUE		<< (char*)"+" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodePipe:			_os<<ETK_BASH_COLOR_BLUE		<< (char*)"|" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeNoChar:		_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"@" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeStartOfLine:	_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"^" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeEndOfLine:		_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"$" << ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeDigit:			_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\d" << ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeDigitNot:		_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\D" << ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeLetter:		_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\l" << ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeLetterNot:		_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\L" << ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeSpace:			_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\s" << ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeSpaceNot:		_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\S" << ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeWord:			_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\w" << ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeWordNot:		_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\W" << ETK_BASH_COLOR_NORMAL;	break;
+			case '\n':						_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\n" << ETK_BASH_COLOR_NORMAL;	break;
+			case '\t':						_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\t" << ETK_BASH_COLOR_NORMAL;	break;
+			default:						_os<< _data[iii];									break;
 		}
 	}
+	return _os;
 }
 
 char * etk::levelSpace(uint32_t _level) {

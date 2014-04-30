@@ -19,6 +19,36 @@
 #define TK_REG_EXP_DBG_MODE TK_VERBOSE
 //#define TK_REG_EXP_DBG_MODE TK_DEBUG
 
+//regular colors
+#define ETK_BASH_COLOR_BLACK			"\e[0;30m"
+#define ETK_BASH_COLOR_RED				"\e[0;31m"
+#define ETK_BASH_COLOR_GREEN			"\e[0;32m"
+#define ETK_BASH_COLOR_YELLOW			"\e[0;33m"
+#define ETK_BASH_COLOR_BLUE				"\e[0;34m"
+#define ETK_BASH_COLOR_MAGENTA			"\e[0;35m"
+#define ETK_BASH_COLOR_CYAN				"\e[0;36m"
+#define ETK_BASH_COLOR_WHITE			"\e[0;37m"
+//emphasized (bolded) colors
+#define ETK_BASH_COLOR_BOLD_BLACK		"\e[1;30m"
+#define ETK_BASH_COLOR_BOLD_RED			"\e[1;31m"
+#define ETK_BASH_COLOR_BOLD_GREEN		"\e[1;32m"
+#define ETK_BASH_COLOR_BOLD_YELLOW		"\e[1;33m"
+#define ETK_BASH_COLOR_BOLD_BLUE		"\e[1;34m"
+#define ETK_BASH_COLOR_BOLD_MAGENTA		"\e[1;35m"
+#define ETK_BASH_COLOR_BOLD_CYAN		"\e[1;36m"
+#define ETK_BASH_COLOR_BOLD_WHITE		"\e[1;37m"
+//background colors
+#define ETK_BASH_COLOR_BG_BLACK			"\e[40m"
+#define ETK_BASH_COLOR_BG_RED			"\e[41m"
+#define ETK_BASH_COLOR_BG_GREEN			"\e[42m"
+#define ETK_BASH_COLOR_BG_YELLOW		"\e[43m"
+#define ETK_BASH_COLOR_BG_BLUE			"\e[44m"
+#define ETK_BASH_COLOR_BG_MAGENTA		"\e[45m"
+#define ETK_BASH_COLOR_BG_CYAN			"\e[46m"
+#define ETK_BASH_COLOR_BG_WHITE			"\e[47m"
+// Return to the normal color setings
+#define ETK_BASH_COLOR_NORMAL			"\e[0m"
+
 
 namespace etk {
 //in the unicode section we have : [E000..F8FF]   private area ==> we will store element in this area:
@@ -90,7 +120,7 @@ extern const struct convertionTable constConvertionTable[];
 //! @not-in-doc
 extern const int64_t constConvertionTableSize;
 //! @not-in-doc
-void displayElem(const std::vector<char32_t>& _data, int64_t _start=0, int64_t _stop=0x7FFFFFFF);
+std::ostream& displayElem(std::ostream& _os, const std::vector<char32_t>& _data, int64_t _start=0, int64_t _stop=0x7FFFFFFF);
 //! @not-in-doc
 char * levelSpace(uint32_t _level);
 //! @not-in-doc
@@ -156,7 +186,7 @@ template<class CLASS_TYPE> class RegExpNode {
 		 * @param[in] level of the node
 		 */
 		virtual void display(uint32_t _level) {
-			TK_INFO("Find NODE : " << levelSpace(_level) << "@???@ {" << getMultMin() << "," << getMultMax() << "}  subdata="; displayElem(m_RegExpData););
+			TK_INFO("Find NODE : " << levelSpace(_level) << "@???@ {" << getMultMin() << "," << getMultMax() << "}  subdata=" /*<< etk::displayElem(m_RegExpData) */);
 		};
 		/**
 		 * @brief Set the multiplicity of this Node.
@@ -205,7 +235,7 @@ template<class CLASS_TYPE> class RegExpNodeValue : public etk::RegExpNode<CLASS_
 		
 		int32_t generate(const std::vector<char32_t>& _data) {
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
-			TK_REG_EXP_DBG_MODE("Request Parse \"Value\" data="; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			TK_REG_EXP_DBG_MODE("Request Parse \"Value\" data=" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/ );
 			m_data.clear();
 			for (int32_t i=0; i<RegExpNode<CLASS_TYPE>::m_RegExpData.size(); i++) {
 				m_data.push_back(RegExpNode<CLASS_TYPE>::m_RegExpData[i]);
@@ -258,9 +288,9 @@ template<class CLASS_TYPE> class RegExpNodeValue : public etk::RegExpNode<CLASS_
 		void display(uint32_t _level) {
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@Value@ {"
 			        << RegExpNode<CLASS_TYPE>::m_multipleMin << ","
-			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "} subdata=";
-			        displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData);
-			        etk::cout << " data: "; displayElem(m_data); );
+			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "} subdata="
+			        /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/
+			        << " data: " /*<< etk::displayElem(m_data)*/ );
 		};
 };
 #undef __class__
@@ -284,7 +314,7 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public etk::RegExpNode<CLAS
 		~RegExpNodeBracket(void) { };
 		int32_t generate(const std::vector<char32_t>& _data) {
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
-			TK_REG_EXP_DBG_MODE("Request Parse [...] data="; displayElem(_data););
+			TK_REG_EXP_DBG_MODE("Request Parse [...] data=" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/ );
 			m_data.clear();
 			
 			char32_t lastElement = 'a';
@@ -322,7 +352,7 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public etk::RegExpNode<CLAS
 				TK_ERROR("No data inside type elemTypeValue");
 				return false;
 			}
-			TK_REG_EXP_DBG_MODE("one of element value List : "; displayElem(m_data););
+			TK_REG_EXP_DBG_MODE("one of element value List : " /*<< etk::displayElem(m_data)*/);
 			bool tmpFind = true;
 			uint32_t jjj=0;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
@@ -350,8 +380,8 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public etk::RegExpNode<CLAS
 		void display(uint32_t _level) {
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@[...]@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin
 			        << "," << RegExpNode<CLASS_TYPE>::m_multipleMax
-			        << "}  subdata="; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData);
-			        etk::cout << " data: "; displayElem(m_data); );
+			        << "}  subdata=" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/
+			        << " data: " /*<< etk::displayElem(m_data)*/ );
 		};
 };
 #undef __class__
@@ -403,7 +433,7 @@ template<class CLASS_TYPE> class RegExpNodeDigit : public etk::RegExpNode<CLASS_
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@Digit@ {"
 			        << RegExpNode<CLASS_TYPE>::m_multipleMin << ","
 			        << RegExpNode<CLASS_TYPE>::m_multipleMax <<
-			        "}  subdata="; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			        "}  subdata=" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/);
 		};
 };
 #undef __class__
@@ -448,7 +478,7 @@ template<class CLASS_TYPE> class RegExpNodeDigitNot : public etk::RegExpNode<CLA
 			return false;
 		};
 		void display(uint32_t _level) {
-			TK_INFO("Find NODE : " << levelSpace(_level) << "@DigitNot@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			TK_INFO("Find NODE : " << levelSpace(_level) << "@DigitNot@ {" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata=" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/ );
 		};
 };
 #undef __class__
@@ -497,8 +527,8 @@ template<class CLASS_TYPE> class RegExpNodeLetter : public etk::RegExpNode<CLASS
 		void display(uint32_t _level) {
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@Letter@ {"
 			        << RegExpNode<CLASS_TYPE>::m_multipleMin << ","
-			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata=";
-			        displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="
+			        /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData) */);
 		};
 };
 #undef __class__
@@ -547,8 +577,8 @@ template<class CLASS_TYPE> class RegExpNodeLetterNot : public etk::RegExpNode<CL
 		void display(uint32_t _level) {
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@LetterNot@ {"
 			        << RegExpNode<CLASS_TYPE>::m_multipleMin << ","
-			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata=";
-			        displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="
+			        /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/ );
 		};
 };
 #undef __class__
@@ -599,8 +629,8 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpace : public etk::RegExpNode<C
 		void display(uint32_t _level) {
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@Space@ {"
 			        << RegExpNode<CLASS_TYPE>::m_multipleMin << ","
-			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata=";
-			        displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="
+			        /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/ );
 		};
 };
 #undef __class__
@@ -651,8 +681,8 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpaceNot : public etk::RegExpNod
 		void display(uint32_t _level) {
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@SpaceNot@ {"
 			        << RegExpNode<CLASS_TYPE>::m_multipleMin << ","
-			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata=";
-			        displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="
+			        /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData) */);
 		};
 };
 #undef __class__
@@ -703,8 +733,8 @@ template<class CLASS_TYPE> class RegExpNodeWordChar : public etk::RegExpNode<CLA
 		void display(uint32_t _level) {
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@Word@ {"
 			        << RegExpNode<CLASS_TYPE>::m_multipleMin << ","
-			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata=";
-			        displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="
+			        /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData) */);
 		};
 };
 #undef __class__
@@ -754,8 +784,8 @@ template<class CLASS_TYPE> class RegExpNodeWordCharNot : public etk::RegExpNode<
 		void display(uint32_t _level) {
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@WordNot@ {"
 			        << RegExpNode<CLASS_TYPE>::m_multipleMin << ","
-			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata=";
-			        displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="
+			        /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData) */);
 		};
 };
 #undef __class__
@@ -807,8 +837,8 @@ template<class CLASS_TYPE> class RegExpNodeDot : public etk::RegExpNode<CLASS_TY
 		void display(uint32_t _level) {
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@.@ {"
 			<< RegExpNode<CLASS_TYPE>::m_multipleMin << ","
-			<< RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata=";
-			displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			<< RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="
+			/*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData) */);
 		};
 };
 
@@ -837,8 +867,8 @@ template<class CLASS_TYPE> class RegExpNodeSOL : public etk::RegExpNode<CLASS_TY
 		void display(uint32_t _level) {
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@SOL@ {"
 			        << RegExpNode<CLASS_TYPE>::m_multipleMin << ","
-			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata=";
-			        displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="
+			        /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData) */);
 		};
 };
 
@@ -867,8 +897,8 @@ template<class CLASS_TYPE> class RegExpNodeEOL : public etk::RegExpNode<CLASS_TY
 		void display(uint32_t _level) {
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@EOL@ {"
 			        << RegExpNode<CLASS_TYPE>::m_multipleMin << ","
-			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata=";
-			        displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="
+			        /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData) */);
 		};
 };
 
@@ -901,7 +931,7 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public etk::RegExpNode<C
 		~RegExpNodePTheseElem(void) { };
 		int32_t generate(const std::vector<char32_t>& _data) {
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
-			TK_REG_EXP_DBG_MODE("Request Parse (elem) data="; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			TK_REG_EXP_DBG_MODE("Request Parse (elem) data=" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/ );
 			int64_t pos = 0;
 			int64_t elementSize = 0;
 			std::vector<char32_t> tmpData;
@@ -1054,8 +1084,8 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public etk::RegExpNode<C
 		void display(uint32_t _level) {
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@(Elem)@ {"
 			        << RegExpNode<CLASS_TYPE>::m_multipleMin << ","
-			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata=";
-			        displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="
+			        /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData) */);
 			for(int64_t iii=0; iii<m_subNode.size(); iii++) {
 				m_subNode[iii]->display(_level+1);
 			}
@@ -1102,7 +1132,7 @@ template<class CLASS_TYPE> class RegExpNodePThese : public etk::RegExpNode<CLASS
 		~RegExpNodePThese(void) { }
 		int32_t generate(const std::vector<char32_t>& _data) {
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
-			TK_REG_EXP_DBG_MODE("Request Parse (...) data="; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			TK_REG_EXP_DBG_MODE("Request Parse (...) data=" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/ );
 			//Find all the '|' in the string (and at the good level ...) 
 			int64_t pos = 0;
 			int32_t elementSize = getLenOfPTheseElem(RegExpNode<CLASS_TYPE>::m_RegExpData, pos);
@@ -1118,7 +1148,7 @@ template<class CLASS_TYPE> class RegExpNodePThese : public etk::RegExpNode<CLASS
 				// add to the subnode list : 
 				m_subNode.push_back(myElem);
 				pos += elementSize+1;
-				TK_REG_EXP_DBG_MODE("plop="; displayElem(_data, pos, pos+1););
+				TK_REG_EXP_DBG_MODE("plop=" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData, pos, pos+1)*/ );
 				elementSize = getLenOfPTheseElem(RegExpNode<CLASS_TYPE>::m_RegExpData, pos);
 				TK_REG_EXP_DBG_MODE("find " << elementSize << " elements");
 			}
@@ -1162,12 +1192,12 @@ template<class CLASS_TYPE> class RegExpNodePThese : public etk::RegExpNode<CLASS
 		
 		void display(uint32_t _level) {
 			if (-1 == _level) {
-				TK_INFO("regExp :"; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+				TK_INFO("regExp :" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData) */);
 			} else {
 				TK_INFO("Find NODE : " << levelSpace(_level) << "@(...)@ {"
 				        << RegExpNode<CLASS_TYPE>::m_multipleMin << ","
-				        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata=";
-				        displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+				        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="
+				        /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData) */);
 				for(int32_t i=0; i<m_subNode.size(); i++) {
 					m_subNode[i]->display(_level+1);
 				}
@@ -1177,7 +1207,7 @@ template<class CLASS_TYPE> class RegExpNodePThese : public etk::RegExpNode<CLASS
 		 * @brief Just display the regExp in color ...
 		 */
 		void drawColoredRegEx(void) {
-			TK_INFO("regExp :"; displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData););
+			TK_INFO("regExp :" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/ );
 		}
 };
 #undef __class__
@@ -1283,7 +1313,7 @@ template<class CLASS_TYPE> class RegExp {
 			std::vector<char32_t> tmpExp;
 			
 			TK_REG_EXP_DBG_MODE("---------------------------------------------------------------------");
-			TK_REG_EXP_DBG_MODE("Parse RegExp : (" << _regexp << ")" );
+			TK_REG_EXP_DBG_MODE("Parse RegExp : (" << m_expressionRequested << ")" );
 			m_isOk = false;
 			m_areaFind.start=0;
 			m_areaFind.stop=0;
@@ -1382,7 +1412,7 @@ template<class CLASS_TYPE> class RegExp {
 				return;
 			}
 			
-			TK_REG_EXP_DBG_MODE("Main element :"; displayElem(tmpExp); );
+			//TK_REG_EXP_DBG_MODE("Main element :" /*<< etk::displayElem(tmpExp)*/ );
 			if (    tmpExp.size()>0
 			     && tmpExp[0] == regexpOpcodeNoChar)
 			{

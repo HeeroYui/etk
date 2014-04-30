@@ -52,7 +52,7 @@ namespace etk {
 			std::u32string getURight(void) const;
 			std::string getRight(void) const;
 	};
-	etk::CCout& operator <<(etk::CCout &_os, const etk::FSNodeRight &_obj);
+	std::ostream& operator <<(std::ostream &_os, const etk::FSNodeRight &_obj);
 };
 
 #endif

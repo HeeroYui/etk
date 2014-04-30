@@ -13,7 +13,6 @@
 
 #include <etk/debug.h>
 #include <math.h>
-#include <etk/Stream.h>
 #include <LinearMath/btScalar.h>
 #include <LinearMath/btMinMax.h>
 #include <LinearMath/btVector3.h>
@@ -467,10 +466,10 @@ namespace etk
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information
 	 */
-	etk::CCout& operator <<(etk::CCout &os, const etk::Vector4D<int32_t> obj);
-	etk::CCout& operator <<(etk::CCout &os, const etk::Vector4D<float> obj);
-	etk::CCout& operator <<(etk::CCout &os, const etk::Vector4D<uint32_t> obj);
-	etk::CCout& operator <<(etk::CCout &os, const etk::Vector4D<bool> obj);
+	std::ostream& operator <<(std::ostream& _os, const etk::Vector4D<int32_t>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const etk::Vector4D<float>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const etk::Vector4D<uint32_t>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const etk::Vector4D<bool>& _obj);
 };
 
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...

@@ -8,7 +8,7 @@
 
 #include <etk/math/Vector2D.h>
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector2D<int32_t>& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector2D<int32_t>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -17,7 +17,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector2D<int32_t>& _obj
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector2D<float>& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector2D<float>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -26,7 +26,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector2D<float>& _obj) 
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector2D<uint32_t>& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector2D<uint32_t>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -35,7 +35,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector2D<uint32_t>& _ob
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector2D<bool>& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector2D<bool>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -44,7 +44,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const etk::Vector2D<bool>& _obj) {
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<vec2 >& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const std::vector<vec2 >& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -54,7 +54,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<vec2 >& _obj) {
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<ivec2 >& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const std::vector<ivec2 >& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -64,7 +64,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<ivec2 >& _obj) {
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<uivec2 >& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const std::vector<uivec2 >& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -74,7 +74,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<uivec2 >& _obj) 
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<bvec2 >& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const std::vector<bvec2 >& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -150,7 +150,7 @@ namespace etk {
 			tmpStr.erase(0, posComa+1);
 			m_floats[1] = std::stob(tmpStr);
 		}
-		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
+		TK_VERBOSE("Parse : '" << _str << "' ==> " << *this);
 	}
 	
 	template<> Vector2D<int32_t>::operator std::string(void) const {

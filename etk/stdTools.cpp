@@ -12,12 +12,12 @@
 #undef __class__
 #define __class__ "u32char"
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const std::string& _obj) {
+std::ostream& std::operator <<(std::ostream& _os, const std::string& _obj) {
 	_os << _obj.c_str();
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<std::string>& _obj) {
+std::ostream& std::operator <<(std::ostream& _os, const std::vector<std::string>& _obj) {
 	_os << "{";
 	for (size_t iii=0; iii< _obj.size(); iii++) {
 		if (iii>0) {
@@ -29,12 +29,12 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<std::string>& _o
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const std::u32string& _obj) {
+std::ostream& std::operator <<(std::ostream& _os, const std::u32string& _obj) {
 	_os << std::to_string(_obj).c_str();
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<std::u32string>& _obj) {
+std::ostream& std::operator <<(std::ostream& _os, const std::vector<std::u32string>& _obj) {
 	_os << "{";
 	for (size_t iii=0; iii< _obj.size(); iii++) {
 		if (iii>0) {

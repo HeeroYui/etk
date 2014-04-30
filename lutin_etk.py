@@ -13,10 +13,9 @@ def create(target):
 	myModule.add_extra_compile_flags()
 	# add the file to compile:
 	myModule.add_src_file([
-		'etk/debugGeneric.cpp',
 		'etk/debug.cpp',
 		'etk/stdTools.cpp',
-		'etk/Stream.cpp',
+		'etk/log.cpp',
 		'etk/RegExp.cpp',
 		'etk/tool.cpp',
 		'etk/Noise.cpp',
@@ -38,7 +37,7 @@ def create(target):
 		myModule.add_src_file('etk/os/Semaphore.Generic.cpp')
 	
 	if target.name=="IOs":
-		myModule.add_src_file('etk/StreamIOs.m')
+		myModule.add_src_file('etk/logIOs.m')
 
 	# name of the dependency
 	myModule.add_module_depend('linearmath')

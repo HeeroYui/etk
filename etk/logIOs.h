@@ -6,8 +6,8 @@
  * @license BSD v3 (see license file)
  */
 
-#ifndef __ETK_STREAM_IOS_H__
-#define __ETK_STREAM_IOS_H__
+#ifndef __ETK_LOG_IOS_H__
+#define __ETK_LOG_IOS_H__
 
 #ifdef __cplusplus
 extern "C" {

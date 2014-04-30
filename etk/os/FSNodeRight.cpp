@@ -230,8 +230,7 @@ std::string etk::FSNodeRight::getRight(void) const {
 }
 
 
-etk::CCout& etk::operator <<(etk::CCout &_os, const etk::FSNodeRight &_obj)
-{
+std::ostream& etk::operator <<(std::ostream &_os, const etk::FSNodeRight &_obj) {
 	_os << _obj.getRight();
 	return _os;
 };

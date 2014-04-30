@@ -264,7 +264,7 @@ namespace etk {
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information
 	 */
-	etk::CCout& operator <<(etk::CCout &os, const etk::Matrix4 obj);
+	std::ostream& operator <<(std::ostream& _os, const etk::Matrix4& _obj);
 };
 
 

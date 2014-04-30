@@ -8,7 +8,7 @@
 
 
 #import <UIKit/UIKit.h>
-#include <etk/StreamIOs.h>
+#include <etk/logIOs.h>
 
 void iosNSLog(const char * _value) {
 	NSLog(@"\r%s", _value);

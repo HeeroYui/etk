@@ -13,7 +13,6 @@
 
 #include <etk/debug.h>
 #include <math.h>
-#include <etk/Stream.h>
 #include <LinearMath/btScalar.h>
 #include <LinearMath/btMinMax.h>
 #include <LinearMath/btVector3.h>
@@ -443,13 +442,13 @@ namespace etk
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information
 	 */
-	etk::CCout& operator <<(etk::CCout &_os, const etk::Vector3D<int32_t> _obj);
+	std::ostream& operator <<(std::ostream& _os, const etk::Vector3D<int32_t>& _obj);
 	//! @previous
-	etk::CCout& operator <<(etk::CCout &_os, const btVector3 _obj);
+	std::ostream& operator <<(std::ostream& _os, const btVector3& _obj);
 	//! @previous
-	etk::CCout& operator <<(etk::CCout &_os, const etk::Vector3D<uint32_t> _obj);
+	std::ostream& operator <<(std::ostream& _os, const etk::Vector3D<uint32_t>& _obj);
 	//! @previous
-	etk::CCout& operator <<(etk::CCout &_os, const etk::Vector3D<bool> _obj);
+	std::ostream& operator <<(std::ostream& _os, const etk::Vector3D<bool>& _obj);
 	
 };
 
@@ -472,13 +471,13 @@ inline vec3 vec3ClipInt64(const vec3& val) {
 }
 
 namespace etk {
-	etk::CCout& operator <<(etk::CCout& _os, const std::vector<vec3 >& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<vec3>& _obj);
 	//! @previous
-	etk::CCout& operator <<(etk::CCout& _os, const std::vector<ivec3 >& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<ivec3>& _obj);
 	//! @previous
-	etk::CCout& operator <<(etk::CCout& _os, const std::vector<uivec3 >& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<uivec3>& _obj);
 	//! @previous
-	etk::CCout& operator <<(etk::CCout& _os, const std::vector<bvec3 >& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<bvec3>& _obj);
 };
 
 #endif

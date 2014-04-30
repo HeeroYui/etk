@@ -8,56 +8,52 @@
 
 #include <etk/math/Vector3D.h>
 
-etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector3D<int32_t> obj)
-{
-	os << "(";
-	os << obj.x();
-	os << ",";
-	os << obj.y();
-	os << ",";
-	os << obj.z();
-	os << ")";
-	return os;
+std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector3D<int32_t>& _obj) {
+	_os << "(";
+	_os << _obj.x();
+	_os << ",";
+	_os << _obj.y();
+	_os << ",";
+	_os << _obj.z();
+	_os << ")";
+	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout &os, const btVector3 obj)
-{
-	os << "(";
-	os << obj.x();
-	os << ",";
-	os << obj.y();
-	os << ",";
-	os << obj.z();
-	os << ")";
-	return os;
+std::ostream& etk::operator <<(std::ostream& _os, const btVector3& _obj) {
+	_os << "(";
+	_os << _obj.x();
+	_os << ",";
+	_os << _obj.y();
+	_os << ",";
+	_os << _obj.z();
+	_os << ")";
+	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector3D<uint32_t> obj)
-{
-	os << "(";
-	os << obj.x();
-	os << ",";
-	os << obj.y();
-	os << ",";
-	os << obj.z();
-	os << ")";
-	return os;
+std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector3D<uint32_t>& _obj) {
+	_os << "(";
+	_os << _obj.x();
+	_os << ",";
+	_os << _obj.y();
+	_os << ",";
+	_os << _obj.z();
+	_os << ")";
+	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector3D<bool> obj)
-{
-	os << "(";
-	os << obj.x();
-	os << ",";
-	os << obj.y();
-	os << ",";
-	os << obj.z();
-	os << ")";
-	return os;
+std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector3D<bool>& _obj) {
+	_os << "(";
+	_os << _obj.x();
+	_os << ",";
+	_os << _obj.y();
+	_os << ",";
+	_os << _obj.z();
+	_os << ")";
+	return _os;
 }
 
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<vec3 >& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const std::vector<vec3>& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -67,7 +63,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<vec3 >& _obj) {
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<ivec3 >& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const std::vector<ivec3>& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -77,7 +73,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<ivec3 >& _obj) {
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<uivec3 >& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const std::vector<uivec3>& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -87,7 +83,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<uivec3 >& _obj) 
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<bvec3 >& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const std::vector<bvec3>& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -97,13 +93,12 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<bvec3 >& _obj) {
 	return _os;
 }
 
-vec3 quaternionToEulerXYZ(const btQuaternion& quat)
-{
+vec3 quaternionToEulerXYZ(const btQuaternion& _quat) {
 	// back to the euler angle : 
-	float xxx = quat.x();
-	float yyy = quat.y();
-	float zzz = quat.z();
-	float www = quat.w();
+	float xxx = _quat.x();
+	float yyy = _quat.y();
+	float zzz = _quat.z();
+	float www = _quat.w();
 	double xxx2 = xxx*xxx;
 	double yyy2 = yyy*yyy;
 	double zzz2 = zzz*zzz;

@@ -38,7 +38,7 @@ namespace etk {
 		FSN_SOCKET, //!< The node is a socket
 	};
 	
-	etk::CCout& operator <<(etk::CCout &_os, const enum etk::typeNode &_obj);
+	std::ostream& operator <<(std::ostream &_os, const enum etk::typeNode &_obj);
 	
 	enum seekNode{
 		FSN_SEEK_START,
@@ -88,7 +88,7 @@ namespace etk {
 		FSN_TYPE_THEME_DATA
 	};
 	
-	etk::CCout& operator <<(etk::CCout &_os, const enum etk::FSNType &_obj);
+	std::ostream& operator <<(std::ostream &_os, const enum etk::FSNType &_obj);
 	
 	/*
 	note : The filename can be
@@ -329,7 +329,7 @@ namespace etk {
 			 * @param[in] _obj Node to display
 			 * @return std debug IO
 			 */
-			friend etk::CCout& operator <<( etk::CCout &_os,const etk::FSNode &_obj);
+			friend std::ostream& operator <<( std::ostream &_os,const etk::FSNode &_obj);
 			
 			/**
 			 * @brief Count the number of subFolder in the curent Folder
@@ -478,7 +478,7 @@ namespace etk {
 			void sortElementList(std::vector<etk::FSNode *>& _list);
 	};
 	
-	etk::CCout& operator <<(etk::CCout &_os, const etk::FSNode &_obj);
+	std::ostream& operator <<(std::ostream &_os, const etk::FSNode &_obj);
 	
 	/**
 	 * @brief Set manualy the folder of the Data.(like /usr/shared/applName/ for linux)

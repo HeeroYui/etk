@@ -210,11 +210,12 @@ namespace std {
 	//! @previous
 	void sort(std::vector<std::string *>& _list);
 };
-namespace etk {
-etk::CCout& operator <<(etk::CCout& _os, const std::string& _obj);
-etk::CCout& operator <<(etk::CCout& _os, const std::vector<std::string>& _obj);
-etk::CCout& operator <<(etk::CCout& _os, const std::u32string& _obj);
-etk::CCout& operator <<(etk::CCout& _os, const std::vector<std::u32string>& _obj);
+
+namespace std {
+	std::ostream& operator <<(std::ostream& _os, const std::string& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<std::string>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::u32string& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<std::u32string>& _obj);
 };
 
 int32_t strlen(const char32_t * _data);

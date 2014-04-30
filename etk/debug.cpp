@@ -6,6 +6,10 @@
  * @license BSD v3 (see license file)
  */
 
-#include <etk/types.h>
+#include <etk/debug.h>
 
-const char * etkLibName = "etk      ";
+int32_t etk::getLogId(void) {
+	static int32_t g_val = etk::log::registerInstance("etk");
+	return g_val;
+}
+

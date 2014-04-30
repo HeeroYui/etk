@@ -1116,12 +1116,12 @@ bool etk::FSNode::operator!= (const etk::FSNode& _obj ) const {
 	return !(*this == _obj);
 }
 
-etk::CCout& etk::operator <<(etk::CCout &_os, const etk::FSNode &_obj) {
+std::ostream& etk::operator <<(std::ostream &_os, const etk::FSNode &_obj) {
 	_os << "[" << _obj.m_type << "]->\"" << _obj.m_userFileName << "\"";
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::FSNType &_obj) {
+std::ostream& etk::operator <<(std::ostream &_os, const enum etk::FSNType &_obj) {
 	switch (_obj)
 	{
 		case etk::FSN_TYPE_UNKNOW:
@@ -1158,7 +1158,7 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::FSNType &_obj) {
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout &_os, const enum etk::typeNode &_obj) {
+std::ostream& etk::operator <<(std::ostream &_os, const enum etk::typeNode &_obj) {
 	switch (_obj) {
 		case etk::FSN_UNKNOW:
 			_os << "FSN_UNKNOW";

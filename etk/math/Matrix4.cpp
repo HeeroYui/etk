@@ -217,12 +217,11 @@ etk::Matrix4 etk::Matrix4::invert()
 }
 
 
-etk::CCout& etk::operator <<(etk::CCout &os, const etk::Matrix4 obj)
-{
-	os << "matrix4 : (";
+std::ostream& etk::operator <<(std::ostream& _os, const etk::Matrix4& _obj) {
+	_os << "matrix4 : (";
 	for (int32_t iii=0; iii<16; iii++) {
-		os << obj.m_mat[iii];
-		os << ",";
+		_os << _obj.m_mat[iii];
+		_os << ",";
 	}
-	return os;
+	return _os;
 }

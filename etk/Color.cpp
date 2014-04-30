@@ -197,12 +197,13 @@ namespace etk {
 	}
 };
 
-etk::CCout& etk::operator <<(etk::CCout &_os, const etk::Color<uint8_t>& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const etk::Color<uint8_t>& _obj) {
 	_os << "#";
 	_os << (std::to_string<uint32_t>(_obj.get(), std::hex)).c_str();
 	return _os;
 }
-etk::CCout& etk::operator <<(etk::CCout &_os, const etk::Color<float>& _obj)
+
+std::ostream& etk::operator <<(std::ostream& _os, const etk::Color<float>& _obj)
 {
 	_os << "rgba(";
 	_os << _obj.r();
@@ -216,7 +217,7 @@ etk::CCout& etk::operator <<(etk::CCout &_os, const etk::Color<float>& _obj)
 	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<etk::Color<uint8_t> >& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const std::vector<etk::Color<uint8_t> >& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -225,7 +226,7 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<etk::Color<uint8
 	}
 	return _os;
 }
-etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<etk::Color<float> >& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const std::vector<etk::Color<float> >& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -234,8 +235,6 @@ etk::CCout& etk::operator <<(etk::CCout& _os, const std::vector<etk::Color<float
 	}
 	return _os;
 }
-
-
 
 
 const etk::Color<> etk::color::none((uint32_t)0x00000000);

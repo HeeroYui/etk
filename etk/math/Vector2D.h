@@ -11,7 +11,7 @@
 #ifndef __ETK_MATH_VECTOR2D_H__
 #define __ETK_MATH_VECTOR2D_H__
 
-#include <etk/Stream.h>
+#include <etk/debug.h>
 #include <etk/math/Vector3D.h>
 #include <math.h>
 
@@ -351,13 +351,13 @@ namespace etk {
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information
 	 */
-	etk::CCout& operator <<(etk::CCout& _os, const etk::Vector2D<int32_t>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const etk::Vector2D<int32_t>& _obj);
 	//! @previous
-	etk::CCout& operator <<(etk::CCout& _os, const etk::Vector2D<float>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const etk::Vector2D<float>& _obj);
 	//! @previous
-	etk::CCout& operator <<(etk::CCout& _os, const etk::Vector2D<uint32_t>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const etk::Vector2D<uint32_t>& _obj);
 	//! @previous
-	etk::CCout& operator <<(etk::CCout& _os, const etk::Vector2D<bool>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const etk::Vector2D<bool>& _obj);
 };
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
 typedef etk::Vector2D<float>      vec2;
@@ -376,12 +376,12 @@ inline vec2 vec2ClipInt64(const vec2& _val) {
 
 
 namespace etk {
-	etk::CCout& operator <<(etk::CCout& _os, const std::vector<vec2 >& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<vec2 >& _obj);
 	//! @previous
-	etk::CCout& operator <<(etk::CCout& _os, const std::vector<ivec2 >& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<ivec2 >& _obj);
 	//! @previous
-	etk::CCout& operator <<(etk::CCout& _os, const std::vector<uivec2 >& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<uivec2 >& _obj);
 	//! @previous
-	etk::CCout& operator <<(etk::CCout& _os, const std::vector<bvec2 >& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<bvec2 >& _obj);
 };
 #endif

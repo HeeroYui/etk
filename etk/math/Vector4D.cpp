@@ -8,59 +8,55 @@
 
 #include <etk/math/Vector4D.h>
 
-etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector4D<int32_t> obj)
-{
-	os << "(";
-	os << obj.x();
-	os << ",";
-	os << obj.y();
-	os << ",";
-	os << obj.z();
-	os << ",";
-	os << obj.w();
-	os << ")";
-	return os;
+std::ostream& etk::operator <<(std::ostream &_os, const etk::Vector4D<int32_t>& _obj) {
+	_os << "(";
+	_os << _obj.x();
+	_os << ",";
+	_os << _obj.y();
+	_os << ",";
+	_os << _obj.z();
+	_os << ",";
+	_os << _obj.w();
+	_os << ")";
+	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector4D<float> obj)
-{
-	os << "(";
-	os << obj.x();
-	os << ",";
-	os << obj.y();
-	os << ",";
-	os << obj.z();
-	os << ",";
-	os << obj.w();
-	os << ")";
-	return os;
+std::ostream& etk::operator <<(std::ostream &_os, const etk::Vector4D<float>& _obj) {
+	_os << "(";
+	_os << _obj.x();
+	_os << ",";
+	_os << _obj.y();
+	_os << ",";
+	_os << _obj.z();
+	_os << ",";
+	_os << _obj.w();
+	_os << ")";
+	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector4D<uint32_t> obj)
-{
-	os << "(";
-	os << obj.x();
-	os << ",";
-	os << obj.y();
-	os << ",";
-	os << obj.z();
-	os << ",";
-	os << obj.w();
-	os << ")";
-	return os;
+std::ostream& etk::operator <<(std::ostream &_os, const etk::Vector4D<uint32_t>& _obj) {
+	_os << "(";
+	_os << _obj.x();
+	_os << ",";
+	_os << _obj.y();
+	_os << ",";
+	_os << _obj.z();
+	_os << ",";
+	_os << _obj.w();
+	_os << ")";
+	return _os;
 }
 
-etk::CCout& etk::operator <<(etk::CCout &os, const etk::Vector4D<bool> obj)
-{
-	os << "(";
-	os << obj.x();
-	os << ",";
-	os << obj.y();
-	os << ",";
-	os << obj.z();
-	os << ",";
-	os << obj.w();
-	os << ")";
-	return os;
+std::ostream& etk::operator <<(std::ostream &_os, const etk::Vector4D<bool>& _obj) {
+	_os << "(";
+	_os << _obj.x();
+	_os << ",";
+	_os << _obj.y();
+	_os << ",";
+	_os << _obj.z();
+	_os << ",";
+	_os << _obj.w();
+	_os << ")";
+	return _os;
 }
 
