@@ -57,11 +57,26 @@
 	}
 #endif
 */
-
-
+#ifdef DEBUG
+	#define DEFAULT_LOG_LEVEL etk::log::logLevelInfo
+	#define DEFAULT_LOG_COLOR true
+	#define DEFAULT_LOG_LINE true
+	#define DEFAULT_LOG_CLASS true
+	#if defined(__TARGET_OS__IOs)
+		#define DEFAULT_LOG_TIME false
+	#else
+		#define DEFAULT_LOG_TIME true
+	#endif
+#else
+	#define DEFAULT_LOG_LEVEL etk::log::logLevelNone
+	#define DEFAULT_LOG_COLOR false
+	#define DEFAULT_LOG_LINE false
+	#define DEFAULT_LOG_CLASS false
+	#define DEFAULT_LOG_TIME true
+#endif
 
 enum etk::log::level& getDefaultLevel(void) {
-	static enum etk::log::level g_val = etk::log::logLevelNone;
+	static enum etk::log::level g_val = DEFAULT_LOG_LEVEL;
 	return g_val;
 }
 
@@ -142,7 +157,7 @@ void etk::log::logStream1(int32_t _id, int32_t _level, const std::ostream& _log)
 }
 
 static bool& getColor(void) {
-	static bool g_val = true;
+	static bool g_val = DEFAULT_LOG_COLOR;
 	return g_val;
 }
 
@@ -151,7 +166,7 @@ void etk::log::setColor(bool _status) {
 }
 
 static bool& getTime(void) {
-	static bool g_val = true;
+	static bool g_val = DEFAULT_LOG_TIME;
 	return g_val;
 }
 void etk::log::setTime(bool _status) {
@@ -159,7 +174,7 @@ void etk::log::setTime(bool _status) {
 }
 
 static bool& getLine(void) {
-	static bool g_val = true;
+	static bool g_val = DEFAULT_LOG_LINE;
 	return g_val;
 }
 void etk::log::setLine(bool _status) {
@@ -167,7 +182,7 @@ void etk::log::setLine(bool _status) {
 }
 
 static bool& getFunction(void) {
-	static bool g_val = true;
+	static bool g_val = DEFAULT_LOG_CLASS;
 	return g_val;
 }
 void etk::log::setFunction(bool _status) {
