@@ -100,6 +100,6 @@ namespace etk {
 #ifdef __class__
 	#undef  __class__
 #endif
-#define __class__ ("lkjlkj")
+#define __class__ (NULL)
 
 #endif
