@@ -62,11 +62,7 @@
 	#define DEFAULT_LOG_COLOR true
 	#define DEFAULT_LOG_LINE true
 	#define DEFAULT_LOG_CLASS true
-	#if defined(__TARGET_OS__IOs)
-		#define DEFAULT_LOG_TIME false
-	#else
-		#define DEFAULT_LOG_TIME true
-	#endif
+	#define DEFAULT_LOG_TIME true
 #else
 	#define DEFAULT_LOG_LEVEL etk::log::logLevelNone
 	#define DEFAULT_LOG_COLOR false
