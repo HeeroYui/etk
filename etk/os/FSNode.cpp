@@ -29,11 +29,8 @@ extern "C" {
 	#include <time.h>
 #endif
 
-
 #define TK_DBG_MODE TK_VERBOSE
 //#define TK_DBG_MODE TK_DEBUG
-
-
 
 std::string etk::simplifyPath(std::string _input) {
 	// step 1 : for windows change \ in /:
@@ -114,6 +111,7 @@ std::string etk::simplifyPath(std::string _input) {
 static std::string s_fileAPK = "";
 static std::string baseApplName = "ewolNoName";
 static std::string baseRunPath = "/";
+static std::string baseRunPathInHome = "/";
 #if defined(__TARGET_OS__Android)
 	static std::string baseFolderHome     = "/sdcard/";                 // home folder
 	static std::string baseFolderData     = "assets/";                  // program Data
@@ -284,15 +282,22 @@ void etk::initDefaultFolder(const char* _applName) {
 	}
 	if (!getcwd(cCurrentPath, FILENAME_MAX)) {
 		baseRunPath = ".";
+		baseRunPathInHome = ".";
 	} else {
 		cCurrentPath[FILENAME_MAX - 1] = '\0';
 		if (cCurrentPath[0] == '/') {
-			baseRunPath = cCurrentPath+1;
-		} else {
 			baseRunPath = cCurrentPath;
+		} else {
+			baseRunPath = std::string("/") + cCurrentPath;
 		}
+		if (start_with(baseRunPath, baseFolderHome) == true) {
+			baseRunPathInHome = std::string(baseRunPath, baseFolderHome.size());
+		} else {
+			baseRunPathInHome = baseRunPath;
+		}
+		
 	}
-	TK_DBG_MODE("Find Basic running PATH : \"" << baseRunPath << "\"");
+	TK_DBG_MODE("Find Basic running PATH : '" << baseRunPath << "'");
 	
 	#ifndef __TARGET_OS__Android
 		std::string binaryPath = getApplicationPath();
@@ -355,6 +360,8 @@ void etk::initDefaultFolder(const char* _applName) {
 			#endif
 		#endif
 	#endif
+	TK_INFO("baseRunPath        : '" << baseRunPath << "'");
+	TK_INFO("baseRunPathInHome  : ~|HOME: + '" << baseRunPathInHome << "'");
 	TK_INFO("baseFolderHome     : '" << baseFolderHome << "'");
 	TK_INFO("baseFolderData     : '" << baseFolderData << "'");
 	TK_INFO("baseFolderDataUser : '" << baseFolderDataUser << "'");
@@ -564,11 +571,98 @@ void etk::FSNode::privateSetName(const std::string& _newName) {
 	#else
 		isRootFolder = destFilename[0] == '/';
 	#endif
-	if (true == start_with(destFilename, baseFolderHome) ) {
+	if(    start_with(destFilename, "ROOT:") == true
+	           || start_with(destFilename, "root:") == true ) {
+		TK_DBG_MODE("    ==> detect root 2 ");
+		destFilename.erase(0, 5);
+		m_type = etk::FSN_TYPE_DIRECT;
+		if(start_with(destFilename, "~") == true) {
+			destFilename.erase(0, 1);
+			m_type = etk::FSN_TYPE_HOME;
+		}
+	} else if(    start_with(destFilename, "DIRECT:") == true
+	           || start_with(destFilename, "direct:") == true ) {
+		TK_DBG_MODE("    ==> detect direct");
+		destFilename.erase(0, 7);
+		m_type = etk::FSN_TYPE_DIRECT;
+		if(start_with(destFilename, "~") == true) {
+			destFilename.erase(0, 1);
+			m_type = etk::FSN_TYPE_HOME;
+		}
+	} else if(    start_with(destFilename, "DATA:") == true
+	           || start_with(destFilename, "data:") == true ) {
+		TK_DBG_MODE("    ==> detect data");
+		destFilename.erase(0, 5);
+		m_type = etk::FSN_TYPE_DATA;
+	} else if(    start_with(destFilename, "USERDATA:") == true
+	           || start_with(destFilename, "userdata:") == true ) {
+		TK_DBG_MODE("    ==> detect User-data");
+		destFilename.erase(0, 9);
+		m_type = etk::FSN_TYPE_USER_DATA;
+	} else if(    start_with(destFilename, "CACHE:") == true
+	           || start_with(destFilename, "cache:") == true ) {
+		TK_DBG_MODE("    ==> detect Cache");
+		destFilename.erase(0, 6);
+		m_type = etk::FSN_TYPE_CACHE;
+	} else if(    start_with(destFilename, "THEME:") == true
+	           || start_with(destFilename, "theme:") == true ) {
+		TK_DBG_MODE("    ==> detect theme");
+		destFilename.erase(0, 6);
+		m_type = etk::FSN_TYPE_THEME;
+	} else if(start_with(destFilename, "./") == true) {
+		TK_DBG_MODE("    ==> detect relatif 1");
+		destFilename.erase(0, 2);
+		while (destFilename.size()>0 && destFilename[0] == '/') {
+			destFilename.erase(0, 1);
+		}
+		m_type = etk::FSN_TYPE_RELATIF;
+	} else if(    start_with(destFilename, "REL:") == true
+	           || start_with(destFilename, "rel:") == true ) {
+		TK_DBG_MODE("    ==> detect relatif 2");
+		destFilename.erase(0, 4);
+		while (destFilename.size()>0 && destFilename[0] == '/') {
+			destFilename.erase(0, 1);
+		}
+		m_type = etk::FSN_TYPE_RELATIF;
+	} else if(start_with(destFilename, baseRunPath) == true) {
+		TK_DBG_MODE("    ==> detect relatif 3");
+		destFilename.erase(0, baseRunPath.size());
+		while (destFilename.size()>0 && destFilename[0] == '/') {
+			destFilename.erase(0, 1);
+		}
+		m_type = etk::FSN_TYPE_RELATIF;
+	} else if ((    baseRunPath != baseRunPathInHome
+	             && (    start_with(destFilename, "~" + baseRunPathInHome) == true
+	                  || start_with(destFilename, "HOME:" + baseRunPathInHome) == true
+	                  || start_with(destFilename, "home:" + baseRunPathInHome) == true ) ) ) {
+		TK_DBG_MODE("    ==> detect relatif 4");
+		if (start_with(destFilename, "~" + baseRunPathInHome) == true) {
+			destFilename.erase(0, 1);
+		} else {
+			destFilename.erase(0, 5);
+		}
+		destFilename.erase(0, baseRunPathInHome.size());
+		while (destFilename.size()>0 && destFilename[0] == '/') {
+			destFilename.erase(0, 1);
+		}
+		m_type = etk::FSN_TYPE_RELATIF;
+	} else if(start_with(destFilename, "~")) {
+		TK_DBG_MODE("    ==> detect home 2");
+		destFilename.erase(0, 1);
+		m_type = etk::FSN_TYPE_HOME;
+	} else if(    start_with(destFilename, "HOME:") == true
+	           || start_with(destFilename, "home:") == true ) {
+		TK_DBG_MODE("    ==> detect home 3");
+		destFilename.erase(0, 5);
+		m_type = etk::FSN_TYPE_HOME;
+		if(start_with(destFilename, "~") == true) {
+			destFilename.erase(0, 1);
+		}
+	} else if (start_with(destFilename, baseFolderHome) == true) {
 		TK_DBG_MODE("    ==> detect home");
 		destFilename.erase(0, baseFolderHome.size());
 		m_type = etk::FSN_TYPE_HOME;
-	} else if(true == isRootFolder) {
+	} else if(isRootFolder == true) {
 		TK_DBG_MODE("    ==> detect root");
 		#ifdef __TARGET_OS__Windows
 			destFilename.erase(0, 3);
@@ -576,70 +670,11 @@ void etk::FSNode::privateSetName(const std::string& _newName) {
 			destFilename.erase(0, 1);
 		#endif
 		m_type = etk::FSN_TYPE_DIRECT;
-	} else if(    true == start_with(destFilename, "ROOT:")
-	           || true == start_with(destFilename, "root:") ) {
-		TK_DBG_MODE("    ==> detect root 2 ");
-		destFilename.erase(0, 5);
-		m_type = etk::FSN_TYPE_DIRECT;
-		if(true == start_with(destFilename, "~")) {
-			destFilename.erase(0, 1);
-			m_type = etk::FSN_TYPE_HOME;
-		}
-	} else if(    true == start_with(destFilename, "DIRECT:")
-	           || true == start_with(destFilename, "direct:") ) {
-		TK_DBG_MODE("    ==> detect direct");
-		destFilename.erase(0, 7);
-		m_type = etk::FSN_TYPE_DIRECT;
-		if(true == start_with(destFilename, "~")) {
-			destFilename.erase(0, 1);
-			m_type = etk::FSN_TYPE_HOME;
-		}
-	} else if(    true == start_with(destFilename, "DATA:")
-	           || true == start_with(destFilename, "data:") ) {
-		TK_DBG_MODE("    ==> detect data");
-		destFilename.erase(0, 5);
-		m_type = etk::FSN_TYPE_DATA;
-	} else if(    true == start_with(destFilename, "USERDATA:")
-	           || true == start_with(destFilename, "userdata:") ) {
-		TK_DBG_MODE("    ==> detect User-data");
-		destFilename.erase(0, 9);
-		m_type = etk::FSN_TYPE_USER_DATA;
-	} else if(    true == start_with(destFilename, "CACHE:")
-	           || true == start_with(destFilename, "cache:") ) {
-		TK_DBG_MODE("    ==> detect Cach");
-		destFilename.erase(0, 6);
-		m_type = etk::FSN_TYPE_CACHE;
-	} else if(    true == start_with(destFilename, "THEME:")
-	           || true == start_with(destFilename, "theme:") ) {
-		TK_DBG_MODE("    ==> detect theme");
-		destFilename.erase(0, 6);
-		m_type = etk::FSN_TYPE_THEME;
-	} else if(true == start_with(destFilename, "~")) {
-		TK_DBG_MODE("    ==> detect home 2");
-		destFilename.erase(0, 1);
-		m_type = etk::FSN_TYPE_HOME;
-	} else if(    true == start_with(destFilename, "HOME:")
-	           || true == start_with(destFilename, "home:") ) {
-		TK_DBG_MODE("    ==> detect home 3");
-		destFilename.erase(0, 5);
-		m_type = etk::FSN_TYPE_HOME;
-		if(true == start_with(destFilename, "~")) {
-			destFilename.erase(0, 1);
-		}
-	} /*else if(true == destFilename.StartWith(baseRunPath)) {
-		destFilename.Remove(0, baseRunPath.Size());
-		m_type = etk::FSN_TYPE_RELATIF;
-	} */else {
+	} else {
 		TK_DBG_MODE("    ==> detect other");
 		// nothing to remove
 		//Other type is Relative : 
 		m_type = etk::FSN_TYPE_RELATIF;
-		
-		// we force to have the correct name : (can generate many problem otherwise ...
-		std::string tmpName = etk::getUserRunFolder() + "/" + destFilename;
-		destFilename = tmpName;
-		m_type = etk::FSN_TYPE_DIRECT;
-		
 	}
 	m_userFileName = destFilename;
 	TK_DBG_MODE("3 : parse done :            [" << m_type << "]->\"" << m_userFileName << "\"");
@@ -701,7 +736,7 @@ void etk::FSNode::generateFileSystemPath(void) {
 				}
 				cCurrentPath[FILENAME_MAX - 1] = '\0';
 				m_systemFileName = cCurrentPath;
-				m_systemFileName += "/";
+				//m_systemFileName += "/";
 			break;
 		}
 		case etk::FSN_TYPE_HOME:
@@ -766,7 +801,13 @@ void etk::FSNode::generateFileSystemPath(void) {
 			}
 			break;
 	}
-	m_systemFileName += m_userFileName;
+	if (m_userFileName != "") {
+		if (    m_systemFileName.size()>0
+		     && m_systemFileName[m_systemFileName.size()-1] != '/') {
+			m_systemFileName += '/';
+		}
+		m_systemFileName += m_userFileName;
+	}
 }
 
 
@@ -898,7 +939,7 @@ std::string etk::FSNode::getName(void) const {
 			output = "/";
 			break;
 		case etk::FSN_TYPE_RELATIF:
-			output = "";
+			output = "REL:";
 			break;
 		case etk::FSN_TYPE_HOME:
 			output = "~";
@@ -970,7 +1011,7 @@ std::string etk::FSNode::getRelativeFolder(void) const {
 		TK_DBG_MODE("     ==> : " << std::string(tmppp, 0, lastPos+1) );
 		return std::string(tmppp, 0, lastPos+1);
 	}
-	TK_DBG_MODE("     ==> : \"\"" );
+	TK_DBG_MODE("     ==> : ''" );
 	return "";
 }
 std::u32string etk::FSNode::getURelativeFolder(void) const {

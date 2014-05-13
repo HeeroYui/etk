@@ -16,13 +16,12 @@
 
 #include <etk/logIOs.h>
 
-/*
-#if defined(__TARGET_OS__Linux) && DEBUG_LEVEL > 2
+#if defined(__TARGET_OS__Linux) && defined(DEBUG)
 	#include <execinfo.h>
 	#include <cxxabi.h>
 	#include <dlfcn.h>
 	#define MAX_DEPTH  (256)
-	void etk::displayBacktrace(bool _breakAtEnd) {
+	static void displayBacktrace(bool _breakAtEnd) {
 		// retrieve call-stack
 		void * trace[MAX_DEPTH];
 		int stack_depth = backtrace(trace, MAX_DEPTH);
@@ -50,13 +49,13 @@
 		}
 	}
 #else
-	void etk::displayBacktrace(bool _breakAtEnd) {
-		#if DEBUG_LEVEL > 2
+	static void displayBacktrace(bool _breakAtEnd) {
+		#ifdef DEBUG
 			assert(false);
 		#endif
 	}
 #endif
-*/
+
 #ifdef DEBUG
 	#define DEFAULT_LOG_LEVEL etk::log::logLevelInfo
 	#define DEFAULT_LOG_COLOR true
@@ -380,6 +379,9 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 		std::cout << handle << std::endl;
 	#endif
 	g_lock.unlock();
+	if (_level == logLevelCritical) {
+		displayBacktrace(true);
+	}
 }
 
 
