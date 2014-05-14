@@ -29,12 +29,15 @@ extern "C" {
 	#include <time.h>
 #endif
 
+#undef __class__
+#define __class__ "FSNode"
+
 #define TK_DBG_MODE TK_VERBOSE
 //#define TK_DBG_MODE TK_DEBUG
 
 std::string etk::simplifyPath(std::string _input) {
 	// step 1 : for windows change \ in /:
-	TK_DBG_MODE("Siplify(1) : \"" << _input << "\"");
+	TK_DBG_MODE("Simplify(1) : '" << _input << "'");
 	size_t currentPos = 0;
 	if (_input.size() == 0) {
 		return _input;
@@ -47,7 +50,7 @@ std::string etk::simplifyPath(std::string _input) {
 		continue;
 	}
 	// step 2 : remove all '//'
-	TK_DBG_MODE("Siplify(2) : \"" << _input << "\"");
+	TK_DBG_MODE("Simplify(2) : '" << _input << "'");
 	currentPos = 0;
 	if (_input.size() <= 1) {
 		return _input;
@@ -61,12 +64,13 @@ std::string etk::simplifyPath(std::string _input) {
 		_input.erase(currentPos, 1);
 	}
 	// step 3 : remove all '/./'
-	TK_DBG_MODE("Siplify(3) : \"" << _input << "\"");
+	TK_DBG_MODE("Simplify(3) : '" << _input << "'");
 	currentPos = 0;
 	if (_input.size() <= 1) {
 		return _input;
 	}
-	while(currentPos < _input.size()-2) {
+	while(    currentPos < _input.size()-2
+	       && _input.size() > 2) {
 		if (    _input[currentPos] != '/'
 		     || _input[currentPos+1] != '.'
 		     || _input[currentPos+2] != '/') {
@@ -75,14 +79,15 @@ std::string etk::simplifyPath(std::string _input) {
 		}
 		_input.erase(currentPos, 2);
 	}
+	if (end_with(_input, "/.") == true) {
+		_input.erase(_input.size()-1, 1);
+	}
 	// step 4 remove xxx/..
-	TK_DBG_MODE("Siplify(4) : \"" << _input << "\"");
+	TK_DBG_MODE("Simplify(4) : '" << _input << "'");
 	size_t lastSlashPos = std::string::npos;
 	currentPos = 0;
-	if (_input.size() <= 2) {
-		return _input;
-	}
-	while(currentPos < _input.size()-2) {
+	while(    currentPos < _input.size()-2
+	       && _input.size() > 2) {
 		if (    _input[currentPos] != '/'
 		     || _input[currentPos+1] != '.'
 		     || _input[currentPos+2] != '.') {
@@ -97,11 +102,21 @@ std::string etk::simplifyPath(std::string _input) {
 			continue;
 		}
 		_input.erase(lastSlashPos, currentPos+2-lastSlashPos+1);
-		TK_DEBUG("update : \"" << _input << "\"");
+		TK_DEBUG("update : '" << _input << "'");
 		lastSlashPos = std::string::npos;
 		currentPos = 0;
 	}
-	TK_DBG_MODE("Siplify(5) : \"" << _input << "\"");
+	TK_DBG_MODE("Simplify(5) : '" << _input << "'");
+	if (_input.size() == 0) {
+		_input = "/";
+	}
+	if (    _input == "/../"
+	     || _input == "/.."
+	     || _input == "/./"
+	     || _input == "/.") {
+		_input = "/";
+	}
+	TK_DBG_MODE("Simplify(6) : '" << _input << "'");
 	return _input;
 }
 
@@ -451,13 +466,6 @@ static int32_t FSNODE_LOCAL_mkPath(const char* _path, mode_t _mode) {
 	free(copypath);
 	return (status);
 }
-
-
-
-
-
-#undef __class__
-#define __class__ "FSNode"
 
 etk::FSNode::FSNode(const std::string& _nodeName) :
   m_userFileName(""),
