@@ -28,7 +28,7 @@ namespace etk
 			/**
 			 * @brief No initialization constructor (faster ...)
 			 */
-			Vector3D(void) {
+			Vector3D() {
 				#ifdef DEBUG
 					// in debug mode we set supid value to prevent forget of the inits ...
 					m_floats[0] = (T)34673363;
@@ -136,14 +136,14 @@ namespace etk
 			/**
 			 * @brief Return the length of the vector squared
 			 */
-			btScalar length2(void) const {
+			btScalar length2() const {
 				return dot(*this);
 			}
 			
 			/**
 			 * @brief Return the length of the vector
 			 */
-			btScalar length(void) const {
+			btScalar length() const {
 				return btSqrt(length2());
 			}
 			
@@ -163,7 +163,7 @@ namespace etk
 				return (_v - *this).length();
 			}
 			
-			Vector3D<T>& safeNormalize(void) {
+			Vector3D<T>& safeNormalize() {
 				Vector3D<T> absVec = this->absolute();
 				int maxIndex = absVec.maxAxis();
 				if (absVec[maxIndex]>0)
@@ -179,14 +179,14 @@ namespace etk
 			 * @brief Normalize this vector 
 			 * x^2 + y^2 + z^2 = 1
 			 */
-			Vector3D<T>& normalize(void) {
+			Vector3D<T>& normalize() {
 				return *this /= length();
 			}
 			
 			/**
 			 * @brief Return a normalized version of this vector
 			 */
-			Vector3D<T> normalized(void) const {
+			Vector3D<T> normalized() const {
 				return *this / length();
 			}
 			
@@ -218,7 +218,7 @@ namespace etk
 			/**
 			 * @brief Return a vector will the absolute values of each element
 			 */
-			Vector3D<T> absolute(void) const {
+			Vector3D<T> absolute() const {
 				return Vector3D<T>( abs(m_floats[0]),
 				                    abs(m_floats[1]),
 				                    abs(m_floats[2]));
@@ -244,7 +244,7 @@ namespace etk
 			 * @brief Return the axis with the smallest value 
 			 * Note return values are 0,1,2 for x, y, or z
 			 */
-			int32_t minAxis(void) const {
+			int32_t minAxis() const {
 				if (m_floats[0] < m_floats[1]) {
 					return m_floats[0] < m_floats[2] ? 0 : 2;
 				}
@@ -255,18 +255,18 @@ namespace etk
 			 * @brief Return the axis with the largest value
 			 * Note return values are 0,1,2 for x, y, or z
 			 */
-			int32_t maxAxis(void) const {
+			int32_t maxAxis() const {
 				if (m_floats[0] < m_floats[1]) {
 					return m_floats[1] < m_floats[2] ? 2 : 1;
 				}
 				return m_floats[0] < m_floats[2] ? 2 : 0;
 			}
 			
-			int32_t furthestAxis(void) const {
+			int32_t furthestAxis() const {
 				return absolute().minAxis();
 			}
 			
-			int32_t closestAxis(void) const {
+			int32_t closestAxis() const {
 				return absolute().maxAxis();
 			}
 			
@@ -431,11 +431,11 @@ namespace etk
 				_v2->setValue(-y() ,x()  ,0.);
 			}
 			
-			void setZero(void) {
+			void setZero() {
 				setValue(0,0,0);
 			}
 			
-			bool isZero(void) const {
+			bool isZero() const {
 				return m_floats[0] == 0 && m_floats[1] == 0 && m_floats[2] == 0;
 			}
 	};

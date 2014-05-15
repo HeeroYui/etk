@@ -21,7 +21,7 @@ namespace etk {
 	class Matrix4 {
 		public:
 			float m_mat[4*4];
-			void identity(void) {
+			void identity() {
 				for(int32_t iii=0; iii<4*4 ; iii++) {
 					m_mat[iii] = 0;
 				}
@@ -33,7 +33,7 @@ namespace etk {
 			/*****************************************************
 			 *    Constructor
 			 *****************************************************/
-			Matrix4(void) {
+			Matrix4() {
 				identity();
 			}
 			Matrix4(const Matrix4& obj) {
@@ -74,7 +74,7 @@ namespace etk {
 			/*****************************************************
 			 *    Destructor
 			 *****************************************************/
-			virtual ~Matrix4(void) {
+			virtual ~Matrix4() {
 				
 			}
 			/*****************************************************
@@ -185,7 +185,7 @@ namespace etk {
 			/*****************************************************
 			 *  other basic function :
 			 *****************************************************/
-			void transpose(void)
+			void transpose()
 			{
 				float tmpVal = m_mat[1];
 				m_mat[1] = m_mat[4];
@@ -243,13 +243,13 @@ namespace etk {
 			 * @brief Computes the determinant of the matrix.
 			 * @return The determinent Value.
 			 */
-			float determinant(void) const;
+			float determinant() const;
 			/**
 			 * @brief Inverts the matrix.
 			 * @note The determinant must be != 0, otherwithe the matrix can't be inverted.
 			 * @return The inverted matrix.
 			 */
-			Matrix4 invert(void);
+			Matrix4 invert();
 	};
 	Matrix4 matFrustum(float xmin, float xmax, float ymin, float ymax, float zNear, float zFar);
 	Matrix4 matPerspective(float foxy, float aspect, float zNear, float zFar);

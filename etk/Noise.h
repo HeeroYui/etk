@@ -21,7 +21,7 @@ namespace etk {
 			ivec2    m_size;
 		public:
 			BaseNoise(ivec2 _size, float _min, float _max);
-			~BaseNoise(void);
+			~BaseNoise();
 			float get(int32_t _x, int32_t _y) const;
 	};
 	class Noise {
@@ -44,7 +44,7 @@ namespace etk {
 			float turbulenceNoSmooth(float _x, float _y, float _size, const etk::BaseNoise& _noise);
 		public:
 			Noise(enum noise _type, ivec2 _size, int32_t _depth);
-			~Noise(void);
+			~Noise();
 			float get(int32_t _x, int32_t _y) const;
 	};
 };

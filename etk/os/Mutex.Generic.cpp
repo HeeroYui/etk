@@ -10,7 +10,7 @@
 #include <etk/os/Mutex.h>
 #include <etk/debug.h>
 
-etk::Mutex::Mutex(void)
+etk::Mutex::Mutex()
 {
 	// create interface mutex :
 	int ret = pthread_mutex_init(&m_mutex, NULL);
@@ -18,7 +18,7 @@ etk::Mutex::Mutex(void)
 }
 
 
-etk::Mutex::~Mutex(void)
+etk::Mutex::~Mutex()
 {
 	// Remove mutex
 	int ret = pthread_mutex_destroy(&m_mutex);
@@ -26,19 +26,19 @@ etk::Mutex::~Mutex(void)
 }
 
 
-void etk::Mutex::lock(void)
+void etk::Mutex::lock()
 {
 	pthread_mutex_lock(&m_mutex);
 }
 
 
-bool etk::Mutex::tryLock(void)
+bool etk::Mutex::tryLock()
 {
 	return pthread_mutex_trylock(&m_mutex) != 0;
 }
 
 
-void etk::Mutex::unLock(void)
+void etk::Mutex::unLock()
 {
 	pthread_mutex_unlock(&m_mutex);
 }

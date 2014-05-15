@@ -147,16 +147,16 @@ namespace etk {
 			 * @brief Destructor
 			 * @note you will have some warning if you did not close your files
 			 */
-			~FSNode(void);
+			~FSNode();
 		private:
 			/**
 			 * @brief Internal methode that create the internal Real system name (transform DATA: HOME: DATA:GUI: in the real name of the files)
 			 */
-			void generateFileSystemPath(void);
+			void generateFileSystemPath();
 			/**
 			 * @brief Update the internal data of the right type, and times
 			 */
-			void updateFileSystemProperty(void);
+			void updateFileSystemProperty();
 			/**
 			 * @brief Common set name of the Node (if the user decide to change the node selection
 			 * @param[in] _newName Name of the Node
@@ -170,7 +170,7 @@ namespace etk {
 				 * @return true : Load is OK
 				 * @return false : An error Occured
 				 */
-				bool loadDataZip(void);
+				bool loadDataZip();
 				const etk::Archive::Content* m_zipContent;
 				int32_t m_zipReadingOffset;
 			#endif
@@ -180,21 +180,21 @@ namespace etk {
 			 * @return true : The node existed.
 			 * @return false : The node does not exist.
 			 */
-			bool exist(void) const {
+			bool exist() const {
 				return (m_typeNode!=etk::FSN_UNKNOW);
 			};
 			/**
 			 * @brief Get the node type
 			 * @return the requested type, FSN_UNKNOW if it does not existed
 			 */
-			enum typeNode getNodeType(void) const {
+			enum typeNode getNodeType() const {
 				return m_typeNode;
 			};
 			/**
 			 * @brief Get the node Right
 			 * @return the requested right
 			 */
-			etk::FSNodeRight getRight(void) const {
+			etk::FSNodeRight getRight() const {
 				return m_rights;
 			};
 			/**
@@ -216,41 +216,41 @@ namespace etk {
 			 * @brief Get the Generate FileSystem name
 			 * @return the requested filename
 			 */
-			std::string getFileSystemName(void) const;
-			std::u32string getUFileSystemName(void) const;
+			std::string getFileSystemName() const;
+			std::u32string getUFileSystemName() const;
 			/**
 			 * @brief Get the current folder of the Node. (file system name)
 			 * @return the common name define (like /xxxxx/xxxxx/ or c:/xxxxx/xxxxx/)
 			 * @note Auto remove of ../../../ and //
 			 */
-			std::string getNameFolder(void) const;
-			std::u32string getUNameFolder(void) const;
+			std::string getNameFolder() const;
+			std::u32string getUNameFolder() const;
 			/**
 			 * @brief Get the current compleate node name (file system name)
 			 * @return All the user name definition (like /xxxxx/xxxxx/myFile.kkk or c:/xxxxx/xxxxx/myFile.kkk)
 			 * @note Auto remove of ../../../ and //
 			 */
-			std::string getName(void) const;
-			std::u32string getUName(void) const;
+			std::string getName() const;
+			std::u32string getUName() const;
 			/**
 			 * @brief Get the file or current file name (if it was a file)
 			 * @return the name of the node (like myFile.kkk)
 			 */
-			std::string getNameFile(void) const;
-			std::u32string getUNameFile(void) const;
+			std::string getNameFile() const;
+			std::u32string getUNameFile() const;
 			/**
 			 * @brief Get the current folder of the Node.
 			 * @return the common name define (like DATA:xxxxx/xxxxx/)
 			 * @note Auto remove of ../../../ and //
 			 */
-			std::string getRelativeFolder(void) const;
-			std::u32string getURelativeFolder(void) const;
+			std::string getRelativeFolder() const;
+			std::u32string getURelativeFolder() const;
 			/**
 			 * @brief update the Time of the file with the current time
 			 * @return true : action done
 			 * @return false : action not done
 			 */
-			bool touch(void);
+			bool touch();
 			/**
 			 * @brief Move the Node at a new path
 			 * @param[in] _path The new path
@@ -263,7 +263,7 @@ namespace etk {
 			 * @brief Get the node type (DATA/DIRECT...)
 			 * @return the requested type
 			 */
-			enum FSNType getTypeAccess(void) const {
+			enum FSNType getTypeAccess() const {
 				return m_type;
 			};
 			/**
@@ -271,40 +271,40 @@ namespace etk {
 			 * @return true : action done
 			 * @return false : action not done
 			 */
-			bool remove(void);
+			bool remove();
 			/**
 			 * @brief Get the creating time of the File
 			 * @return The time requested
 			 */
-			uint64_t timeCreated(void) const;
+			uint64_t timeCreated() const;
 			/**
 			 * @brief Get the creating time of the File
 			 * @return The time requested (in string)
 			 */
-			std::string timeCreatedString(void) const;
-			std::u32string timeUCreatedString(void) const;
+			std::string timeCreatedString() const;
+			std::u32string timeUCreatedString() const;
 			/**
 			 * @brief Get the modifying time of the File
 			 * @return The time requested
 			 */
-			uint64_t timeModified(void) const;
+			uint64_t timeModified() const;
 			/**
 			 * @brief Get the modifying time of the File
 			 * @return The time requested (in string)
 			 */
-			std::string timeModifiedString(void) const;
-			std::u32string timeUModifiedString(void) const;
+			std::string timeModifiedString() const;
+			std::u32string timeUModifiedString() const;
 			/**
 			 * @brief Get the Accessed time of the File
 			 * @return The time requested
 			 */
-			uint64_t timeAccessed(void) const;
+			uint64_t timeAccessed() const;
 			/**
 			 * @brief Get the Accessed time of the File
 			 * @return The time requested (in string)
 			 */
-			std::string timeAccessedString(void) const;
-			std::u32string timeUAccessedString(void) const;
+			std::string timeAccessedString() const;
+			std::u32string timeUAccessedString() const;
 			/**
 			 * @brief copy the other FSnode ==> for vector
 			 * @param[in] _obj input node
@@ -336,7 +336,7 @@ namespace etk {
 			 * @return >=0 nb of subElement
 			 * @return -1 an error occured ==> not a folder ???
 			 */
-			int64_t folderCount(void);
+			int64_t folderCount();
 			/**
 			 * @brief Get the List of all node inside a node (folder only)
 			 * @param[in] _showHidenFile Add hidden file/folder/...
@@ -353,7 +353,7 @@ namespace etk {
 			 * @brief Get the father node of this node
 			 * @return The requested node
 			 */
-			etk::FSNode folderGetParent(void);
+			etk::FSNode folderGetParent();
 			/**
 			 * @brief Get all the File inside a Folder (done recursively)
 			 * @param[out] _output List of all the File names (You must clear it before set it in)
@@ -366,44 +366,44 @@ namespace etk {
 			 * @return true The file have an extention.
 			 * @return false The file have NO extention.
 			 */
-			bool fileHasExtention(void);
+			bool fileHasExtention();
 			/**
 			 * @brief Get the extention of the Node
 			 * @return the requested extention
 			 */
-			std::string fileGetExtention(void);
-			std::u32string fileUGetExtention(void);
+			std::string fileGetExtention();
+			std::u32string fileUGetExtention();
 			/**
 			 * @brief Get the File size
 			 * @return the requested size
 			 */
-			uint64_t fileSize(void);
+			uint64_t fileSize();
 			/**
 			 * @brief Open the file in Read mode
 			 * @return true : action done
 			 * @return false : action not done
 			 */
-			bool fileOpenRead(void);
+			bool fileOpenRead();
 			/**
 			 * @brief Open the file in write Mode
 			 * @note You can not do it with the DATA: file ==> this is not allowed in some Board like Android)
 			 * @return true : action done
 			 * @return false : action not done
 			 */
-			bool fileOpenWrite(void);
+			bool fileOpenWrite();
 			/**
 			 * @brief Open the file in write Append Mode
 			 * @note You can not do it with the DATA: file ==> this is not allowed in some Board like Android)
 			 * @return true : action done
 			 * @return false : action not done
 			 */
-			bool fileOpenAppend(void);
+			bool fileOpenAppend();
 			/**
 			 * @brief Close the cuurent file
 			 * @return true : action done
 			 * @return false : action not done
 			 */
-			bool fileClose(void);
+			bool fileClose();
 			/**
 			 * @brief Get the pointer on the start line and the next line (or null)
 			 * @param[in,out] _elementLine Pointer to an array of chars where the string read is copied.
@@ -415,7 +415,7 @@ namespace etk {
 			 * @brief Get a unique data in the file
 			 * @return the next element in the file.
 			 */
-			char fileGet(void);
+			char fileGet();
 			/**
 			 * @brief Get a compleate line in a text file
 			 * @param[out] _output the next element in the file.
@@ -457,7 +457,7 @@ namespace etk {
 			 * @brief Get the position in the file.
 			 * @return the requested position.
 			 */
-			int64_t fileTell(void);
+			int64_t fileTell();
 			/**
 			 * @brief Move in the file Position
 			 * @param[in] _offset Offset to apply at the file
@@ -469,7 +469,7 @@ namespace etk {
 			/**
 			 * @brief Flush the current file
 			 */
-			void fileFlush(void);
+			void fileFlush();
 		private:
 			/**
 			 * @brief Order the list of subnode the folder first and the alphabetical order
@@ -504,14 +504,14 @@ namespace etk {
 	 * @brief Get the home folder of the user
 	 * @return the home folder : like : "/home/machin/"
 	 */
-	std::string getUserHomeFolder(void);
-	std::u32string getUUserHomeFolder(void);
+	std::string getUserHomeFolder();
+	std::u32string getUUserHomeFolder();
 	/**
 	 * @brief Get the folder of the Program is running
 	 * @return the basic folder name (ex : run ./appl in the pwd=/home/machin/sousFolder ==> this return the pwd folder)
 	 */
-	std::string getUserRunFolder(void);
-	std::u32string getUUserRunFolder(void);
+	std::string getUserRunFolder();
+	std::u32string getUUserRunFolder();
 	
 	namespace theme {
 		// TODO : Add an INIT ...
@@ -552,9 +552,9 @@ namespace etk {
 		 * @brief Get the list of all the theme folder availlable in the user Home/appl
 		 * @return The list of elements
 		 */
-		std::vector<std::string> list(void);
+		std::vector<std::string> list();
 		//! @previous
-		std::vector<std::u32string> listU(void);
+		std::vector<std::u32string> listU();
 	};
 	
 	/**

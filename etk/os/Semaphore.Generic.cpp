@@ -26,7 +26,7 @@ etk::Semaphore::Semaphore(uint32_t _nbBasicElement, uint32_t _nbMessageMax) {
 }
 
 
-etk::Semaphore::~Semaphore(void) {
+etk::Semaphore::~Semaphore() {
 	// Remove condition
 	int ret = pthread_cond_destroy(&m_condition);
 	TK_ASSERT(ret == 0, "Error destroying Condition ...");
@@ -35,7 +35,7 @@ etk::Semaphore::~Semaphore(void) {
 	TK_ASSERT(ret == 0, "Error destroying Mutex ...");
 }
 
-uint32_t etk::Semaphore::getCount(void) {
+uint32_t etk::Semaphore::getCount() {
 	int32_t tmpData = 0;
 	pthread_mutex_lock(&m_mutex);
 	tmpData = m_data;
@@ -43,7 +43,7 @@ uint32_t etk::Semaphore::getCount(void) {
 	return tmpData;
 }
 
-void etk::Semaphore::post(void) {
+void etk::Semaphore::post() {
 	pthread_mutex_lock(&m_mutex);
 	if (m_data>=m_maximum) {
 		m_data = m_maximum;
@@ -56,7 +56,7 @@ void etk::Semaphore::post(void) {
 }
 
 
-void etk::Semaphore::wait(void) {
+void etk::Semaphore::wait() {
 	pthread_mutex_lock(&m_mutex);
 	while(m_data == 0) {
 		pthread_cond_wait(&m_condition, &m_mutex);

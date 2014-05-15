@@ -77,14 +77,14 @@ namespace etk {
 			/**
 			 * @brief Destructor of the Hash table(clear all element in the table)
 			 */
-			~Hash(void) {
+			~Hash() {
 				clear();
 			}
 			/**
 			 * @brief Remove all entry in the Hash table.
 			 * @note It does not delete pointer if your value is a pointer type...
 			 */
-			void clear(void) {
+			void clear() {
 				for (size_t iii = 0; iii < m_data.size(); ++iii) {
 					if (m_data[iii] != NULL) {
 						delete(m_data[iii]);
@@ -194,7 +194,7 @@ namespace etk {
 			 * @brief Get the number of element in the hash table
 			 * @return number of elements
 			 */
-			int32_t size(void) const {
+			int32_t size() const {
 				return m_data.size();
 			}
 			/**
@@ -230,7 +230,7 @@ namespace etk {
 			 * @brief Get all the element name (keys).
 			 * @return a vector of all name (key).
 			 */
-			std::vector<std::string> getKeys(void) const {
+			std::vector<std::string> getKeys() const {
 				std::vector<std::string> keys;
 				for (size_t iii = 0; iii < m_data.size(); ++iii) {
 					if (m_data[iii] != NULL) {

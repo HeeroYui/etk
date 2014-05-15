@@ -9,31 +9,31 @@
 
 #include <etk/os/Mutex.h>
 
-etk::Mutex::Mutex(void)
+etk::Mutex::Mutex()
 {
 	InitializeCriticalSection(&m_mutex);
 }
 
 
-etk::Mutex::~Mutex(void)
+etk::Mutex::~Mutex()
 {
 	DeleteCriticalSection(&m_mutex);
 }
 
 
-void etk::Mutex::lock(void)
+void etk::Mutex::lock()
 {
 	EnterCriticalSection(&m_mutex);
 }
 
 
-bool etk::Mutex::tryLock(void)
+bool etk::Mutex::tryLock()
 {
 	return TryEnterCriticalSection(&m_mutex) != 0;
 }
 
 
-void etk::Mutex::unLock(void)
+void etk::Mutex::unLock()
 {
 	LeaveCriticalSection(&m_mutex);
 }

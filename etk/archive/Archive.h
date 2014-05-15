@@ -20,19 +20,19 @@ namespace etk {
 				private:
 					int32_t m_link; //!< number of element open on this file
 				public:
-					void increaseRef(void) {
+					void increaseRef() {
 						m_link++;
 					};
-					void decreaseRef(void) {
+					void decreaseRef() {
 						m_link--;
 					};
-					int32_t getNumberOfRef(void) const {
+					int32_t getNumberOfRef() const {
 						return m_link;
 					};
 				private:
 					int32_t m_theoricSize; //!< number of element open on this file
 				public:
-					int32_t getTheoricSize(void) const {
+					int32_t getTheoricSize() const {
 						return m_theoricSize;
 					};
 				private:
@@ -41,13 +41,13 @@ namespace etk {
 					Content(int32_t _basicSize=0) :
 					  m_link(-1),
 					  m_theoricSize(_basicSize) { };
-					int32_t size(void) const {
+					int32_t size() const {
 						return m_data.size();
 					};
-					void* data(void) const {
+					void* data() const {
 						return (void*)&m_data[0];
 					};
-					std::vector<char>& getDataVector(void) {
+					std::vector<char>& getDataVector() {
 						return m_data;
 					};
 			};
@@ -56,7 +56,7 @@ namespace etk {
 			  m_fileName(_fileName) {
 				
 			};
-			virtual ~Archive(void) { };
+			virtual ~Archive() { };
 		protected:
 			std::string m_fileName; //!< File name when it came from an file
 		public:
@@ -64,7 +64,7 @@ namespace etk {
 			 * @brief Get the current file name.
 			 * @return the requested file name.
 			 */
-			const std::string& getFileName(void) {
+			const std::string& getFileName() {
 				return m_fileName;
 			};
 		protected:
@@ -74,7 +74,7 @@ namespace etk {
 			 * @brief Get the number of elements
 			 * @return nb files in the archive
 			 */
-			int32_t size(void) const {
+			int32_t size() const {
 				return m_content.size();
 			};
 			/**
@@ -114,7 +114,7 @@ namespace etk {
 			/**
 			 * @brief Display all Element in the archive
 			 */
-			void display(void);
+			void display();
 		protected:
 			/**
 			 * @brief Request the load in memory of the concerned file.

@@ -16,22 +16,22 @@ etk::Semaphore::Semaphore(uint32_t _nbBasicElement, uint32_t _nbMessageMax) {
 }
 
 
-etk::Semaphore::~Semaphore(void) {
+etk::Semaphore::~Semaphore() {
 	CloseHandle(m_semaphore);
 }
 
-uint32_t etk::Semaphore::getCount(void) {
+uint32_t etk::Semaphore::getCount() {
 	LONG tmpData = 0;
 	releaseSemaphore(m_semaphore, 0, &tmpData);
 	return tmpData;
 }
 
-void etk::Semaphore::post(void) {
+void etk::Semaphore::post() {
 	releaseSemaphore(m_semaphore, 1, NULL);
 }
 
 
-void etk::Semaphore::wait(void) {
+void etk::Semaphore::wait() {
 	waitForSingleObject(m_semaphore, INFINITE);
 }
 

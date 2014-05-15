@@ -22,7 +22,7 @@ enum {
 	RIGHT_USER_READ     = 1 << 8,
 };
 
-etk::FSNodeRight::FSNodeRight(void) :
+etk::FSNodeRight::FSNodeRight() :
 	m_rights(0)
 {
 	
@@ -47,17 +47,17 @@ const etk::FSNodeRight& etk::FSNodeRight::operator= (const int32_t _newVal )
 }
 
 // User
-bool etk::FSNodeRight::isUserReadable(void) const
+bool etk::FSNodeRight::isUserReadable() const
 {
 	return ((m_rights&RIGHT_USER_READ)!=0)?true:false;
 }
 
-bool etk::FSNodeRight::isUserWritable(void) const
+bool etk::FSNodeRight::isUserWritable() const
 {
 	return ((m_rights&RIGHT_USER_WRITE)!=0)?true:false;
 }
 
-bool etk::FSNodeRight::isUserRunable(void) const
+bool etk::FSNodeRight::isUserRunable() const
 {
 	return ((m_rights&RIGHT_USER_EXECUTE)!=0)?true:false;
 }
@@ -90,17 +90,17 @@ void etk::FSNodeRight::setUserRunable(bool _newStatus)
 }
 
 // group
-bool etk::FSNodeRight::isGroupReadable(void) const
+bool etk::FSNodeRight::isGroupReadable() const
 {
 	return ((m_rights&RIGHT_GROUP_READ)!=0)?true:false;
 }
 
-bool etk::FSNodeRight::isGroupWritable(void) const
+bool etk::FSNodeRight::isGroupWritable() const
 {
 	return ((m_rights&RIGHT_GROUP_WRITE)!=0)?true:false;
 }
 
-bool etk::FSNodeRight::isGroupRunable(void) const
+bool etk::FSNodeRight::isGroupRunable() const
 {
 	return ((m_rights&RIGHT_GROUP_EXECUTE)!=0)?true:false;
 }
@@ -133,17 +133,17 @@ void etk::FSNodeRight::setGroupRunable(bool _newStatus)
 }
 
 // other
-bool etk::FSNodeRight::isOtherReadable(void) const
+bool etk::FSNodeRight::isOtherReadable() const
 {
 	return ((m_rights&RIGHT_OTHER_READ) != 0)?true:false;
 }
 
-bool etk::FSNodeRight::isOtherWritable(void) const
+bool etk::FSNodeRight::isOtherWritable() const
 {
 	return ((m_rights&RIGHT_OTHER_WRITE) != 0)?true:false;
 }
 
-bool etk::FSNodeRight::isOtherRunable(void) const
+bool etk::FSNodeRight::isOtherRunable() const
 {
 	return ((m_rights&RIGHT_OTHER_EXECUTE) != 0)?true:false;
 }
@@ -175,11 +175,11 @@ void etk::FSNodeRight::setOtherRunable(bool _newStatus)
 	}
 }
 
-std::u32string etk::FSNodeRight::getURight(void) const {
+std::u32string etk::FSNodeRight::getURight() const {
 	return to_u32string(getRight());
 }
 
-std::string etk::FSNodeRight::getRight(void) const {
+std::string etk::FSNodeRight::getRight() const {
 	std::string tmp;
 	if (isUserReadable() == true) {
 		tmp += "r";

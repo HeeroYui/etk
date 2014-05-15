@@ -48,7 +48,7 @@ etk::archive::Zip::Zip(const std::string& _fileName) :
 	}
 }
 
-etk::archive::Zip::~Zip(void) {
+etk::archive::Zip::~Zip() {
 	if (m_ctx!= NULL) {
 		unzClose(m_ctx);
 		m_ctx = NULL;

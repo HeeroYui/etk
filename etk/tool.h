@@ -25,7 +25,7 @@ namespace etk {
 		/**
 		 * @brief Reset the random system with a random value (time).
 		 */
-		void resetRandom(void);
+		void resetRandom();
 		/**
 		 * @brief Reset the random system with The specify value.
 		 * @param[in] _val Seek value for the pseudo random system.

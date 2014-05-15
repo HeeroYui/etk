@@ -24,7 +24,7 @@ namespace etk {
 			/*****************************************************
 			 *    Constructor
 			 *****************************************************/
-			Plane(void) :
+			Plane() :
 			  m_normal(0, 0, 0),
 			  m_intercept(0) {
 				
@@ -42,7 +42,7 @@ namespace etk {
 			/*****************************************************
 			 *    Destructor
 			 *****************************************************/
-			~Plane(void) {
+			~Plane() {
 				
 			};
 			
@@ -91,7 +91,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			void normalize(void) {
+			void normalize() {
 				float normalLength=m_normal.getLength();
 				m_normal/=normalLength;
 				m_intercept/=normalLength;
@@ -102,7 +102,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			etk::Vector3D<T> getNormal(void) {
+			etk::Vector3D<T> getNormal() {
 				return m_normal;
 			};
 			
@@ -111,7 +111,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			float getIntercept(void) {
+			float getIntercept() {
 				return m_intercept;
 			}
 			
@@ -194,7 +194,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			Plane<T> operator-(void) const {
+			Plane<T> operator-() const {
 				return Plane<T>(-m_normal, -m_intercept);
 			}
 			
@@ -203,7 +203,7 @@ namespace etk {
 			 * @param[in,out]
 			 * @return
 			 */
-			Plane<T> operator+(void) const {
+			Plane<T> operator+() const {
 				return *this;
 			}
 	};

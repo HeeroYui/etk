@@ -8,7 +8,7 @@
 
 #include <etk/debug.h>
 
-int32_t etk::getLogId(void) {
+int32_t etk::getLogId() {
 	static int32_t g_val = etk::log::registerInstance("etk");
 	return g_val;
 }

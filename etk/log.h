@@ -58,7 +58,7 @@ namespace etk {
 		 * @brief Get list of all intance
 		 * @return the name list of all intance
 		 */
-		std::vector<std::string> getListInstance(void);
+		std::vector<std::string> getListInstance();
 		/**
 		 * @brief Set Color enable or disable.
 		 * @param[in] _status New value of color.

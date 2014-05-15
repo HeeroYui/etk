@@ -82,7 +82,7 @@ namespace etk {
 			/**
 			 * @brief Destructor of the current Class
 			 */
-			~Buffer(void) {
+			~Buffer() {
 				if (m_data != NULL) {
 					free(m_data);
 				}
@@ -104,8 +104,8 @@ namespace etk {
 				}
 				bool ret = true;
 				// write Data
-				(void)file.fileWrite(m_data, sizeof(int8_t), m_gapStart);
-				(void)file.fileWrite(&m_data[m_gapEnd], sizeof(int8_t), m_allocated - m_gapEnd);
+				file.fileWrite(m_data, sizeof(int8_t), m_gapStart);
+				file.fileWrite(&m_data[m_gapEnd], sizeof(int8_t), m_allocated - m_gapEnd);
 				file.fileClose();
 				return ret;
 			}
@@ -384,7 +384,7 @@ namespace etk {
 			/**
 			 * @brief Remove the last element of the Buffer.
 			 */
-			void pop_back(void) {
+			void pop_back() {
 				if (size() > 0) {
 					remove( size() );
 				}
@@ -392,7 +392,7 @@ namespace etk {
 			/**
 			 * @brief Remove all the data in the buffer.
 			 */
-			void clear(void) {
+			void clear() {
 				remove(0, size() );
 			}
 		protected:
@@ -409,7 +409,7 @@ namespace etk {
 			 * @brief Get the number of element in the vector. This does not contain the gap size.
 			 * @return The size of the set data.
 			 */
-			int32_t size(void) const {
+			int32_t size() const {
 				return m_allocated - gapSize();
 			};
 		private:
@@ -516,13 +516,13 @@ namespace etk {
 			 * @brief Get the current gap size.
 			 * @return The number of element in the gap.
 			 */
-			int32_t gapSize(void) const {
+			int32_t gapSize() const {
 				return m_gapEnd - m_gapStart;
 			}
 			/**
 			 * @brief Control if the writing gap is not too big (automatic call when resize the buffer).
 			 */
-			void gapCheckMaxSize(void) {
+			void gapCheckMaxSize() {
 				if(gapSize() > GAP_SIZE_MAX) {
 					int32_t currentSize = size();
 					// Change the gap Size

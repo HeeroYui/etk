@@ -24,7 +24,7 @@ int32_t etk::tool::irand(int32_t _a, int32_t _b)
 	return (int32_t)(( rand()/(double)RAND_MAX ) * ((double)_b-(double)_a) + (double)_a);
 }
 
-void etk::tool::resetRandom(void) {
+void etk::tool::resetRandom() {
 	srand(time(NULL));
 }
 

@@ -16,41 +16,41 @@ namespace etk {
 		private:
 			uint16_t m_rights;
 		public:
-			FSNodeRight(void);
+			FSNodeRight();
 			FSNodeRight(int16_t _newRight);
-			~FSNodeRight(void) { };
+			~FSNodeRight() { };
 			// copy operator :
 			const etk::FSNodeRight& operator= (const etk::FSNodeRight &_obj );
 			// set right :
 			const etk::FSNodeRight& operator= (const int32_t _newVal );
 			
-			void clear(void) {
+			void clear() {
 				m_rights = 0;
 			};
 			// User
-			bool isUserReadable(void) const;
-			bool isUserWritable(void) const;
-			bool isUserRunable(void) const;
+			bool isUserReadable() const;
+			bool isUserWritable() const;
+			bool isUserRunable() const;
 			void setUserReadable(bool _newStatus);
 			void setUserWritable(bool _newStatus);
 			void setUserRunable(bool _newStatus);
 			// group
-			bool isGroupReadable(void) const;
-			bool isGroupWritable(void) const;
-			bool isGroupRunable(void) const;
+			bool isGroupReadable() const;
+			bool isGroupWritable() const;
+			bool isGroupRunable() const;
 			void setGroupReadable(bool _newStatus);
 			void setGroupWritable(bool _newStatus);
 			void setGroupRunable(bool _newStatus);
 			// other
-			bool isOtherReadable(void) const;
-			bool isOtherWritable(void) const;
-			bool isOtherRunable(void) const;
+			bool isOtherReadable() const;
+			bool isOtherWritable() const;
+			bool isOtherRunable() const;
 			void setOtherReadable(bool _newStatus);
 			void setOtherWritable(bool _newStatus);
 			void setOtherRunable(bool _newStatus);
 			
-			std::u32string getURight(void) const;
-			std::string getRight(void) const;
+			std::u32string getURight() const;
+			std::string getRight() const;
 	};
 	std::ostream& operator <<(std::ostream &_os, const etk::FSNodeRight &_obj);
 };

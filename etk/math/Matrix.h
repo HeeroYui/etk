@@ -85,7 +85,7 @@ namespace etk
 			/*****************************************************
 			 *    Destructor
 			 *****************************************************/
-			virtual ~Matrix(void) {};
+			virtual ~Matrix() {};
 			
 			/*****************************************************
 			 *    = assigment
@@ -255,7 +255,7 @@ namespace etk
 			/*****************************************************
 			 *    - operator
 			 *****************************************************/
-			Matrix<T> operator - (void) {
+			Matrix<T> operator - () {
 				Matrix<T> tmp(m_size);
 				for (int32_t iii=0; iii<m_data.Size(); iii++) {
 					tmp.m_data[iii] = -m_data[iii];
@@ -268,7 +268,7 @@ namespace etk
 			 * @ brief Transpose Matrix
 			 * @ return the transpose matrix
 			 */
-			Matrix<T> transpose(void)
+			Matrix<T> transpose()
 			{
 				// create a matrix with the inverted size
 				Matrix<T> tmpMatrix(m_size.x, m_size.y);
@@ -379,7 +379,7 @@ namespace etk
 			 *   x x x x x
 			 * </pre>
 			 */
-			void clearUpperTriangle(void)
+			void clearUpperTriangle()
 			{
 				if (m_size.x != m_size.y) {
 					TK_WARNING("better to do with square Matrix");
@@ -400,7 +400,7 @@ namespace etk
 			 *   0 0 0 0 x
 			 * </pre>
 			 */
-			void clearLowerTriangle(void)
+			void clearLowerTriangle()
 			{
 				if (m_size.x != m_size.y) {
 					TK_WARNING("better to do with square Matrix");
@@ -447,7 +447,7 @@ namespace etk
 			/**
 			 * @brief Clear all the matrix.
 			 */
-			void clear(void) {
+			void clear() {
 				// copy data for the same size :
 				for (int32_t iii=0; iii< m_size.x*m_size.y; iii++) {
 					m_data[iii] = (T)0;
@@ -456,7 +456,7 @@ namespace etk
 			/**
 			 * @brief Set the diagonal at 1
 			 */
-			void identity(void)
+			void identity()
 			{
 				// copy data for the same size :
 				for (int32_t iii=0; iii< etk_min(m_size.x, m_size.y); iii++) {
@@ -466,7 +466,7 @@ namespace etk
 			/**
 			 * @brief Clear and set the diagonal at 1
 			 */
-			void eye(void)
+			void eye()
 			{
 				clear();
 				identity();
@@ -475,7 +475,7 @@ namespace etk
 			 * @brief Get the size of the current Matrix.
 			 * @return Dimention of the matrix
 			 */
-			Vector2D<int32_t> size(void)
+			Vector2D<int32_t> size()
 			{
 				return m_size;
 			};

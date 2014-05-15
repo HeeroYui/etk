@@ -28,7 +28,7 @@ namespace etk
 			/**
 			 * @brief No initialization constructor (faster ...)
 			 */
-			Vector4D(void)
+			Vector4D()
 			{
 				#ifdef DEBUG
 					// in debug mode we set supid value to prevent forget of the inits ...
@@ -244,7 +244,7 @@ namespace etk
 			/**
 			 * @brief Return a vector will the absolute values of each element
 			 */
-			Vector4D<T> absolute(void) const
+			Vector4D<T> absolute() const
 			{
 				return Vector4D<T>( abs(m_floats[0]),
 				                    abs(m_floats[1]),
@@ -276,7 +276,7 @@ namespace etk
 			 * Note return values are 0,1,2 for x, y, or z
 			 */
 			/*
-			int32_t minAxis(void) const
+			int32_t minAxis() const
 			{
 				return m_floats[0] < m_floats[1] ? (m_floats[0] <m_floats[2] ? 0 : 2) : (m_floats[1] <m_floats[2] ? 1 : 2);
 			}
@@ -286,17 +286,17 @@ namespace etk
 			 * Note return values are 0,1,2 for x, y, or z
 			 */
 			/*
-			int32_t maxAxis(void) const 
+			int32_t maxAxis() const 
 			{
 				return m_floats[0] < m_floats[1] ? (m_floats[1] <m_floats[2] ? 2 : 1) : (m_floats[0] <m_floats[2] ? 2 : 0);
 			}
 			
-			int32_t furthestAxis(void) const
+			int32_t furthestAxis() const
 			{
 				return absolute().minAxis();
 			}
 			
-			int32_t closestAxis(void) const
+			int32_t closestAxis() const
 			{
 				return absolute().maxAxis();
 			}
@@ -453,12 +453,12 @@ namespace etk
 				v2->setValue(-y() ,x()  ,0.);
 			}
 			*/
-			void setZero(void)
+			void setZero()
 			{
 				setValue(0,0,0,0);
 			}
 			
-			bool isZero(void) const
+			bool isZero() const
 			{
 				return m_floats[0] == 0 && m_floats[1] == 0 && m_floats[2] == 0 && m_floats[3] == 0;
 			}

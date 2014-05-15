@@ -32,25 +32,25 @@ namespace etk {
 			/**
 			 * @brief Create a new mutex
 			 */
-			Mutex(void);
+			Mutex();
 			/**
 			 * @brief Destroy the mutex.
 			 */
-			~Mutex(void);
+			~Mutex();
 			/**
 			 * @brief Lock the mutex (Wait while the mutex is not lock)
 			 */
-			void lock(void);
+			void lock();
 			/**
 			 * @brief Try to lock the mutex (exit if mutex is already locked)
 			 * @return true The mutex is locked
 			 * @return false The mutex is already locked.
 			 */
-			bool tryLock(void);
+			bool tryLock();
 			/**
 			 * @brief Unloc the mutex
 			 */
-			void unLock(void);
+			void unLock();
 	};
 	/**
 	 * @brief AutoLock and un-lock when exit fuction.
@@ -71,7 +71,7 @@ namespace etk {
 			/**
 			 * @brief Destructor that Auto Unlock mutex when remove.
 			 */
-			virtual ~AutoLockMutex(void){
+			virtual ~AutoLockMutex(){
 				m_protect.unLock();
 			}
 	};

@@ -17,15 +17,15 @@
 #undef __class__
 #define __class__	"etktest"
 
-void testVector(void) {
+void testVector() {
 	
 }
 
-void testUChar(void) {
+void testUChar() {
 	
 }
 
-void testHash(void) {
+void testHash() {
 	TK_INFO("==> Start test of Hach table");
 	etk::Hash<std::string> testData;
 	testData.add("TEST", "testData");
@@ -43,7 +43,7 @@ void testHash(void) {
 	TK_INFO("==> End test of Hach table");
 }
 
-void testFSNode(void) {
+void testFSNode() {
 	TK_INFO("==> Start test of FSNode");
 	std::string fileName("USERDATA:myFileTest.txt");
 	etk::FSNode myNodeTest1(fileName);
@@ -103,7 +103,7 @@ void testFSNode(void) {
 }
 
 
-void testArchive(void) {
+void testArchive() {
 	TK_INFO("==> Start test of archive");
 	etk::Archive* tmpArchive = etk::Archive::load("testzip.zip");
 	tmpArchive->display();
@@ -112,7 +112,7 @@ void testArchive(void) {
 }
 
 /*
-void testDimension(void) {
+void testDimension() {
 	TK_INFO("==> test of Dimension (START)");
 	
 	ewol::Dimension myDimention(vec2(5,5), ewol::Dimension::Centimeter);

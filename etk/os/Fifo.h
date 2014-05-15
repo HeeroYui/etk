@@ -30,13 +30,13 @@ namespace etk {
 			/**
 			 * @brief Create a fifo with no message.
 			 */
-			Fifo(void) {
+			Fifo() {
 				// nothing to do ...
 			};
 			/**
 			 * @brief Remove the fifo and all message inside.
 			 */
-			~Fifo(void) {
+			~Fifo() {
 				// nothing to do ...
 			};
 			/**
@@ -98,7 +98,7 @@ namespace etk {
 			 * @brief Get the number of message in the fifo.
 			 * @return Number of message in the fifo.
 			 */
-			int32_t count(void) {
+			int32_t count() {
 				m_mutex.lock();
 				int32_t nbElement = m_data.size();
 				m_mutex.unLock();
@@ -117,7 +117,7 @@ namespace etk {
 			/**
 			 * @brief Remove all the message in the fifo.
 			 */
-			void clean(void) {
+			void clean() {
 				m_mutex.lock();
 				// remove data
 				m_data.clear();

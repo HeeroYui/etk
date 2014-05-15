@@ -22,7 +22,7 @@ namespace etk {
 				unz_global_info m_info; //!< global information of the Zip
 			public:
 				Zip(const std::string& _fileName);
-				virtual ~Zip(void);
+				virtual ~Zip();
 			protected: // herited functions :
 				virtual void loadFile(const std::map<std::string, Content>::iterator& it);
 		};

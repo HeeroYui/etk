@@ -41,20 +41,20 @@ namespace etk {
 			/**
 			 * @brief Generic destructor.
 			 */
-			~Semaphore(void);
+			~Semaphore();
 			/**
 			 * @brief Get the number of element in the semaphore.
 			 * @return Number of stored elements.
 			 */
-			uint32_t getCount(void);
+			uint32_t getCount();
 			/**
 			 * @brief Post a new semaphore
 			 */
-			void post(void);
+			void post();
 			/**
 			 * @brief Wait for a new semaphore post by an other thread.
 			 */
-			void wait(void);
+			void wait();
 			/**
 			 * @brief Wait for a new semaphore post by an other thread,
 			 * with a timeout in micro-second.

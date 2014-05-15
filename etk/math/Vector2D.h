@@ -23,7 +23,7 @@ namespace etk {
 			/* ****************************************************
 			 *    Constructor
 			 *****************************************************/
-			Vector2D(void) {
+			Vector2D() {
 				#ifdef DEBUG
 					// in debug mode we set supid value to prevent forget of the inits ...
 					m_floats[0] = (T)34673363;
@@ -49,7 +49,7 @@ namespace etk {
 			};
 			Vector2D(const std::string& _str);
 			Vector2D(const std::u32string& _str);
-			~Vector2D(void) { };
+			~Vector2D() { };
 			/* ****************************************************
 			 *    = assigment
 			 *****************************************************/
@@ -179,7 +179,7 @@ namespace etk {
 			/* ****************************************************
 			 *    ++ operator
 			 *****************************************************/
-			Vector2D<T>& operator++(void) {
+			Vector2D<T>& operator++() {
 				++m_floats[0];
 				++m_floats[1];
 				return *this;
@@ -192,7 +192,7 @@ namespace etk {
 			/* ****************************************************
 			 *    -- operator
 			 *****************************************************/
-			Vector2D<T>& operator--(void) {
+			Vector2D<T>& operator--() {
 				--m_floats[0];
 				--m_floats[1];
 				return *this;
@@ -213,13 +213,13 @@ namespace etk {
 			/**
 			 * @brief Return the length of the vector squared
 			 */
-			btScalar length2(void) const {
+			btScalar length2() const {
 				return dot(*this);
 			}
 			/**
 			 * @brief Return the length of the vector
 			 */
-			btScalar length(void) const {
+			btScalar length() const {
 				return btSqrt(length2());
 			}
 			/**
@@ -240,19 +240,19 @@ namespace etk {
 			 * @brief Normalize this vector 
 			 * x^2 + y^2 + z^2 = 1
 			 */
-			Vector3D<T>& normalize(void) {
+			Vector3D<T>& normalize() {
 				return *this /= length();
 			}
 			/**
 			 * @brief Return a normalized version of this vector
 			 */
-			Vector2D<T> normalized(void) const {
+			Vector2D<T> normalized() const {
 				return *this / length();
 			}
 			/**
 			 * @brief Return a vector will the absolute values of each element
 			 */
-			Vector2D<T> absolute(void) const {
+			Vector2D<T> absolute() const {
 				return Vector2D<T>( abs(m_floats[0]),
 				                    abs(m_floats[1]));
 			}
@@ -260,32 +260,32 @@ namespace etk {
 			 * @brief Return the axis with the smallest value 
 			 * Note return values are 0,1,2 for x, y, or z
 			 */
-			int32_t minAxis(void) const {
+			int32_t minAxis() const {
 				return m_floats[0] < m_floats[1] ? 0 : 1;
 			}
 			/**
 			 * @brief Return the axis with the largest value
 			 * Note return values are 0,1,2 for x, y, or z
 			 */
-			int32_t maxAxis(void) const {
+			int32_t maxAxis() const {
 				return m_floats[0] < m_floats[1] ? 1 : 0;
 			}
-			int32_t furthestAxis(void) const {
+			int32_t furthestAxis() const {
 				return absolute().minAxis();
 			}
-			int32_t closestAxis(void) const {
+			int32_t closestAxis() const {
 				return absolute().maxAxis();
 			}
 			/**
 			 * @brief Return the x value
 			 */
-			const T& getX(void) const {
+			const T& getX() const {
 				return m_floats[0];
 			}
 			/**
 			 * @brief Return the y value
 			 */
-			const T& getY(void) const {
+			const T& getY() const {
 				return m_floats[1];
 			}
 			/**
@@ -303,19 +303,19 @@ namespace etk {
 			/**
 			 * @brief Return the x value
 			 */
-			const T& x(void) const {
+			const T& x() const {
 				return m_floats[0];
 			}
 			/**
 			 * @brief Return the y value
 			 */
-			const T& y(void) const {
+			const T& y() const {
 				return m_floats[1];
 			}
-			operator T *(void) {
+			operator T *() {
 				return &m_floats[0];
 			}
-			operator const T *(void) const {
+			operator const T *() const {
 				return &m_floats[0];
 			}
 			/**
@@ -338,15 +338,15 @@ namespace etk {
 				m_floats[0]=_x;
 				m_floats[1]=_y;
 			}
-			void setZero(void) {
+			void setZero() {
 				setValue(0,0);
 			}
-			bool isZero(void) const {
+			bool isZero() const {
 				return m_floats[0] == 0 && m_floats[1] == 0;
 			}
 			//!< string cast :
-			operator std::string(void) const;
-			operator std::u32string(void) const;
+			operator std::string() const;
+			operator std::u32string() const;
 	};
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information

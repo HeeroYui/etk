@@ -70,12 +70,12 @@
 	#define DEFAULT_LOG_TIME true
 #endif
 
-enum etk::log::level& getDefaultLevel(void) {
+enum etk::log::level& getDefaultLevel() {
 	static enum etk::log::level g_val = DEFAULT_LOG_LEVEL;
 	return g_val;
 }
 
-std::vector<std::pair<std::string, enum etk::log::level>>& getList(void) {
+std::vector<std::pair<std::string, enum etk::log::level>>& getList() {
 	static std::vector<std::pair<std::string, enum etk::log::level>> g_val;
 	return g_val;
 }
@@ -125,7 +125,7 @@ int32_t etk::log::getLevel(int32_t _id) {
 	return (int32_t)getList()[_id].second;
 }
 
-std::vector<std::string> etk::log::getListInstance(void) {
+std::vector<std::string> etk::log::getListInstance() {
 	std::vector<std::string> out;
 	for (size_t iii = 0; iii < getList().size(); ++iii) {
 		out.push_back(getList()[iii].first);
@@ -151,7 +151,7 @@ void etk::log::logStream1(int32_t _id, int32_t _level, const std::ostream& _log)
 	etk::log::logChar(_id, _level, -1, NULL, NULL, sss.c_str());
 }
 
-static bool& getColor(void) {
+static bool& getColor() {
 	static bool g_val = DEFAULT_LOG_COLOR;
 	return g_val;
 }
@@ -160,7 +160,7 @@ void etk::log::setColor(bool _status) {
 	getColor() = _status;
 }
 
-static bool& getTime(void) {
+static bool& getTime() {
 	static bool g_val = DEFAULT_LOG_TIME;
 	return g_val;
 }
@@ -168,7 +168,7 @@ void etk::log::setTime(bool _status) {
 	getTime() = _status;
 }
 
-static bool& getLine(void) {
+static bool& getLine() {
 	static bool g_val = DEFAULT_LOG_LINE;
 	return g_val;
 }
@@ -176,7 +176,7 @@ void etk::log::setLine(bool _status) {
 	getLine() = _status;
 }
 
-static bool& getFunction(void) {
+static bool& getFunction() {
 	static bool g_val = DEFAULT_LOG_CLASS;
 	return g_val;
 }

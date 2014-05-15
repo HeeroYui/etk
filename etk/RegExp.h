@@ -154,7 +154,7 @@ template<class CLASS_TYPE> class RegExpNode {
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNode(void) :
+		RegExpNode() :
 		  m_multipleMin(1),
 		  m_multipleMax(1) {
 			
@@ -162,7 +162,7 @@ template<class CLASS_TYPE> class RegExpNode {
 		/**
 		 * @brief Destructor
 		 */
-		virtual ~RegExpNode(void) { };
+		virtual ~RegExpNode() { };
 		/**
 		 * @brief Generate the regular expression with the current "converted string"
 		 * @param[in] _data Property of the regexp
@@ -202,14 +202,14 @@ template<class CLASS_TYPE> class RegExpNode {
 		 * @brief Get the minimum multiplicity.
 		 * @return The minimum appear availlable.
 		 */
-		uint32_t getMultMin(void) const {
+		uint32_t getMultMin() const {
 			return m_multipleMin;
 		};
 		/**
 		 * @brief Get the maximum multiplicity.
 		 * @return The maximum appear availlable.
 		 */
-		uint32_t getMultMax(void) const {
+		uint32_t getMultMax() const {
 			return m_multipleMax;
 		};
 };
@@ -226,12 +226,12 @@ template<class CLASS_TYPE> class RegExpNodeValue : public etk::RegExpNode<CLASS_
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNodeValue(void) { };
+		RegExpNodeValue() { };
 		
 		/**
 		 * @brief Destructor
 		 */
-		~RegExpNodeValue(void) { };
+		~RegExpNodeValue() { };
 		
 		int32_t generate(const std::vector<char32_t>& _data) {
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
@@ -307,11 +307,11 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public etk::RegExpNode<CLAS
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNodeBracket(void) { };
+		RegExpNodeBracket() { };
 		/**
 		 * @brief Destructor
 		 */
-		~RegExpNodeBracket(void) { };
+		~RegExpNodeBracket() { };
 		int32_t generate(const std::vector<char32_t>& _data) {
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse [...] data=" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/ );
@@ -395,11 +395,11 @@ template<class CLASS_TYPE> class RegExpNodeDigit : public etk::RegExpNode<CLASS_
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNodeDigit(void) { };
+		RegExpNodeDigit() { };
 		/**
 		 * @brief Destructor
 		 */
-		~RegExpNodeDigit(void) { };
+		~RegExpNodeDigit() { };
 		virtual bool parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : Digit{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "} : "<< _data[_currentPos] << " lenMax=" << _lenMax);
@@ -447,11 +447,11 @@ template<class CLASS_TYPE> class RegExpNodeDigitNot : public etk::RegExpNode<CLA
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNodeDigitNot(void) { };
+		RegExpNodeDigitNot() { };
 		/**
 		 * @brief Destructor
 		 */
-		~RegExpNodeDigitNot(void) { };
+		~RegExpNodeDigitNot() { };
 		virtual bool parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : DigitNot{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -492,11 +492,11 @@ template<class CLASS_TYPE> class RegExpNodeLetter : public etk::RegExpNode<CLASS
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNodeLetter(void) { };
+		RegExpNodeLetter() { };
 		/**
 		 * @brief Destructor
 		 */
-		~RegExpNodeLetter(void) { };
+		~RegExpNodeLetter() { };
 		virtual bool parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : Letter{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -542,11 +542,11 @@ template<class CLASS_TYPE> class RegExpNodeLetterNot : public etk::RegExpNode<CL
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNodeLetterNot(void) { };
+		RegExpNodeLetterNot() { };
 		/**
 		 * @brief Destructor
 		 */
-		~RegExpNodeLetterNot(void) { };
+		~RegExpNodeLetterNot() { };
 		virtual bool parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : LetterNot{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -592,11 +592,11 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpace : public etk::RegExpNode<C
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNodeWhiteSpace(void) { };
+		RegExpNodeWhiteSpace() { };
 		/**
 		 * @brief Destructor
 		 */
-		~RegExpNodeWhiteSpace(void) { };
+		~RegExpNodeWhiteSpace() { };
 		virtual bool parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : Space{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -644,11 +644,11 @@ template<class CLASS_TYPE> class RegExpNodeWhiteSpaceNot : public etk::RegExpNod
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNodeWhiteSpaceNot(void) { };
+		RegExpNodeWhiteSpaceNot() { };
 		/**
 		 * @brief Destructor
 		 */
-		~RegExpNodeWhiteSpaceNot(void) { };
+		~RegExpNodeWhiteSpaceNot() { };
 		virtual bool parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : SpaceNot{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -696,11 +696,11 @@ template<class CLASS_TYPE> class RegExpNodeWordChar : public etk::RegExpNode<CLA
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNodeWordChar(void) { };
+		RegExpNodeWordChar() { };
 		/**
 		 * @brief Destructor
 		 */
-		~RegExpNodeWordChar(void) { };
+		~RegExpNodeWordChar() { };
 		virtual bool parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : Word{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -747,11 +747,11 @@ template<class CLASS_TYPE> class RegExpNodeWordCharNot : public etk::RegExpNode<
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNodeWordCharNot(void) { };
+		RegExpNodeWordCharNot() { };
 		/**
 		 * @brief Destructor
 		 */
-		~RegExpNodeWordCharNot(void) { };
+		~RegExpNodeWordCharNot() { };
 		virtual bool parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : WordNot{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -799,11 +799,11 @@ template<class CLASS_TYPE> class RegExpNodeDot : public etk::RegExpNode<CLASS_TY
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNodeDot(void) { };
+		RegExpNodeDot() { };
 		/**
 		 * @brief Destructor
 		 */
-		~RegExpNodeDot(void) { };
+		~RegExpNodeDot() { };
 		virtual bool parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
 			_findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : '.'{" << RegExpNode<CLASS_TYPE>::m_multipleMin << "," << RegExpNode<CLASS_TYPE>::m_multipleMax << "}");
@@ -853,11 +853,11 @@ template<class CLASS_TYPE> class RegExpNodeSOL : public etk::RegExpNode<CLASS_TY
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNodeSOL(void) { };
+		RegExpNodeSOL() { };
 		/**
 		 * @brief Destructor
 		 */
-		~RegExpNodeSOL(void) { };
+		~RegExpNodeSOL() { };
 		virtual bool parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
 			_findLen = 0;
 			// TODO : ...
@@ -883,11 +883,11 @@ template<class CLASS_TYPE> class RegExpNodeEOL : public etk::RegExpNode<CLASS_TY
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNodeEOL(void) { };
+		RegExpNodeEOL() { };
 		/**
 		 * @brief Destructor
 		 */
-		~RegExpNodeEOL(void) { };
+		~RegExpNodeEOL() { };
 		virtual bool parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
 			_findLen = 0;
 			// TODO : ...
@@ -924,11 +924,11 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public etk::RegExpNode<C
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNodePTheseElem(void) { };
+		RegExpNodePTheseElem() { };
 		/**
 		 * @brief Destructor
 		 */
-		~RegExpNodePTheseElem(void) { };
+		~RegExpNodePTheseElem() { };
 		int32_t generate(const std::vector<char32_t>& _data) {
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse (elem) data=" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/ );
@@ -1125,11 +1125,11 @@ template<class CLASS_TYPE> class RegExpNodePThese : public etk::RegExpNode<CLASS
 		/**
 		 * @brief Constructor
 		 */
-		RegExpNodePThese(void) { };
+		RegExpNodePThese() { };
 		/**
 		 * @brief Destructor
 		 */
-		~RegExpNodePThese(void) { }
+		~RegExpNodePThese() { }
 		int32_t generate(const std::vector<char32_t>& _data) {
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse (...) data=" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/ );
@@ -1206,7 +1206,7 @@ template<class CLASS_TYPE> class RegExpNodePThese : public etk::RegExpNode<CLASS
 		/**
 		 * @brief Just display the regExp in color ...
 		 */
-		void drawColoredRegEx(void) {
+		void drawColoredRegEx() {
 			TK_INFO("regExp :" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/ );
 		}
 };
@@ -1291,7 +1291,7 @@ template<class CLASS_TYPE> class RegExp {
 		/**
 		 * @brief Destructor
 		 */
-		~RegExp(void) {
+		~RegExp() {
 			m_isOk = false;
 		};
 		
@@ -1445,13 +1445,13 @@ template<class CLASS_TYPE> class RegExp {
 		 * @brief Get the regular expression string
 		 * @return the string representing the RegExp
 		 */
-		std::string getRegExp(void) const {
+		std::string getRegExp() const {
 			return std::to_string(m_expressionRequested);
 		};
 		/**
 		 * @previous
 		 */
-		const std::u32string& getURegExp(void) const {
+		const std::u32string& getURegExp() const {
 			return m_expressionRequested;
 		};
 		
@@ -1460,7 +1460,7 @@ template<class CLASS_TYPE> class RegExp {
 		 * @return true : the regExp is correctly parsed
 		 * @return false : an error occcured (check log ...)
 		 */
-		bool getStatus(void) {
+		bool getStatus() {
 			return m_isOk;
 		};
 		// process the regular expression
@@ -1618,7 +1618,7 @@ template<class CLASS_TYPE> class RegExp {
 		 * @brief Get the expression start position detected
 		 * @return position of the start regExp
 		 */
-		int64_t	start(void) {
+		int64_t	start() {
 			return m_areaFind.start;
 		};
 		
@@ -1626,27 +1626,27 @@ template<class CLASS_TYPE> class RegExp {
 		 * @brief Get the expression stop position detected
 		 * @return position of the stop regExp
 		 */
-		int64_t	stop(void) {
+		int64_t	stop() {
 			return m_areaFind.stop;
 		};
 		
 		/**
 		 * @brief Display the reg Exp
 		 */
-		void display(void) {
+		void display() {
 			m_exprRootNode.display(0);
 		};
 		/**
 		 * @brief Just display the regExp in color ...
 		 */
-		void drawColoredRegEx(void) {
+		void drawColoredRegEx() {
 			m_exprRootNode.drawColoredRegEx();
 		}
 		/**
 		 * @brief Get decorated regular expression. This generate a [class[ewol::compositing::Text]] decoration text. Note that can be use in [class[ewol::widget::Label]].
 		 * @return The decorated string
 		 */
-		std::string getRegExDecorated(void) {
+		std::string getRegExDecorated() {
 			// TODO : do it...
 			return "";
 		}

@@ -49,7 +49,7 @@ bool etk::Archive::exist(const std::string& _key) const {
 	return m_content.find(_key) != m_content.end();
 }
 
-void etk::Archive::display(void)
+void etk::Archive::display()
 {
 	for (auto &it : m_content) {
 		int32_t size = it.second.getTheoricSize();

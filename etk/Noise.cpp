@@ -28,7 +28,7 @@ etk::BaseNoise::BaseNoise(ivec2 _size, float _min, float _max) :
 	}
 }
 
-etk::BaseNoise::~BaseNoise(void)
+etk::BaseNoise::~BaseNoise()
 {
 	
 }
@@ -154,7 +154,7 @@ etk::Noise::Noise(enum noise _type, ivec2 _size, int32_t _depth) :
 	
 }
 
-etk::Noise::~Noise(void)
+etk::Noise::~Noise()
 {
 	
 }

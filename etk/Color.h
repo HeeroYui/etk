@@ -41,7 +41,7 @@ namespace etk {
 			/**
 			 * @brief Constructor. It does not initialise element of class.
 			 */
-			Color(void) { };
+			Color() { };
 			/**
 			 * @brief Contructor with request initialisation.
 			 * @param[in] _r Red color.
@@ -145,7 +145,7 @@ namespace etk {
 			 * @breif Get the Generic uint32_t value of the color
 			 * @return Color in unsigned integer
 			 */
-			uint32_t get(void) const;
+			uint32_t get() const;
 			/**
 			 * @brief Set the specified color elements.
 			 * @param[in] _r Red color.
@@ -167,7 +167,7 @@ namespace etk {
 			 * @brief Convert the color in an hexedecimal string ("0xFEDCBA98")
 			 * @return The formated string
 			 */
-			std::string getHexString(void) const {
+			std::string getHexString() const {
 				std::ostringstream oss;
 				oss << "0x" << std::setw(8) << std::setfill('0') << std::hex << get();
 				return oss.str();
@@ -176,7 +176,7 @@ namespace etk {
 			 * @brief Convert the color in an generic string value ("#FEDCBA98")
 			 * @return The formated string
 			 */
-			std::string getString(void) const {
+			std::string getString() const {
 				std::ostringstream oss;
 				oss << "#" << std::setw(8) << std::setfill('0') << std::hex << get();
 				return oss.str();
@@ -185,28 +185,28 @@ namespace etk {
 			 * @brief Get red color.
 			 * @return The red color.
 			 */
-			MY_TYPE r(void) const {
+			MY_TYPE r() const {
 				return m_r;
 			};
 			/**
 			 * @brief Get green color.
 			 * @return The green color.
 			 */
-			MY_TYPE g(void) const {
+			MY_TYPE g() const {
 				return m_g;
 			};
 			/**
 			 * @brief Get blue color.
 			 * @return The blue color.
 			 */
-			MY_TYPE b(void) const {
+			MY_TYPE b() const {
 				return m_b;
 			};
 			/**
 			 * @brief Get alpha blending.
 			 * @return The alpha blending.
 			 */
-			MY_TYPE a(void) const {
+			MY_TYPE a() const {
 				return m_a;
 			};
 			/**

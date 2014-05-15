@@ -85,7 +85,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const std::vector<bvec2 >& _ob
 }
 
 namespace etk {
-	template<> Vector2D<bool>::operator std::string(void) const {
+	template<> Vector2D<bool>::operator std::string() const {
 		std::string str;
 		str = "(";
 		str += std::to_string(x());
@@ -94,7 +94,7 @@ namespace etk {
 		str += ")";
 		return str;
 	}
-	template<> Vector2D<bool>::operator std::u32string(void) const {
+	template<> Vector2D<bool>::operator std::u32string() const {
 		std::u32string str;
 		str = U"(";
 		str += std::to_u32string(x());
@@ -153,7 +153,7 @@ namespace etk {
 		TK_VERBOSE("Parse : '" << _str << "' ==> " << *this);
 	}
 	
-	template<> Vector2D<int32_t>::operator std::string(void) const {
+	template<> Vector2D<int32_t>::operator std::string() const {
 		std::string str;
 		str = "(";
 		str += std::to_string(x());
@@ -162,7 +162,7 @@ namespace etk {
 		str += ")";
 		return str;
 	}
-	template<> Vector2D<int32_t>::operator std::u32string(void) const {
+	template<> Vector2D<int32_t>::operator std::u32string() const {
 		std::u32string str;
 		str = U"(";
 		str += std::to_u32string(x());
@@ -223,7 +223,7 @@ namespace etk {
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
 	
-	template<> Vector2D<uint32_t>::operator std::string(void) const {
+	template<> Vector2D<uint32_t>::operator std::string() const {
 		std::string str;
 		str = "(";
 		str += std::to_string(x());
@@ -233,7 +233,7 @@ namespace etk {
 		return str;
 	}
 	
-	template<> Vector2D<uint32_t>::operator std::u32string(void) const {
+	template<> Vector2D<uint32_t>::operator std::u32string() const {
 		std::u32string str;
 		str = U"(";
 		str += std::to_u32string(x());
@@ -294,7 +294,7 @@ namespace etk {
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
 	
-	template<> Vector2D<float>::operator std::string(void) const {
+	template<> Vector2D<float>::operator std::string() const {
 		std::string str;
 		str = "(";
 		str += std::to_string(x());
@@ -303,7 +303,7 @@ namespace etk {
 		str += ")";
 		return str;
 	}
-	template<> Vector2D<float>::operator std::u32string(void) const {
+	template<> Vector2D<float>::operator std::u32string() const {
 		std::u32string str;
 		str = U"(";
 		str += std::to_u32string(x());

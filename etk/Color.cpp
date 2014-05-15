@@ -44,8 +44,8 @@ typedef struct {
 	etk::Color<> color;
 } colorList_ts;
 
-static int32_t getColorSize(void);
-static const colorList_ts* getColorList(void);
+static int32_t getColorSize();
+static const colorList_ts* getColorList();
 
 namespace etk {
 	template<> void Color<uint8_t>::set(float _r, float _g, float _b, float _a) {
@@ -76,14 +76,14 @@ namespace etk {
 		m_a = ((float)_a)/255.0f;
 	}
 	
-	template<> uint32_t Color<uint8_t>::get(void) const {
+	template<> uint32_t Color<uint8_t>::get() const {
 		return   (((uint32_t)m_r)<<24)
 		       + (((uint32_t)m_g)<<16)
 		       + (((uint32_t)m_b)<<8)
 		       + (uint32_t)m_a;
 	}
 	
-	template<> uint32_t Color<float>::get(void) const {
+	template<> uint32_t Color<float>::get() const {
 		return Color<uint8_t>(*this).get();
 	}
 	
@@ -537,12 +537,12 @@ static const colorList_ts listOfColor[] = {
 	{ "YellowGreen",		etk::color::yellowGreen}
 };
 
-static const colorList_ts* getColorList(void)
+static const colorList_ts* getColorList()
 {
 	return listOfColor;
 }
 
-static int32_t getColorSize(void)
+static int32_t getColorSize()
 {
 	static const int32_t tmpp = sizeof(listOfColor) / sizeof(colorList_ts);
 	return tmpp;
