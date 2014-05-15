@@ -13,6 +13,7 @@
 #include <etk/Hash.h>
 #include <etk/os/FSNode.h>
 #include <etk/archive/Archive.h>
+#include <etk/log.h>
 
 #undef __class__
 #define __class__	"etktest"
@@ -132,7 +133,7 @@ void testDimension() {
 */
 int main(int argc, const char *argv[]) {
 	// the only one init for etk:
-	debug::setGeneralLevel(etk::logLevelVerbose);
+	etk::log::setLevel(etk::log::logLevelDebug);
 	etk::setArgZero(argv[0]);
 	etk::initDefaultFolder("ewolApplNoName");
 	//testVector();
