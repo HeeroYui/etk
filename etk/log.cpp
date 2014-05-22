@@ -21,7 +21,7 @@
 	#include <cxxabi.h>
 	#include <dlfcn.h>
 	#define MAX_DEPTH  (256)
-	static void displayBacktrace(bool _breakAtEnd) {
+	void etk::log::displayBacktrace(bool _breakAtEnd) {
 		// retrieve call-stack
 		void * trace[MAX_DEPTH];
 		int stack_depth = backtrace(trace, MAX_DEPTH);
@@ -49,7 +49,7 @@
 		}
 	}
 #else
-	static void displayBacktrace(bool _breakAtEnd) {
+	void etk::log::displayBacktrace(bool _breakAtEnd) {
 		#ifdef DEBUG
 			assert(false);
 		#endif

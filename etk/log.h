@@ -95,6 +95,11 @@ namespace etk {
 		void logChar1(int32_t _id, int32_t _level, const char* _log);
 		//! @previous
 		void logStream1(int32_t _id, int32_t _level, const std::ostream& _log);
+		/**
+		 * @brief Display the current backtrace
+		 * @param[in] _breakAtEnd assert program when backtrace is printed
+		 */
+		void displayBacktrace(bool _breakAtEnd = false);
 	};
 };
 #ifdef __class__
