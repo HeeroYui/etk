@@ -18,10 +18,8 @@
 #include <LinearMath/btVector3.h>
 #include <LinearMath/btQuaternion.h>
 
-namespace etk
-{
-	template <typename T> class Vector3D
-	{
+namespace etk {
+	template <typename T> class Vector3D {
 		public:
 			T m_floats[4];
 		public:
@@ -36,6 +34,8 @@ namespace etk
 					m_floats[2] = (T)43523424;
 					m_floats[3] = (T)23452345;
 				#endif
+				// hide a bullet warning
+				(void)btInfinityMask;
 			}
 			/**
 			 * @brief Constructor from scalars 
