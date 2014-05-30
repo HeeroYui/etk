@@ -75,7 +75,7 @@ enum etk::log::level& getDefaultLevel() {
 	return g_val;
 }
 
-std::vector<std::pair<std::string, enum etk::log::level>>& getList() {
+static std::vector<std::pair<std::string, enum etk::log::level>>& getList() {
 	static std::vector<std::pair<std::string, enum etk::log::level>> g_val;
 	return g_val;
 }
