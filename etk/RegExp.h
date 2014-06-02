@@ -237,7 +237,7 @@ template<class CLASS_TYPE> class RegExpNodeValue : public etk::RegExpNode<CLASS_
 			RegExpNode<CLASS_TYPE>::m_RegExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse \"Value\" data=" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData)*/ );
 			m_data.clear();
-			for (int32_t i=0; i<RegExpNode<CLASS_TYPE>::m_RegExpData.size(); i++) {
+			for (int32_t i=0; i<(int64_t)RegExpNode<CLASS_TYPE>::m_RegExpData.size(); i++) {
 				m_data.push_back(RegExpNode<CLASS_TYPE>::m_RegExpData[i]);
 			}
 			return _data.size();
@@ -256,14 +256,14 @@ template<class CLASS_TYPE> class RegExpNodeValue : public etk::RegExpNode<CLASS_
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind == true; jjj++) {
 				uint32_t ofset = 0;
 				int64_t kkk;
-				for (kkk=0; _findLen+kkk<_lenMax && kkk < m_data.size(); kkk++) {
-					if (m_data[kkk] != _data[_currentPos+_findLen+kkk]) {
+				for (kkk=0; _findLen+kkk<_lenMax && kkk < (int64_t)m_data.size(); kkk++) {
+					if (m_data[kkk] != (char32_t)_data[_currentPos+_findLen+kkk]) {
 						tmpFind=false;
 						break;
 					}
 					ofset++;
 				}
-				if (kkk != m_data.size()) {
+				if (kkk != (int64_t)m_data.size()) {
 					// parsing not ended ...
 					tmpFind=false;
 				}
@@ -320,7 +320,7 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public etk::RegExpNode<CLAS
 			char32_t lastElement = 'a';
 			bool multipleElement = false;
 			//
-			for (int32_t kkk=0; kkk<RegExpNode<CLASS_TYPE>::m_RegExpData.size(); kkk++) {
+			for (int32_t kkk=0; kkk<(int64_t)RegExpNode<CLASS_TYPE>::m_RegExpData.size(); kkk++) {
 				if (RegExpNode<CLASS_TYPE>::m_RegExpData[kkk] == regexpOpcodeTo && multipleElement == true) {
 					TK_ERROR("Can not have 2 consecutive - in [...]");
 					return 0;
@@ -357,8 +357,8 @@ template<class CLASS_TYPE> class RegExpNodeBracket : public etk::RegExpNode<CLAS
 			uint32_t jjj=0;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
 				tmpFind=false;
-				for (int64_t iii=0; iii<m_data.size(); iii++) {
-					if (m_data[iii] == _data[_currentPos+jjj]) {
+				for (int64_t iii=0; iii<(int64_t)m_data.size(); iii++) {
+					if (m_data[iii] == (char32_t)_data[_currentPos+jjj]) {
 						_findLen += 1;
 						tmpFind=true;
 						break;
@@ -935,7 +935,7 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public etk::RegExpNode<C
 			int64_t pos = 0;
 			int64_t elementSize = 0;
 			std::vector<char32_t> tmpData;
-			while (pos < RegExpNode<CLASS_TYPE>::m_RegExpData.size()) {
+			while (pos < (int64_t)RegExpNode<CLASS_TYPE>::m_RegExpData.size()) {
 				tmpData.clear();
 				switch (RegExpNode<CLASS_TYPE>::m_RegExpData[pos]) {
 					case regexpOpcodePTheseIn:{
@@ -1064,7 +1064,7 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public etk::RegExpNode<C
 				return false;
 			}
 			int64_t tmpCurrentPos = _currentPos;
-			for (int64_t iii=0; iii<m_subNode.size(); iii++) {
+			for (int64_t iii=0; iii<(int64_t)m_subNode.size(); iii++) {
 				int64_t tmpFindLen;
 				if (false == m_subNode[iii]->parse(_data, tmpCurrentPos, _lenMax, tmpFindLen)) {
 					_findLen = 0;
@@ -1086,7 +1086,7 @@ template<class CLASS_TYPE> class RegExpNodePTheseElem : public etk::RegExpNode<C
 			        << RegExpNode<CLASS_TYPE>::m_multipleMin << ","
 			        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="
 			        /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData) */);
-			for(int64_t iii=0; iii<m_subNode.size(); iii++) {
+			for(int64_t iii=0; iii<(int64_t)m_subNode.size(); iii++) {
 				m_subNode[iii]->display(_level+1);
 			}
 		};
@@ -1169,7 +1169,7 @@ template<class CLASS_TYPE> class RegExpNodePThese : public etk::RegExpNode<CLASS
 			int64_t jjj =0;
 			for (jjj=0; jjj<RegExpNode<CLASS_TYPE>::m_multipleMax && tmpFind == true ; jjj++) {
 				tmpFind = false;
-				for (int64_t iii=0; iii<m_subNode.size(); iii++) {
+				for (int64_t iii=0; iii<(int64_t)m_subNode.size(); iii++) {
 					int64_t tmpFindLen;
 					if (true == m_subNode[iii]->parse(_data, _currentPos+_findLen, _lenMax, tmpFindLen)) {
 						_findLen += tmpFindLen;
@@ -1191,14 +1191,14 @@ template<class CLASS_TYPE> class RegExpNodePThese : public etk::RegExpNode<CLASS
 		};
 		
 		void display(uint32_t _level) {
-			if (-1 == _level) {
+			if (9999 <= _level) {
 				TK_INFO("regExp :" /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData) */);
 			} else {
 				TK_INFO("Find NODE : " << levelSpace(_level) << "@(...)@ {"
 				        << RegExpNode<CLASS_TYPE>::m_multipleMin << ","
 				        << RegExpNode<CLASS_TYPE>::m_multipleMax << "}  subdata="
 				        /*<< etk::displayElem(RegExpNode<CLASS_TYPE>::m_RegExpData) */);
-				for(int32_t i=0; i<m_subNode.size(); i++) {
+				for(int64_t i=0; i<(int64_t)m_subNode.size(); i++) {
 					m_subNode[i]->display(_level+1);
 				}
 			}
@@ -1327,9 +1327,9 @@ template<class CLASS_TYPE> class RegExp {
 			int32_t countPTheseOut = 0;
 			int32_t countBracketIn = 0;
 			int32_t countBracketOut = 0;
-			for (int64_t iii=0; iii<_regexp.size(); iii++) {
+			for (int64_t iii=0; iii<(int64_t)_regexp.size(); iii++) {
 				if (_regexp[iii] == '\\') {
-					if(iii+1>=_regexp.size()) {
+					if(iii+1>=(int64_t)_regexp.size()) {
 						TK_ERROR("Dangerous parse of the element pos " << iii << " \\ with nothing after");
 						// TODO : Generate Exeption ...
 						return;
@@ -1338,7 +1338,7 @@ template<class CLASS_TYPE> class RegExp {
 					// Find the element in the list...
 					for (jjj=0; jjj<constConvertionTableSize; jjj++) {
 						if(		true == constConvertionTable[jjj].haveBackSlash 
-							&&	_regexp[iii+1] == constConvertionTable[jjj].inputValue)
+							&&	_regexp[iii+1] == (char32_t)constConvertionTable[jjj].inputValue)
 						{
 							if (constConvertionTable[jjj].newValue==0) {
 								tmpExp.push_back(constConvertionTable[jjj].specialChar);
@@ -1374,7 +1374,7 @@ template<class CLASS_TYPE> class RegExp {
 					// find the element in the list...
 					for (jjj=0; jjj<constConvertionTableSize; jjj++) {
 						if(		false == constConvertionTable[jjj].haveBackSlash 
-							&&	_regexp[iii] == constConvertionTable[jjj].inputValue)
+							&&	_regexp[iii] == (char32_t)constConvertionTable[jjj].inputValue)
 						{
 							if (constConvertionTable[jjj].newValue==0) {
 								tmpExp.push_back(constConvertionTable[jjj].specialChar);
@@ -1430,7 +1430,7 @@ template<class CLASS_TYPE> class RegExp {
 				tmpExp.erase(tmpExp.end()-1);
 			}
 			
-			if (tmpExp.size() != m_exprRootNode.generate(tmpExp) ) {
+			if ((int64_t)tmpExp.size() != (int64_t)m_exprRootNode.generate(tmpExp) ) {
 				return;
 			}
 			// TODO : optimize node here ...
@@ -1509,7 +1509,7 @@ template<class CLASS_TYPE> class RegExp {
 					if(		_escapeChar != 0
 						&&	iii>0)
 					{
-						if (_escapeChar == _SearchIn[iii-1]) {
+						if (_escapeChar == (char32_t)_SearchIn[iii-1]) {
 							//==> detected escape char ==> try find again ...
 							continue;
 						}
@@ -1585,14 +1585,14 @@ template<class CLASS_TYPE> class RegExp {
 				if(		_escapeChar != 0
 					&&	_startPos>0)
 				{
-					if (_escapeChar == _SearchIn[_startPos-1]) {
+					if (_escapeChar == (char32_t)_SearchIn[_startPos-1]) {
 						//==> detected escape char ==> try find again ...
 						return false;
 					}
 				}
 				// Check end :
 				if (true == m_notEndWithChar) {
-					if (_startPos+findLen < _SearchIn.size() ) {
+					if (_startPos+findLen < (int64_t)_SearchIn.size() ) {
 						char32_t tmpVal = _SearchIn[_startPos+findLen];
 						if(    (    tmpVal >= 'a'
 						         && tmpVal <= 'z' )
@@ -1670,7 +1670,7 @@ template<class CLASS_TYPE> class RegExp {
 				input = "{x,x}";
 			}
 			_pos++;
-			if (_pos >= _tmpExp.size()) {
+			if (_pos >= (int64_t)_tmpExp.size()) {
 				TK_ERROR("ended with: ( or { or [ ... not permited");
 				return false;
 			}
@@ -1678,7 +1678,7 @@ template<class CLASS_TYPE> class RegExp {
 			// case dependent : 
 			if (    curentCode == regexpOpcodeBracketIn
 			     || curentCode == regexpOpcodeBracetIn) {
-				while(_pos<_tmpExp.size()) {
+				while(_pos<(int64_t)_tmpExp.size()) {
 					//TK_DEBUG("check : " << tmpExp[pos]);
 					// if we find the end : 
 					if (endCode == _tmpExp[_pos]) {
@@ -1720,7 +1720,7 @@ template<class CLASS_TYPE> class RegExp {
 					_pos++;
 				}
 			} else {
-				while(_pos< _tmpExp.size()) {
+				while(_pos< (int64_t)_tmpExp.size()) {
 					if (endCode == _tmpExp[_pos]) {
 						// find the last element
 						return true;
@@ -1764,7 +1764,7 @@ template<class CLASS_TYPE> class RegExp {
 		 */
 		bool checkGoodPosition(const std::vector<char32_t>& _tmpExp) {
 			int64_t pos = 0;
-			while (pos < _tmpExp.size()) {
+			while (pos < (int64_t)_tmpExp.size()) {
 				//TK_DEBUG("check : " << tmpExp[pos]);
 				if(    _tmpExp[pos] == regexpOpcodePTheseIn
 				    || _tmpExp[pos] == regexpOpcodeBracketIn

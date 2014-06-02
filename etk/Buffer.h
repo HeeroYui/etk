@@ -121,7 +121,7 @@ namespace etk {
 					return false;
 				}
 				bool ret = true;
-				uint32_t length = file.fileSize();
+				int64_t length = file.fileSize();
 				// error case ...
 				if (length > 2000000000) {
 					return false;
@@ -204,19 +204,19 @@ namespace etk {
 				tmpBuffer.clear();
 				if (_pos < m_gapStart) {
 					if (_pos + _nbElement < m_gapStart) {
-						for (size_t iii = _pos; iii<_pos+_nbElement; ++iii) {
+						for (int32_t iii = _pos; iii<_pos+_nbElement; ++iii) {
 							tmpBuffer.push_back(m_data[iii]);
 						}
 					} else {
-						for (size_t iii = _pos; iii<m_gapStart; ++iii) {
+						for (int32_t iii = _pos; iii<m_gapStart; ++iii) {
 							tmpBuffer.push_back(m_data[iii]);
 						}
-						for (size_t iii = m_gapEnd; iii<m_gapEnd - (_nbElement - (m_gapStart - _pos)); ++iii) {
+						for (int32_t iii = m_gapEnd; iii<m_gapEnd - (_nbElement - (m_gapStart - _pos)); ++iii) {
 							tmpBuffer.push_back(m_data[iii]);
 						}
 					}
 				} else {
-					for (size_t iii = _pos+(m_gapEnd-m_gapStart);
+					for (int32_t iii = _pos+(m_gapEnd-m_gapStart);
 					     iii<_pos+(m_gapEnd-m_gapStart)+_nbElement;
 					     ++iii) {
 						tmpBuffer.push_back(m_data[iii]);
