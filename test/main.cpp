@@ -14,6 +14,7 @@
 #include <etk/os/FSNode.h>
 #include <etk/archive/Archive.h>
 #include <etk/log.h>
+#include <etk/Color.h>
 
 #undef __class__
 #define __class__	"etktest"
@@ -131,6 +132,62 @@ void testDimension() {
 	exit(0);
 }
 */
+
+void testColor() {
+	TK_INFO("==> test of COLOR (START)");
+	
+	etk::Color<uint8_t, 4> colorRGBA8(0x52,0x0F, 0x65, 0x44);
+	etk::Color<uint16_t, 4> colorRGBA16(0x52,0x0F, 0x65, 0x44);
+	etk::Color<uint32_t, 4> colorRGBA32(0x52,0x0F, 0x65, 0x44);
+	etk::Color<float, 4> colorRGBAF(0.1,0.2, 0.8, 1.0);
+	etk::Color<uint8_t, 3> colorRGB8(0x52,0x0F, 0x65);
+	etk::Color<uint16_t, 3> colorRGB16(0x52,0x0F, 0x65);
+	etk::Color<uint32_t, 3> colorRGB32(0x52,0x0F, 0x65);
+	etk::Color<float, 3> colorRGBF(0.1,0.2, 0.8);
+	etk::Color<uint8_t, 1> colorMono8(0x52);
+	etk::Color<uint16_t, 1> colorMono16(0x52);
+	etk::Color<uint32_t, 1> colorMono32(0x52);
+	etk::Color<float, 1> colorMonoF(5200.22);
+	etk::Color<double, 1> colorMonoD(520000.22);
+	/*
+	etk::Color<uint8_t, 4> colorRGBA8__("#520F6544");
+	etk::Color<uint16_t, 4> colorRGBA16__("rgba(0x52, 0x0F, 0x65, 0x44)");
+	etk::Color<uint32_t, 4> colorRGBA32__("rgba(0x52,0x0F, 0x65, 0x44)");
+	etk::Color<float, 4> colorRGBAF__("rgba(0.1,0.2, 0.8, 1.0)");
+	etk::Color<uint8_t, 3> colorRGB8__("rgba(0x52,0x0F, 0x65)");
+	etk::Color<uint16_t, 3> colorRGB16__("rgba(0x52,0x0F, 0x65)");
+	etk::Color<uint32_t, 3> colorRGB32__("rgba(0x52,0x0F, 0x65)");
+	etk::Color<float, 3> colorRGBF__("rgba(0.1,0.2, 0.8)");
+	etk::Color<uint8_t, 1> colorMono8__("mono(0x52)");
+	etk::Color<uint16_t, 1> colorMono16__("mono(0x52)");
+	etk::Color<uint32_t, 1> colorMono32__("mono(0x52)");
+	etk::Color<float, 1> colorMonoF__("mono(5200.22)");
+	etk::Color<double, 1> colorMonoD__("mono(520000.22)");
+	*/
+	etk::Color<float, 4> colorRGBAf__(colorRGBA8);
+	etk::Color<uint32_t, 2> colorXX332__(colorRGBA8);
+	
+	TK_INFO("Create a color : RGBA 8 : " << colorRGBA8);
+	TK_INFO("Create a color : RGBA 8 : " << colorRGBAf__ << " (converted)");
+	TK_INFO("Create a color : XX 32 : " << colorXX332__ << " (converted)");
+	TK_INFO("Create a color : RGBA 16 : " << colorRGBA16);
+	TK_INFO("Create a color : RGBA 32 : " << colorRGBA32);
+	TK_INFO("Create a color : RGBA float : " << colorRGBAF);
+	TK_INFO("Create a color : RGB 8 : " << colorRGB8);
+	TK_INFO("Create a color : RGB 16 : " << colorRGB16);
+	TK_INFO("Create a color : RGB 32 : " << colorRGB32);
+	TK_INFO("Create a color : RGB float : " << colorRGBF);
+	TK_INFO("Create a color : MONO 8 : " << colorMono8);
+	TK_INFO("Create a color : MONO 16 : " << colorMono16);
+	TK_INFO("Create a color : MONO 32 : " << colorMono32);
+	TK_INFO("Create a color : MONO float : " << colorMonoF);
+	TK_INFO("Create a color : MONO double : " << colorMonoD);
+	
+	TK_INFO("==> test of Color (STOP)");
+	exit(0);
+}
+
+
 int main(int argc, const char *argv[]) {
 	// the only one init for etk:
 	etk::log::setLevel(etk::log::logLevelDebug);
@@ -143,6 +200,7 @@ int main(int argc, const char *argv[]) {
 	testFSNode();
 	//testDimension();
 	testArchive();
+	testColor();
 	return 0;
 }
 

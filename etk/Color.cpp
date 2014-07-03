@@ -10,34 +10,10 @@
 #include <etk/tool.h>
 #include <etk/Color.h>
 #include <etk/debug.h>
+#include <etk/stdTools.h>
 #include <string>
 #include <sstream>
 #include <stdexcept>
-
-static bool strnCmpNoCase(const char * _input1, const char * _input2, int32_t _maxLen) {
-	int32_t iii=0;
-	while (    '\0' != *_input1
-	        && '\0' != *_input2
-	        && iii < _maxLen) {
-		char in1 = *_input1;
-		char in2 = *_input2;
-		if (in1 != in2) {
-			if (in1 <= 'Z' && in1 >= 'A') {
-				in1 = in1 - 'A' + 'a';
-			}
-			if (in2 <= 'Z' && in2 >= 'A') {
-				in2 = in2 - 'A' + 'a';
-			}
-			if (in1 != in2) {
-				return false;
-			}
-		}
-		iii++;
-		_input1++;
-		_input2++;
-	}
-	return true;
-}
 
 typedef struct {
 	const char * colorName;
@@ -47,344 +23,328 @@ typedef struct {
 static int32_t getColorSize();
 static const colorList_ts* getColorList();
 
-namespace etk {
-	template<> void Color<uint8_t>::set(float _r, float _g, float _b, float _a) {
-		m_r = (uint8_t)(_r*255.0f);
-		m_g = (uint8_t)(_g*255.0f);
-		m_b = (uint8_t)(_b*255.0f);
-		m_a = (uint8_t)(_a*255.0f);
-	}
-	
-	template<> void Color<float>::set(float _r, float _g, float _b, float _a) {
-		m_r = _r;
-		m_g = _g;
-		m_b = _b;
-		m_a = _a;
-	}
-	
-	template<> void Color<uint8_t>::set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a) {
-		m_r = _r;
-		m_g = _g;
-		m_b = _b;
-		m_a = _a;
-	}
-	
-	template<> void Color<float>::set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a) {
-		m_r = ((float)_r)/255.0f;
-		m_g = ((float)_g)/255.0f;
-		m_b = ((float)_b)/255.0f;
-		m_a = ((float)_a)/255.0f;
-	}
-	
-	template<> uint32_t Color<uint8_t>::get() const {
-		return   (((uint32_t)m_r)<<24)
-		       + (((uint32_t)m_g)<<16)
-		       + (((uint32_t)m_b)<<8)
-		       + (uint32_t)m_a;
-	}
-	
-	template<> uint32_t Color<float>::get() const {
-		return Color<uint8_t>(*this).get();
-	}
-	
-	template<> Color<uint8_t>::Color(const std::string& _input) :
-	  m_r(255),
-	  m_g(255),
-	  m_b(255),
-	  m_a(255) {
-		const char* inputData = _input.c_str();
-		size_t len = _input.size();
-		if(    len >=1
-		    && inputData[0] == '#') {
-			if(len == 4) {
-				int32_t red=0, green=0, blue=0;
-				if (sscanf(inputData + 1, "%1x%1x%1x", &red, &green, &blue) == 3) {
-					m_r = (red | red << 4);
-					m_g = (green | green << 4);
-					m_b = (blue | blue << 4);
-				} else {
-					TK_ERROR(" pb in parsing the color : \"" << inputData << "\"");
-				}
-			} else if (len==5) {
-				int32_t red=0, green=0, blue=0, alpha=0;
-				if (sscanf(inputData + 1, "%1x%1x%1x%1x", &red, &green, &blue, &alpha) == 4) {
-					m_r = (red | red << 4);
-					m_g = (green | green << 4);
-					m_b = (blue | blue << 4);
-					m_a = (alpha | alpha << 4);
-				} else {
-					TK_ERROR(" pb in parsing the color : \"" << inputData << "\"");
-				}
-			} else if (len == 7) {
-				int32_t red=0, green=0, blue=0;
-				if (sscanf(inputData + 1, "%2x%2x%2x", &red, &green, &blue) == 3) {
-					m_r = red;
-					m_g = green;
-					m_b = blue;
-				} else {
-					TK_ERROR(" pb in parsing the color : \"" << inputData << "\"");
-				}
-			} else if (len == 9) {
-				int32_t red=0, green=0, blue=0, alpha=0;
-				if (sscanf(inputData + 1, "%2x%2x%2x%2x", &red, &green, &blue, &alpha) == 4) {
-					m_r = red;
-					m_g = green;
-					m_b = blue;
-					m_a = alpha;
-				} else {
-					TK_ERROR(" pb in parsing the color : \"" << inputData << "\"");
-				}
-			} else {
-				TK_ERROR(" pb in parsing the color : \"" << inputData << "\" ==> unknown methode ...");
-			}
-		} else if(    len >= 4
-		           && inputData[0] == 'r'
-		           && inputData[1] == 'g'
-		           && inputData[2] == 'b'
-		           && inputData[3] == '(' ) {
-			int32_t red=0, green=0, blue=0, alpha=0;
-			float   fred=0, fgreen=0, fblue=0, falpha=0;
-			if (sscanf(inputData + 4, "%u,%u,%u,%u", &red, &green, &blue, &alpha) == 4) {
-				m_r = etk_min(0xFF, red);
-				m_g = etk_min(0xFF, green);
-				m_b = etk_min(0xFF, blue);
-				m_a = etk_min(0xFF, alpha);
-			} else if (sscanf(inputData + 4, "%u,%u,%u", &red, &green, &blue) == 3) {
-				m_r = etk_min(0xFF, red);
-				m_g = etk_min(0xFF, green);
-				m_b = etk_min(0xFF, blue);
-			} else if (sscanf(inputData + 4, "%f%%,%f%%,%f%%,%f%%", &fred, &fgreen, &fblue, &falpha) == 4) {
-				fred   = etk_avg(0.0, fred, 1.0);
-				fgreen = etk_avg(0.0, fgreen, 1.0);
-				fblue  = etk_avg(0.0, fblue, 1.0);
-				falpha = etk_avg(0.0, falpha, 1.0);
-				m_r = (uint8_t)(fred * 255.);
-				m_g = (uint8_t)(fgreen * 255.);
-				m_b = (uint8_t)(fblue * 255.);
-				m_a = (uint8_t)(falpha * 255.);
-			} else if (sscanf(inputData + 4, "%f%%,%f%%,%f%%", &fred, &fgreen, &fblue) == 3) {
-				fred  = etk_avg(0.0, fred, 1.0);
-				fgreen= etk_avg(0.0, fgreen, 1.0);
-				fblue = etk_avg(0.0, fblue, 1.0);
-				m_r = (uint8_t)(fred * 255.);
-				m_g = (uint8_t)(fgreen * 255.);
-				m_b = (uint8_t)(fblue * 255.);
-			} else {
-				TK_ERROR(" pb in parsing the color : \"" << inputData << "\" ==> unknown methode ...");
-			}
+etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input) {
+	TK_INFO("parseStringStartWithSharp('" << _input << "'");
+	size_t len = _input.size();
+	etk::Color<uint8_t, 4> outputValue(0,0,0,0);
+	if(len == 3) {
+		int32_t red=0, green=0, blue=0;
+		if (sscanf(_input.c_str(), "%1x%1x%1x", &red, &green, &blue) == 3) {
+			outputValue.setR(red | red << 4);
+			outputValue.setG(green | green << 4);
+			outputValue.setB(blue | blue << 4);
 		} else {
-			bool findIt = false;
-			// direct named color ...
-			for (int32_t iii=0; iii<getColorSize(); iii++) {
-				if (strnCmpNoCase(getColorList()[iii].colorName, inputData, strlen(getColorList()[iii].colorName)) == true) {
-					findIt = true;
-					*this = getColorList()[iii].color;
-					// stop searching
-					break;
-				}
-			}
-			// not find color ...
-			if (findIt == false) {
-				TK_ERROR(" pb in parsing the color : \"" << inputData << "\" not find ...");
-			}
+			TK_ERROR(" pb in parsing the color : '" << _input << "'");
 		}
-		TK_VERBOSE("Parse color : \"" << inputData << "\" ==> " << *this);
-	}
-	
-	template<> Color<float>::Color(const std::string& _input) {
-		etk::Color<uint8_t> tmpColor(_input);
-		*this = tmpColor;
-	}
-};
-
-std::ostream& etk::operator <<(std::ostream& _os, const etk::Color<uint8_t>& _obj) {
-	_os << "#";
-	_os << (std::to_string<uint32_t>(_obj.get(), std::hex)).c_str();
-	return _os;
-}
-
-std::ostream& etk::operator <<(std::ostream& _os, const etk::Color<float>& _obj)
-{
-	_os << "rgba(";
-	_os << _obj.r();
-	_os << ",";
-	_os << _obj.g();
-	_os << ",";
-	_os << _obj.b();
-	_os << ",";
-	_os << _obj.a();
-	_os << ")";
-	return _os;
-}
-
-std::ostream& etk::operator <<(std::ostream& _os, const std::vector<etk::Color<uint8_t> >& _obj) {
-	for (size_t iii = 0; iii < _obj.size(); ++iii) {
-		if (iii != 0) {
-			_os << " ";
+	} else if (len==5) {
+		int32_t red=0, green=0, blue=0, alpha=0;
+		if (sscanf(_input.c_str(), "%1x%1x%1x%1x", &red, &green, &blue, &alpha) == 4) {
+			outputValue.setR(red | red << 4);
+			outputValue.setG(green | green << 4);
+			outputValue.setB(blue | blue << 4);
+			outputValue.setA(alpha | alpha << 4);
+		} else {
+			TK_ERROR(" pb in parsing the color : '" << _input << "'");
 		}
-		_os << _obj[iii];
-	}
-	return _os;
-}
-std::ostream& etk::operator <<(std::ostream& _os, const std::vector<etk::Color<float> >& _obj) {
-	for (size_t iii = 0; iii < _obj.size(); ++iii) {
-		if (iii != 0) {
-			_os << " ";
+	} else if (len == 7) {
+		int32_t red=0, green=0, blue=0;
+		if (sscanf(_input.c_str(), "%2x%2x%2x", &red, &green, &blue) == 3) {
+			outputValue.setR(red);
+			outputValue.setG(green);
+			outputValue.setB(blue);
+		} else {
+			TK_ERROR(" pb in parsing the color : '" << _input << "'");
 		}
-		_os << _obj[iii];
+	} else if (len == 9) {
+		int32_t red=0, green=0, blue=0, alpha=0;
+		if (sscanf(_input.c_str(), "%2x%2x%2x%2x", &red, &green, &blue, &alpha) == 4) {
+			outputValue.setR(red);
+			outputValue.setG(green);
+			outputValue.setB(blue);
+			outputValue.setA(alpha);
+		} else {
+			TK_ERROR(" pb in parsing the color : '" << _input << "'");
+		}
+	} else {
+		TK_ERROR(" pb in parsing the color : '" << _input << "' ==> unknown methode ...");
 	}
-	return _os;
+	return outputValue;
 }
 
+etk::Color<uint8_t, 4> etk::parseStringStartWithRGBGen(const std::string& _input) {
+	TK_INFO("parseStringStartWithRGB('" << _input << "'");
+	etk::Color<uint8_t, 4> outputValue(0,0,0,0);
+	int32_t red=0, green=0, blue=0, alpha=0;
+	float   fred=0, fgreen=0, fblue=0, falpha=0;
+	if (sscanf(_input.c_str(), "%u,%u,%u,%u", &red, &green, &blue, &alpha) == 4) {
+		outputValue.setR(std::min(0xFF, red));
+		outputValue.setG(std::min(0xFF, green));
+		outputValue.setB(std::min(0xFF, blue));
+		outputValue.setA(std::min(0xFF, alpha));
+	} else if (sscanf(_input.c_str(), "%u,%u,%u", &red, &green, &blue) == 3) {
+		outputValue.setR(std::min(0xFF, red));
+		outputValue.setG(std::min(0xFF, green));
+		outputValue.setB(std::min(0xFF, blue));
+	} else if (sscanf(_input.c_str(), "%f%%,%f%%,%f%%,%f%%", &fred, &fgreen, &fblue, &falpha) == 4) {
+		fred   = std::avg(0.0f, fred, 1.0f);
+		fgreen = std::avg(0.0f, fgreen, 1.0f);
+		fblue  = std::avg(0.0f, fblue, 1.0f);
+		falpha = std::avg(0.0f, falpha, 1.0f);
+		outputValue.setR((uint8_t)(fred * 255.f));
+		outputValue.setG((uint8_t)(fgreen * 255.f));
+		outputValue.setB((uint8_t)(fblue * 255.f));
+		outputValue.setR((uint8_t)(falpha * 255.f));
+	} else if (sscanf(_input.c_str(), "%f%%,%f%%,%f%%", &fred, &fgreen, &fblue) == 3) {
+		fred  = std::avg(0.0f, fred, 1.0f);
+		fgreen= std::avg(0.0f, fgreen, 1.0f);
+		fblue = std::avg(0.0f, fblue, 1.0f);
+		outputValue.setR((uint8_t)(fred * 255.f));
+		outputValue.setG((uint8_t)(fgreen * 255.f));
+		outputValue.setB((uint8_t)(fblue * 255.f));
+	} else {
+		TK_ERROR(" pb in parsing the color : '" << _input << "' ==> unknown methode ...");
+	}
+	return outputValue;
+}
 
-const etk::Color<> etk::color::none((uint32_t)0x00000000);
-const etk::Color<> etk::color::aliceBlue((uint32_t)0xF0F8FFFF);
-const etk::Color<> etk::color::antiqueWhite((uint32_t)0xFAEBD7FF);
-const etk::Color<> etk::color::aqua((uint32_t)0x00FFFFFF);
-const etk::Color<> etk::color::aquamarine((uint32_t)0x7FFFD4FF);
-const etk::Color<> etk::color::azure((uint32_t)0xF0FFFFFF);
-const etk::Color<> etk::color::beige((uint32_t)0xF5F5DCFF);
-const etk::Color<> etk::color::bisque((uint32_t)0xFFE4C4FF);
-const etk::Color<> etk::color::black((uint32_t)0x000000FF);
-const etk::Color<> etk::color::blanchedAlmond((uint32_t)0xFFEBCDFF);
-const etk::Color<> etk::color::blue((uint32_t)0x0000FFFF);
-const etk::Color<> etk::color::blueViolet((uint32_t)0x8A2BE2FF);
-const etk::Color<> etk::color::brown((uint32_t)0xA52A2AFF);
-const etk::Color<> etk::color::burlyWood((uint32_t)0xDEB887FF);
-const etk::Color<> etk::color::cadetBlue((uint32_t)0x5F9EA0FF);
-const etk::Color<> etk::color::chartreuse((uint32_t)0x7FFF00FF);
-const etk::Color<> etk::color::chocolate((uint32_t)0xD2691EFF);
-const etk::Color<> etk::color::coral((uint32_t)0xFF7F50FF);
-const etk::Color<> etk::color::cornflowerBlue((uint32_t)0x6495EDFF);
-const etk::Color<> etk::color::cornsilk((uint32_t)0xFFF8DCFF);
-const etk::Color<> etk::color::crimson((uint32_t)0xDC143CFF);
-const etk::Color<> etk::color::cyan((uint32_t)0x00FFFFFF);
-const etk::Color<> etk::color::darkBlue((uint32_t)0x00008BFF);
-const etk::Color<> etk::color::darkCyan((uint32_t)0x008B8BFF);
-const etk::Color<> etk::color::darkGoldenRod((uint32_t)0xB8860BFF);
-const etk::Color<> etk::color::darkGray((uint32_t)0xA9A9A9FF);
-const etk::Color<> etk::color::darkGrey((uint32_t)0xA9A9A9FF);
-const etk::Color<> etk::color::darkGreen((uint32_t)0x006400FF);
-const etk::Color<> etk::color::darkKhaki((uint32_t)0xBDB76BFF);
-const etk::Color<> etk::color::darkMagenta((uint32_t)0x8B008BFF);
-const etk::Color<> etk::color::darkOliveGreen((uint32_t)0x556B2FFF);
-const etk::Color<> etk::color::darkorange((uint32_t)0xFF8C00FF);
-const etk::Color<> etk::color::darkOrchid((uint32_t)0x9932CCFF);
-const etk::Color<> etk::color::darkRed((uint32_t)0x8B0000FF);
-const etk::Color<> etk::color::darkSalmon((uint32_t)0xE9967AFF);
-const etk::Color<> etk::color::darkSeaGreen((uint32_t)0x8FBC8FFF);
-const etk::Color<> etk::color::darkSlateBlue((uint32_t)0x483D8BFF);
-const etk::Color<> etk::color::darkSlateGray((uint32_t)0x2F4F4FFF);
-const etk::Color<> etk::color::darkSlateGrey((uint32_t)0x2F4F4FFF);
-const etk::Color<> etk::color::darkTurquoise((uint32_t)0x00CED1FF);
-const etk::Color<> etk::color::darkViolet((uint32_t)0x9400D3FF);
-const etk::Color<> etk::color::deepPink((uint32_t)0xFF1493FF);
-const etk::Color<> etk::color::deepSkyBlue((uint32_t)0x00BFFFFF);
-const etk::Color<> etk::color::dimGray((uint32_t)0x696969FF);
-const etk::Color<> etk::color::dimGrey((uint32_t)0x696969FF);
-const etk::Color<> etk::color::dodgerBlue((uint32_t)0x1E90FFFF);
-const etk::Color<> etk::color::fireBrick((uint32_t)0xB22222FF);
-const etk::Color<> etk::color::floralWhite((uint32_t)0xFFFAF0FF);
-const etk::Color<> etk::color::forestGreen((uint32_t)0x228B22FF);
-const etk::Color<> etk::color::fuchsia((uint32_t)0xFF00FFFF);
-const etk::Color<> etk::color::gainsboro((uint32_t)0xDCDCDCFF);
-const etk::Color<> etk::color::ghostWhite((uint32_t)0xF8F8FFFF);
-const etk::Color<> etk::color::gold((uint32_t)0xFFD700FF);
-const etk::Color<> etk::color::goldenRod((uint32_t)0xDAA520FF);
-const etk::Color<> etk::color::gray((uint32_t)0x808080FF);
-const etk::Color<> etk::color::grey((uint32_t)0x808080FF);
-const etk::Color<> etk::color::green((uint32_t)0x008000FF);
-const etk::Color<> etk::color::greenYellow((uint32_t)0xADFF2FFF);
-const etk::Color<> etk::color::honeyDew((uint32_t)0xF0FFF0FF);
-const etk::Color<> etk::color::hotPink((uint32_t)0xFF69B4FF);
-const etk::Color<> etk::color::indianRed ((uint32_t)0xCD5C5CFF);
-const etk::Color<> etk::color::indigo ((uint32_t)0x4B0082FF);
-const etk::Color<> etk::color::ivory((uint32_t)0xFFFFF0FF);
-const etk::Color<> etk::color::khaki((uint32_t)0xF0E68CFF);
-const etk::Color<> etk::color::lavender((uint32_t)0xE6E6FAFF);
-const etk::Color<> etk::color::lavenderBlush((uint32_t)0xFFF0F5FF);
-const etk::Color<> etk::color::lawnGreen((uint32_t)0x7CFC00FF);
-const etk::Color<> etk::color::lemonChiffon((uint32_t)0xFFFACDFF);
-const etk::Color<> etk::color::lightBlue((uint32_t)0xADD8E6FF);
-const etk::Color<> etk::color::lightCoral((uint32_t)0xF08080FF);
-const etk::Color<> etk::color::lightCyan((uint32_t)0xE0FFFFFF);
-const etk::Color<> etk::color::lightGoldenRodYellow((uint32_t)0xFAFAD2FF);
-const etk::Color<> etk::color::lightGray((uint32_t)0xD3D3D3FF);
-const etk::Color<> etk::color::lightGrey((uint32_t)0xD3D3D3FF);
-const etk::Color<> etk::color::lightGreen((uint32_t)0x90EE90FF);
-const etk::Color<> etk::color::lightPink((uint32_t)0xFFB6C1FF);
-const etk::Color<> etk::color::lightSalmon((uint32_t)0xFFA07AFF);
-const etk::Color<> etk::color::lightSeaGreen((uint32_t)0x20B2AAFF);
-const etk::Color<> etk::color::lightSkyBlue((uint32_t)0x87CEFAFF);
-const etk::Color<> etk::color::lightSlateGray((uint32_t)0x778899FF);
-const etk::Color<> etk::color::lightSlateGrey((uint32_t)0x778899FF);
-const etk::Color<> etk::color::lightSteelBlue((uint32_t)0xB0C4DEFF);
-const etk::Color<> etk::color::lightYellow((uint32_t)0xFFFFE0FF);
-const etk::Color<> etk::color::lime((uint32_t)0x00FF00FF);
-const etk::Color<> etk::color::limeGreen((uint32_t)0x32CD32FF);
-const etk::Color<> etk::color::linen((uint32_t)0xFAF0E6FF);
-const etk::Color<> etk::color::magenta((uint32_t)0xFF00FFFF);
-const etk::Color<> etk::color::maroon((uint32_t)0x800000FF);
-const etk::Color<> etk::color::mediumAquaMarine((uint32_t)0x66CDAAFF);
-const etk::Color<> etk::color::mediumBlue((uint32_t)0x0000CDFF);
-const etk::Color<> etk::color::mediumOrchid((uint32_t)0xBA55D3FF);
-const etk::Color<> etk::color::mediumPurple((uint32_t)0x9370D8FF);
-const etk::Color<> etk::color::mediumSeaGreen((uint32_t)0x3CB371FF);
-const etk::Color<> etk::color::mediumSlateBlue((uint32_t)0x7B68EEFF);
-const etk::Color<> etk::color::mediumSpringGreen((uint32_t)0x00FA9AFF);
-const etk::Color<> etk::color::mediumTurquoise((uint32_t)0x48D1CCFF);
-const etk::Color<> etk::color::mediumVioletRed((uint32_t)0xC71585FF);
-const etk::Color<> etk::color::midnightBlue((uint32_t)0x191970FF);
-const etk::Color<> etk::color::mintCream((uint32_t)0xF5FFFAFF);
-const etk::Color<> etk::color::mistyRose((uint32_t)0xFFE4E1FF);
-const etk::Color<> etk::color::moccasin((uint32_t)0xFFE4B5FF);
-const etk::Color<> etk::color::navajoWhite((uint32_t)0xFFDEADFF);
-const etk::Color<> etk::color::navy((uint32_t)0x000080FF);
-const etk::Color<> etk::color::oldLace((uint32_t)0xFDF5E6FF);
-const etk::Color<> etk::color::olive((uint32_t)0x808000FF);
-const etk::Color<> etk::color::oliveDrab((uint32_t)0x6B8E23FF);
-const etk::Color<> etk::color::orange((uint32_t)0xFFA500FF);
-const etk::Color<> etk::color::orangeRed((uint32_t)0xFF4500FF);
-const etk::Color<> etk::color::orchid((uint32_t)0xDA70D6FF);
-const etk::Color<> etk::color::paleGoldenRod((uint32_t)0xEEE8AAFF);
-const etk::Color<> etk::color::paleGreen((uint32_t)0x98FB98FF);
-const etk::Color<> etk::color::paleTurquoise((uint32_t)0xAFEEEEFF);
-const etk::Color<> etk::color::paleVioletRed((uint32_t)0xD87093FF);
-const etk::Color<> etk::color::papayaWhip((uint32_t)0xFFEFD5FF);
-const etk::Color<> etk::color::peachPuff((uint32_t)0xFFDAB9FF);
-const etk::Color<> etk::color::peru((uint32_t)0xCD853FFF);
-const etk::Color<> etk::color::pink((uint32_t)0xFFC0CBFF);
-const etk::Color<> etk::color::plum((uint32_t)0xDDA0DDFF);
-const etk::Color<> etk::color::powderBlue((uint32_t)0xB0E0E6FF);
-const etk::Color<> etk::color::purple((uint32_t)0x800080FF);
-const etk::Color<> etk::color::red((uint32_t)0xFF0000FF);
-const etk::Color<> etk::color::rosyBrown((uint32_t)0xBC8F8FFF);
-const etk::Color<> etk::color::royalBlue((uint32_t)0x4169E1FF);
-const etk::Color<> etk::color::saddleBrown((uint32_t)0x8B4513FF);
-const etk::Color<> etk::color::salmon((uint32_t)0xFA8072FF);
-const etk::Color<> etk::color::sandyBrown((uint32_t)0xF4A460FF);
-const etk::Color<> etk::color::seaGreen((uint32_t)0x2E8B57FF);
-const etk::Color<> etk::color::seaShell((uint32_t)0xFFF5EEFF);
-const etk::Color<> etk::color::sienna((uint32_t)0xA0522DFF);
-const etk::Color<> etk::color::silver((uint32_t)0xC0C0C0FF);
-const etk::Color<> etk::color::skyBlue((uint32_t)0x87CEEBFF);
-const etk::Color<> etk::color::slateBlue((uint32_t)0x6A5ACDFF);
-const etk::Color<> etk::color::slateGray((uint32_t)0x708090FF);
-const etk::Color<> etk::color::slateGrey((uint32_t)0x708090FF);
-const etk::Color<> etk::color::snow((uint32_t)0xFFFAFAFF);
-const etk::Color<> etk::color::springGreen((uint32_t)0x00FF7FFF);
-const etk::Color<> etk::color::steelBlue((uint32_t)0x4682B4FF);
-const etk::Color<> etk::color::tan((uint32_t)0xD2B48CFF);
-const etk::Color<> etk::color::teal((uint32_t)0x008080FF);
-const etk::Color<> etk::color::thistle((uint32_t)0xD8BFD8FF);
-const etk::Color<> etk::color::tomato((uint32_t)0xFF6347FF);
-const etk::Color<> etk::color::turquoise((uint32_t)0x40E0D0FF);
-const etk::Color<> etk::color::violet((uint32_t)0xEE82EEFF);
-const etk::Color<> etk::color::wheat((uint32_t)0xF5DEB3FF);
-const etk::Color<> etk::color::white((uint32_t)0xFFFFFFFF);
-const etk::Color<> etk::color::whiteSmoke((uint32_t)0xF5F5F5FF);
-const etk::Color<> etk::color::yellow((uint32_t)0xFFFF00FF);
-const etk::Color<> etk::color::yellowGreen((uint32_t)0x9ACD32FF);
+etk::Color<double, 4> etk::parseStringStartWithRGB(const std::string& _input) {
+	TK_INFO("parseStringStartWithRGB('" << _input << "'");
+	etk::Color<double, 4> outputValue(0,0,0,0);
+	double fred=0, fgreen=0, fblue=0, falpha=0;
+	if (sscanf(_input.c_str(), "%lf%%,%lf%%,%lf%%,%lf%%", &fred, &fgreen, &fblue, &falpha) == 4) {
+		outputValue.setR(fred);
+		outputValue.setG(fgreen);
+		outputValue.setB(fblue);
+		outputValue.setA(falpha);
+	} else if (sscanf(_input.c_str(), "%lf%%,%lf%%,%lf%%", &fred, &fgreen, &fblue) == 3) {
+		outputValue.setR(fred);
+		outputValue.setG(fgreen);
+		outputValue.setB(fblue);
+	} else {
+		TK_ERROR(" pb in parsing the color : '" << _input << "' ==> unknown methode ...");
+	}
+	return outputValue;
+}
+etk::Color<uint32_t, 4> etk::parseStringStartWithRGBUnsigned32(const std::string& _input) {
+	etk::Color<uint32_t, 4> outputValue(0,0,0,0);
+	int32_t red=0, green=0, blue=0, alpha=0;
+	if (sscanf(_input.c_str(), "%u,%u,%u,%u", &red, &green, &blue, &alpha) == 4) {
+		outputValue.setR(red);
+		outputValue.setG(green);
+		outputValue.setB(blue);
+		outputValue.setA(alpha);
+	} else if (sscanf(_input.c_str(), "%u,%u,%u", &red, &green, &blue) == 3) {
+		outputValue.setR(red);
+		outputValue.setG(green);
+		outputValue.setB(blue);
+	} else {
+		TK_ERROR(" pb in parsing the color : '" << _input << "' ==> unknown methode ...");
+	}
+	return outputValue;
+}
+
+etk::Color<uint16_t, 4> etk::parseStringStartWithRGBUnsigned16(const std::string& _input) {
+	etk::Color<uint16_t, 4> outputValue(0,0,0,0);
+	int32_t red=0, green=0, blue=0, alpha=0;
+	if (sscanf(_input.c_str(), "%u,%u,%u,%u", &red, &green, &blue, &alpha) == 4) {
+		outputValue.setR(std::min(0xFFFF, red));
+		outputValue.setG(std::min(0xFFFF, green));
+		outputValue.setB(std::min(0xFFFF, blue));
+		outputValue.setA(std::min(0xFFFF, alpha));
+	} else if (sscanf(_input.c_str(), "%u,%u,%u", &red, &green, &blue) == 3) {
+		outputValue.setR(std::min(0xFFFF, red));
+		outputValue.setG(std::min(0xFFFF, green));
+		outputValue.setB(std::min(0xFFFF, blue));
+	} else {
+		TK_ERROR(" pb in parsing the color : '" << _input << "' ==> unknown methode ...");
+	}
+	return outputValue;
+}
+
+etk::Color<uint8_t, 4> etk::parseStringStartWithRGBUnsigned8(const std::string& _input) {
+	etk::Color<uint8_t, 4> outputValue(0,0,0,0);
+	int32_t red=0, green=0, blue=0, alpha=0;
+	if (sscanf(_input.c_str(), "%u,%u,%u,%u", &red, &green, &blue, &alpha) == 4) {
+		outputValue.setR(std::min(0xFF, red));
+		outputValue.setG(std::min(0xFF, green));
+		outputValue.setB(std::min(0xFF, blue));
+		outputValue.setA(std::min(0xFF, alpha));
+	} else if (sscanf(_input.c_str(), "%u,%u,%u", &red, &green, &blue) == 3) {
+		outputValue.setR(std::min(0xFF, red));
+		outputValue.setG(std::min(0xFF, green));
+		outputValue.setB(std::min(0xFF, blue));
+	} else {
+		TK_ERROR(" pb in parsing the color : '" << _input << "' ==> unknown methode ...");
+	}
+	return outputValue;
+}
+
+etk::Color<uint8_t, 4> etk::parseStringColorNamed(const std::string& _input) {
+	// direct named color ...
+	for (int32_t iii=0; iii<getColorSize(); iii++) {
+		if (std::compare_no_case(getColorList()[iii].colorName, _input) == true) {
+			return getColorList()[iii].color;
+		}
+	}
+	TK_ERROR(" pb in parsing the color : '" << _input << "' not find ...");
+	return etk::Color<uint8_t, 4>(0,0,0,0);
+}
+
+template<> uint32_t etk::Color<uint8_t, 4>::get() const {
+	return   (((uint32_t)m_element[0])<<24)
+	       + (((uint32_t)m_element[1])<<16)
+	       + (((uint32_t)m_element[2])<<8)
+	       + (uint32_t)m_element[3];
+}
+
+const etk::Color<> etk::color::none(0x00, 0x00, 0x00, 0x00);
+const etk::Color<> etk::color::aliceBlue(0xF0, 0xF8, 0xFF, 0xFF);
+const etk::Color<> etk::color::antiqueWhite(0xFA, 0xEB, 0xD7, 0xFF);
+const etk::Color<> etk::color::aqua(0x00, 0xFF, 0xFF, 0xFF);
+const etk::Color<> etk::color::aquamarine(0x7F, 0xFF, 0xD4, 0xFF);
+const etk::Color<> etk::color::azure(0xF0, 0xFF, 0xFF, 0xFF);
+const etk::Color<> etk::color::beige(0xF5, 0xF5, 0xDC, 0xFF);
+const etk::Color<> etk::color::bisque(0xFF, 0xE4, 0xC4, 0xFF);
+const etk::Color<> etk::color::black(0x00, 0x00, 0x00, 0xFF);
+const etk::Color<> etk::color::blanchedAlmond(0xFF, 0xEB, 0xCD, 0xFF);
+const etk::Color<> etk::color::blue(0x00, 0x00, 0xFF, 0xFF);
+const etk::Color<> etk::color::blueViolet(0x8A, 0x2B, 0xE2, 0xFF);
+const etk::Color<> etk::color::brown(0xA5, 0x2A, 0x2A, 0xFF);
+const etk::Color<> etk::color::burlyWood(0xDE, 0xB8, 0x87, 0xFF);
+const etk::Color<> etk::color::cadetBlue(0x5F, 0x9E, 0xA0, 0xFF);
+const etk::Color<> etk::color::chartreuse(0x7F, 0xFF, 0x00, 0xFF);
+const etk::Color<> etk::color::chocolate(0xD2, 0x69, 0x1E, 0xFF);
+const etk::Color<> etk::color::coral(0xFF, 0x7F, 0x50, 0xFF);
+const etk::Color<> etk::color::cornflowerBlue(0x64, 0x95, 0xED, 0xFF);
+const etk::Color<> etk::color::cornsilk(0xFF, 0xF8, 0xDC, 0xFF);
+const etk::Color<> etk::color::crimson(0xDC, 0x14, 0x3C, 0xFF);
+const etk::Color<> etk::color::cyan(0x00, 0xFF, 0xFF, 0xFF);
+const etk::Color<> etk::color::darkBlue(0x00, 0x00, 0x8B, 0xFF);
+const etk::Color<> etk::color::darkCyan(0x00, 0x8B, 0x8B, 0xFF);
+const etk::Color<> etk::color::darkGoldenRod(0xB8, 0x86, 0x0B, 0xFF);
+const etk::Color<> etk::color::darkGray(0xA9, 0xA9, 0xA9, 0xFF);
+const etk::Color<> etk::color::darkGrey(0xA9, 0xA9, 0xA9, 0xFF);
+const etk::Color<> etk::color::darkGreen(0x00, 0x64, 0x00, 0xFF);
+const etk::Color<> etk::color::darkKhaki(0xBD, 0xB7, 0x6B, 0xFF);
+const etk::Color<> etk::color::darkMagenta(0x8B, 0x00, 0x8B, 0xFF);
+const etk::Color<> etk::color::darkOliveGreen(0x55, 0x6B, 0x2F, 0xFF);
+const etk::Color<> etk::color::darkorange(0xFF, 0x8C, 0x00, 0xFF);
+const etk::Color<> etk::color::darkOrchid(0x99, 0x32, 0xCC, 0xFF);
+const etk::Color<> etk::color::darkRed(0x8B, 0x00, 0x00, 0xFF);
+const etk::Color<> etk::color::darkSalmon(0xE9, 0x96, 0x7A, 0xFF);
+const etk::Color<> etk::color::darkSeaGreen(0x8F, 0xBC, 0x8F, 0xFF);
+const etk::Color<> etk::color::darkSlateBlue(0x48, 0x3D, 0x8B, 0xFF);
+const etk::Color<> etk::color::darkSlateGray(0x2F, 0x4F, 0x4F, 0xFF);
+const etk::Color<> etk::color::darkSlateGrey(0x2F, 0x4F, 0x4F, 0xFF);
+const etk::Color<> etk::color::darkTurquoise(0x00, 0xCE, 0xD1, 0xFF);
+const etk::Color<> etk::color::darkViolet(0x94, 0x00, 0xD3, 0xFF);
+const etk::Color<> etk::color::deepPink(0xFF, 0x14, 0x93, 0xFF);
+const etk::Color<> etk::color::deepSkyBlue(0x00, 0xBF, 0xFF, 0xFF);
+const etk::Color<> etk::color::dimGray(0x69, 0x69, 0x69, 0xFF);
+const etk::Color<> etk::color::dimGrey(0x69, 0x69, 0x69, 0xFF);
+const etk::Color<> etk::color::dodgerBlue(0x1E, 0x90, 0xFF, 0xFF);
+const etk::Color<> etk::color::fireBrick(0xB2, 0x22, 0x22, 0xFF);
+const etk::Color<> etk::color::floralWhite(0xFF, 0xFA, 0xF0, 0xFF);
+const etk::Color<> etk::color::forestGreen(0x22, 0x8B, 0x22, 0xFF);
+const etk::Color<> etk::color::fuchsia(0xFF, 0x00, 0xFF, 0xFF);
+const etk::Color<> etk::color::gainsboro(0xDC, 0xDC, 0xDC, 0xFF);
+const etk::Color<> etk::color::ghostWhite(0xF8, 0xF8, 0xFF, 0xFF);
+const etk::Color<> etk::color::gold(0xFF, 0xD7, 0x00, 0xFF);
+const etk::Color<> etk::color::goldenRod(0xDA, 0xA5, 0x20, 0xFF);
+const etk::Color<> etk::color::gray(0x80, 0x80, 0x80, 0xFF);
+const etk::Color<> etk::color::grey(0x80, 0x80, 0x80, 0xFF);
+const etk::Color<> etk::color::green(0x00, 0x80, 0x00, 0xFF);
+const etk::Color<> etk::color::greenYellow(0xAD, 0xFF, 0x2F, 0xFF);
+const etk::Color<> etk::color::honeyDew(0xF0, 0xFF, 0xF0, 0xFF);
+const etk::Color<> etk::color::hotPink(0xFF, 0x69, 0xB4, 0xFF);
+const etk::Color<> etk::color::indianRed (0xCD, 0x5C, 0x5C, 0xFF);
+const etk::Color<> etk::color::indigo (0x4B, 0x00, 0x82, 0xFF);
+const etk::Color<> etk::color::ivory(0xFF, 0xFF, 0xF0, 0xFF);
+const etk::Color<> etk::color::khaki(0xF0, 0xE6, 0x8C, 0xFF);
+const etk::Color<> etk::color::lavender(0xE6, 0xE6, 0xFA, 0xFF);
+const etk::Color<> etk::color::lavenderBlush(0xFF, 0xF0, 0xF5, 0xFF);
+const etk::Color<> etk::color::lawnGreen(0x7C, 0xFC, 0x00, 0xFF);
+const etk::Color<> etk::color::lemonChiffon(0xFF, 0xFA, 0xCD, 0xFF);
+const etk::Color<> etk::color::lightBlue(0xAD, 0xD8, 0xE6, 0xFF);
+const etk::Color<> etk::color::lightCoral(0xF0, 0x80, 0x80, 0xFF);
+const etk::Color<> etk::color::lightCyan(0xE0, 0xFF, 0xFF, 0xFF);
+const etk::Color<> etk::color::lightGoldenRodYellow(0xFA, 0xFA, 0xD2, 0xFF);
+const etk::Color<> etk::color::lightGray(0xD3, 0xD3, 0xD3, 0xFF);
+const etk::Color<> etk::color::lightGrey(0xD3, 0xD3, 0xD3, 0xFF);
+const etk::Color<> etk::color::lightGreen(0x90, 0xEE, 0x90, 0xFF);
+const etk::Color<> etk::color::lightPink(0xFF, 0xB6, 0xC1, 0xFF);
+const etk::Color<> etk::color::lightSalmon(0xFF, 0xA0, 0x7A, 0xFF);
+const etk::Color<> etk::color::lightSeaGreen(0x20, 0xB2, 0xAA, 0xFF);
+const etk::Color<> etk::color::lightSkyBlue(0x87, 0xCE, 0xFA, 0xFF);
+const etk::Color<> etk::color::lightSlateGray(0x77, 0x88, 0x99, 0xFF);
+const etk::Color<> etk::color::lightSlateGrey(0x77, 0x88, 0x99, 0xFF);
+const etk::Color<> etk::color::lightSteelBlue(0xB0, 0xC4, 0xDE, 0xFF);
+const etk::Color<> etk::color::lightYellow(0xFF, 0xFF, 0xE0, 0xFF);
+const etk::Color<> etk::color::lime(0x00, 0xFF, 0x00, 0xFF);
+const etk::Color<> etk::color::limeGreen(0x32, 0xCD, 0x32, 0xFF);
+const etk::Color<> etk::color::linen(0xFA, 0xF0, 0xE6, 0xFF);
+const etk::Color<> etk::color::magenta(0xFF, 0x00, 0xFF, 0xFF);
+const etk::Color<> etk::color::maroon(0x80, 0x00, 0x00, 0xFF);
+const etk::Color<> etk::color::mediumAquaMarine(0x66, 0xCD, 0xAA, 0xFF);
+const etk::Color<> etk::color::mediumBlue(0x00, 0x00, 0xCD, 0xFF);
+const etk::Color<> etk::color::mediumOrchid(0xBA, 0x55, 0xD3, 0xFF);
+const etk::Color<> etk::color::mediumPurple(0x93, 0x70, 0xD8, 0xFF);
+const etk::Color<> etk::color::mediumSeaGreen(0x3C, 0xB3, 0x71, 0xFF);
+const etk::Color<> etk::color::mediumSlateBlue(0x7B, 0x68, 0xEE, 0xFF);
+const etk::Color<> etk::color::mediumSpringGreen(0x00, 0xFA, 0x9A, 0xFF);
+const etk::Color<> etk::color::mediumTurquoise(0x48, 0xD1, 0xCC, 0xFF);
+const etk::Color<> etk::color::mediumVioletRed(0xC7, 0x15, 0x85, 0xFF);
+const etk::Color<> etk::color::midnightBlue(0x19, 0x19, 0x70, 0xFF);
+const etk::Color<> etk::color::mintCream(0xF5, 0xFF, 0xFA, 0xFF);
+const etk::Color<> etk::color::mistyRose(0xFF, 0xE4, 0xE1, 0xFF);
+const etk::Color<> etk::color::moccasin(0xFF, 0xE4, 0xB5, 0xFF);
+const etk::Color<> etk::color::navajoWhite(0xFF, 0xDE, 0xAD, 0xFF);
+const etk::Color<> etk::color::navy(0x00, 0x00, 0x80, 0xFF);
+const etk::Color<> etk::color::oldLace(0xFD, 0xF5, 0xE6, 0xFF);
+const etk::Color<> etk::color::olive(0x80, 0x80, 0x00, 0xFF);
+const etk::Color<> etk::color::oliveDrab(0x6B, 0x8E, 0x23, 0xFF);
+const etk::Color<> etk::color::orange(0xFF, 0xA5, 0x00, 0xFF);
+const etk::Color<> etk::color::orangeRed(0xFF, 0x45, 0x00, 0xFF);
+const etk::Color<> etk::color::orchid(0xDA, 0x70, 0xD6, 0xFF);
+const etk::Color<> etk::color::paleGoldenRod(0xEE, 0xE8, 0xAA, 0xFF);
+const etk::Color<> etk::color::paleGreen(0x98, 0xFB, 0x98, 0xFF);
+const etk::Color<> etk::color::paleTurquoise(0xAF, 0xEE, 0xEE, 0xFF);
+const etk::Color<> etk::color::paleVioletRed(0xD8, 0x70, 0x93, 0xFF);
+const etk::Color<> etk::color::papayaWhip(0xFF, 0xEF, 0xD5, 0xFF);
+const etk::Color<> etk::color::peachPuff(0xFF, 0xDA, 0xB9, 0xFF);
+const etk::Color<> etk::color::peru(0xCD, 0x85, 0x3F, 0xFF);
+const etk::Color<> etk::color::pink(0xFF, 0xC0, 0xCB, 0xFF);
+const etk::Color<> etk::color::plum(0xDD, 0xA0, 0xDD, 0xFF);
+const etk::Color<> etk::color::powderBlue(0xB0, 0xE0, 0xE6, 0xFF);
+const etk::Color<> etk::color::purple(0x80, 0x00, 0x80, 0xFF);
+const etk::Color<> etk::color::red(0xFF, 0x00, 0x00, 0xFF);
+const etk::Color<> etk::color::rosyBrown(0xBC, 0x8F, 0x8F, 0xFF);
+const etk::Color<> etk::color::royalBlue(0x41, 0x69, 0xE1, 0xFF);
+const etk::Color<> etk::color::saddleBrown(0x8B, 0x45, 0x13, 0xFF);
+const etk::Color<> etk::color::salmon(0xFA, 0x80, 0x72, 0xFF);
+const etk::Color<> etk::color::sandyBrown(0xF4, 0xA4, 0x60, 0xFF);
+const etk::Color<> etk::color::seaGreen(0x2E, 0x8B, 0x57, 0xFF);
+const etk::Color<> etk::color::seaShell(0xFF, 0xF5, 0xEE, 0xFF);
+const etk::Color<> etk::color::sienna(0xA0, 0x52, 0x2D, 0xFF);
+const etk::Color<> etk::color::silver(0xC0, 0xC0, 0xC0, 0xFF);
+const etk::Color<> etk::color::skyBlue(0x87, 0xCE, 0xEB, 0xFF);
+const etk::Color<> etk::color::slateBlue(0x6A, 0x5A, 0xCD, 0xFF);
+const etk::Color<> etk::color::slateGray(0x70, 0x80, 0x90, 0xFF);
+const etk::Color<> etk::color::slateGrey(0x70, 0x80, 0x90, 0xFF);
+const etk::Color<> etk::color::snow(0xFF, 0xFA, 0xFA, 0xFF);
+const etk::Color<> etk::color::springGreen(0x00, 0xFF, 0x7F, 0xFF);
+const etk::Color<> etk::color::steelBlue(0x46, 0x82, 0xB4, 0xFF);
+const etk::Color<> etk::color::tan(0xD2, 0xB4, 0x8C, 0xFF);
+const etk::Color<> etk::color::teal(0x00, 0x80, 0x80, 0xFF);
+const etk::Color<> etk::color::thistle(0xD8, 0xBF, 0xD8, 0xFF);
+const etk::Color<> etk::color::tomato(0xFF, 0x63, 0x47, 0xFF);
+const etk::Color<> etk::color::turquoise(0x40, 0xE0, 0xD0, 0xFF);
+const etk::Color<> etk::color::violet(0xEE, 0x82, 0xEE, 0xFF);
+const etk::Color<> etk::color::wheat(0xF5, 0xDE, 0xB3, 0xFF);
+const etk::Color<> etk::color::white(0xFF, 0xFF, 0xFF, 0xFF);
+const etk::Color<> etk::color::whiteSmoke(0xF5, 0xF5, 0xF5, 0xFF);
+const etk::Color<> etk::color::yellow(0xFF, 0xFF, 0x00, 0xFF);
+const etk::Color<> etk::color::yellowGreen(0x9A, 0xCD, 0x32, 0xFF);
 
 static const colorList_ts listOfColor[] = {
 	{ "none",				etk::color::none},
@@ -547,3 +507,42 @@ static int32_t getColorSize()
 	static const int32_t tmpp = sizeof(listOfColor) / sizeof(colorList_ts);
 	return tmpp;
 }
+namespace etk {
+	#include "Color_8_bits.cxx"
+	#include "Color_16_bits.cxx"
+	#include "Color_32_bits.cxx"
+	#include "Color_float.cxx"
+	#include "Color_double.cxx"
+};
+
+
+/*
+template<> Color<float,4>::Color(const etk::Color<uint8_t, 4>& _obj) {
+	if (MY_TYPE_SIZE >= 1) {
+		if (MY_TYPE_SIZE_2 >= 1) {
+			m_element[0] = (float)_obj.m_element[0] / 255.0f;
+		}
+	}
+	if (MY_TYPE_SIZE >= 2) {
+		if (MY_TYPE_SIZE_2 >= 2) {
+			m_element[1] = (float)_obj.m_element[1] / 255.0f;
+		} else {
+			m_element[1] = 0;
+		}
+	}
+	if (MY_TYPE_SIZE >= 3) {
+		if (MY_TYPE_SIZE_2 >= 3) {
+			m_element[2] = (float)_obj.m_element[2] / 255.0f;
+		} else {
+			m_element[2] = 0;
+		}
+	}
+	if (MY_TYPE_SIZE >= 4) {
+		if (MY_TYPE_SIZE_2 >= 4) {
+			m_element[3] = (float)_obj.m_element[3] / 255.0f;
+		} else {
+			m_element[3] = 0;
+		}
+	}
+}
+*/

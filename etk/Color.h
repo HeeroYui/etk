@@ -31,12 +31,9 @@ namespace etk {
 	 * 
 	 * @template-param MY_TYPE Type of the internal template value. The generic value is uint8_t and float
 	 */
-	template<class MY_TYPE=uint8_t> class Color {
+	template<typename MY_TYPE=uint8_t, int MY_TYPE_SIZE=4> class Color {
 		private:
-			MY_TYPE m_r; //!< Red color value.
-			MY_TYPE m_g; //!< Green color value.
-			MY_TYPE m_b; //!< Blue color value
-			MY_TYPE m_a; //!< Alpha blending value.
+			MY_TYPE m_element[MY_TYPE_SIZE]; //!< all the color.
 		public:
 			/**
 			 * @brief Constructor. It does not initialise element of class.
@@ -49,51 +46,27 @@ namespace etk {
 			 * @param[in] _b Blue color.
 			 * @param[in] _a Alpha blending.
 			 */
-			Color(double _r, double _g, double _b, double _a=255) {
-				set((float)_r, (float)_g, (float)_b, (float)_a);
-			};
-			/**
-			 * @previous
-			 */
-			Color(float _r, float _g, float _b, float _a=255) {
+			Color(MY_TYPE _r, MY_TYPE _g, MY_TYPE _b, MY_TYPE _a) {
 				set(_r, _g, _b, _a);
 			};
-			/**
-			 * @previous
-			 */
-			Color(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a=255) {
-				set(_r, _g, _b, _a);
+			//! @previous
+			Color(MY_TYPE _r, MY_TYPE _g, MY_TYPE _b) {
+				set(_r, _g, _b);
 			};
-			/**
-			 * @previous
-			 */
-			Color(int _r, int _g, int _b, int _a=255) {
-				set(_r, _g, _b, _a);
+			//! @previous
+			Color(MY_TYPE _r, MY_TYPE _g) {
+				set(_r, _g);
 			};
-			/**
-			 * @brief Constructor with the single integer input.
-			 * @note Not forger the alpha blending at the end
-			 * @param[in] _input rgba integer value : 0xrrggbbaa >> 0x99AF6DFF
-			 */
-			Color(uint32_t _input) {
-				set((uint8_t)((_input&0xFF000000)>>24),
-				    (uint8_t)((_input&0x00FF0000)>>16),
-				    (uint8_t)((_input&0x0000FF00)>>8),
-				    (uint8_t)((_input&0x000000FF)));
+			//! @previous
+			Color(MY_TYPE _r) {
+				set(_r);
 			};
 			/**
 			 * @brief Copy contructor or convert contructor
 			 * @param[in] _obj Element to copy in this new color class.
 			 */
-			Color(const etk::Color<float>& _obj) {
-				set(_obj.r(), _obj.g(), _obj.b(), _obj.a());
-			};
-			/**
-			 * @previous
-			 */
-			Color(const etk::Color<uint8_t>& _obj) {
-				set(_obj.r(), _obj.g(), _obj.b(), _obj.a());
-			};
+			template<typename MY_TYPE_2, int MY_TYPE_SIZE_2>
+			Color(const etk::Color<MY_TYPE_2, MY_TYPE_SIZE_2>& _obj);
 			/**
 			 * @brief String extractor constructor.
 			 * @param[in] _input Color string to parse. it can be : "#rrggbb", "rgb", "rrggbbaa", "rgba", "blueviolet" ...
@@ -104,11 +77,10 @@ namespace etk {
 			 * @param[in] _input Color object to set in this class.
 			 * @return reference on this element.
 			 */
-			Color<MY_TYPE>& operator=(const etk::Color<MY_TYPE>& _input) {
-				m_r = _input.m_r;
-				m_g = _input.m_g;
-				m_b = _input.m_b;
-				m_a = _input.m_a;
+			Color<MY_TYPE,MY_TYPE_SIZE>& operator=(const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _input) {
+				for (size_t iii=0; iii<MY_TYPE_SIZE; ++iii) {
+					m_element[iii] = _input.m_element[iii];
+				}
 				return *this;
 			};
 			/**
@@ -117,12 +89,11 @@ namespace etk {
 			 * @return true This is not the same color
 			 * @return false This is the same color.
 			 */
-			bool operator!= (const etk::Color<MY_TYPE>& _obj) const {
-				if(    m_r != _obj.m_r
-				    || m_g != _obj.m_g
-				    || m_b != _obj.m_b
-				    || m_a != _obj.m_a) {
-					return true;
+			bool operator!= (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) const {
+				for (size_t iii=0; iii<MY_TYPE_SIZE; ++iii) {
+					if(m_element[iii] != _obj.m_element[iii]) {
+						return true;
+					}
 				}
 				return false;
 			}
@@ -132,12 +103,11 @@ namespace etk {
 			 * @return true This is the same color.
 			 * @return false The color are different.
 			 */
-			bool operator== (const etk::Color<MY_TYPE>& _obj) const {
-				if(    m_r != _obj.m_r
-				    || m_g != _obj.m_g
-				    || m_b != _obj.m_b
-				    || m_a != _obj.m_a) {
-					return false;
+			bool operator== (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) const {
+				for (size_t iii=0; iii<MY_TYPE_SIZE; ++iii) {
+					if(m_element[iii] != _obj.m_element[iii]) {
+						return false;
+					}
 				}
 				return true;
 			}
@@ -153,16 +123,65 @@ namespace etk {
 			 * @param[in] _b Blue color.
 			 * @param[in] _a Alpha blending.
 			 */
-			void set(float _r, float _g, float _b, float _a=255);
+			void set(MY_TYPE _r, MY_TYPE _g, MY_TYPE _b, MY_TYPE _a) {
+				if (MY_TYPE_SIZE >= 1) {
+					m_element[0] = _r;
+				}
+				if (MY_TYPE_SIZE >= 2) {
+					m_element[1] = _g;
+				}
+				if (MY_TYPE_SIZE >= 3) {
+					m_element[2] = _b;
+				}
+				if (MY_TYPE_SIZE >= 4) {
+					m_element[3] = _a;
+				}
+			};
 			//! @previous
-			void set(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a=255);
+			void set(MY_TYPE _r, MY_TYPE _g, MY_TYPE _b) {
+				if (MY_TYPE_SIZE >= 1) {
+					m_element[0] = _r;
+				}
+				if (MY_TYPE_SIZE >= 2) {
+					m_element[1] = _g;
+				}
+				if (MY_TYPE_SIZE >= 3) {
+					m_element[2] = _b;
+				}
+				if (MY_TYPE_SIZE >= 4) {
+					m_element[3] = 0;
+				}
+			};
 			//! @previous
-			void set(int _r, int _g, int _b, int _a=255) {
-				set((uint8_t)(etk_avg(0,_r,255)),
-				    (uint8_t)(etk_avg(0,_g,255)),
-				    (uint8_t)(etk_avg(0,_b,255)),
-				    (uint8_t)(etk_avg(0,_a,255)) );
-			}
+			void set(MY_TYPE _r, MY_TYPE _g) {
+				if (MY_TYPE_SIZE >= 1) {
+					m_element[0] = _r;
+				}
+				if (MY_TYPE_SIZE >= 2) {
+					m_element[1] = _g;
+				}
+				if (MY_TYPE_SIZE >= 3) {
+					m_element[2] = 0;
+				}
+				if (MY_TYPE_SIZE >= 4) {
+					m_element[3] = 0;
+				}
+			};
+			//! @previous
+			void set(MY_TYPE _r) {
+				if (MY_TYPE_SIZE >= 1) {
+					m_element[0] = _r;
+				}
+				if (MY_TYPE_SIZE >= 2) {
+					m_element[1] = 0;
+				}
+				if (MY_TYPE_SIZE >= 3) {
+					m_element[2] = 0;
+				}
+				if (MY_TYPE_SIZE >= 4) {
+					m_element[3] = 0;
+				}
+			};
 			/**
 			 * @brief Convert the color in an hexedecimal string ("0xFEDCBA98")
 			 * @return The formated string
@@ -186,66 +205,282 @@ namespace etk {
 			 * @return The red color.
 			 */
 			MY_TYPE r() const {
-				return m_r;
+				if (MY_TYPE_SIZE >= 1) {
+					return m_element[0];
+				} else {
+					return 0;
+				}
 			};
 			/**
 			 * @brief Get green color.
 			 * @return The green color.
 			 */
 			MY_TYPE g() const {
-				return m_g;
+				if (MY_TYPE_SIZE >= 2) {
+					return m_element[1];
+				} else {
+					return 0;
+				}
 			};
 			/**
 			 * @brief Get blue color.
 			 * @return The blue color.
 			 */
 			MY_TYPE b() const {
-				return m_b;
+				if (MY_TYPE_SIZE >= 3) {
+					return m_element[2];
+				} else {
+					return 0;
+				}
 			};
 			/**
 			 * @brief Get alpha blending.
 			 * @return The alpha blending.
 			 */
 			MY_TYPE a() const {
-				return m_a;
+				if (MY_TYPE_SIZE >= 4) {
+					return m_element[3];
+				} else {
+					return 0;
+				}
 			};
 			/**
 			 * @brief Set red color.
 			 * @param[in] _r The red color to set.
 			 */
 			void setR(MY_TYPE _r) {
-				m_r=_r;
+				if (MY_TYPE_SIZE >= 1) {
+					m_element[0] = _r;
+				}
 			};
 			/**
 			 * @brief Set green color.
 			 * @param[in] _g The green color to set.
 			 */
 			void setG(MY_TYPE _g) {
-				m_g=_g;
+				if (MY_TYPE_SIZE >= 2) {
+					m_element[1] = _g;
+				}
 			};
 			/**
 			 * @brief Set blue color.
 			 * @param[in] _b The blue color to set.
 			 */
 			void setB(MY_TYPE _b) {
-				m_b=_b;
+				if (MY_TYPE_SIZE >= 3) {
+					m_element[2] = _b;
+				}
 			};
 			/**
 			 * @brief Set alpha blending.
 			 * @param[in] _a The alpha blending to set.
 			 */
 			void setA(MY_TYPE _a) {
-				m_a=_a;
+				if (MY_TYPE_SIZE >= 4) {
+					m_element[3] = _a;
+				}
 			};
 	};
+	etk::Color<uint8_t, 4> parseStringStartWithSharp(const std::string& _input);
+	etk::Color<uint8_t, 4> parseStringStartWithRGBGen(const std::string& _input);
+	etk::Color<double, 4> parseStringStartWithRGB(const std::string& _input);
+	etk::Color<uint32_t, 4> parseStringStartWithRGBUnsigned32(const std::string& _input);
+	etk::Color<uint16_t, 4> parseStringStartWithRGBUnsigned16(const std::string& _input);
+	etk::Color<uint8_t, 4> parseStringStartWithRGBUnsigned8(const std::string& _input);
+	etk::Color<uint8_t, 4> parseStringColorNamed(const std::string& _input);
+	
+	template<> uint32_t Color<uint8_t, 4>::get() const;
+	
+	template<typename MY_TYPE, int MY_TYPE_SIZE> uint32_t Color<MY_TYPE, MY_TYPE_SIZE>::get() const {
+		Color<uint8_t, 4> tmp(*this);
+		return tmp.get();
+	}
+	
+	template<typename MY_TYPE, int MY_TYPE_SIZE> Color<MY_TYPE, MY_TYPE_SIZE>::Color(const std::string& _input) {
+		const char* inputData = _input.c_str();
+		size_t len = _input.size();
+		if(    len >=1
+		    && inputData[0] == '#') {
+			Color<uint8_t, 4> value = etk::parseStringStartWithSharp(std::string(_input, 1));
+			*this = value;
+		} else if(std::start_with(_input, "rgb(", false) == true) {
+			Color<uint8_t, 4> value = etk::parseStringStartWithRGBGen(std::string(_input, 4, _input.size()-1));
+			*this = value;
+		} else if(std::start_with(_input, "rgb[FLOAT](", false) == true) {
+			Color<double, 4> value = etk::parseStringStartWithRGB(std::string(_input, 11, _input.size()-1));
+			*this = value;
+		} else if(std::start_with(_input, "rgb[DOUBLE](", false) == true) {
+			Color<double, 4> value = etk::parseStringStartWithRGB(std::string(_input, 12, _input.size()-1));
+			*this = value;
+		} else if(std::start_with(_input, "rgb[U32](", false) == true) {
+			Color<uint32_t, 4> value = etk::parseStringStartWithRGBUnsigned32(std::string(_input, 9, _input.size()-1));
+			*this = value;
+		} else if(std::start_with(_input, "rgb[U16](", false) == true) {
+			Color<uint16_t, 4> value = etk::parseStringStartWithRGBUnsigned16(std::string(_input, 9, _input.size()-1));
+			*this = value;
+		} else if(std::start_with(_input, "rgb[U8](", false) == true) {
+			Color<uint8_t, 4> value = etk::parseStringStartWithRGBUnsigned8(std::string(_input, 8, _input.size()-1));
+			*this = value;
+		} else {
+			Color<uint8_t, 4> value = etk::parseStringColorNamed(_input);
+			*this = value;
+		}
+	};
+	
+	
 	//! @not-in-doc
-	std::ostream& operator <<(std::ostream& _os, const Color<uint8_t>& _obj);
+	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint8_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits 
+		if (MY_TYPE_SIZE >= 3) {
+			_os << "#";
+			_os << (std::to_string<uint32_t, 2>(_obj.r(), std::hex)).c_str();
+			if (MY_TYPE_SIZE >= 2) {
+				_os << (std::to_string<uint32_t, 2>(_obj.g(), std::hex)).c_str();
+			}
+			if (MY_TYPE_SIZE >= 3) {
+				_os << (std::to_string<uint32_t, 2>(_obj.b(), std::hex)).c_str();
+			}
+			if (MY_TYPE_SIZE >= 4) {
+				_os << (std::to_string<uint32_t, 2>(_obj.a(), std::hex)).c_str();
+			}
+		} else {
+			if (MY_TYPE_SIZE >= 2) {
+				_os << "be";
+			} else {
+				_os << "Mono";
+			}
+			_os << "[U8](";
+			_os << "0x" << (std::to_string<uint32_t, 2>(_obj.r(), std::hex)).c_str();
+			if (MY_TYPE_SIZE >= 2) {
+				_os << ",";
+				_os << "0x" << (std::to_string<uint32_t, 2>(_obj.g(), std::hex)).c_str();
+			}
+			_os << ")";
+		}
+		return _os;
+	}
 	//! @not-in-doc
-	std::ostream& operator <<(std::ostream& _os, const Color<float>& _obj);
+	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint16_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits 
+		if (MY_TYPE_SIZE >= 4) {
+			_os << "rgba";
+		} else if (MY_TYPE_SIZE >= 3) {
+			_os << "rgb";
+		} else if (MY_TYPE_SIZE >= 2) {
+			_os << "be";
+		} else {
+			_os << "Mono";
+		}
+		_os << "[U16](";
+		_os << "0x" << (std::to_string<uint32_t, 4>(_obj.r(), std::hex)).c_str();
+		if (MY_TYPE_SIZE >= 2) {
+			_os << ",";
+			_os << "0x" << (std::to_string<uint32_t, 4>(_obj.g(), std::hex)).c_str();
+		}
+		if (MY_TYPE_SIZE >= 3) {
+			_os << ",";
+			_os << "0x" << (std::to_string<uint32_t, 4>(_obj.b(), std::hex)).c_str();
+		}
+		if (MY_TYPE_SIZE >= 4) {
+			_os << ",";
+			_os << "0x" << (std::to_string<uint32_t, 4>(_obj.a(), std::hex)).c_str();
+		}
+		_os << ")";
+		return _os;
+	}
 	//! @not-in-doc
-	std::ostream& operator <<(std::ostream& _os, const std::vector<Color<uint8_t> >& _obj);
+	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint32_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits 
+		if (MY_TYPE_SIZE >= 4) {
+			_os << "rgba";
+		} else if (MY_TYPE_SIZE >= 3) {
+			_os << "rgb";
+		} else if (MY_TYPE_SIZE >= 2) {
+			_os << "be";
+		} else {
+			_os << "Mono";
+		}
+		_os << "[U32](";
+		_os << "0x" << (std::to_string<uint32_t, 8>(_obj.r(), std::hex)).c_str();
+		if (MY_TYPE_SIZE >= 2) {
+			_os << ",";
+			_os << "0x" << (std::to_string<uint32_t, 8>(_obj.g(), std::hex)).c_str();
+		}
+		if (MY_TYPE_SIZE >= 3) {
+			_os << ",";
+			_os << "0x" << (std::to_string<uint32_t, 8>(_obj.b(), std::hex)).c_str();
+		}
+		if (MY_TYPE_SIZE >= 4) {
+			_os << ",";
+			_os << "0x" << (std::to_string<uint32_t, 8>(_obj.a(), std::hex)).c_str();
+		}
+		_os << ")";
+		return _os;
+	}
 	//! @not-in-doc
-	std::ostream& operator <<(std::ostream& _os, const std::vector<Color<float> >& _obj);
+	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<float, MY_TYPE_SIZE>& _obj) { // RGB float & RGBA float
+		if (MY_TYPE_SIZE >= 4) {
+			_os << "rgba";
+		} else if (MY_TYPE_SIZE >= 3) {
+			_os << "rgb";
+		} else if (MY_TYPE_SIZE >= 2) {
+			_os << "be";
+		} else {
+			_os << "Mono";
+		}
+		_os << "[FLOAT](";
+		_os << _obj.r();
+		if (MY_TYPE_SIZE >= 2) {
+			_os << ",";
+			_os << _obj.g();
+		}
+		if (MY_TYPE_SIZE >= 3) {
+			_os << ",";
+			_os << _obj.b();
+		}
+		if (MY_TYPE_SIZE >= 4) {
+			_os << ",";
+			_os << _obj.a();
+		}
+		_os << ")";
+		return _os;
+	}
+	//! @not-in-doc
+	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<double, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits 
+		if (MY_TYPE_SIZE >= 4) {
+			_os << "rgba";
+		} else if (MY_TYPE_SIZE >= 3) {
+			_os << "rgb";
+		} else if (MY_TYPE_SIZE >= 2) {
+			_os << "be";
+		} else {
+			_os << "Mono";
+		}
+		_os << "[double](";
+		_os << _obj.r();
+		if (MY_TYPE_SIZE >= 2) {
+			_os << ",";
+			_os << _obj.g();
+		}
+		if (MY_TYPE_SIZE >= 3) {
+			_os << ",";
+			_os << _obj.b();
+		}
+		if (MY_TYPE_SIZE >= 4) {
+			_os << ",";
+			_os << _obj.a();
+		}
+		_os << ")";
+		return _os;
+	}
+	//! @not-in-doc
+	template<typename MY_TYPE, int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const std::vector<Color<MY_TYPE, MY_TYPE_SIZE> >& _obj) {
+		for (size_t iii = 0; iii < _obj.size(); ++iii) {
+			if (iii != 0) {
+				_os << " ";
+			}
+			_os << _obj[iii];
+		}
+		return _os;
+	};
+	
 	/**
 	 * @brief List of all native define colors ...
 	 */

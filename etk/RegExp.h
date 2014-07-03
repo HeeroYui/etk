@@ -194,8 +194,8 @@ template<class CLASS_TYPE> class RegExpNode {
 		 * @param[in] _max The maximum appear time.
 		 */
 		void setMult(uint32_t _min, uint32_t _max) {
-			m_multipleMin = etk_max(_min, 0);
-			m_multipleMax = etk_max(_max, 1);
+			m_multipleMin = std::max(_min, (uint32_t)0);
+			m_multipleMax = std::max(_max, (uint32_t)1);
 		}
 	protected:
 		/**

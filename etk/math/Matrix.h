@@ -130,7 +130,7 @@ namespace etk
 			{
 				if (m_size != obj.m_size) {
 					//TK_CRITICAL("add 2 Matrix with différent size ... ==> generate the max size of all the 2 matrix");
-					etk::Matrix<T> tmpMatrix(etk_max(m_size.x,obj.m_size.x), etk_max(m_size.y,obj.m_size.y));
+					etk::Matrix<T> tmpMatrix(std::max(m_size.x,obj.m_size.x), std::max(m_size.y,obj.m_size.y));
 					for (int32_t jjj=0; jjj< m_size.y; jjj++) {
 						T* tmpPointer = tmpMatrix[jjj];
 						T* tmpPointerIn = (*this)[jjj];
@@ -171,7 +171,7 @@ namespace etk
 			{
 				if (m_size != obj.m_size) {
 					//TK_CRITICAL("less 2 Matrix with diffÃ©rent size ... ==> generate the max size of all the 2 matrix");
-					etk::Matrix<T> tmpMatrix(etk_max(m_size.x,obj.m_size.x), etk_max(m_size.y,obj.m_size.y));
+					etk::Matrix<T> tmpMatrix(std::max(m_size.x,obj.m_size.x), std::max(m_size.y,obj.m_size.y));
 					for (int32_t jjj=0; jjj< m_size.y; jjj++) {
 						T* tmpPointer = tmpMatrix[jjj];
 						T* tmpPointerIn = (*this)[jjj];
@@ -459,7 +459,7 @@ namespace etk
 			void identity()
 			{
 				// copy data for the same size :
-				for (int32_t iii=0; iii< etk_min(m_size.x, m_size.y); iii++) {
+				for (int32_t iii=0; iii< std::mim(m_size.x, m_size.y); iii++) {
 					(*this)(iii,iii) = (T)1;
 				}
 			};

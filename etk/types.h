@@ -40,11 +40,6 @@
 		#define UINT64_MAX (__UINT64_C(18446744073709551615))
 	#endif
 #endif
-
-#define etk_min(elemA,elemB) (((elemA)<(elemB)) ? (elemA) : (elemB))
-#define etk_max(elemA,elemB) (((elemA)<(elemB)) ? (elemB) : (elemA))
-#define etk_avg(minimim,elem,maximum) (((minimim)>(elem)) ? (minimim) : ((maximum)<(elem)) ? (maximum) : (elem))
-
 #include <etk/stdTools.h>
 
 typedef float float_t;

@@ -14,6 +14,8 @@
 #include <sstream>
 #include <iostream>
 #include <string>
+#include <iomanip>
+#include <algorithm>
 
 namespace u32char {
 	extern const char32_t Null; //!< '\0' 
@@ -109,14 +111,22 @@ namespace std {
 	//! @previous
 	std::u32string to_u32string(long double _val);
 	
-	template<class T> std::string to_string(T t, std::ios_base & (*f)(std::ios_base&)) {
+	template<class T, int size=0> std::string to_string(T t, std::ios_base & (*f)(std::ios_base&)) {
 		std::ostringstream oss;
-		oss << f << t;
+		if (size==0) {
+			oss << f << t;
+		} else {
+			oss << std::setw(size) << std::setfill('0') << f << t;
+		}
 		return oss.str();
 	}
-	template<class T> std::u32string to_u32string(T t, std::ios_base & (*f)(std::ios_base&)) {
+	template<class T, int size=0> std::u32string to_u32string(T t, std::ios_base & (*f)(std::ios_base&)) {
 		std::ostringstream oss;
-		oss << f << t;
+		if (size==0) {
+			oss << f << t;
+		} else {
+			oss << std::setw(size) << std::setfill('0') << f << t;
+		}
 		return std::to_u32string(oss.str());
 	}
 	
@@ -209,6 +219,10 @@ namespace std {
 	void sort(std::vector<std::u32string *>& _list);
 	//! @previous
 	void sort(std::vector<std::string *>& _list);
+	
+	template <class T> const T& avg(const T& a, const T& b, const T& c) {
+		return std::min(std::max(a,b),c);
+	}
 };
 
 namespace std {
