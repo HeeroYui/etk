@@ -1,3 +1,9 @@
+
+template<> const Color<uint16_t, 1> Color<uint16_t, 1>::emptyColor(0);
+template<> const Color<uint16_t, 2> Color<uint16_t, 2>::emptyColor(0,0);
+template<> const Color<uint16_t, 3> Color<uint16_t, 3>::emptyColor(0,0,0);
+template<> const Color<uint16_t, 4> Color<uint16_t, 4>::emptyColor(0,0,0,0xFFFF);
+
 // this work ...
 template<> template<> Color<uint16_t,1>::Color(const Color<uint8_t, 1>& _obj) {
 	m_element[0] = (uint16_t)_obj.r() << 8;

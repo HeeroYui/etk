@@ -32,6 +32,8 @@ namespace etk {
 	 * @template-param MY_TYPE Type of the internal template value. The generic value is uint8_t and float
 	 */
 	template<typename MY_TYPE=uint8_t, int MY_TYPE_SIZE=4> class Color {
+		public:
+			static const Color<MY_TYPE, MY_TYPE_SIZE> emptyColor; // to auto fill with no data in all case
 		private:
 			MY_TYPE m_element[MY_TYPE_SIZE]; //!< all the color.
 		public:
@@ -297,6 +299,7 @@ namespace etk {
 	}
 	
 	template<typename MY_TYPE, int MY_TYPE_SIZE> Color<MY_TYPE, MY_TYPE_SIZE>::Color(const std::string& _input) {
+		TK_VERBOSE("convert color string : '" << _input << "'");
 		const char* inputData = _input.c_str();
 		size_t len = _input.size();
 		if(    len >=1
@@ -325,6 +328,7 @@ namespace etk {
 			Color<uint8_t, 4> value = etk::parseStringColorNamed(_input);
 			*this = value;
 		}
+		TK_VERBOSE("  ==> converted color string : '" << _input << "' ==> " << *this);
 	};
 	
 	

@@ -1,3 +1,9 @@
+
+template<> const Color<double, 1> Color<double, 1>::emptyColor(0.0);
+template<> const Color<double, 2> Color<double, 2>::emptyColor(0.0,0.0);
+template<> const Color<double, 3> Color<double, 3>::emptyColor(0.0,0.0,0.0);
+template<> const Color<double, 4> Color<double, 4>::emptyColor(0.0,0.0,0.0,1.0);
+
 // this work ...
 template<> template<> Color<double,1>::Color(const Color<uint8_t, 1>& _obj) {
 	m_element[0] = (double)_obj.r() / 255.0;

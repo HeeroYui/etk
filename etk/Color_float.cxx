@@ -1,3 +1,9 @@
+
+template<> const Color<float, 1> Color<float, 1>::emptyColor(0.0f);
+template<> const Color<float, 2> Color<float, 2>::emptyColor(0.0f,0.0f);
+template<> const Color<float, 3> Color<float, 3>::emptyColor(0.0f,0.0f,0.0f);
+template<> const Color<float, 4> Color<float, 4>::emptyColor(0.0f,0.0f,0.0f,1.0f);
+
 // this work ...
 template<> template<> Color<float,1>::Color(const Color<uint8_t, 1>& _obj) {
 	m_element[0] = (float)_obj.r() / 255.0f;

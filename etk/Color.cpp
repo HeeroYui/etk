@@ -24,7 +24,7 @@ static int32_t getColorSize();
 static const colorList_ts* getColorList();
 
 etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input) {
-	TK_INFO("parseStringStartWithSharp('" << _input << "'");
+	TK_VERBOSE("parseStringStartWithSharp('" << _input << "'");
 	size_t len = _input.size();
 	etk::Color<uint8_t, 4> outputValue(0,0,0,0);
 	if(len == 3) {
@@ -33,10 +33,11 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input)
 			outputValue.setR(red | red << 4);
 			outputValue.setG(green | green << 4);
 			outputValue.setB(blue | blue << 4);
+			outputValue.setA(0xFF);
 		} else {
 			TK_ERROR(" pb in parsing the color : '" << _input << "'");
 		}
-	} else if (len==5) {
+	} else if (len==4) {
 		int32_t red=0, green=0, blue=0, alpha=0;
 		if (sscanf(_input.c_str(), "%1x%1x%1x%1x", &red, &green, &blue, &alpha) == 4) {
 			outputValue.setR(red | red << 4);
@@ -46,16 +47,17 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input)
 		} else {
 			TK_ERROR(" pb in parsing the color : '" << _input << "'");
 		}
-	} else if (len == 7) {
+	} else if (len == 6) {
 		int32_t red=0, green=0, blue=0;
 		if (sscanf(_input.c_str(), "%2x%2x%2x", &red, &green, &blue) == 3) {
 			outputValue.setR(red);
 			outputValue.setG(green);
 			outputValue.setB(blue);
+			outputValue.setA(0xFF);
 		} else {
 			TK_ERROR(" pb in parsing the color : '" << _input << "'");
 		}
-	} else if (len == 9) {
+	} else if (len == 8) {
 		int32_t red=0, green=0, blue=0, alpha=0;
 		if (sscanf(_input.c_str(), "%2x%2x%2x%2x", &red, &green, &blue, &alpha) == 4) {
 			outputValue.setR(red);
@@ -72,7 +74,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input)
 }
 
 etk::Color<uint8_t, 4> etk::parseStringStartWithRGBGen(const std::string& _input) {
-	TK_INFO("parseStringStartWithRGB('" << _input << "'");
+	TK_VERBOSE("parseStringStartWithRGB('" << _input << "'");
 	etk::Color<uint8_t, 4> outputValue(0,0,0,0);
 	int32_t red=0, green=0, blue=0, alpha=0;
 	float   fred=0, fgreen=0, fblue=0, falpha=0;
@@ -108,7 +110,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithRGBGen(const std::string& _input
 }
 
 etk::Color<double, 4> etk::parseStringStartWithRGB(const std::string& _input) {
-	TK_INFO("parseStringStartWithRGB('" << _input << "'");
+	TK_VERBOSE("parseStringStartWithRGB('" << _input << "'");
 	etk::Color<double, 4> outputValue(0,0,0,0);
 	double fred=0, fgreen=0, fblue=0, falpha=0;
 	if (sscanf(_input.c_str(), "%lf%%,%lf%%,%lf%%,%lf%%", &fred, &fgreen, &fblue, &falpha) == 4) {
@@ -514,35 +516,3 @@ namespace etk {
 	#include "Color_float.cxx"
 	#include "Color_double.cxx"
 };
-
-
-/*
-template<> Color<float,4>::Color(const etk::Color<uint8_t, 4>& _obj) {
-	if (MY_TYPE_SIZE >= 1) {
-		if (MY_TYPE_SIZE_2 >= 1) {
-			m_element[0] = (float)_obj.m_element[0] / 255.0f;
-		}
-	}
-	if (MY_TYPE_SIZE >= 2) {
-		if (MY_TYPE_SIZE_2 >= 2) {
-			m_element[1] = (float)_obj.m_element[1] / 255.0f;
-		} else {
-			m_element[1] = 0;
-		}
-	}
-	if (MY_TYPE_SIZE >= 3) {
-		if (MY_TYPE_SIZE_2 >= 3) {
-			m_element[2] = (float)_obj.m_element[2] / 255.0f;
-		} else {
-			m_element[2] = 0;
-		}
-	}
-	if (MY_TYPE_SIZE >= 4) {
-		if (MY_TYPE_SIZE_2 >= 4) {
-			m_element[3] = (float)_obj.m_element[3] / 255.0f;
-		} else {
-			m_element[3] = 0;
-		}
-	}
-}
-*/
