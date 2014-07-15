@@ -34,6 +34,7 @@ namespace etk {
 	template<typename MY_TYPE=uint8_t, int MY_TYPE_SIZE=4> class Color {
 		public:
 			static const Color<MY_TYPE, MY_TYPE_SIZE> emptyColor; // to auto fill with no data in all case
+			static const float defaultAlpha;
 		private:
 			MY_TYPE m_element[MY_TYPE_SIZE]; //!< all the color.
 		public:
@@ -151,7 +152,7 @@ namespace etk {
 					m_element[2] = _b;
 				}
 				if (MY_TYPE_SIZE >= 4) {
-					m_element[3] = 0;
+					m_element[3] = defaultAlpha;
 				}
 			};
 			//! @previous
@@ -166,7 +167,7 @@ namespace etk {
 					m_element[2] = 0;
 				}
 				if (MY_TYPE_SIZE >= 4) {
-					m_element[3] = 0;
+					m_element[3] = defaultAlpha;
 				}
 			};
 			//! @previous
@@ -181,7 +182,7 @@ namespace etk {
 					m_element[2] = 0;
 				}
 				if (MY_TYPE_SIZE >= 4) {
-					m_element[3] = 0;
+					m_element[3] = defaultAlpha;
 				}
 			};
 			/**
@@ -243,7 +244,7 @@ namespace etk {
 				if (MY_TYPE_SIZE >= 4) {
 					return m_element[3];
 				} else {
-					return 0;
+					return defaultAlpha;
 				}
 			};
 			/**

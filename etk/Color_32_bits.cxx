@@ -1,4 +1,8 @@
 
+template<> const float Color<uint32_t, 1>::defaultAlpha(0xFFFFFFFF);
+template<> const float Color<uint32_t, 2>::defaultAlpha(0xFFFFFFFF);
+template<> const float Color<uint32_t, 3>::defaultAlpha(0xFFFFFFFF);
+template<> const float Color<uint32_t, 4>::defaultAlpha(0xFFFFFFFF);
 template<> const Color<uint32_t, 1> Color<uint32_t, 1>::emptyColor(0);
 template<> const Color<uint32_t, 2> Color<uint32_t, 2>::emptyColor(0,0);
 template<> const Color<uint32_t, 3> Color<uint32_t, 3>::emptyColor(0,0,0);
@@ -21,7 +25,7 @@ template<> template<> Color<uint32_t,4>::Color(const Color<uint8_t, 1>& _obj) {
 	m_element[0] = (uint32_t)_obj.r() << 24;
 	m_element[1] = 0;
 	m_element[2] = 0;
-	m_element[3] = 0xFFFFFFFF;
+	m_element[3] = defaultAlpha;
 }
 template<> template<> Color<uint32_t,1>::Color(const Color<uint8_t, 2>& _obj) {
 	m_element[0] = (uint32_t)_obj.r() << 24;
@@ -39,7 +43,7 @@ template<> template<> Color<uint32_t,4>::Color(const Color<uint8_t, 2>& _obj) {
 	m_element[0] = (uint32_t)_obj.r() << 24;
 	m_element[1] = (uint32_t)_obj.g() << 24;
 	m_element[2] = 0;
-	m_element[3] = 0xFFFFFFFF;
+	m_element[3] = defaultAlpha;
 }
 template<> template<> Color<uint32_t,1>::Color(const Color<uint8_t, 3>& _obj) {
 	m_element[0] = (uint32_t)_obj.r() << 24;
@@ -57,7 +61,7 @@ template<> template<> Color<uint32_t,4>::Color(const Color<uint8_t, 3>& _obj) {
 	m_element[0] = (uint32_t)_obj.r() << 24;
 	m_element[1] = (uint32_t)_obj.g() << 24;
 	m_element[2] = (uint32_t)_obj.b() << 24;
-	m_element[3] = 0xFFFFFFFF;
+	m_element[3] = defaultAlpha;
 }
 template<> template<> Color<uint32_t,1>::Color(const Color<uint8_t, 4>& _obj) {
 	m_element[0] = (uint32_t)_obj.r() << 24;
@@ -96,7 +100,7 @@ template<> template<> Color<uint32_t,4>::Color(const Color<uint16_t, 1>& _obj) {
 	m_element[0] = (uint32_t)_obj.r() << 16;
 	m_element[1] = 0;
 	m_element[2] = 0;
-	m_element[3] = 0xFFFFFFFF;
+	m_element[3] = defaultAlpha;
 }
 template<> template<> Color<uint32_t,1>::Color(const Color<uint16_t, 2>& _obj) {
 	m_element[0] = (uint32_t)_obj.r() << 16;
@@ -114,7 +118,7 @@ template<> template<> Color<uint32_t,4>::Color(const Color<uint16_t, 2>& _obj) {
 	m_element[0] = (uint32_t)_obj.r() << 16;
 	m_element[1] = (uint32_t)_obj.g() << 16;
 	m_element[2] = 0;
-	m_element[3] = 0xFFFFFFFF;
+	m_element[3] = defaultAlpha;
 }
 template<> template<> Color<uint32_t,1>::Color(const Color<uint16_t, 3>& _obj) {
 	m_element[0] = (uint32_t)_obj.r() << 16;
@@ -132,7 +136,7 @@ template<> template<> Color<uint32_t,4>::Color(const Color<uint16_t, 3>& _obj) {
 	m_element[0] = (uint32_t)_obj.r() << 16;
 	m_element[1] = (uint32_t)_obj.g() << 16;
 	m_element[2] = (uint32_t)_obj.b() << 16;
-	m_element[3] = 0xFFFFFFFF;
+	m_element[3] = defaultAlpha;
 }
 template<> template<> Color<uint32_t,1>::Color(const Color<uint16_t, 4>& _obj) {
 	m_element[0] = (uint32_t)_obj.r() << 16;
@@ -171,7 +175,7 @@ template<> template<> Color<uint32_t,4>::Color(const Color<uint32_t, 1>& _obj) {
 	m_element[0] = _obj.r();
 	m_element[1] = 0;
 	m_element[2] = 0;
-	m_element[3] = 0xFFFFFFFF;
+	m_element[3] = defaultAlpha;
 }
 template<> template<> Color<uint32_t,1>::Color(const Color<uint32_t, 2>& _obj) {
 	m_element[0] = _obj.r();
@@ -189,7 +193,7 @@ template<> template<> Color<uint32_t,4>::Color(const Color<uint32_t, 2>& _obj) {
 	m_element[0] = _obj.r();
 	m_element[1] = _obj.g();
 	m_element[2] = 0;
-	m_element[3] = 0xFFFFFFFF;
+	m_element[3] = defaultAlpha;
 }
 template<> template<> Color<uint32_t,1>::Color(const Color<uint32_t, 3>& _obj) {
 	m_element[0] = _obj.r();
@@ -207,7 +211,7 @@ template<> template<> Color<uint32_t,4>::Color(const Color<uint32_t, 3>& _obj) {
 	m_element[0] = _obj.r();
 	m_element[1] = _obj.g();
 	m_element[2] = _obj.b();
-	m_element[3] = 0xFFFFFFFF;
+	m_element[3] = defaultAlpha;
 }
 template<> template<> Color<uint32_t,1>::Color(const Color<uint32_t, 4>& _obj) {
 	m_element[0] = _obj.r();
@@ -246,7 +250,7 @@ template<> template<> Color<uint32_t,4>::Color(const Color<float, 1>& _obj) {
 	m_element[0] = (uint32_t)(std::avg(0.0f, _obj.r(), 1.0f)*4294967295.0f);
 	m_element[1] = 0;
 	m_element[2] = 0;
-	m_element[3] = 0xFFFFFFFF;
+	m_element[3] = defaultAlpha;
 }
 template<> template<> Color<uint32_t,1>::Color(const Color<float, 2>& _obj) {
 	m_element[0] = (uint32_t)(std::avg(0.0f, _obj.r(), 1.0f)*4294967295.0f);
@@ -264,7 +268,7 @@ template<> template<> Color<uint32_t,4>::Color(const Color<float, 2>& _obj) {
 	m_element[0] = (uint32_t)(std::avg(0.0f, _obj.r(), 1.0f)*4294967295.0f);
 	m_element[1] = (uint32_t)(std::avg(0.0f, _obj.g(), 1.0f)*4294967295.0f);
 	m_element[2] = 0;
-	m_element[3] = 0xFFFFFFFF;
+	m_element[3] = defaultAlpha;
 }
 template<> template<> Color<uint32_t,1>::Color(const Color<float, 3>& _obj) {
 	m_element[0] = (uint32_t)(std::avg(0.0f, _obj.r(), 1.0f)*4294967295.0f);
@@ -282,7 +286,7 @@ template<> template<> Color<uint32_t,4>::Color(const Color<float, 3>& _obj) {
 	m_element[0] = (uint32_t)(std::avg(0.0f, _obj.r(), 1.0f)*4294967295.0f);
 	m_element[1] = (uint32_t)(std::avg(0.0f, _obj.g(), 1.0f)*4294967295.0f);
 	m_element[2] = (uint32_t)(std::avg(0.0f, _obj.b(), 1.0f)*4294967295.0f);
-	m_element[3] = 0xFFFFFFFF;
+	m_element[3] = defaultAlpha;
 }
 template<> template<> Color<uint32_t,1>::Color(const Color<float, 4>& _obj) {
 	m_element[0] = (uint32_t)(std::avg(0.0f, _obj.r(), 1.0f)*4294967295.0f);
