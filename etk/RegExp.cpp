@@ -64,39 +64,45 @@ const struct etk::convertionTable etk::constConvertionTable[] = {
 };
 const int64_t etk::constConvertionTableSize = sizeof(etk::constConvertionTable) / sizeof(struct etk::convertionTable) ;
 
-std::ostream& etk::displayElem(std::ostream& _os, const std::vector<char32_t>& _data, int64_t _start, int64_t _stop) {
-	_os << ETK_BASH_COLOR_NORMAL;
+
+std::string etk::createString(const std::vector<char32_t>& _data, int64_t _start, int64_t _stop) {
+	std::string output(ETK_BASH_COLOR_NORMAL);
 	for (int64_t iii=_start; iii<(int64_t)_data.size() && iii<_stop ; iii++) {
 		switch(_data[iii]) {
-			case regexpOpcodePTheseIn:		_os <<ETK_BASH_COLOR_RED		<< (char*)"(" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodePTheseOut:		_os<<ETK_BASH_COLOR_RED		<< (char*)")" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeBracketIn:		_os<<ETK_BASH_COLOR_YELLOW	<< (char*)"[" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeBracketOut:	_os<<ETK_BASH_COLOR_YELLOW	<< (char*)"]" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeTo:			_os<<ETK_BASH_COLOR_YELLOW	<< (char*)"-" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeBracetIn:		_os<<ETK_BASH_COLOR_GREEN		<< (char*)"{" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeBracetOut:		_os<<ETK_BASH_COLOR_GREEN		<< (char*)"}" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeStar:			_os<<ETK_BASH_COLOR_BLUE		<< (char*)"*" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeDot:			_os<<ETK_BASH_COLOR_BLUE		<< (char*)"." << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeQuestion:		_os<<ETK_BASH_COLOR_BLUE		<< (char*)"?" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodePlus:			_os<<ETK_BASH_COLOR_BLUE		<< (char*)"+" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodePipe:			_os<<ETK_BASH_COLOR_BLUE		<< (char*)"|" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeNoChar:		_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"@" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeStartOfLine:	_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"^" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeEndOfLine:		_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"$" << ETK_BASH_COLOR_NORMAL;		break;
-			case regexpOpcodeDigit:			_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\d" << ETK_BASH_COLOR_NORMAL;	break;
-			case regexpOpcodeDigitNot:		_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\D" << ETK_BASH_COLOR_NORMAL;	break;
-			case regexpOpcodeLetter:		_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\l" << ETK_BASH_COLOR_NORMAL;	break;
-			case regexpOpcodeLetterNot:		_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\L" << ETK_BASH_COLOR_NORMAL;	break;
-			case regexpOpcodeSpace:			_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\s" << ETK_BASH_COLOR_NORMAL;	break;
-			case regexpOpcodeSpaceNot:		_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\S" << ETK_BASH_COLOR_NORMAL;	break;
-			case regexpOpcodeWord:			_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\w" << ETK_BASH_COLOR_NORMAL;	break;
-			case regexpOpcodeWordNot:		_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\W" << ETK_BASH_COLOR_NORMAL;	break;
-			case '\n':						_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\n" << ETK_BASH_COLOR_NORMAL;	break;
-			case '\t':						_os<<ETK_BASH_COLOR_MAGENTA	<< (char*)"\\t" << ETK_BASH_COLOR_NORMAL;	break;
-			default:						_os<< _data[iii];									break;
+			case regexpOpcodePTheseIn:		output += std::string(ETK_BASH_COLOR_RED)		+ (char*)"(" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodePTheseOut:		output += std::string(ETK_BASH_COLOR_RED)		+ (char*)")" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeBracketIn:		output += std::string(ETK_BASH_COLOR_YELLOW)	+ (char*)"[" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeBracketOut:	output += std::string(ETK_BASH_COLOR_YELLOW)	+ (char*)"]" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeTo:			output += std::string(ETK_BASH_COLOR_YELLOW)	+ (char*)"-" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeBracetIn:		output += std::string(ETK_BASH_COLOR_GREEN)		+ (char*)"{" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeBracetOut:		output += std::string(ETK_BASH_COLOR_GREEN)		+ (char*)"}" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeStar:			output += std::string(ETK_BASH_COLOR_BLUE)		+ (char*)"*" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeDot:			output += std::string(ETK_BASH_COLOR_BLUE)		+ (char*)"." + ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeQuestion:		output += std::string(ETK_BASH_COLOR_BLUE)		+ (char*)"?" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodePlus:			output += std::string(ETK_BASH_COLOR_BLUE)		+ (char*)"+" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodePipe:			output += std::string(ETK_BASH_COLOR_BLUE)		+ (char*)"|" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeNoChar:		output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"@" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeStartOfLine:	output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"^" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeEndOfLine:		output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"$" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexpOpcodeDigit:			output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\d" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeDigitNot:		output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\D" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeLetter:		output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\l" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeLetterNot:		output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\L" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeSpace:			output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\s" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeSpaceNot:		output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\S" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeWord:			output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\w" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeWordNot:		output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\W" + ETK_BASH_COLOR_NORMAL;	break;
+			case '\n':						output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\n" + ETK_BASH_COLOR_NORMAL;	break;
+			case '\t':						output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\t" + ETK_BASH_COLOR_NORMAL;	break;
+			default:
+				char plop[10];
+				int8_t nb = u32char::convertUtf8(_data[iii], plop);
+				plop[nb] = '\0';
+				output += plop;
+				break;
 		}
 	}
-	return _os;
+	return output;
 }
 
 char * etk::levelSpace(uint32_t _level) {
