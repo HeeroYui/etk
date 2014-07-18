@@ -673,6 +673,12 @@ namespace etk {
 	 */
 	void FSNodeHistory(const std::string& _path, int32_t _historyCount);
 	void FSNodeHistory(const std::u32string& _path, int32_t _historyCount);
+	/**
+	 * @brief Read all the data from a file
+	 * @param[in] _path Folder/File/Pipe path of the node
+	 * @return all the data of the file in a string
+	 */
+	std::string FSNodeReadAllData(const std::string& _path);
 };
 
 #endif

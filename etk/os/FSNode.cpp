@@ -2015,3 +2015,19 @@ void etk::FSNodeHistory(const std::string& _path, int32_t _historyCount) {
 void etk::FSNodeHistory(const std::u32string& _path, int32_t _historyCount) {
 	return FSNodeHistory(std::to_string(_path), _historyCount);
 }
+
+std::string etk::FSNodeReadAllData(const std::string& _path) {
+	std::string output;
+	etk::FSNode node(_path);
+	if (node.fileOpenRead() == false) {
+		TK_ERROR("can not open file : '" << node << "'");
+		return "";
+	}
+	std::string tmp;
+	while (node.fileGets(tmp) == true) {
+		output += tmp;
+	}
+	output += tmp;
+	node.fileClose();
+	return output;
+}
