@@ -11,61 +11,61 @@
 
 
 
-const struct etk::convertionTable etk::constConvertionTable[] = {
+const struct etk::convertionTable etk::regexp::constConvertionTable[] = {
 	// haveBackSlash, inputValue, newValue
-	{ false			, '('  , 0   , regexpOpcodePTheseIn},
-	{ true			, '('  , '(' , regexpOpcodeError},
-	{ false			, ')'  , 0   , regexpOpcodePTheseOut},
-	{ true			, ')'  , ')' , regexpOpcodeError},
-	{ false			, '['  , 0   , regexpOpcodeBracketIn},
-	{ true			, '['  , '[' , regexpOpcodeError},
-	{ false			, ']'  , 0   , regexpOpcodeBracketOut},
-	{ true			, ']'  , ']' , regexpOpcodeError},
-	{ false			, '{'  , 0   , regexpOpcodeBracetIn},
-	{ true			, '{'  , '{' , regexpOpcodeError},
-	{ false			, '}'  , 0   , regexpOpcodeBracetOut},
-	{ true			, '}'  , '}' , regexpOpcodeError},
-	{ false			, '-'  , 0   , regexpOpcodeTo},
-	{ true			, '-'  , '-' , regexpOpcodeError},
-	{ false			, '*'  , 0   , regexpOpcodeStar},
-	{ true			, '*'  , '*' , regexpOpcodeError},
-	{ false			, '.'  , 0   , regexpOpcodeDot},
-	{ true			, '.'  , '.' , regexpOpcodeError},
-	{ false			, '?'  , 0   , regexpOpcodeQuestion},
-	{ true			, '?'  , '?' , regexpOpcodeError},
-	{ false			, '+'  , 0   , regexpOpcodePlus},
-	{ true			, '+'  , '+' , regexpOpcodeError},
-	{ false			, '|'  , 0   , regexpOpcodePipe},
-	{ true			, '|'  , '|' , regexpOpcodeError},
-	{ false			, '^'  , 0   , regexpOpcodeStartOfLine},
-	{ true			, '^'  , '^' , regexpOpcodeError},
-	{ false			, '$'  , 0   , regexpOpcodeEndOfLine},
-	{ true			, '$'  , '$' , regexpOpcodeError},
-	{ true			, 'd'  , 0   , regexpOpcodeDigit},
-	{ true			, 'D'  , 0   , regexpOpcodeDigitNot},
-	{ true			, 'l'  , 0   , regexpOpcodeLetter},
-	{ true			, 'L'  , 0   , regexpOpcodeLetterNot},
-	{ true			, 's'  , 0   , regexpOpcodeSpace},
-	{ true			, 'S'  , 0   , regexpOpcodeSpaceNot},
-	{ true			, 'w'  , 0   , regexpOpcodeWord},
-	{ true			, 'W'  , 0   , regexpOpcodeWordNot},
-	{ true			, 'a'  , '\a', regexpOpcodeError},
-	{ true			, 'b'  , '\b', regexpOpcodeError},
-	{ true			, 'e'  , 0x1B, regexpOpcodeError}, // Escape character <Esc>
-	{ true			, 'f'  , '\f', regexpOpcodeError},
-	{ true			, 'n'  , '\n', regexpOpcodeError},
-	{ true			, 'r'  , '\r', regexpOpcodeError},
-	{ true			, 't'  , '\t', regexpOpcodeError},
-	{ true			, 'v'  , '\v', regexpOpcodeError},
-	{ true			, '\\' , '\\', regexpOpcodeError},
-	{ true			, '&'  , '&' , regexpOpcodeError},
-	{ true			, '0'  , '\0', regexpOpcodeError},
-	{ true			, '@'  , 0   , regexpOpcodeNoChar},
+	{ false			, '('  , 0   , etk::regexpOpcodePTheseIn},
+	{ true			, '('  , '(' , etk::regexpOpcodeError},
+	{ false			, ')'  , 0   , etk::regexpOpcodePTheseOut},
+	{ true			, ')'  , ')' , etk::regexpOpcodeError},
+	{ false			, '['  , 0   , etk::regexpOpcodeBracketIn},
+	{ true			, '['  , '[' , etk::regexpOpcodeError},
+	{ false			, ']'  , 0   , etk::regexpOpcodeBracketOut},
+	{ true			, ']'  , ']' , etk::regexpOpcodeError},
+	{ false			, '{'  , 0   , etk::regexpOpcodeBracetIn},
+	{ true			, '{'  , '{' , etk::regexpOpcodeError},
+	{ false			, '}'  , 0   , etk::regexpOpcodeBracetOut},
+	{ true			, '}'  , '}' , etk::regexpOpcodeError},
+	{ false			, '-'  , 0   , etk::regexpOpcodeTo},
+	{ true			, '-'  , '-' , etk::regexpOpcodeError},
+	{ false			, '*'  , 0   , etk::regexpOpcodeStar},
+	{ true			, '*'  , '*' , etk::regexpOpcodeError},
+	{ false			, '.'  , 0   , etk::regexpOpcodeDot},
+	{ true			, '.'  , '.' , etk::regexpOpcodeError},
+	{ false			, '?'  , 0   , etk::regexpOpcodeQuestion},
+	{ true			, '?'  , '?' , etk::regexpOpcodeError},
+	{ false			, '+'  , 0   , etk::regexpOpcodePlus},
+	{ true			, '+'  , '+' , etk::regexpOpcodeError},
+	{ false			, '|'  , 0   , etk::regexpOpcodePipe},
+	{ true			, '|'  , '|' , etk::regexpOpcodeError},
+	{ false			, '^'  , 0   , etk::regexpOpcodeStartOfLine},
+	{ true			, '^'  , '^' , etk::regexpOpcodeError},
+	{ false			, '$'  , 0   , etk::regexpOpcodeEndOfLine},
+	{ true			, '$'  , '$' , etk::regexpOpcodeError},
+	{ true			, 'd'  , 0   , etk::regexpOpcodeDigit},
+	{ true			, 'D'  , 0   , etk::regexpOpcodeDigitNot},
+	{ true			, 'l'  , 0   , etk::regexpOpcodeLetter},
+	{ true			, 'L'  , 0   , etk::regexpOpcodeLetterNot},
+	{ true			, 's'  , 0   , etk::regexpOpcodeSpace},
+	{ true			, 'S'  , 0   , etk::regexpOpcodeSpaceNot},
+	{ true			, 'w'  , 0   , etk::regexpOpcodeWord},
+	{ true			, 'W'  , 0   , etk::regexpOpcodeWordNot},
+	{ true			, 'a'  , '\a', etk::regexpOpcodeError},
+	{ true			, 'b'  , '\b', etk::regexpOpcodeError},
+	{ true			, 'e'  , 0x1B, etk::regexpOpcodeError}, // Escape character <Esc>
+	{ true			, 'f'  , '\f', etk::regexpOpcodeError},
+	{ true			, 'n'  , '\n', etk::regexpOpcodeError},
+	{ true			, 'r'  , '\r', etk::regexpOpcodeError},
+	{ true			, 't'  , '\t', etk::regexpOpcodeError},
+	{ true			, 'v'  , '\v', etk::regexpOpcodeError},
+	{ true			, '\\' , '\\', etk::regexpOpcodeError},
+	{ true			, '&'  , '&' , etk::regexpOpcodeError},
+	{ true			, '0'  , '\0', etk::regexpOpcodeError},
+	{ true			, '@'  , 0   , etk::regexpOpcodeNoChar},
 };
-const int64_t etk::constConvertionTableSize = sizeof(etk::constConvertionTable) / sizeof(struct etk::convertionTable) ;
+const int64_t etk::regexp::constConvertionTableSize = sizeof(etk::regexp::constConvertionTable) / sizeof(struct etk::convertionTable) ;
 
 
-std::string etk::createString(const std::vector<char32_t>& _data, int64_t _start, int64_t _stop) {
+std::string etk::regexp::createString(const std::vector<char32_t>& _data, int64_t _start, int64_t _stop) {
 	std::string output(ETK_BASH_COLOR_NORMAL);
 	for (int64_t iii=_start; iii<(int64_t)_data.size() && iii<_stop ; iii++) {
 		switch(_data[iii]) {
@@ -105,7 +105,7 @@ std::string etk::createString(const std::vector<char32_t>& _data, int64_t _start
 	return output;
 }
 
-char * etk::levelSpace(uint32_t _level) {
+char* etk::regexp::levelSpace(uint32_t _level) {
 	switch(_level) {
 		case 0:		return (char*)"";
 		case 1:		return (char*)"  ";
@@ -129,7 +129,7 @@ char * etk::levelSpace(uint32_t _level) {
 }
 
 
-int64_t etk::getLenOfPTheseElem(const std::vector<char32_t>& _data, int64_t _startPos) {
+int64_t etk::regexp::getLenOfPTheseElem(const std::vector<char32_t>& _data, int64_t _startPos) {
 	if (_startPos>=(int64_t)_data.size()){
 		return 0;
 	}
@@ -169,7 +169,7 @@ int64_t etk::getLenOfPTheseElem(const std::vector<char32_t>& _data, int64_t _sta
 	return pos - _startPos;
 }
 
-int64_t etk::getLenOfPThese(const std::vector<char32_t>& _data, int64_t _startPos) {
+int64_t etk::regexp::getLenOfPThese(const std::vector<char32_t>& _data, int64_t _startPos) {
 	int64_t pos = _startPos;
 	int32_t nbOpen = 0;
 	// special case of the (...) or | ==> we search '|' or ')'
@@ -210,7 +210,7 @@ int64_t etk::getLenOfPThese(const std::vector<char32_t>& _data, int64_t _startPo
 }
 
 
-int64_t etk::getLenOfBracket(const std::vector<char32_t>& _data, int64_t _startPos) {
+int64_t etk::regexp::getLenOfBracket(const std::vector<char32_t>& _data, int64_t _startPos) {
 	int64_t pos = _startPos;
 	// special case of the (...) or | ==> we search '|' or ')'
 	if(_data[pos]==regexpOpcodeBracketOut) {
@@ -243,7 +243,7 @@ int64_t etk::getLenOfBracket(const std::vector<char32_t>& _data, int64_t _startP
 }
 
 
-int64_t etk::getLenOfBrace(const std::vector<char32_t>& _data, int64_t _startPos) {
+int64_t etk::regexp::getLenOfBrace(const std::vector<char32_t>& _data, int64_t _startPos) {
 	int32_t pos = _startPos;
 	// special case of the (...) or | ==> we search '|' or ')'
 	if(_data[pos]==regexpOpcodeBracetOut) {
@@ -277,7 +277,7 @@ int64_t etk::getLenOfBrace(const std::vector<char32_t>& _data, int64_t _startPos
 }
 
 
-int64_t etk::getLenOfNormal(const std::vector<char32_t>& _data, int64_t _startPos) {
+int64_t etk::regexp::getLenOfNormal(const std::vector<char32_t>& _data, int64_t _startPos) {
 	int64_t pos = _startPos;
 	// find size ...
 	while (pos < (int64_t)_data.size() ) {
@@ -326,7 +326,7 @@ int64_t etk::getLenOfNormal(const std::vector<char32_t>& _data, int64_t _startPo
 }
 
 
-bool etk::parseBrace(const std::vector<char32_t>& _data, uint32_t& _min, uint32_t& _max)
+bool etk::regexp::parseBrace(const std::vector<char32_t>& _data, uint32_t& _min, uint32_t& _max)
 {
 	//TK_INFO("parse {...} in "; DisplayElem(data); );
 	int64_t k=0;
