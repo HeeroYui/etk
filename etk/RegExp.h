@@ -14,10 +14,10 @@
 #include <etk/debug.h>
 #include <etk/stdTools.h>
 #include <vector>
+#include <memory>
 
-
-#define TK_REG_EXP_DBG_MODE TK_VERBOSE
-//#define TK_REG_EXP_DBG_MODE TK_DEBUG
+//#define TK_REG_EXP_DBG_MODE TK_VERBOSE
+#define TK_REG_EXP_DBG_MODE TK_DEBUG
 
 //regular colors
 #define ETK_BASH_COLOR_BLACK			"\e[0;30m"
@@ -153,8 +153,6 @@ bool parseBrace(const std::vector<char32_t>& _data, uint32_t& _min, uint32_t& _m
  */
 template<class CLASS_TYPE> class Node {
 	protected :
-		uint32_t m_multipleMin; //!< minimum repetition (included)
-		uint32_t m_multipleMax; //!< maximum repetition (included)
 		// Data Section ... (can have no data...)
 		std::vector<char32_t> m_regExpData; //!< data to parse and compare in some case ...
 	public :
@@ -162,8 +160,12 @@ template<class CLASS_TYPE> class Node {
 		 * @brief Constructor
 		 */
 		Node() :
+		  m_regExpData(),
 		  m_multipleMin(1),
-		  m_multipleMax(1) {
+		  m_multipleMax(1),
+		  m_positionStart(-1),
+		  m_positionStop(-1),
+		  m_multiplicity(0) {
 			
 		};
 		/**
@@ -183,11 +185,11 @@ template<class CLASS_TYPE> class Node {
 		 * @param[in] _data Data to parse (start pointer / or class that have access with operator[] )
 		 * @param[in] _currentPos Current parsing position.
 		 * @param[in] _lenMax Maximum position to parse the data (can be not hte end of the data due to the fact sometime we want to parse sub section).
-		 * @param[in] _findLen number of element parssed
-		 * @return true : Find something
-		 * @return false : Find nothing
+		 * @return Full Find something (can not find more...)
+		 * @return Partial can find more data ...
+		 * @return None Find nothing
 		 */
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen)=0;
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax)=0;
 		/**
 		 * @brief Display the current node properties
 		 * @param[in] level of the node
@@ -195,6 +197,10 @@ template<class CLASS_TYPE> class Node {
 		virtual void display(uint32_t _level) {
 			TK_INFO("Find NODE : " << levelSpace(_level) << "@???@ {" << getMultMin() << "," << getMultMax() << "}  subdata=" << createString(m_regExpData) );
 		};
+	protected :
+		uint32_t m_multipleMin; //!< minimum repetition (included)
+		uint32_t m_multipleMax; //!< maximum repetition (included)
+	public:
 		/**
 		 * @brief Set the multiplicity of this Node.
 		 * @param[in] _min The minimum appear time.
@@ -219,6 +225,39 @@ template<class CLASS_TYPE> class Node {
 		uint32_t getMultMax() const {
 			return m_multipleMax;
 		};
+	protected:
+		// temporary data:
+		int64_t m_positionStart; //!< find start position
+		int64_t m_positionStop; //!< find end position
+		uint32_t m_multiplicity; //!< curent multiplicity of find element
+	public:
+		/**
+		 * @brief Reset temporary data
+		 */
+		virtual void reset() {
+			m_positionStart = -1;
+			m_positionStop = -1;
+			m_multiplicity = 0;
+		}
+		int64_t getPositionStart() {
+			return m_positionStart;
+		}
+		void setPositionStart(int64_t _newPos) {
+			m_positionStart = _newPos;
+		}
+		int64_t getPositionStop() {
+			return m_positionStop;
+		}
+		uint32_t getMultiplicitySearch() {
+			return m_multiplicity;
+		}
+		int64_t getFindLen() {
+			if (m_positionStop < 0) {
+				return 0;
+			}
+			return m_positionStop - m_positionStart;
+		}
+		
 };
 
 #undef __class__
@@ -234,6 +273,9 @@ template<class CLASS_TYPE> class NodeValue : public Node<CLASS_TYPE> {
 		 * @brief Constructor
 		 */
 		NodeValue() { };
+		NodeValue(const std::vector<char32_t>& _data) {
+			generate(_data);
+		};
 		
 		/**
 		 * @brief Destructor
@@ -250,21 +292,21 @@ template<class CLASS_TYPE> class NodeValue : public Node<CLASS_TYPE> {
 			return _data.size();
 		};
 		
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
-			_findLen = 0;
-			TK_REG_EXP_DBG_MODE("Parse node : Value{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
-			if (0==m_data.size()) {
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax) {
+			TK_REG_EXP_DBG_MODE("Parse node : Value{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "} : " << (char)m_data[0]);
+			if (m_data.size() == 0) {
 				TK_ERROR("No data inside type elemTypeValue");
 				return parseStatusNone;
 			}
-			TK_REG_EXP_DBG_MODE("check element value : '" << m_data[0] << "'");
 			bool tmpFind = true;
-			uint32_t jjj;
-			for (jjj=0; jjj<Node<CLASS_TYPE>::m_multipleMax && tmpFind == true; jjj++) {
+			int32_t findLen = 0;
+			while(    Node<CLASS_TYPE>::m_multiplicity < Node<CLASS_TYPE>::m_multipleMax
+			       && tmpFind == true) {
 				uint32_t ofset = 0;
 				int64_t kkk;
-				for (kkk=0; _findLen+kkk<_lenMax && kkk < (int64_t)m_data.size(); kkk++) {
-					if (m_data[kkk] != (char32_t)_data[_currentPos+_findLen+kkk]) {
+				for (kkk=0; findLen+kkk<_lenMax && kkk < (int64_t)m_data.size(); kkk++) {
+					TK_REG_EXP_DBG_MODE("check element value : '" << (char)m_data[kkk] << "' ?= '" << (char)_data[_currentPos+findLen+kkk] << "'");
+					if (m_data[kkk] != (char32_t)_data[_currentPos+findLen+kkk]) {
 						tmpFind=false;
 						break;
 					}
@@ -272,19 +314,21 @@ template<class CLASS_TYPE> class NodeValue : public Node<CLASS_TYPE> {
 				}
 				if (kkk != (int64_t)m_data.size()) {
 					// parsing not ended ...
-					tmpFind=false;
+					tmpFind = false;
 				}
 				// Update local ofset of data
-				if (true == tmpFind) {
-					_findLen += ofset;
+				if (tmpFind == true) {
+					findLen += ofset;
 				}
+				Node<CLASS_TYPE>::m_multiplicity++;
 			}
-			if (    jjj >= Node<CLASS_TYPE>::m_multipleMin
-			     && jjj <= Node<CLASS_TYPE>::m_multipleMax
-			     && _findLen > 0) {
-				TK_REG_EXP_DBG_MODE("find " << _findLen);
+			Node<CLASS_TYPE>::m_positionStop = Node<CLASS_TYPE>::m_positionStart + findLen;
+			if (    Node<CLASS_TYPE>::m_multiplicity >= Node<CLASS_TYPE>::m_multipleMin
+			     && Node<CLASS_TYPE>::m_multiplicity <= Node<CLASS_TYPE>::m_multipleMax
+			     && findLen > 0) {
+				TK_REG_EXP_DBG_MODE("value find " << Node<CLASS_TYPE>::m_positionStop - Node<CLASS_TYPE>::m_positionStart << " [" << Node<CLASS_TYPE>::m_positionStart << ".." << Node<CLASS_TYPE>::m_positionStop << "]");
 				return parseStatusFull;
-			} else if( 0 == Node<CLASS_TYPE>::m_multipleMin ) {
+			} else if (Node<CLASS_TYPE>::m_multipleMin == 0) {
 				TK_REG_EXP_DBG_MODE("find size=0");
 				return parseStatusFull;
 			}
@@ -314,6 +358,9 @@ template<class CLASS_TYPE> class NodeBracket : public Node<CLASS_TYPE> {
 		 * @brief Constructor
 		 */
 		NodeBracket() { };
+		NodeBracket(const std::vector<char32_t>& _data) {
+			generate(_data);
+		};
 		/**
 		 * @brief Destructor
 		 */
@@ -350,8 +397,7 @@ template<class CLASS_TYPE> class NodeBracket : public Node<CLASS_TYPE> {
 			}
 			return _data.size();
 		};
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
-			_findLen = 0;
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax) {
 			TK_REG_EXP_DBG_MODE("Parse node : [...]{" << Node<CLASS_TYPE>::m_multipleMin
 			                    << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			if (0==m_data.size()) {
@@ -360,22 +406,26 @@ template<class CLASS_TYPE> class NodeBracket : public Node<CLASS_TYPE> {
 			}
 			TK_REG_EXP_DBG_MODE("one of element value List : " << createString(m_data));
 			bool tmpFind = true;
-			uint32_t jjj=0;
-			for (jjj=0; jjj<Node<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
+			int32_t tmpLen = 0;
+			while (    Node<CLASS_TYPE>::m_multiplicity < Node<CLASS_TYPE>::m_multipleMax
+			        && tmpFind == true
+			        && Node<CLASS_TYPE>::m_multiplicity < _lenMax) {
 				tmpFind=false;
 				for (int64_t iii=0; iii<(int64_t)m_data.size(); iii++) {
-					if (m_data[iii] == (char32_t)_data[_currentPos+jjj]) {
-						_findLen += 1;
-						tmpFind=true;
+					if (m_data[iii] == (char32_t)_data[_currentPos+Node<CLASS_TYPE>::m_multiplicity]) {
+						tmpLen++;
+						tmpFind = true;
 						break;
 					}
 				}
+				Node<CLASS_TYPE>::m_multiplicity++;
 			}
-			if (    jjj>=Node<CLASS_TYPE>::m_multipleMin
-			     && jjj<=Node<CLASS_TYPE>::m_multipleMax
-			     && _findLen>0)
+			Node<CLASS_TYPE>::m_positionStop = Node<CLASS_TYPE>::m_positionStart + tmpLen;
+			if (    Node<CLASS_TYPE>::m_multiplicity>=Node<CLASS_TYPE>::m_multipleMin
+			     && Node<CLASS_TYPE>::m_multiplicity<=Node<CLASS_TYPE>::m_multipleMax
+			     && tmpLen > 0)
 			{
-				TK_REG_EXP_DBG_MODE("find " << _findLen);
+				TK_REG_EXP_DBG_MODE("find " << tmpLen << " [" << Node<CLASS_TYPE>::m_positionStart << " " << Node<CLASS_TYPE>::m_positionStop << "]");
 				return parseStatusFull;
 			} else if( 0 == Node<CLASS_TYPE>::m_multipleMin ) {
 				TK_REG_EXP_DBG_MODE("find size=0");
@@ -406,28 +456,30 @@ template<class CLASS_TYPE> class NodeDigit : public Node<CLASS_TYPE> {
 		 * @brief Destructor
 		 */
 		~NodeDigit() { };
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
-			_findLen = 0;
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax) {
+			int32_t findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : Digit{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "} : "<< _data[_currentPos] << " lenMax=" << _lenMax);
 			bool tmpFind = true;
-			uint32_t jjj;
-			for (jjj=0; jjj<Node<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				char32_t tmpVal = _data[_currentPos+jjj];
+			while (    Node<CLASS_TYPE>::m_multiplicity < Node<CLASS_TYPE>::m_multipleMax
+			        && tmpFind == true
+			        && Node<CLASS_TYPE>::m_multiplicity < _lenMax) {
+				char32_t tmpVal = _data[_currentPos+Node<CLASS_TYPE>::m_multiplicity];
 				TK_REG_EXP_DBG_MODE("compare : " << tmpVal);
 				if(    tmpVal >= '0'
 				    && tmpVal <= '9')
 				{
 					TK_REG_EXP_DBG_MODE("find ++");
-					_findLen += 1;
+					findLen += 1;
 				} else {
 					tmpFind=false;
 				}
+				Node<CLASS_TYPE>::m_multiplicity++;
 			}
-			if(		jjj>=Node<CLASS_TYPE>::m_multipleMin
-				&&	jjj<=Node<CLASS_TYPE>::m_multipleMax
-				&&	_findLen>0	)
-			{
-				TK_REG_EXP_DBG_MODE("find " << _findLen);
+			Node<CLASS_TYPE>::m_positionStop = Node<CLASS_TYPE>::m_positionStart + findLen;
+			if (    Node<CLASS_TYPE>::m_multiplicity>=Node<CLASS_TYPE>::m_multipleMin
+			     && Node<CLASS_TYPE>::m_multiplicity<=Node<CLASS_TYPE>::m_multipleMax
+			     && findLen > 0 ) {
+				TK_REG_EXP_DBG_MODE("find " << findLen);
 				return parseStatusFull;
 			} else if( 0 == Node<CLASS_TYPE>::m_multipleMin ) {
 				TK_REG_EXP_DBG_MODE("find size=0");
@@ -458,24 +510,27 @@ template<class CLASS_TYPE> class NodeDigitNot : public Node<CLASS_TYPE> {
 		 * @brief Destructor
 		 */
 		~NodeDigitNot() { };
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
-			_findLen = 0;
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax) {
+			int32_t findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : DigitNot{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			bool tmpFind = true;
-			uint32_t jjj;
-			for (jjj=0; jjj<Node<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				char32_t tmpVal = _data[_currentPos+jjj];
+			while (    Node<CLASS_TYPE>::m_multiplicity < Node<CLASS_TYPE>::m_multipleMax
+			        && tmpFind == true
+			        && Node<CLASS_TYPE>::m_multiplicity < _lenMax) {
+				char32_t tmpVal = _data[_currentPos+Node<CLASS_TYPE>::m_multiplicity];
 				if(    tmpVal < '0'
 				    || tmpVal > '9') {
-					_findLen += 1;
+					findLen += 1;
 				} else {
 					tmpFind=false;
 				}
+				Node<CLASS_TYPE>::m_multiplicity++;
 			}
-			if(    jjj>=Node<CLASS_TYPE>::m_multipleMin
-			    && jjj<=Node<CLASS_TYPE>::m_multipleMax
-			    && _findLen>0 ) {
-				TK_REG_EXP_DBG_MODE("find " << _findLen);
+			Node<CLASS_TYPE>::m_positionStop = Node<CLASS_TYPE>::m_positionStart + findLen;
+			if(    Node<CLASS_TYPE>::m_multiplicity>=Node<CLASS_TYPE>::m_multipleMin
+			    && Node<CLASS_TYPE>::m_multiplicity<=Node<CLASS_TYPE>::m_multipleMax
+			    && findLen>0 ) {
+				TK_REG_EXP_DBG_MODE("find " << findLen);
 				return parseStatusFull;
 			} else if( 0 == Node<CLASS_TYPE>::m_multipleMin ) {
 				TK_REG_EXP_DBG_MODE("find size=0");
@@ -503,26 +558,29 @@ template<class CLASS_TYPE> class NodeLetter : public Node<CLASS_TYPE> {
 		 * @brief Destructor
 		 */
 		~NodeLetter() { };
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
-			_findLen = 0;
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax) {
+			int32_t findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : Letter{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			bool tmpFind = true;
-			uint32_t jjj;
-			for (jjj=0; jjj<Node<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				char32_t tmpVal = _data[_currentPos+jjj];
+			while (    Node<CLASS_TYPE>::m_multiplicity < Node<CLASS_TYPE>::m_multipleMax
+			        && tmpFind == true
+			        && Node<CLASS_TYPE>::m_multiplicity <_lenMax) {
+				char32_t tmpVal = _data[_currentPos+Node<CLASS_TYPE>::m_multiplicity];
 				if(    (    tmpVal >= 'a'
 				         && tmpVal <= 'z')
 				    || (    tmpVal >= 'A'
 				         && tmpVal <= 'Z') ) {
-					_findLen += 1;
+					findLen += 1;
 				} else {
 					tmpFind=false;
 				}
+				Node<CLASS_TYPE>::m_multiplicity++;
 			}
-			if(    jjj>=Node<CLASS_TYPE>::m_multipleMin
-			    && jjj<=Node<CLASS_TYPE>::m_multipleMax
-			    && _findLen>0 ) {
-				TK_REG_EXP_DBG_MODE("find " << _findLen);
+			Node<CLASS_TYPE>::m_positionStop = Node<CLASS_TYPE>::m_positionStart + findLen;
+			if(    Node<CLASS_TYPE>::m_multiplicity>=Node<CLASS_TYPE>::m_multipleMin
+			    && Node<CLASS_TYPE>::m_multiplicity<=Node<CLASS_TYPE>::m_multipleMax
+			    && findLen>0 ) {
+				TK_REG_EXP_DBG_MODE("find " << findLen);
 				return parseStatusFull;
 			} else if( 0 == Node<CLASS_TYPE>::m_multipleMin ) {
 				TK_REG_EXP_DBG_MODE("find size=0");
@@ -553,26 +611,29 @@ template<class CLASS_TYPE> class NodeLetterNot : public Node<CLASS_TYPE> {
 		 * @brief Destructor
 		 */
 		~NodeLetterNot() { };
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
-			_findLen = 0;
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax) {
+			int32_t findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : LetterNot{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			bool tmpFind = true;
-			uint32_t jjj;
-			for (jjj=0; jjj<Node<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				char32_t tmpVal = _data[_currentPos+jjj];
+			while (    Node<CLASS_TYPE>::m_multiplicity < Node<CLASS_TYPE>::m_multipleMax
+			        && tmpFind == true
+			        && Node<CLASS_TYPE>::m_multiplicity <_lenMax) {
+				char32_t tmpVal = _data[_currentPos+Node<CLASS_TYPE>::m_multiplicity];
 				if(    (    tmpVal < 'a'
 				         && tmpVal > 'Z')
 				    || tmpVal < 'A'
 				    || tmpVal > 'z') {
-					_findLen += 1;
+					findLen += 1;
 				} else {
 					tmpFind=false;
 				}
+				Node<CLASS_TYPE>::m_multiplicity++;
 			}
-			if(    jjj>=Node<CLASS_TYPE>::m_multipleMin
-			    && jjj<=Node<CLASS_TYPE>::m_multipleMax
-			    && _findLen>0 ) {
-				TK_REG_EXP_DBG_MODE("find " << _findLen);
+			Node<CLASS_TYPE>::m_positionStop = Node<CLASS_TYPE>::m_positionStart + findLen;
+			if(    Node<CLASS_TYPE>::m_multiplicity>=Node<CLASS_TYPE>::m_multipleMin
+			    && Node<CLASS_TYPE>::m_multiplicity<=Node<CLASS_TYPE>::m_multipleMax
+			    && findLen>0 ) {
+				TK_REG_EXP_DBG_MODE("find " << findLen);
 				return parseStatusFull;
 			} else if( 0 == Node<CLASS_TYPE>::m_multipleMin ) {
 				TK_REG_EXP_DBG_MODE("find size=0");
@@ -603,28 +664,31 @@ template<class CLASS_TYPE> class NodeWhiteSpace : public Node<CLASS_TYPE> {
 		 * @brief Destructor
 		 */
 		~NodeWhiteSpace() { };
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
-			_findLen = 0;
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax) {
+			int32_t findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : Space{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			bool tmpFind = true;
-			uint32_t jjj;
-			for (jjj=0; jjj<Node<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				char32_t tmpVal = _data[_currentPos+jjj];
+			while (    Node<CLASS_TYPE>::m_multiplicity < Node<CLASS_TYPE>::m_multipleMax
+			        && tmpFind == true
+			        && Node<CLASS_TYPE>::m_multiplicity <_lenMax) {
+				char32_t tmpVal = _data[_currentPos+Node<CLASS_TYPE>::m_multiplicity];
 				if(    tmpVal == ' '
 				    || tmpVal == '\t'
 				    || tmpVal == '\n'
 				    || tmpVal == '\r'
 				    || tmpVal == '\f'
 				    || tmpVal == '\v' ) {
-					_findLen += 1;
+					findLen += 1;
 				} else {
 					tmpFind=false;
 				}
+				Node<CLASS_TYPE>::m_multiplicity++;
 			}
-			if(    jjj>=Node<CLASS_TYPE>::m_multipleMin
-			    && jjj<=Node<CLASS_TYPE>::m_multipleMax
-			    && _findLen>0 ) {
-				TK_REG_EXP_DBG_MODE("find " << _findLen);
+			Node<CLASS_TYPE>::m_positionStop = Node<CLASS_TYPE>::m_positionStart + findLen;
+			if(    Node<CLASS_TYPE>::m_multiplicity>=Node<CLASS_TYPE>::m_multipleMin
+			    && Node<CLASS_TYPE>::m_multiplicity<=Node<CLASS_TYPE>::m_multipleMax
+			    && findLen>0 ) {
+				TK_REG_EXP_DBG_MODE("find " << findLen);
 				return parseStatusFull;
 			} else if( 0 == Node<CLASS_TYPE>::m_multipleMin ) {
 				TK_REG_EXP_DBG_MODE("find size=0");
@@ -655,28 +719,31 @@ template<class CLASS_TYPE> class NodeWhiteSpaceNot : public Node<CLASS_TYPE> {
 		 * @brief Destructor
 		 */
 		~NodeWhiteSpaceNot() { };
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
-			_findLen = 0;
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax) {
+			int32_t findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : SpaceNot{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			bool tmpFind = true;
-			uint32_t jjj;
-			for (jjj=0; jjj<Node<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				char32_t tmpVal = _data[_currentPos+jjj];
+			while (    Node<CLASS_TYPE>::m_multiplicity < Node<CLASS_TYPE>::m_multipleMax
+			        && tmpFind == true
+			        && Node<CLASS_TYPE>::m_multiplicity <_lenMax) {
+				char32_t tmpVal = _data[_currentPos+Node<CLASS_TYPE>::m_multiplicity];
 				if(    tmpVal != ' '
 				    && tmpVal != '\t'
 				    && tmpVal != '\n'
 				    && tmpVal != '\r'
 				    && tmpVal != '\f'
 				    && tmpVal != '\v' ) {
-					_findLen += 1;
+					findLen += 1;
 				} else {
 					tmpFind=false;
 				}
+				Node<CLASS_TYPE>::m_multiplicity++;
 			}
-			if(    jjj>=Node<CLASS_TYPE>::m_multipleMin
-			    && jjj<=Node<CLASS_TYPE>::m_multipleMax
-			    && _findLen>0 ) {
-				TK_REG_EXP_DBG_MODE("find " << _findLen);
+			Node<CLASS_TYPE>::m_positionStop = Node<CLASS_TYPE>::m_positionStart + findLen;
+			if(    Node<CLASS_TYPE>::m_multiplicity>=Node<CLASS_TYPE>::m_multipleMin
+			    && Node<CLASS_TYPE>::m_multiplicity<=Node<CLASS_TYPE>::m_multipleMax
+			    && findLen>0 ) {
+				TK_REG_EXP_DBG_MODE("find " << findLen);
 				return parseStatusFull;
 			} else if( 0 == Node<CLASS_TYPE>::m_multipleMin ) {
 				TK_REG_EXP_DBG_MODE("find size=0");
@@ -707,28 +774,31 @@ template<class CLASS_TYPE> class NodeWordChar : public Node<CLASS_TYPE> {
 		 * @brief Destructor
 		 */
 		~NodeWordChar() { };
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
-			_findLen = 0;
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax) {
+			int32_t findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : Word{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			bool tmpFind = true;
-			uint32_t jjj;
-			for (jjj=0; jjj<Node<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				char32_t tmpVal = _data[_currentPos+jjj];
+			while (    Node<CLASS_TYPE>::m_multiplicity < Node<CLASS_TYPE>::m_multipleMax
+			        && tmpFind == true
+			        && Node<CLASS_TYPE>::m_multiplicity <_lenMax) {
+				char32_t tmpVal = _data[_currentPos+Node<CLASS_TYPE>::m_multiplicity];
 				if(    (    tmpVal >= 'a'
 				         && tmpVal <= 'z' )
 				    || (    tmpVal >= 'A'
 				         && tmpVal <= 'Z' )
 				    || (    tmpVal >= '0'
 				         && tmpVal <= '9' ) ) {
-					_findLen += 1;
+					findLen += 1;
 				} else {
 					tmpFind=false;
 				}
+				Node<CLASS_TYPE>::m_multiplicity++;
 			}
-			if(    jjj>=Node<CLASS_TYPE>::m_multipleMin
-			    && jjj<=Node<CLASS_TYPE>::m_multipleMax
-			    && _findLen>0 ) {
-				TK_REG_EXP_DBG_MODE("find " << _findLen);
+			Node<CLASS_TYPE>::m_positionStop = Node<CLASS_TYPE>::m_positionStart + findLen;
+			if(    Node<CLASS_TYPE>::m_multiplicity>=Node<CLASS_TYPE>::m_multipleMin
+			    && Node<CLASS_TYPE>::m_multiplicity<=Node<CLASS_TYPE>::m_multipleMax
+			    && findLen>0 ) {
+				TK_REG_EXP_DBG_MODE("find " << findLen);
 				return parseStatusFull;
 			} else if( 0 == Node<CLASS_TYPE>::m_multipleMin ) {
 				TK_REG_EXP_DBG_MODE("find size=0");
@@ -758,28 +828,31 @@ template<class CLASS_TYPE> class NodeWordCharNot : public Node<CLASS_TYPE> {
 		 * @brief Destructor
 		 */
 		~NodeWordCharNot() { };
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
-			_findLen = 0;
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax) {
+			int32_t findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : WordNot{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			bool tmpFind = true;
-			uint32_t jjj;
-			for (jjj=0; jjj<Node<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				char32_t tmpVal = _data[_currentPos+jjj];
+			while (    Node<CLASS_TYPE>::m_multiplicity < Node<CLASS_TYPE>::m_multipleMax
+			        && tmpFind == true
+			        && Node<CLASS_TYPE>::m_multiplicity <_lenMax) {
+				char32_t tmpVal = _data[_currentPos+Node<CLASS_TYPE>::m_multiplicity];
 				if(    (    tmpVal < 'A'
 				         && tmpVal > '9' )
 				    || (    tmpVal < 'a'
 				         && tmpVal > 'Z' )
 				    || tmpVal < '0'
 				    || tmpVal > 'z') {
-					_findLen += 1;
+					findLen += 1;
 				} else {
 					tmpFind=false;
 				}
+				Node<CLASS_TYPE>::m_multiplicity++;
 			}
-			if(    jjj>=Node<CLASS_TYPE>::m_multipleMin
-			    && jjj<=Node<CLASS_TYPE>::m_multipleMax
-			    && _findLen>0 ) {
-				TK_REG_EXP_DBG_MODE("find " << _findLen);
+			Node<CLASS_TYPE>::m_positionStop = Node<CLASS_TYPE>::m_positionStart + findLen;
+			if(    Node<CLASS_TYPE>::m_multiplicity>=Node<CLASS_TYPE>::m_multipleMin
+			    && Node<CLASS_TYPE>::m_multiplicity<=Node<CLASS_TYPE>::m_multipleMax
+			    && findLen>0 ) {
+				TK_REG_EXP_DBG_MODE("find " << findLen);
 				return parseStatusFull;
 			} else if( 0 == Node<CLASS_TYPE>::m_multipleMin ) {
 				TK_REG_EXP_DBG_MODE("find size=0");
@@ -810,32 +883,36 @@ template<class CLASS_TYPE> class NodeDot : public Node<CLASS_TYPE> {
 		 * @brief Destructor
 		 */
 		~NodeDot() { };
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
-			_findLen = 0;
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax) {
+			int32_t findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : '.'{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			// equivalent a : [^\x00-\x08\x0A-\x1F\x7F]
-			bool tmpFind = true;
-			uint32_t jjj;
-			for (jjj=0; jjj<Node<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				char32_t tmpVal = _data[_currentPos+jjj];
-				if(    (    tmpVal > 0x08
-				         && tmpVal < 0x0A )
-				    || (    tmpVal > 0x1F
-				         && tmpVal < 0x7F )
-				    || (    tmpVal > 0x7F
-				         && tmpVal < 0xFF ) ) {
-					_findLen += 1;
+			char32_t tmpVal = _data[_currentPos];
+			if(    (    tmpVal > 0x08
+			         && tmpVal < 0x0A )
+			    || (    tmpVal > 0x1F
+			         && tmpVal < 0x7F )
+			    || (    tmpVal > 0x7F
+			         && tmpVal < 0xFF ) ) {
+				TK_REG_EXP_DBG_MODE("Parse node : '.'        find 1 '" << (char)tmpVal << "'" );
+				Node<CLASS_TYPE>::m_multiplicity++;
+				int64_t newPosVal = Node<CLASS_TYPE>::m_positionStop;
+				if (Node<CLASS_TYPE>::m_positionStop == -1) {
+					newPosVal = Node<CLASS_TYPE>::m_positionStart + 1;
 				} else {
-					tmpFind=false;
+					newPosVal++;
+				}
+				// TODO : Parse the minimum ... befor returning ...
+				if(Node<CLASS_TYPE>::m_multiplicity >= Node<CLASS_TYPE>::m_multipleMax) {
+					Node<CLASS_TYPE>::m_multiplicity--;
+					return parseStatusFull;
+				} else {
+					Node<CLASS_TYPE>::m_positionStop = newPosVal;
+					return parseStatusPartial;
 				}
 			}
-			if(    jjj>=Node<CLASS_TYPE>::m_multipleMin
-			    && jjj<=Node<CLASS_TYPE>::m_multipleMax
-			    && _findLen>0 ) {
-				TK_REG_EXP_DBG_MODE("find " << _findLen);
-				return parseStatusFull;
-			} else if( 0 == Node<CLASS_TYPE>::m_multipleMin ) {
-				TK_REG_EXP_DBG_MODE("find size=0");
+			if (Node<CLASS_TYPE>::m_positionStop != -1) {
+				
 				return parseStatusFull;
 			}
 			return parseStatusNone;
@@ -864,26 +941,29 @@ template<class CLASS_TYPE> class NodeSOL : public Node<CLASS_TYPE> {
 		 * @brief Destructor
 		 */
 		~NodeSOL() { };
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
-			_findLen = 0;
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax) {
+			int32_t findLen = 0;
+			bool tmpFind = false;
 			TK_REG_EXP_DBG_MODE("Parse node : SOL{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			// TODO : is it really what I want ... (maybe next ellement will be requested... (check if previous element is \r or \n
-			bool tmpFind = true;
-			uint32_t jjj;
-			for (jjj=0; jjj<Node<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				char32_t tmpVal = _data[_currentPos+jjj];
+			while (    Node<CLASS_TYPE>::m_multiplicity < Node<CLASS_TYPE>::m_multipleMax
+			        && tmpFind == true
+			        && Node<CLASS_TYPE>::m_multiplicity <_lenMax) {
+				char32_t tmpVal = _data[_currentPos+Node<CLASS_TYPE>::m_multiplicity];
 				// TODO : check if the file is a \r\n file ...
 				if (    tmpVal == 0x0d /* <cr> */
 				     || tmpVal == 0x0A /* <lf> */) {
-					_findLen += 1;
+					findLen += 1;
 				} else {
 					tmpFind=false;
 				}
+				Node<CLASS_TYPE>::m_multiplicity++;
 			}
-			if(    jjj>=Node<CLASS_TYPE>::m_multipleMin
-			    && jjj<=Node<CLASS_TYPE>::m_multipleMax
-			    && _findLen>0 ) {
-				TK_REG_EXP_DBG_MODE("find " << _findLen);
+			Node<CLASS_TYPE>::m_positionStop = Node<CLASS_TYPE>::m_positionStart + findLen;
+			if(    Node<CLASS_TYPE>::m_multiplicity>=Node<CLASS_TYPE>::m_multipleMin
+			    && Node<CLASS_TYPE>::m_multiplicity<=Node<CLASS_TYPE>::m_multipleMax
+			    && findLen>0 ) {
+				TK_REG_EXP_DBG_MODE("find " << findLen);
 				return parseStatusFull;
 			} else if( 0 == Node<CLASS_TYPE>::m_multipleMin ) {
 				TK_REG_EXP_DBG_MODE("find size=0");
@@ -915,25 +995,28 @@ template<class CLASS_TYPE> class NodeEOL : public Node<CLASS_TYPE> {
 		 * @brief Destructor
 		 */
 		~NodeEOL() { };
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
-			_findLen = 0;
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax) {
+			int32_t findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : EOL{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			bool tmpFind = true;
-			uint32_t jjj;
-			for (jjj=0; jjj<Node<CLASS_TYPE>::m_multipleMax && tmpFind ==true && jjj < _lenMax; jjj++) {
-				char32_t tmpVal = _data[_currentPos+jjj];
+			while (    Node<CLASS_TYPE>::m_multiplicity < Node<CLASS_TYPE>::m_multipleMax
+			        && tmpFind == true
+			        && Node<CLASS_TYPE>::m_multiplicity <_lenMax) {
+				char32_t tmpVal = _data[_currentPos+Node<CLASS_TYPE>::m_multiplicity];
 				// TODO : check if the file is a \r\n file ...
 				if (    tmpVal == 0x0d /* <cr> */
 				     || tmpVal == 0x0A /* <lf> */) {
-					_findLen += 1;
+					findLen += 1;
 				} else {
 					tmpFind=false;
 				}
+				Node<CLASS_TYPE>::m_multiplicity++;
 			}
-			if(    jjj>=Node<CLASS_TYPE>::m_multipleMin
-			    && jjj<=Node<CLASS_TYPE>::m_multipleMax
-			    && _findLen>0 ) {
-				TK_REG_EXP_DBG_MODE("find " << _findLen);
+			Node<CLASS_TYPE>::m_positionStop = Node<CLASS_TYPE>::m_positionStart + findLen;
+			if(    Node<CLASS_TYPE>::m_multiplicity>=Node<CLASS_TYPE>::m_multipleMin
+			    && Node<CLASS_TYPE>::m_multiplicity<=Node<CLASS_TYPE>::m_multipleMax
+			    && findLen>0 ) {
+				TK_REG_EXP_DBG_MODE("find " << findLen);
 				return parseStatusFull;
 			} else if( 0 == Node<CLASS_TYPE>::m_multipleMin ) {
 				TK_REG_EXP_DBG_MODE("find size=0");
@@ -972,10 +1055,21 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 		 * @brief Constructor
 		 */
 		NodePTheseElem() { };
+		NodePTheseElem(const std::vector<char32_t>& _data) {
+			generate(_data);
+		};
 		/**
 		 * @brief Destructor
 		 */
-		~NodePTheseElem() { };
+		~NodePTheseElem() {
+			/*
+			for (auto it : m_subNode) {
+				delete *it;
+				*it = nullptr;
+			}
+			*/
+			m_subNode.clear();
+		};
 		int32_t generate(const std::vector<char32_t>& _data) {
 			Node<CLASS_TYPE>::m_regExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse (elem) data=" << createString(Node<CLASS_TYPE>::m_regExpData) );
@@ -990,10 +1084,8 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 							for (int64_t kkk=pos+1; kkk<pos+elementSize+1; kkk++) {
 								tmpData.push_back(Node<CLASS_TYPE>::m_regExpData[kkk]);
 							}
-							NodePThese<CLASS_TYPE> * myElem = new NodePThese<CLASS_TYPE>();
-							(void)myElem->generate(tmpData);
 							// add to the subnode list :
-							m_subNode.push_back(myElem);
+							m_subNode.push_back(new NodePThese<CLASS_TYPE>(tmpData));
 							// move current position ...
 							pos += elementSize+1;
 						}
@@ -1006,10 +1098,8 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 							for (int64_t kkk=pos+1; kkk<pos+elementSize+1; kkk++) {
 								tmpData.push_back(Node<CLASS_TYPE>::m_regExpData[kkk]);
 							}
-							NodeBracket<CLASS_TYPE> * myElem = new NodeBracket<CLASS_TYPE>();
-							(void)myElem->generate(tmpData);
 							// add to the subnode list : 
-							m_subNode.push_back(myElem);
+							m_subNode.push_back(new NodeBracket<CLASS_TYPE>(tmpData));
 							// move current position ...
 							pos += elementSize+1;
 						}
@@ -1088,10 +1178,8 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 							for (int64_t kkk=pos; kkk<pos+elementSize; kkk++) {
 								tmpData.push_back(Node<CLASS_TYPE>::m_regExpData[kkk]);
 							}
-							NodeValue<CLASS_TYPE> * myElem = new NodeValue<CLASS_TYPE>();
-							(void)myElem->generate(tmpData);
 							// add to the subnode list : 
-							m_subNode.push_back(myElem);
+							m_subNode.push_back(new NodeValue<CLASS_TYPE>(tmpData));
 							// move current position ...
 							pos += elementSize-1;
 						}
@@ -1102,8 +1190,8 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 			return _data.size();
 		};
 		
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
-			_findLen = 0;
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax) {
+			int32_t findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : (Elem){" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			// NOTE 1 : Must done only one time in EVERY case ...
 			// NOTE 2 : All element inside must be OK
@@ -1111,20 +1199,59 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 				return parseStatusNone;
 			}
 			int64_t tmpCurrentPos = _currentPos;
-			for (int64_t iii=0; iii<(int64_t)m_subNode.size(); iii++) {
-				int64_t tmpFindLen = 0;
-				if (false == m_subNode[iii]->parse(_data, tmpCurrentPos, _lenMax, tmpFindLen)) {
-					_findLen = 0;
+			for (size_t iii=0; iii<m_subNode.size(); ++iii) {
+				enum parseStatus status;
+				m_subNode[iii]->setPositionStart(tmpCurrentPos);
+				int32_t offset = 0;
+				do {
+					status = m_subNode[iii]->parse(_data, tmpCurrentPos, _lenMax);
+					offset = m_subNode[iii]->getFindLen();
+					tmpCurrentPos = m_subNode[iii]->getPositionStop();
+					if (    status == parseStatusPartial
+					     && iii+1<m_subNode.size() ) {
+							TK_REG_EXP_DBG_MODE("Parse node 2: (Elem)        second parse ...");
+							int64_t tmpCurrentPos2 = tmpCurrentPos;
+							int findLen2 = 0;
+							bool error = false;
+							for (size_t jjj=iii+1; jjj<m_subNode.size(); ++jjj) {
+								enum parseStatus status2;
+								m_subNode[jjj]->reset();
+								m_subNode[jjj]->setPositionStart(tmpCurrentPos2);
+								int32_t offset2 = 0;
+								do {
+									status2 = m_subNode[jjj]->parse(_data, tmpCurrentPos2, _lenMax);
+									offset2 = m_subNode[jjj]->getFindLen();
+									tmpCurrentPos2 = m_subNode[jjj]->getPositionStop();
+								} while (status2 == parseStatusPartial);
+								if (status2 == parseStatusNone) {
+									error = true;
+									break;
+								} else {
+									TK_REG_EXP_DBG_MODE("Parse node : (Elem)        find : " << m_subNode[jjj]->getFindLen() << " [" << Node<CLASS_TYPE>::m_positionStart << " " << tmpCurrentPos2 << "]");
+								}
+							}
+							if (error == false) {
+								Node<CLASS_TYPE>::m_positionStop = tmpCurrentPos2;
+								TK_REG_EXP_DBG_MODE("Parse node 2: (Elem)    return : " << Node<CLASS_TYPE>::getFindLen());
+								return parseStatusFull;
+							}
+							TK_REG_EXP_DBG_MODE("Parse node 2: (Elem)        second parse ... (done)");
+					}
+				} while (status == parseStatusPartial);
+				if (status == parseStatusNone) {
+					findLen = 0;
 					return parseStatusNone;
 				} else {
-					tmpCurrentPos += tmpFindLen;
+					TK_REG_EXP_DBG_MODE("Parse node : (Elem)    find : " << m_subNode[iii]->getFindLen() << " [" << Node<CLASS_TYPE>::m_positionStart << " " << tmpCurrentPos << "]");
 				}
 			}
 			if (tmpCurrentPos<_currentPos) {
-				_findLen = 0;
+				findLen = 0;
 			} else {
-				_findLen = tmpCurrentPos - _currentPos;
+				findLen = tmpCurrentPos - _currentPos;
 			}
+			Node<CLASS_TYPE>::m_positionStop = tmpCurrentPos;
+			TK_REG_EXP_DBG_MODE("Parse node : (Elem)    return : " << Node<CLASS_TYPE>::getFindLen());
 			return parseStatusFull;
 		};
 		
@@ -1133,10 +1260,16 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 			        << Node<CLASS_TYPE>::m_multipleMin << ","
 			        << Node<CLASS_TYPE>::m_multipleMax << "}  subdata="
 			        << createString(Node<CLASS_TYPE>::m_regExpData) );
-			for(int64_t iii=0; iii<(int64_t)m_subNode.size(); iii++) {
-				m_subNode[iii]->display(_level+1);
+			for(auto &it : m_subNode) {
+				it->display(_level+1);
 			}
 		};
+		void reset() {
+			Node<CLASS_TYPE>::reset();
+			for(auto &it : m_subNode) {
+				it->reset();
+			}
+		}
 	private :
 		/**
 		 * @brief Set the number of repeate time on a the last node in the list ...
@@ -1145,16 +1278,11 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 		 * @return true if we find the node, false otherwise
 		 */
 		bool setMultiplicityOnLastNode(uint32_t _min, uint32_t _max) {
-			if (0==m_subNode.size()) {
+			if (m_subNode.size() == 0) {
 				TK_ERROR("Set multiplicity on an inexistant element ....");
 				return false;
 			}
-			Node<CLASS_TYPE> * myNode = m_subNode[m_subNode.size()-1];
-			if (NULL==myNode) {
-				TK_ERROR("INTERNAL error ==> node not generated");
-				return false;
-			}
-			myNode->setMult(_min, _max);
+			m_subNode.back()->setMult(_min, _max);
 			return true;
 		}
 };
@@ -1173,10 +1301,21 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 		 * @brief Constructor
 		 */
 		NodePThese() { };
+		NodePThese(const std::vector<char32_t>& _data) {
+			generate(_data);
+		};
 		/**
 		 * @brief Destructor
 		 */
-		~NodePThese() { }
+		~NodePThese() {
+			/*
+			for (auto it : m_subNode) {
+				delete *it;
+				*it = nullptr;
+			}
+			*/
+			m_subNode.clear();
+		}
 		int32_t generate(const std::vector<char32_t>& _data) {
 			Node<CLASS_TYPE>::m_regExpData = _data;
 			TK_REG_EXP_DBG_MODE("Request Parse (...) data=" << createString(Node<CLASS_TYPE>::m_regExpData) );
@@ -1190,10 +1329,8 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 				for (int64_t kkk=pos; kkk<pos+elementSize; kkk++) {
 					tmpData.push_back(Node<CLASS_TYPE>::m_regExpData[kkk]);
 				}
-				NodePTheseElem<CLASS_TYPE> * myElem = new NodePTheseElem<CLASS_TYPE>();
-				(void)myElem->generate(tmpData);
 				// add to the subnode list : 
-				m_subNode.push_back(myElem);
+				m_subNode.push_back(new NodePTheseElem<CLASS_TYPE>(tmpData));
 				pos += elementSize+1;
 				TK_REG_EXP_DBG_MODE("plop=" << createString(Node<CLASS_TYPE>::m_regExpData, pos, pos+1) );
 				elementSize = getLenOfPTheseElem(Node<CLASS_TYPE>::m_regExpData, pos);
@@ -1206,32 +1343,40 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 			}
 			return _data.size();
 		};
-		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, int64_t& _findLen) {
-			_findLen = 0;
+		virtual enum parseStatus parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax) {
+			int32_t findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse node : (...){" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			if (0 == m_subNode.size()) {
 				return parseStatusNone;
 			}
 			bool tmpFind = true;
-			int64_t jjj =0;
-			for (jjj=0; jjj<Node<CLASS_TYPE>::m_multipleMax && tmpFind == true ; jjj++) {
+			while (    Node<CLASS_TYPE>::m_multiplicity < Node<CLASS_TYPE>::m_multipleMax
+			        && tmpFind == true) {
 				tmpFind = false;
 				for (auto &it : m_subNode) {
-					int64_t tmpFindLen = 0;
-					enum parseStatus status = it->parse(_data, _currentPos+_findLen, _lenMax, tmpFindLen);
+					enum parseStatus status;
+					it->setPositionStart(_currentPos+findLen);
+					int32_t offset = 0;
+					do {
+						status = it->parse(_data, _currentPos+findLen+offset, _lenMax);
+						offset = it->getFindLen();
+						TK_REG_EXP_DBG_MODE("Parse node : (...)    mult=" << Node<CLASS_TYPE>::m_multiplicity << "     tmp " << it->getFindLen());
+					} while (status == parseStatusPartial);
 					if (status == parseStatusFull) {
-						_findLen += tmpFindLen;
+						findLen += it->getFindLen();
 						tmpFind = true;
 					} else if (status == parseStatusPartial) {
 						
 					}
 				}
+				TK_REG_EXP_DBG_MODE("Parse node : (...)    mult=" << Node<CLASS_TYPE>::m_multiplicity << " find " << findLen);
+				Node<CLASS_TYPE>::m_multiplicity++;
 			}
-			if(		jjj>=Node<CLASS_TYPE>::m_multipleMin
-				&&	jjj<=Node<CLASS_TYPE>::m_multipleMax
-				&&	_findLen>0	)
-			{
-				TK_REG_EXP_DBG_MODE("find " << _findLen);
+			Node<CLASS_TYPE>::m_positionStop = Node<CLASS_TYPE>::m_positionStart + findLen;
+			if(    Node<CLASS_TYPE>::m_multiplicity>=Node<CLASS_TYPE>::m_multipleMin
+			    && Node<CLASS_TYPE>::m_multiplicity<=Node<CLASS_TYPE>::m_multipleMax
+			    && findLen>0 ) {
+				TK_REG_EXP_DBG_MODE("find " << findLen);
 				return parseStatusFull;
 			} else if( 0 == Node<CLASS_TYPE>::m_multipleMin ) {
 				TK_REG_EXP_DBG_MODE("find size=0");
@@ -1248,8 +1393,8 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 				        << Node<CLASS_TYPE>::m_multipleMin << ","
 				        << Node<CLASS_TYPE>::m_multipleMax << "}  subdata="
 				        << createString(Node<CLASS_TYPE>::m_regExpData) );
-				for(int64_t i=0; i<(int64_t)m_subNode.size(); i++) {
-					m_subNode[i]->display(_level+1);
+				for(auto &it : m_subNode) {
+					it->display(_level+1);
 				}
 			}
 		};
@@ -1265,6 +1410,12 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 		 */
 		std::string getColoredRegEx() {
 			return createString(Node<CLASS_TYPE>::m_regExpData);
+		}
+		void reset() {
+			Node<CLASS_TYPE>::reset();
+			for(auto &it : m_subNode) {
+				it->reset();
+			}
 		}
 };
 }
@@ -1548,6 +1699,7 @@ template<class CLASS_TYPE> class RegExp {
 			for (int64_t iii=_startPos; iii<_endPos; iii++) {
 				int64_t findLen=0;
 				int64_t maxlen = _endPos-iii;
+				TK_REG_EXP_DBG_MODE("parse element : " << iii << " : '" << _SearchIn[iii] << "'");
 				if (true == m_notBeginWithChar) {
 					if (iii>0) {
 						char32_t tmpVal = _SearchIn[iii-1];
@@ -1563,10 +1715,13 @@ template<class CLASS_TYPE> class RegExp {
 						}
 					}
 				}
-				if (m_exprRootNode.parse(_SearchIn, iii, maxlen, findLen) == regexp::parseStatusFull) {
-					if(		_escapeChar != 0
-						&&	iii>0)
-					{
+				m_exprRootNode.reset();
+				m_exprRootNode.setPositionStart(iii);
+				if (m_exprRootNode.parse(_SearchIn, iii, maxlen) == regexp::parseStatusFull) {
+					findLen = m_exprRootNode.getFindLen();
+					TK_DEBUG("main search find : " << findLen << " elements");
+					if (    _escapeChar != 0
+					     && iii>0) {
 						if (_escapeChar == (char32_t)_SearchIn[iii-1]) {
 							//==> detected escape char ==> try find again ...
 							continue;
@@ -1627,17 +1782,19 @@ template<class CLASS_TYPE> class RegExp {
 					}
 				}
 			}
-			if (m_exprRootNode.parse(_SearchIn, _startPos, maxlen, findLen) == regexp::parseStatusFull) {
-				if(		_escapeChar != 0
-					&&	_startPos>0)
-				{
+			m_exprRootNode.reset();
+			m_exprRootNode.setPositionStart(_startPos);
+			if (m_exprRootNode.parse(_SearchIn, _startPos, maxlen) == regexp::parseStatusFull) {
+				findLen = m_exprRootNode.getFindLen();
+				if (    _escapeChar != 0
+				     && _startPos>0) {
 					if (_escapeChar == (char32_t)_SearchIn[_startPos-1]) {
 						//==> detected escape char ==> try find again ...
 						return false;
 					}
 				}
 				// Check end :
-				if (true == m_notEndWithChar) {
+				if (m_notEndWithChar == true) {
 					if (_startPos+findLen < (int64_t)_SearchIn.size() ) {
 						char32_t tmpVal = _SearchIn[_startPos+findLen];
 						if(    (    tmpVal >= 'a'
