@@ -15,6 +15,7 @@
 #include <etk/archive/Archive.h>
 #include <etk/log.h>
 #include <etk/Color.h>
+#include <etk/RegExp.h>
 
 #undef __class__
 #define __class__	"etktest"
@@ -187,20 +188,40 @@ void testColor() {
 	exit(0);
 }
 
+void testRegExpSingle(const std::string& _expression, const std::string& _search) {
+	etk::RegExp<std::string> expression(_expression);
+	TK_INFO("Parse RegEx : " << expression.getRegExDecorated());
+	if (expression.parse(_search, 0, _search.size()) == true) {
+		TK_INFO("    match [" << expression.start() << ".." << expression.stop() << "] ");
+		TK_INFO("        ==> '" << std::string(_search, expression.start(), expression.stop() - expression.start()) << "'");
+	}
+}
+
+void testRegExp() {
+	std::string data = "/* plop */ \n int eee = 22; // error value \nint main(void) {\n return 0;\n}\n";
+	//std::string data = "alpha /* plop */ test";
+	//std::string data = "pp \n // qdfqdfsdf \nde";
+	testRegExpSingle("/\\*.*\\*/", data);
+	testRegExpSingle("//.*$", data);
+	testRegExpSingle("/\\*.*", data);
+	testRegExpSingle("[a-z]", data);
+}
 
 int main(int argc, const char *argv[]) {
 	// the only one init for etk:
 	etk::log::setLevel(etk::log::logLevelDebug);
 	etk::setArgZero(argv[0]);
 	etk::initDefaultFolder("ewolApplNoName");
+	
 	//testVector();
 	//testUChar();
 	//testUString();
-	testHash();
-	testFSNode();
+	//testHash();
+	//testFSNode();
 	//testDimension();
-	testArchive();
-	testColor();
+	//testArchive();
+	//testColor();
+	testRegExp();
 	return 0;
 }
 
