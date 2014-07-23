@@ -106,26 +106,11 @@ std::string etk::regexp::createString(const std::vector<char32_t>& _data, int64_
 }
 
 char* etk::regexp::levelSpace(uint32_t _level) {
-	switch(_level) {
-		case 0:		return (char*)"";
-		case 1:		return (char*)"  ";
-		case 2:		return (char*)"    ";
-		case 3:		return (char*)"      ";
-		case 4:		return (char*)"        ";
-		case 5:		return (char*)"          ";
-		case 6:		return (char*)"            ";
-		case 7:		return (char*)"              ";
-		case 8:		return (char*)"                ";
-		case 9:		return (char*)"                  ";
-		case 10:	return (char*)"                    ";
-		case 11:	return (char*)"                      ";
-		case 12:	return (char*)"                        ";
-		case 13:	return (char*)"                          ";
-		case 14:	return (char*)"                            ";
-		case 15:	return (char*)"                              ";
-		case 16:	return (char*)"                                ";
-		default:	return (char*)"                                  ";
+	static char* tmpSpace = "                                                            ";
+	if (_level>30) {
+		return tmpSpace;
 	}
+	return tmpSpace + 60 - 2*_level;
 }
 
 
