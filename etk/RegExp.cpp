@@ -64,6 +64,20 @@ const struct etk::convertionTable etk::regexp::constConvertionTable[] = {
 };
 const int64_t etk::regexp::constConvertionTableSize = sizeof(etk::regexp::constConvertionTable) / sizeof(struct etk::convertionTable) ;
 
+static const char* parseStatusTable[] = {
+	"parseStatusUnknow",
+	"parseStatusNone",
+	"parseStatusPartial",
+	"parseStatusFull"
+};
+std::ostream& etk::regexp::operator <<(std::ostream& _os, enum etk::regexp::parseStatus _obj) {
+	_os << parseStatusTable[_obj];
+	return _os;
+}
+std::ostream& etk::regexp::operator <<(std::ostream& _os, const etk::regexp::FindProperty& _obj) {
+	_os << "property([" << _obj.getPositionStart() << "," << _obj.getPositionStop() << "]*" << _obj.getMultiplicity() << " " << _obj.getStatus() << ")";
+	return _os;
+}
 
 std::string etk::regexp::createString(const std::vector<char32_t>& _data, int64_t _start, int64_t _stop) {
 	std::string output(ETK_BASH_COLOR_NORMAL);

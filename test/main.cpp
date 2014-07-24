@@ -198,13 +198,13 @@ void testRegExpSingle(const std::string& _expression, const std::string& _search
 }
 
 void testRegExp() {
-	std::string data = "/* plop */ \n int eee = 22; // error value \nint main(void) {\n return 0;\n}\n";
+	std::string data = " a /* plop */ \n int eee = 22; // error value \nint main(void) {\n return 0;\n}\n";
 	//std::string data = "alpha /* plop */ test";
 	//std::string data = "pp \n // qdfqdfsdf \nde";
 	testRegExpSingle("/\\*.*\\*/", data);
-	testRegExpSingle("//.*$", data);
-	testRegExpSingle("/\\*.*", data);
-	testRegExpSingle("[a-z]", data);
+	//testRegExpSingle("//.*$", data);
+	//testRegExpSingle("/\\*.*", data);
+	//testRegExpSingle("[a-z]", data);
 }
 
 int main(int argc, const char *argv[]) {
