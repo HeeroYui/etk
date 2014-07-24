@@ -159,8 +159,9 @@ class FindProperty {
 		int64_t m_positionStart; //!< find start position
 		int64_t m_positionStop; //!< find end position
 		uint32_t m_multiplicity; //!< curent multiplicity of find element
-		std::vector<FindProperty> m_subProperty; //!< list of all sub elements
 		enum parseStatus m_status; //!< curent status of parsing
+	public:
+		std::vector<FindProperty> m_subProperty; //!< list of all sub elements
 	public:
 		FindProperty() :
 		  m_positionStart(-1),
@@ -209,20 +210,20 @@ class FindProperty {
 		void display(const std::string& _data, int32_t _level = 0) {
 			TK_INFO("prop : " << levelSpace(_level) << " ["
 			        << m_positionStart << ","
-			        << m_positionStop << "] mul="
+			        << m_positionStop << "]*"
 			        << m_multiplicity << " data='"
 			        << std::string(_data, m_positionStart, m_positionStop-m_positionStart) << "'");
 			for (auto &it : m_subProperty) {
-				it.display(_data, _level++);
+				it.display(_data, _level+1);
 			}
 		}
 		void display(int32_t _level = 0) {
 			TK_INFO("prop : " << levelSpace(_level) << " ["
 			        << m_positionStart << ","
-			        << m_positionStop << "] mul="
+			        << m_positionStop << "]*"
 			        << m_multiplicity);
 			for (auto &it : m_subProperty) {
-				it.display(_level++);
+				it.display(_level+1);
 			}
 		}
 };
@@ -966,8 +967,53 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 			return _data.size();
 		};
 	private:
-		void parseInternal(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property, size_t _startListIndex) {
-			
+		bool parseInternal(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property, size_t _startListIndex) {
+			std::vector<FindProperty> subProperty;
+			int findLen = 0;
+			bool error = false;
+			bool findPartialNode = false;
+			do {
+				findPartialNode = false;
+				int64_t tmpCurrentPos = _currentPos;
+				for (size_t iii=_startListIndex+subProperty.size(); iii<m_subNode.size(); ++iii) {
+					FindProperty prop;
+					prop.setPositionStart(tmpCurrentPos);
+					int32_t offset = 0;
+					m_subNode[iii]->parse(_data, tmpCurrentPos, _lenMax, prop);
+					offset = prop.getFindLen();
+					tmpCurrentPos = prop.getPositionStop();
+					subProperty.push_back(prop);
+					if (prop.getStatus() == parseStatusNone) {
+						error = true;
+						break;
+					} else {
+						TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (Elem=" << iii << "/" << m_subNode.size() << ") 2       find : " << prop);
+					}
+				}
+				if (error == false) {
+					//_property.m_subProperty.push_back(prop);
+					for (auto &it: subProperty) {
+						_property.m_subProperty.push_back(it);
+					}
+					_property.setPositionStop(tmpCurrentPos);
+					_property.setStatus(parseStatusFull);
+					TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (Elem=" << "/" << m_subNode.size() << ") 2    return : " << _property);
+					return true;
+				}
+				// Display sub List :
+				for (auto &it : subProperty) {
+					TK_REG_EXP_DBG_MODE("              plop : " << it);
+				}
+				for (int64_t iii=subProperty.size()-1; iii>=0; --iii) {
+					if (subProperty[iii].getStatus() == parseStatusPartial) {
+						findPartialNode = true;
+						subProperty.erase(subProperty.begin()+iii, subProperty.end());
+						break;
+					}
+				}
+			} while (findPartialNode == true);
+			TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (Elem=" << "/" << m_subNode.size() << ") 2        second parse ... (done)");
+			return false;
 		}
 	public:
 		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
@@ -990,41 +1036,30 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 					tmpCurrentPos = prop.getPositionStop();
 					if (    prop.getStatus() == parseStatusPartial
 					     && iii+1<m_subNode.size() ) {
-							TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel+1) << " (Elem) 2        second parse ...");
-							int64_t tmpCurrentPos2 = tmpCurrentPos;
-							int findLen2 = 0;
-							bool error = false;
-							for (size_t jjj=iii+1; jjj<m_subNode.size(); ++jjj) {
-								FindProperty prop2;
-								prop2.setPositionStart(tmpCurrentPos2);
-								int32_t offset2 = 0;
-								do {
-									m_subNode[jjj]->parse(_data, tmpCurrentPos2, _lenMax, prop2);
-									offset2 = prop2.getFindLen();
-									tmpCurrentPos2 = prop2.getPositionStop();
-								} while (prop2.getStatus() == parseStatusPartial);
-								if (prop2.getStatus() == parseStatusNone) {
-									error = true;
-									break;
-								} else {
-									TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (Elem) 2       find : " << prop2);
-								}
+						TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel+1) << " (Elem=" << iii << "/" << m_subNode.size() << ") 2        second parse ...");
+						FindProperty prop2;
+						if (parseInternal(_data, tmpCurrentPos, _lenMax, prop2, iii) == true) {
+							_property.m_subProperty.push_back(prop);
+							/*
+							for (auto &it: subProperty) {
+								_property.m_subProperty.push_back(it);
 							}
-							if (error == false) {
-								_property.setPositionStop(tmpCurrentPos2);
-								_property.setStatus(parseStatusFull);
-								TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (Elem) 2    return : " << _property);
-								return;
-							}
-							TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (Elem) 2        second parse ... (done)");
+							*/
+							_property.setPositionStop(tmpCurrentPos);
+							_property.setStatus(parseStatusFull);
+							TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (Elem=" << iii << "/" << m_subNode.size() << ") 2    return : " << _property);
+							return;
+						}
+						TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (Elem=" << iii << "/" << m_subNode.size() << ") 2        second parse ... (done)");
 					}
 				} while (prop.getStatus() == parseStatusPartial);
+				_property.m_subProperty.push_back(prop);
 				if (prop.getStatus() == parseStatusNone) {
 					findLen = 0;
 					_property.setStatus(parseStatusNone);
 					return;
 				} else {
-					TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (Elem)    find : " << prop);
+					TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (Elem=" << iii << "/" << m_subNode.size() << ")    find : " << prop);
 				}
 			}
 			if (tmpCurrentPos<_currentPos) {
@@ -1142,6 +1177,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 					} while (prop.getStatus() == parseStatusPartial);
 					if (prop.getStatus() == parseStatusFull) {
 						findLen += prop.getFindLen();
+						_property.m_subProperty.push_back(prop);
 						tmpFind = true;
 					} else if (prop.getStatus() == parseStatusPartial) {
 						
@@ -1559,11 +1595,11 @@ template<class CLASS_TYPE> class RegExp {
 					}
 				}
 			}
-			m_exprRootNode.setPositionStart(_startPos);
 			regexp::FindProperty prop;
+			prop.setPositionStart(_startPos);
 			m_exprRootNode.parse(_SearchIn, _startPos, maxlen, prop);
 			if (prop.getStatus() == regexp::parseStatusFull) {
-				findLen = m_exprRootNode.getFindLen();
+				findLen = prop.getFindLen();
 				if (    _escapeChar != 0
 				     && _startPos>0) {
 					if (_escapeChar == (char32_t)_SearchIn[_startPos-1]) {
