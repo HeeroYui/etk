@@ -208,7 +208,8 @@ void testRegExp() {
 	//std::string data = "  eesd a lzzml plophzzzzzhhhhhrlkmlkml";
 	//testRegExpSingle("a.*plop(z{2,3}|h+)+r", data);
 	
-	std::string data = "pp \n# plop // qdfqdfsdf \nde";
+	//std::string data = "pp \n# plop // qdfqdfsdf \nde";
+	std::string data = "pp \n# plop //\\\n qdfqdfsdf \nde";
 	testRegExpSingle("#(\\\\\\\\|\\\\\\n|.)*$", data);
 }
 
