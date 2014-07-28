@@ -325,8 +325,7 @@ int64_t etk::regexp::getLenOfNormal(const std::vector<char32_t>& _data, int64_t 
 }
 
 
-bool etk::regexp::parseBrace(const std::vector<char32_t>& _data, uint32_t& _min, uint32_t& _max)
-{
+bool etk::regexp::parseBrace(const std::vector<char32_t>& _data, uint32_t& _min, uint32_t& _max) {
 	//TK_INFO("parse {...} in "; DisplayElem(data); );
 	int64_t k=0;
 	
@@ -383,4 +382,33 @@ allIsSet:
 	return true;
 }
 
+std::string etk::regexp::autoStr(const std::string& _data) {
+	std::string out;
+	for (auto &it : _data) {
+		if (it == '\n') {
+			out += "\\n";
+		} else if (it == '\t') {
+			out += "\\t";
+		} else if (it == '\r') {
+			out += "\\r";
+		} else {
+			out += it;
+		}
+	}
+	return out;
+}
 
+
+std::string etk::regexp::autoStr(char _data) {
+	std::string out;
+	if (_data == '\n') {
+		out += "\\n";
+	} else if (_data == '\t') {
+		out += "\\t";
+	} else if (_data == '\r') {
+		out += "\\r";
+	} else {
+		out += _data;
+	}
+	return out;
+}

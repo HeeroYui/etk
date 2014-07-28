@@ -145,6 +145,9 @@ int64_t getLenOfBrace(const std::vector<char32_t>& _data, int64_t _startPos);
 int64_t getLenOfNormal(const std::vector<char32_t>& _data, int64_t _startPos);
 //! @not-in-doc
 bool parseBrace(const std::vector<char32_t>& _data, uint32_t& _min, uint32_t& _max);
+//! @not-in-doc
+std::string autoStr(const std::string& _data);
+std::string autoStr(char _data);
 
 
 #undef __class__
@@ -160,6 +163,7 @@ class FindProperty {
 		int64_t m_positionStop; //!< find end position
 		uint32_t m_multiplicity; //!< curent multiplicity of find element
 		enum parseStatus m_status; //!< curent status of parsing
+		int32_t m_subIndex; //!< dubindex int the upper list ... for (...) 
 	public:
 		std::vector<FindProperty> m_subProperty; //!< list of all sub elements
 	public:
@@ -167,8 +171,16 @@ class FindProperty {
 		  m_positionStart(-1),
 		  m_positionStop(-1),
 		  m_multiplicity(0),
-		  m_status(parseStatusUnknow) {
+		  m_status(parseStatusUnknow),
+		  m_subIndex(-1) {
 			// nothing to do ...
+		}
+		void reset() {
+		  m_positionStart = -1;
+		  m_positionStop = -1;
+		  m_multiplicity = 0;
+		  m_status = parseStatusUnknow;
+		  m_subIndex = -1;
 		}
 		int64_t getPositionStart() const {
 			return m_positionStart;
@@ -205,6 +217,12 @@ class FindProperty {
 		}
 		enum parseStatus getStatus() const {
 			return m_status;
+		}
+		int32_t getSubIndex() const {
+			return m_subIndex;
+		}
+		void setSubIndex(int32_t _newIndex) {
+			m_subIndex = _newIndex;
 		}
 		
 		void display(const std::string& _data, int32_t _level = 0) {
@@ -353,7 +371,12 @@ template<class CLASS_TYPE> class NodeValue : public Node<CLASS_TYPE> {
 				uint32_t ofset = 0;
 				int64_t kkk;
 				for (kkk=0; findLen+kkk<_lenMax && kkk < (int64_t)m_data.size(); kkk++) {
-					TK_REG_EXP_DBG_MODE("     " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "      check element value : '" << (char)m_data[kkk] << "' ?= '" << (char)_data[_currentPos+findLen+kkk] << "'");
+					TK_REG_EXP_DBG_MODE("     " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel)
+					                    << "      check element value : '"
+					                    << etk::regexp::autoStr((char)m_data[kkk])
+					                    << "' ?= '"
+					                    << etk::regexp::autoStr((char)_data[_currentPos+findLen+kkk])
+					                    << "'");
 					if (m_data[kkk] != (char32_t)_data[_currentPos+findLen+kkk]) {
 						tmpFind=false;
 						break;
@@ -430,6 +453,7 @@ template<class CLASS_TYPE> class NodeRangeValue : public Node<CLASS_TYPE> {
 		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
 			int32_t findLen = 0;
 			TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " " << getDescriptiveName() << "{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
+			TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " " << getDescriptiveName() << " input property :" << _property);
 			char32_t tmpVal = _data[_currentPos];
 			bool find = false;
 			// Check range
@@ -443,6 +467,7 @@ template<class CLASS_TYPE> class NodeRangeValue : public Node<CLASS_TYPE> {
 			// Check Value
 			if (find == false) {
 				for (auto &it : m_dataList) {
+					TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " " << getDescriptiveName() << " : '" << autoStr(tmpVal) << "'=?='" << autoStr(it) << "'");
 					if (tmpVal == it) {
 						find = true;
 						break;
@@ -455,7 +480,9 @@ template<class CLASS_TYPE> class NodeRangeValue : public Node<CLASS_TYPE> {
 			     || (    find == false
 			          && m_invert == true) ) {
 				find = true;
+				TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " " << getDescriptiveName() << " : Find (invert=" << m_invert << ")");
 			} else {
+				TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " " << getDescriptiveName() << " : Not find (invert=" << m_invert << ")");
 				find = false;
 			}
 			if (find == true) {
@@ -469,23 +496,26 @@ template<class CLASS_TYPE> class NodeRangeValue : public Node<CLASS_TYPE> {
 				if(_property.getMultiplicity() > Node<CLASS_TYPE>::m_multipleMax) {
 					_property.multiplicityDecrement();
 					_property.setStatus(parseStatusFull);
-					return;
 				} else {
 					_property.setPositionStop(newPosVal);
 					if (_currentPos>=_lenMax) {
 						_property.setStatus(parseStatusFull);
-						return;
 					} else {
-						_property.setStatus(parseStatusPartial);
-						return;
+						if(_property.getMultiplicity() == Node<CLASS_TYPE>::m_multipleMax) {
+							_property.setStatus(parseStatusFull);
+						} else {
+							_property.setStatus(parseStatusPartial);
+						}
 					}
 				}
+			}else {
+				if (_property.getPositionStop() != -1) {
+					_property.setStatus(parseStatusFull);
+				} else {
+					_property.setStatus(parseStatusNone);
+				}
 			}
-			if (_property.getPositionStop() != -1) {
-				_property.setStatus(parseStatusFull);
-				return;
-			}
-			_property.setStatus(parseStatusNone);
+			TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " " << getDescriptiveName() << " : out=" << _property);
 			return;
 		};
 		virtual void display() {
@@ -967,6 +997,7 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 			return _data.size();
 		};
 		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
+			TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem) data to parse : '" << autoStr(std::string(_data, _currentPos, _lenMax-_currentPos)) << "'");
 			int findLen = 0;
 			bool error = false;
 			size_t iii = 0;
@@ -988,10 +1019,12 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 				// We did not find the element :
 				if (findPartialNode == false) {
 					_property.m_subProperty.clear();
+					_property.reset();
 				}
 			}
 			prop.setPositionStart(tmpCurrentPos);
 			while (iii < m_subNode.size()) {
+				TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=" << iii << "/" << m_subNode.size() << ") data='" << autoStr(std::string(_data, tmpCurrentPos, _lenMax-tmpCurrentPos)) << "'");
 				m_subNode[iii]->parse(_data, tmpCurrentPos, _lenMax, prop);
 				if (prop.getStatus() == parseStatusNone) {
 					// rewind the list:
@@ -1016,13 +1049,14 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 				}
 				tmpCurrentPos = prop.getPositionStop();
 				_property.m_subProperty.push_back(prop);
-				TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (Elem=" << iii << "/" << m_subNode.size() << ")       find : " << prop);
+				TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=" << iii << "/" << m_subNode.size() << ")       find : " << prop);
+				prop.reset();
 				iii++;
 			}
 			_property.setStatus(parseStatusFull);
 			// Display sub List :
 			for (auto &it : _property.m_subProperty) {
-				TK_REG_EXP_DBG_MODE("              plop : " << it);
+				TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem) sub=" << it);
 			}
 			for (int64_t iii=_property.m_subProperty.size()-1; iii>=0; --iii) {
 				if (_property.m_subProperty[iii].getStatus() == parseStatusPartial) {
@@ -1117,45 +1151,64 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 		};
 		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
 			int32_t findLen = 0;
-			TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...){" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
+			TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) {" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
+			TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) data='" << autoStr(std::string(_data, _currentPos, _lenMax-_currentPos)) << "'");
 			if (0 == m_subNode.size()) {
 				_property.setStatus(parseStatusNone);
 				return;
 			}
-			bool tmpFind = true;
-			while (    _property.getMultiplicity() < Node<CLASS_TYPE>::m_multipleMax
-			        && tmpFind == true) {
-				tmpFind = false;
-				for (auto &it : m_subNode) {
-					FindProperty prop;
-					prop.setPositionStart(_currentPos+findLen);
-					int32_t offset = 0;
-					do {
-						it->parse(_data, _currentPos+findLen+offset, _lenMax, prop);
-						offset = prop.getFindLen();
-						TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...)    mult=" << _property.getMultiplicity() << "     tmp " << prop.getFindLen());
-					} while (prop.getStatus() == parseStatusPartial);
-					if (prop.getStatus() == parseStatusFull) {
-						findLen += prop.getFindLen();
-						_property.m_subProperty.push_back(prop);
-						tmpFind = true;
-					} else if (prop.getStatus() == parseStatusPartial) {
-						
-					}
-				}
-				TK_REG_EXP_DBG_MODE("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...)    mult=" << _property.getMultiplicity() << " find " << findLen);
-				_property.multiplicityIncrement();
-			}
-			_property.setPositionStop(_property.getPositionStart() + findLen);
-			if(    _property.getMultiplicity()>=Node<CLASS_TYPE>::m_multipleMin
-			    && _property.getMultiplicity()<=Node<CLASS_TYPE>::m_multipleMax
-			    && findLen>0 ) {
-				TK_REG_EXP_DBG_MODE("find " << findLen);
+			if (_property.getMultiplicity() >= Node<CLASS_TYPE>::m_multipleMax) {
 				_property.setStatus(parseStatusFull);
 				return;
+			}
+			_property.setStatus(parseStatusFull);
+			bool tmpFind = true;
+			while (    _property.getMultiplicity() <= Node<CLASS_TYPE>::m_multipleMax
+			        && tmpFind == true) {
+				tmpFind = false;
+				for (size_t iii=0; iii<m_subNode.size(); ++iii) {
+					FindProperty prop;
+					prop.reset();
+					prop.setPositionStart(_currentPos+findLen);
+					int32_t offset = 0;
+					m_subNode[iii]->parse(_data, _currentPos+findLen+offset, _lenMax, prop);
+					offset = prop.getFindLen();
+					TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) mult=" <<
+					                    _property.getMultiplicity() << "     tmp " << prop.getFindLen());
+					if (    prop.getStatus() == parseStatusFull
+					     || prop.getStatus() == parseStatusPartial) {
+						findLen += prop.getFindLen();
+						prop.setSubIndex(iii);
+						_property.m_subProperty.push_back(prop);
+						tmpFind = true;
+						break;
+					}
+				}
+				if (tmpFind == true) {
+					_property.multiplicityIncrement();
+					TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) mult=" << _property.getMultiplicity() << " find " << findLen);
+					if (_property.getMultiplicity() >= Node<CLASS_TYPE>::m_multipleMin) {
+						_property.setStatus(parseStatusPartial);
+						break;
+					}
+				} else {
+					TK_TODO("plop");
+				}
+			}
+			for (int64_t iii=_property.m_subProperty.size()-1; iii>=0; --iii) {
+				if (_property.m_subProperty[iii].getStatus() == parseStatusPartial) {
+					_property.setStatus(parseStatusPartial);
+					break;
+				}
+			}
+			_property.setPositionStop(_property.getPositionStart() + findLen);
+			if(    _property.getMultiplicity() >= Node<CLASS_TYPE>::m_multipleMin
+			    && _property.getMultiplicity() <= Node<CLASS_TYPE>::m_multipleMax
+			    && findLen> 0  ) {
+				TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) find " << findLen);
+				return;
 			} else if( 0 == Node<CLASS_TYPE>::m_multipleMin ) {
-				TK_REG_EXP_DBG_MODE("find size=0");
-				_property.setStatus(parseStatusFull);
+				TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) find size=0");
 				return;
 			}
 			_property.setStatus(parseStatusNone);
@@ -1489,7 +1542,8 @@ template<class CLASS_TYPE> class RegExp {
 				regexp::FindProperty prop;
 				prop.setPositionStart(iii);
 				m_exprRootNode.parse(_SearchIn, iii, maxlen, prop);
-				if (prop.getStatus() == regexp::parseStatusFull) {
+				if (    prop.getStatus() == regexp::parseStatusFull
+				     || prop.getStatus() == regexp::parseStatusPartial ) {
 					findLen = prop.getFindLen();
 					TK_DEBUG("main search find : " << findLen << " elements");
 					if (    _escapeChar != 0
