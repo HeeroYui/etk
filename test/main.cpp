@@ -190,12 +190,14 @@ void testColor() {
 
 void testRegExpSingle(const std::string& _expression, const std::string& _search) {
 	etk::RegExp<std::string> expression(_expression);
-	TK_INFO("Parse RegEx : " << expression.getRegExDecorated());
+	TK_INFO("Parse RegEx: " << expression.getRegExDecorated());
+	TK_INFO("         IN: " << etk::regexp::autoStr(_search));
 	if (expression.parse(_search, 0, _search.size()) == true) {
 		TK_INFO("    match [" << expression.start() << ".." << expression.stop() << "] ");
-		TK_INFO("        ==> '" << std::string(_search, expression.start(), expression.stop() - expression.start()) << "'");
+		TK_INFO("        ==> '" << etk::regexp::autoStr(std::string(_search, expression.start(), expression.stop() - expression.start())) << "'");
 	}
 }
+
 
 void testRegExp() {
 	//std::string data = " a /* plop */ \n int eee = 22; // error value \nint main(void) {\n return 0;\n}\n";
@@ -209,8 +211,16 @@ void testRegExp() {
 	//testRegExpSingle("a.*plop(z{2,3}|h+)+r", data);
 	
 	//std::string data = "pp \n# plop // qdfqdfsdf \nde";
-	std::string data = "pp \n# plop //\\\n qdfqdfsdf \nde";
-	testRegExpSingle("#(\\\\\\\\|\\\\\\n|.)*$", data);
+	//std::string data = "pp \n# plop //\\\n qdfqdfsdf \nde";
+	//std::string data = "p#\ne";
+	//testRegExpSingle("#(\\\\\\\\|\\\\\\n|.)*$", data);
+	//testRegExpSingle("#.*$", data);
+	
+	//std::string data = "p//TODO:\ndse";
+	//std::string data = "p// TODO:\ndse";
+	//std::string data = "p// TODO :\ndse";
+	std::string data = "p// TODO 	: sdfgsdfsd \ndse";
+	testRegExpSingle("//[ \\t]*TODO[ \\t]*:.*$", data);
 }
 
 int main(int argc, const char *argv[]) {

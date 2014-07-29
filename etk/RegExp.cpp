@@ -412,3 +412,12 @@ std::string etk::regexp::autoStr(char _data) {
 	}
 	return out;
 }
+
+std::string etk::regexp::strTick(int32_t _pos) {
+	std::string out;
+	for (int32_t iii=0; iii<_pos; ++iii) {
+		out += " ";
+	}
+	out += "^";
+	return out;
+}

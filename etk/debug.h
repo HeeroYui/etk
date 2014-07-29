@@ -42,6 +42,8 @@ namespace etk {
 	#define TK_TODO(data)          do { } while(false)
 #endif
 
+#define TK_HIDDEN(data)          do { } while(false)
+
 #define TK_ASSERT(cond,data) \
 	do { \
 		if (!(cond)) { \
