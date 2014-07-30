@@ -17,8 +17,8 @@
 #include <memory>
 
 #define TK_REG_EXP_DBG_MODE2 TK_HIDDEN
-#define TK_REG_EXP_DBG_MODE TK_HIDDEN
-//#define TK_REG_EXP_DBG_MODE TK_VERBOSE
+//#define TK_REG_EXP_DBG_MODE TK_HIDDEN
+#define TK_REG_EXP_DBG_MODE TK_VERBOSE
 //#define TK_REG_EXP_DBG_MODE TK_DEBUG
 
 //regular colors
@@ -96,17 +96,18 @@ normal mode :
 	[anjdi] or [a-gt-j]	range
 	.					dot										[^\x00-\x08\x0A-\x1F\x7F]
 	$					End / Start of line of line 			==> ce sera un truc suplémentaire comme le \@
+	@                   Previous
 ==> TODO :
 	^in the []			invertion of the range element
 	Sart of line
 	force regexp to be the shortest.
 
 multiplicity :
-	*     ==> {0, 2147483647}
+	*     ==> {0, 2147483647} (try to have the minimum size)
 	?     ==> {0, 1}
-	+     ==> {1, 2147483647}
-	{x}   ==> {x, x}
-	{x,y} ==> {x, y}
+	+     ==> {1, 2147483647} (try to have the minimum size)
+	{x}   ==> {x, x} (try to have the minimum size)
+	{x,y} ==> {x, y} (try to have the minimum size)
 */
 /**
  * @brief convertion table of every element in a regular expression.
@@ -367,6 +368,13 @@ template<class CLASS_TYPE> class NodeValue : public Node<CLASS_TYPE> {
 				_property.setStatus(parseStatusNone);
 				return;
 			}
+			if (    _property.getPositionStop() < 0
+			     && Node<CLASS_TYPE>::m_multipleMin == 0
+			     && _property.getMultiplicity() == 0) {
+				_property.setPositionStop(_property.getPositionStart());
+				_property.setStatus(parseStatusPartial);
+				return;
+			}
 			bool tmpFind = true;
 			int32_t findLen = 0;
 			while(    _property.getMultiplicity() < Node<CLASS_TYPE>::m_multipleMax
@@ -520,7 +528,12 @@ template<class CLASS_TYPE> class NodeRangeValue : public Node<CLASS_TYPE> {
 				}
 			}else {
 				if (_property.getPositionStop() != -1) {
-					_property.setStatus(parseStatusFull);
+					if (_property.getMultiplicity() == 0) {
+						// simple optimisation ==> permit to remove parsing 1 cycle
+						_property.setStatus(parseStatusNone);
+					} else {
+						_property.setStatus(parseStatusFull);
+					}
 				} else if (_property.getMultiplicity() == Node<CLASS_TYPE>::m_multipleMin) {
 					_property.setPositionStop(_property.getPositionStart());
 					_property.setStatus(parseStatusFull);
@@ -1024,7 +1037,7 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 						findPartialNode = true;
 						prop = _property.m_subProperty[jjj];
 						tmpCurrentPos = prop.getPositionStop();
-						_property.m_subProperty.erase(_property.m_subProperty.begin()+iii-1, _property.m_subProperty.end());
+						_property.m_subProperty.erase(_property.m_subProperty.begin()+jjj, _property.m_subProperty.end());
 						iii = jjj;
 						break;
 					}
@@ -1040,7 +1053,7 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 				TK_REG_EXP_DBG_MODE2("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=" << iii << "/" << m_subNode.size() << ") data='" << autoStr(std::string(_data, tmpCurrentPos, _lenMax-tmpCurrentPos)) << "'");
 				m_subNode[iii]->parse(_data, tmpCurrentPos, _lenMax, prop);
 				if (prop.getStatus() == parseStatusNone) {
-					TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=" << iii << "/" << m_subNode.size() << ") ===None===");
+					TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=" << iii << "/" << m_subNode.size() << ") ===None===      : " << prop);
 					// rewind the list:
 					bool findPartialNode = false;
 					for (int64_t jjj=_property.m_subProperty.size()-1; jjj>=0; --jjj) {
@@ -1048,7 +1061,7 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 							findPartialNode = true;
 							prop = _property.m_subProperty[jjj];
 							tmpCurrentPos = prop.getPositionStop();
-							_property.m_subProperty.erase(_property.m_subProperty.begin()+iii-1, _property.m_subProperty.end());
+							_property.m_subProperty.erase(_property.m_subProperty.begin()+jjj, _property.m_subProperty.end());
 							iii = jjj;
 							TK_REG_EXP_DBG_MODE("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=?/" << m_subNode.size() << ") == rewind at " << iii << "");
 							break;
@@ -1175,9 +1188,41 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 				_property.setStatus(parseStatusNone);
 				return;
 			}
-			if (_property.getMultiplicity() >= Node<CLASS_TYPE>::m_multipleMax) {
+			bool haveSubPartial = false;
+			for (int64_t iii=_property.m_subProperty.size()-1; iii>=0; --iii) {
+				if (_property.m_subProperty[iii].getStatus() == parseStatusPartial) {
+					haveSubPartial = true;
+					break;
+				}
+			}
+			if (    haveSubPartial == false
+			     && _property.getMultiplicity() >= Node<CLASS_TYPE>::m_multipleMax) {
 				_property.setStatus(parseStatusFull);
 				return;
+			}
+			if (haveSubPartial == true) {
+				TK_CRITICAL(" TODO ...");
+				// TODO : Really hard element ==> the current node might register the previous tree before rejecting parse ...
+				/*
+				for (int64_t jjj=_property.m_subProperty.size()-1; jjj>=0; --jjj) {
+					if (_property.m_subProperty[jjj].getStatus() == parseStatusPartial) {
+						findPartialNode = true;
+						prop = _property.m_subProperty[jjj];
+						tmpCurrentPos = prop.getPositionStop();
+						_property.m_subProperty.erase(_property.m_subProperty.begin()+jjj, _property.m_subProperty.end());
+						iii = jjj;
+						break;
+					}
+				}
+				*/
+			} else {
+				if (    _property.getPositionStop() < 0
+				     && Node<CLASS_TYPE>::m_multipleMin == 0
+				     && _property.getMultiplicity() == 0) {
+					_property.setPositionStop(_property.getPositionStart());
+					_property.setStatus(parseStatusPartial);
+					return;
+				}
 			}
 			_property.setStatus(parseStatusFull);
 			bool tmpFind = true;
@@ -1628,36 +1673,35 @@ template<class CLASS_TYPE> class RegExp {
 			}
 			regexp::FindProperty prop;
 			prop.setPositionStart(_startPos);
-			m_exprRootNode.parse(_SearchIn, _startPos, maxlen, prop);
-			if (    prop.getStatus() == regexp::parseStatusFull
-			     || prop.getStatus() == regexp::parseStatusPartial ) {
-				findLen = prop.getFindLen();
-				if (    _escapeChar != 0
-				     && _startPos>0) {
-					if (_escapeChar == (char32_t)_SearchIn[_startPos-1]) {
-						//==> detected escape char ==> try find again ...
-						return false;
-					}
-				}
-				// Check end :
-				if (m_notEndWithChar == true) {
-					if (_startPos+findLen < (int64_t)_SearchIn.size() ) {
-						char32_t tmpVal = _SearchIn[_startPos+findLen];
-						if(    (    tmpVal >= 'a'
-						         && tmpVal <= 'z' )
-						    || (    tmpVal >= 'A'
-						         && tmpVal <= 'Z' )
-						    || (    tmpVal >= '0'
-						         && tmpVal <= '9' )
-						    || (    tmpVal == '_' ) ) {
-							// go on the next char ...
-							return false;
+			bool needOneMoreCycle = true;
+			while (needOneMoreCycle == true) {
+				needOneMoreCycle = false;
+				m_exprRootNode.parse(_SearchIn, _startPos, maxlen, prop);
+				if (    prop.getStatus() == regexp::parseStatusFull
+				     || prop.getStatus() == regexp::parseStatusPartial ) {
+					findLen = prop.getFindLen();
+					// Check end :
+					if (m_notEndWithChar == true) {
+						if (_startPos+findLen < (int64_t)_SearchIn.size() ) {
+							char32_t tmpVal = _SearchIn[_startPos+findLen];
+							if(    (    tmpVal >= 'a'
+							         && tmpVal <= 'z' )
+							    || (    tmpVal >= 'A'
+							         && tmpVal <= 'Z' )
+							    || (    tmpVal >= '0'
+							         && tmpVal <= '9' )
+							    || (    tmpVal == '_' ) ) {
+								// go on the next char ...
+								needOneMoreCycle = true;
+							}
 						}
 					}
+					if (needOneMoreCycle == false) {
+						m_areaFind.start = _startPos;
+						m_areaFind.stop  = _startPos + findLen;
+						return true;
+					}
 				}
-				m_areaFind.start = _startPos;
-				m_areaFind.stop  = _startPos + findLen;
-				return true;
 			}
 			return false;
 		};
