@@ -219,13 +219,16 @@ void testRegExp() {
 	//std::string data = "p//TODO:\ndse";
 	//std::string data = "p// TODO:\ndse";
 	//std::string data = "p// TODO :\ndse";
-	std::string data = "p// TODO 	: sdfgsdfsd \ndse";
-	testRegExpSingle("//[ \\t]*TODO[ \\t]*:.*$", data);
+	//std::string data = "p// TODO 	: sdfgsdfsd \ndse";
+	//testRegExpSingle("//[ \\t]*TODO[ \\t]*:.*$", data);
+	
+	std::string data = "abc  m_def ghi";
+	testRegExpSingle("\\@m_[A-Za-z_0-9]*\\@", data);
 }
 
 int main(int argc, const char *argv[]) {
 	// the only one init for etk:
-	etk::log::setLevel(etk::log::logLevelDebug);
+	etk::log::setLevel(etk::log::logLevelVerbose);
 	etk::setArgZero(argv[0]);
 	etk::initDefaultFolder("ewolApplNoName");
 	
