@@ -200,6 +200,7 @@ void testRegExpSingle(const std::string& _expression, const std::string& _search
 
 
 void testRegExp() {
+	std::string data;
 	//std::string data = " a /* plop */ \n int eee = 22; // error value \nint main(void) {\n return 0;\n}\n";
 	//std::string data = "alpha /* plop */ test";
 	//std::string data = "pp \n // qdfqdfsdf \nde";
@@ -222,8 +223,41 @@ void testRegExp() {
 	//std::string data = "p// TODO 	: sdfgsdfsd \ndse";
 	//testRegExpSingle("//[ \\t]*TODO[ \\t]*:.*$", data);
 	
-	std::string data = "abc  m_def ghi";
-	testRegExpSingle("\\@m_[A-Za-z_0-9]*\\@", data);
+	data = "abc  m_def ghi";
+	data =  "	protected:\n"
+			"		vec2 m_offset; \n";
+	//testRegExpSingle("\\@m_[A-Za-z_0-9]*\\@", data);
+	
+	
+	data = " * @param[in] _mode Configuring mode.\n"
+	"		 * @param[in] _time Time in second of the annimation display\n"
+	"		 */\n"
+	"		void setAnnimationTime(enum ";
+	data = "virtual vec2 relativePosition(const vec2& _pos);";
+	
+	//testRegExpSingle("\\@(\\w|_)+[ \\t]*\\(", data);
+	
+	data = "include <ewol/Dimensio2n.h>\n"
+		"#include <ewol/Dimension.h>\n"
+		"'dfgd\'fg'\n"
+		"\"dqf\\\"gsdfg\" // \"\n"
+		"// TODO : sqdkfjsdldkqfj\n"
+		"\n"
+		"namespace ewol {\n"
+		"	class Widget;\n"
+		"	namespace widget {\n"
+		"		class Manager;\n"
+		"		class Windows;\n"
+		"	};\n"
+		"};\n"
+		"#include <etk/types.h>\n";
+	//testRegExpSingle("#(\\\\[\\\\\\n]|.)*$", data);
+	
+	
+	data =  "	'dfgd\\'fg'  \n"
+			"	vec2 m_offset; \n";
+	testRegExpSingle("'((\\\\[\\\\'])|.)*'", data);
+
 }
 
 int main(int argc, const char *argv[]) {
