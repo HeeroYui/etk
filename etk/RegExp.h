@@ -445,11 +445,17 @@ template<class CLASS_TYPE> class NodeRangeValue : public Node<CLASS_TYPE> {
 		std::vector<std::pair<char32_t, char32_t>> m_rangeList;
 		std::vector<char32_t> m_dataList;
 		bool m_invert;
+		const char *m_typeName;
 	public :
 		/**
 		 * @brief Constructor
 		 */
-		NodeRangeValue(int32_t _level) : Node<CLASS_TYPE>::Node(_level), m_invert(false) { };
+		NodeRangeValue(int32_t _level) :
+		  Node<CLASS_TYPE>::Node(_level),
+		  m_invert(false),
+		  m_typeName("auto-range") {
+			
+		};
 		/**
 		 * @brief Destructor
 		 */
@@ -463,8 +469,11 @@ template<class CLASS_TYPE> class NodeRangeValue : public Node<CLASS_TYPE> {
 		void setInvertion(bool _newVal) {
 			m_invert = _newVal;
 		}
-		virtual const char* getDescriptiveName() const {
-			return "auto-range";
+		const char* getDescriptiveName() const {
+			return m_typeName;
+		}
+		void setDescriptiveName(const char* _name) {
+			m_typeName = _name;
 		}
 		// Truc a faire : multipliciter min, return partiel, et ...
 		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
@@ -573,14 +582,11 @@ template<class CLASS_TYPE> class NodeBracket : public NodeRangeValue<CLASS_TYPE>
 		 * @brief Constructor
 		 */
 		NodeBracket(int32_t _level) : NodeRangeValue<CLASS_TYPE>::NodeRangeValue(_level) {
-			
+			NodeRangeValue<CLASS_TYPE>::setDescriptiveName("[...]");
 		};
 		NodeBracket(const std::vector<char32_t>& _data, int32_t _level) : NodeRangeValue<CLASS_TYPE>::NodeRangeValue(_level)  {
 			generate(_data);
 		};
-		virtual const char* getDescriptiveName() const {
-			return "[...]";
-		}
 		int32_t generate(const std::vector<char32_t>& _data) {
 			Node<CLASS_TYPE>::m_regExpData = _data;
 			TK_REG_DEBUG("Request Parse [...] data=" << createString(Node<CLASS_TYPE>::m_regExpData) );
@@ -612,209 +618,6 @@ template<class CLASS_TYPE> class NodeBracket : public NodeRangeValue<CLASS_TYPE>
 			return _data.size();
 		};
 };
-#undef __class__
-#define __class__ "RegExp::NodeDigit"
-
-/**
- * @not-in-doc
- */
-template<class CLASS_TYPE> class NodeDigit : public NodeRangeValue<CLASS_TYPE> {
-	public :
-		/**
-		 * @brief Constructor
-		 */
-		NodeDigit(int32_t _level) : NodeRangeValue<CLASS_TYPE>::NodeRangeValue(_level) {
-			NodeRangeValue<CLASS_TYPE>::addRange('0', '9');
-		};
-		virtual const char* getDescriptiveName() const {
-			return "Digit";
-		}
-};
-#undef __class__
-#define __class__ "regExp::NodeDigitNot"
-
-/**
- * @not-in-doc
- */
-template<class CLASS_TYPE> class NodeDigitNot : public NodeRangeValue<CLASS_TYPE> {
-	public :
-		/**
-		 * @brief Constructor
-		 */
-		NodeDigitNot(int32_t _level) : NodeRangeValue<CLASS_TYPE>::NodeRangeValue(_level) {
-			NodeRangeValue<CLASS_TYPE>::addRange('0', '9');
-			NodeRangeValue<CLASS_TYPE>::setInvertion(true);
-		};
-		virtual const char* getDescriptiveName() const {
-			return "DigitNot";
-		}
-};
-#undef __class__
-#define __class__ "regExp::NodeLetter"
-
-/**
- * @not-in-doc
- */
-template<class CLASS_TYPE> class NodeLetter : public NodeRangeValue<CLASS_TYPE> {
-	public:
-		/**
-		 * @brief Constructor
-		 */
-		NodeLetter(int32_t _level) : NodeRangeValue<CLASS_TYPE>::NodeRangeValue(_level) {
-			NodeRangeValue<CLASS_TYPE>::addRange('a', 'z');
-			NodeRangeValue<CLASS_TYPE>::addRange('A', 'Z');
-		};
-		virtual const char* getDescriptiveName() const {
-			return "Letter";
-		}
-};
-#undef __class__
-#define __class__ "regExp::NodeLetterNot"
-
-/**
- * @not-in-doc
- */
-template<class CLASS_TYPE> class NodeLetterNot : public NodeRangeValue<CLASS_TYPE> {
-	public :
-		/**
-		 * @brief Constructor
-		 */
-		NodeLetterNot(int32_t _level) : NodeRangeValue<CLASS_TYPE>::NodeRangeValue(_level) {
-			NodeRangeValue<CLASS_TYPE>::addRange('a', 'z');
-			NodeRangeValue<CLASS_TYPE>::addRange('A', 'Z');
-			NodeRangeValue<CLASS_TYPE>::setInvertion(true);
-		};
-		virtual const char* getDescriptiveName() const {
-			return "LetterNot";
-		}
-};
-#undef __class__
-#define __class__ "regExp::NodeWhiteSpace"
-
-/**
- * @not-in-doc
- */
-template<class CLASS_TYPE> class NodeWhiteSpace : public NodeRangeValue<CLASS_TYPE> {
-	public :
-		/**
-		 * @brief Constructor
-		 */
-		NodeWhiteSpace(int32_t _level) : NodeRangeValue<CLASS_TYPE>::NodeRangeValue(_level) {
-			NodeRangeValue<CLASS_TYPE>::addValue(' ');
-			NodeRangeValue<CLASS_TYPE>::addValue('\t');
-			NodeRangeValue<CLASS_TYPE>::addValue('\n');
-			NodeRangeValue<CLASS_TYPE>::addValue('\r');
-			NodeRangeValue<CLASS_TYPE>::addValue('\f');
-			NodeRangeValue<CLASS_TYPE>::addValue('\v');
-		};
-		virtual const char* getDescriptiveName() const {
-			return "Space";
-		}
-};
-#undef __class__
-#define __class__ "regExp::NodeWhiteSpaceNot"
-
-/**
- * @not-in-doc
- */
-template<class CLASS_TYPE> class NodeWhiteSpaceNot : public NodeRangeValue<CLASS_TYPE> {
-	public :
-		/**
-		 * @brief Constructor
-		 */
-		NodeWhiteSpaceNot(int32_t _level) : NodeRangeValue<CLASS_TYPE>::NodeRangeValue(_level) {
-			NodeRangeValue<CLASS_TYPE>::addValue(' ');
-			NodeRangeValue<CLASS_TYPE>::addValue('\t');
-			NodeRangeValue<CLASS_TYPE>::addValue('\n');
-			NodeRangeValue<CLASS_TYPE>::addValue('\r');
-			NodeRangeValue<CLASS_TYPE>::addValue('\f');
-			NodeRangeValue<CLASS_TYPE>::addValue('\v');
-			NodeRangeValue<CLASS_TYPE>::setInvertion(true);
-		}
-		virtual const char* getDescriptiveName() const {
-			return "SpaceNot";
-		}
-};
-#undef __class__
-#define __class__ "regExp::NodeWordChar"
-
-/**
- * @not-in-doc
- */
-template<class CLASS_TYPE> class NodeWordChar : public NodeRangeValue<CLASS_TYPE> {
-	public :
-		/**
-		 * @brief Constructor
-		 */
-		NodeWordChar(int32_t _level) : NodeRangeValue<CLASS_TYPE>::NodeRangeValue(_level) {
-			NodeRangeValue<CLASS_TYPE>::addRange('a', 'z');
-			NodeRangeValue<CLASS_TYPE>::addRange('A', 'Z');
-			NodeRangeValue<CLASS_TYPE>::addRange('0', '9');
-		};
-		virtual const char* getDescriptiveName() const {
-			return "Word";
-		}
-};
-#undef __class__
-#define __class__ "regExp::NodeWordCharNot"
-/**
- * @not-in-doc
- */
-template<class CLASS_TYPE> class NodeWordCharNot : public NodeRangeValue<CLASS_TYPE> {
-	public :
-		/**
-		 * @brief Constructor
-		 */
-		NodeWordCharNot(int32_t _level) : NodeRangeValue<CLASS_TYPE>::NodeRangeValue(_level) {
-			NodeRangeValue<CLASS_TYPE>::addRange('a', 'z');
-			NodeRangeValue<CLASS_TYPE>::addRange('A', 'Z');
-			NodeRangeValue<CLASS_TYPE>::addRange('0', '9');
-			NodeRangeValue<CLASS_TYPE>::setInvertion(true);
-		};
-		virtual const char* getDescriptiveName() const {
-			return "WordNot";
-		}
-};
-#undef __class__
-#define __class__ "regExp::NodeDot"
-
-/**
- * @not-in-doc
- */
-template<class CLASS_TYPE> class NodeDot : public NodeRangeValue<CLASS_TYPE> {
-	public :
-		/**
-		 * @brief Constructor
-		 */
-		NodeDot(int32_t _level) : NodeRangeValue<CLASS_TYPE>::NodeRangeValue(_level) {
-			NodeRangeValue<CLASS_TYPE>::addValue('\0');
-			NodeRangeValue<CLASS_TYPE>::setInvertion(true);
-		};
-		virtual const char* getDescriptiveName() const {
-			return "dot";
-		}
-};
-
-#undef __class__
-#define __class__ "regExp::NodeEOL"
-
-/**
- * @not-in-doc
- */
-template<class CLASS_TYPE> class NodeEOL : public NodeRangeValue<CLASS_TYPE> {
-	public :
-		/**
-		 * @brief Constructor
-		 */
-		NodeEOL(int32_t _level) : NodeRangeValue<CLASS_TYPE>::NodeRangeValue(_level) {
-			NodeRangeValue<CLASS_TYPE>::addValue('\r');
-			NodeRangeValue<CLASS_TYPE>::addValue('\n');
-		}
-		virtual const char* getDescriptiveName() const {
-			return "EOL";
-		}
-};
-
 
 #undef __class__
 #define __class__ "regExp::NodeSOL"
@@ -982,37 +785,108 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 						TK_ERROR("Impossible case :  '|' " << pos);
 						return false;
 					case regexpOpcodeDot:
-						m_subNode.push_back(new NodeDot<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1));
+						{
+							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							tmpNode->setDescriptiveName("dot");
+							tmpNode->addValue('\0');
+							tmpNode->setInvertion(true);
+							m_subNode.push_back(tmpNode);
+						}
 						break;
 					case regexpOpcodeStartOfLine:
 						m_subNode.push_back(new NodeSOL<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1));
 						break;
 					case regexpOpcodeEndOfLine:
-						m_subNode.push_back(new NodeEOL<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1));
+						{
+							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							tmpNode->setDescriptiveName("EOL");
+							tmpNode->addValue('\n');
+							m_subNode.push_back(tmpNode);
+						}
 						break;
 					case regexpOpcodeDigit:
-						m_subNode.push_back(new NodeDigit<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1));
+						{
+							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							tmpNode->setDescriptiveName("digit");
+							tmpNode->addRange('0', '9');
+							m_subNode.push_back(tmpNode);
+						}
 						break;
 					case regexpOpcodeDigitNot:
-						m_subNode.push_back(new NodeDigitNot<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1));
+						{
+							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							tmpNode->setDescriptiveName("digit-not");
+							tmpNode->addRange('0', '9');
+							tmpNode->setInvertion(true);
+							m_subNode.push_back(tmpNode);
+						}
 						break;
 					case regexpOpcodeLetter:
-						m_subNode.push_back(new NodeLetter<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1));
+						{
+							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							tmpNode->setDescriptiveName("letter");
+							tmpNode->addRange('a', 'z');
+							tmpNode->addRange('A', 'Z');
+							m_subNode.push_back(tmpNode);
+						}
 						break;
 					case regexpOpcodeLetterNot:
-						m_subNode.push_back(new NodeLetterNot<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1));
+						{
+							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							tmpNode->setDescriptiveName("letter-not");
+							tmpNode->addRange('a', 'z');
+							tmpNode->addRange('A', 'Z');
+							tmpNode->setInvertion(true);
+							m_subNode.push_back(tmpNode);
+						}
 						break;
 					case regexpOpcodeSpace:
-						m_subNode.push_back(new NodeWhiteSpace<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1));
+						{
+							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							tmpNode->setDescriptiveName("space");
+							tmpNode->addValue(' ');
+							tmpNode->addValue('\t');
+							tmpNode->addValue('\n');
+							tmpNode->addValue('\r');
+							tmpNode->addValue('\f');
+							tmpNode->addValue('\v');
+							m_subNode.push_back(tmpNode);
+						}
 						break;
 					case regexpOpcodeSpaceNot:
-						m_subNode.push_back(new NodeWhiteSpaceNot<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1));
+						{
+							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							tmpNode->setDescriptiveName("space-not");
+							tmpNode->addValue(' ');
+							tmpNode->addValue('\t');
+							tmpNode->addValue('\n');
+							tmpNode->addValue('\r');
+							tmpNode->addValue('\f');
+							tmpNode->addValue('\v');
+							tmpNode->setInvertion(true);
+							m_subNode.push_back(tmpNode);
+						}
 						break;
 					case regexpOpcodeWord:
-						m_subNode.push_back(new NodeWordChar<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1));
+						{
+							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							tmpNode->setDescriptiveName("word");
+							tmpNode->addRange('a', 'z');
+							tmpNode->addRange('A', 'Z');
+							tmpNode->addRange('0', '9');
+							m_subNode.push_back(tmpNode);
+						}
 						break;
 					case regexpOpcodeWordNot:
-						m_subNode.push_back(new NodeWordCharNot<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1));
+						{
+							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							tmpNode->setDescriptiveName("word-not");
+							tmpNode->addRange('a', 'z');
+							tmpNode->addRange('A', 'Z');
+							tmpNode->addRange('0', '9');
+							tmpNode->setInvertion(true);
+							m_subNode.push_back(tmpNode);
+						}
 						break;
 					
 					default: {
