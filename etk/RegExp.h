@@ -70,6 +70,7 @@ enum regExpPrivateSection {
 	regexpOpcodeTo,/* - */
 	regexpOpcodeStar,/* * */
 	regexpOpcodeDot,/* . */
+	regexpOpcodeEOF,/* \e */
 	regexpOpcodeQuestion,/* ? */
 	regexpOpcodePlus,/* + */
 	regexpOpcodePipe,/* | */
@@ -88,19 +89,20 @@ enum regExpPrivateSection {
 };
 /*
 normal mode :
-	(...)				sub element is separate with |
-	\d					Digits									[0-9]
-	\D					NOT a digit								[^0-9]
-	\l					Letters									[a-zA-Z]
-	\L					NOT a Letter							[^a-zA-Z]
-	\s					Whitespace								[ \t\n\r\f\v]
-	\S					NOT Whitespace							[^ \t\n\r\f\v]
-	\w					"Word" character						[a-zA-Z0-9_]
-	\W					NOT a "Word" character					[^a-zA-Z0-9_]
-	\@					at the start or the end					not in the parsing of element ==> check if \w is not present   (other regExp will be <> ...)
-	[anjdi] or [a-gt-j]	range
-	.					dot										[^\x00-\x08\x0A-\x1F\x7F]
-	$					End / Start of line of line 			==> ce sera un truc suplémentaire comme le \@
+	(...)               sub element is separate with |
+	\d                  Digits                                  [0-9]
+	\D                  NOT a digit                             [^0-9]
+	\l                  Letters                                 [a-zA-Z]
+	\L                  NOT a Letter                            [^a-zA-Z]
+	\s                  Whitespace                              [ \t\n\r\f\v]
+	\S                  NOT Whitespace                          [^ \t\n\r\f\v]
+	\w                  "Word" character                        [a-zA-Z0-9_]
+	\W                  NOT a "Word" character                  [^a-zA-Z0-9_]
+	\@                  at the start or the end                 not in the parsing of element ==> check if \w is not present   (other regExp will be <> ...)
+	\e                  end-of-file / end-of-data               [\x00] ==> not counted
+	[anjdi] or [a-gt-j] range
+	.                   dot                                     [^\x00]
+	$                   End / Start of line of line             ==> ce sera un truc suplémentaire comme le \@
 	@                   Previous
 ==> TODO :
 	^in the []			invertion of the range element
@@ -276,8 +278,10 @@ template<class CLASS_TYPE> class Node {
 		Node(int32_t _level) :
 		  m_regExpData(),
 		  m_nodeLevel(_level),
+		  m_canHaveMultiplicity(true),
 		  m_multipleMin(1),
-		  m_multipleMax(1) {
+		  m_multipleMax(1),
+		  m_countOutput(true) {
 			
 		};
 		/**
@@ -310,7 +314,29 @@ template<class CLASS_TYPE> class Node {
 		virtual void display() {
 			TK_INFO("Find NODE : " << levelSpace(m_nodeLevel) << "@???@ {" << getMultMin() << "," << getMultMax() << "}  subdata=" << createString(m_regExpData) );
 		};
-	protected :
+	protected:
+		bool m_canHaveMultiplicity; //!< minimum repetition (included)
+	public:
+		/**
+		 * @brief Set the multiplicity capabilities.
+		 * @paran[in] _newVal new capabilities.
+		 */
+		void setMultiplicityAbility(bool _newVal) {
+			m_canHaveMultiplicity = _newVal;
+			if (_newVal == false) {
+				m_multipleMin = 1;
+				m_multipleMax = 1;
+			}
+		};
+	protected:
+		/**
+		 * @brief Get the multiplicity capabilities.
+		 * @return Multiplicity availlable.
+		 */
+		bool getMultiplicityAbility() const {
+			return m_canHaveMultiplicity;
+		};
+	protected:
 		uint32_t m_multipleMin; //!< minimum repetition (included)
 		uint32_t m_multipleMax; //!< maximum repetition (included)
 	public:
@@ -320,6 +346,10 @@ template<class CLASS_TYPE> class Node {
 		 * @param[in] _max The maximum appear time.
 		 */
 		void setMult(uint32_t _min, uint32_t _max) {
+			if (m_canHaveMultiplicity == false) {
+				TK_WARNING("can not set multiplicity ...");
+				return;
+			}
 			m_multipleMin = std::max(_min, (uint32_t)0);
 			m_multipleMax = std::max(_max, (uint32_t)1);
 		}
@@ -337,6 +367,24 @@ template<class CLASS_TYPE> class Node {
 		 */
 		uint32_t getMultMax() const {
 			return m_multipleMax;
+		};
+	protected:
+		bool m_countOutput; //!< minimum repetition (included)
+	public:
+		/**
+		 * @brief Set the output count availlable in regexp.
+		 * @paran[in] _newVal new capabilities.
+		 */
+		void setCountOutput(bool _newVal) {
+			m_countOutput = _newVal;
+		};
+	protected:
+		/**
+		 * @brief Get the output count availlable in regexp.
+		 * @return count availlable.
+		 */
+		bool getCountOutput() const {
+			return m_countOutput;
 		};
 };
 
@@ -533,7 +581,11 @@ template<class CLASS_TYPE> class NodeRangeValue : public Node<CLASS_TYPE> {
 					_property.multiplicityDecrement();
 					_property.setStatus(parseStatusFull);
 				} else {
-					_property.setPositionStop(newPosVal);
+					if (Node<CLASS_TYPE>::getCountOutput() == true) {
+						_property.setPositionStop(newPosVal);
+					} else {
+						_property.setPositionStop(_property.getPositionStart());
+					}
 					if (_currentPos>=_lenMax) {
 						_property.setStatus(parseStatusFull);
 					} else {
@@ -784,6 +836,16 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 					case regexpOpcodePipe:
 						TK_ERROR("Impossible case :  '|' " << pos);
 						return false;
+					case regexpOpcodeEOF:
+						{
+							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							tmpNode->setDescriptiveName("EOF");
+							tmpNode->addValue('\0');
+							tmpNode->setCountOutput(false);
+							tmpNode->setMultiplicityAbility(false);
+							m_subNode.push_back(tmpNode);
+						}
+						break;
 					case regexpOpcodeDot:
 						{
 							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);

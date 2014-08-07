@@ -31,6 +31,8 @@ const struct etk::convertionTable etk::regexp::constConvertionTable[] = {
 	{ true			, '*'  , '*' , etk::regexpOpcodeError},
 	{ false			, '.'  , 0   , etk::regexpOpcodeDot},
 	{ true			, '.'  , '.' , etk::regexpOpcodeError},
+	{ true			, 'e'  , 0   , etk::regexpOpcodeEOF},
+	{ false			, 'e'  , 'e' , etk::regexpOpcodeError},
 	{ false			, '?'  , 0   , etk::regexpOpcodeQuestion},
 	{ true			, '?'  , '?' , etk::regexpOpcodeError},
 	{ false			, '+'  , 0   , etk::regexpOpcodePlus},
@@ -106,6 +108,7 @@ std::string etk::regexp::createString(const std::vector<char32_t>& _data, int64_
 			case regexpOpcodeSpaceNot:          output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\S" + ETK_BASH_COLOR_NORMAL;	break;
 			case regexpOpcodeWord:              output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\w" + ETK_BASH_COLOR_NORMAL;	break;
 			case regexpOpcodeWordNot:           output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\W" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexpOpcodeEOF:               output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\e" + ETK_BASH_COLOR_NORMAL;	break;
 			case '\n':                          output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\n" + ETK_BASH_COLOR_NORMAL;	break;
 			case '\t':                          output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\t" + ETK_BASH_COLOR_NORMAL;	break;
 			default:
