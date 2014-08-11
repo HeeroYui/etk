@@ -108,3 +108,52 @@ vec3 quaternionToEulerXYZ(const btQuaternion& _quat) {
 	             asin(2.0*(xxx*zzz-yyy*www)),
 	             atan2(2.0*(xxx*yyy + zzz*www), (xxx2-yyy2-zzz2+www2) ) );
 }
+
+
+std::string std::to_string(const vec3& _obj) {
+	std::string str;
+	str = "(";
+	str += std::to_string(_obj.x());
+	str += ",";
+	str += std::to_string(_obj.y());
+	str += ",";
+	str += std::to_string(_obj.z());
+	str += ")";
+	return str;
+}
+
+std::string std::to_string(const ivec3& _obj) {
+	std::string str;
+	str = "(";
+	str += std::to_string(_obj.x());
+	str += ",";
+	str += std::to_string(_obj.y());
+	str += ",";
+	str += std::to_string(_obj.z());
+	str += ")";
+	return str;
+}
+
+std::string std::to_string(const uivec3& _obj) {
+	std::string str;
+	str = "(";
+	str += std::to_string(_obj.x());
+	str += ",";
+	str += std::to_string(_obj.y());
+	str += ",";
+	str += std::to_string(_obj.z());
+	str += ")";
+	return str;
+}
+
+std::string std::to_string(const bvec3& _obj) {
+	std::string str;
+	str = "(";
+	str += std::to_string(_obj.x());
+	str += ",";
+	str += std::to_string(_obj.y());
+	str += ",";
+	str += std::to_string(_obj.z());
+	str += ")";
+	return str;
+}

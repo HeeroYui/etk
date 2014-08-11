@@ -365,3 +365,43 @@ namespace etk {
 };
 
 
+
+std::string std::to_string(const vec2& _obj) {
+	std::string str;
+	str = "(";
+	str += std::to_string(_obj.x());
+	str += ",";
+	str += std::to_string(_obj.y());
+	str += ")";
+	return str;
+}
+
+std::string std::to_string(const ivec2& _obj) {
+	std::string str;
+	str = "(";
+	str += std::to_string(_obj.x());
+	str += ",";
+	str += std::to_string(_obj.y());
+	str += ")";
+	return str;
+}
+
+std::string std::to_string(const uivec2& _obj) {
+	std::string str;
+	str = "(";
+	str += std::to_string(_obj.x());
+	str += ",";
+	str += std::to_string(_obj.y());
+	str += ")";
+	return str;
+}
+
+std::string std::to_string(const bvec2& _obj) {
+	std::string str;
+	str = "(";
+	str += std::to_string(_obj.x());
+	str += ",";
+	str += std::to_string(_obj.y());
+	str += ")";
+	return str;
+}

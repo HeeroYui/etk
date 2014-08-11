@@ -470,6 +470,13 @@ inline vec3 vec3ClipInt64(const vec3& val) {
 	return vec3((int64_t)val.x(), (int64_t)val.y(), (int64_t)val.z());
 }
 
+namespace std {
+	std::string to_string(const vec3& _obj);
+	std::string to_string(const bvec3& _obj);
+	std::string to_string(const ivec3& _obj);
+	std::string to_string(const uivec3& _obj);
+};
+
 namespace etk {
 	std::ostream& operator <<(std::ostream& _os, const std::vector<vec3>& _obj);
 	//! @previous
