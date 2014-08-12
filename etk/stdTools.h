@@ -67,6 +67,10 @@ namespace std {
 	std::string to_string(const std::u32string& _obj);
 	//! @previous
 	std::string to_string(bool _val);
+	//! @previous
+	inline std::string to_string(std::string _val) {
+		return _val;
+	}
 	#if (defined(__TARGET_OS__Android))
 		//! @previous
 		std::string to_string(int _val);
@@ -111,7 +115,8 @@ namespace std {
 	//! @previous
 	std::u32string to_u32string(long double _val);
 	
-	template<class T, int size=0> std::string to_string(T t, std::ios_base & (*f)(std::ios_base&)) {
+	
+	template<class TYPE, int size=0> std::string to_string_format(TYPE t, std::ios_base & (*f)(std::ios_base&)) {
 		std::ostringstream oss;
 		if (size==0) {
 			oss << f << t;
@@ -120,7 +125,7 @@ namespace std {
 		}
 		return oss.str();
 	}
-	template<class T, int size=0> std::u32string to_u32string(T t, std::ios_base & (*f)(std::ios_base&)) {
+	template<class TYPE, int size=0> std::u32string to_u32string_format(TYPE t, std::ios_base & (*f)(std::ios_base&)) {
 		std::ostringstream oss;
 		if (size==0) {
 			oss << f << t;
@@ -130,6 +135,69 @@ namespace std {
 		return std::to_u32string(oss.str());
 	}
 	
+	bool from_string(std::string& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(std::string& _variableRet, const std::u32string& _value);
+	//! @previous
+	bool from_string(std::u32string& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(std::u32string& _variableRet, const std::u32string& _value);
+	//! @previous
+	bool from_string(bool& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(bool& _variableRet, const std::u32string& _value);
+	//! @previous
+	bool from_string(char& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(char& _variableRet, const std::u32string& _value);
+	//! @previous
+	bool from_string(short& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(short& _variableRet, const std::u32string& _value);
+	//! @previous
+	bool from_string(int& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(int& _variableRet, const std::u32string& _value);
+	//! @previous
+	bool from_string(long& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(long& _variableRet, const std::u32string& _value);
+	//! @previous
+	bool from_string(long long& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(long long& _variableRet, const std::u32string& _value);
+	//! @previous
+	bool from_string(unsigned char& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(unsigned char& _variableRet, const std::u32string& _value);
+	//! @previous
+	bool from_string(unsigned short& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(unsigned short& _variableRet, const std::u32string& _value);
+	//! @previous
+	bool from_string(unsigned& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(unsigned& _variableRet, const std::u32string& _value);
+	//! @previous
+	bool from_string(unsigned long& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(unsigned long& _variableRet, const std::u32string& _value);
+	//! @previous
+	bool from_string(unsigned long long& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(unsigned long long& _variableRet, const std::u32string& _value);
+	//! @previous
+	bool from_string(float& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(float& _variableRet, const std::u32string& _value);
+	//! @previous
+	bool from_string(double& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(double& _variableRet, const std::u32string& _value);
+	//! @previous
+	bool from_string(long double& _variableRet, const std::string& _value);
+	//! @previous
+	bool from_string(long double& _variableRet, const std::u32string& _value);
 	
 	#if (defined(__TARGET_OS__Android))
 		double stod(const std::string& _str, size_t* _idx = 0);
@@ -182,9 +250,7 @@ namespace std {
 	bool stob(const std::string& _str);
 	//! @previous
 	bool stob(const std::u32string& _str);
-	
-	
-	
+		
 	std::string tolower(std::string _obj);
 	//! @previous
 	std::u32string tolower(std::u32string _obj);
@@ -220,7 +286,7 @@ namespace std {
 	//! @previous
 	void sort(std::vector<std::string *>& _list);
 	
-	template <class T> const T& avg(const T& a, const T& b, const T& c) {
+	template <class TYPE> const TYPE& avg(const TYPE& a, const TYPE& b, const TYPE& c) {
 		return std::min(std::max(a,b),c);
 	}
 };
@@ -233,7 +299,6 @@ namespace std {
 };
 
 int32_t strlen(const char32_t * _data);
-
 
 #endif
 

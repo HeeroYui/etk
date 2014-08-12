@@ -8,7 +8,7 @@
 
 #include <etk/math/Vector3D.h>
 
-std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector3D<int32_t>& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const ivec3& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -19,7 +19,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector3D<int32_t>& 
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const btVector3& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const vec3& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -30,7 +30,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const btVector3& _obj) {
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector3D<uint32_t>& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const uivec3& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -41,7 +41,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector3D<uint32_t>&
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector3D<bool>& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const bvec3& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -121,6 +121,9 @@ std::string std::to_string(const vec3& _obj) {
 	str += ")";
 	return str;
 }
+std::u32string std::to_u32string(const vec3& _obj) {
+	return std::to_u32string(std::to_string(_obj));
+}
 
 std::string std::to_string(const ivec3& _obj) {
 	std::string str;
@@ -132,6 +135,9 @@ std::string std::to_string(const ivec3& _obj) {
 	str += std::to_string(_obj.z());
 	str += ")";
 	return str;
+}
+std::u32string std::to_u32string(const ivec3& _obj) {
+	return std::to_u32string(std::to_string(_obj));
 }
 
 std::string std::to_string(const uivec3& _obj) {
@@ -145,6 +151,9 @@ std::string std::to_string(const uivec3& _obj) {
 	str += ")";
 	return str;
 }
+std::u32string std::to_u32string(const uivec3& _obj) {
+	return std::to_u32string(std::to_string(_obj));
+}
 
 std::string std::to_string(const bvec3& _obj) {
 	std::string str;
@@ -156,4 +165,179 @@ std::string std::to_string(const bvec3& _obj) {
 	str += std::to_string(_obj.z());
 	str += ")";
 	return str;
+}
+std::u32string std::to_u32string(const bvec3& _obj) {
+	return std::to_u32string(std::to_string(_obj));
+}
+
+bool std::from_string(vec3& _variableRet, const std::string& _value) {
+	float floats[3];
+	floats[0] = 0;
+	floats[1] = 0;
+	floats[2] = 0;
+	// copy to permit to modify it :
+	std::string tmpStr = _value;
+	if (tmpStr[0] == '(') {
+		tmpStr.erase(tmpStr.begin());
+	}
+	if (tmpStr[tmpStr.size()-1] == ')') {
+		tmpStr.erase(tmpStr.end()-1);
+	}
+	size_t posComa = tmpStr.find(',');
+	if (posComa == std::string::npos) {
+		// no coma ...
+		// in every case, we parse the first element :
+		floats[0] = std::stof(tmpStr);
+		floats[1] = floats[0];
+		floats[2] = floats[1];
+	} else {
+		floats[0] = std::stof(std::string(tmpStr, 0, posComa));
+		tmpStr.erase(0,posComa+1);
+		posComa = tmpStr.find(',');
+		if (posComa == std::string::npos) {
+			// no coma ...
+			// in every case, we parse the first element :
+			floats[1] = std::stof(tmpStr);
+			floats[2] = floats[1];
+		} else {
+			floats[1] = std::stof(std::string(tmpStr, 0, posComa));
+			tmpStr.erase(0,posComa+1);
+			floats[2] = std::stof(tmpStr);
+		}
+	}
+	_variableRet.setValue(floats[0], floats[1], floats[2]);
+	TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
+	return true;
+}
+bool std::from_string(vec3& _variableRet, const std::u32string& _value) {
+	return from_string(_variableRet, std::to_string(_value));
+}
+
+bool std::from_string(ivec3& _variableRet, const std::string& _value) {
+	int32_t floats[3];
+	floats[0] = 0;
+	floats[1] = 0;
+	floats[2] = 0;
+	// copy to permit to modify it :
+	std::string tmpStr = _value;
+	if (tmpStr[0] == '(') {
+		tmpStr.erase(tmpStr.begin());
+	}
+	if (tmpStr[tmpStr.size()-1] == ')') {
+		tmpStr.erase(tmpStr.end()-1);
+	}
+	size_t posComa = tmpStr.find(',');
+	if (posComa == std::string::npos) {
+		// no coma ...
+		// in every case, we parse the first element :
+		floats[0] = std::stoi(tmpStr);
+		floats[1] = floats[0];
+		floats[2] = floats[1];
+	} else {
+		floats[0] = std::stoi(std::string(tmpStr, 0, posComa));
+		tmpStr.erase(0,posComa+1);
+		posComa = tmpStr.find(',');
+		if (posComa == std::string::npos) {
+			// no coma ...
+			// in every case, we parse the first element :
+			floats[1] = std::stoi(tmpStr);
+			floats[2] = floats[1];
+		} else {
+			floats[1] = std::stoi(std::string(tmpStr, 0, posComa));
+			tmpStr.erase(0,posComa+1);
+			floats[2] = std::stoi(tmpStr);
+		}
+	}
+	_variableRet.setValue(floats[0], floats[1], floats[2]);
+	TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
+	return true;
+}
+bool std::from_string(ivec3& _variableRet, const std::u32string& _value) {
+	return from_string(_variableRet, std::to_string(_value));
+}
+
+bool std::from_string(uivec3& _variableRet, const std::string& _value) {
+	uint32_t floats[3];
+	floats[0] = 0;
+	floats[1] = 0;
+	floats[2] = 0;
+	// copy to permit to modify it :
+	std::string tmpStr = _value;
+	if (tmpStr[0] == '(') {
+		tmpStr.erase(tmpStr.begin());
+	}
+	if (tmpStr[tmpStr.size()-1] == ')') {
+		tmpStr.erase(tmpStr.end()-1);
+	}
+	size_t posComa = tmpStr.find(',');
+	if (posComa == std::string::npos) {
+		// no coma ...
+		// in every case, we parse the first element :
+		floats[0] = std::stoi(tmpStr);
+		floats[1] = floats[0];
+		floats[2] = floats[1];
+	} else {
+		floats[0] = std::stoi(std::string(tmpStr, 0, posComa));
+		tmpStr.erase(0,posComa+1);
+		posComa = tmpStr.find(',');
+		if (posComa == std::string::npos) {
+			// no coma ...
+			// in every case, we parse the first element :
+			floats[1] = std::stoi(tmpStr);
+			floats[2] = floats[1];
+		} else {
+			floats[1] = std::stoi(std::string(tmpStr, 0, posComa));
+			tmpStr.erase(0,posComa+1);
+			floats[2] = std::stoi(tmpStr);
+		}
+	}
+	_variableRet.setValue(floats[0], floats[1], floats[2]);
+	TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
+	return true;
+}
+bool std::from_string(uivec3& _variableRet, const std::u32string& _value) {
+	return from_string(_variableRet, std::to_string(_value));
+}
+
+bool std::from_string(bvec3& _variableRet, const std::string& _value) {
+	bool floats[3];
+	floats[0] = false;
+	floats[1] = false;
+	floats[2] = false;
+	// copy to permit to modify it :
+	std::string tmpStr = _value;
+	if (tmpStr[0] == '(') {
+		tmpStr.erase(tmpStr.begin());
+	}
+	if (tmpStr[tmpStr.size()-1] == ')') {
+		tmpStr.erase(tmpStr.end()-1);
+	}
+	size_t posComa = tmpStr.find(',');
+	if (posComa == std::string::npos) {
+		// no coma ...
+		// in every case, we parse the first element :
+		floats[0] = std::stob(tmpStr);
+		floats[1] = floats[0];
+		floats[2] = floats[1];
+	} else {
+		floats[0] = std::stob(std::string(tmpStr, 0, posComa));
+		tmpStr.erase(0,posComa+1);
+		posComa = tmpStr.find(',');
+		if (posComa == std::string::npos) {
+			// no coma ...
+			// in every case, we parse the first element :
+			floats[1] = std::stob(tmpStr);
+			floats[2] = floats[1];
+		} else {
+			floats[1] = std::stob(std::string(tmpStr, 0, posComa));
+			tmpStr.erase(0,posComa+1);
+			floats[2] = std::stob(tmpStr);
+		}
+	}
+	_variableRet.setValue(floats[0], floats[1], floats[2]);
+	TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
+	return true;
+}
+bool std::from_string(bvec3& _variableRet, const std::u32string& _value) {
+	return from_string(_variableRet, std::to_string(_value));
 }

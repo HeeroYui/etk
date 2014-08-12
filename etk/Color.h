@@ -337,15 +337,15 @@ namespace etk {
 	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint8_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits 
 		if (MY_TYPE_SIZE >= 3) {
 			_os << "#";
-			_os << (std::to_string<uint32_t, 2>(_obj.r(), std::hex)).c_str();
+			_os << (std::to_string_format<uint32_t, 2>(_obj.r(), std::hex)).c_str();
 			if (MY_TYPE_SIZE >= 2) {
-				_os << (std::to_string<uint32_t, 2>(_obj.g(), std::hex)).c_str();
+				_os << (std::to_string_format<uint32_t, 2>(_obj.g(), std::hex)).c_str();
 			}
 			if (MY_TYPE_SIZE >= 3) {
-				_os << (std::to_string<uint32_t, 2>(_obj.b(), std::hex)).c_str();
+				_os << (std::to_string_format<uint32_t, 2>(_obj.b(), std::hex)).c_str();
 			}
 			if (MY_TYPE_SIZE >= 4) {
-				_os << (std::to_string<uint32_t, 2>(_obj.a(), std::hex)).c_str();
+				_os << (std::to_string_format<uint32_t, 2>(_obj.a(), std::hex)).c_str();
 			}
 		} else {
 			if (MY_TYPE_SIZE >= 2) {
@@ -354,10 +354,10 @@ namespace etk {
 				_os << "Mono";
 			}
 			_os << "[U8](";
-			_os << "0x" << (std::to_string<uint32_t, 2>(_obj.r(), std::hex)).c_str();
+			_os << "0x" << (std::to_string_format<uint32_t, 2>(_obj.r(), std::hex)).c_str();
 			if (MY_TYPE_SIZE >= 2) {
 				_os << ",";
-				_os << "0x" << (std::to_string<uint32_t, 2>(_obj.g(), std::hex)).c_str();
+				_os << "0x" << (std::to_string_format<uint32_t, 2>(_obj.g(), std::hex)).c_str();
 			}
 			_os << ")";
 		}
@@ -375,18 +375,18 @@ namespace etk {
 			_os << "Mono";
 		}
 		_os << "[U16](";
-		_os << "0x" << (std::to_string<uint32_t, 4>(_obj.r(), std::hex)).c_str();
+		_os << "0x" << (std::to_string_format<uint32_t, 4>(_obj.r(), std::hex)).c_str();
 		if (MY_TYPE_SIZE >= 2) {
 			_os << ",";
-			_os << "0x" << (std::to_string<uint32_t, 4>(_obj.g(), std::hex)).c_str();
+			_os << "0x" << (std::to_string_format<uint32_t, 4>(_obj.g(), std::hex)).c_str();
 		}
 		if (MY_TYPE_SIZE >= 3) {
 			_os << ",";
-			_os << "0x" << (std::to_string<uint32_t, 4>(_obj.b(), std::hex)).c_str();
+			_os << "0x" << (std::to_string_format<uint32_t, 4>(_obj.b(), std::hex)).c_str();
 		}
 		if (MY_TYPE_SIZE >= 4) {
 			_os << ",";
-			_os << "0x" << (std::to_string<uint32_t, 4>(_obj.a(), std::hex)).c_str();
+			_os << "0x" << (std::to_string_format<uint32_t, 4>(_obj.a(), std::hex)).c_str();
 		}
 		_os << ")";
 		return _os;
@@ -403,18 +403,18 @@ namespace etk {
 			_os << "Mono";
 		}
 		_os << "[U32](";
-		_os << "0x" << (std::to_string<uint32_t, 8>(_obj.r(), std::hex)).c_str();
+		_os << "0x" << (std::to_string_format<uint32_t, 8>(_obj.r(), std::hex)).c_str();
 		if (MY_TYPE_SIZE >= 2) {
 			_os << ",";
-			_os << "0x" << (std::to_string<uint32_t, 8>(_obj.g(), std::hex)).c_str();
+			_os << "0x" << (std::to_string_format<uint32_t, 8>(_obj.g(), std::hex)).c_str();
 		}
 		if (MY_TYPE_SIZE >= 3) {
 			_os << ",";
-			_os << "0x" << (std::to_string<uint32_t, 8>(_obj.b(), std::hex)).c_str();
+			_os << "0x" << (std::to_string_format<uint32_t, 8>(_obj.b(), std::hex)).c_str();
 		}
 		if (MY_TYPE_SIZE >= 4) {
 			_os << ",";
-			_os << "0x" << (std::to_string<uint32_t, 8>(_obj.a(), std::hex)).c_str();
+			_os << "0x" << (std::to_string_format<uint32_t, 8>(_obj.a(), std::hex)).c_str();
 		}
 		_os << ")";
 		return _os;

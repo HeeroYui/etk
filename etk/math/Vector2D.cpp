@@ -126,7 +126,7 @@ namespace etk {
 			tmpStr.erase(0, posComa+1);
 			m_floats[1] = std::stob(tmpStr);
 		}
-		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
+		TK_VERBOSE("Parse : '" << _str << "' ==> " << *this);
 	}
 	template<> Vector2D<bool>::Vector2D(const std::u32string& _str) {
 		m_floats[0] = false;
@@ -243,8 +243,7 @@ namespace etk {
 		return str;
 	}
 	
-	template<> Vector2D<uint32_t>::Vector2D(const std::string& _str)
-	{
+	template<> Vector2D<uint32_t>::Vector2D(const std::string& _str) {
 		m_floats[0] = 0;
 		m_floats[1] = 0;
 		// copy to permit to modify it :
@@ -375,6 +374,9 @@ std::string std::to_string(const vec2& _obj) {
 	str += ")";
 	return str;
 }
+std::u32string std::to_u32string(const vec2& _obj) {
+	return std::to_u32string(std::to_string(_obj));
+}
 
 std::string std::to_string(const ivec2& _obj) {
 	std::string str;
@@ -384,6 +386,9 @@ std::string std::to_string(const ivec2& _obj) {
 	str += std::to_string(_obj.y());
 	str += ")";
 	return str;
+}
+std::u32string std::to_u32string(const ivec2& _obj) {
+	return std::to_u32string(std::to_string(_obj));
 }
 
 std::string std::to_string(const uivec2& _obj) {
@@ -395,6 +400,9 @@ std::string std::to_string(const uivec2& _obj) {
 	str += ")";
 	return str;
 }
+std::u32string std::to_u32string(const uivec2& _obj) {
+	return std::to_u32string(std::to_string(_obj));
+}
 
 std::string std::to_string(const bvec2& _obj) {
 	std::string str;
@@ -405,3 +413,39 @@ std::string std::to_string(const bvec2& _obj) {
 	str += ")";
 	return str;
 }
+std::u32string std::to_u32string(const bvec2& _obj) {
+	return std::to_u32string(std::to_string(_obj));
+}
+
+bool std::from_string(vec2& _variableRet, const std::string& _value) {
+	_variableRet = vec2(_value);
+	return true;
+}
+bool std::from_string(vec2& _variableRet, const std::u32string& _value) {
+	return from_string(_variableRet, std::to_string(_value));
+}
+
+bool std::from_string(ivec2& _variableRet, const std::string& _value) {
+	_variableRet = ivec2(_value);
+	return true;
+}
+bool std::from_string(ivec2& _variableRet, const std::u32string& _value) {
+	return from_string(_variableRet, std::to_string(_value));
+}
+
+bool std::from_string(uivec2& _variableRet, const std::string& _value) {
+	_variableRet = uivec2(_value);
+	return true;
+}
+bool std::from_string(uivec2& _variableRet, const std::u32string& _value) {
+	return from_string(_variableRet, std::to_string(_value));
+}
+
+bool std::from_string(bvec2& _variableRet, const std::string& _value) {
+	_variableRet = bvec2(_value);
+	return true;
+}
+bool std::from_string(bvec2& _variableRet, const std::u32string& _value) {
+	return from_string(_variableRet, std::to_string(_value));
+}
+

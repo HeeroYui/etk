@@ -881,3 +881,131 @@ void std::sort(std::vector<std::u32string *> &_list) {
 }
 
 
+/*
+template<> bool std::from_string<size_t>(size_t& _variableRet, const std::string& _value) {
+	_variableRet = stod(_value);
+	return true;
+}
+template<> bool std::from_string<size_t>(size_t& _variableRet, const std::u32string& _value) {
+	_variableRet = stod(_value);
+	return true;
+}
+*/
+bool std::from_string(float& _variableRet, const std::string& _value) {
+	_variableRet = stof(_value);
+	return true;
+}
+bool std::from_string(float& _variableRet, const std::u32string& _value) {
+	_variableRet = stof(_value);
+	return true;
+}
+
+
+
+bool std::from_string(char& _variableRet, const std::string& _value) {
+	_variableRet = stoi(_value);
+	return true;
+}
+bool std::from_string(char& _variableRet, const std::u32string& _value) {
+	_variableRet = stoi(_value);
+	return true;
+}
+
+bool std::from_string(unsigned char& _variableRet, const std::string& _value) {
+	_variableRet = stoi(_value);
+	return true;
+}
+bool std::from_string(unsigned char& _variableRet, const std::u32string& _value) {
+	_variableRet = stoi(_value);
+	return true;
+}
+
+bool std::from_string(short& _variableRet, const std::string& _value) {
+	_variableRet = stoi(_value);
+	return true;
+}
+bool std::from_string(short& _variableRet, const std::u32string& _value) {
+	_variableRet = stoi(_value);
+	return true;
+}
+
+bool std::from_string(unsigned short& _variableRet, const std::string& _value) {
+	_variableRet = stoi(_value);
+	return true;
+}
+bool std::from_string(unsigned short& _variableRet, const std::u32string& _value) {
+	_variableRet = stoi(_value);
+	return true;
+}
+
+bool std::from_string(int& _variableRet, const std::string& _value) {
+	_variableRet = stoi(_value);
+	return true;
+}
+bool std::from_string(int& _variableRet, const std::u32string& _value) {
+	_variableRet = stoi(_value);
+	return true;
+}
+
+bool std::from_string(unsigned int& _variableRet, const std::string& _value) {
+	_variableRet = stoi(_value);
+	return true;
+}
+bool std::from_string(unsigned int& _variableRet, const std::u32string& _value) {
+	_variableRet = stoi(_value);
+	return true;
+}
+
+bool std::from_string(long double& _variableRet, const std::string& _value) {
+	_variableRet = stold(_value);
+	return true;
+}
+bool std::from_string(long double& _variableRet, const std::u32string& _value) {
+	_variableRet = stold(_value);
+	return true;
+}
+
+bool std::from_string(long& _variableRet, const std::string& _value) {
+	_variableRet = stol(_value);
+	return true;
+}
+bool std::from_string(long& _variableRet, const std::u32string& _value) {
+	_variableRet = stol(_value);
+	return true;
+}
+
+bool std::from_string(long long& _variableRet, const std::string& _value) {
+	_variableRet = stoll(_value);
+	return true;
+}
+bool std::from_string(long long& _variableRet, const std::u32string& _value) {
+	_variableRet = stoll(_value);
+	return true;
+}
+
+bool std::from_string(unsigned long& _variableRet, const std::string& _value) {
+	_variableRet = stoul(_value);
+	return true;
+}
+bool std::from_string(unsigned long& _variableRet, const std::u32string& _value) {
+	_variableRet = stoul(_value);
+	return true;
+}
+
+bool std::from_string(unsigned long long& _variableRet, const std::string& _value) {
+	_variableRet = stoull(_value);
+	return true;
+}
+bool std::from_string(unsigned long long& _variableRet, const std::u32string& _value) {
+	_variableRet = stoull(_value);
+	return true;
+}
+
+bool std::from_string(bool& _variableRet, const std::string& _value) {
+	_variableRet = stob(_value);
+	return true;
+}
+bool std::from_string(bool& _variableRet, const std::u32string& _value) {
+	_variableRet = stob(_value);
+	return true;
+}

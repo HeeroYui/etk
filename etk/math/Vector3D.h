@@ -475,6 +475,18 @@ namespace std {
 	std::string to_string(const bvec3& _obj);
 	std::string to_string(const ivec3& _obj);
 	std::string to_string(const uivec3& _obj);
+	std::u32string to_u32string(const vec3& _obj);
+	std::u32string to_u32string(const bvec3& _obj);
+	std::u32string to_u32string(const ivec3& _obj);
+	std::u32string to_u32string(const uivec3& _obj);
+	bool from_string(vec3& _variableRet, const std::string& _value);
+	bool from_string(bvec3& _variableRet, const std::string& _value);
+	bool from_string(ivec3& _variableRet, const std::string& _value);
+	bool from_string(uivec3& _variableRet, const std::string& _value);
+	bool from_string(vec3& _variableRet, const std::u32string& _value);
+	bool from_string(bvec3& _variableRet, const std::u32string& _value);
+	bool from_string(ivec3& _variableRet, const std::u32string& _value);
+	bool from_string(uivec3& _variableRet, const std::u32string& _value);
 };
 
 namespace etk {
