@@ -110,7 +110,7 @@ vec3 quaternionToEulerXYZ(const btQuaternion& _quat) {
 }
 
 
-std::string std::to_string(const vec3& _obj) {
+template<> std::string std::to_string<vec3>(const vec3& _obj) {
 	std::string str;
 	str = "(";
 	str += std::to_string(_obj.x());
@@ -121,11 +121,11 @@ std::string std::to_string(const vec3& _obj) {
 	str += ")";
 	return str;
 }
-std::u32string std::to_u32string(const vec3& _obj) {
+template<> std::u32string std::to_u32string<vec3>(const vec3& _obj) {
 	return std::to_u32string(std::to_string(_obj));
 }
 
-std::string std::to_string(const ivec3& _obj) {
+template<> std::string std::to_string<ivec3>(const ivec3& _obj) {
 	std::string str;
 	str = "(";
 	str += std::to_string(_obj.x());
@@ -136,11 +136,11 @@ std::string std::to_string(const ivec3& _obj) {
 	str += ")";
 	return str;
 }
-std::u32string std::to_u32string(const ivec3& _obj) {
+template<> std::u32string std::to_u32string<ivec3>(const ivec3& _obj) {
 	return std::to_u32string(std::to_string(_obj));
 }
 
-std::string std::to_string(const uivec3& _obj) {
+template<> std::string std::to_string<uivec3>(const uivec3& _obj) {
 	std::string str;
 	str = "(";
 	str += std::to_string(_obj.x());
@@ -151,11 +151,11 @@ std::string std::to_string(const uivec3& _obj) {
 	str += ")";
 	return str;
 }
-std::u32string std::to_u32string(const uivec3& _obj) {
+template<> std::u32string std::to_u32string<uivec3>(const uivec3& _obj) {
 	return std::to_u32string(std::to_string(_obj));
 }
 
-std::string std::to_string(const bvec3& _obj) {
+template<> std::string std::to_string<bvec3>(const bvec3& _obj) {
 	std::string str;
 	str = "(";
 	str += std::to_string(_obj.x());
@@ -166,11 +166,11 @@ std::string std::to_string(const bvec3& _obj) {
 	str += ")";
 	return str;
 }
-std::u32string std::to_u32string(const bvec3& _obj) {
+template<> std::u32string std::to_u32string<bvec3>(const bvec3& _obj) {
 	return std::to_u32string(std::to_string(_obj));
 }
 
-bool std::from_string(vec3& _variableRet, const std::string& _value) {
+template<> bool std::from_string<vec3>(vec3& _variableRet, const std::string& _value) {
 	float floats[3];
 	floats[0] = 0;
 	floats[1] = 0;
@@ -209,11 +209,11 @@ bool std::from_string(vec3& _variableRet, const std::string& _value) {
 	TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
 	return true;
 }
-bool std::from_string(vec3& _variableRet, const std::u32string& _value) {
+template<> bool std::from_string<vec3>(vec3& _variableRet, const std::u32string& _value) {
 	return from_string(_variableRet, std::to_string(_value));
 }
 
-bool std::from_string(ivec3& _variableRet, const std::string& _value) {
+template<> bool std::from_string<ivec3>(ivec3& _variableRet, const std::string& _value) {
 	int32_t floats[3];
 	floats[0] = 0;
 	floats[1] = 0;
@@ -252,11 +252,11 @@ bool std::from_string(ivec3& _variableRet, const std::string& _value) {
 	TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
 	return true;
 }
-bool std::from_string(ivec3& _variableRet, const std::u32string& _value) {
+template<> bool std::from_string<ivec3>(ivec3& _variableRet, const std::u32string& _value) {
 	return from_string(_variableRet, std::to_string(_value));
 }
 
-bool std::from_string(uivec3& _variableRet, const std::string& _value) {
+template<> bool std::from_string<uivec3>(uivec3& _variableRet, const std::string& _value) {
 	uint32_t floats[3];
 	floats[0] = 0;
 	floats[1] = 0;
@@ -295,11 +295,11 @@ bool std::from_string(uivec3& _variableRet, const std::string& _value) {
 	TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
 	return true;
 }
-bool std::from_string(uivec3& _variableRet, const std::u32string& _value) {
+template<> bool std::from_string<uivec3>(uivec3& _variableRet, const std::u32string& _value) {
 	return from_string(_variableRet, std::to_string(_value));
 }
 
-bool std::from_string(bvec3& _variableRet, const std::string& _value) {
+template<> bool std::from_string<bvec3>(bvec3& _variableRet, const std::string& _value) {
 	bool floats[3];
 	floats[0] = false;
 	floats[1] = false;
@@ -338,6 +338,6 @@ bool std::from_string(bvec3& _variableRet, const std::string& _value) {
 	TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
 	return true;
 }
-bool std::from_string(bvec3& _variableRet, const std::u32string& _value) {
+template<> bool std::from_string<bvec3>(bvec3& _variableRet, const std::u32string& _value) {
 	return from_string(_variableRet, std::to_string(_value));
 }

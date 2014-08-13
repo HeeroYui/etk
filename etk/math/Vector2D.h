@@ -374,25 +374,6 @@ inline vec2 vec2ClipInt64(const vec2& _val) {
 	return vec2((int64_t)_val.x(), (int64_t)_val.y());
 }
 
-namespace std {
-	std::string to_string(const vec2& _obj);
-	std::string to_string(const bvec2& _obj);
-	std::string to_string(const ivec2& _obj);
-	std::string to_string(const uivec2& _obj);
-	std::u32string to_u32string(const vec2& _obj);
-	std::u32string to_u32string(const bvec2& _obj);
-	std::u32string to_u32string(const ivec2& _obj);
-	std::u32string to_u32string(const uivec2& _obj);
-	bool from_string(vec2& _variableRet, const std::string& _value);
-	bool from_string(bvec2& _variableRet, const std::string& _value);
-	bool from_string(ivec2& _variableRet, const std::string& _value);
-	bool from_string(uivec2& _variableRet, const std::string& _value);
-	bool from_string(vec2& _variableRet, const std::u32string& _value);
-	bool from_string(bvec2& _variableRet, const std::u32string& _value);
-	bool from_string(ivec2& _variableRet, const std::u32string& _value);
-	bool from_string(uivec2& _variableRet, const std::u32string& _value);
-};
-
 namespace etk {
 	std::ostream& operator <<(std::ostream& _os, const std::vector<vec2 >& _obj);
 	//! @previous

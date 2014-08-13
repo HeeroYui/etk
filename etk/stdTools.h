@@ -60,60 +60,15 @@ namespace utf8 {
 	char32_t convertChar32(const char* _input);
 };
 
-namespace std {
+namespace etk {
 	#ifdef __TARGET_OS__MacOs
 		typedef std::basic_string<char32_t> u32string;
 	#endif
-	std::string to_string(const std::u32string& _obj);
-	//! @previous
-	std::string to_string(bool _val);
-	//! @previous
-	inline std::string to_string(std::string _val) {
-		return _val;
-	}
-	#if (defined(__TARGET_OS__Android))
-		//! @previous
-		std::string to_string(int _val);
-		//! @previous
-		std::string to_string(long _val);
-		//! @previous
-		std::string to_string(long long _val);
-		//! @previous
-		std::string to_string(unsigned _val);
-		//! @previous
-		std::string to_string(unsigned long _val);
-		//! @previous
-		std::string to_string(unsigned long long _val);
-		//! @previous
-		std::string to_string(float _val);
-		//! @previous
-		std::string to_string(double _val);
-		//! @previous
-		std::string to_string(long double _val);
-	#endif
-	std::u32string to_u32string(const char* _obj);
-	//! @previous
-	std::u32string to_u32string(const std::string& _obj);
-	//! @previous
-	std::u32string to_u32string(bool _val);
-	//! @previous
-	std::u32string to_u32string(int _val);
-	//! @previous
-	std::u32string to_u32string(long _val);
-	//! @previous
-	std::u32string to_u32string(long long _val);
-	//! @previous
-	std::u32string to_u32string(unsigned _val);
-	//! @previous
-	std::u32string to_u32string(unsigned long _val);
-	//! @previous
-	std::u32string to_u32string(unsigned long long _val);
-	//! @previous
-	std::u32string to_u32string(float _val);
-	//! @previous
-	std::u32string to_u32string(double _val);
-	//! @previous
-	std::u32string to_u32string(long double _val);
+	
+	
+	// these declaration is to prevent some under template declaration of unknown type
+	template <class TYPE> std::string to_string(const TYPE& _variable);
+	template <class TYPE> std::u32string to_string(const TYPE& _variable);
 	
 	
 	template<class TYPE, int size=0> std::string to_string_format(TYPE t, std::ios_base & (*f)(std::ios_base&)) {
@@ -135,122 +90,42 @@ namespace std {
 		return std::to_u32string(oss.str());
 	}
 	
-	bool from_string(std::string& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(std::string& _variableRet, const std::u32string& _value);
-	//! @previous
-	bool from_string(std::u32string& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(std::u32string& _variableRet, const std::u32string& _value);
-	//! @previous
-	bool from_string(bool& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(bool& _variableRet, const std::u32string& _value);
-	//! @previous
-	bool from_string(char& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(char& _variableRet, const std::u32string& _value);
-	//! @previous
-	bool from_string(short& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(short& _variableRet, const std::u32string& _value);
-	//! @previous
-	bool from_string(int& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(int& _variableRet, const std::u32string& _value);
-	//! @previous
-	bool from_string(long& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(long& _variableRet, const std::u32string& _value);
-	//! @previous
-	bool from_string(long long& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(long long& _variableRet, const std::u32string& _value);
-	//! @previous
-	bool from_string(unsigned char& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(unsigned char& _variableRet, const std::u32string& _value);
-	//! @previous
-	bool from_string(unsigned short& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(unsigned short& _variableRet, const std::u32string& _value);
-	//! @previous
-	bool from_string(unsigned& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(unsigned& _variableRet, const std::u32string& _value);
-	//! @previous
-	bool from_string(unsigned long& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(unsigned long& _variableRet, const std::u32string& _value);
-	//! @previous
-	bool from_string(unsigned long long& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(unsigned long long& _variableRet, const std::u32string& _value);
-	//! @previous
-	bool from_string(float& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(float& _variableRet, const std::u32string& _value);
-	//! @previous
-	bool from_string(double& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(double& _variableRet, const std::u32string& _value);
-	//! @previous
-	bool from_string(long double& _variableRet, const std::string& _value);
-	//! @previous
-	bool from_string(long double& _variableRet, const std::u32string& _value);
+	// these declaration is to prevent some under template declaration of unknown type
+	template <class TYPE> bool from_string(TYPE& _variableRet, const std::string& _value);
+	template <class TYPE> bool from_string(TYPE& _variableRet, const std::u32string& _value);
 	
-	#if (defined(__TARGET_OS__Android))
-		double stod(const std::string& _str, size_t* _idx = 0);
-	#endif
-	//! @previous
-	double stod(const std::u32string& _str, size_t* _idx = 0);
+	double string_to_double(const std::string& _str);
+	double string_to_dbouble(const std::u32string& _str);
 	
-	#if (defined(__TARGET_OS__Android))
-		float stof(const std::string& _str, size_t* _idx = 0);
-	#endif
-	//! @previous
-	float stof(const std::u32string& _str, size_t* _idx = 0);
+	float string_to_float(const std::string& _str);
+	float string_to_float(const std::u32string& _str);
 	
-	#if (defined(__TARGET_OS__Android))
-		int stoi(const std::string& _str, size_t* _idx = 0, int _base = 10);
-	#endif
-	//! @previous
-	int stoi(const std::u32string& _str, size_t* _idx = 0, int _base = 10);
+	int string_to_int32_t(const std::string& _str, int _base = 10);
+	int string_to_i(const std::u32string& _str, int _base = 10);
 	
-	#if (defined(__TARGET_OS__Android))
-		long stol(const std::string& _str, size_t* _idx = 0, int _base = 10);
-	#endif
+	long string_to_l(const std::string& _str, int _base = 10);
 	//! @previous
-	long stol(const std::u32string& _str, size_t* _idx = 0, int _base = 10);
+	long string_to_l(const std::u32string& _str, int _base = 10);
 	
-	#if (defined(__TARGET_OS__Android))
-		long double stold(const std::string& _str, size_t* _idx = 0);
-	#endif
+	long double string_to_ld(const std::string& _str);
 	//! @previous
-	long double stold(const std::u32string& _str, size_t* _idx = 0);
+	long double string_to_ld(const std::u32string& _str);
 	
-	#if (defined(__TARGET_OS__Android))
-		long long stoll(const std::string& _str, size_t* _idx = 0, int _base = 10);
-	#endif
+	long long string_to_ll(const std::string& _str, int _base = 10);
 	//! @previous
-	long long stoll(const std::u32string& _str, size_t* _idx = 0, int _base = 10);
+	long long string_to_ll(const std::u32string& _str, int _base = 10);
 	
-	#if (defined(__TARGET_OS__Android))
-		unsigned long stoul(const std::string& _str, size_t* _idx = 0, int _base = 10);
-	#endif
+	unsigned long stoul(const std::string& _str, int _base = 10);
 	//! @previous
-	unsigned long stoul(const std::u32string& _str, size_t* _idx = 0, int _base = 10);
+	unsigned long stoul(const std::u32string& _str, int _base = 10);
 	
-	#if (defined(__TARGET_OS__Android))
-		unsigned long long stoull(const std::string& _str, size_t* _idx = 0, int _base = 10);
-	#endif
+	unsigned long long stoull(const std::string& _str, int _base = 10);
 	//! @previous
-	unsigned long long stoull(const std::u32string& _str, size_t* _idx = 0, int _base = 10);
+	unsigned long long stoull(const std::u32string& _str, int _base = 10);
 	
 	bool stob(const std::string& _str);
 	//! @previous
 	bool stob(const std::u32string& _str);
-		
 	std::string tolower(std::string _obj);
 	//! @previous
 	std::u32string tolower(std::u32string _obj);
@@ -285,13 +160,15 @@ namespace std {
 	void sort(std::vector<std::u32string *>& _list);
 	//! @previous
 	void sort(std::vector<std::string *>& _list);
-	
+};
+
+namespace std {
 	template <class TYPE> const TYPE& avg(const TYPE& a, const TYPE& b, const TYPE& c) {
 		return std::min(std::max(a,b),c);
 	}
 };
 
-namespace std {
+namespace etk {
 	std::ostream& operator <<(std::ostream& _os, const std::string& _obj);
 	std::ostream& operator <<(std::ostream& _os, const std::vector<std::string>& _obj);
 	std::ostream& operator <<(std::ostream& _os, const std::u32string& _obj);
