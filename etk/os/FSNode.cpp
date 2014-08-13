@@ -275,7 +275,7 @@ std::string getApplicationPath() {
 	return binaryName;
 }
 std::u32string getUApplicationPath() {
-	return to_u32string(getApplicationPath());
+	return etk::to_u32string(getApplicationPath());
 }
 
 void etk::initDefaultFolder(const char* _applName) {
@@ -387,14 +387,14 @@ std::string etk::getUserHomeFolder() {
 	return baseFolderHome;
 }
 std::u32string etk::getUUserHomeFolder() {
-	return to_u32string(baseFolderHome);
+	return etk::to_u32string(baseFolderHome);
 }
 
 std::string etk::getUserRunFolder() {
 	return baseRunPath;
 }
 std::u32string etk::getUUserRunFolder() {
-	return to_u32string(baseRunPath);
+	return etk::to_u32string(baseRunPath);
 }
 
 
@@ -522,7 +522,7 @@ void etk::FSNode::sortElementList(std::vector<etk::FSNode *>& _list) {
 				//EWOL_DEBUG("compare : \""<<*tmpList[iii] << "\" and \"" << *m_listDirectory[jjj] << "\"");
 				if (_list[jjj]!=NULL) {
 					// TODO : Do something better : this methode is a litthe hard!!!
-					if (std::toupper(tmpList[iii]->getNameFile()) > std::toupper(_list[jjj]->getNameFile())) {
+					if (etk::toupper(tmpList[iii]->getNameFile()) > etk::toupper(_list[jjj]->getNameFile())) {
 						findPos = jjj+1;
 					}
 				}
@@ -701,7 +701,7 @@ void etk::FSNode::privateSetName(const std::string& _newName) {
 	TK_DBG_MODE("6 : type :                  [" << m_typeNode << "]  right :" << m_rights);
 }
 void etk::FSNode::privateSetName(const std::u32string& _newName) {
-	privateSetName(std::to_string(_newName));
+	privateSetName(etk::to_string(_newName));
 }
 
 bool directCheckFile(std::string _tmpFileNameDirect, bool _checkInAPKIfNeeded = false) {
@@ -722,7 +722,7 @@ bool directCheckFile(std::string _tmpFileNameDirect, bool _checkInAPKIfNeeded = 
 	return true;
 }
 bool directCheckFile(std::u32string _tmpFileNameDirect, bool _checkInAPKIfNeeded = false) {
-	return directCheckFile(std::to_string(_tmpFileNameDirect));
+	return directCheckFile(etk::to_string(_tmpFileNameDirect));
 }
 // Now we generate the real FS path:
 void etk::FSNode::generateFileSystemPath() {
@@ -926,14 +926,14 @@ std::string etk::FSNode::getNameFolder() const {
 	return "";
 }
 std::u32string etk::FSNode::getUNameFolder() const {
-	return to_u32string(getNameFolder());
+	return etk::to_u32string(getNameFolder());
 }
 
 std::string etk::FSNode::getFileSystemName() const {
 	return m_systemFileName;
 }
 std::u32string etk::FSNode::getUFileSystemName() const {
-	return to_u32string(getFileSystemName());
+	return etk::to_u32string(getFileSystemName());
 }
 
 std::string etk::FSNode::getName() const {
@@ -970,7 +970,7 @@ std::string etk::FSNode::getName() const {
 	return output;
 }
 std::u32string etk::FSNode::getUName() const {
-	return to_u32string(getName());
+	return etk::to_u32string(getName());
 }
 
 std::string etk::FSNode::getNameFile() const {
@@ -981,7 +981,7 @@ std::string etk::FSNode::getNameFile() const {
 	return "";
 }
 std::u32string etk::FSNode::getUNameFile() const {
-	return to_u32string(getNameFile());
+	return etk::to_u32string(getNameFile());
 }
 
 std::string etk::FSNode::getRelativeFolder() const {
@@ -1023,7 +1023,7 @@ std::string etk::FSNode::getRelativeFolder() const {
 	return "";
 }
 std::u32string etk::FSNode::getURelativeFolder() const {
-	return to_u32string(getRelativeFolder());
+	return etk::to_u32string(getRelativeFolder());
 }
 
 
@@ -1053,7 +1053,7 @@ bool etk::FSNode::move(const std::string& _path) {
 	}
 }
 bool etk::FSNode::move(const std::u32string& _path) {
-	return move(std::to_string(_path));
+	return move(etk::to_string(_path));
 }
 
 bool etk::FSNode::remove() {
@@ -1088,7 +1088,7 @@ std::string etk::FSNode::timeCreatedString() const {
 	return tmpTime;
 }
 std::u32string etk::FSNode::timeUCreatedString() const {
-	return to_u32string(timeCreatedString());
+	return etk::to_u32string(timeCreatedString());
 }
 
 uint64_t etk::FSNode::timeModified() const {
@@ -1104,7 +1104,7 @@ std::string etk::FSNode::timeModifiedString() const {
 	return tmpTime;
 }
 std::u32string etk::FSNode::timeUModifiedString() const {
-	return to_u32string(timeModifiedString());
+	return etk::to_u32string(timeModifiedString());
 }
 
 uint64_t etk::FSNode::timeAccessed() const {
@@ -1120,7 +1120,7 @@ std::string etk::FSNode::timeAccessedString() const {
 	return tmpTime;
 }
 std::u32string etk::FSNode::timeUAccessedString() const {
-	return to_u32string(timeAccessedString());
+	return etk::to_u32string(timeAccessedString());
 }
 /*
 	Operator :
@@ -1467,7 +1467,7 @@ std::string etk::FSNode::fileGetExtention() {
 	return "";
 }
 std::u32string etk::FSNode::fileUGetExtention() {
-	return to_u32string(fileGetExtention());
+	return etk::to_u32string(fileGetExtention());
 }
 
 uint64_t etk::FSNode::fileSize() {
@@ -1795,7 +1795,7 @@ void etk::theme::setName(const std::string& _refName, const std::string& _folder
 	g_listTheme.insert(std::pair<std::string,std::string>(_refName, _folderName));
 }
 void etk::theme::setName(const std::u32string& _refName, const std::u32string& _folderName) {
-	setName(std::to_string(_refName), std::to_string(_folderName));
+	setName(etk::to_string(_refName), etk::to_string(_folderName));
 }
 
 std::string etk::theme::getName(const std::string& _refName) {
@@ -1806,7 +1806,7 @@ std::string etk::theme::getName(const std::string& _refName) {
 	return _refName;
 }
 std::u32string etk::theme::getName(const std::u32string& _refName) {
-	return to_u32string(getName(std::to_string(_refName)));
+	return etk::to_u32string(getName(etk::to_string(_refName)));
 }
 
 // get the list of all the theme folder availlable in the user Home/appl
@@ -1820,7 +1820,7 @@ std::vector<std::string> etk::theme::list() {
 std::vector<std::u32string> etk::theme::listU() {
 	std::vector<std::u32string> keys;
 	for (auto &it : g_listTheme) {
-		keys.push_back(std::to_u32string(it.first));
+		keys.push_back(etk::to_u32string(it.first));
 	}
 	return keys;
 }
@@ -1835,7 +1835,7 @@ void etk::theme::setNameDefault(const std::string& _refName, const std::string& 
 	g_listThemeDefault.insert(std::pair<std::string,std::string>(_refName, _folderName));
 }
 void etk::theme::setNameDefault(const std::u32string& _refName, const std::u32string& _folderName) {
-	setNameDefault(std::to_string(_refName), std::to_string(_folderName));
+	setNameDefault(etk::to_string(_refName), etk::to_string(_folderName));
 }
 std::string etk::theme::getNameDefault(const std::string& _refName) {
 	auto it=g_listThemeDefault.find(_refName);
@@ -1845,7 +1845,7 @@ std::string etk::theme::getNameDefault(const std::string& _refName) {
 	return "default";
 }
 std::u32string etk::theme::getNameDefault(const std::u32string& _refName) {
-	return to_u32string(getNameDefault(std::to_string(_refName)));
+	return etk::to_u32string(getNameDefault(etk::to_string(_refName)));
 }
 
 
@@ -1863,7 +1863,7 @@ bool etk::FSNodeRemove(const std::string& _path) {
 	return tmpNode.remove();
 }
 bool etk::FSNodeRemove(const std::u32string& _path) {
-	return FSNodeRemove(std::to_string(_path));
+	return FSNodeRemove(etk::to_string(_path));
 }
 
 int64_t etk::FSNodeGetCount(const std::string& _path) {
@@ -1874,7 +1874,7 @@ int64_t etk::FSNodeGetCount(const std::string& _path) {
 	return tmpNode.folderCount();
 }
 int64_t etk::FSNodeGetCount(const std::u32string& _path) {
-	return FSNodeGetCount(std::to_string(_path));
+	return FSNodeGetCount(etk::to_string(_path));
 }
 
 bool etk::FSNodeCreate(const std::string& _path, etk::FSNodeRight _right, enum etk::typeNode _type) {
@@ -1882,7 +1882,7 @@ bool etk::FSNodeCreate(const std::string& _path, etk::FSNodeRight _right, enum e
 	return false;
 }
 bool etk::FSNodeCreate(const std::u32string& _path, etk::FSNodeRight _right, enum etk::typeNode _type) {
-	return FSNodeCreate(std::to_string(_path), _right, _type);
+	return FSNodeCreate(etk::to_string(_path), _right, _type);
 }
 
 bool etk::FSNodeExist(const std::string& _path) {
@@ -1890,7 +1890,7 @@ bool etk::FSNodeExist(const std::string& _path) {
 	return tmpNode.exist();
 }
 bool etk::FSNodeExist(const std::u32string& _path) {
-	return FSNodeExist(std::to_string(_path));
+	return FSNodeExist(etk::to_string(_path));
 }
 
 bool etk::FSNodeMove(const std::string& _path1, const std::string& _path2) {
@@ -1905,7 +1905,7 @@ bool etk::FSNodeMove(const std::string& _path1, const std::string& _path2) {
 	return tmpNode.move(_path2);
 }
 bool etk::FSNodeMove(const std::u32string& _path1, const std::u32string& _path2) {
-	return FSNodeMove(std::to_string(_path1), std::to_string(_path2));
+	return FSNodeMove(etk::to_string(_path1), etk::to_string(_path2));
 }
 
 etk::FSNodeRight etk::FSNodeGetRight(const std::string& _path) {
@@ -1913,7 +1913,7 @@ etk::FSNodeRight etk::FSNodeGetRight(const std::string& _path) {
 	return tmpNode.getRight();
 }
 etk::FSNodeRight etk::FSNodeGetRight(const std::u32string& _path) {
-	return FSNodeGetRight(std::to_string(_path));
+	return FSNodeGetRight(etk::to_string(_path));
 }
 
 enum etk::typeNode etk::FSNodeGetType(const std::string& _path) {
@@ -1921,7 +1921,7 @@ enum etk::typeNode etk::FSNodeGetType(const std::string& _path) {
 	return tmpNode.getNodeType();
 }
 enum etk::typeNode etk::FSNodeGetType(const std::u32string& _path) {
-	return FSNodeGetType(std::to_string(_path));
+	return FSNodeGetType(etk::to_string(_path));
 }
 
 uint64_t etk::FSNodeGetTimeCreated(const std::string& _path) {
@@ -1929,7 +1929,7 @@ uint64_t etk::FSNodeGetTimeCreated(const std::string& _path) {
 	return tmpNode.timeCreated();
 }
 uint64_t etk::FSNodeGetTimeCreated(const std::u32string& _path) {
-	return FSNodeGetTimeCreated(std::to_string(_path));
+	return FSNodeGetTimeCreated(etk::to_string(_path));
 }
 
 uint64_t etk::FSNodeGetTimeModified(const std::string& _path) {
@@ -1937,7 +1937,7 @@ uint64_t etk::FSNodeGetTimeModified(const std::string& _path) {
 	return tmpNode.timeModified();
 }
 uint64_t etk::FSNodeGetTimeModified(const std::u32string& _path) {
-	return FSNodeGetTimeModified(std::to_string(_path));
+	return FSNodeGetTimeModified(etk::to_string(_path));
 }
 
 uint64_t etk::FSNodeGetTimeAccessed(const std::string& _path) {
@@ -1945,7 +1945,7 @@ uint64_t etk::FSNodeGetTimeAccessed(const std::string& _path) {
 	return tmpNode.timeAccessed();
 }
 uint64_t etk::FSNodeGetTimeAccessed(const std::u32string& _path) {
-	return FSNodeGetTimeAccessed(std::to_string(_path));
+	return FSNodeGetTimeAccessed(etk::to_string(_path));
 }
 
 bool etk::FSNodeTouch(const std::string& _path) {
@@ -1953,7 +1953,7 @@ bool etk::FSNodeTouch(const std::string& _path) {
 	return tmpNode.touch();
 }
 bool etk::FSNodeTouch(const std::u32string& _path) {
-	return FSNodeTouch(std::to_string(_path));
+	return FSNodeTouch(etk::to_string(_path));
 }
 
 bool etk::FSNodeEcho(const std::string& _path, const std::string& _dataTowrite) {
@@ -1975,7 +1975,7 @@ bool etk::FSNodeEcho(const std::string& _path, const std::string& _dataTowrite) 
 	return tmpNode.fileClose();
 }
 bool etk::FSNodeEcho(const std::u32string& _path, const std::u32string& _dataTowrite) {
-	return FSNodeEcho(std::to_string(_path), std::to_string(_dataTowrite));
+	return FSNodeEcho(etk::to_string(_path), etk::to_string(_dataTowrite));
 }
 
 bool etk::FSNodeEchoAdd(const std::string& _path, const std::string& _dataTowrite) {
@@ -1997,15 +1997,15 @@ bool etk::FSNodeEchoAdd(const std::string& _path, const std::string& _dataTowrit
 	return tmpNode.fileClose();
 }
 bool etk::FSNodeEchoAdd(const std::u32string& _path, const std::u32string& _dataTowrite) {
-	return FSNodeEchoAdd(std::to_string(_path), std::to_string(_dataTowrite));
+	return FSNodeEchoAdd(etk::to_string(_path), etk::to_string(_dataTowrite));
 }
 
 void etk::FSNodeHistory(const std::string& _path, int32_t _historyCount) {
 	// step 1 : Move the file to prevent writing error
 	//Get the first oldest save :
 	for (int32_t iii=_historyCount-1; iii>0 ; iii--) {
-		if (true==etk::FSNodeExist(_path + "-" + std::to_string(iii)) ) {
-			etk::FSNodeMove(_path + "-" + std::to_string(iii), _path + "-" + std::to_string(iii+1));
+		if (true==etk::FSNodeExist(_path + "-" + etk::to_string(iii)) ) {
+			etk::FSNodeMove(_path + "-" + etk::to_string(iii), _path + "-" + etk::to_string(iii+1));
 		}
 	}
 	if (true==etk::FSNodeExist(_path) ) {
@@ -2013,7 +2013,7 @@ void etk::FSNodeHistory(const std::string& _path, int32_t _historyCount) {
 	}
 }
 void etk::FSNodeHistory(const std::u32string& _path, int32_t _historyCount) {
-	return FSNodeHistory(std::to_string(_path), _historyCount);
+	return FSNodeHistory(etk::to_string(_path), _historyCount);
 }
 
 std::string etk::FSNodeReadAllData(const std::string& _path) {

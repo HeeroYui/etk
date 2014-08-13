@@ -307,29 +307,29 @@ namespace etk {
 		    && inputData[0] == '#') {
 			Color<uint8_t, 4> value = etk::parseStringStartWithSharp(std::string(_input, 1));
 			*this = value;
-		} else if(std::start_with(_input, "rgb(", false) == true) {
+		} else if(etk::start_with(_input, "rgb(", false) == true) {
 			Color<uint8_t, 4> value = etk::parseStringStartWithRGBGen(std::string(_input, 4, _input.size()-1));
 			*this = value;
-		} else if(std::start_with(_input, "rgb[FLOAT](", false) == true) {
+		} else if(etk::start_with(_input, "rgb[FLOAT](", false) == true) {
 			Color<double, 4> value = etk::parseStringStartWithRGB(std::string(_input, 11, _input.size()-1));
 			*this = value;
-		} else if(std::start_with(_input, "rgb[DOUBLE](", false) == true) {
+		} else if(etk::start_with(_input, "rgb[DOUBLE](", false) == true) {
 			Color<double, 4> value = etk::parseStringStartWithRGB(std::string(_input, 12, _input.size()-1));
 			*this = value;
-		} else if(std::start_with(_input, "rgb[U32](", false) == true) {
+		} else if(etk::start_with(_input, "rgb[U32](", false) == true) {
 			Color<uint32_t, 4> value = etk::parseStringStartWithRGBUnsigned32(std::string(_input, 9, _input.size()-1));
 			*this = value;
-		} else if(std::start_with(_input, "rgb[U16](", false) == true) {
+		} else if(etk::start_with(_input, "rgb[U16](", false) == true) {
 			Color<uint16_t, 4> value = etk::parseStringStartWithRGBUnsigned16(std::string(_input, 9, _input.size()-1));
 			*this = value;
-		} else if(std::start_with(_input, "rgb[U8](", false) == true) {
+		} else if(etk::start_with(_input, "rgb[U8](", false) == true) {
 			Color<uint8_t, 4> value = etk::parseStringStartWithRGBUnsigned8(std::string(_input, 8, _input.size()-1));
 			*this = value;
 		} else {
 			Color<uint8_t, 4> value = etk::parseStringColorNamed(_input);
 			*this = value;
 		}
-		TK_VERBOSE("  ==> converted color string : '" << _input << "' ==> " << *this);
+		//TK_VERBOSE("  ==> converted color string : '" << _input << "' ==> " << *this);
 	};
 	
 	
@@ -337,15 +337,15 @@ namespace etk {
 	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint8_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits 
 		if (MY_TYPE_SIZE >= 3) {
 			_os << "#";
-			_os << (std::to_string_format<uint32_t, 2>(_obj.r(), std::hex)).c_str();
+			_os << (etk::to_string_format<uint32_t, 2>(_obj.r(), std::hex)).c_str();
 			if (MY_TYPE_SIZE >= 2) {
-				_os << (std::to_string_format<uint32_t, 2>(_obj.g(), std::hex)).c_str();
+				_os << (etk::to_string_format<uint32_t, 2>(_obj.g(), std::hex)).c_str();
 			}
 			if (MY_TYPE_SIZE >= 3) {
-				_os << (std::to_string_format<uint32_t, 2>(_obj.b(), std::hex)).c_str();
+				_os << (etk::to_string_format<uint32_t, 2>(_obj.b(), std::hex)).c_str();
 			}
 			if (MY_TYPE_SIZE >= 4) {
-				_os << (std::to_string_format<uint32_t, 2>(_obj.a(), std::hex)).c_str();
+				_os << (etk::to_string_format<uint32_t, 2>(_obj.a(), std::hex)).c_str();
 			}
 		} else {
 			if (MY_TYPE_SIZE >= 2) {
@@ -354,10 +354,10 @@ namespace etk {
 				_os << "Mono";
 			}
 			_os << "[U8](";
-			_os << "0x" << (std::to_string_format<uint32_t, 2>(_obj.r(), std::hex)).c_str();
+			_os << "0x" << (etk::to_string_format<uint32_t, 2>(_obj.r(), std::hex)).c_str();
 			if (MY_TYPE_SIZE >= 2) {
 				_os << ",";
-				_os << "0x" << (std::to_string_format<uint32_t, 2>(_obj.g(), std::hex)).c_str();
+				_os << "0x" << (etk::to_string_format<uint32_t, 2>(_obj.g(), std::hex)).c_str();
 			}
 			_os << ")";
 		}
@@ -375,18 +375,18 @@ namespace etk {
 			_os << "Mono";
 		}
 		_os << "[U16](";
-		_os << "0x" << (std::to_string_format<uint32_t, 4>(_obj.r(), std::hex)).c_str();
+		_os << "0x" << (etk::to_string_format<uint32_t, 4>(_obj.r(), std::hex)).c_str();
 		if (MY_TYPE_SIZE >= 2) {
 			_os << ",";
-			_os << "0x" << (std::to_string_format<uint32_t, 4>(_obj.g(), std::hex)).c_str();
+			_os << "0x" << (etk::to_string_format<uint32_t, 4>(_obj.g(), std::hex)).c_str();
 		}
 		if (MY_TYPE_SIZE >= 3) {
 			_os << ",";
-			_os << "0x" << (std::to_string_format<uint32_t, 4>(_obj.b(), std::hex)).c_str();
+			_os << "0x" << (etk::to_string_format<uint32_t, 4>(_obj.b(), std::hex)).c_str();
 		}
 		if (MY_TYPE_SIZE >= 4) {
 			_os << ",";
-			_os << "0x" << (std::to_string_format<uint32_t, 4>(_obj.a(), std::hex)).c_str();
+			_os << "0x" << (etk::to_string_format<uint32_t, 4>(_obj.a(), std::hex)).c_str();
 		}
 		_os << ")";
 		return _os;
@@ -403,18 +403,18 @@ namespace etk {
 			_os << "Mono";
 		}
 		_os << "[U32](";
-		_os << "0x" << (std::to_string_format<uint32_t, 8>(_obj.r(), std::hex)).c_str();
+		_os << "0x" << (etk::to_string_format<uint32_t, 8>(_obj.r(), std::hex)).c_str();
 		if (MY_TYPE_SIZE >= 2) {
 			_os << ",";
-			_os << "0x" << (std::to_string_format<uint32_t, 8>(_obj.g(), std::hex)).c_str();
+			_os << "0x" << (etk::to_string_format<uint32_t, 8>(_obj.g(), std::hex)).c_str();
 		}
 		if (MY_TYPE_SIZE >= 3) {
 			_os << ",";
-			_os << "0x" << (std::to_string_format<uint32_t, 8>(_obj.b(), std::hex)).c_str();
+			_os << "0x" << (etk::to_string_format<uint32_t, 8>(_obj.b(), std::hex)).c_str();
 		}
 		if (MY_TYPE_SIZE >= 4) {
 			_os << ",";
-			_os << "0x" << (std::to_string_format<uint32_t, 8>(_obj.a(), std::hex)).c_str();
+			_os << "0x" << (etk::to_string_format<uint32_t, 8>(_obj.a(), std::hex)).c_str();
 		}
 		_os << ")";
 		return _os;
@@ -639,6 +639,23 @@ namespace etk {
 		extern const Color<> yellow;          //!< ++ [color=yellow] yellow color [/color] ++
 		extern const Color<> yellowGreen;     //!< ++ [color=yellowGreen] yellowGreen color [/color] ++
 	};
+	/*
+	template<> std::string etk::to_string<Color<MY_TYPE, MY_TYPE_SIZE>>(const Color<MY_TYPE, MY_TYPE_SIZE>& _val) {
+		return _val.getString();
+	}
+	template<> std::u32string etk::to_u32string<Color<MY_TYPE, MY_TYPE_SIZE>>(const Color<MY_TYPE, MY_TYPE_SIZE>& _val) {
+		return etk::to_u32string(_val.getString());
+	}
+	
+	template<> bool etk::from_string<Color<MY_TYPE, MY_TYPE_SIZE>>(Color<MY_TYPE, MY_TYPE_SIZE>& _variableRet, const std::u32string& _value) {
+		_variableRet = Color<MY_TYPE, MY_TYPE_SIZE>(etk::to_string(_value));
+		return true;
+	}
+	template<> bool etk::from_string<Color<MY_TYPE, MY_TYPE_SIZE>>(Color<MY_TYPE, MY_TYPE_SIZE>& _variableRet, const std::string& _value) {
+		_variableRet = Color<MY_TYPE, MY_TYPE_SIZE>(_value);
+		return true;
+	}
+	*/
 };
 
 #endif

@@ -1344,7 +1344,7 @@ template<class CLASS_TYPE> class RegExp {
 			m_areaFind.start=0;
 			m_areaFind.stop=0;
 			if (_exp.size() != 0) {
-				compile(std::to_u32string(_exp));
+				compile(etk::to_u32string(_exp));
 			}
 		};
 		
@@ -1362,7 +1362,7 @@ template<class CLASS_TYPE> class RegExp {
 		void compile(const std::string &_exp) {
 			if (_exp.size() != 0) {
 				TK_REG_DEBUG("normal string parse : '" << _exp << "'");
-				compile(std::to_u32string(_exp));
+				compile(etk::to_u32string(_exp));
 			}
 		}
 		/**
@@ -1506,7 +1506,7 @@ template<class CLASS_TYPE> class RegExp {
 		 * @return the string representing the RegExp
 		 */
 		std::string getRegExp() const {
-			return std::to_string(m_expressionRequested);
+			return etk::to_string(m_expressionRequested);
 		};
 		/**
 		 * @previous
@@ -1856,6 +1856,13 @@ template<class CLASS_TYPE> class RegExp {
 			}
 			return true;
 		};
+	public:
+		/* ****************************************************
+		 *    == operator
+		 *****************************************************/
+		bool operator== (const RegExp<CLASS_TYPE>& _obj) const {
+			return _obj.m_expressionRequested == m_expressionRequested;
+		}
 
 
 };

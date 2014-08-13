@@ -187,7 +187,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithRGBUnsigned8(const std::string& 
 etk::Color<uint8_t, 4> etk::parseStringColorNamed(const std::string& _input) {
 	// direct named color ...
 	for (int32_t iii=0; iii<getColorSize(); iii++) {
-		if (std::compare_no_case(getColorList()[iii].colorName, _input) == true) {
+		if (etk::compare_no_case(getColorList()[iii].colorName, _input) == true) {
 			return getColorList()[iii].color;
 		}
 	}

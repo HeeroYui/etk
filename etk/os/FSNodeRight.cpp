@@ -176,7 +176,7 @@ void etk::FSNodeRight::setOtherRunable(bool _newStatus)
 }
 
 std::u32string etk::FSNodeRight::getURight() const {
-	return to_u32string(getRight());
+	return etk::to_u32string(getRight());
 }
 
 std::string etk::FSNodeRight::getRight() const {

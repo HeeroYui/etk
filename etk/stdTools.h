@@ -60,16 +60,19 @@ namespace utf8 {
 	char32_t convertChar32(const char* _input);
 };
 
-namespace etk {
+namespace std {
 	#ifdef __TARGET_OS__MacOs
 		typedef std::basic_string<char32_t> u32string;
 	#endif
-	
-	
+};
+namespace etk {
 	// these declaration is to prevent some under template declaration of unknown type
 	template <class TYPE> std::string to_string(const TYPE& _variable);
-	template <class TYPE> std::u32string to_string(const TYPE& _variable);
+	template <class TYPE> std::u32string to_u32string(const TYPE& _variable);
 	
+	// these declaration is to prevent some under template declaration of unknown type
+	template <class TYPE> bool from_string(TYPE& _variableRet, const std::string& _value);
+	template <class TYPE> bool from_string(TYPE& _variableRet, const std::u32string& _value);
 	
 	template<class TYPE, int size=0> std::string to_string_format(TYPE t, std::ios_base & (*f)(std::ios_base&)) {
 		std::ostringstream oss;
@@ -87,45 +90,46 @@ namespace etk {
 		} else {
 			oss << std::setw(size) << std::setfill('0') << f << t;
 		}
-		return std::to_u32string(oss.str());
+		return etk::to_u32string(oss.str());
 	}
 	
-	// these declaration is to prevent some under template declaration of unknown type
-	template <class TYPE> bool from_string(TYPE& _variableRet, const std::string& _value);
-	template <class TYPE> bool from_string(TYPE& _variableRet, const std::u32string& _value);
+	
+	long double string_to_long_double(const std::string& _str);
+	long double string_to_long_double(const std::u32string& _str);
 	
 	double string_to_double(const std::string& _str);
-	double string_to_dbouble(const std::u32string& _str);
+	double string_to_double(const std::u32string& _str);
 	
 	float string_to_float(const std::string& _str);
 	float string_to_float(const std::u32string& _str);
 	
-	int string_to_int32_t(const std::string& _str, int _base = 10);
-	int string_to_i(const std::u32string& _str, int _base = 10);
+	int8_t string_to_int8_t(const std::string& _str, int _base = 10);
+	int8_t string_to_int8_t(const std::u32string& _str, int _base = 10);
 	
-	long string_to_l(const std::string& _str, int _base = 10);
-	//! @previous
-	long string_to_l(const std::u32string& _str, int _base = 10);
+	int16_t string_to_int16_t(const std::string& _str, int _base = 10);
+	int16_t string_to_int16_t(const std::u32string& _str, int _base = 10);
 	
-	long double string_to_ld(const std::string& _str);
-	//! @previous
-	long double string_to_ld(const std::u32string& _str);
+	int32_t string_to_int32_t(const std::string& _str, int _base = 10);
+	int32_t string_to_int32_t(const std::u32string& _str, int _base = 10);
 	
-	long long string_to_ll(const std::string& _str, int _base = 10);
-	//! @previous
-	long long string_to_ll(const std::u32string& _str, int _base = 10);
+	int64_t string_to_int64_t(const std::string& _str, int _base = 10);
+	int64_t string_to_int64_t(const std::u32string& _str, int _base = 10);
 	
-	unsigned long stoul(const std::string& _str, int _base = 10);
-	//! @previous
-	unsigned long stoul(const std::u32string& _str, int _base = 10);
+	uint8_t string_to_uint8_t(const std::string& _str, int _base = 10);
+	uint8_t string_to_uint8_t(const std::u32string& _str, int _base = 10);
 	
-	unsigned long long stoull(const std::string& _str, int _base = 10);
-	//! @previous
-	unsigned long long stoull(const std::u32string& _str, int _base = 10);
+	uint16_t string_to_uint16_t(const std::string& _str, int _base = 10);
+	uint16_t string_to_uint16_t(const std::u32string& _str, int _base = 10);
 	
-	bool stob(const std::string& _str);
-	//! @previous
-	bool stob(const std::u32string& _str);
+	uint32_t string_to_uint32_t(const std::string& _str, int _base = 10);
+	uint32_t string_to_uint32_t(const std::u32string& _str, int _base = 10);
+	
+	uint64_t string_to_uint64_t(const std::string& _str, int _base = 10);
+	uint64_t string_to_uint64_t(const std::u32string& _str, int _base = 10);
+	
+	bool string_to_bool(const std::string& _str);
+	bool string_to_bool(const std::u32string& _str);
+	
 	std::string tolower(std::string _obj);
 	//! @previous
 	std::u32string tolower(std::u32string _obj);
@@ -168,7 +172,7 @@ namespace std {
 	}
 };
 
-namespace etk {
+namespace std {
 	std::ostream& operator <<(std::ostream& _os, const std::string& _obj);
 	std::ostream& operator <<(std::ostream& _os, const std::vector<std::string>& _obj);
 	std::ostream& operator <<(std::ostream& _os, const std::u32string& _obj);
