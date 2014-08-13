@@ -382,7 +382,7 @@ template<> template<> Color<float,4>::Color(const Color<double, 4>& _obj) {
 	m_element[3] = (float)_obj.a();
 }
 
-/*
+
 template<> std::string to_string<Color<float, 1>>(const Color<float, 1>& _val) {
 	return _val.getString();
 }
@@ -449,4 +449,4 @@ template<> bool from_string<Color<float, 4>>(Color<float, 4>& _variableRet, cons
 	_variableRet = Color<float, 4>(_value);
 	return true;
 }
-*/
+

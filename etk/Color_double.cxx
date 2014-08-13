@@ -384,7 +384,7 @@ template<> template<> Color<double,4>::Color(const Color<double, 4>& _obj) {
 
 // ===========================================================================================================
 
-/*
+
 template<> std::string to_string<Color<double, 1>>(const Color<double, 1>& _val) {
 	return _val.getString();
 }
@@ -456,4 +456,4 @@ template<> bool from_string<Color<double, 4>>(Color<double, 4>& _variableRet, co
 	_variableRet = Color<double, 4>(_value);
 	return true;
 }
-*/
+
