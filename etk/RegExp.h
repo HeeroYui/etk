@@ -1863,6 +1863,9 @@ template<class CLASS_TYPE> class RegExp {
 		bool operator== (const RegExp<CLASS_TYPE>& _obj) const {
 			return _obj.m_expressionRequested == m_expressionRequested;
 		}
+		bool operator!= (const RegExp<CLASS_TYPE>& _obj) const {
+			return _obj.m_expressionRequested != m_expressionRequested;
+		}
 
 
 };
