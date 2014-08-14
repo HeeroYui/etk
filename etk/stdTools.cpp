@@ -307,7 +307,7 @@ template<> std::string etk::to_string<long double>(const long double& _val) {
 }
 
 
-template<> std::u32string etk::to_u32string<char*>(char* const & _input) {
+static std::u32string transform_to_u32string(const char* _input) {
 	if (_input == NULL) {
 		return U"";
 	}
@@ -358,9 +358,12 @@ template<> std::u32string etk::to_u32string<char*>(char* const & _input) {
 	}
 	return out;
 }
+template<> std::u32string etk::to_u32string<char*>(char* const & _input) {
+	return transform_to_u32string(_input);
+}
 
 template<> std::u32string etk::to_u32string<std::string>(const std::string& _input) {
-	return etk::to_u32string(_input.c_str());
+	return transform_to_u32string(_input.c_str());
 }
 
 
@@ -875,6 +878,10 @@ void etk::sort(std::vector<std::u32string *> &_list) {
 	}
 }
 
+template<> bool etk::from_string<std::u32string>(std::u32string& _variableRet, const std::string& _value) {
+	_variableRet = etk::to_u32string(_value);
+	return true;
+}
 template<> bool etk::from_string<std::string>(std::string& _variableRet, const std::string& _value) {
 	_variableRet = _value;
 	return true;
