@@ -240,6 +240,13 @@ template<> std::string etk::to_string<std::u32string>(const std::u32string& _inp
 	}
 	return out;
 }
+template<> std::string etk::to_string<char32_t>(const char32_t& _input) {
+	std::string out;
+	char output[10];
+	u32char::convertUtf8(_input, output);
+	out += output;
+	return out;
+}
 
 template<> std::string etk::to_string<std::string>(const std::string& _val) {
 	return _val;
