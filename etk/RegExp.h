@@ -1700,7 +1700,7 @@ template<class CLASS_TYPE> class RegExp {
 		 * @brief Display the reg Exp
 		 */
 		void display() {
-			m_exprRootNode.display(0);
+			m_exprRootNode.display();
 		};
 		/**
 		 * @brief Just display the regExp in color ...
