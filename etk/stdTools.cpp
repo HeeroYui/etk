@@ -230,89 +230,89 @@ bool utf8::theoricFirst(const char _input) {
 
 #undef __class__
 #define __class__ "etk"
-
-template<> std::string etk::to_string<std::u32string>(const std::u32string& _input) {
-	std::string out;
-	for (size_t iii=0; iii<_input.size(); ++iii) {
+namespace etk {
+	template<> std::string to_string<std::u32string>(const std::u32string& _input) {
+		std::string out;
+		for (size_t iii=0; iii<_input.size(); ++iii) {
+			char output[10];
+			u32char::convertUtf8(_input[iii], output);
+			out += output;
+		}
+		return out;
+	}
+	template<> std::string to_string<char32_t>(const char32_t& _input) {
+		std::string out;
 		char output[10];
-		u32char::convertUtf8(_input[iii], output);
+		u32char::convertUtf8(_input, output);
 		out += output;
+		return out;
 	}
-	return out;
-}
-template<> std::string etk::to_string<char32_t>(const char32_t& _input) {
-	std::string out;
-	char output[10];
-	u32char::convertUtf8(_input, output);
-	out += output;
-	return out;
-}
-
-template<> std::string etk::to_string<std::string>(const std::string& _val) {
-	return _val;
-}
-template<> std::string etk::to_string<bool>(const bool& _val) {
-	if (_val == true) {
-		return "true";
+	
+	template<> std::string to_string<std::string>(const std::string& _val) {
+		return _val;
 	}
-	return "false";
-}
-template<> std::string etk::to_string<int8_t>(const int8_t& _val) {
-	char tmpVal[256];
-	sprintf(tmpVal, "%d", _val);
-	return tmpVal;
-}
-template<> std::string etk::to_string<int16_t>(const int16_t& _val) {
-	char tmpVal[256];
-	sprintf(tmpVal, "%d", _val);
-	return tmpVal;
-}
-template<> std::string etk::to_string<int32_t>(const int32_t& _val) {
-	char tmpVal[256];
-	sprintf(tmpVal, "%d", _val);
-	return tmpVal;
-}
-template<> std::string etk::to_string<int64_t>(const int64_t& _val) {
-	char tmpVal[256];
-	sprintf(tmpVal, "%ld", _val);
-	return tmpVal;
-}
-template<> std::string etk::to_string<uint8_t>(const uint8_t& _val) {
-	char tmpVal[256];
-	sprintf(tmpVal, "%u", _val);
-	return tmpVal;
-}
-template<> std::string etk::to_string<uint16_t>(const uint16_t& _val) {
-	char tmpVal[256];
-	sprintf(tmpVal, "%u", _val);
-	return tmpVal;
-}
-template<> std::string etk::to_string<uint32_t>(const uint32_t& _val) {
-	char tmpVal[256];
-	sprintf(tmpVal, "%u", _val);
-	return tmpVal;
-}
-template<> std::string etk::to_string<uint64_t>(const uint64_t& _val) {
-	char tmpVal[256];
-	sprintf(tmpVal, "%lu", _val);
-	return tmpVal;
-}
-template<> std::string etk::to_string<float>(const float& _val) {
-	char tmpVal[256];
-	sprintf(tmpVal, "%f", _val);
-	return tmpVal;
-}
-template<> std::string etk::to_string<double>(const double& _val) {
-	char tmpVal[256];
-	sprintf(tmpVal, "%f", _val);
-	return tmpVal;
-}
-template<> std::string etk::to_string<long double>(const long double& _val) {
-	char tmpVal[256];
-	sprintf(tmpVal, "%Lf", _val);
-	return tmpVal;
-}
-
+	template<> std::string to_string<bool>(const bool& _val) {
+		if (_val == true) {
+			return "true";
+		}
+		return "false";
+	}
+	template<> std::string to_string<int8_t>(const int8_t& _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%d", _val);
+		return tmpVal;
+	}
+	template<> std::string to_string<int16_t>(const int16_t& _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%d", _val);
+		return tmpVal;
+	}
+	template<> std::string to_string<int32_t>(const int32_t& _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%d", _val);
+		return tmpVal;
+	}
+	template<> std::string to_string<int64_t>(const int64_t& _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%ld", _val);
+		return tmpVal;
+	}
+	template<> std::string to_string<uint8_t>(const uint8_t& _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%u", _val);
+		return tmpVal;
+	}
+	template<> std::string to_string<uint16_t>(const uint16_t& _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%u", _val);
+		return tmpVal;
+	}
+	template<> std::string to_string<uint32_t>(const uint32_t& _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%u", _val);
+		return tmpVal;
+	}
+	template<> std::string to_string<uint64_t>(const uint64_t& _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%lu", _val);
+		return tmpVal;
+	}
+	template<> std::string to_string<float>(const float& _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%f", _val);
+		return tmpVal;
+	}
+	template<> std::string to_string<double>(const double& _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%f", _val);
+		return tmpVal;
+	}
+	template<> std::string to_string<long double>(const long double& _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%Lf", _val);
+		return tmpVal;
+	}
+};
 
 static std::u32string transform_to_u32string(const char* _input) {
 	if (_input == NULL) {
@@ -365,48 +365,53 @@ static std::u32string transform_to_u32string(const char* _input) {
 	}
 	return out;
 }
-template<> std::u32string etk::to_u32string<char*>(char* const & _input) {
-	return transform_to_u32string(_input);
-}
 
-template<> std::u32string etk::to_u32string<std::string>(const std::string& _input) {
-	return transform_to_u32string(_input.c_str());
-}
-
-
-
-template<> std::u32string etk::to_u32string<int8_t>(const int8_t& _val) {
-	return etk::to_u32string(etk::to_string(_val));
-};
-template<> std::u32string etk::to_u32string<int16_t>(const int16_t& _val) {
-	return etk::to_u32string(etk::to_string(_val));
-};
-template<> std::u32string etk::to_u32string<int32_t>(const int32_t& _val) {
-	return etk::to_u32string(etk::to_string(_val));
-};
-template<> std::u32string etk::to_u32string<int64_t>(const int64_t& _val) {
-	return etk::to_u32string(etk::to_string(_val));
-};
-template<> std::u32string etk::to_u32string<uint8_t>(const uint8_t& _val) {
-	return etk::to_u32string(etk::to_string(_val));
-};
-template<> std::u32string etk::to_u32string<uint16_t>(const uint16_t& _val) {
-	return etk::to_u32string(etk::to_string(_val));
-};
-template<> std::u32string etk::to_u32string<uint32_t>(const uint32_t& _val) {
-	return etk::to_u32string(etk::to_string(_val));
-};
-template<> std::u32string etk::to_u32string<uint64_t>(const uint64_t& _val) {
-	return etk::to_u32string(etk::to_string(_val));
-};
-template<> std::u32string etk::to_u32string<float>(const float& _val) {
-	return etk::to_u32string(etk::to_string(_val));
-};
-template<> std::u32string etk::to_u32string<double>(const double& _val) {
-	return etk::to_u32string(etk::to_string(_val));
-};
-template<> std::u32string etk::to_u32string<long double>(const long double& _val) {
-	return etk::to_u32string(etk::to_string(_val));
+namespace etk {
+	template<> std::u32string to_u32string<char*>(char* const & _input) {
+		return transform_to_u32string(_input);
+	}
+	template<> std::u32string to_u32string<std::string>(const std::string& _input) {
+		return transform_to_u32string(_input.c_str());
+	}
+	template<> std::u32string to_u32string<int8_t>(const int8_t& _val) {
+		return etk::to_u32string(etk::to_string(_val));
+	};
+	template<> std::u32string to_u32string<int16_t>(const int16_t& _val) {
+		return etk::to_u32string(etk::to_string(_val));
+	};
+	template<> std::u32string to_u32string<int32_t>(const int32_t& _val) {
+		return etk::to_u32string(etk::to_string(_val));
+	};
+	template<> std::u32string to_u32string<int64_t>(const int64_t& _val) {
+		return etk::to_u32string(etk::to_string(_val));
+	};
+	template<> std::u32string to_u32string<uint8_t>(const uint8_t& _val) {
+		return etk::to_u32string(etk::to_string(_val));
+	};
+	template<> std::u32string to_u32string<uint16_t>(const uint16_t& _val) {
+		return etk::to_u32string(etk::to_string(_val));
+	};
+	template<> std::u32string to_u32string<uint32_t>(const uint32_t& _val) {
+		return etk::to_u32string(etk::to_string(_val));
+	};
+	template<> std::u32string to_u32string<uint64_t>(const uint64_t& _val) {
+		return etk::to_u32string(etk::to_string(_val));
+	};
+	template<> std::u32string to_u32string<float>(const float& _val) {
+		return etk::to_u32string(etk::to_string(_val));
+	};
+	template<> std::u32string to_u32string<double>(const double& _val) {
+		return etk::to_u32string(etk::to_string(_val));
+	};
+	template<> std::u32string to_u32string<long double>(const long double& _val) {
+		return etk::to_u32string(etk::to_string(_val));
+	};
+	template<> std::u32string to_u32string<bool>(const bool& _val) {
+		if (_val == true) {
+			return U"true";
+		}
+		return U"false";
+	}
 };
 
 bool etk::string_to_bool(const std::u32string& _str) {
@@ -461,13 +466,6 @@ bool etk::string_to_bool(const std::string& _str) {
 		return true;
 	}
 	return false;
-}
-
-template<> std::u32string etk::to_u32string<bool>(const bool& _val) {
-	if (_val == true) {
-		return U"true";
-	}
-	return U"false";
 }
 
 bool etk::compare_no_case(const std::u32string& _obj, const std::u32string& _val) {
@@ -884,113 +882,113 @@ void etk::sort(std::vector<std::u32string *> &_list) {
 		_list.insert(_list.begin()+findPos, tmpList[iii]);
 	}
 }
-
-template<> bool etk::from_string<std::u32string>(std::u32string& _variableRet, const std::string& _value) {
-	_variableRet = etk::to_u32string(_value);
-	return true;
-}
-template<> bool etk::from_string<std::string>(std::string& _variableRet, const std::string& _value) {
-	_variableRet = _value;
-	return true;
-}
-template<> bool etk::from_string<int8_t>(int8_t& _variableRet, const std::string& _value) {
-	_variableRet = string_to_int8_t(_value);
-	return true;
-}
-template<> bool etk::from_string<int16_t>(int16_t& _variableRet, const std::string& _value) {
-	_variableRet = string_to_int16_t(_value);
-	return true;
-}
-template<> bool etk::from_string<int32_t>(int32_t& _variableRet, const std::string& _value) {
-	_variableRet = string_to_int32_t(_value);
-	return true;
-}
-template<> bool etk::from_string<int64_t>(int64_t& _variableRet, const std::string& _value) {
-	_variableRet = string_to_int64_t(_value);
-	return true;
-}
-template<> bool etk::from_string<uint8_t>(uint8_t& _variableRet, const std::string& _value) {
-	_variableRet = string_to_uint8_t(_value);
-	return true;
-}
-template<> bool etk::from_string<uint16_t>(uint16_t& _variableRet, const std::string& _value) {
-	_variableRet = string_to_uint16_t(_value);
-	return true;
-}
-template<> bool etk::from_string<uint32_t>(uint32_t& _variableRet, const std::string& _value) {
-	_variableRet = string_to_uint32_t(_value);
-	return true;
-}
-template<> bool etk::from_string<uint64_t>(uint64_t& _variableRet, const std::string& _value) {
-	_variableRet = string_to_uint64_t(_value);
-	return true;
-}
-template<> bool etk::from_string<float>(float& _variableRet, const std::string& _value) {
-	_variableRet = string_to_float(_value);
-	return true;
-}
-template<> bool etk::from_string<double>(double& _variableRet, const std::string& _value) {
-	_variableRet = string_to_double(_value);
-	return true;
-}
-template<> bool etk::from_string<long double>(long double& _variableRet, const std::string& _value) {
-	_variableRet = string_to_long_double(_value);
-	return true;
-}
-template<> bool etk::from_string<bool>(bool& _variableRet, const std::string& _value) {
-	_variableRet = string_to_bool(_value);
-	return true;
-}
-
-template<> bool etk::from_string<int8_t>(int8_t& _variableRet, const std::u32string& _value) {
-	_variableRet = string_to_int8_t(_value);
-	return true;
-}
-template<> bool etk::from_string<int16_t>(int16_t& _variableRet, const std::u32string& _value) {
-	_variableRet = string_to_int16_t(_value);
-	return true;
-}
-template<> bool etk::from_string<int32_t>(int32_t& _variableRet, const std::u32string& _value) {
-	_variableRet = string_to_int32_t(_value);
-	return true;
-}
-template<> bool etk::from_string<int64_t>(int64_t& _variableRet, const std::u32string& _value) {
-	_variableRet = string_to_int64_t(_value);
-	return true;
-}
-template<> bool etk::from_string<uint8_t>(uint8_t& _variableRet, const std::u32string& _value) {
-	_variableRet = string_to_uint8_t(_value);
-	return true;
-}
-template<> bool etk::from_string<uint16_t>(uint16_t& _variableRet, const std::u32string& _value) {
-	_variableRet = string_to_uint16_t(_value);
-	return true;
-}
-template<> bool etk::from_string<uint32_t>(uint32_t& _variableRet, const std::u32string& _value) {
-	_variableRet = string_to_uint32_t(_value);
-	return true;
-}
-template<> bool etk::from_string<uint64_t>(uint64_t& _variableRet, const std::u32string& _value) {
-	_variableRet = string_to_uint64_t(_value);
-	return true;
-}
-template<> bool etk::from_string<float>(float& _variableRet, const std::u32string& _value) {
-	_variableRet = string_to_float(_value);
-	return true;
-}
-template<> bool etk::from_string<double>(double& _variableRet, const std::u32string& _value) {
-	_variableRet = string_to_double(_value);
-	return true;
-}
-template<> bool etk::from_string<long double>(long double& _variableRet, const std::u32string& _value) {
-	_variableRet = string_to_long_double(_value);
-	return true;
-}
-template<> bool etk::from_string<bool>(bool& _variableRet, const std::u32string& _value) {
-	_variableRet = string_to_bool(_value);
-	return true;
-}
-
+namespace etk {
+	template<> bool from_string<std::u32string>(std::u32string& _variableRet, const std::string& _value) {
+		_variableRet = etk::to_u32string(_value);
+		return true;
+	}
+	template<> bool from_string<std::string>(std::string& _variableRet, const std::string& _value) {
+		_variableRet = _value;
+		return true;
+	}
+	template<> bool from_string<int8_t>(int8_t& _variableRet, const std::string& _value) {
+		_variableRet = string_to_int8_t(_value);
+		return true;
+	}
+	template<> bool from_string<int16_t>(int16_t& _variableRet, const std::string& _value) {
+		_variableRet = string_to_int16_t(_value);
+		return true;
+	}
+	template<> bool from_string<int32_t>(int32_t& _variableRet, const std::string& _value) {
+		_variableRet = string_to_int32_t(_value);
+		return true;
+	}
+	template<> bool from_string<int64_t>(int64_t& _variableRet, const std::string& _value) {
+		_variableRet = string_to_int64_t(_value);
+		return true;
+	}
+	template<> bool from_string<uint8_t>(uint8_t& _variableRet, const std::string& _value) {
+		_variableRet = string_to_uint8_t(_value);
+		return true;
+	}
+	template<> bool from_string<uint16_t>(uint16_t& _variableRet, const std::string& _value) {
+		_variableRet = string_to_uint16_t(_value);
+		return true;
+	}
+	template<> bool from_string<uint32_t>(uint32_t& _variableRet, const std::string& _value) {
+		_variableRet = string_to_uint32_t(_value);
+		return true;
+	}
+	template<> bool from_string<uint64_t>(uint64_t& _variableRet, const std::string& _value) {
+		_variableRet = string_to_uint64_t(_value);
+		return true;
+	}
+	template<> bool from_string<float>(float& _variableRet, const std::string& _value) {
+		_variableRet = string_to_float(_value);
+		return true;
+	}
+	template<> bool from_string<double>(double& _variableRet, const std::string& _value) {
+		_variableRet = string_to_double(_value);
+		return true;
+	}
+	template<> bool from_string<long double>(long double& _variableRet, const std::string& _value) {
+		_variableRet = string_to_long_double(_value);
+		return true;
+	}
+	template<> bool from_string<bool>(bool& _variableRet, const std::string& _value) {
+		_variableRet = string_to_bool(_value);
+		return true;
+	}
+	
+	template<> bool from_string<int8_t>(int8_t& _variableRet, const std::u32string& _value) {
+		_variableRet = string_to_int8_t(_value);
+		return true;
+	}
+	template<> bool from_string<int16_t>(int16_t& _variableRet, const std::u32string& _value) {
+		_variableRet = string_to_int16_t(_value);
+		return true;
+	}
+	template<> bool from_string<int32_t>(int32_t& _variableRet, const std::u32string& _value) {
+		_variableRet = string_to_int32_t(_value);
+		return true;
+	}
+	template<> bool from_string<int64_t>(int64_t& _variableRet, const std::u32string& _value) {
+		_variableRet = string_to_int64_t(_value);
+		return true;
+	}
+	template<> bool from_string<uint8_t>(uint8_t& _variableRet, const std::u32string& _value) {
+		_variableRet = string_to_uint8_t(_value);
+		return true;
+	}
+	template<> bool from_string<uint16_t>(uint16_t& _variableRet, const std::u32string& _value) {
+		_variableRet = string_to_uint16_t(_value);
+		return true;
+	}
+	template<> bool from_string<uint32_t>(uint32_t& _variableRet, const std::u32string& _value) {
+		_variableRet = string_to_uint32_t(_value);
+		return true;
+	}
+	template<> bool from_string<uint64_t>(uint64_t& _variableRet, const std::u32string& _value) {
+		_variableRet = string_to_uint64_t(_value);
+		return true;
+	}
+	template<> bool from_string<float>(float& _variableRet, const std::u32string& _value) {
+		_variableRet = string_to_float(_value);
+		return true;
+	}
+	template<> bool from_string<double>(double& _variableRet, const std::u32string& _value) {
+		_variableRet = string_to_double(_value);
+		return true;
+	}
+	template<> bool from_string<long double>(long double& _variableRet, const std::u32string& _value) {
+		_variableRet = string_to_long_double(_value);
+		return true;
+	}
+	template<> bool from_string<bool>(bool& _variableRet, const std::u32string& _value) {
+		_variableRet = string_to_bool(_value);
+		return true;
+	}
+};
 
 
 std::ostream& std::operator <<(std::ostream& _os, const std::string& _obj) {

@@ -362,91 +362,87 @@ namespace etk {
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
 
+	template<> std::string to_string<vec2>(const vec2& _obj) {
+		std::string str;
+		str = "(";
+		str += etk::to_string(_obj.x());
+		str += ",";
+		str += etk::to_string(_obj.y());
+		str += ")";
+		return str;
+	}
+	template<> std::u32string to_u32string<vec2>(const vec2& _obj) {
+		return etk::to_u32string(etk::to_string(_obj));
+	}
+	
+	template<> std::string to_string<ivec2>(const ivec2& _obj) {
+		std::string str;
+		str = "(";
+		str += etk::to_string(_obj.x());
+		str += ",";
+		str += etk::to_string(_obj.y());
+		str += ")";
+		return str;
+	}
+	template<> std::u32string to_u32string<ivec2>(const ivec2& _obj) {
+		return etk::to_u32string(etk::to_string(_obj));
+	}
+	
+	template<> std::string to_string<uivec2>(const uivec2& _obj) {
+		std::string str;
+		str = "(";
+		str += etk::to_string(_obj.x());
+		str += ",";
+		str += etk::to_string(_obj.y());
+		str += ")";
+		return str;
+	}
+	template<> std::u32string to_u32string<uivec2>(const uivec2& _obj) {
+		return etk::to_u32string(etk::to_string(_obj));
+	}
+	
+	template<> std::string to_string<bvec2>(const bvec2& _obj) {
+		std::string str;
+		str = "(";
+		str += etk::to_string(_obj.x());
+		str += ",";
+		str += etk::to_string(_obj.y());
+		str += ")";
+		return str;
+	}
+	template<> std::u32string to_u32string<bvec2>(const bvec2& _obj) {
+		return etk::to_u32string(etk::to_string(_obj));
+	}
+	
+	template<> bool from_string<vec2>(vec2& _variableRet, const std::string& _value) {
+		_variableRet = vec2(_value);
+		return true;
+	}
+	template<> bool from_string<vec2>(vec2& _variableRet, const std::u32string& _value) {
+		return from_string(_variableRet, etk::to_string(_value));
+	}
+	
+	template<> bool from_string<ivec2>(ivec2& _variableRet, const std::string& _value) {
+		_variableRet = ivec2(_value);
+		return true;
+	}
+	template<> bool from_string<ivec2>(ivec2& _variableRet, const std::u32string& _value) {
+		return from_string(_variableRet, etk::to_string(_value));
+	}
+	
+	template<> bool from_string<uivec2>(uivec2& _variableRet, const std::string& _value) {
+		_variableRet = uivec2(_value);
+		return true;
+	}
+	template<> bool from_string<uivec2>(uivec2& _variableRet, const std::u32string& _value) {
+		return from_string(_variableRet, etk::to_string(_value));
+	}
+	
+	template<> bool from_string<bvec2>(bvec2& _variableRet, const std::string& _value) {
+		_variableRet = bvec2(_value);
+		return true;
+	}
+	template<> bool from_string<bvec2>(bvec2& _variableRet, const std::u32string& _value) {
+		return from_string(_variableRet, etk::to_string(_value));
+	}
 };
-
-
-
-template<> std::string etk::to_string<vec2>(const vec2& _obj) {
-	std::string str;
-	str = "(";
-	str += etk::to_string(_obj.x());
-	str += ",";
-	str += etk::to_string(_obj.y());
-	str += ")";
-	return str;
-}
-template<> std::u32string etk::to_u32string<vec2>(const vec2& _obj) {
-	return etk::to_u32string(etk::to_string(_obj));
-}
-
-template<> std::string etk::to_string<ivec2>(const ivec2& _obj) {
-	std::string str;
-	str = "(";
-	str += etk::to_string(_obj.x());
-	str += ",";
-	str += etk::to_string(_obj.y());
-	str += ")";
-	return str;
-}
-template<> std::u32string etk::to_u32string<ivec2>(const ivec2& _obj) {
-	return etk::to_u32string(etk::to_string(_obj));
-}
-
-template<> std::string etk::to_string<uivec2>(const uivec2& _obj) {
-	std::string str;
-	str = "(";
-	str += etk::to_string(_obj.x());
-	str += ",";
-	str += etk::to_string(_obj.y());
-	str += ")";
-	return str;
-}
-template<> std::u32string etk::to_u32string<uivec2>(const uivec2& _obj) {
-	return etk::to_u32string(etk::to_string(_obj));
-}
-
-template<> std::string etk::to_string<bvec2>(const bvec2& _obj) {
-	std::string str;
-	str = "(";
-	str += etk::to_string(_obj.x());
-	str += ",";
-	str += etk::to_string(_obj.y());
-	str += ")";
-	return str;
-}
-template<> std::u32string etk::to_u32string<bvec2>(const bvec2& _obj) {
-	return etk::to_u32string(etk::to_string(_obj));
-}
-
-template<> bool etk::from_string<vec2>(vec2& _variableRet, const std::string& _value) {
-	_variableRet = vec2(_value);
-	return true;
-}
-template<> bool etk::from_string<vec2>(vec2& _variableRet, const std::u32string& _value) {
-	return from_string(_variableRet, etk::to_string(_value));
-}
-
-template<> bool etk::from_string<ivec2>(ivec2& _variableRet, const std::string& _value) {
-	_variableRet = ivec2(_value);
-	return true;
-}
-template<> bool etk::from_string<ivec2>(ivec2& _variableRet, const std::u32string& _value) {
-	return from_string(_variableRet, etk::to_string(_value));
-}
-
-template<> bool etk::from_string<uivec2>(uivec2& _variableRet, const std::string& _value) {
-	_variableRet = uivec2(_value);
-	return true;
-}
-template<> bool etk::from_string<uivec2>(uivec2& _variableRet, const std::u32string& _value) {
-	return from_string(_variableRet, etk::to_string(_value));
-}
-
-template<> bool etk::from_string<bvec2>(bvec2& _variableRet, const std::string& _value) {
-	_variableRet = bvec2(_value);
-	return true;
-}
-template<> bool etk::from_string<bvec2>(bvec2& _variableRet, const std::u32string& _value) {
-	return from_string(_variableRet, etk::to_string(_value));
-}
-

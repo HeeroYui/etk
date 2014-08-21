@@ -427,33 +427,34 @@ std::string etk::regexp::strTick(int32_t _pos) {
 
 
 
-
-template<> std::string etk::to_string<etk::RegExp<std::string>>(const etk::RegExp<std::string>& _val) {
-	return _val.getRegExp();
-}
-template<> std::string etk::to_string<etk::RegExp<std::u32string>>(const etk::RegExp<std::u32string>& _val) {
-	return _val.getRegExp();
-}
-template<> std::u32string etk::to_u32string<etk::RegExp<std::string>>(const etk::RegExp<std::string>& _val) {
-	return _val.getURegExp();
-}
-template<> std::u32string etk::to_u32string<etk::RegExp<std::u32string>>(const etk::RegExp<std::u32string>& _val) {
-	return _val.getURegExp();
-}
-
-template<> bool etk::from_string<etk::RegExp<std::string>>(etk::RegExp<std::string>& _variableRet, const std::u32string& _value) {
-	_variableRet.compile(_value);
-	return true;
-}
-template<> bool etk::from_string<etk::RegExp<std::u32string>>(etk::RegExp<std::u32string>& _variableRet, const std::u32string& _value) {
-	_variableRet.compile(_value);
-	return true;
-}
-template<> bool etk::from_string<etk::RegExp<std::string>>(etk::RegExp<std::string>& _variableRet, const std::string& _value) {
-	_variableRet.compile(_value);
-	return true;
-}
-template<> bool etk::from_string<etk::RegExp<std::u32string>>(etk::RegExp<std::u32string>& _variableRet, const std::string& _value) {
-	_variableRet.compile(_value);
-	return true;
-}
+namespace etk {
+	template<> std::string to_string<etk::RegExp<std::string>>(const etk::RegExp<std::string>& _val) {
+		return _val.getRegExp();
+	}
+	template<> std::string to_string<etk::RegExp<std::u32string>>(const etk::RegExp<std::u32string>& _val) {
+		return _val.getRegExp();
+	}
+	template<> std::u32string to_u32string<etk::RegExp<std::string>>(const etk::RegExp<std::string>& _val) {
+		return _val.getURegExp();
+	}
+	template<> std::u32string to_u32string<etk::RegExp<std::u32string>>(const etk::RegExp<std::u32string>& _val) {
+		return _val.getURegExp();
+	}
+	
+	template<> bool from_string<etk::RegExp<std::string>>(etk::RegExp<std::string>& _variableRet, const std::u32string& _value) {
+		_variableRet.compile(_value);
+		return true;
+	}
+	template<> bool from_string<etk::RegExp<std::u32string>>(etk::RegExp<std::u32string>& _variableRet, const std::u32string& _value) {
+		_variableRet.compile(_value);
+		return true;
+	}
+	template<> bool from_string<etk::RegExp<std::string>>(etk::RegExp<std::string>& _variableRet, const std::string& _value) {
+		_variableRet.compile(_value);
+		return true;
+	}
+	template<> bool from_string<etk::RegExp<std::u32string>>(etk::RegExp<std::u32string>& _variableRet, const std::string& _value) {
+		_variableRet.compile(_value);
+		return true;
+	}
+};
