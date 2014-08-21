@@ -34,7 +34,7 @@ namespace etk {
 	template<typename MY_TYPE=uint8_t, int MY_TYPE_SIZE=4> class Color {
 		public:
 			static const Color<MY_TYPE, MY_TYPE_SIZE> emptyColor; // to auto fill with no data in all case
-			static const float defaultAlpha;
+			static const MY_TYPE defaultAlpha;
 		private:
 			MY_TYPE m_element[MY_TYPE_SIZE]; //!< all the color.
 		public:

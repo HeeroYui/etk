@@ -1,8 +1,8 @@
 
-template<> const float Color<uint16_t, 1>::defaultAlpha(0xFFFF);
-template<> const float Color<uint16_t, 2>::defaultAlpha(0xFFFF);
-template<> const float Color<uint16_t, 3>::defaultAlpha(0xFFFF);
-template<> const float Color<uint16_t, 4>::defaultAlpha(0xFFFF);
+template<> const uint16_t Color<uint16_t, 1>::defaultAlpha(0xFFFF);
+template<> const uint16_t Color<uint16_t, 2>::defaultAlpha(0xFFFF);
+template<> const uint16_t Color<uint16_t, 3>::defaultAlpha(0xFFFF);
+template<> const uint16_t Color<uint16_t, 4>::defaultAlpha(0xFFFF);
 template<> const Color<uint16_t, 1> Color<uint16_t, 1>::emptyColor(0);
 template<> const Color<uint16_t, 2> Color<uint16_t, 2>::emptyColor(0,0);
 template<> const Color<uint16_t, 3> Color<uint16_t, 3>::emptyColor(0,0,0);

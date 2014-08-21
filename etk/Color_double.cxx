@@ -1,8 +1,8 @@
 
-template<> const float Color<double, 1>::defaultAlpha(1.0);
-template<> const float Color<double, 2>::defaultAlpha(1.0);
-template<> const float Color<double, 3>::defaultAlpha(1.0);
-template<> const float Color<double, 4>::defaultAlpha(1.0);
+template<> const double Color<double, 1>::defaultAlpha(1.0);
+template<> const double Color<double, 2>::defaultAlpha(1.0);
+template<> const double Color<double, 3>::defaultAlpha(1.0);
+template<> const double Color<double, 4>::defaultAlpha(1.0);
 template<> const Color<double, 1> Color<double, 1>::emptyColor(0.0);
 template<> const Color<double, 2> Color<double, 2>::emptyColor(0.0,0.0);
 template<> const Color<double, 3> Color<double, 3>::emptyColor(0.0,0.0,0.0);
