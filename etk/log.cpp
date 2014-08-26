@@ -21,7 +21,7 @@
 	#include <cxxabi.h>
 	#include <dlfcn.h>
 	#define MAX_DEPTH  (256)
-	void etk::log::displayBacktrace(bool _breakAtEnd) {
+	void etk::log::displayBacktrace(bool _breakAtEnd, int32_t _removeElement) {
 		// retrieve call-stack
 		void * trace[MAX_DEPTH];
 		int stack_depth = backtrace(trace, MAX_DEPTH);
@@ -38,8 +38,11 @@
 			if(status == 0 && demangled) {
 				symname = demangled;
 			}
-			TK_WARNING("  " << dlinfo.dli_fname << ": ");
-			TK_ERROR("        " << symname);
+			if (_removeElement <= 0) {
+				TK_WARNING("  " << dlinfo.dli_fname << ": ");
+				TK_ERROR("        " << symname);
+			}
+			_removeElement--;
 			if(NULL != demangled) {
 				free(demangled);
 			}
@@ -49,7 +52,7 @@
 		}
 	}
 #else
-	void etk::log::displayBacktrace(bool _breakAtEnd) {
+	void etk::log::displayBacktrace(bool _breakAtEnd, int32_t _removeElement) {
 		#ifdef DEBUG
 			assert(false);
 		#endif
@@ -380,7 +383,7 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 	#endif
 	g_lock.unlock();
 	if (_level == logLevelCritical) {
-		displayBacktrace(true);
+		displayBacktrace(true, 2);
 	}
 }
 

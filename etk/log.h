@@ -99,7 +99,7 @@ namespace etk {
 		 * @brief Display the current backtrace
 		 * @param[in] _breakAtEnd assert program when backtrace is printed
 		 */
-		void displayBacktrace(bool _breakAtEnd = false);
+		void displayBacktrace(bool _breakAtEnd = false, int32_t _removeElement=0);
 	};
 };
 #ifdef __class__
