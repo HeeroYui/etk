@@ -64,6 +64,34 @@ namespace std {
 	#ifdef __TARGET_OS__MacOs
 		typedef std::basic_string<char32_t> u32string;
 	#endif
+	#if (defined(__TARGET_OS__Android))
+		//! @previous
+		std::string to_string(int _val);
+		//! @previous
+		std::string to_string(long _val);
+		//! @previous
+		std::string to_string(long long _val);
+		//! @previous
+		std::string to_string(unsigned _val);
+		//! @previous
+		std::string to_string(unsigned long _val);
+		//! @previous
+		std::string to_string(unsigned long long _val);
+		//! @previous
+		std::string to_string(float _val);
+		//! @previous
+		std::string to_string(double _val);
+		//! @previous
+		std::string to_string(long double _val);
+		double stod(const std::string& _str, size_t* _idx = 0);
+		float stof(const std::string& _str, size_t* _idx = 0);
+		int stoi(const std::string& _str, size_t* _idx = 0, int _base = 10);
+		long stol(const std::string& _str, size_t* _idx = 0, int _base = 10);
+		long double stold(const std::string& _str, size_t* _idx = 0);
+		long long stoll(const std::string& _str, size_t* _idx = 0, int _base = 10);
+		unsigned long stoul(const std::string& _str, size_t* _idx = 0, int _base = 10);
+		unsigned long long stoull(const std::string& _str, size_t* _idx = 0, int _base = 10);
+	#endif
 };
 namespace etk {
 	// these declaration is to prevent some under template declaration of unknown type

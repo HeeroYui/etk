@@ -274,7 +274,11 @@ namespace etk {
 	}
 	template<> std::string to_string<int64_t>(const int64_t& _val) {
 		char tmpVal[256];
-		sprintf(tmpVal, "%ld", _val);
+		#if (defined(__TARGET_OS__Android))
+			sprintf(tmpVal, "%lld", _val);
+		#else
+			sprintf(tmpVal, "%ld", _val);
+		#endif
 		return tmpVal;
 	}
 	template<> std::string to_string<uint8_t>(const uint8_t& _val) {
@@ -294,7 +298,11 @@ namespace etk {
 	}
 	template<> std::string to_string<uint64_t>(const uint64_t& _val) {
 		char tmpVal[256];
-		sprintf(tmpVal, "%lu", _val);
+		#if (defined(__TARGET_OS__Android))
+			sprintf(tmpVal, "%llu", _val);
+		#else
+			sprintf(tmpVal, "%lu", _val);
+		#endif
 		return tmpVal;
 	}
 	template<> std::string to_string<float>(const float& _val) {
@@ -827,7 +835,11 @@ int32_t etk::string_to_int32_t(const std::string& _str, int _base) {
 }
 int64_t etk::string_to_int64_t(const std::string& _str, int _base) {
 	int64_t ret = 0;
-	sscanf(_str.c_str(), "%ld", &ret);
+	#if (defined(__TARGET_OS__Android))
+		sscanf(_str.c_str(), "%lld", &ret);
+	#else
+		sscanf(_str.c_str(), "%ld", &ret);
+	#endif
 	return ret;
 }
 uint8_t etk::string_to_uint8_t(const std::string& _str, int _base) {
@@ -846,8 +858,12 @@ uint32_t etk::string_to_uint32_t(const std::string& _str, int _base) {
 	return ret;
 }
 uint64_t etk::string_to_uint64_t(const std::string& _str, int _base) {
-	int64_t ret = 0;
-	sscanf(_str.c_str(), "%ld", &ret);
+	uint64_t ret = 0;
+	#if (defined(__TARGET_OS__Android))
+		sscanf(_str.c_str(), "%llu", &ret);
+	#else
+		sscanf(_str.c_str(), "%lu", &ret);
+	#endif
 	return ret;
 }
 
@@ -1024,4 +1040,94 @@ std::ostream& std::operator <<(std::ostream& _os, const std::vector<std::u32stri
 	_os << "}";
 	return _os;
 }
+
+
+#if (defined(__TARGET_OS__Android))
+	std::string std::to_string(int _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%d", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(long _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%ld", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(long long _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%lld", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(unsigned _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%u", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(unsigned long _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%lu", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(unsigned long long _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%llu", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(float _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%f", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(double _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%f", _val);
+		return tmpVal;
+	}
+	std::string std::to_string(long double _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%Lf", _val);
+		return tmpVal;
+	}
+	
+	double std::stod(const std::string& _str, size_t* _idx) {
+		double ret = 0;
+		sscanf(_str.c_str(), "%lf", &ret);
+		return ret;
+	}
+	float std::stof(const std::string& _str, size_t* _idx) {
+		float ret = 0;
+		sscanf(_str.c_str(), "%f", &ret);
+		return ret;
+	}
+	int std::stoi(const std::string& _str, size_t* _idx, int _base) {
+		int ret = 0;
+		sscanf(_str.c_str(), "%d", &ret);
+		return ret;
+	}
+	long std::stol(const std::string& _str, size_t* _idx, int _base) {
+		long ret = 0;
+		sscanf(_str.c_str(), "%ld", &ret);
+		return ret;
+	}
+	long double std::stold(const std::string& _str, size_t* _idx) {
+		long double ret = 0;
+		sscanf(_str.c_str(), "%Lf", &ret);
+		return ret;
+	}
+	long long std::stoll(const std::string& _str, size_t* _idx, int _base) {
+		long long ret = 0;
+		sscanf(_str.c_str(), "%lld", &ret);
+		return ret;
+	}
+	unsigned long std::stoul(const std::string& _str, size_t* _idx, int _base) {
+		unsigned long ret = 0;
+		sscanf(_str.c_str(), "%lu", &ret);
+		return ret;
+	}
+	unsigned long long std::stoull(const std::string& _str, size_t* _idx, int _base) {
+		unsigned long long ret = 0;
+		sscanf(_str.c_str(), "%llu", &ret);
+		return ret;
+	}
+#endif
 
