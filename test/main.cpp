@@ -136,7 +136,7 @@ void testDimension() {
 
 void testColor() {
 	TK_INFO("==> test of COLOR (START)");
-	
+	/*
 	etk::Color<uint8_t, 4> colorRGBA8(0x52,0x0F, 0x65, 0x44);
 	etk::Color<uint16_t, 4> colorRGBA16(0x52,0x0F, 0x65, 0x44);
 	etk::Color<uint32_t, 4> colorRGBA32(0x52,0x0F, 0x65, 0x44);
@@ -150,6 +150,7 @@ void testColor() {
 	etk::Color<uint32_t, 1> colorMono32(0x52);
 	etk::Color<float, 1> colorMonoF(5200.22);
 	etk::Color<double, 1> colorMonoD(520000.22);
+	*/
 	/*
 	etk::Color<uint8_t, 4> colorRGBA8__("#520F6544");
 	etk::Color<uint16_t, 4> colorRGBA16__("rgba(0x52, 0x0F, 0x65, 0x44)");
@@ -165,6 +166,7 @@ void testColor() {
 	etk::Color<float, 1> colorMonoF__("mono(5200.22)");
 	etk::Color<double, 1> colorMonoD__("mono(520000.22)");
 	*/
+	/*
 	etk::Color<float, 4> colorRGBAf__(colorRGBA8);
 	etk::Color<uint32_t, 2> colorXX332__(colorRGBA8);
 	
@@ -183,7 +185,7 @@ void testColor() {
 	TK_INFO("Create a color : MONO 32 : " << colorMono32);
 	TK_INFO("Create a color : MONO float : " << colorMonoF);
 	TK_INFO("Create a color : MONO double : " << colorMonoD);
-	
+	*/
 	TK_INFO("==> test of Color (STOP)");
 	exit(0);
 }
@@ -256,7 +258,22 @@ void testRegExp() {
 	
 	data =  "	'dfgd\\'fg'  \n"
 			"	vec2 m_offset; \n";
-	testRegExpSingle("'((\\\\[\\\\'])|.)*'", data);
+	//testRegExpSingle("'((\\\\[\\\\'])|.)*'", data);
+	
+	
+	
+	data = "ddfgdfgh";
+	etk::RegExp<std::string> reg(".*");
+	reg.setMaximize(true);
+	TK_INFO("Parse RegEx : '" << reg.getRegExDecorated() << "'");
+	if (reg.parse(data, 0, data.size()) == true) {
+	//if (reg.processOneElement(data, 0, data.size()) == true) {
+		TK_INFO("    match [" << reg.start() << ".." << reg.stop() << "] ");
+		TK_INFO("        ==> '" << std::string(data, reg.start(), reg.stop()-reg.start()) << "'");
+	}
+	
+	//TODO : good : "(\\+|[0-9])*" ==> really bad : "(+|[0-9])*"
+	
 
 }
 

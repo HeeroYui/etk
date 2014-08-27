@@ -20,7 +20,8 @@
 //#define TK_REG_DEBUG TK_VERBOSE
 //#define TK_REG_DEBUG TK_DEBUG
 
-#define TK_REG_DEBUG_3 TK_VERBOSE
+#define TK_REG_DEBUG_3 TK_HIDDEN
+//#define TK_REG_DEBUG_3 TK_VERBOSE
 //#define TK_REG_DEBUG_3 TK_DEBUG
 
 #define TK_REG_DEBUG_2 TK_HIDDEN
@@ -1044,7 +1045,11 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 					break;
 				}
 			}
-			_property.setPositionStop( _property.m_subProperty.back().getPositionStop() );
+			if (_property.m_subProperty.size()>0) {
+				_property.setPositionStop(_property.m_subProperty.back().getPositionStop() );
+			} else {
+				TK_WARNING("RegExp ERROR");
+			}
 			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem) return=" << _property);
 		}
 		
@@ -1186,6 +1191,9 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 				tmpFind = false;
 				if (tmpCurrentPos+offset>=_lenMax) {
 					TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (... ---/" << m_subNode.size() << ") ==> out of range : " << tmpCurrentPos << "+" << offset << " >= " << _lenMax);
+					prop.setStatus(parseStatusFull);
+					_property.m_subProperty.push_back(prop);
+					break;
 				}
 				for (size_t iii=iiiStartPos; iii<m_subNode.size() && tmpCurrentPos+offset<_lenMax; ++iii) {
 					TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (... " << iii << "/" << m_subNode.size() << ")");
@@ -1315,6 +1323,7 @@ template<class CLASS_TYPE> class RegExp {
 		bool m_isOk; //!< Known if we can process with this regExp
 		bool m_notBeginWithChar; //!< The regular expression must not have previously a char [a-zA-Z0-9_]
 		bool m_notEndWithChar; //!< The regular expression must not have after the end a char [a-zA-Z0-9_]
+		bool m_maximize; //!< by default the regexp find the minimum size of a regexp .
 	public:
 		// create the regular expression
 		
@@ -1326,7 +1335,8 @@ template<class CLASS_TYPE> class RegExp {
 		  m_expressionRequested(U""),
 		  m_isOk(false),
 		  m_notBeginWithChar(false),
-		  m_notEndWithChar(false) {
+		  m_notEndWithChar(false),
+		  m_maximize(false) {
 			m_areaFind.start=0;
 			m_areaFind.stop=0;
 			if (_exp.size() != 0) {
@@ -1340,7 +1350,8 @@ template<class CLASS_TYPE> class RegExp {
 		  m_expressionRequested(U""),
 		  m_isOk(false),
 		  m_notBeginWithChar(false),
-		  m_notEndWithChar(false) {
+		  m_notEndWithChar(false),
+		  m_maximize(false) {
 			m_areaFind.start=0;
 			m_areaFind.stop=0;
 			if (_exp.size() != 0) {
@@ -1354,7 +1365,13 @@ template<class CLASS_TYPE> class RegExp {
 		~RegExp() {
 			m_isOk = false;
 		};
-		
+		/**
+		 * @brief SetMaximizing of the regexp
+		 * @param[in] _value Maximize or not the regExp
+		 */
+		void setMaximize(bool _value) {
+			m_maximize = _value;
+		}
 		/**
 		 * @brief Set a new regular expression matching
 		 * @param[in] _exp the new expression to search
@@ -1568,16 +1585,25 @@ template<class CLASS_TYPE> class RegExp {
 				regexp::FindProperty prop;
 				prop.setPositionStart(iii);
 				bool needOneMoreCycle = true;
+				bool oneCycleDone = false;
 				while (needOneMoreCycle == true) {
 					needOneMoreCycle = false;
 					m_exprRootNode.parse(_SearchIn, iii, _endPos, prop);
+					TK_REG_DEBUG("res=" << prop.getStatus());
+					if (    prop.getStatus() == regexp::parseStatusNone
+					     && m_maximize == true
+					     && oneCycleDone == false) {
+						// TODO : do it better Patch the case of ".*" seach with maximizing
+						oneCycleDone = true;
+						needOneMoreCycle = true;
+					}
 					if (    prop.getStatus() == regexp::parseStatusFull
 					     || prop.getStatus() == regexp::parseStatusPartial ) {
 						findLen = prop.getFindLen();
 						TK_REG_DEBUG_3("main search find : " << findLen << " elements data=" << std::string(_SearchIn, prop.getPositionStart(), prop.getFindLen()));
 						// Check end :
 						if (m_notEndWithChar == true) {
-							TK_DEBUG("Check end is not a char: '" << (char)_SearchIn[iii+findLen] << "'");
+							TK_REG_DEBUG("Check end is not a char: '" << (char)_SearchIn[iii+findLen] << "'");
 							if (_startPos+findLen < (int64_t)_SearchIn.size() ) {
 								char32_t tmpVal = _SearchIn[iii+findLen];
 								if(    (    tmpVal >= 'a'
@@ -1588,10 +1614,14 @@ template<class CLASS_TYPE> class RegExp {
 								         && tmpVal <= '9' )
 								    || (    tmpVal == '_' ) ) {
 									// go on the next char ...
-									TK_DEBUG("Need one more cycle ...");
+									TK_REG_DEBUG("Need one more cycle ...");
 									needOneMoreCycle = true;
 								}
 							}
+						}
+						if (    m_maximize == true
+						     && prop.getStatus() == regexp::parseStatusPartial) {
+							needOneMoreCycle = true;
 						}
 						if (needOneMoreCycle == false) {
 							m_areaFind.start = iii;
@@ -1664,6 +1694,10 @@ template<class CLASS_TYPE> class RegExp {
 								needOneMoreCycle = true;
 							}
 						}
+					}
+					if (    m_maximize == true
+					     && prop.getStatus() == regexp::parseStatusPartial) {
+						needOneMoreCycle = true;
 					}
 					if (needOneMoreCycle == false) {
 						m_areaFind.start = _startPos;
