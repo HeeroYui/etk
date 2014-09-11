@@ -308,22 +308,40 @@ namespace etk {
 			Color<uint8_t, 4> value = etk::parseStringStartWithSharp(std::string(_input, 1));
 			*this = value;
 		} else if(etk::start_with(_input, "rgb(", false) == true) {
-			Color<uint8_t, 4> value = etk::parseStringStartWithRGBGen(std::string(_input, 4, _input.size()-1));
+			Color<uint8_t, 4> value = etk::parseStringStartWithRGBGen(std::string(_input, 4, _input.size()-5));
+			*this = value;
+		} else if(etk::start_with(_input, "rgba(", false) == true) {
+			Color<uint8_t, 4> value = etk::parseStringStartWithRGBGen(std::string(_input, 5, _input.size()-6));
 			*this = value;
 		} else if(etk::start_with(_input, "rgb[FLOAT](", false) == true) {
-			Color<double, 4> value = etk::parseStringStartWithRGB(std::string(_input, 11, _input.size()-1));
+			Color<double, 4> value = etk::parseStringStartWithRGB(std::string(_input, 11, _input.size()-12));
+			*this = value;
+		} else if(etk::start_with(_input, "rgba[FLOAT](", false) == true) {
+			Color<double, 4> value = etk::parseStringStartWithRGB(std::string(_input, 12, _input.size()-13));
 			*this = value;
 		} else if(etk::start_with(_input, "rgb[DOUBLE](", false) == true) {
-			Color<double, 4> value = etk::parseStringStartWithRGB(std::string(_input, 12, _input.size()-1));
+			Color<double, 4> value = etk::parseStringStartWithRGB(std::string(_input, 12, _input.size()-13));
+			*this = value;
+		} else if(etk::start_with(_input, "rgba[DOUBLE](", false) == true) {
+			Color<double, 4> value = etk::parseStringStartWithRGB(std::string(_input, 13, _input.size()-14));
 			*this = value;
 		} else if(etk::start_with(_input, "rgb[U32](", false) == true) {
-			Color<uint32_t, 4> value = etk::parseStringStartWithRGBUnsigned32(std::string(_input, 9, _input.size()-1));
+			Color<uint32_t, 4> value = etk::parseStringStartWithRGBUnsigned32(std::string(_input, 9, _input.size()-10));
+			*this = value;
+		} else if(etk::start_with(_input, "rgba[U32](", false) == true) {
+			Color<uint32_t, 4> value = etk::parseStringStartWithRGBUnsigned32(std::string(_input, 10, _input.size()-11));
 			*this = value;
 		} else if(etk::start_with(_input, "rgb[U16](", false) == true) {
-			Color<uint16_t, 4> value = etk::parseStringStartWithRGBUnsigned16(std::string(_input, 9, _input.size()-1));
+			Color<uint16_t, 4> value = etk::parseStringStartWithRGBUnsigned16(std::string(_input, 9, _input.size()-10));
+			*this = value;
+		} else if(etk::start_with(_input, "rgba[U16](", false) == true) {
+			Color<uint16_t, 4> value = etk::parseStringStartWithRGBUnsigned16(std::string(_input, 10, _input.size()-11));
 			*this = value;
 		} else if(etk::start_with(_input, "rgb[U8](", false) == true) {
-			Color<uint8_t, 4> value = etk::parseStringStartWithRGBUnsigned8(std::string(_input, 8, _input.size()-1));
+			Color<uint8_t, 4> value = etk::parseStringStartWithRGBUnsigned8(std::string(_input, 8, _input.size()-9));
+			*this = value;
+		} else if(etk::start_with(_input, "rgba[U8](", false) == true) {
+			Color<uint8_t, 4> value = etk::parseStringStartWithRGBUnsigned8(std::string(_input, 9, _input.size()-10));
 			*this = value;
 		} else {
 			Color<uint8_t, 4> value = etk::parseStringColorNamed(_input);

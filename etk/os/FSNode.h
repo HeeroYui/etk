@@ -452,7 +452,7 @@ namespace etk {
 			 * @param[in] _nbBlock Number of block needed
 			 * @return Number of element written (in block number)
 			 */
-			int64_t fileWrite(void* _data, int64_t _blockSize, int64_t _nbBlock);
+			int64_t fileWrite(const void* _data, int64_t _blockSize, int64_t _nbBlock);
 			/**
 			 * @brief Get the position in the file.
 			 * @return the requested position.
@@ -470,6 +470,22 @@ namespace etk {
 			 * @brief Flush the current file
 			 */
 			void fileFlush();
+			/**
+			 * @brief Read all element in a file and set it in a generic vector
+			 * @return the read vector
+			 */
+			template<typename T> std::vector<T> fileReadAll() {
+				std::vector<T> value;
+				value.resize(fileSize());
+				fileRead(&value[0], sizeof(T), fileSize()/sizeof(T));
+				return value;
+			}
+			/**
+			 * @brief Write all the vector in a file
+			 */
+			template<typename T> void fileWriteAll(const std::vector<T>& _value) {
+				fileWrite(static_cast<const void*>(&(_value[0])), sizeof(T), _value.size()/sizeof(T));
+			}
 		private:
 			/**
 			 * @brief Order the list of subnode the folder first and the alphabetical order

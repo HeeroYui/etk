@@ -1696,7 +1696,7 @@ bool etk::FSNode::filePuts(const std::string& _input) {
 	return false;
 }
 
-int64_t etk::FSNode::fileWrite(void * _data, int64_t _blockSize, int64_t _nbBlock) {
+int64_t etk::FSNode::fileWrite(const void * _data, int64_t _blockSize, int64_t _nbBlock) {
 	#ifdef __TARGET_OS__Android
 	if(    m_type == etk::FSN_TYPE_DATA
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
@@ -1706,6 +1706,7 @@ int64_t etk::FSNode::fileWrite(void * _data, int64_t _blockSize, int64_t _nbBloc
 	#endif
 	return fwrite(_data, _blockSize, _nbBlock, m_PointerFile);
 }
+
 bool etk::FSNode::fileSeek(long int _offset, enum etk::seekNode _origin)
 {
 	#ifdef __TARGET_OS__Android

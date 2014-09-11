@@ -20,14 +20,6 @@
 #undef __class__
 #define __class__	"etktest"
 
-void testVector() {
-	
-}
-
-void testUChar() {
-	
-}
-
 void testHash() {
 	TK_INFO("==> Start test of Hach table");
 	etk::Hash<std::string> testData;
@@ -136,7 +128,6 @@ void testDimension() {
 
 void testColor() {
 	TK_INFO("==> test of COLOR (START)");
-	/*
 	etk::Color<uint8_t, 4> colorRGBA8(0x52,0x0F, 0x65, 0x44);
 	etk::Color<uint16_t, 4> colorRGBA16(0x52,0x0F, 0x65, 0x44);
 	etk::Color<uint32_t, 4> colorRGBA32(0x52,0x0F, 0x65, 0x44);
@@ -150,23 +141,22 @@ void testColor() {
 	etk::Color<uint32_t, 1> colorMono32(0x52);
 	etk::Color<float, 1> colorMonoF(5200.22);
 	etk::Color<double, 1> colorMonoD(520000.22);
-	*/
-	/*
+
 	etk::Color<uint8_t, 4> colorRGBA8__("#520F6544");
-	etk::Color<uint16_t, 4> colorRGBA16__("rgba(0x52, 0x0F, 0x65, 0x44)");
-	etk::Color<uint32_t, 4> colorRGBA32__("rgba(0x52,0x0F, 0x65, 0x44)");
-	etk::Color<float, 4> colorRGBAF__("rgba(0.1,0.2, 0.8, 1.0)");
-	etk::Color<uint8_t, 3> colorRGB8__("rgba(0x52,0x0F, 0x65)");
-	etk::Color<uint16_t, 3> colorRGB16__("rgba(0x52,0x0F, 0x65)");
-	etk::Color<uint32_t, 3> colorRGB32__("rgba(0x52,0x0F, 0x65)");
-	etk::Color<float, 3> colorRGBF__("rgba(0.1,0.2, 0.8)");
-	etk::Color<uint8_t, 1> colorMono8__("mono(0x52)");
-	etk::Color<uint16_t, 1> colorMono16__("mono(0x52)");
-	etk::Color<uint32_t, 1> colorMono32__("mono(0x52)");
-	etk::Color<float, 1> colorMonoF__("mono(5200.22)");
-	etk::Color<double, 1> colorMonoD__("mono(520000.22)");
-	*/
+	etk::Color<uint16_t, 4> colorRGBA16__("rgba[U16](0x52, 0x0F, 0x65, 0x44)");
+	etk::Color<uint32_t, 4> colorRGBA32__("rgba[U32](0x52,0x0F, 0x65, 0x44)");
+	etk::Color<float, 4> colorRGBAF__("rgba[FLOAT](0.1,0.2,0.8,1.0)");
+	etk::Color<uint8_t, 3> colorRGB8__("rgba[U8](0x52,0x0F, 0x65)");
+	etk::Color<uint16_t, 3> colorRGB16__("rgba[U16](0x52,0x0F, 0x65)");
+	etk::Color<uint32_t, 3> colorRGB32__("rgba[U32](0x52,0x0F, 0x65)");
+	etk::Color<float, 3> colorRGBF__("rgba[FLOAT](0.1,0.2, 0.8)");
 	/*
+	etk::Color<uint8_t, 1> colorMono8__("mono[U8](0x52)");
+	etk::Color<uint16_t, 1> colorMono16__("mono[U16](0x52)");
+	etk::Color<uint32_t, 1> colorMono32__("mono[U32](0x52)");
+	etk::Color<float, 1> colorMonoF__("mono[FLOAT](5200.22)");
+	etk::Color<double, 1> colorMonoD__("mono[DOUBLE](520000.22)");
+	*/
 	etk::Color<float, 4> colorRGBAf__(colorRGBA8);
 	etk::Color<uint32_t, 2> colorXX332__(colorRGBA8);
 	
@@ -185,9 +175,7 @@ void testColor() {
 	TK_INFO("Create a color : MONO 32 : " << colorMono32);
 	TK_INFO("Create a color : MONO float : " << colorMonoF);
 	TK_INFO("Create a color : MONO double : " << colorMonoD);
-	*/
 	TK_INFO("==> test of Color (STOP)");
-	exit(0);
 }
 
 void testRegExpSingle(const std::string& _expression, const std::string& _search) {
@@ -283,14 +271,11 @@ int main(int argc, const char *argv[]) {
 	etk::setArgZero(argv[0]);
 	etk::initDefaultFolder("ewolApplNoName");
 	
-	//testVector();
-	//testUChar();
-	//testUString();
-	//testHash();
+	testHash();
 	//testFSNode();
 	//testDimension();
 	//testArchive();
-	//testColor();
+	testColor();
 	testRegExp();
 	return 0;
 }
