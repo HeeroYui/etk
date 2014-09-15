@@ -14,7 +14,9 @@
 #include <etk/tool.h>
 #include <map>
 #ifdef __TARGET_OS__Windows
-	#include "windows.h"
+	#include <tchar.h>
+	#include <iostream>
+	#include <windows.h>
 #endif
 extern "C" {
 	// file browsing ...
@@ -210,7 +212,7 @@ std::string getApplicationPath() {
 	char binaryCompleatePath[FILENAME_MAX];
 	memset(binaryCompleatePath, 0, FILENAME_MAX);
 	#ifdef __TARGET_OS__Windows
-		getModuleFileName(NULL, binaryCompleatePath, FILENAME_MAX);
+		GetModuleFileName(NULL, binaryCompleatePath, FILENAME_MAX);
 		if (0==strlen(binaryCompleatePath)) {
 			TK_CRITICAL("Can not get the binary position in the tree ==> this is really bad ...");
 		} else {
@@ -570,8 +572,8 @@ void etk::FSNode::privateSetName(const std::string& _newName) {
 			char tmpValMaj[10];
 			sprintf(tmpVal, "%c:/", iii);
 			sprintf(tmpValMaj, "%c:/", iii+'A'-'a');
-			if(    true == destFilename.startWith(tmpVal)
-			    || true == destFilename.startWith(tmpValMaj)) {
+			if(    etk::start_with(destFilename, tmpVal) == true
+			    || etk::start_with(destFilename, tmpValMaj) == true) {
 				isRootFolder = true;
 				break;
 			}

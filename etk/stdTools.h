@@ -61,7 +61,7 @@ namespace utf8 {
 };
 
 namespace std {
-	#ifdef __TARGET_OS__MacOs
+	#if (defined(__TARGET_OS__MacOs) || defined(__TARGET_OS__Windows))
 		typedef std::basic_string<char32_t> u32string;
 	#endif
 	#if (defined(__TARGET_OS__Android))
@@ -101,26 +101,6 @@ namespace etk {
 	// these declaration is to prevent some under template declaration of unknown type
 	template <class TYPE> bool from_string(TYPE& _variableRet, const std::string& _value);
 	template <class TYPE> bool from_string(TYPE& _variableRet, const std::u32string& _value);
-	
-	template<class TYPE, int size=0> std::string to_string_format(TYPE t, std::ios_base & (*f)(std::ios_base&)) {
-		std::ostringstream oss;
-		if (size==0) {
-			oss << f << t;
-		} else {
-			oss << std::setw(size) << std::setfill('0') << f << t;
-		}
-		return oss.str();
-	}
-	template<class TYPE, int size=0> std::u32string to_u32string_format(TYPE t, std::ios_base & (*f)(std::ios_base&)) {
-		std::ostringstream oss;
-		if (size==0) {
-			oss << f << t;
-		} else {
-			oss << std::setw(size) << std::setfill('0') << f << t;
-		}
-		return etk::to_u32string(oss.str());
-	}
-	
 	
 	long double string_to_long_double(const std::string& _str);
 	long double string_to_long_double(const std::u32string& _str);
@@ -208,6 +188,10 @@ namespace std {
 };
 
 int32_t strlen(const char32_t * _data);
+
+#if (defined(__TARGET_OS__Windows))
+	#define M_PI 3.14159265358979323846
+#endif
 
 #endif
 

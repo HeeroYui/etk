@@ -40,7 +40,53 @@
 		#define UINT64_MAX (__UINT64_C(18446744073709551615))
 	#endif
 #endif
-#include <etk/stdTools.h>
 
-typedef float float_t;
+/*
+	Target ARCH values (CPU core TYPE):
+		__TARGET_ARCH__ARM
+		__TARGET_ARCH__POWER_PC
+		__TARGET_ARCH__INTEL
+		__TARGET_ARCH__AMD
+		__TARGET_ARCH__MICROCHIP
+		...
+	Target ARCH_VERSION values:
+		__TARGET_ARCH_VERSION__05_00 // for exemple arm v5 (very small ==> simple core...)
+		__TARGET_ARCH_VERSION__07_00 // for exemple arm v7 (with NEON)
+	Target ADDR values (adressing mode):
+		__TARGET_ADDR__16BITS
+		__TARGET_ADDR__32BITS
+		__TARGET_ADDR__64BITS
+		__TARGET_ADDR__128BITS
+	
+	Target CORE values (adressing mode):
+		__TARGET_CORE__1 // 1 core
+		__TARGET_CORE__2 // 2 core
+		__TARGET_CORE__3 // 3 core
+		__TARGET_CORE__4 // 4 core
+		__TARGET_CORE__X // x core ==> must auto update
+		..
+*/
+
+// Check windows
+#ifdef _WIN32
+	#define __TARGET_ARCH__32BITS
+#endif
+#ifdef _WIN64
+	#define __TARGET_ARCH__64BITS
+#endif
+
+// Check GCC
+#if __GNUC__
+	#if __x86_64__ || __ppc64__
+		#define __TARGET_ARCH__64BITS
+	#else
+		#define __TARGET_ARCH__32BITS
+	#endif
+#endif
+
+#include <etk/stdTools.h>
+#ifndef _WIN32
+	typedef float float_t;
+#endif
+
 #endif

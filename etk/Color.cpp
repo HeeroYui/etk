@@ -597,6 +597,7 @@ static int32_t getColorSize()
 	static const int32_t tmpp = sizeof(listOfColor) / sizeof(colorList_ts);
 	return tmpp;
 }
+
 namespace etk {
 	#include "Color_8_bits.cxx"
 	#include "Color_16_bits.cxx"
@@ -604,3 +605,4 @@ namespace etk {
 	#include "Color_float.cxx"
 	#include "Color_double.cxx"
 };
+

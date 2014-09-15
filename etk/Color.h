@@ -352,19 +352,21 @@ namespace etk {
 	
 	
 	//! @not-in-doc
-	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint8_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits 
+	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint8_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
+		std::ostringstream oss;
 		if (MY_TYPE_SIZE >= 3) {
 			_os << "#";
-			_os << (etk::to_string_format<uint32_t, 2>(_obj.r(), std::hex)).c_str();
+			oss << std::setw(2) << std::setfill('0') << std::hex << _obj.r();
 			if (MY_TYPE_SIZE >= 2) {
-				_os << (etk::to_string_format<uint32_t, 2>(_obj.g(), std::hex)).c_str();
+				oss << std::setw(2) << std::setfill('0') << std::hex << _obj.g();
 			}
 			if (MY_TYPE_SIZE >= 3) {
-				_os << (etk::to_string_format<uint32_t, 2>(_obj.b(), std::hex)).c_str();
+				oss << std::setw(2) << std::setfill('0') << std::hex << _obj.b();
 			}
 			if (MY_TYPE_SIZE >= 4) {
-				_os << (etk::to_string_format<uint32_t, 2>(_obj.a(), std::hex)).c_str();
+				oss << std::setw(2) << std::setfill('0') << std::hex << _obj.a();
 			}
+			_os << oss.str();
 		} else {
 			if (MY_TYPE_SIZE >= 2) {
 				_os << "be";
@@ -372,17 +374,19 @@ namespace etk {
 				_os << "Mono";
 			}
 			_os << "[U8](";
-			_os << "0x" << (etk::to_string_format<uint32_t, 2>(_obj.r(), std::hex)).c_str();
+			oss << "0x" << std::setw(2) << std::setfill('0') << std::hex << _obj.r();
 			if (MY_TYPE_SIZE >= 2) {
 				_os << ",";
-				_os << "0x" << (etk::to_string_format<uint32_t, 2>(_obj.g(), std::hex)).c_str();
+				oss << "0x" << std::setw(2) << std::setfill('0') << std::hex << _obj.g();
 			}
+			_os << oss.str();
 			_os << ")";
 		}
 		return _os;
 	}
 	//! @not-in-doc
-	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint16_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits 
+	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint16_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
+		std::ostringstream oss;
 		if (MY_TYPE_SIZE >= 4) {
 			_os << "rgba";
 		} else if (MY_TYPE_SIZE >= 3) {
@@ -393,24 +397,22 @@ namespace etk {
 			_os << "Mono";
 		}
 		_os << "[U16](";
-		_os << "0x" << (etk::to_string_format<uint32_t, 4>(_obj.r(), std::hex)).c_str();
+		oss << "0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.r();
 		if (MY_TYPE_SIZE >= 2) {
-			_os << ",";
-			_os << "0x" << (etk::to_string_format<uint32_t, 4>(_obj.g(), std::hex)).c_str();
+			oss << ",0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.g();
 		}
 		if (MY_TYPE_SIZE >= 3) {
-			_os << ",";
-			_os << "0x" << (etk::to_string_format<uint32_t, 4>(_obj.b(), std::hex)).c_str();
+			oss << ",0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.b();
 		}
 		if (MY_TYPE_SIZE >= 4) {
-			_os << ",";
-			_os << "0x" << (etk::to_string_format<uint32_t, 4>(_obj.a(), std::hex)).c_str();
+			oss << ",0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.a();
 		}
-		_os << ")";
+		_os << oss.str() << ")";
 		return _os;
 	}
 	//! @not-in-doc
-	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint32_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits 
+	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint32_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
+		std::ostringstream oss;
 		if (MY_TYPE_SIZE >= 4) {
 			_os << "rgba";
 		} else if (MY_TYPE_SIZE >= 3) {
@@ -421,20 +423,17 @@ namespace etk {
 			_os << "Mono";
 		}
 		_os << "[U32](";
-		_os << "0x" << (etk::to_string_format<uint32_t, 8>(_obj.r(), std::hex)).c_str();
+		oss << "0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.r();
 		if (MY_TYPE_SIZE >= 2) {
-			_os << ",";
-			_os << "0x" << (etk::to_string_format<uint32_t, 8>(_obj.g(), std::hex)).c_str();
+			oss << ",0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.g();
 		}
 		if (MY_TYPE_SIZE >= 3) {
-			_os << ",";
-			_os << "0x" << (etk::to_string_format<uint32_t, 8>(_obj.b(), std::hex)).c_str();
+			oss << ",0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.b();
 		}
 		if (MY_TYPE_SIZE >= 4) {
-			_os << ",";
-			_os << "0x" << (etk::to_string_format<uint32_t, 8>(_obj.a(), std::hex)).c_str();
+			oss << ",0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.a();
 		}
-		_os << ")";
+		_os << oss.str() << ")";
 		return _os;
 	}
 	//! @not-in-doc
