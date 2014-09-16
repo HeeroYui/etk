@@ -43,7 +43,7 @@ def create(target):
 	myModule.add_module_depend('linearmath')
 	myModule.add_module_depend('minizip')
 	
-	if target.buildMode == "release":
+	if target.config["mode"] == "release":
 		# TODO : The other way is to remove this ...
 		# TODO : Fore release mode : the etk folder are absolutly not at the same position in the tree ...
 		myModule.compile_flags_CC("-DMODE_RELEASE")
@@ -51,7 +51,7 @@ def create(target):
 		myModule.add_export_flag_CC("-DDEBUG_LEVEL=3")
 		myModule.add_export_flag_CC("-DDEBUG=1")
 		# Bor backtrace display :
-		if target.name!="Windows":
+		if target.name != "Windows":
 			myModule.add_export_flag_LD("-ldl -rdynamic")
 	
 	if target.name=="Windows":
