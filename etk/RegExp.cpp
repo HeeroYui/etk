@@ -394,6 +394,10 @@ std::string etk::regexp::autoStr(const std::string& _data) {
 			out += "\\t";
 		} else if (it == '\r') {
 			out += "\\r";
+		} else if (it == '\0') {
+			out += "\\0";
+		} else if (it <= 0x20) {
+			out += std::to_string((int32_t)it);
 		} else {
 			out += it;
 		}
@@ -410,6 +414,10 @@ std::string etk::regexp::autoStr(char _data) {
 		out += "\\t";
 	} else if (_data == '\r') {
 		out += "\\r";
+	} else if (_data == '\0') {
+		out += "\\0";
+	} else if (_data <= 0x20) {
+		out += std::to_string((int32_t)_data);
 	} else {
 		out += _data;
 	}

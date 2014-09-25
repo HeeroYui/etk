@@ -199,6 +199,9 @@ class FindProperty {
 		}
 		void setPositionStart(int64_t _newPos) {
 			m_positionStart = _newPos;
+			if (m_positionStop < m_positionStart) {
+				m_positionStop = m_positionStart;
+			}
 		}
 		int64_t getPositionStop() const {
 			return m_positionStop;
@@ -969,7 +972,8 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 			return _data.size();
 		};
 		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
-			TK_REG_DEBUG_2("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem) data to parse : '" << autoStr(std::string(_data, _currentPos, _lenMax-_currentPos)) << "'");
+			//TK_REG_DEBUG_2("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem) data to parse : '" << autoStr(std::string(_data, _currentPos, _lenMax-_currentPos)) << "'");
+			//TK_REG_DEBUG_2("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem) m_data='" << autoStr(Node<CLASS_TYPE>::m_data) << "'");
 			TK_REG_DEBUG_3("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem) " << _property);
 			int findLen = 0;
 			bool error = false;
@@ -1000,7 +1004,7 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 				prop.setPositionStart(tmpCurrentPos);
 			}
 			while (iii < m_subNode.size()) {
-				TK_REG_DEBUG_2("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=" << iii << "/" << m_subNode.size() << ") data='" << autoStr(std::string(_data, tmpCurrentPos, _lenMax-tmpCurrentPos)) << "'");
+				//TK_REG_DEBUG_2("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=" << iii << "/" << m_subNode.size() << ") data='" << autoStr(std::string(_data, tmpCurrentPos, _lenMax-tmpCurrentPos)) << "'");
 				m_subNode[iii]->parse(_data, tmpCurrentPos, _lenMax, prop);
 				if (prop.getStatus() == parseStatusNone) {
 					TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=" << iii << "/" << m_subNode.size() << ") ===None===      : " << prop);
@@ -1023,11 +1027,19 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 						TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem) return=" << _property);
 						return;
 					} else {
+						if (tmpCurrentPos >= (int64_t)_data.size()) {
+							TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=?/" << m_subNode.size() << ") Reach end of buffer");
+							_property.setStatus(parseStatusNone);
+							return;
+						}
 						//prop.setPositionStart(tmpCurrentPos);
 						continue;
 					}
 				}
 				tmpCurrentPos = prop.getPositionStop();
+				if (prop.getPositionStart() > prop.getPositionStop()) {
+					TK_CRITICAL("Very bad case ... : " << prop);
+				}
 				_property.m_subProperty.push_back(prop);
 				TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=" << iii << "/" << m_subNode.size() << ") === OK === find : " << prop);
 				prop.reset();
@@ -1192,6 +1204,9 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 				if (tmpCurrentPos+offset>=_lenMax) {
 					TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (... ---/" << m_subNode.size() << ") ==> out of range : " << tmpCurrentPos << "+" << offset << " >= " << _lenMax);
 					prop.setStatus(parseStatusFull);
+					if (prop.getPositionStart() > prop.getPositionStop()) {
+						TK_CRITICAL("Very bad case ... : " << prop);
+					}
 					_property.m_subProperty.push_back(prop);
 					break;
 				}
@@ -1205,6 +1220,9 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 						findLen += prop.getFindLen();
 						offset += prop.getFindLen();
 						prop.setSubIndex(iii);
+						if (prop.getPositionStart() > prop.getPositionStop()) {
+							TK_CRITICAL("Very bad case ... : " << prop);
+						}
 						_property.m_subProperty.push_back(prop);
 						tmpFind = true;
 						prop.reset();
