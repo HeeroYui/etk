@@ -260,6 +260,16 @@ void testRegExp() {
 		TK_INFO("        ==> '" << std::string(data, reg.start(), reg.stop()-reg.start()) << "'");
 	}
 	
+	data = "plop \"\" sdfsdf s\"swdfsqd";
+	reg = etk::RegExp<std::string>("\"(\\\\[\\\\\"]|.)*\"");
+	//reg.setMaximize(true);
+	TK_INFO("Parse RegEx : '" << reg.getRegExDecorated() << "'");
+	if (reg.parse(data, 0, data.size()) == true) {
+	//if (reg.processOneElement(data, 0, data.size()) == true) {
+		TK_INFO("    match [" << reg.start() << ".." << reg.stop() << "] ");
+		TK_INFO("        ==> '" << std::string(data, reg.start(), reg.stop()-reg.start()) << "'");
+	}
+	
 	//TODO : good : "(\\+|[0-9])*" ==> really bad : "(+|[0-9])*"
 	
 
@@ -271,11 +281,11 @@ int main(int argc, const char *argv[]) {
 	etk::setArgZero(argv[0]);
 	etk::initDefaultFolder("ewolApplNoName");
 	
-	testHash();
-	//testFSNode();
-	//testDimension();
-	//testArchive();
-	testColor();
+	//testHash();
+	////testFSNode();
+	////testDimension();
+	////testArchive();
+	//testColor();
 	testRegExp();
 	return 0;
 }
