@@ -480,11 +480,26 @@ namespace etk {
 				fileRead(&value[0], sizeof(T), fileSize()/sizeof(T));
 				return value;
 			}
+			std::string fileReadAllString() {
+				std::string value;
+				value.resize(fileSize());
+				fileRead(&value[0], sizeof(char), fileSize()/sizeof(char));
+				return value;
+			}
+			std::u32string fileReadAllU32String() {
+				return utf8::convertUnicode(fileReadAllString());
+			}
 			/**
 			 * @brief Write all the vector in a file
 			 */
 			template<typename T> void fileWriteAll(const std::vector<T>& _value) {
 				fileWrite(static_cast<const void*>(&(_value[0])), sizeof(T), _value.size()/sizeof(T));
+			}
+			void fileWriteAll(const std::string& _value) {
+				fileWrite(static_cast<const void*>(&(_value[0])), sizeof(char), _value.size()/sizeof(char));
+			}
+			void fileWriteAll(const std::u32string& _value) {
+				fileWriteAll(u32char::convertToUtf8(_value));
 			}
 		private:
 			/**

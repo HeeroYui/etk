@@ -131,6 +131,11 @@ int8_t u32char::convertUtf8(char32_t _val, char _output[5]) {
 	}
 }
 
+std::string u32char::convertToUtf8(const std::u32string& _input) {
+	TK_TODO("implement this function ...");
+	return "TODO ... std::string u32char::convertToUtf8(const std::u32string& _input)";
+}
+
 
 #undef __class__
 #define __class__ "utf8"
@@ -225,6 +230,11 @@ bool utf8::theoricFirst(const char _input) {
 		return true;
 	}
 	return false;
+}
+
+std::u32string utf8::convertUnicode(const std::string& _input) {
+	TK_TODO("implement this function ...");
+	return U"TODO ... std::u32string utf8::convertUnicode(const std::string& _input)";
 }
 
 

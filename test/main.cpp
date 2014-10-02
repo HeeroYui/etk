@@ -16,6 +16,8 @@
 #include <etk/log.h>
 #include <etk/Color.h>
 #include <etk/RegExp.h>
+#include <string>
+#include <regex>
 
 #undef __class__
 #define __class__	"etktest"
@@ -249,7 +251,7 @@ void testRegExp() {
 	//testRegExpSingle("'((\\\\[\\\\'])|.)*'", data);
 	
 	
-	
+	/*
 	data = "ddfgdfgh";
 	etk::RegExp<std::string> reg(".*");
 	reg.setMaximize(true);
@@ -286,6 +288,63 @@ void testRegExp() {
 	//if (reg.processOneElement(data, 0, data.size()) == true) {
 		TK_INFO("    match [" << reg.start() << ".." << reg.stop() << "] ");
 		TK_INFO("        ==> '" << std::string(data, reg.start(), reg.stop()-reg.start()) << "'");
+	}
+	*/
+	/*
+	std::tr1::cmatch res;
+	str = "<h2>Egg prices</h2>";
+	std::tr1::regex rx("<h(.)>([^<]+)");
+	std::tr1::regex_search(str.c_str(), res, rx);
+	std::cout << res[1] << ". " << res[2] << "\n";
+	*/
+	{
+		std::string lines[] = {"Roses are #ff0000",
+		                       "violets are #0000ff",
+		                       "all of my base are belong to you"};
+		
+		std::regex myRegex("#([a-f0-9]{6})");
+		/*
+		for (const auto &line : lines) {
+			std::cout << line << ": " << std::regex_search(line, color_regex) << '\n';
+		}
+		*/
+		
+		std::smatch resultMatch;
+		for (const auto &line : lines) {
+			TK_DEBUG("in line : '" << line << "'");
+			std::regex_search(line, resultMatch, myRegex);
+			TK_DEBUG("    Find " << resultMatch.size() << " elements");
+			for (size_t iii=0; iii<resultMatch.size(); ++iii) {
+				int32_t posStart = std::distance(line.begin(), resultMatch[iii].first);
+				int32_t posStop = std::distance(line.begin(), resultMatch[iii].second);
+				TK_DEBUG("          [" << iii << "] " << *resultMatch[iii].first);
+				TK_DEBUG("          [" << iii << "] " << *resultMatch[iii].second);
+				TK_DEBUG("          [" << iii << "] " << std::string(line, posStart, posStop-posStart));
+				/*
+				std::ssub_match sub_match = color_match[i];
+				std::string sub_match_str = sub_match.str();
+				*/
+			}
+		}
+	}
+	
+	{
+		const std::string myData = "void limit(const vec2& _origin, const vec2& _size);\n plop(sf)";
+		std::regex myRegex("\\b(\\w|_)+[ \\t]*\\(");
+		
+		std::smatch resultMatch;
+		TK_DEBUG("in line : '" << myData << "'");
+		std::regex_search(myData, resultMatch, myRegex);
+		TK_DEBUG("    Find " << resultMatch.size() << " elements");
+		for (size_t iii=0; iii<resultMatch.size(); ++iii) {
+			int32_t posStart = std::distance(myData.begin(), resultMatch[iii].first);
+			int32_t posStop = std::distance(myData.begin(), resultMatch[iii].second);
+			TK_DEBUG("          [" << iii << "] " << *resultMatch[iii].first);
+			TK_DEBUG("          [" << iii << "] " << *resultMatch[iii].second);
+			TK_DEBUG("          [" << iii << "] " << std::string(myData, posStart, posStop-posStart));
+			
+		}
+		
 	}
 }
 

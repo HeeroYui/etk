@@ -41,6 +41,7 @@ namespace u32char {
 	
 	char32_t changeOrder(char32_t _val);
 	int8_t convertUtf8(char32_t _val, char _output[5]);
+	std::string convertToUtf8(const std::u32string& _input);
 };
 
 namespace utf8 {
@@ -58,6 +59,7 @@ namespace utf8 {
 	bool theoricFirst(const char _input);
 	
 	char32_t convertChar32(const char* _input);
+	std::u32string convertUnicode(const std::string& _input);
 };
 
 namespace std {
