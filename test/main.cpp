@@ -253,6 +253,7 @@ void testRegExp() {
 	data = "ddfgdfgh";
 	etk::RegExp<std::string> reg(".*");
 	reg.setMaximize(true);
+	
 	TK_INFO("Parse RegEx : '" << reg.getRegExDecorated() << "'");
 	if (reg.parse(data, 0, data.size()) == true) {
 	//if (reg.processOneElement(data, 0, data.size()) == true) {
@@ -260,19 +261,32 @@ void testRegExp() {
 		TK_INFO("        ==> '" << std::string(data, reg.start(), reg.stop()-reg.start()) << "'");
 	}
 	
-	data = "plop \"\" sdfsdf s\"swdfsqd";
+	data = "plop \"\" sdfsdf s\"swdfsqd sdfgsdfg \" \" sdfsf";
 	reg = etk::RegExp<std::string>("\"(\\\\[\\\\\"]|.)*\"");
-	//reg.setMaximize(true);
+	reg.setMaximize(false);
 	TK_INFO("Parse RegEx : '" << reg.getRegExDecorated() << "'");
 	if (reg.parse(data, 0, data.size()) == true) {
 	//if (reg.processOneElement(data, 0, data.size()) == true) {
 		TK_INFO("    match [" << reg.start() << ".." << reg.stop() << "] ");
 		TK_INFO("        ==> '" << std::string(data, reg.start(), reg.stop()-reg.start()) << "'");
 	}
-	
 	//TODO : good : "(\\+|[0-9])*" ==> really bad : "(+|[0-9])*"
 	
-
+	data = "void limit(const vec2& _origin, const vec2& _size);\n";
+	reg = etk::RegExp<std::string>("\\@(\\w|_)+[ \\t]*\\(");
+	reg.setMaximize(false);
+	TK_INFO("Parse RegEx : '" << reg.getRegExDecorated() << "'");
+	if (reg.parse(data, 0, data.size()) == true) {
+	//if (reg.processOneElement(data, 0, data.size()) == true) {
+		TK_INFO("    match [" << reg.start() << ".." << reg.stop() << "] ");
+		TK_INFO("        ==> '" << std::string(data, reg.start(), reg.stop()-reg.start()) << "'");
+	}
+	data = "void limit const vec2& _origin, const vec2& _size);\n";
+	if (reg.parse(data, 0, data.size()) == true) {
+	//if (reg.processOneElement(data, 0, data.size()) == true) {
+		TK_INFO("    match [" << reg.start() << ".." << reg.stop() << "] ");
+		TK_INFO("        ==> '" << std::string(data, reg.start(), reg.stop()-reg.start()) << "'");
+	}
 }
 
 int main(int argc, const char *argv[]) {

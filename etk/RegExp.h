@@ -208,6 +208,9 @@ class FindProperty {
 		}
 		void setPositionStop(int64_t _newPos) {
 			m_positionStop = _newPos;
+			if (m_positionStop < m_positionStart) {
+				TK_CRITICAL("set volontary a stop position before end : " << this);
+			}
 		}
 		uint32_t getMultiplicity() const {
 			return m_multiplicity;
@@ -420,18 +423,20 @@ template<class CLASS_TYPE> class NodeValue : public Node<CLASS_TYPE> {
 		};
 		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
 			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " Value{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "} : " << (char)m_data[0]);
+			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       " << createString(Node<CLASS_TYPE>::m_regExpData));
 			TK_REG_DEBUG_3("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " Value " << _property);
 			if (m_data.size() == 0) {
 				TK_ERROR("No data inside type elemTypeValue");
 				_property.setStatus(parseStatusNone);
 				return;
 			}
-			if (    _property.getPositionStop() < 0
-			     && Node<CLASS_TYPE>::m_multipleMin == 0
-			     && _property.getMultiplicity() == 0) {
-				_property.setPositionStop(_property.getPositionStart());
-				_property.setStatus(parseStatusPartial);
-				return;
+			if (_property.getStatus() != parseStatusPartial) {
+				if (Node<CLASS_TYPE>::m_multipleMin == 0) {
+					_property.setPositionStop(_property.getPositionStart());
+					_property.setStatus(parseStatusPartial);
+					TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "     ==> partial (minSize=0)");
+					return;
+				}
 			}
 			bool tmpFind = true;
 			int32_t findLen = 0;
@@ -531,13 +536,15 @@ template<class CLASS_TYPE> class NodeRangeValue : public Node<CLASS_TYPE> {
 		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
 			int32_t findLen = 0;
 			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " " << getDescriptiveName() << "{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
+			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       " << createString(Node<CLASS_TYPE>::m_regExpData));
 			TK_REG_DEBUG_3("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " " << getDescriptiveName() << " " << _property);
-			if (    _property.getPositionStop() < 0
-			     && Node<CLASS_TYPE>::m_multipleMin == 0
-			     && _property.getMultiplicity() == 0) {
-				_property.setPositionStop(_property.getPositionStart());
-				_property.setStatus(parseStatusPartial);
-				return;
+			if (_property.getStatus() != parseStatusPartial) {
+				if (Node<CLASS_TYPE>::m_multipleMin == 0) {
+					_property.setPositionStop(_property.getPositionStart());
+					_property.setStatus(parseStatusPartial);
+					TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "     ==> partial (minSize=0)");
+					return;
+				}
 			}
 			char32_t tmpVal = _data[_currentPos];
 			bool find = false;
@@ -695,6 +702,7 @@ template<class CLASS_TYPE> class NodeSOL : public Node<CLASS_TYPE> {
 			int32_t findLen = 0;
 			bool tmpFind = false;
 			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " SOL{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
+			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       " << createString(Node<CLASS_TYPE>::m_regExpData));
 			// TODO : is it really what I want ... (maybe next ellement will be requested... (check if previous element is \r or \n
 			while (    _property.getMultiplicity() < Node<CLASS_TYPE>::m_multipleMax
 			        && tmpFind == true
@@ -1036,10 +1044,10 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 						continue;
 					}
 				}
-				tmpCurrentPos = prop.getPositionStop();
 				if (prop.getPositionStart() > prop.getPositionStop()) {
 					TK_CRITICAL("Very bad case ... : " << prop);
 				}
+				tmpCurrentPos = prop.getPositionStop();
 				_property.m_subProperty.push_back(prop);
 				TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=" << iii << "/" << m_subNode.size() << ") === OK === find : " << prop);
 				prop.reset();
@@ -1150,11 +1158,20 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
 			
 			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) {" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
+			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       " << createString(Node<CLASS_TYPE>::m_regExpData));
 			TK_REG_DEBUG_2("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) data='" << autoStr(std::string(_data, _currentPos, _lenMax-_currentPos)) << "'");
 			TK_REG_DEBUG_3("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) input property=" << _property);
 			if (0 == m_subNode.size()) {
 				_property.setStatus(parseStatusNone);
 				return;
+			}
+			if (_property.getStatus() != parseStatusPartial) {
+				if (Node<CLASS_TYPE>::m_multipleMin == 0) {
+					_property.setStatus(parseStatusPartial);
+					_property.setPositionStop(_property.getPositionStart());
+					TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "     ==> partial (minSize=0)");
+					return;
+				}
 			}
 			bool haveSubPartial = false;
 			for (int64_t iii=_property.m_subProperty.size()-1; iii>=0; --iii) {
