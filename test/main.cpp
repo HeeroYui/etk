@@ -16,6 +16,7 @@
 #include <etk/log.h>
 #include <etk/Color.h>
 #include <etk/RegExp.h>
+#include <etk/stdTools.h>
 #include <string>
 #include <regex>
 
@@ -345,6 +346,16 @@ void testRegExp() {
 			
 		}
 		
+	}
+	
+	{
+		const std::u32string data = utf8::convertUnicode("kjhkjhk");
+		const std::u32string data2(U"kjhkjhk");
+		const std::string data3("kjhkjhk");
+		const char32_t data5[] = U"kjhkjhk";
+		//std::basic_regex<char32_t, std::u32string> regexp(data2);
+		//std::basic_regex<char32_t> regexp((const char32_t*)data2.c_str());
+		std::basic_regex<char32_t> regexp2(data5);
 	}
 }
 

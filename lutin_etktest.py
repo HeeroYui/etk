@@ -17,6 +17,8 @@ def create(target):
 	
 	myModule.add_module_depend(['etk'])
 	
+	#myModule.compile_flags_XX(["-nostdinc++"]);
+	
 	# add the currrent module at the system
 	return myModule
 
