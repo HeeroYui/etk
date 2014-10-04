@@ -358,6 +358,302 @@ void testRegExp() {
 		std::basic_regex<char32_t> regexp2(data5);
 	}
 }
+// http://en.cppreference.com/w/cpp/regex/regex_traits/lookup_classname
+namespace std {
+	// specify char32_t traits
+	/**
+	 * @brief Describes aspects of a regular expression.
+	 *
+	 * A regular expression traits class that satisfies the requirements of
+	 * section [28.7].
+	 *
+	 * The class %regex is paramete	rized around a set of related types and
+	 * functions used to complete the definition of its semantics.  This class
+	 * satisfies the requirements of such a traits class.
+	 */
+	template<> struct regex_traits<char32_t> {
+		public:
+			typedef _Ch_type char32_t;
+			typedef std::basic_string<char32_t> string_type;
+			typedef std::locale locale_type;
+		private:
+			struct _RegexMask {
+				typedef typename std::ctype<char32_t>::mask _BaseType;
+				_BaseType _M_base;
+				unsigned char _M_extended;
+				static constexpr unsigned char _S_under = 1 << 0;
+				// FIXME: _S_blank should be removed in the future,
+				// when locale's complete.
+				static constexpr unsigned char _S_blank = 1 << 1;
+				static constexpr unsigned char _S_valid_mask = 0x3;
+				constexpr _RegexMask(_BaseType __base = 0, unsigned char __extended = 0) :
+				  _M_base(__base), _M_extended(__extended) {
+					
+				}
+				constexpr _RegexMask operator&(_RegexMask __other) const {
+					return _RegexMask(_M_base & __other._M_base, _M_extended & __other._M_extended);
+				}
+				constexpr _RegexMask operator|(_RegexMask __other) const {
+					return _RegexMask(_M_base | __other._M_base, _M_extended | __other._M_extended);
+				}
+				constexpr _RegexMask operator^(_RegexMask __other) const {
+					return _RegexMask(_M_base ^ __other._M_base, _M_extended ^ __other._M_extended);
+				}
+				constexpr _RegexMask operator~() const {
+					return _RegexMask(~_M_base, ~_M_extended);
+				}
+				_RegexMask& operator&=(_RegexMask __other) {
+					return *this = (*this) & __other;
+				}
+				_RegexMask& operator|=(_RegexMask __other) {
+					return *this = (*this) | __other;
+				}
+				_RegexMask& operator^=(_RegexMask __other) {
+					return *this = (*this) ^ __other;
+				}
+				constexpr bool operator==(_RegexMask __other) const {
+					return    (_M_extended & _S_valid_mask) == (__other._M_extended & _S_valid_mask)
+					       && _M_base == __other._M_base;
+				}
+				constexpr bool operator!=(_RegexMask __other) const {
+					return !((*this) == __other);
+				}
+			};
+		public:
+			typedef _RegexMask char_class_type;
+		public:
+			/**
+			 * @brief Constructs a default traits object.
+			 */
+			regex_traits() {
+				
+			}
+			/**
+			 * @brief Gives the length of a C-style string starting at @p __p.
+			 *
+			 * @param __p a pointer to the start of a character sequence.
+			 *
+			 * @returns the number of characters between @p *__p and the first
+			 * default-initialized value of type @p char32_t.  In other words, uses
+			 * the C-string algorithm for determining the length of a sequence of
+			 * characters.
+			 */
+			static std::size_t length(const char32_t* __p) {
+				return string_type::traits_type::length(__p);
+			}
+			
+			/**
+			 * @brief Performs the identity translation.
+			 *
+			 * @param __c A character to the locale-specific character set.
+			 *
+			 * @returns __c.
+			 */
+			char32_t translate(char32_t __c) const {
+				return __c;
+			}
+			
+			/**
+			 * @brief Translates a character into a case-insensitive equivalent.
+			 *
+			 * @param __c A character to the locale-specific character set.
+			 *
+			 * @returns the locale-specific lower-case equivalent of __c.
+			 * @throws std::bad_cast if the imbued locale does not support the ctype
+			 *		 facet.
+			 */
+			char32_t translate_nocase(char32_t __c) const {
+				typedef std::ctype<char32_t> __ctype_type;
+				const __ctype_type& __fctyp(use_facet<__ctype_type>(_M_locale));
+				return __fctyp.tolower(__c);
+			}
+			
+			/**
+			 * @brief Gets a sort key for a character sequence.
+			 *
+			 * @param __first beginning of the character sequence.
+			 * @param __last  one-past-the-end of the character sequence.
+			 *
+			 * Returns a sort key for the character sequence designated by the
+			 * iterator range [F1, F2) such that if the character sequence [G1, G2)
+			 * sorts before the character sequence [H1, H2) then
+			 * v.transform(G1, G2) < v.transform(H1, H2).
+			 *
+			 * What this really does is provide a more efficient way to compare a
+			 * string to multiple other strings in locales with fancy collation
+			 * rules and equivalence classes.
+			 *
+			 * @returns a locale-specific sort key equivalent to the input range.
+			 *
+			 * @throws std::bad_cast if the current locale does not have a collate
+			 *         facet.
+			 */
+			template<typename _Fwd_iter> string_type transform(_Fwd_iter __first, _Fwd_iter __last) const {
+				typedef std::collate<char32_t> __collate_type;
+				const __collate_type& __fclt(use_facet<__collate_type>(_M_locale));
+				string_type __s(__first, __last);
+				return __fclt.transform(__s.data(), __s.data() + __s.size());
+			}
+			
+			/**
+			 * @brief Gets a sort key for a character sequence, independent of case.
+			 *
+			 * @param __first beginning of the character sequence.
+			 * @param __last  one-past-the-end of the character sequence.
+			 *
+			 * Effects: if typeid(use_facet<collate<_Ch_type> >) ==
+			 * typeid(collate_byname<_Ch_type>) and the form of the sort key
+			 * returned by collate_byname<_Ch_type>::transform(__first, __last)
+			 * is known and can be converted into a primary sort key
+			 * then returns that key, otherwise returns an empty string.
+			 *
+			 * @todo Implement this function correctly.
+			 */
+			template<typename _Fwd_iter> string_type transform_primary(_Fwd_iter __first, _Fwd_iter __last) const {
+				// TODO : this is not entirely correct.
+				// This function requires extra support from the platform.
+				//
+				// Read http://gcc.gnu.org/ml/libstdc++/2013-09/msg00117.html and
+				// http://www.open-std.org/Jtc1/sc22/wg21/docs/papers/2003/n1429.htm
+				// for details.
+				typedef std::ctype<char32_t> __ctype_type;
+				const __ctype_type& __fctyp(use_facet<__ctype_type>(_M_locale));
+				std::vector<char32_t> __s(__first, __last);
+				__fctyp.tolower(__s.data(), __s.data() + __s.size());
+				return this->transform(__s.data(), __s.data() + __s.size());
+			}
+			
+			/**
+			 * @brief Gets a collation element by name.
+			 *
+			 * @param __first beginning of the collation element name.
+			 * @param __last  one-past-the-end of the collation element name.
+			 *
+			 * @returns a sequence of one or more characters that represents the
+			 * collating element consisting of the character sequence designated by
+			 * the iterator range [__first, __last). Returns an empty string if the
+			 * character sequence is not a valid collating element.
+			 */
+			template<typename _Fwd_iter> string_type lookup_collatename(_Fwd_iter __first, _Fwd_iter __last) const;
+			
+			/**
+			 * @brief Maps one or more characters to a named character
+			 *		classification.
+			 *
+			 * @param __first beginning of the character sequence.
+			 * @param __last  one-past-the-end of the character sequence.
+			 * @param __icase ignores the case of the classification name.
+			 *
+			 * @returns an unspecified value that represents the character
+			 * classification named by the character sequence designated by
+			 * the iterator range [__first, __last). If @p icase is true,
+			 * the returned mask identifies the classification regardless of
+			 * the case of the characters to be matched (for example,
+			 * [[:lower:]] is the same as [[:alpha:]]), otherwise a
+			 * case-dependent classification is returned.  The value
+			 * returned shall be independent of the case of the characters
+			 * in the character sequence. If the name is not recognized then
+			 * returns a value that compares equal to 0.
+			 *
+			 * At least the following names (or their wide-character equivalent) are
+			 * supported.
+			 * - d
+			 * - w
+			 * - s
+			 * - alnum
+			 * - alpha
+			 * - blank
+			 * - cntrl
+			 * - digit
+			 * - graph
+			 * - lower
+			 * - print
+			 * - punct
+			 * - space
+			 * - upper
+			 * - xdigit
+			 */
+			template<typename _Fwd_iter> char_class_type lookup_classname(_Fwd_iter __first, _Fwd_iter __last, bool __icase = false) const;
+			
+			/**
+			 * @brief Determines if @p c is a member of an identified class.
+			 *
+			 * @param __c a character.
+			 * @param __f a class type (as returned from lookup_classname).
+			 *
+			 * @returns true if the character @p __c is a member of the classification
+			 * represented by @p __f, false otherwise.
+			 *
+			 * @throws std::bad_cast if the current locale does not have a ctype
+			 *		 facet.
+			 */
+			bool isctype(_Ch_type __c, char_class_type __f) const;
+			
+			/**
+			 * @brief Converts a digit to an int.
+			 *
+			 * @param __ch	a character representing a digit.
+			 * @param __radix the radix if the numeric conversion (limited to 8, 10,
+			 *			  or 16).
+			 *
+			 * @returns the value represented by the digit __ch in base radix if the
+			 * character __ch is a valid digit in base radix; otherwise returns -1.
+			 */
+			int value(_Ch_type __ch, int __radix) const;
+			
+			/**
+			 * @brief Imbues the regex_traits object with a copy of a new locale.
+			 *
+			 * @param __loc A locale.
+			 *
+			 * @returns a copy of the previous locale in use by the regex_traits
+			 *		  object.
+			 *
+			 * @note Calling imbue with a different locale than the one currently in
+			 *	   use invalidates all cached data held by *this.
+			 */
+			locale_type imbue(locale_type __loc) {
+				std::swap(_M_locale, __loc);
+				return __loc;
+			}
+			
+			/**
+			 * @brief Gets a copy of the current locale in use by the regex_traits
+			 * object.
+			 */
+			locale_type getloc() const {
+				return _M_locale;
+			}
+		protected:
+			locale_type _M_locale;
+	};
+
+};
+void testRegExp2() {
+	std::u32string lines[] = {U"Roses are #ff0000",
+	                          U"violets are #0000ff",
+	                          U"all of my base are belong to you"};
+	
+	std::basic_regex<char32_t> color_regex(U"a");//([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})");
+	
+	for (const auto &line : lines) {
+		std::cout << "search : " << std::regex_search(line, color_regex) << '\n';
+	}
+	std::match_results<std::u32string::const_iterator> color_match;
+	for (const auto &line : lines) {
+		std::regex_search(line, color_match, color_regex);
+		std::cout << "matches for \n";
+		/*
+		for (size_t i = 0; i < color_match.size(); ++i) {
+			std::ssub_match sub_match = color_match[i];
+			std::string sub_match_str = sub_match.str();
+			std::cout << i << ": " << sub_match_str << '\n';
+		}
+		*/
+	}
+};
+
+
 
 int main(int argc, const char *argv[]) {
 	// the only one init for etk:
@@ -370,7 +666,8 @@ int main(int argc, const char *argv[]) {
 	////testDimension();
 	////testArchive();
 	//testColor();
-	testRegExp();
+	//testRegExp();
+	testRegExp2();
 	return 0;
 }
 
