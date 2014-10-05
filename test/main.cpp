@@ -358,6 +358,7 @@ void testRegExp() {
 		std::basic_regex<char32_t> regexp2(data5);
 	}
 }
+#if 0
 // http://en.cppreference.com/w/cpp/regex/regex_traits/lookup_classname
 namespace std {
 	// specify char32_t traits
@@ -627,15 +628,75 @@ namespace std {
 		protected:
 			locale_type _M_locale;
 	};
-
 };
+#endif
+
+struct unicode_traits : std::regex_traits<char32_t> {
+	static std::map<char32_t, int> data;
+	int value(char32_t ch, int radix ) const {
+		char32_t up = std::toupper(ch, getloc());
+		return data.count(up) ? data[up] : regex_traits::value(ch, radix);
+	}
+	bool isctype(char32_t __c, char_class_type __f) const {
+		TK_ERROR("plop 10");
+		bool plop = std::regex_traits<char32_t>::isctype(__c, __f);
+		TK_ERROR("plop 11");
+		return plop;
+	}
+	char32_t translate_nocase(char32_t __c) const {
+		TK_ERROR("plop 20");
+		typedef std::ctype<char32_t> __ctype_type;
+		TK_ERROR("plop 21");
+		const __ctype_type& __fctyp(std::use_facet<__ctype_type>(_M_locale));
+		TK_ERROR("plop 22");
+		char32_t plop = __fctyp.tolower(__c);
+		TK_ERROR("plop 23");
+		return plop;
+	}
+	
+	template<typename _Fwd_iter> std::u32string transform(_Fwd_iter __first, _Fwd_iter __last) const {
+		TK_ERROR("plop 30");
+		typedef std::collate<char32_t> __collate_type;
+		TK_ERROR("plop 31");
+		const __collate_type& __fclt(std::use_facet<__collate_type>(_M_locale));
+		TK_ERROR("plop 32");
+		std::u32string __s(__first, __last);
+		TK_ERROR("plop 33");
+		std::u32string plop = __fclt.transform(__s.data(), __s.data() + __s.size());
+		TK_ERROR("plop 34");
+		return plop;
+	}
+};
+std::map<char32_t, int> unicode_traits::data = {{U'〇',0}, {U'一',1}, {U'二',2},
+                                                {U'三',3}, {U'四',4}, {U'五',5},
+                                                {U'六',6}, {U'七',7}, {U'八',8},
+                                                {U'九',9}, {U'Ａ',10}, {U'Ｂ',11},
+                                                {U'Ｃ',12}, {U'Ｄ',13}, {U'Ｅ',14},
+                                                {U'Ｆ',15}};
+
+/*
+int main() {
+	std::locale::global(std::locale("ja_JP.utf8"));
+	std::wcout.sync_with_stdio(false);
+	std::wcout.imbue(std::locale());
+	
+	std::wstring in = L"�";
+	
+	if(std::regex_match(in, std::wregex(L"\\u98a8")))
+		std::wcout << "\\u98a8 matched " << in << '\n';
+	
+	if(std::regex_match(in, std::basic_regex<wchar_t, jnum_traits>(L"\\u]kAk")))
+		std::wcout << L"\\u]kAk with custom traits matched " << in << '\n';
+}
+*/
+
 void testRegExp2() {
 	std::u32string lines[] = {U"Roses are #ff0000",
 	                          U"violets are #0000ff",
 	                          U"all of my base are belong to you"};
-	
-	std::basic_regex<char32_t> color_regex(U"a");//([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})");
-	
+	//std::locale::global(std::locale("fr_FR.utf8"));
+	//std::basic_regex<char32_t, unicode_traits> color_regex(U"a");//([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})");
+	#if 0
 	for (const auto &line : lines) {
 		std::cout << "search : " << std::regex_search(line, color_regex) << '\n';
 	}
@@ -651,6 +712,7 @@ void testRegExp2() {
 		}
 		*/
 	}
+	#endif
 };
 
 
