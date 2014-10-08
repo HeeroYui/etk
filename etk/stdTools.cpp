@@ -237,6 +237,76 @@ std::u32string utf8::convertUnicode(const std::string& _input) {
 	return U"TODO ... std::u32string utf8::convertUnicode(const std::string& _input)";
 }
 
+utf8::iterator& utf8::iterator::operator++ () {
+	m_value = u32char::Null;
+	if (m_current <= 0) {
+		m_current = 0;
+		return *this;
+	}
+	if (m_data != nullptr) {
+		if (m_current < (int64_t)m_data->size() ) {
+			int8_t nbChar = utf8::theoricLen((*m_data)[m_current]);
+			if (nbChar != 0) {
+				m_current+=nbChar;
+			} else {
+				m_current++;
+			}
+		}
+		if (m_current >= (int64_t)m_data->size()) {
+			m_current = m_data->size();
+		}
+	}
+	return *this;
+}
+
+utf8::iterator& utf8::iterator::operator-- () {
+	m_value = u32char::Null;
+	if (m_data != nullptr) {
+		if (m_current > 0) {
+			int32_t iii = -1;
+			while(    utf8::theoricFirst((*m_data)[m_current+iii]) == false
+			       && iii >= -6
+			       && m_current-iii>0) {
+				--iii;
+			};
+			m_current += iii;
+		} else {
+			m_current = 0;
+		}
+	} else {
+		m_current = 0;
+	}
+	if (m_current < 0) {
+		m_current = 0;
+	}
+	return *this;
+}
+
+char32_t utf8::iterator::operator* () {
+	if (m_value != u32char::Null) {
+		return m_value;
+	}
+	if (m_data == nullptr) {
+		TK_ERROR("request an element that iterator not link");
+		return m_value;
+	}
+	if (    m_current < 0
+	     || m_current >= (int64_t)m_data->size()) {
+		TK_ERROR("request an element out of bounding !!! 0 <= " << m_current << " < " << m_data->size());
+		return m_value;
+	}
+	char tmpVal[5];
+	memset(tmpVal, 0, sizeof(tmpVal));
+	tmpVal[0] = (*m_data)[m_current];
+	int8_t nbChar = utf8::theoricLen(tmpVal[0]);
+	for (int32_t iii=1; iii<nbChar && m_current+iii<(int64_t)m_data->size(); ++iii) {
+		tmpVal[iii] = (*m_data)[m_current+iii];
+	}
+	// transform ...
+	m_value = utf8::convertChar32(tmpVal);
+	return m_value;
+}
+
 
 #undef __class__
 #define __class__ "etk"

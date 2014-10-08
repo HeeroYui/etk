@@ -16,7 +16,6 @@ def create(target):
 		'etk/debug.cpp',
 		'etk/stdTools.cpp',
 		'etk/log.cpp',
-		'etk/RegExp.cpp',
 		'etk/tool.cpp',
 		'etk/Noise.cpp',
 		'etk/Color.cpp',

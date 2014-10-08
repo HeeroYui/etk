@@ -38,8 +38,6 @@ set(src_files
 	etk/stdTools.h
 	etk/Stream.cpp
 	etk/Stream.h
-	etk/RegExp.cpp
-	etk/RegExp.h
 	etk/tool.cpp
 	etk/tool.h
 	etk/Noise.cpp

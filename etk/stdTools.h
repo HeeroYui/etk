@@ -60,6 +60,292 @@ namespace utf8 {
 	
 	char32_t convertChar32(const char* _input);
 	std::u32string convertUnicode(const std::string& _input);
+	
+	class iterator {
+		private:
+			char32_t m_value; //!< store vlue to prevent multiple calcule of getting the data
+			std::string* m_data; //!< Pointer on the current Buffer
+			int64_t m_current; //!< curent Id in the Buffer
+		public:
+			iterator():
+			  m_value(u32char::Null),
+			  m_data(nullptr),
+			  m_current(0) {
+				// nothing to do ...
+			};
+			iterator(std::string& _str) :
+			  m_value(u32char::Null),
+			  m_data(&_str),
+			  m_current(0) {
+				// nothing to do ...
+			};
+			iterator(std::string& _str, const std::string::iterator& _pos) :
+			  m_value(u32char::Null),
+			  m_data(&_str),
+			  m_current(0) {
+				if (m_data != nullptr) {
+					m_current = std::distance(m_data->begin(), _pos);
+				}
+			};
+			iterator(std::string& _str, size_t _pos) :
+			  m_value(u32char::Null),
+			  m_data(&_str),
+			  m_current(0) {
+				if (m_data != nullptr) {
+					if (_pos > m_data->size()) {
+						m_current = m_data->size();
+					} else {
+						m_current = _pos;
+					}
+				}
+			};
+			iterator(std::string* _str, const std::string::iterator& _pos) :
+			  m_value(u32char::Null),
+			  m_data(_str),
+			  m_current(0) {
+				if (m_data != nullptr) {
+					m_current = std::distance(m_data->begin(), _pos);
+				}
+			};
+			iterator(std::string* _str, size_t _pos) :
+			  m_value(u32char::Null),
+			  m_data(_str),
+			  m_current(0) {
+				if (m_data != nullptr) {
+					if (_pos > m_data->size()) {
+						m_current = m_data->size();
+					} else {
+						m_current = _pos;
+					}
+				}
+			};
+			/**
+			 * @brief Recopy constructor.
+			 * @param[in] _obj The Iterator that might be copy
+			 */
+			iterator(const iterator& _obj):
+			  m_value(u32char::Null),
+			  m_data(_obj.m_data),
+			  m_current(_obj.m_current) {
+				// nothing to do ...
+			};
+			/**
+			 * @brief Asignation operator.
+			 * @param[in] _otherIterator The Iterator that might be copy
+			 * @return reference on the curent Iterator
+			 */
+			iterator& operator=(const iterator & _obj) {
+				m_current = _obj.m_current;
+				m_data = _obj.m_data;
+				m_value = u32char::Null;
+				return *this;
+			};
+			/**
+			 * @brief Basic destructor
+			 */
+			virtual ~iterator() {
+				m_current = 0;
+				m_data = nullptr;
+				m_value = u32char::Null;
+			};
+			/**
+			 * @brief basic boolean cast
+			 * @return true if the element is present in buffer
+			 */
+			operator size_t () const {
+				if (m_data == nullptr) {
+					return 0;
+				}
+				if (m_current < 0) {
+					return 0;
+				}
+				if (m_current > (int64_t)m_data->size()) {
+					return m_data->size();
+				}
+				return (size_t)m_current;
+			};
+			/**
+			 * @brief Incremental operator
+			 * @return Reference on the current iterator incremented
+			 */
+			iterator& operator++ ();
+			/**
+			 * @brief Decremental operator
+			 * @return Reference on the current iterator decremented
+			 */
+			iterator& operator-- ();
+			/**
+			 * @brief Incremental operator
+			 * @return Reference on a new iterator and increment the other one
+			 */
+			iterator operator++ (int32_t) {
+				iterator it(*this);
+				++(*this);
+				return it;
+			};
+			/**
+			 * @brief Decremental operator
+			 * @return Reference on a new iterator and decrement the other one
+			 */
+			iterator operator-- (int32_t) {
+				iterator it(*this);
+				--(*this);
+				return it;
+			};
+			/**
+			 * @brief egality iterator
+			 * @return true if the iterator is identical pos
+			 */
+			bool operator== (const iterator& _obj) const {
+				if (    m_current == _obj.m_current
+				     && m_data == _obj.m_data) {
+					return true;
+				}
+				return false;
+			};
+			/**
+			 * @brief egality iterator
+			 * @return true if the iterator is identical pos
+			 */
+			bool operator!= (const iterator& _obj) const {
+				if (    m_current != _obj.m_current
+				     || m_data != _obj.m_data) {
+					return true;
+				}
+				return false;
+			};
+			/**
+			 * @brief <= iterator
+			 * @return true if the iterator is identical pos
+			 */
+			bool operator<= (const iterator& _obj) const {
+				if (m_data != _obj.m_data) {
+					return false;
+				}
+				if (m_current <= _obj.m_current) {
+					return true;
+				}
+				return false;
+			};
+			/**
+			 * @brief >= iterator
+			 * @return true if the iterator is identical pos
+			 */
+			bool operator>= (const iterator& _obj) const {
+				if (m_data != _obj.m_data) {
+					return false;
+				}
+				if (m_current >= _obj.m_current) {
+					return true;
+				}
+				return false;
+			};
+			/**
+			 * @brief < iterator
+			 * @return true if the iterator is identical pos
+			 */
+			bool operator< (const iterator& _obj) const {
+				if (m_data != _obj.m_data) {
+					return false;
+				}
+				if (m_current < _obj.m_current) {
+					return true;
+				}
+				return false;
+			};
+			/**
+			 * @brief > iterator
+			 * @return true if the iterator is identical pos
+			 */
+			bool operator> (const iterator& _obj) const {
+				if (m_data != _obj.m_data) {
+					return false;
+				}
+				if (m_current > _obj.m_current) {
+					return true;
+				}
+				return false;
+			};
+			/**
+			 * @brief Get the value on the current element
+			 * @return The request element value
+			 */
+			char32_t operator* ();
+			/**
+			 * @brief Get the position in the buffer
+			 * @return The requested position.
+			 */
+			size_t getPos() const {
+				if (m_data == nullptr) {
+					return 0;
+				}
+				if (m_current < 0) {
+					return 0;
+				}
+				if (m_current >= (int64_t)m_data->size()) {
+					return m_data->size()-1;
+				}
+				return (size_t)m_current;
+			};
+			/**
+			 * @brief move the element position
+			 * @return a new iterator.
+			 */
+			iterator operator+ (const int64_t _val) const {
+				iterator tmpp(*this);
+				for (int64_t iii=0; iii<_val; ++iii) {
+					++tmpp;
+				}
+				return tmpp;
+			};
+			iterator operator+ (const int32_t _val) const {
+				iterator tmpp(*this);
+				for (int64_t iii=0; iii<_val; ++iii) {
+					++tmpp;
+				}
+				return tmpp;
+			};
+			iterator operator+ (const size_t _val) const {
+				iterator tmpp(*this);
+				for (int64_t iii=0; iii<(int64_t)_val; ++iii) {
+					++tmpp;
+				}
+				return tmpp;
+			};
+			/**
+			 * @brief move the element position
+			 * @return a new iterator.
+			 */
+			iterator operator- (const int64_t _val) const {
+				iterator tmpp(*this);
+				for (int64_t iii=0; iii<_val; ++iii) {
+					--tmpp;
+				}
+				return tmpp;
+			};
+			iterator operator- (const int32_t _val) const {
+				iterator tmpp(*this);
+				for (int64_t iii=0; iii<_val; ++iii) {
+					--tmpp;
+				}
+				return tmpp;
+			};
+			iterator operator- (const size_t _val) const {
+				iterator tmpp(*this);
+				for (int64_t iii=0; iii<(int64_t)_val; ++iii) {
+					--tmpp;
+				}
+				return tmpp;
+			};
+			/*
+			iterator begin() const {
+				return iterator(m_data);
+			}
+			iterator end() const {
+				return --iterator(m_data, m_data.end());
+			}
+			*/
+	};
 };
 
 namespace std {
