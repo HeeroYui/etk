@@ -28,13 +28,6 @@ def create(target):
 		'etk/archive/Archive.cpp',
 		'etk/archive/Zip.cpp'])
 	
-	if target.name=="Windows":
-		myModule.add_src_file('etk/os/Mutex.Windows.cpp')
-		myModule.add_src_file('etk/os/Semaphore.Windows.cpp')
-	else:
-		myModule.add_src_file('etk/os/Mutex.Generic.cpp')
-		myModule.add_src_file('etk/os/Semaphore.Generic.cpp')
-	
 	if target.name=="IOs":
 		myModule.add_src_file('etk/logIOs.m')
 
