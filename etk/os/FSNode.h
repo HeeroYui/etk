@@ -121,8 +121,7 @@ namespace etk {
 	/**
 	 * @brief FS node is for File system IO access This class is independent of the OS, If you acces to a file in windows, it might generate the right loke Linux (it is important to know that windows right is lighter than linux)
 	 */
-	class FSNode
-	{
+	class FSNode {
 		private:
 			std::string m_userFileName; //!< the name requested by the User
 			std::string m_systemFileName; //!< the compleate filename for the system
