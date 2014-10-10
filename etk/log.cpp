@@ -78,6 +78,10 @@ enum etk::log::level& getDefaultLevel() {
 	return g_val;
 }
 
+int32_t& getsizeLog() {
+	static int32_t g_val = 5;
+	return g_val;
+}
 static std::vector<std::pair<std::string, enum etk::log::level>>& getList() {
 	static std::vector<std::pair<std::string, enum etk::log::level>> g_val;
 	return g_val;
@@ -90,6 +94,9 @@ int32_t etk::log::registerInstance(const std::string& _name) {
 		}
 	}
 	getList().push_back(std::make_pair(_name, getDefaultLevel()));
+	if (_name.size() >= getsizeLog()) {
+		getsizeLog() = _name.size()+1;
+	}
 	//std::cout << "register log : '" << _name << "'=" << getList().size()-1 << std::endl;
 	return getList().size()-1;
 }
@@ -301,7 +308,7 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 		int32_t len = strlen(handle);
 		strcat(pointer, getList()[_id].first.c_str());
 		pointer = handle+strlen(handle);
-		while (strlen(handle) - len < 8) {
+		while (strlen(handle) - len < getsizeLog()) {
 			*pointer++ = ' ';
 			*pointer = '\0';
 		}

@@ -709,6 +709,12 @@ namespace etk {
 	 * @return all the data of the file in a string
 	 */
 	std::string FSNodeReadAllData(const std::string& _path);
+	/**
+	 * @brief get the system name of the current path
+	 * @param[in] _path "DATA:xxx" etk file name.
+	 * @return return real file name "/aaa/bbb/ccc/xxx"
+	 */
+	std::string FSNodeGetRealName(const std::string& _path);
 };
 
 #endif

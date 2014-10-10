@@ -2034,3 +2034,8 @@ std::string etk::FSNodeReadAllData(const std::string& _path) {
 	node.fileClose();
 	return output;
 }
+
+std::string etk::FSNodeGetRealName(const std::string& _path) {
+	etk::FSNode node(_path);
+	return node.getFileSystemName();
+}
