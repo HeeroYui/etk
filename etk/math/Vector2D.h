@@ -177,6 +177,19 @@ namespace etk {
 				return tmpp;
 			}
 			/* ****************************************************
+			 *    / operator
+			 *****************************************************/
+			const Vector2D<T>& operator/= (const Vector2D<T>& _obj) {
+				m_floats[0] /= _obj.m_floats[0];
+				m_floats[1] /= _obj.m_floats[1];
+				return *this;
+			}
+			const Vector2D<T>& operator/= (const T _val) {
+				m_floats[0] /= _val;
+				m_floats[1] /= _val;
+				return *this;
+			}
+			/* ****************************************************
 			 *    ++ operator
 			 *****************************************************/
 			Vector2D<T>& operator++() {
@@ -240,8 +253,9 @@ namespace etk {
 			 * @brief Normalize this vector 
 			 * x^2 + y^2 + z^2 = 1
 			 */
-			Vector3D<T>& normalize() {
-				return *this /= length();
+			Vector2D<T>& normalize() {
+				*this /= length();
+				return *this;
 			}
 			/**
 			 * @brief Return a normalized version of this vector
@@ -373,6 +387,8 @@ inline vec2 vec2ClipInt32(const vec2& _val) {
 inline vec2 vec2ClipInt64(const vec2& _val) {
 	return vec2((int64_t)_val.x(), (int64_t)_val.y());
 }
+
+vec2 vec2rotate(const vec2& _val, const vec2& _point, float _angle);
 
 namespace etk {
 	std::ostream& operator <<(std::ostream& _os, const std::vector<vec2 >& _obj);

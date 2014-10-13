@@ -85,6 +85,24 @@ std::ostream& etk::operator <<(std::ostream& _os, const std::vector<bvec2 >& _ob
 	return _os;
 }
 
+vec2 vec2rotate(const vec2& _val, const vec2& _point, float _angle) {
+	vec2 out = _val;
+	float sinAngle = std::sin(_angle);
+	float cosAngle = std::cos(_angle);
+	if (_point == vec2(0,0)) {
+		float tempX = out.x() * cosAngle - out.y() * sinAngle;
+		float xVal = out.x();
+		out.setValue(tempX,
+		             out.y() * cosAngle + xVal * sinAngle);
+	} else {
+		float tempX = out.x() - _point.x();
+		float tempY = out.y() - _point.y();
+		out.setValue(tempX * cosAngle - tempY * sinAngle + _point.x(),
+		             tempY * cosAngle + tempX * sinAngle + _point.y());
+	}
+	return out;
+}
+
 namespace etk {
 	template<> Vector2D<bool>::operator std::string() const {
 		std::string str;
