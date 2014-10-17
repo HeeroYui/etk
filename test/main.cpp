@@ -179,15 +179,6 @@ void testColor() {
 	TK_INFO("==> test of Color (STOP)");
 }
 
-void testRegExpSingle(const std::string& _expression, const std::string& _search) {
-	etk::RegExp<std::string> expression(_expression);
-	TK_INFO("Parse RegEx: " << expression.getRegExDecorated());
-	TK_INFO("         IN: " << etk::regexp::autoStr(_search));
-	if (expression.parse(_search, 0, _search.size()) == true) {
-		TK_INFO("    match [" << expression.start() << ".." << expression.stop() << "] ");
-		TK_INFO("        ==> '" << etk::regexp::autoStr(std::string(_search, expression.start(), expression.stop() - expression.start())) << "'");
-	}
-}
 
 int main(int argc, const char *argv[]) {
 	// the only one init for etk:
