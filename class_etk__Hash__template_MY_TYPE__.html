@@ -15,6 +15,8 @@
 <ul class="niveau1">
 	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
 <ul class="niveau2">
+	<li><a href="namespace_etk__log.html">log</a>
+	</li>
 	<li><a href="namespace_etk__color.html">color</a>
 	</li>
 	<li><a href="namespace_etk__tool.html">tool</a>
@@ -30,8 +32,6 @@
 	<li><a href="namespace_utf8.html">utf8</a>
 	</li>
 	<li><a href="namespace_std.html">std</a>
-	</li>
-	<li><a href="namespace_debug.html">debug</a>
 	</li>
 </ul>
 			</div>
@@ -52,7 +52,7 @@
 		</div>
 	</div>
 	<div class="container" id="content">
-<h1>class: etk::Hash</h1><hr/><h2>Description:</h2>
+<h1>class: etk::template&lt;MY_TYPE&gt Hash</h1><hr/><h2>Description:</h2>
 Hash table tamplate is a simple classical hash interface.
 A hash table is a equivalent of the dictionary in python, this is a
 simple interfaace between a name and a value:
@@ -77,16 +77,12 @@ myValue.<span class="code-function-name">add(</span><span class="code-text-quote
 <span class="code-comment">//Clean all the table:
 </span>myValue.<span class="code-function-name">clear(</span>);
 </pre><br/><br/>
-<h2>Constructor and Destructor:</h2>
-<pre>
-+                                 <a class="code-function" href="#8269">Hash</a>         (<span class="code-type" >int32_t</span> <span class="code-argument">_count</span>);<br/>+                                 <a class="code-function" href="#8271">~Hash</a>        (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
-<br/>
 <h2>Synopsis:</h2>
 <pre>
-+ <span class="code-type" >void</span>                            <a class="code-function" href="#8273">clear</a>        (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >int64_t</span>                         <a class="code-function" href="#8275">getId</a>        (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                            <a class="code-function" href="#8277">exist</a>        (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_name</span>) <span class="code-storage-keyword">const</span>;<br/>+ MY_TYPE &                       <a class="code-function" href="#8279">get</a>          (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>) <span class="code-storage-keyword">const</span>;<br/>+ MY_TYPE &                       <a class="code-function" href="#8281">operator [ ]</a> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>);<br/>+ <span class="code-storage-keyword">const</span> MY_TYPE &                 <a class="code-function" href="#8283">operator [ ]</a> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >void</span>                            <a class="code-function" href="#8285">add</a>          (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>,<br/>                                                <span class="code-storage-keyword">const</span> MY_TYPE & <span class="code-argument">_value</span>);<br/>+ <span class="code-type" >void</span>                            <a class="code-function" href="#8288">set</a>          (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>,<br/>                                                <span class="code-storage-keyword">const</span> MY_TYPE & <span class="code-argument">_value</span>);<br/>+ <span class="code-type" >void</span>                            <a class="code-function" href="#8291">remove</a>       (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>);<br/>+ <span class="code-type" >int32_t</span>                         <a class="code-function" href="#8293">size</a>         (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ MY_TYPE &                       <a class="code-function" href="#8295">operator [ ]</a> (size_t <span class="code-argument">_pos</span>);<br/>+ <span class="code-storage-keyword">const</span> MY_TYPE &                 <a class="code-function" href="#8297">operator [ ]</a> (size_t <span class="code-argument">_pos</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> &             <a class="code-function" href="#8299">getKey</a>       (size_t <span class="code-argument">_pos</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> MY_TYPE &                 <a class="code-function" href="#8301">getValue</a>     (size_t <span class="code-argument">_pos</span>) <span class="code-storage-keyword">const</span>;<br/>+ MY_TYPE &                       <a class="code-function" href="#8303">getValue</a>     (size_t <span class="code-argument">_pos</span>);<br/></pre>
++                                 <a class="code-function" href="#6237">Hash</a>         (<span class="code-type" >int32_t</span> <span class="code-argument">_count</span>);<br/>+                                 <a class="code-function" href="#6239">~Hash</a>        ();<br/>+ <span class="code-type" >void</span>                            <a class="code-function" href="#6240">clear</a>        ();<br/>+ <span class="code-type" >int64_t</span>                         <a class="code-function" href="#6241">getId</a>        (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                            <a class="code-function" href="#6243">exist</a>        (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_name</span>) <span class="code-storage-keyword">const</span>;<br/>+ MY_TYPE &                       <a class="code-function" href="#6245">get</a>          (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>) <span class="code-storage-keyword">const</span>;<br/>+ MY_TYPE &                       <a class="code-function" href="#6247">operator [ ]</a> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>);<br/>+ <span class="code-storage-keyword">const</span> MY_TYPE &                 <a class="code-function" href="#6249">operator [ ]</a> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >void</span>                            <a class="code-function" href="#6251">add</a>          (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>,<br/>                                                <span class="code-storage-keyword">const</span> MY_TYPE & <span class="code-argument">_value</span>);<br/>+ <span class="code-type" >void</span>                            <a class="code-function" href="#6254">set</a>          (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>,<br/>                                                <span class="code-storage-keyword">const</span> MY_TYPE & <span class="code-argument">_value</span>);<br/>+ <span class="code-type" >void</span>                            <a class="code-function" href="#6257">remove</a>       (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>);<br/>+ <span class="code-type" >int32_t</span>                         <a class="code-function" href="#6259">size</a>         () <span class="code-storage-keyword">const</span>;<br/>+ MY_TYPE &                       <a class="code-function" href="#6260">operator [ ]</a> (size_t <span class="code-argument">_pos</span>);<br/>+ <span class="code-storage-keyword">const</span> MY_TYPE &                 <a class="code-function" href="#6262">operator [ ]</a> (size_t <span class="code-argument">_pos</span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> &             <a class="code-function" href="#6264">getKey</a>       (size_t <span class="code-argument">_pos</span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::string&gt;        <a class="code-function" href="#6266">getKeys</a>      () <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-storage-keyword">const</span> MY_TYPE &                 <a class="code-function" href="#6267">getValue</a>     (size_t <span class="code-argument">_pos</span>) <span class="code-storage-keyword">const</span>;<br/>+ MY_TYPE &                       <a class="code-function" href="#6269">getValue</a>     (size_t <span class="code-argument">_pos</span>);<br/></pre>
 <br/>
 <h2>Detail:</h2>
-<a id="8269"/><a id="8271"/><h3>Hash</h3><pre>
+<a id="6237"/><a id="6239"/><h3>Hash</h3><pre>
 +  <span class="code-function">Hash</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_count</span>);<br/></pre>
 Contructor of the Hach table.<br/><ul>
 <table class="parameter-list">
@@ -96,17 +92,17 @@ Contructor of the Hach table.<br/><ul>
 
 <br/>
 <hr/>
-<a id="8273"/><h3>~Hash</h3><pre>
-+  <span class="code-function">~Hash</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<a id="6240"/><h3>~Hash</h3><pre>
++  <span class="code-function">~Hash</span> ();<br/></pre>
 Destructor of the Hash table(clear all element in the table)<br/>
 <br/>
 <hr/>
-<a id="8275"/><h3>clear</h3><pre>
-+ <span class="code-type" >void</span> <span class="code-function">clear</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<a id="6241"/><h3>clear</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">clear</span> ();<br/></pre>
 Remove all entry in the Hash table.<br/><b>Note:</b> It does not delete pointer if your value is a pointer type...<br/> 
 <br/>
 <hr/>
-<a id="8277"/><h3>getId</h3><pre>
+<a id="6243"/><h3>getId</h3><pre>
 + <span class="code-type" >int64_t</span> <span class="code-function">getId</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
 Get a current element ID in the Hash table<br/><ul>
 <table class="parameter-list">
@@ -116,7 +112,7 @@ Get a current element ID in the Hash table<br/><ul>
 
 <br/>
 <hr/>
-<a id="8279"/><h3>exist</h3><pre>
+<a id="6245"/><h3>exist</h3><pre>
 + <span class="code-type" >bool</span> <span class="code-function">exist</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_name</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
 Check if an element exist or not<br/><ul>
 <table class="parameter-list">
@@ -126,7 +122,7 @@ Check if an element exist or not<br/><ul>
 
 <br/>
 <hr/>
-<a id="8281"/><h3>get</h3><pre>
+<a id="6247"/><h3>get</h3><pre>
 + MY_TYPE & <span class="code-function">get</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
 Get a current element in the hash table, with his name.<br/><ul>
 <table class="parameter-list">
@@ -136,7 +132,7 @@ Get a current element in the hash table, with his name.<br/><ul>
 
 <br/>
 <hr/>
-<a id="8283"/><a id="8285"/><h3>operator [ ]</h3><pre>
+<a id="6249"/><a id="6251"/><h3>operator [ ]</h3><pre>
 + MY_TYPE & <span class="code-function">operator [ ]</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>);<br/>+ <span class="code-storage-keyword">const</span> MY_TYPE & <span class="code-function">operator [ ]</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
 Get an copy Element an a special position<br/><ul>
 <table class="parameter-list">
@@ -146,7 +142,7 @@ Get an copy Element an a special position<br/><ul>
 
 <br/>
 <hr/>
-<a id="8288"/><a id="8291"/><h3>add</h3><pre>
+<a id="6254"/><a id="6257"/><h3>add</h3><pre>
 + <span class="code-type" >void</span> <span class="code-function">add</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>,<br/>            <span class="code-storage-keyword">const</span> MY_TYPE & <span class="code-argument">_value</span>);<br/>+ <span class="code-type" >void</span> <span class="code-function">set</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>,<br/>            <span class="code-storage-keyword">const</span> MY_TYPE & <span class="code-argument">_value</span>);<br/></pre>
 Add an element OR set an element value<br/><b>Note:</b> add and set is the same function.<br/> <ul>
 <table class="parameter-list">
@@ -157,7 +153,7 @@ Add an element OR set an element value<br/><b>Note:</b> add and set is the same 
 
 <br/>
 <hr/>
-<a id="8293"/><h3>remove</h3><pre>
+<a id="6259"/><h3>remove</h3><pre>
 + <span class="code-type" >void</span> <span class="code-function">remove</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>);<br/></pre>
 Remove an element in the hash table.<br/><ul>
 <table class="parameter-list">
@@ -167,8 +163,8 @@ Remove an element in the hash table.<br/><ul>
 
 <br/>
 <hr/>
-<a id="8295"/><h3>size</h3><pre>
-+ <span class="code-type" >int32_t</span> <span class="code-function">size</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+<a id="6260"/><h3>size</h3><pre>
++ <span class="code-type" >int32_t</span> <span class="code-function">size</span> () <span class="code-storage-keyword">const</span>;<br/></pre>
 Get the number of element in the hash table<br/><ul>
 <table class="parameter-list">
 <tr><td><b>Return: </b></td><td></td><td>number of elements</td></tr></table>
@@ -176,7 +172,7 @@ Get the number of element in the hash table<br/><ul>
 
 <br/>
 <hr/>
-<a id="8297"/><a id="8299"/><h3>operator [ ]</h3><pre>
+<a id="6262"/><a id="6264"/><h3>operator [ ]</h3><pre>
 + MY_TYPE & <span class="code-function">operator [ ]</span> (size_t <span class="code-argument">_pos</span>);<br/>+ <span class="code-storage-keyword">const</span> MY_TYPE & <span class="code-function">operator [ ]</span> (size_t <span class="code-argument">_pos</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
 get an element with his id.<br/><b>Note:</b> this is a dangerous use of the hash table. Maybe you will use a simple vector.<br/> <ul>
 <table class="parameter-list">
@@ -186,7 +182,7 @@ get an element with his id.<br/><b>Note:</b> this is a dangerous use of the hash
 
 <br/>
 <hr/>
-<a id="8301"/><h3>getKey</h3><pre>
+<a id="6266"/><h3>getKey</h3><pre>
 + <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-function">getKey</span> (size_t <span class="code-argument">_pos</span>) <span class="code-storage-keyword">const</span>;<br/></pre>
 Get the name of the element at a specific position.<br/><ul>
 <table class="parameter-list">
@@ -196,7 +192,16 @@ Get the name of the element at a specific position.<br/><ul>
 
 <br/>
 <hr/>
-<a id="8303"/><h3>getValue</h3><pre>
+<a id="6267"/><h3>getKeys</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::string&gt; <span class="code-function">getKeys</span> () <span class="code-storage-keyword">const</span>;<br/></pre>
+Get all the element name (keys).<br/><ul>
+<table class="parameter-list">
+<tr><td><b>Return: </b></td><td></td><td>a vector of all name (key).</td></tr></table>
+</ul>
+
+<br/>
+<hr/>
+<a id="6269"/><h3>getValue</h3><pre>
 + <span class="code-storage-keyword">const</span> MY_TYPE & <span class="code-function">getValue</span> (size_t <span class="code-argument">_pos</span>) <span class="code-storage-keyword">const</span>;<br/>+ MY_TYPE & <span class="code-function">getValue</span> (size_t <span class="code-argument">_pos</span>);<br/></pre>
 Get a value of the hash table at a specific position.<br/><ul>
 <table class="parameter-list">

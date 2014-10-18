@@ -15,6 +15,8 @@
 <ul class="niveau1">
 	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
 <ul class="niveau2">
+	<li><a href="namespace_etk__log.html">log</a>
+	</li>
 	<li><a href="namespace_etk__color.html">color</a>
 	</li>
 	<li><a href="namespace_etk__tool.html">tool</a>
@@ -30,8 +32,6 @@
 	<li><a href="namespace_utf8.html">utf8</a>
 	</li>
 	<li><a href="namespace_std.html">std</a>
-	</li>
-	<li><a href="namespace_debug.html">debug</a>
 	</li>
 </ul>
 			</div>
@@ -52,26 +52,35 @@
 		</div>
 	</div>
 	<div class="container" id="content">
-<h1>class: etk::elementPos_ts</h1><hr/><h2>Description:</h2>
-
-<br/><br/>
-<h2>Associated Namespace:</h2><ul>
-<a href="class_etk__elementPos_ts.html">elementPos_ts</a></ul>
+<h1>class: etk::template&lt;MY_TYPE&gt HashData</h1><hr/><h2>Description:</h2>
+internel data of the <a href="class_etk__hash.html">etk::hash</a> class, it contain
+the name and the value of the hash vector.<br/><br/>
 <h2>Synopsis:</h2>
 <pre>
-+ <span class="code-type" >int64_t</span> <a class="code-member" href="#7611">start</a>;<br/>+ <span class="code-type" >int64_t</span> <a class="code-member" href="#7612">stop</a>;<br/></pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <a class="code-member" href="#6230">m_key</a>;<br/>+ MY_TYPE     <a class="code-member" href="#6231">m_value</a>;<br/>+             <a class="code-function" href="#6232">HashData</a> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>,<br/>                        <span class="code-storage-keyword">const</span> MY_TYPE & <span class="code-argument">_val</span>);<br/></pre>
 <br/>
 <h2>Detail:</h2>
-<a id="7611"/><a id="7612"/><h3>start</h3><pre>
-+ <span class="code-type" >int64_t</span> <span class="code-member">start</span>;<br/></pre>
+<a id="6230"/><a id="6231"/><h3>m_key</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-member">m_key</span>;<br/></pre>
 
-<br/>
+name of the current hash<br/>
 <br/>
 <hr/>
-<h3>stop</h3><pre>
-+ <span class="code-type" >int64_t</span> <span class="code-member">stop</span>;<br/></pre>
+<a id="6232"/><h3>m_value</h3><pre>
++ MY_TYPE <span class="code-member">m_value</span>;<br/></pre>
 
+data of the current Hash<br/>
 <br/>
+<hr/>
+<h3>HashData</h3><pre>
++  <span class="code-function">HashData</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_key</span>,<br/>             <span class="code-storage-keyword">const</span> MY_TYPE & <span class="code-argument">_val</span>);<br/></pre>
+Constructor of the data for hash table.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_key</span> </td><td> name of the hash table.</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_val</span> </td><td> Value of the hash element.</td></tr>
+</table>
+</ul>
+
 <br/>
 <hr/>
 	</div>

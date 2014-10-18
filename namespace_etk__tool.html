@@ -15,6 +15,8 @@
 <ul class="niveau1">
 	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
 <ul class="niveau2">
+	<li><a href="namespace_etk__log.html">log</a>
+	</li>
 	<li><a href="namespace_etk__color.html">color</a>
 	</li>
 	<li><a href="namespace_etk__tool.html">tool</a>
@@ -30,8 +32,6 @@
 	<li><a href="namespace_utf8.html">utf8</a>
 	</li>
 	<li><a href="namespace_std.html">std</a>
-	</li>
-	<li><a href="namespace_debug.html">debug</a>
 	</li>
 </ul>
 			</div>
@@ -57,19 +57,33 @@
 <br/><br/>
 <h2>Synopsis:</h2>
 <pre>
-  <span class="code-type" >float</span>   <a class="code-function" href="#8319">frand</a> (<span class="code-type" >float</span> <span class="code-argument">_a</span>,<br/>                 <span class="code-type" >float</span> <span class="code-argument">_b</span>);<br/>  <span class="code-type" >int32_t</span> <a class="code-function" href="#8322">irand</a> (<span class="code-type" >int32_t</span> <span class="code-argument">_a</span>,<br/>                 <span class="code-type" >int32_t</span> <span class="code-argument">_b</span>);<br/></pre>
+  <span class="code-type" >double</span>  <a class="code-function" href="#6277">frand</a>       (<span class="code-type" >double</span> <span class="code-argument">_a</span>,<br/>                       <span class="code-type" >double</span> <span class="code-argument">_b</span>);<br/>  <span class="code-type" >int32_t</span> <a class="code-function" href="#6280">irand</a>       (<span class="code-type" >int32_t</span> <span class="code-argument">_a</span>,<br/>                       <span class="code-type" >int32_t</span> <span class="code-argument">_b</span>);<br/>  <span class="code-type" >void</span>    <a class="code-function" href="#6283">resetRandom</a> ();<br/>  <span class="code-type" >void</span>    <a class="code-function" href="#6284">randSeek</a>    (<span class="code-type" >int32_t</span> <span class="code-argument">_val</span>);<br/></pre>
 <br/>
 <h2>Detail:</h2>
-<a id="8319"/><a id="8322"/><h3>frand</h3><pre>
-  <span class="code-type" >float</span> <span class="code-function">frand</span> (<span class="code-type" >float</span> <span class="code-argument">_a</span>,<br/>               <span class="code-type" >float</span> <span class="code-argument">_b</span>);<br/></pre>
+<a id="6277"/><a id="6280"/><a id="6283"/><h3>frand</h3><pre>
+  <span class="code-type" >double</span> <span class="code-function">frand</span> (<span class="code-type" >double</span> <span class="code-argument">_a</span>,<br/>                <span class="code-type" >double</span> <span class="code-argument">_b</span>);<br/>  <span class="code-type" >int32_t</span> <span class="code-function">irand</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_a</span>,<br/>                 <span class="code-type" >int32_t</span> <span class="code-argument">_b</span>);<br/></pre>
+Get a random value in a specific range.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_a</span> </td><td> Lower value of the random.</td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_b</span> </td><td> Bigger value of the random.</td></tr>
+<tr><td><b>Return: </b></td><td></td><td>Random Value between [_a and _b]</td></tr></table>
+</ul>
 
-<br/>
 <br/>
 <hr/>
-<h3>irand</h3><pre>
-  <span class="code-type" >int32_t</span> <span class="code-function">irand</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_a</span>,<br/>                 <span class="code-type" >int32_t</span> <span class="code-argument">_b</span>);<br/></pre>
-
+<a id="6284"/><h3>resetRandom</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">resetRandom</span> ();<br/></pre>
+Reset the random system with a random value (time).<br/>
 <br/>
+<hr/>
+<h3>randSeek</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">randSeek</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_val</span>);<br/></pre>
+Reset the random system with The specify value.<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_val</span> </td><td> Seek value for the pseudo random system.</td></tr>
+</table>
+</ul>
+
 <br/>
 <hr/>
 	</div>

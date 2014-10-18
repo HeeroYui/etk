@@ -15,6 +15,8 @@
 <ul class="niveau1">
 	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
 <ul class="niveau2">
+	<li><a href="namespace_etk__log.html">log</a>
+	</li>
 	<li><a href="namespace_etk__color.html">color</a>
 	</li>
 	<li><a href="namespace_etk__tool.html">tool</a>
@@ -30,8 +32,6 @@
 	<li><a href="namespace_utf8.html">utf8</a>
 	</li>
 	<li><a href="namespace_std.html">std</a>
-	</li>
-	<li><a href="namespace_debug.html">debug</a>
 	</li>
 </ul>
 			</div>
@@ -52,7 +52,7 @@
 		</div>
 	</div>
 	<div class="container" id="content">
-<h1>class: etk::Fifo</h1><hr/><h2>Description:</h2>
+<h1>class: etk::template&lt;MY_TYPE&gt Fifo</h1><hr/><h2>Description:</h2>
 Fifo tamplate is a simple messaged fifo element to
 transfer data message from a thead to an other.<br/><ul>
 <table class="parameter-list">
@@ -60,26 +60,22 @@ transfer data message from a thead to an other.<br/><ul>
 </table>
 </ul>
 <br/>
-<h2>Constructor and Destructor:</h2>
-<pre>
-+                      <a class="code-function" href="#9061">Fifo</a>        (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+                      <a class="code-function" href="#9063">~Fifo</a>       (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
-<br/>
 <h2>Synopsis:</h2>
 <pre>
-+ <span class="code-type" >bool</span>                 <a class="code-function" href="#9065">wait</a>        (MY_TYPE & <span class="code-argument">_data</span>);<br/>+ <span class="code-type" >bool</span>                 <a class="code-function" href="#9067">wait</a>        (MY_TYPE & <span class="code-argument">_data</span>,<br/>                                    <span class="code-type" >uint32_t</span> <span class="code-argument">_timeOutInUs</span>);<br/>+ <span class="code-type" >int32_t</span>              <a class="code-function" href="#9070">count</a>       (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >void</span>                 <a class="code-function" href="#9072">post</a>        (MY_TYPE & <span class="code-argument">_data</span>);<br/>+ <span class="code-type" >void</span>                 <a class="code-function" href="#9074">clean</a>       (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
++                         <a class="code-function" href="#6898">Fifo</a>        ();<br/>+                         <a class="code-function" href="#6899">~Fifo</a>       ();<br/>+ <span class="code-type" >bool</span>                    <a class="code-function" href="#6900">wait</a>        (MY_TYPE & <span class="code-argument">_data</span>);<br/>+ <span class="code-type" >bool</span>                    <a class="code-function" href="#6902">wait</a>        (MY_TYPE & <span class="code-argument">_data</span>,<br/>                                       <span class="code-type" >uint32_t</span> <span class="code-argument">_timeOutInUs</span>);<br/>+ <span class="code-type" >int32_t</span>                 <a class="code-function" href="#6905">count</a>       ();<br/>+ <span class="code-type" >void</span>                    <a class="code-function" href="#6906">post</a>        (MY_TYPE & <span class="code-argument">_data</span>);<br/>+ <span class="code-type" >void</span>                    <a class="code-function" href="#6908">clean</a>       ();<br/></pre>
 <br/>
 <h2>Detail:</h2>
-<a id="9061"/><a id="9063"/><h3>Fifo</h3><pre>
-+  <span class="code-function">Fifo</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<a id="6898"/><a id="6899"/><h3>Fifo</h3><pre>
++  <span class="code-function">Fifo</span> ();<br/></pre>
 Create a fifo with no message.<br/>
 <br/>
 <hr/>
-<a id="9065"/><h3>~Fifo</h3><pre>
-+  <span class="code-function">~Fifo</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<a id="6900"/><h3>~Fifo</h3><pre>
++  <span class="code-function">~Fifo</span> ();<br/></pre>
 Remove the fifo and all message inside.<br/>
 <br/>
 <hr/>
-<a id="9067"/><h3>wait</h3><pre>
+<a id="6902"/><h3>wait</h3><pre>
 + <span class="code-type" >bool</span> <span class="code-function">wait</span> (MY_TYPE & <span class="code-argument">_data</span>);<br/></pre>
 Wait a message from the other thread. (no timeout set)<br/><ul>
 <table class="parameter-list">
@@ -89,7 +85,7 @@ Wait a message from the other thread. (no timeout set)<br/><ul>
 
 <br/>
 <hr/>
-<a id="9070"/><h3>wait</h3><pre>
+<a id="6905"/><h3>wait</h3><pre>
 + <span class="code-type" >bool</span> <span class="code-function">wait</span> (MY_TYPE & <span class="code-argument">_data</span>,<br/>             <span class="code-type" >uint32_t</span> <span class="code-argument">_timeOutInUs</span>);<br/></pre>
 Wait a message from the other thread, with a specified timeout.<br/><ul>
 <table class="parameter-list">
@@ -100,8 +96,8 @@ Wait a message from the other thread, with a specified timeout.<br/><ul>
 
 <br/>
 <hr/>
-<a id="9072"/><h3>count</h3><pre>
-+ <span class="code-type" >int32_t</span> <span class="code-function">count</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<a id="6906"/><h3>count</h3><pre>
++ <span class="code-type" >int32_t</span> <span class="code-function">count</span> ();<br/></pre>
 Get the number of message in the fifo.<br/><ul>
 <table class="parameter-list">
 <tr><td><b>Return: </b></td><td></td><td>Number of message in the fifo.</td></tr></table>
@@ -109,7 +105,7 @@ Get the number of message in the fifo.<br/><ul>
 
 <br/>
 <hr/>
-<a id="9074"/><h3>post</h3><pre>
+<a id="6908"/><h3>post</h3><pre>
 + <span class="code-type" >void</span> <span class="code-function">post</span> (MY_TYPE & <span class="code-argument">_data</span>);<br/></pre>
 Send a message at the other thread by setting a new message in the fifo.<br/><ul>
 <table class="parameter-list">
@@ -120,7 +116,7 @@ Send a message at the other thread by setting a new message in the fifo.<br/><ul
 <br/>
 <hr/>
 <h3>clean</h3><pre>
-+ <span class="code-type" >void</span> <span class="code-function">clean</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
++ <span class="code-type" >void</span> <span class="code-function">clean</span> ();<br/></pre>
 Remove all the message in the fifo.<br/>
 <br/>
 <hr/>

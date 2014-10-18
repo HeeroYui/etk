@@ -15,6 +15,8 @@
 <ul class="niveau1">
 	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
 <ul class="niveau2">
+	<li><a href="namespace_etk__log.html">log</a>
+	</li>
 	<li><a href="namespace_etk__color.html">color</a>
 	</li>
 	<li><a href="namespace_etk__tool.html">tool</a>
@@ -30,8 +32,6 @@
 	<li><a href="namespace_utf8.html">utf8</a>
 	</li>
 	<li><a href="namespace_std.html">std</a>
-	</li>
-	<li><a href="namespace_debug.html">debug</a>
 	</li>
 </ul>
 			</div>
@@ -55,12 +55,15 @@
 <h1>namespace: utf8</h1><hr/><h2>Description:</h2>
 
 <br/><br/>
+<h2>class:</h2>
+<ul>
+<li><a href="class_utf8__iterator.html">iterator</a></li></ul>
 <h2>Synopsis:</h2>
 <pre>
-  <span class="code-type" >int8_t</span>   <a class="code-function" href="#7762">theoricLen</a>    (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span> <span class="code-argument">_input</span>);<br/>  <span class="code-type" >bool</span>     <a class="code-function" href="#7764">theoricFirst</a>  (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span> <span class="code-argument">_input</span>);<br/>  <span class="code-type" >char32_t</span> <a class="code-function" href="#7766">convertChar32</a> (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span>* <span class="code-argument">_input</span>);<br/></pre>
+  <span class="code-type" >int8_t</span>         <a class="code-function" href="#5594">theoricLen</a>     (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span> <span class="code-argument">_input</span>);<br/>  <span class="code-type" >bool</span>           <a class="code-function" href="#5596">theoricFirst</a>   (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span> <span class="code-argument">_input</span>);<br/>  <span class="code-type" >char32_t</span>       <a class="code-function" href="#5598">convertChar32</a>  (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span>* <span class="code-argument">_input</span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <a class="code-function" href="#5600">convertUnicode</a> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_input</span>);<br/></pre>
 <br/>
 <h2>Detail:</h2>
-<a id="7762"/><a id="7764"/><h3>theoricLen</h3><pre>
+<a id="5594"/><a id="5596"/><h3>theoricLen</h3><pre>
   <span class="code-type" >int8_t</span> <span class="code-function">theoricLen</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span> <span class="code-argument">_input</span>);<br/></pre>
 Get the size of an utf8 char with his first char.<br/><ul>
 <table class="parameter-list">
@@ -70,7 +73,7 @@ Get the size of an utf8 char with his first char.<br/><ul>
 
 <br/>
 <hr/>
-<a id="7766"/><h3>theoricFirst</h3><pre>
+<a id="5598"/><h3>theoricFirst</h3><pre>
   <span class="code-type" >bool</span> <span class="code-function">theoricFirst</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span> <span class="code-argument">_input</span>);<br/></pre>
 When parsing a string in a reverse mode, we need to know if we get the first char<br/><ul>
 <table class="parameter-list">
@@ -80,8 +83,14 @@ When parsing a string in a reverse mode, we need to know if we get the first cha
 
 <br/>
 <hr/>
-<h3>convertChar32</h3><pre>
+<a id="5600"/><h3>convertChar32</h3><pre>
   <span class="code-type" >char32_t</span> <span class="code-function">convertChar32</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span>* <span class="code-argument">_input</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<h3>convertUnicode</h3><pre>
+  <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">convertUnicode</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_input</span>);<br/></pre>
 
 <br/>
 <br/>

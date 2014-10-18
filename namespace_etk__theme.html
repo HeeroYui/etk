@@ -15,6 +15,8 @@
 <ul class="niveau1">
 	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
 <ul class="niveau2">
+	<li><a href="namespace_etk__log.html">log</a>
+	</li>
 	<li><a href="namespace_etk__color.html">color</a>
 	</li>
 	<li><a href="namespace_etk__tool.html">tool</a>
@@ -30,8 +32,6 @@
 	<li><a href="namespace_utf8.html">utf8</a>
 	</li>
 	<li><a href="namespace_std.html">std</a>
-	</li>
-	<li><a href="namespace_debug.html">debug</a>
 	</li>
 </ul>
 			</div>
@@ -57,11 +57,11 @@
 <br/><br/>
 <h2>Synopsis:</h2>
 <pre>
-  <span class="code-type" >void</span>                        <a class="code-function" href="#9259">setName</a> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_refName</span>,<br/>                                       <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_folderName</span>);<br/>  <span class="code-type" >void</span>                        <a class="code-function" href="#9262">setName</a> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_refName</span>,<br/>                                       <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_folderName</span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>                 <a class="code-function" href="#9265">getName</a> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_refName</span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>              <a class="code-function" href="#9267">getName</a> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_refName</span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::string&gt;    <a class="code-function" href="#9269">list</a>    (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::u32string&gt; <a class="code-function" href="#9271">listU</a>   (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+  <span class="code-type" >void</span>                        <a class="code-function" href="#7063">setName</a>        (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_refName</span>,<br/>                                              <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_folderName</span>);<br/>  <span class="code-type" >void</span>                        <a class="code-function" href="#7066">setName</a>        (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_refName</span>,<br/>                                              <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_folderName</span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>                 <a class="code-function" href="#7069">getName</a>        (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_refName</span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>              <a class="code-function" href="#7071">getName</a>        (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_refName</span>);<br/>  <span class="code-type" >void</span>                        <a class="code-function" href="#7073">setNameDefault</a> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_refName</span>,<br/>                                              <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_folderName</span>);<br/>  <span class="code-type" >void</span>                        <a class="code-function" href="#7076">setNameDefault</a> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_refName</span>,<br/>                                              <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_folderName</span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>                 <a class="code-function" href="#7079">getNameDefault</a> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_refName</span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>              <a class="code-function" href="#7081">getNameDefault</a> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_refName</span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::string&gt;    <a class="code-function" href="#7083">list</a>           ();<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::u32string&gt; <a class="code-function" href="#7084">listU</a>          ();<br/></pre>
 <br/>
 <h2>Detail:</h2>
-<a id="9259"/><a id="9262"/><h3>setName</h3><pre>
-  <span class="code-type" >void</span> <span class="code-function">setName</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_refName</span>,<br/>                <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_folderName</span>);<br/></pre>
+<a id="7063"/><a id="7066"/><a id="7069"/><h3>setName</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">setName</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_refName</span>,<br/>                <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_folderName</span>);<br/>  <span class="code-type" >void</span> <span class="code-function">setName</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_refName</span>,<br/>                <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_folderName</span>);<br/></pre>
 Set the Folder of a subset of a theme ...<br/><ul>
 <table class="parameter-list">
 <td><b>Parameter [input]:</b></td><td><span class="code-argument">_refName</span> </td><td> Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" </td></tr>
@@ -71,14 +71,8 @@ Set the Folder of a subset of a theme ...<br/><ul>
 
 <br/>
 <hr/>
-<a id="9265"/><h3>setName</h3><pre>
-  <span class="code-type" >void</span> <span class="code-function">setName</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_refName</span>,<br/>                <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_folderName</span>);<br/></pre>
-
-<br/>
-<br/>
-<hr/>
-<a id="9267"/><h3>getName</h3><pre>
-  <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">getName</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_refName</span>);<br/></pre>
+<a id="7071"/><a id="7073"/><h3>getName</h3><pre>
+  <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">getName</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_refName</span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">getName</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_refName</span>);<br/></pre>
 get the folder from a Reference theme<br/><ul>
 <table class="parameter-list">
 <td><b>Parameter [input]:</b></td><td><span class="code-argument">_refName</span> </td><td> Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" </td></tr>
@@ -87,25 +81,34 @@ get the folder from a Reference theme<br/><ul>
 
 <br/>
 <hr/>
-<a id="9269"/><h3>getName</h3><pre>
-  <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">getName</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_refName</span>);<br/></pre>
+<a id="7076"/><a id="7079"/><h3>setNameDefault</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">setNameDefault</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_refName</span>,<br/>                       <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_folderName</span>);<br/>  <span class="code-type" >void</span> <span class="code-function">setNameDefault</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_refName</span>,<br/>                       <span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_folderName</span>);<br/></pre>
+Set the default folder of a subset of a theme ...<br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_refName</span> </td><td> Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" </td></tr>
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_folderName</span> </td><td> The associated default folder of the Theme (like "myTheme/color/default/")</td></tr>
+</table>
+</ul>
 
 <br/>
+<hr/>
+<a id="7081"/><a id="7083"/><h3>getNameDefault</h3><pre>
+  <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">getNameDefault</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_refName</span>);<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">getNameDefault</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> & <span class="code-argument">_refName</span>);<br/></pre>
+get the default folder from a Reference theme <br/><ul>
+<table class="parameter-list">
+<td><b>Parameter [input]:</b></td><td><span class="code-argument">_refName</span> </td><td> Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" </td></tr>
+<tr><td><b>Return: </b></td><td></td><td>the path of the theme</td></tr></table>
+</ul>
+
 <br/>
 <hr/>
-<a id="9271"/><h3>list</h3><pre>
-  <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::string&gt; <span class="code-function">list</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<a id="7084"/><h3>list</h3><pre>
+  <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::string&gt; <span class="code-function">list</span> ();<br/>  <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::u32string&gt; <span class="code-function">listU</span> ();<br/></pre>
 Get the list of all the theme folder availlable in the user Home/appl<br/><ul>
 <table class="parameter-list">
 <tr><td><b>Return: </b></td><td></td><td>The list of elements</td></tr></table>
 </ul>
 
-<br/>
-<hr/>
-<h3>listU</h3><pre>
-  <a class="code-type" href="http://www.cplusplus.com/reference/vector/vector/">std::vector</a>&lt;std::u32string&gt; <span class="code-function">listU</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
-
-<br/>
 <br/>
 <hr/>
 	</div>

@@ -15,6 +15,8 @@
 <ul class="niveau1">
 	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
 <ul class="niveau2">
+	<li><a href="namespace_etk__log.html">log</a>
+	</li>
 	<li><a href="namespace_etk__color.html">color</a>
 	</li>
 	<li><a href="namespace_etk__tool.html">tool</a>
@@ -30,8 +32,6 @@
 	<li><a href="namespace_utf8.html">utf8</a>
 	</li>
 	<li><a href="namespace_std.html">std</a>
-	</li>
-	<li><a href="namespace_debug.html">debug</a>
 	</li>
 </ul>
 			</div>
@@ -57,30 +57,30 @@
 <br/><br/>
 <h2>Constructor and Destructor:</h2>
 <pre>
-+                         <a class="code-function" href="#8962">Zip</a>      (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_fileName</span>);<br/>+ <span class="code-storage-keyword">virtual</span>                 <a class="code-function" href="#8964">~Zip</a>     (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
++                         <a class="code-function" href="#6845">Zip</a>      (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_fileName</span>);<br/>+ <span class="code-storage-keyword">virtual</span>                 <a class="code-function" href="#6847">~Zip</a>     ();<br/></pre>
 <br/>
 <h2>Synopsis:</h2>
 <pre>
-# <span class="code-storage-keyword">virtual</span> <span class="code-type" >void</span>            <a class="code-function" href="#8966">loadFile</a> (<span class="code-type" >int32_t</span> <span class="code-argument">_id</span>);<br/></pre>
+# <span class="code-storage-keyword">virtual</span> <span class="code-type" >void</span>            <a class="code-function" href="#6848">loadFile</a> (<span class="code-storage-keyword">const</span> std::map <span class="code-argument"><std::string</span>,<br/>                                    Content>::iterator & <span class="code-argument">it</span>);<br/></pre>
 <br/>
 <h2>Object Hierarchy:<h2>
 <pre>
 +<a href="class_etk__Archive.html">etk::Archive</a><br/>  +--> etk::archive::Zip<br/></pre>
 <h2>Detail:</h2>
-<a id="8962"/><a id="8964"/><h3>Zip</h3><pre>
+<a id="6845"/><a id="6847"/><h3>Zip</h3><pre>
 +  <span class="code-function">Zip</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> & <span class="code-argument">_fileName</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="8966"/><h3>~Zip</h3><pre>
-+ <span class="code-storage-keyword">virtual</span>  <span class="code-function">~Zip</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<a id="6848"/><h3>~Zip</h3><pre>
++ <span class="code-storage-keyword">virtual</span>  <span class="code-function">~Zip</span> ();<br/></pre>
 
 <br/>
 <br/>
 <hr/>
 <h3>loadFile</h3><pre>
-# <span class="code-storage-keyword">virtual</span> <span class="code-type" >void</span> <span class="code-function">loadFile</span> (<span class="code-type" >int32_t</span> <span class="code-argument">_id</span>);<br/></pre>
+# <span class="code-storage-keyword">virtual</span> <span class="code-type" >void</span> <span class="code-function">loadFile</span> (<span class="code-storage-keyword">const</span> std::map <span class="code-argument"><std::string</span>,<br/>                         Content>::iterator & <span class="code-argument">it</span>);<br/></pre>
 Request the load in memory of the concerned file.<br/><ul>
 <table class="parameter-list">
 <td><b>Parameter [input]:</b></td><td><span class="code-argument">_id</span> </td><td> Id of the file to load.</td></tr>

@@ -15,6 +15,8 @@
 <ul class="niveau1">
 	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
 <ul class="niveau2">
+	<li><a href="namespace_etk__log.html">log</a>
+	</li>
 	<li><a href="namespace_etk__color.html">color</a>
 	</li>
 	<li><a href="namespace_etk__tool.html">tool</a>
@@ -30,8 +32,6 @@
 	<li><a href="namespace_utf8.html">utf8</a>
 	</li>
 	<li><a href="namespace_std.html">std</a>
-	</li>
-	<li><a href="namespace_debug.html">debug</a>
 	</li>
 </ul>
 			</div>
@@ -57,165 +57,165 @@
 <br/><br/>
 <h2>Constructor and Destructor:</h2>
 <pre>
-+                          <a class="code-function" href="#9345">FSNodeRight</a>      (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+                          <a class="code-function" href="#9347">FSNodeRight</a>      (<span class="code-type" >int16_t</span> <span class="code-argument">_newRight</span>);<br/>+                          <a class="code-function" href="#9349">~FSNodeRight</a>     (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
++                          <a class="code-function" href="#7161">FSNodeRight</a>      ();<br/>+                          <a class="code-function" href="#7162">FSNodeRight</a>      (<span class="code-type" >int16_t</span> <span class="code-argument">_newRight</span>);<br/>+                          <a class="code-function" href="#7164">~FSNodeRight</a>     ();<br/></pre>
 <br/>
 <h2>Synopsis:</h2>
 <pre>
-+ <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> & <a class="code-function" href="#9351">operator =</a>       (<span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> & <span class="code-argument">_obj</span>);<br/>+ <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> & <a class="code-function" href="#9353">operator =</a>       (<span class="code-storage-keyword">const</span> <span class="code-type" >int32_t</span> <span class="code-argument">_newVal</span>);<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#9355">clear</a>            (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#9357">isUserReadable</a>   (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#9359">isUserWritable</a>   (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#9361">isUserRunable</a>    (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#9363">setUserReadable</a>  (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#9365">setUserWritable</a>  (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#9367">setUserRunable</a>   (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#9369">isGroupReadable</a>  (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#9371">isGroupWritable</a>  (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#9373">isGroupRunable</a>   (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#9375">setGroupReadable</a> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#9377">setGroupWritable</a> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#9379">setGroupRunable</a>  (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#9381">isOtherReadable</a>  (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#9383">isOtherWritable</a>  (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#9385">isOtherRunable</a>   (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#9387">setOtherReadable</a> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#9389">setOtherWritable</a> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#9391">setOtherRunable</a>  (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>           <a class="code-function" href="#9393">getURight</a>        (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>              <a class="code-function" href="#9395">getRight</a>         (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
++ <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> & <a class="code-function" href="#7165">operator =</a>       (<span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> & <span class="code-argument">_obj</span>);<br/>+ <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> & <a class="code-function" href="#7167">operator =</a>       (<span class="code-storage-keyword">const</span> <span class="code-type" >int32_t</span> <span class="code-argument">_newVal</span>);<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#7169">clear</a>            ();<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#7170">isUserReadable</a>   () <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#7171">isUserWritable</a>   () <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#7172">isUserRunable</a>    () <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#7173">setUserReadable</a>  (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#7175">setUserWritable</a>  (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#7177">setUserRunable</a>   (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#7179">isGroupReadable</a>  () <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#7180">isGroupWritable</a>  () <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#7181">isGroupRunable</a>   () <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#7182">setGroupReadable</a> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#7184">setGroupWritable</a> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#7186">setGroupRunable</a>  (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#7188">isOtherReadable</a>  () <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#7189">isOtherWritable</a>  () <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >bool</span>                     <a class="code-function" href="#7190">isOtherRunable</a>   () <span class="code-storage-keyword">const</span>;<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#7191">setOtherReadable</a> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#7193">setOtherWritable</a> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <span class="code-type" >void</span>                     <a class="code-function" href="#7195">setOtherRunable</a>  (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a>           <a class="code-function" href="#7197">getURight</a>        () <span class="code-storage-keyword">const</span>;<br/>+ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a>              <a class="code-function" href="#7198">getRight</a>         () <span class="code-storage-keyword">const</span>;<br/></pre>
 <br/>
 <h2>Detail:</h2>
-<a id="9345"/><a id="9347"/><h3>FSNodeRight</h3><pre>
-+  <span class="code-function">FSNodeRight</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<a id="7161"/><a id="7162"/><h3>FSNodeRight</h3><pre>
++  <span class="code-function">FSNodeRight</span> ();<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9349"/><h3>FSNodeRight</h3><pre>
+<a id="7164"/><h3>FSNodeRight</h3><pre>
 +  <span class="code-function">FSNodeRight</span> (<span class="code-type" >int16_t</span> <span class="code-argument">_newRight</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9351"/><h3>~FSNodeRight</h3><pre>
-+  <span class="code-function">~FSNodeRight</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<a id="7165"/><h3>~FSNodeRight</h3><pre>
++  <span class="code-function">~FSNodeRight</span> ();<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9353"/><h3>operator =</h3><pre>
+<a id="7167"/><h3>operator =</h3><pre>
 + <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> & <span class="code-function">operator =</span> (<span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> & <span class="code-argument">_obj</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9355"/><h3>operator =</h3><pre>
+<a id="7169"/><h3>operator =</h3><pre>
 + <span class="code-storage-keyword">const</span> <a class="code-type" href="class_etk__FSNodeRight.html">etk::FSNodeRight</a> & <span class="code-function">operator =</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >int32_t</span> <span class="code-argument">_newVal</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9357"/><h3>clear</h3><pre>
-+ <span class="code-type" >void</span> <span class="code-function">clear</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<a id="7170"/><h3>clear</h3><pre>
++ <span class="code-type" >void</span> <span class="code-function">clear</span> ();<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9359"/><h3>isUserReadable</h3><pre>
-+ <span class="code-type" >bool</span> <span class="code-function">isUserReadable</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+<a id="7171"/><h3>isUserReadable</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">isUserReadable</span> () <span class="code-storage-keyword">const</span>;<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9361"/><h3>isUserWritable</h3><pre>
-+ <span class="code-type" >bool</span> <span class="code-function">isUserWritable</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+<a id="7172"/><h3>isUserWritable</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">isUserWritable</span> () <span class="code-storage-keyword">const</span>;<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9363"/><h3>isUserRunable</h3><pre>
-+ <span class="code-type" >bool</span> <span class="code-function">isUserRunable</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+<a id="7173"/><h3>isUserRunable</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">isUserRunable</span> () <span class="code-storage-keyword">const</span>;<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9365"/><h3>setUserReadable</h3><pre>
+<a id="7175"/><h3>setUserReadable</h3><pre>
 + <span class="code-type" >void</span> <span class="code-function">setUserReadable</span> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9367"/><h3>setUserWritable</h3><pre>
+<a id="7177"/><h3>setUserWritable</h3><pre>
 + <span class="code-type" >void</span> <span class="code-function">setUserWritable</span> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9369"/><h3>setUserRunable</h3><pre>
+<a id="7179"/><h3>setUserRunable</h3><pre>
 + <span class="code-type" >void</span> <span class="code-function">setUserRunable</span> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9371"/><h3>isGroupReadable</h3><pre>
-+ <span class="code-type" >bool</span> <span class="code-function">isGroupReadable</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+<a id="7180"/><h3>isGroupReadable</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">isGroupReadable</span> () <span class="code-storage-keyword">const</span>;<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9373"/><h3>isGroupWritable</h3><pre>
-+ <span class="code-type" >bool</span> <span class="code-function">isGroupWritable</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+<a id="7181"/><h3>isGroupWritable</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">isGroupWritable</span> () <span class="code-storage-keyword">const</span>;<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9375"/><h3>isGroupRunable</h3><pre>
-+ <span class="code-type" >bool</span> <span class="code-function">isGroupRunable</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+<a id="7182"/><h3>isGroupRunable</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">isGroupRunable</span> () <span class="code-storage-keyword">const</span>;<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9377"/><h3>setGroupReadable</h3><pre>
+<a id="7184"/><h3>setGroupReadable</h3><pre>
 + <span class="code-type" >void</span> <span class="code-function">setGroupReadable</span> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9379"/><h3>setGroupWritable</h3><pre>
+<a id="7186"/><h3>setGroupWritable</h3><pre>
 + <span class="code-type" >void</span> <span class="code-function">setGroupWritable</span> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9381"/><h3>setGroupRunable</h3><pre>
+<a id="7188"/><h3>setGroupRunable</h3><pre>
 + <span class="code-type" >void</span> <span class="code-function">setGroupRunable</span> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9383"/><h3>isOtherReadable</h3><pre>
-+ <span class="code-type" >bool</span> <span class="code-function">isOtherReadable</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+<a id="7189"/><h3>isOtherReadable</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">isOtherReadable</span> () <span class="code-storage-keyword">const</span>;<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9385"/><h3>isOtherWritable</h3><pre>
-+ <span class="code-type" >bool</span> <span class="code-function">isOtherWritable</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+<a id="7190"/><h3>isOtherWritable</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">isOtherWritable</span> () <span class="code-storage-keyword">const</span>;<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9387"/><h3>isOtherRunable</h3><pre>
-+ <span class="code-type" >bool</span> <span class="code-function">isOtherRunable</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+<a id="7191"/><h3>isOtherRunable</h3><pre>
++ <span class="code-type" >bool</span> <span class="code-function">isOtherRunable</span> () <span class="code-storage-keyword">const</span>;<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9389"/><h3>setOtherReadable</h3><pre>
+<a id="7193"/><h3>setOtherReadable</h3><pre>
 + <span class="code-type" >void</span> <span class="code-function">setOtherReadable</span> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9391"/><h3>setOtherWritable</h3><pre>
+<a id="7195"/><h3>setOtherWritable</h3><pre>
 + <span class="code-type" >void</span> <span class="code-function">setOtherWritable</span> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9393"/><h3>setOtherRunable</h3><pre>
+<a id="7197"/><h3>setOtherRunable</h3><pre>
 + <span class="code-type" >void</span> <span class="code-function">setOtherRunable</span> (<span class="code-type" >bool</span> <span class="code-argument">_newStatus</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="9395"/><h3>getURight</h3><pre>
-+ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">getURight</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
+<a id="7198"/><h3>getURight</h3><pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/u32string/">std::u32string</a> <span class="code-function">getURight</span> () <span class="code-storage-keyword">const</span>;<br/></pre>
 
 <br/>
 <br/>
 <hr/>
 <h3>getRight</h3><pre>
-+ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">getRight</span> (<span class="code-type" >void</span> <span class="code-argument"></span>) <span class="code-storage-keyword">const</span>;<br/></pre>
++ <a class="code-type" href="http://www.cplusplus.com/reference/string/string/">std::string</a> <span class="code-function">getRight</span> () <span class="code-storage-keyword">const</span>;<br/></pre>
 
 <br/>
 <br/>

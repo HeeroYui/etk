@@ -15,6 +15,8 @@
 <ul class="niveau1">
 	<li class="sousmenu"><a href="namespace_etk.html">etk</a>
 <ul class="niveau2">
+	<li><a href="namespace_etk__log.html">log</a>
+	</li>
 	<li><a href="namespace_etk__color.html">color</a>
 	</li>
 	<li><a href="namespace_etk__tool.html">tool</a>
@@ -30,8 +32,6 @@
 	<li><a href="namespace_utf8.html">utf8</a>
 	</li>
 	<li><a href="namespace_std.html">std</a>
-	</li>
-	<li><a href="namespace_debug.html">debug</a>
 	</li>
 </ul>
 			</div>
@@ -57,47 +57,47 @@
 <br/><br/>
 <h2>namespace:</h2>
 <ul>
-<li><a href="namespace_etk.html">etk</a></li><li><a href="namespace_u32char.html">u32char</a></li><li><a href="namespace_utf8.html">utf8</a></li><li><a href="namespace_std.html">std</a></li><li><a href="namespace_debug.html">debug</a></li></ul>
+<li><a href="namespace_etk.html">etk</a></li><li><a href="namespace_u32char.html">u32char</a></li><li><a href="namespace_utf8.html">utf8</a></li><li><a href="namespace_std.html">std</a></li></ul>
 <h2>Synopsis:</h2>
 <pre>
-  <span class="code-type" >int32_t</span>           <a class="code-function" href="#7950">strlen</a>               (<span class="code-storage-keyword">const</span> <span class="code-type" >char32_t</span>* <span class="code-argument">_data</span>);<br/>  externconstchar*  <a class="code-member" href="#8384">etkLibName</a>;<br/>  return            <a class="code-member" href="#8445">max</a>;<br/>  <span class="code-type" >void</span>              <a class="code-function" href="#8446">clear</a>                (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>  <span class="code-type" >void</span>              <a class="code-function" href="#8448">identity</a>             (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>  <span class="code-type" >void</span>              <a class="code-function" href="#8450">eye</a>                  (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>  Vector2D&lt;int32_t&gt; <a class="code-function" href="#8452">size</a>                 (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/>  vec3              <a class="code-function" href="#8724">quaternionToEulerXYZ</a> (<span class="code-storage-keyword">const</span> btQuaternion & <span class="code-argument">quat</span>);<br/>  vec3              <a class="code-function" href="#8726">vec3ClipInt32</a>        (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">val</span>);<br/>  vec3              <a class="code-function" href="#8728">vec3ClipInt64</a>        (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">val</span>);<br/>  vec2              <a class="code-function" href="#8952">vec2ClipInt32</a>        (<span class="code-storage-keyword">const</span> vec2 & <span class="code-argument">_val</span>);<br/>  vec2              <a class="code-function" href="#8954">vec2ClipInt64</a>        (<span class="code-storage-keyword">const</span> vec2 & <span class="code-argument">_val</span>);<br/></pre>
+  <span class="code-type" >int32_t</span>           <a class="code-function" href="#5854">strlen</a>               (<span class="code-storage-keyword">const</span> <span class="code-type" >char32_t</span>* <span class="code-argument">_data</span>);<br/>  <span class="code-type" >void</span>              <a class="code-function" href="#6272">iosNSLog</a>             (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span>* <span class="code-argument">_value</span>);<br/>  return            <a class="code-member" href="#6346">max</a>;<br/>  <span class="code-type" >void</span>              <a class="code-function" href="#6347">clear</a>                ();<br/>  <span class="code-type" >void</span>              <a class="code-function" href="#6348">identity</a>             ();<br/>  <span class="code-type" >void</span>              <a class="code-function" href="#6349">eye</a>                  ();<br/>  Vector2D&lt;int32_t&gt; <a class="code-function" href="#6350">size</a>                 ();<br/>  vec3              <a class="code-function" href="#6600">quaternionToEulerXYZ</a> (<span class="code-storage-keyword">const</span> btQuaternion & <span class="code-argument">quat</span>);<br/>  vec3              <a class="code-function" href="#6602">vec3ClipInt32</a>        (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">val</span>);<br/>  vec3              <a class="code-function" href="#6604">vec3ClipInt64</a>        (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">val</span>);<br/>  vec2              <a class="code-function" href="#6818">vec2ClipInt32</a>        (<span class="code-storage-keyword">const</span> vec2 & <span class="code-argument">_val</span>);<br/>  vec2              <a class="code-function" href="#6820">vec2ClipInt64</a>        (<span class="code-storage-keyword">const</span> vec2 & <span class="code-argument">_val</span>);<br/>  vec2              <a class="code-function" href="#6822">vec2rotate</a>           (<span class="code-storage-keyword">const</span> vec2 & <span class="code-argument">_val</span>,<br/>                                          <span class="code-storage-keyword">const</span> vec2 & <span class="code-argument">_point</span>,<br/>                                          <span class="code-type" >float</span> <span class="code-argument">_angle</span>);<br/></pre>
 <br/>
 <h2>Detail:</h2>
-<a id="7950"/><a id="8384"/><h3>strlen</h3><pre>
+<a id="5854"/><a id="6272"/><h3>strlen</h3><pre>
   <span class="code-type" >int32_t</span> <span class="code-function">strlen</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >char32_t</span>* <span class="code-argument">_data</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="8445"/><h3>etkLibName</h3><pre>
-  externconstchar* <span class="code-member">etkLibName</span>;<br/></pre>
+<a id="6346"/><h3>iosNSLog</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">iosNSLog</span> (<span class="code-storage-keyword">const</span> <span class="code-type" >char</span>* <span class="code-argument">_value</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="8446"/><h3>max</h3><pre>
+<a id="6347"/><h3>max</h3><pre>
   return <span class="code-member">max</span>;<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="8448"/><h3>clear</h3><pre>
-  <span class="code-type" >void</span> <span class="code-function">clear</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<a id="6348"/><h3>clear</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">clear</span> ();<br/></pre>
 Clear all the matrix.<br/>
 <br/>
 <hr/>
-<a id="8450"/><h3>identity</h3><pre>
-  <span class="code-type" >void</span> <span class="code-function">identity</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<a id="6349"/><h3>identity</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">identity</span> ();<br/></pre>
 Set the diagonal at 1<br/>
 <br/>
 <hr/>
-<a id="8452"/><h3>eye</h3><pre>
-  <span class="code-type" >void</span> <span class="code-function">eye</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<a id="6350"/><h3>eye</h3><pre>
+  <span class="code-type" >void</span> <span class="code-function">eye</span> ();<br/></pre>
 Clear and set the diagonal at 1<br/>
 <br/>
 <hr/>
-<a id="8724"/><h3>size</h3><pre>
-  Vector2D&lt;int32_t&gt; <span class="code-function">size</span> (<span class="code-type" >void</span> <span class="code-argument"></span>);<br/></pre>
+<a id="6600"/><h3>size</h3><pre>
+  Vector2D&lt;int32_t&gt; <span class="code-function">size</span> ();<br/></pre>
 Get the size of the current Matrix.<br/><ul>
 <table class="parameter-list">
 <tr><td><b>Return: </b></td><td></td><td>Dimention of the matrix</td></tr></table>
@@ -105,32 +105,38 @@ Get the size of the current Matrix.<br/><ul>
 
 <br/>
 <hr/>
-<a id="8726"/><h3>quaternionToEulerXYZ</h3><pre>
+<a id="6602"/><h3>quaternionToEulerXYZ</h3><pre>
   vec3 <span class="code-function">quaternionToEulerXYZ</span> (<span class="code-storage-keyword">const</span> btQuaternion & <span class="code-argument">quat</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="8728"/><h3>vec3ClipInt32</h3><pre>
+<a id="6604"/><h3>vec3ClipInt32</h3><pre>
   vec3 <span class="code-function">vec3ClipInt32</span> (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">val</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="8952"/><h3>vec3ClipInt64</h3><pre>
+<a id="6818"/><h3>vec3ClipInt64</h3><pre>
   vec3 <span class="code-function">vec3ClipInt64</span> (<span class="code-storage-keyword">const</span> vec3 & <span class="code-argument">val</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<a id="8954"/><h3>vec2ClipInt32</h3><pre>
+<a id="6820"/><h3>vec2ClipInt32</h3><pre>
   vec2 <span class="code-function">vec2ClipInt32</span> (<span class="code-storage-keyword">const</span> vec2 & <span class="code-argument">_val</span>);<br/></pre>
 
 <br/>
 <br/>
 <hr/>
-<h3>vec2ClipInt64</h3><pre>
+<a id="6822"/><h3>vec2ClipInt64</h3><pre>
   vec2 <span class="code-function">vec2ClipInt64</span> (<span class="code-storage-keyword">const</span> vec2 & <span class="code-argument">_val</span>);<br/></pre>
+
+<br/>
+<br/>
+<hr/>
+<h3>vec2rotate</h3><pre>
+  vec2 <span class="code-function">vec2rotate</span> (<span class="code-storage-keyword">const</span> vec2 & <span class="code-argument">_val</span>,<br/>                   <span class="code-storage-keyword">const</span> vec2 & <span class="code-argument">_point</span>,<br/>                   <span class="code-type" >float</span> <span class="code-argument">_angle</span>);<br/></pre>
 
 <br/>
 <br/>
