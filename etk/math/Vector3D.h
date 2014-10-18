@@ -166,8 +166,7 @@ namespace etk {
 			Vector3D<T>& safeNormalize() {
 				Vector3D<T> absVec = this->absolute();
 				int maxIndex = absVec.maxAxis();
-				if (absVec[maxIndex]>0)
-				{
+				if (absVec[maxIndex]>0) {
 					*this /= absVec[maxIndex];
 					return *this /= length();
 				}
