@@ -258,6 +258,17 @@ namespace etk {
 				return *this;
 			}
 			/**
+			 * @brief Normalize this vector 
+			 * x^2 + y^2 + z^2 = 1
+			 */
+			Vector2D<T>& safeNormalize() {
+				T tmp = length();
+				if (tmp != 0) {
+					*this /= length();
+				}
+				return *this;
+			}
+			/**
 			 * @brief Return a normalized version of this vector
 			 */
 			Vector2D<T> normalized() const {
