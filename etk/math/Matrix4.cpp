@@ -129,34 +129,36 @@ etk::Matrix4 etk::matRotate2(vec3 vect)
 	return matLookAt(vect, vec3(0,0,0), vec3(0,1,0));
 }
 
-etk::Matrix4 etk::matLookAt(vec3 eye,
-                            vec3 center,
-                            vec3 up)
+etk::Matrix4 etk::matLookAt(const vec3& _eye,
+                            const vec3& _target,
+                            const vec3& _up)
 {
 	etk::Matrix4 tmp;
 	
-	vec3 forward = center - eye;
-	forward.normalize();
-	vec3 side = forward.cross(up);
-	side.normalize();
+	vec3 forward = _target - _eye;
+	forward.safeNormalize();
+	vec3 xaxis = _target.cross(_up);
+	xaxis.safeNormalize();
+	vec3 up2 = xaxis.cross(forward);
+	xaxis.safeNormalize();
 	
-	vec3 plane_up = side.cross(forward);
-	plane_up.normalize();
-	
-	tmp.m_mat[0] = side.x();
-	tmp.m_mat[1] = plane_up.x();
+	tmp.m_mat[0] = xaxis.x();
+	tmp.m_mat[1] = up2.x();
 	tmp.m_mat[2] = -forward.x();
-	tmp.m_mat[3] = 0.0f;
+	tmp.m_mat[3] = _eye.x();
+	//tmp.m_mat[3] = 0.0f;
 	
-	tmp.m_mat[4] = side.y();
-	tmp.m_mat[5] = plane_up.y();
+	tmp.m_mat[4] = xaxis.y();
+	tmp.m_mat[5] = up2.y();
 	tmp.m_mat[6] = -forward.y();
-	tmp.m_mat[7] = 0.0f;
+	tmp.m_mat[7] = _eye.y();
+	//tmp.m_mat[7] = 0.0f;
 	
-	tmp.m_mat[8] = side.z();
-	tmp.m_mat[9] = plane_up.z();
+	tmp.m_mat[8] = xaxis.z();
+	tmp.m_mat[9] = up2.z();
 	tmp.m_mat[10] = -forward.z();
-	tmp.m_mat[11] = 0.0f;
+	tmp.m_mat[11] = _eye.z();
+	//tmp.m_mat[11] = 0.0f;
 	
 	tmp.m_mat[12] = 0.0f;
 	tmp.m_mat[13] = 0.0f;
@@ -164,7 +166,6 @@ etk::Matrix4 etk::matLookAt(vec3 eye,
 	tmp.m_mat[15] = 1.0f;
 	return tmp;
 }
-
 
 
 float etk::Matrix4::coFactor(int32_t row, int32_t col) const

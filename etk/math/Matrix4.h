@@ -258,9 +258,9 @@ namespace etk {
 	Matrix4 matScale(vec3 vect);
 	Matrix4 matRotate(vec3 vect, float angleRad=0.0);
 	Matrix4 matRotate2(vec3 vect);
-	Matrix4 matLookAt(vec3 eye,
-	                  vec3 center,
-	                  vec3 up);
+	Matrix4 matLookAt(const vec3& _eye,
+	                  const vec3& _target,
+	                  const vec3& _up);
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information
 	 */
