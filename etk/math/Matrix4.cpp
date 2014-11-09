@@ -11,7 +11,7 @@
 #include <etk/debug.h>
 #include <math.h>
 
-
+#if 1
 void etk::Matrix4::rotate(const vec3& vect, float angleRad)
 {
 	etk::Matrix4 tmpMat = etk::matRotate(vect, angleRad);
@@ -135,30 +135,27 @@ etk::Matrix4 etk::matLookAt(const vec3& _eye,
 {
 	etk::Matrix4 tmp;
 	
-	vec3 forward = _target - _eye;
+	vec3 forward = _eye - _target;
 	forward.safeNormalize();
-	vec3 xaxis = _target.cross(_up);
+	vec3 xaxis = _target.cross(_up.normalized());
 	xaxis.safeNormalize();
 	vec3 up2 = xaxis.cross(forward);
 	xaxis.safeNormalize();
 	
 	tmp.m_mat[0] = xaxis.x();
 	tmp.m_mat[1] = up2.x();
-	tmp.m_mat[2] = -forward.x();
+	tmp.m_mat[2] = forward.x();
 	tmp.m_mat[3] = _eye.x();
-	//tmp.m_mat[3] = 0.0f;
 	
 	tmp.m_mat[4] = xaxis.y();
 	tmp.m_mat[5] = up2.y();
-	tmp.m_mat[6] = -forward.y();
+	tmp.m_mat[6] = forward.y();
 	tmp.m_mat[7] = _eye.y();
-	//tmp.m_mat[7] = 0.0f;
 	
 	tmp.m_mat[8] = xaxis.z();
 	tmp.m_mat[9] = up2.z();
-	tmp.m_mat[10] = -forward.z();
+	tmp.m_mat[10] = forward.z();
 	tmp.m_mat[11] = _eye.z();
-	//tmp.m_mat[11] = 0.0f;
 	
 	tmp.m_mat[12] = 0.0f;
 	tmp.m_mat[13] = 0.0f;
@@ -226,3 +223,43 @@ std::ostream& etk::operator <<(std::ostream& _os, const etk::Matrix4& _obj) {
 	}
 	return _os;
 }
+#else
+
+std::ostream& operator <<(std::ostream& _os, const mat4& _obj) {
+	_os << "matrix4 : ({";
+	for (int32_t iii=0; iii<4; iii++) {
+		if (iii!= 0) {
+			_os << "},{";
+		}
+		for (int32_t jjj=0; jjj<4; jjj++) {
+			if (jjj!= 0) {
+				_os << ",";
+			}
+			_os << _obj.getElem(jjj,iii);
+		}
+	}
+	_os << "})";
+	return _os;
+}
+
+
+mat4 etk::matTranslate(const vec3& _vect) {
+	mat4 tmp;
+	tmp.translation(_vect);
+	return tmp;
+}
+
+mat4 etk::matScale(const vec3& _vect) {
+	mat4 tmp;
+	tmp.scale(_vect);
+	return tmp;
+}
+
+mat4 etk::matRotate(const vec3& _vect, float _angleRad) {
+	mat4 tmp;
+	tmp.rotation(_angleRad, _vect);
+	return tmp;
+}
+
+#endif
+

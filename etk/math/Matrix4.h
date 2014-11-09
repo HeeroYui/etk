@@ -11,8 +11,10 @@
 #ifndef __ETK_TYPES_MATRIX4_H__
 #define __ETK_TYPES_MATRIX4_H__
 
-#include <math.h>
 #include <etk/math/Vector3D.h>
+
+#if 1
+#include <math.h>
 
 #define DEG_TO_RAD(a)       ((a)*M_PI/180.0f)
 #define RAD_TO_DEG(a)       ((a)*180.0f/M_PI)
@@ -270,5 +272,24 @@ namespace etk {
 
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
 typedef etk::Matrix4  mat4;
+#else
+	// include matrix from bulletlib mat4 interface:
+	#include <vectormath/scalar/vectormath_aos.h>
+	// To siplify the writing of the code ==> this permit to have the same name with the glsl language...
+	typedef Vectormath::Aos::Matrix4  mat4;
+	/**
+	 * @brief Debug operator To display the curent element in a Human redeable information
+	 */
+	std::ostream& operator <<(std::ostream& _os, const mat4& _obj);
+	
+	// TODO : Remove this ???
+	namespace etk {
+		mat4 matTranslate(const vec3& _vect);
+		mat4 matScale(const vec3& _vect);
+		mat4 matRotate(const vec3& _vect, float _angleRad=0.0);
+	}
+#endif
+
+
 
 #endif
