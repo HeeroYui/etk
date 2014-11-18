@@ -443,13 +443,12 @@ namespace etk {
 	 */
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector3D<int32_t>& _obj);
 	//! @previous
-	std::ostream& operator <<(std::ostream& _os, const btVector3& _obj);
-	//! @previous
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector3D<uint32_t>& _obj);
 	//! @previous
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector3D<bool>& _obj);
-	
 };
+
+std::ostream& operator <<(std::ostream& _os, const btVector3& _obj);
 
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
 typedef btVector3                 vec3;

@@ -20,7 +20,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const ivec3& _obj) {
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const vec3& _obj) {
+std::ostream& operator <<(std::ostream& _os, const vec3& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
