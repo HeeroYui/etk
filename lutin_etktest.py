@@ -15,7 +15,7 @@ def create(target):
 	myModule.add_src_file([
 		'test/main.cpp'])
 	
-	myModule.add_module_depend(['etk'])
+	myModule.add_module_depend(['etk', 'gtest'])
 	
 	#myModule.compile_flags_XX(["-nostdinc++"]);
 	

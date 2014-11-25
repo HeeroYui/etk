@@ -188,7 +188,7 @@ namespace etk {
 				}
 				delete(m_data[elementId]);
 				m_data[elementId] = NULL;
-				m_data.remove(elementId);
+				m_data.erase(m_data.begin()+elementId);
 			}
 			/**
 			 * @brief Get the number of element in the hash table
