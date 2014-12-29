@@ -2029,6 +2029,7 @@ std::string etk::FSNodeReadAllData(const std::string& _path) {
 	std::string tmp;
 	while (node.fileGets(tmp) == true) {
 		output += tmp;
+		output += "\n";
 	}
 	output += tmp;
 	node.fileClose();
