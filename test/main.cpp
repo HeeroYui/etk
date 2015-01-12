@@ -24,6 +24,7 @@
 #include "testColor.hpp"
 #include "testFSNode.hpp"
 #include "testHash.hpp"
+#include "testStdShared.hpp"
 
 #undef __class__
 #define __class__	"etktest"
