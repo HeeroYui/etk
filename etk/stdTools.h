@@ -460,6 +460,15 @@ namespace etk {
 	void sort(std::vector<std::u32string *>& _list);
 	//! @previous
 	void sort(std::vector<std::string *>& _list);
+	
+	template<typename T, typename T2> bool isIn(const T& _val, const std::vector<T2>& _list) {
+		for (auto &it : _list) {
+			if (it == _val) {
+				return true;
+			}
+		}
+		return false;
+	}
 };
 
 namespace std {
@@ -473,6 +482,16 @@ namespace std {
 	std::ostream& operator <<(std::ostream& _os, const std::vector<std::string>& _obj);
 	std::ostream& operator <<(std::ostream& _os, const std::u32string& _obj);
 	std::ostream& operator <<(std::ostream& _os, const std::vector<std::u32string>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<float>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<double>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<int64_t>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<uint64_t>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<int32_t>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<uint32_t>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<int16_t>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<uint16_t>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<int8_t>& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std::vector<uint8_t>& _obj);
 };
 
 int32_t strlen(const char32_t * _data);

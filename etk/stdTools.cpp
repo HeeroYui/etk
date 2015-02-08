@@ -173,7 +173,7 @@ static uint8_t sizeElement(const char* _data, int32_t _lenMax) {
 
 char32_t utf8::convertChar32(const char* _input) {
 	char32_t value = 0;
-	if (NULL == _input) {
+	if (nullptr == _input) {
 		return value;
 	}
 	int32_t len = strlen(_input);
@@ -1121,6 +1121,125 @@ std::ostream& std::operator <<(std::ostream& _os, const std::vector<std::u32stri
 	return _os;
 }
 
+std::ostream& std::operator <<(std::ostream& _os, const std::vector<float>& _obj) {
+	_os << "{";
+	for (size_t iii=0; iii< _obj.size(); iii++) {
+		if (iii>0) {
+			_os << ";";
+		}
+		_os << _obj[iii];
+	}
+	_os << "}";
+	return _os;
+}
+
+std::ostream& std::operator <<(std::ostream& _os, const std::vector<double>& _obj) {
+	_os << "{";
+	for (size_t iii=0; iii< _obj.size(); iii++) {
+		if (iii>0) {
+			_os << ";";
+		}
+		_os << _obj[iii];
+	}
+	_os << "}";
+	return _os;
+}
+
+std::ostream& std::operator <<(std::ostream& _os, const std::vector<int64_t>& _obj) {
+	_os << "{";
+	for (size_t iii=0; iii< _obj.size(); iii++) {
+		if (iii>0) {
+			_os << ";";
+		}
+		_os << _obj[iii];
+	}
+	_os << "}";
+	return _os;
+}
+
+std::ostream& std::operator <<(std::ostream& _os, const std::vector<uint64_t>& _obj) {
+	_os << "{";
+	for (size_t iii=0; iii< _obj.size(); iii++) {
+		if (iii>0) {
+			_os << ";";
+		}
+		_os << _obj[iii];
+	}
+	_os << "}";
+	return _os;
+}
+
+std::ostream& std::operator <<(std::ostream& _os, const std::vector<int32_t>& _obj) {
+	_os << "{";
+	for (size_t iii=0; iii< _obj.size(); iii++) {
+		if (iii>0) {
+			_os << ";";
+		}
+		_os << _obj[iii];
+	}
+	_os << "}";
+	return _os;
+}
+
+std::ostream& std::operator <<(std::ostream& _os, const std::vector<uint32_t>& _obj) {
+	_os << "{";
+	for (size_t iii=0; iii< _obj.size(); iii++) {
+		if (iii>0) {
+			_os << ";";
+		}
+		_os << _obj[iii];
+	}
+	_os << "}";
+	return _os;
+}
+
+std::ostream& std::operator <<(std::ostream& _os, const std::vector<int16_t>& _obj) {
+	_os << "{";
+	for (size_t iii=0; iii< _obj.size(); iii++) {
+		if (iii>0) {
+			_os << ";";
+		}
+		_os << _obj[iii];
+	}
+	_os << "}";
+	return _os;
+}
+
+std::ostream& std::operator <<(std::ostream& _os, const std::vector<uint16_t>& _obj) {
+	_os << "{";
+	for (size_t iii=0; iii< _obj.size(); iii++) {
+		if (iii>0) {
+			_os << ";";
+		}
+		_os << _obj[iii];
+	}
+	_os << "}";
+	return _os;
+}
+
+std::ostream& std::operator <<(std::ostream& _os, const std::vector<int8_t>& _obj) {
+	_os << "{";
+	for (size_t iii=0; iii< _obj.size(); iii++) {
+		if (iii>0) {
+			_os << ";";
+		}
+		_os << _obj[iii];
+	}
+	_os << "}";
+	return _os;
+}
+
+std::ostream& std::operator <<(std::ostream& _os, const std::vector<uint8_t>& _obj) {
+	_os << "{";
+	for (size_t iii=0; iii< _obj.size(); iii++) {
+		if (iii>0) {
+			_os << ";";
+		}
+		_os << _obj[iii];
+	}
+	_os << "}";
+	return _os;
+}
 
 #if (defined(__TARGET_OS__Android))
 	std::string std::to_string(int _val) {
