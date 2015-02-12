@@ -34,8 +34,10 @@ namespace etk {
 					m_floats[2] = (T)43523424;
 					m_floats[3] = (T)23452345;
 				#endif
-				// hide a bullet warning
-				(void)btInfinityMask;
+				#ifndef __TARGET_OS__MacOs
+					// hide a bullet warning
+					(void)btInfinityMask;
+				#endif
 			}
 			/**
 			 * @brief Constructor from scalars 
