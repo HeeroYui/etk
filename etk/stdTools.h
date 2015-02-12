@@ -390,6 +390,8 @@ namespace etk {
 	template <class TYPE> bool from_string(TYPE& _variableRet, const std::string& _value);
 	template <class TYPE> bool from_string(TYPE& _variableRet, const std::u32string& _value);
 	
+	// TODO : Change this in : 
+	// TODO :     template <typename TYPE> TYPE string_to<TYPE>(const std::u32string& _value); ==> check exceptions ...
 	long double string_to_long_double(const std::string& _str);
 	long double string_to_long_double(const std::u32string& _str);
 	
