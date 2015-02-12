@@ -34,7 +34,7 @@ namespace etk {
 					m_floats[2] = (T)43523424;
 					m_floats[3] = (T)23452345;
 				#endif
-				#ifndef __TARGET_OS__MacOs
+				#if (!defined(__TARGET_OS__MacOs) && !defined(__TARGET_OS__IOs))
 					// hide a bullet warning
 					(void)btInfinityMask;
 				#endif

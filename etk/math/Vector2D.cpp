@@ -87,7 +87,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const std::vector<bvec2 >& _ob
 
 vec2 vec2rotate(const vec2& _val, const vec2& _point, float _angle) {
 	vec2 out = _val;
-	#ifdef __TARGET_OS__MacOs
+	#if (defined(__TARGET_OS__MacOs) || defined(__TARGET_OS__IOs))
 		float sinAngle = sin(_angle);
 		float cosAngle = cos(_angle);
 	#else

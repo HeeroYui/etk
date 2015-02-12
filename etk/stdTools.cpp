@@ -354,7 +354,10 @@ namespace etk {
 	}
 	template<> std::string to_string<int64_t>(const int64_t& _val) {
 		char tmpVal[256];
-		#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
+		#if (    defined(__TARGET_OS__Android) \
+		      || defined(__TARGET_OS__Windows) \
+		      || defined(__TARGET_OS__MacOs) \
+		      || defined(__TARGET_OS__IOs))
 			sprintf(tmpVal, "%lld", _val);
 		#else
 			sprintf(tmpVal, "%ld", _val);
@@ -378,7 +381,10 @@ namespace etk {
 	}
 	template<> std::string to_string<uint64_t>(const uint64_t& _val) {
 		char tmpVal[256];
-		#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
+		#if (    defined(__TARGET_OS__Android) \
+		      || defined(__TARGET_OS__Windows) \
+		      || defined(__TARGET_OS__MacOs) \
+		      || defined(__TARGET_OS__IOs))
 			sprintf(tmpVal, "%llu", _val);
 		#else
 			sprintf(tmpVal, "%lu", _val);
@@ -915,7 +921,10 @@ int32_t etk::string_to_int32_t(const std::string& _str, int _base) {
 }
 int64_t etk::string_to_int64_t(const std::string& _str, int _base) {
 	int64_t ret = 0;
-	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
+	#if (    defined(__TARGET_OS__Android) \
+	      || defined(__TARGET_OS__Windows) \
+	      || defined(__TARGET_OS__MacOs) \
+	      || defined(__TARGET_OS__IOs))
 		sscanf(_str.c_str(), "%lld", &ret);
 	#else
 		sscanf(_str.c_str(), "%ld", &ret);
@@ -939,7 +948,10 @@ uint32_t etk::string_to_uint32_t(const std::string& _str, int _base) {
 }
 uint64_t etk::string_to_uint64_t(const std::string& _str, int _base) {
 	uint64_t ret = 0;
-	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
+	#if (    defined(__TARGET_OS__Android) \
+	      || defined(__TARGET_OS__Windows) \
+	      || defined(__TARGET_OS__MacOs) \
+	      || defined(__TARGET_OS__IOs))
 		sscanf(_str.c_str(), "%llu", &ret);
 	#else
 		sscanf(_str.c_str(), "%lu", &ret);
