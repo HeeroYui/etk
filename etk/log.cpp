@@ -9,6 +9,9 @@
 #include <etk/log.h>
 #include <time.h>
 #include <mutex>
+#include <thread>
+#include <map>
+#include <inttypes.h>
 
 #if defined(__TARGET_OS__Android)
 #	include <android/log.h>
@@ -34,7 +37,7 @@
 			}
 			const char * symname = dlinfo.dli_sname;
 			int    status;
-			char * demangled = abi::__cxa_demangle(symname, NULL, 0, &status);
+			char * demangled = abi::__cxa_demangle(symname, nullptr, 0, &status);
 			if(status == 0 && demangled) {
 				symname = demangled;
 			}
@@ -43,7 +46,7 @@
 				TK_ERROR("        " << symname);
 			}
 			_removeElement--;
-			if(NULL != demangled) {
+			if(demangled != nullptr) {
 				free(demangled);
 			}
 		}
@@ -63,12 +66,16 @@
 	#define DEFAULT_LOG_LEVEL etk::log::logLevelInfo
 	#define DEFAULT_LOG_COLOR true
 	#define DEFAULT_LOG_LINE true
+	#define DEFAULT_LOG_THREAD_ID true
+	#define DEFAULT_LOG_THREAD_NAME true
 	#define DEFAULT_LOG_CLASS true
 	#define DEFAULT_LOG_TIME true
 #else
 	#define DEFAULT_LOG_LEVEL etk::log::logLevelNone
 	#define DEFAULT_LOG_COLOR false
 	#define DEFAULT_LOG_LINE false
+	#define DEFAULT_LOG_THREAD_ID false
+	#define DEFAULT_LOG_THREAD_NAME false
 	#define DEFAULT_LOG_CLASS false
 	#define DEFAULT_LOG_TIME true
 #endif
@@ -151,14 +158,14 @@ void etk::log::logStream(int32_t _id, int32_t _level, int32_t _ligne, const char
 }
 
 void etk::log::logChar1(int32_t _id, int32_t _level, const char* _log) {
-	etk::log::logChar(_id, _level, -1, NULL, NULL, _log);
+	etk::log::logChar(_id, _level, -1, nullptr, nullptr, _log);
 }
 
 void etk::log::logStream1(int32_t _id, int32_t _level, const std::ostream& _log) {
 	std::ostringstream oss;
 	oss << _log.rdbuf();
 	std::string sss =oss.str();
-	etk::log::logChar(_id, _level, -1, NULL, NULL, sss.c_str());
+	etk::log::logChar(_id, _level, -1, nullptr, nullptr, sss.c_str());
 }
 
 static bool& getColor() {
@@ -186,6 +193,23 @@ void etk::log::setLine(bool _status) {
 	getLine() = _status;
 }
 
+static bool& getThreadId() {
+	static bool g_val = DEFAULT_LOG_THREAD_ID;
+	return g_val;
+}
+void etk::log::setThreadId(bool _status) {
+	getThreadId() = _status;
+}
+
+static bool& getThreadNameEnable() {
+	static bool g_val = DEFAULT_LOG_THREAD_NAME;
+	return g_val;
+}
+void etk::log::setThreadNameEnable(bool _status) {
+	getThreadNameEnable() = _status;
+}
+
+
 static bool& getFunction() {
 	static bool g_val = DEFAULT_LOG_CLASS;
 	return g_val;
@@ -193,12 +217,65 @@ static bool& getFunction() {
 void etk::log::setFunction(bool _status) {
 	getFunction() = _status;
 }
+// TODO : add a generic lock ...
+static std::map<uint32_t, std::string>& getThreadList() {
+	static std::map<uint32_t, std::string> g_val;
+	return g_val;
+}
 
+std::string etk::log::getThreadName() {
+	std::map<uint32_t,std::string>& list = getThreadList();
+	uint32_t threadID = getThreadID();
+	std::string out;
+	static std::mutex g_lock;
+	g_lock.lock();
+	auto it = list.find(threadID);
+	if (it != list.end()) {
+		out = it->second;
+	}
+	g_lock.unlock();
+	return out;
+}
+
+void etk::log::setThreadName(const std::string& _name) {
+	std::map<uint32_t,std::string>& list = getThreadList();
+	uint32_t threadID = getThreadID();
+	static std::mutex g_lock;
+	g_lock.lock();
+	auto it = list.find(threadID);
+	if (it == list.end()) {
+		list.insert(std::pair<uint32_t, std::string>(threadID,_name));
+	} else {
+		it->second = _name;
+	}
+	g_lock.unlock();
+}
+
+uint32_t etk::log::getThreadID() {
+	uint32_t out = 0;
+	std::thread::id this_id = std::this_thread::get_id();
+	uint64_t iddd = std::hash<std::thread::id>()(this_id);
+	static std::mutex g_lock;
+	g_lock.lock();
+	static std::map<uint64_t, uint32_t> g_list;
+	auto it = g_list.find(iddd);
+	if (it == g_list.end()) {
+		// attribute new ID :
+		static uint32_t tmpId = 0;
+		g_list.insert(std::pair<uint64_t, uint32_t>(iddd,tmpId));
+		out = tmpId;
+		tmpId++;
+	} else {
+		out = it->second;
+	}
+	g_lock.unlock();
+	return out;
+}
 
 static void getDisplayTime(char* data) {
 #ifdef __TARGET_OS__Android
 	struct timeval  now;
-	gettimeofday(&now, NULL);
+	gettimeofday(&now, nullptr);
 	sprintf(data, " %2dh%2d'%2d | ", (int32_t)(now.tv_sec/3600)%24, (int32_t)(now.tv_sec/60)%60, (int32_t)(now.tv_sec%60));
 #else
 	time_t rawtime;
@@ -316,6 +393,30 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 		*pointer++ = ' ';
 		*pointer = '\0';
 	}
+	if(getThreadId() == true) {
+		// display thread ID
+		uint32_t iddd = etk::log::getThreadID();
+		sprintf(pointer, "%3d", iddd);
+		pointer = handle+strlen(handle);
+		*pointer++ = ' ';
+		*pointer++ = '|';
+		*pointer++ = ' ';
+		*pointer = '\0';
+	}
+	if(getThreadNameEnable() == true) {
+		// display thread ID
+		std::string name = etk::log::getThreadName();
+		int32_t len = strlen(handle);
+		snprintf(pointer, 20, "%s", name.c_str());
+		pointer = handle+strlen(handle);
+		while (strlen(handle) - len < 20) {
+			*pointer++ = ' ';
+			*pointer = '\0';
+		}
+		*pointer++ = '|';
+		*pointer++ = ' ';
+		*pointer = '\0';
+	}
 	if(getLine() == true) {
 		if (_ligne >= 0) {
 			sprintf(pointer, "(l=%5d)", _ligne);
@@ -326,11 +427,11 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 	}
 	if(getFunction() == true) {
 		int32_t len = strlen(handle);
-		if (_className != NULL) {
+		if (_className != nullptr) {
 			snprintf(pointer, 70, "%s::", _className);
 			pointer = handle+strlen(handle);
 		}
-		if (_funcName != NULL) {
+		if (_funcName != nullptr) {
 			snprintf(pointer, 70, "%s", _funcName);
 			pointer = handle+strlen(handle);
 		}
