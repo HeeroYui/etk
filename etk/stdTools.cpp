@@ -391,6 +391,13 @@ namespace etk {
 		#endif
 		return tmpVal;
 	}
+	#if (defined(__TARGET_OS__IOs) || defined(__TARGET_OS__MacOs))
+	template<> std::string to_string<size_t>(const size_t& _val) {
+		char tmpVal[256];
+		sprintf(tmpVal, "%lu", _val);
+		return tmpVal;
+	}
+	#endif
 	template<> std::string to_string<float>(const float& _val) {
 		char tmpVal[256];
 		sprintf(tmpVal, "%f", _val);
