@@ -1708,6 +1708,39 @@ int64_t etk::FSNode::fileWrite(const void * _data, int64_t _blockSize, int64_t _
 	#endif
 	return fwrite(_data, _blockSize, _nbBlock, m_PointerFile);
 }
+/*
+etk::FSNode& etk::FSNode::operator<< (const std::ostream& _data) {
+	fileWrite(_data.str().c_str(), 1, _data.str().size());
+	return *this;
+}
+*/
+etk::FSNode& etk::FSNode::operator<< (const std::stringstream& _data) {
+	std::string sss = _data.str();
+	fileWrite(sss.c_str(), 1, sss.size());
+	return *this;
+}
+etk::FSNode& etk::FSNode::operator<< (const std::string& _data) {
+	fileWrite(_data.c_str(), 1, _data.size());
+	return *this;
+}
+etk::FSNode& etk::FSNode::operator<< (const char* _data) {
+	fileWrite(_data, 1, strlen(_data));
+	return *this;
+}
+etk::FSNode& etk::FSNode::operator<< (const int32_t _data) {
+	std::stringstream tmp;
+	tmp << _data;
+	std::string sss = tmp.str();
+	fileWrite(sss.c_str(), 1, sss.size());
+	return *this;
+}
+etk::FSNode& etk::FSNode::operator<< (const uint32_t _data) {
+	std::stringstream tmp;
+	tmp << _data;
+	std::string sss = tmp.str();
+	fileWrite(sss.c_str(), 1, sss.size());
+	return *this;
+}
 
 bool etk::FSNode::fileSeek(long int _offset, enum etk::seekNode _origin)
 {

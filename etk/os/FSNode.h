@@ -453,6 +453,17 @@ namespace etk {
 			 */
 			int64_t fileWrite(const void* _data, int64_t _blockSize, int64_t _nbBlock);
 			/**
+			 * @brief Stream write mode
+			 * @param[in] _data Stream to write
+			 * @note not stable API ...
+			 */
+			//etk::FSNode& operator<< (const std::ostream& _data);
+			etk::FSNode& operator<< (const std::stringstream& _data);
+			etk::FSNode& operator<< (const std::string& _data);
+			etk::FSNode& operator<< (const char* _data);
+			etk::FSNode& operator<< (const int32_t _data);
+			etk::FSNode& operator<< (const uint32_t _data);
+			/**
 			 * @brief Get the position in the file.
 			 * @return the requested position.
 			 */
