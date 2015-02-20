@@ -46,6 +46,11 @@ def create(target):
 		if target.name != "Windows":
 			myModule.add_export_flag_LD("-ldl -rdynamic")
 	
+	if     target.config["compilator"] == "gcc" \
+	   and target.xx_version < 4007000:
+		myModule.add_export_flag_CC("-DETK_ENABLE_NULLPTR")
+	
+	
 	if target.name=="Windows":
 		None
 	elif target.name=="Android":

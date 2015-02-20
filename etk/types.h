@@ -41,9 +41,14 @@
 	#endif
 #endif
 
+#ifdef ETK_ENABLE_NULLPTR
+	#define nullptr NULL
+#endif
+
 #include <etk/stdTools.h>
 #ifndef _WIN32
 	typedef float float_t;
 #endif
+
 
 #endif
