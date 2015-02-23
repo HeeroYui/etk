@@ -94,6 +94,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const std::vector<bvec3>& _obj
 	return _os;
 }
 
+#ifdef __ETK_BUILD_LINEARMATH__
 vec3 quaternionToEulerXYZ(const btQuaternion& _quat) {
 	// back to the euler angle : 
 	float xxx = _quat.x();
@@ -109,6 +110,7 @@ vec3 quaternionToEulerXYZ(const btQuaternion& _quat) {
 	             asin(2.0*(xxx*zzz-yyy*www)),
 	             atan2(2.0*(xxx*yyy + zzz*www), (xxx2-yyy2-zzz2+www2) ) );
 }
+#endif
 
 namespace etk {
 	template<> std::string to_string<vec3>(const vec3& _obj) {

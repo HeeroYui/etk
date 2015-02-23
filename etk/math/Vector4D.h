@@ -13,15 +13,18 @@
 
 #include <etk/debug.h>
 #include <math.h>
-#include <LinearMath/btScalar.h>
-#include <LinearMath/btMinMax.h>
-#include <LinearMath/btVector3.h>
-#include <LinearMath/btQuaternion.h>
-
-namespace etk
-{
-	template <typename T> class Vector4D
-	{
+#ifdef ETK_BUILD_LINEARMATH
+	#include <LinearMath/btScalar.h>
+	#include <LinearMath/btMinMax.h>
+	#include <LinearMath/btVector3.h>
+	#include <LinearMath/btQuaternion.h>
+#else
+	namespace etk {
+		template <typename T> class Vector4D;
+	};
+#endif
+namespace etk {
+	template <typename T> class Vector4D {
 		public:
 			T m_floats[4];
 		public:

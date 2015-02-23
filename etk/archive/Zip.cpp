@@ -9,9 +9,25 @@
 #include <etk/archive/Zip.h>
 #include <etk/types.h>
 
+#ifndef ETK_BUILD_MINIZIP
+etk::archive::Zip::Zip(const std::string& _fileName) :
+  etk::Archive(_fileName) {
+	TK_WARNING("No archive interface (not compiled with) minizip lib");
+	return;
+}
+
+etk::archive::Zip::~Zip() {
+	return;
+}
+
+void etk::archive::Zip::loadFile(const std::map<std::string, Content>::iterator& it) {
+	TK_ERROR("Can not load File with no Archive interface");
+	return;
+}
+#else
 etk::archive::Zip::Zip(const std::string& _fileName) :
   etk::Archive(_fileName),
-  m_ctx(NULL) {
+  m_ctx(nullptr) {
 	/* Open the zip file */
 	m_ctx = unzOpen(m_fileName.c_str());
 	if(!m_ctx) {
@@ -108,3 +124,4 @@ void etk::archive::Zip::loadFile(const std::map<std::string, Content>::iterator&
 		}
 	}
 }
+#endif

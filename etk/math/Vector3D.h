@@ -13,10 +13,18 @@
 
 #include <etk/debug.h>
 #include <math.h>
-#include <LinearMath/btScalar.h>
-#include <LinearMath/btMinMax.h>
-#include <LinearMath/btVector3.h>
-#include <LinearMath/btQuaternion.h>
+
+#ifdef ETK_BUILD_LINEARMATH
+	#include <LinearMath/btScalar.h>
+	#include <LinearMath/btMinMax.h>
+	#include <LinearMath/btVector3.h>
+	#include <LinearMath/btQuaternion.h>
+#else
+	namespace etk {
+		template <typename T> class Vector3D;
+	};
+	typedef etk::Vector3D<float> btVector3;
+#endif
 
 namespace etk {
 	template <typename T> class Vector3D {
@@ -34,7 +42,9 @@ namespace etk {
 					m_floats[2] = (T)43523424;
 					m_floats[3] = (T)23452345;
 				#endif
-				#if (!defined(__TARGET_OS__MacOs) && !defined(__TARGET_OS__IOs))
+				#if (    !defined(__TARGET_OS__MacOs) \
+				      && !defined(__TARGET_OS__IOs) \
+				      && defined(ETK_BUILD_LINEARMATH))
 					// hide a bullet warning
 					(void)btInfinityMask;
 				#endif
@@ -146,7 +156,11 @@ namespace etk {
 			 * @brief Return the length of the vector
 			 */
 			btScalar length() const {
-				return btSqrt(length2());
+				#ifdef ETK_BUILD_LINEARMATH
+					return btSqrt(length2());
+				#else
+					return std::sqrt(length2());
+				#endif
 			}
 			
 			/**
@@ -188,7 +202,9 @@ namespace etk {
 			 * @brief Return a normalized version of this vector
 			 */
 			Vector3D<T> normalized() const {
-				return *this / length();
+				Vector3D<T> out = *this;
+				out /= length();
+				return out;
 			}
 			
 			/**
@@ -453,15 +469,20 @@ namespace etk {
 std::ostream& operator <<(std::ostream& _os, const btVector3& _obj);
 
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
-typedef btVector3                 vec3;
+#ifdef ETK_BUILD_LINEARMATH
+	typedef btVector3            vec3;
+#else
+	typedef etk::Vector3D<float> vec3;
+#endif
 typedef etk::Vector3D<float>     ovec3;  // specific for OpenGL ... ==> never change this ...
 typedef etk::Vector3D<int32_t>   ivec3;
 // not compatible with glsl ... but it is better to have a same writing
 typedef etk::Vector3D<uint32_t> uivec3;
 typedef etk::Vector3D<bool>      bvec3;
 
-
-vec3 quaternionToEulerXYZ(const btQuaternion& quat);
+#ifdef ETK_BUILD_LINEARMATH
+	vec3 quaternionToEulerXYZ(const btQuaternion& quat);
+#endif
 
 inline vec3 vec3ClipInt32(const vec3& val) {
 	return vec3((int32_t)val.x(), (int32_t)val.y(), (int32_t)val.z());

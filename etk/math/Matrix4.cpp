@@ -135,7 +135,8 @@ etk::Matrix4 etk::matLookAt(const vec3& _eye,
 {
 	etk::Matrix4 tmp;
 	
-	vec3 forward = _eye - _target;
+	vec3 forward = _eye;
+	forward -= _target;
 	forward.safeNormalize();
 	vec3 xaxis = _target.cross(_up.normalized());
 	xaxis.safeNormalize();

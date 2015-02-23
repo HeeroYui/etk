@@ -6,13 +6,13 @@
  * @license APACHE v2.0 (see license file)
  */
 
+#include <etk/math/Vector3D.h>
 #include <etk/types.h>
 
 #ifndef __ETK_MATH_VECTOR2D_H__
 #define __ETK_MATH_VECTOR2D_H__
 
 #include <etk/debug.h>
-#include <etk/math/Vector3D.h>
 #include <math.h>
 
 namespace etk {

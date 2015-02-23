@@ -32,8 +32,8 @@ def create(target):
 		myModule.add_src_file('etk/logIOs.m')
 
 	# name of the dependency
-	myModule.add_module_depend('linearmath')
-	myModule.add_module_depend('minizip')
+	myModule.add_optionnal_module_depend('linearmath', "ETK_BUILD_LINEARMATH", export=True)
+	myModule.add_optionnal_module_depend('minizip', "ETK_BUILD_MINIZIP")
 	
 	if target.config["mode"] == "release":
 		# TODO : The other way is to remove this ...

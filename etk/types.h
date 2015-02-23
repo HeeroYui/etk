@@ -45,7 +45,13 @@
 	#define nullptr NULL
 #endif
 
+
 #include <etk/stdTools.h>
+
+#ifndef ETK_BUILD_LINEARMATH
+	typedef float btScalar;
+#endif
+
 #ifndef _WIN32
 	typedef float float_t;
 #endif
