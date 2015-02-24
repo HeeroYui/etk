@@ -48,8 +48,9 @@ namespace etk {
 			void setOtherReadable(bool _newStatus);
 			void setOtherWritable(bool _newStatus);
 			void setOtherRunable(bool _newStatus);
-			
-			std::u32string getURight() const;
+			#if __cplusplus >= 201103L
+				std::u32string getURight() const;
+			#endif
 			std::string getRight() const;
 	};
 	std::ostream& operator <<(std::ostream &_os, const etk::FSNodeRight &_obj);

@@ -48,7 +48,9 @@ namespace etk {
 				m_floats[1] = (T)_obj.y();
 			};
 			Vector2D(const std::string& _str);
-			Vector2D(const std::u32string& _str);
+			#if __cplusplus >= 201103L
+				Vector2D(const std::u32string& _str);
+			#endif
 			~Vector2D() { };
 			/* ****************************************************
 			 *    = assigment
@@ -371,7 +373,9 @@ namespace etk {
 			}
 			//!< string cast :
 			operator std::string() const;
-			operator std::u32string() const;
+			#if __cplusplus >= 201103L
+				operator std::u32string() const;
+			#endif
 	};
 	/**
 	 * @brief Debug operator To display the curent element in a Human redeable information

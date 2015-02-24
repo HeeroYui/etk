@@ -384,18 +384,19 @@ template<> template<> Color<uint8_t,4>::Color(const Color<double, 4>& _obj) {
 
 // ===========================================================================================================
 
-template<> std::string to_string<Color<uint8_t, 1>>(const Color<uint8_t, 1>& _val) {
+template<> std::string to_string<Color<uint8_t, 1> >(const Color<uint8_t, 1>& _val) {
 	return _val.getString();
 }
-template<> std::u32string to_u32string<Color<uint8_t, 1>>(const Color<uint8_t, 1>& _val) {
-	return to_u32string(_val.getString());
-}
-
-template<> bool from_string<Color<uint8_t, 1>>(Color<uint8_t, 1>& _variableRet, const std::u32string& _value) {
-	_variableRet = Color<uint8_t, 1>(to_string(_value));
-	return true;
-}
-template<> bool from_string<Color<uint8_t, 1>>(Color<uint8_t, 1>& _variableRet, const std::string& _value) {
+#if __cplusplus >= 201103L
+	template<> std::u32string to_u32string<Color<uint8_t, 1>>(const Color<uint8_t, 1>& _val) {
+		return to_u32string(_val.getString());
+	}
+	template<> bool from_string<Color<uint8_t, 1>>(Color<uint8_t, 1>& _variableRet, const std::u32string& _value) {
+		_variableRet = Color<uint8_t, 1>(to_string(_value));
+		return true;
+	}
+#endif
+template<> bool from_string<Color<uint8_t, 1> >(Color<uint8_t, 1>& _variableRet, const std::string& _value) {
 	_variableRet = Color<uint8_t, 1>(_value);
 	return true;
 }
@@ -403,53 +404,56 @@ template<> bool from_string<Color<uint8_t, 1>>(Color<uint8_t, 1>& _variableRet, 
 
 
 
-template<> std::string to_string<Color<uint8_t, 2>>(const Color<uint8_t, 2>& _val) {
+template<> std::string to_string<Color<uint8_t, 2> >(const Color<uint8_t, 2>& _val) {
 	return _val.getString();
 }
-template<> std::u32string to_u32string<Color<uint8_t, 2>>(const Color<uint8_t, 2>& _val) {
-	return to_u32string(_val.getString());
-}
-
-template<> bool from_string<Color<uint8_t, 2>>(Color<uint8_t, 2>& _variableRet, const std::u32string& _value) {
-	_variableRet = Color<uint8_t, 2>(to_string(_value));
-	return true;
-}
-template<> bool from_string<Color<uint8_t, 2>>(Color<uint8_t, 2>& _variableRet, const std::string& _value) {
+#if __cplusplus >= 201103L
+	template<> std::u32string to_u32string<Color<uint8_t, 2>>(const Color<uint8_t, 2>& _val) {
+		return to_u32string(_val.getString());
+	}
+	template<> bool from_string<Color<uint8_t, 2>>(Color<uint8_t, 2>& _variableRet, const std::u32string& _value) {
+		_variableRet = Color<uint8_t, 2>(to_string(_value));
+		return true;
+	}
+#endif
+template<> bool from_string<Color<uint8_t, 2> >(Color<uint8_t, 2>& _variableRet, const std::string& _value) {
 	_variableRet = Color<uint8_t, 2>(_value);
 	return true;
 }
 
 
 
-template<> std::string to_string<Color<uint8_t, 3>>(const Color<uint8_t, 3>& _val) {
+template<> std::string to_string<Color<uint8_t, 3> >(const Color<uint8_t, 3>& _val) {
 	return _val.getString();
 }
-template<> std::u32string to_u32string<Color<uint8_t, 3>>(const Color<uint8_t, 3>& _val) {
-	return to_u32string(_val.getString());
-}
-
-template<> bool from_string<Color<uint8_t, 3>>(Color<uint8_t, 3>& _variableRet, const std::u32string& _value) {
-	_variableRet = Color<uint8_t, 3>(to_string(_value));
-	return true;
-}
-template<> bool from_string<Color<uint8_t, 3>>(Color<uint8_t, 3>& _variableRet, const std::string& _value) {
+#if __cplusplus >= 201103L
+	template<> std::u32string to_u32string<Color<uint8_t, 3>>(const Color<uint8_t, 3>& _val) {
+		return to_u32string(_val.getString());
+	}
+	template<> bool from_string<Color<uint8_t, 3>>(Color<uint8_t, 3>& _variableRet, const std::u32string& _value) {
+		_variableRet = Color<uint8_t, 3>(to_string(_value));
+		return true;
+	}
+#endif
+template<> bool from_string<Color<uint8_t, 3> >(Color<uint8_t, 3>& _variableRet, const std::string& _value) {
 	_variableRet = Color<uint8_t, 3>(_value);
 	return true;
 }
 
 
-template<> std::string to_string<Color<uint8_t, 4>>(const Color<uint8_t, 4>& _val) {
+template<> std::string to_string<Color<uint8_t, 4> >(const Color<uint8_t, 4>& _val) {
 	return _val.getString();
 }
-template<> std::u32string to_u32string<Color<uint8_t, 4>>(const Color<uint8_t, 4>& _val) {
-	return to_u32string(_val.getString());
-}
-
-template<> bool from_string<Color<uint8_t, 4>>(Color<uint8_t, 4>& _variableRet, const std::u32string& _value) {
-	_variableRet = Color<uint8_t, 4>(to_string(_value));
-	return true;
-}
-template<> bool from_string<Color<uint8_t, 4>>(Color<uint8_t, 4>& _variableRet, const std::string& _value) {
+#if __cplusplus >= 201103L
+	template<> std::u32string to_u32string<Color<uint8_t, 4>>(const Color<uint8_t, 4>& _val) {
+		return to_u32string(_val.getString());
+	}
+	template<> bool from_string<Color<uint8_t, 4>>(Color<uint8_t, 4>& _variableRet, const std::u32string& _value) {
+		_variableRet = Color<uint8_t, 4>(to_string(_value));
+		return true;
+	}
+#endif
+template<> bool from_string<Color<uint8_t, 4> >(Color<uint8_t, 4>& _variableRet, const std::string& _value) {
 	_variableRet = Color<uint8_t, 4>(_value);
 	return true;
 }

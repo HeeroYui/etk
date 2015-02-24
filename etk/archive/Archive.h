@@ -5,6 +5,7 @@
  * 
  * @license APACHE v2.0 (see license file)
  */
+#ifdef ETK_BUILD_MINIZIP
 
 #include <etk/types.h>
 
@@ -139,3 +140,4 @@ namespace etk {
 };
 #endif
 
+#endif

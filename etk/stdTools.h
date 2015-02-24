@@ -41,7 +41,9 @@ namespace u32char {
 	
 	char32_t changeOrder(char32_t _val);
 	int8_t convertUtf8(char32_t _val, char _output[5]);
-	std::string convertToUtf8(const std::u32string& _input);
+	#if __cplusplus >= 201103L
+		std::string convertToUtf8(const std::u32string& _input);
+	#endif
 };
 
 namespace utf8 {
@@ -59,8 +61,9 @@ namespace utf8 {
 	bool theoricFirst(const char _input);
 	
 	char32_t convertChar32(const char* _input);
-	std::u32string convertUnicode(const std::string& _input);
-	
+	#if __cplusplus >= 201103L
+		std::u32string convertUnicode(const std::string& _input);
+	#endif
 	class iterator {
 		private:
 			char32_t m_value; //!< store vlue to prevent multiple calcule of getting the data
@@ -384,88 +387,134 @@ namespace std {
 namespace etk {
 	// these declaration is to prevent some under template declaration of unknown type
 	template <class TYPE> std::string to_string(const TYPE& _variable);
-	template <class TYPE> std::u32string to_u32string(const TYPE& _variable);
-	
+	#if __cplusplus >= 201103L
+		template <class TYPE> std::u32string to_u32string(const TYPE& _variable);
+	#endif
 	// these declaration is to prevent some under template declaration of unknown type
 	template <class TYPE> bool from_string(TYPE& _variableRet, const std::string& _value);
-	template <class TYPE> bool from_string(TYPE& _variableRet, const std::u32string& _value);
+	#if __cplusplus >= 201103L
+		template <class TYPE> bool from_string(TYPE& _variableRet, const std::u32string& _value);
+	#endif
 	
 	// TODO : Change this in : 
 	// TODO :     template <typename TYPE> TYPE string_to<TYPE>(const std::u32string& _value); ==> check exceptions ...
 	long double string_to_long_double(const std::string& _str);
-	long double string_to_long_double(const std::u32string& _str);
+	#if __cplusplus >= 201103L
+		long double string_to_long_double(const std::u32string& _str);
+	#endif
 	
 	double string_to_double(const std::string& _str);
-	double string_to_double(const std::u32string& _str);
+	#if __cplusplus >= 201103L
+		double string_to_double(const std::u32string& _str);
+	#endif
 	
 	float string_to_float(const std::string& _str);
-	float string_to_float(const std::u32string& _str);
+	#if __cplusplus >= 201103L
+		float string_to_float(const std::u32string& _str);
+	#endif
 	
 	int8_t string_to_int8_t(const std::string& _str, int _base = 10);
-	int8_t string_to_int8_t(const std::u32string& _str, int _base = 10);
+	#if __cplusplus >= 201103L
+		int8_t string_to_int8_t(const std::u32string& _str, int _base = 10);
+	#endif
 	
 	int16_t string_to_int16_t(const std::string& _str, int _base = 10);
-	int16_t string_to_int16_t(const std::u32string& _str, int _base = 10);
+	#if __cplusplus >= 201103L
+		int16_t string_to_int16_t(const std::u32string& _str, int _base = 10);
+	#endif
 	
 	int32_t string_to_int32_t(const std::string& _str, int _base = 10);
-	int32_t string_to_int32_t(const std::u32string& _str, int _base = 10);
+	#if __cplusplus >= 201103L
+		int32_t string_to_int32_t(const std::u32string& _str, int _base = 10);
+	#endif
 	
 	int64_t string_to_int64_t(const std::string& _str, int _base = 10);
-	int64_t string_to_int64_t(const std::u32string& _str, int _base = 10);
+	#if __cplusplus >= 201103L
+		int64_t string_to_int64_t(const std::u32string& _str, int _base = 10);
+	#endif
 	
 	uint8_t string_to_uint8_t(const std::string& _str, int _base = 10);
-	uint8_t string_to_uint8_t(const std::u32string& _str, int _base = 10);
+	#if __cplusplus >= 201103L
+		uint8_t string_to_uint8_t(const std::u32string& _str, int _base = 10);
+	#endif
 	
 	uint16_t string_to_uint16_t(const std::string& _str, int _base = 10);
-	uint16_t string_to_uint16_t(const std::u32string& _str, int _base = 10);
+	#if __cplusplus >= 201103L
+		uint16_t string_to_uint16_t(const std::u32string& _str, int _base = 10);
+	#endif
 	
 	uint32_t string_to_uint32_t(const std::string& _str, int _base = 10);
-	uint32_t string_to_uint32_t(const std::u32string& _str, int _base = 10);
+	#if __cplusplus >= 201103L
+		uint32_t string_to_uint32_t(const std::u32string& _str, int _base = 10);
+	#endif
 	
 	uint64_t string_to_uint64_t(const std::string& _str, int _base = 10);
-	uint64_t string_to_uint64_t(const std::u32string& _str, int _base = 10);
+	#if __cplusplus >= 201103L
+		uint64_t string_to_uint64_t(const std::u32string& _str, int _base = 10);
+	#endif
 	
 	bool string_to_bool(const std::string& _str);
-	bool string_to_bool(const std::u32string& _str);
+	#if __cplusplus >= 201103L
+		bool string_to_bool(const std::u32string& _str);
+	#endif
 	
 	std::string tolower(std::string _obj);
-	//! @previous
-	std::u32string tolower(std::u32string _obj);
+	#if __cplusplus >= 201103L
+		//! @previous
+		std::u32string tolower(std::u32string _obj);
+	#endif
+	
 	std::string toupper(std::string _obj);
-	//! @previous
-	std::u32string toupper(std::u32string _obj);
+	#if __cplusplus >= 201103L
+		//! @previous
+		std::u32string toupper(std::u32string _obj);
+	#endif
 	
 	bool compare_no_case(const std::string& _obj, const std::string& _val);
-	//! @previous
-	bool compare_no_case(const std::u32string& _obj, const std::u32string& _val);
+	#if __cplusplus >= 201103L
+		//! @previous
+		bool compare_no_case(const std::u32string& _obj, const std::u32string& _val);
+	#endif
 	
 	bool end_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = true);
-	//! @previous
-	bool end_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = true);
+	#if __cplusplus >= 201103L
+		//! @previous
+		bool end_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = true);
+	#endif
 	
 	bool start_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = true);
-	//! @previous
-	bool start_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = true);
+	#if __cplusplus >= 201103L
+		//! @previous
+		bool start_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = true);
+	#endif
 	
 	std::string replace(const std::string& _obj, char _val, char _replace);
-	//! @previous
-	std::u32string replace(const std::u32string& _obj, char32_t _val, char32_t _replace);
+	#if __cplusplus >= 201103L
+		//! @previous
+		std::u32string replace(const std::u32string& _obj, char32_t _val, char32_t _replace);
+	#endif
 	
 	std::string extract_line(const std::string& _obj, int32_t _pos);
-	//! @previous
-	std::u32string extract_line(const std::u32string& _obj, int32_t _pos);
+	#if __cplusplus >= 201103L
+		//! @previous
+		std::u32string extract_line(const std::u32string& _obj, int32_t _pos);
+	#endif
 	
 	std::vector<std::string> split(const std::string& _input, char _val);
-	//! @previous
-	std::vector<std::u32string> split(const std::u32string& _input, char32_t _val);
+	#if __cplusplus >= 201103L
+		//! @previous
+		std::vector<std::u32string> split(const std::u32string& _input, char32_t _val);
+	#endif
 	
-	void sort(std::vector<std::u32string *>& _list);
-	//! @previous
 	void sort(std::vector<std::string *>& _list);
+	#if __cplusplus >= 201103L
+		//! @previous
+		void sort(std::vector<std::u32string *>& _list);
+	#endif
 	
 	template<typename T, typename T2> bool isIn(const T& _val, const std::vector<T2>& _list) {
-		for (auto &it : _list) {
-			if (it == _val) {
+		for (size_t iii=0; iii<_list.size(); ++iii) {
+			if (_list[iii] == _val) {
 				return true;
 			}
 		}
@@ -482,8 +531,10 @@ namespace std {
 namespace std {
 	std::ostream& operator <<(std::ostream& _os, const std::string& _obj);
 	std::ostream& operator <<(std::ostream& _os, const std::vector<std::string>& _obj);
-	std::ostream& operator <<(std::ostream& _os, const std::u32string& _obj);
-	std::ostream& operator <<(std::ostream& _os, const std::vector<std::u32string>& _obj);
+	#if __cplusplus >= 201103L
+		std::ostream& operator <<(std::ostream& _os, const std::u32string& _obj);
+		std::ostream& operator <<(std::ostream& _os, const std::vector<std::u32string>& _obj);
+	#endif
 	std::ostream& operator <<(std::ostream& _os, const std::vector<float>& _obj);
 	std::ostream& operator <<(std::ostream& _os, const std::vector<double>& _obj);
 	std::ostream& operator <<(std::ostream& _os, const std::vector<int64_t>& _obj);

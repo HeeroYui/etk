@@ -5,6 +5,7 @@
  * 
  * @license APACHE v2.0 (see license file)
  */
+#ifdef ETK_BUILD_MINIZIP
 
 #include <etk/archive/Archive.h>
 #include <etk/archive/Zip.h>
@@ -100,3 +101,5 @@ void etk::Archive::close(const std::string& _key) {
 		it->second.decreaseRef();
 	}
 }
+
+#endif

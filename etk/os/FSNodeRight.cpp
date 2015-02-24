@@ -174,10 +174,11 @@ void etk::FSNodeRight::setOtherRunable(bool _newStatus)
 		m_rights |= RIGHT_OTHER_EXECUTE;
 	}
 }
-
-std::u32string etk::FSNodeRight::getURight() const {
-	return etk::to_u32string(getRight());
-}
+#if __cplusplus >= 201103L
+	std::u32string etk::FSNodeRight::getURight() const {
+		return etk::to_u32string(getRight());
+	}
+#endif
 
 std::string etk::FSNodeRight::getRight() const {
 	std::string tmp;

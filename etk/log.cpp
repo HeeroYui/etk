@@ -8,8 +8,12 @@
 
 #include <etk/log.h>
 #include <time.h>
-#include <mutex>
-#include <thread>
+#if __cplusplus >= 201103L
+	#include <mutex>
+	#include <thread>
+#else
+	#include <etk/mutex.h>
+#endif
 #include <map>
 #include <inttypes.h>
 
@@ -89,8 +93,8 @@ int32_t& getsizeLog() {
 	static int32_t g_val = 5;
 	return g_val;
 }
-static std::vector<std::pair<std::string, enum etk::log::level>>& getList() {
-	static std::vector<std::pair<std::string, enum etk::log::level>> g_val;
+static std::vector<std::pair<std::string, enum etk::log::level> >& getList() {
+	static std::vector<std::pair<std::string, enum etk::log::level> > g_val;
 	return g_val;
 }
 
@@ -224,52 +228,62 @@ static std::map<uint32_t, std::string>& getThreadList() {
 }
 
 std::string etk::log::getThreadName() {
-	std::map<uint32_t,std::string>& list = getThreadList();
-	uint32_t threadID = getThreadID();
-	std::string out;
-	static std::mutex g_lock;
-	g_lock.lock();
-	auto it = list.find(threadID);
-	if (it != list.end()) {
-		out = it->second;
-	}
-	g_lock.unlock();
-	return out;
+	#if __cplusplus >= 201103L
+		std::map<uint32_t,std::string>& list = getThreadList();
+		uint32_t threadID = getThreadID();
+		std::string out;
+		static std11::mutex g_lock;
+		g_lock.lock();
+		auto it = list.find(threadID);
+		if (it != list.end()) {
+			out = it->second;
+		}
+		g_lock.unlock();
+		return out;
+	#else
+		return "";
+	#endif
 }
 
 void etk::log::setThreadName(const std::string& _name) {
-	std::map<uint32_t,std::string>& list = getThreadList();
-	uint32_t threadID = getThreadID();
-	static std::mutex g_lock;
-	g_lock.lock();
-	auto it = list.find(threadID);
-	if (it == list.end()) {
-		list.insert(std::pair<uint32_t, std::string>(threadID,_name));
-	} else {
-		it->second = _name;
-	}
-	g_lock.unlock();
+	#if __cplusplus >= 201103L
+		std::map<uint32_t,std::string>& list = getThreadList();
+		uint32_t threadID = getThreadID();
+		static std11::mutex g_lock;
+		g_lock.lock();-Wc++0x-compat
+		auto it = list.find(threadID);
+		if (it == list.end()) {
+			list.insert(std::pair<uint32_t, std::string>(threadID,_name));
+		} else {
+			it->second = _name;
+		}
+		g_lock.unlock();
+	#endif
 }
 
 uint32_t etk::log::getThreadID() {
-	uint32_t out = 0;
-	std::thread::id this_id = std::this_thread::get_id();
-	uint64_t iddd = std::hash<std::thread::id>()(this_id);
-	static std::mutex g_lock;
-	g_lock.lock();
-	static std::map<uint64_t, uint32_t> g_list;
-	auto it = g_list.find(iddd);
-	if (it == g_list.end()) {
-		// attribute new ID :
-		static uint32_t tmpId = 0;
-		g_list.insert(std::pair<uint64_t, uint32_t>(iddd,tmpId));
-		out = tmpId;
-		tmpId++;
-	} else {
-		out = it->second;
-	}
-	g_lock.unlock();
-	return out;
+	#if __cplusplus >= 201103L
+		uint32_t out = 0;
+		std::thread::id this_id = std::this_thread::get_id();
+		uint64_t iddd = std::hash<std::thread::id>()(this_id);
+		static std11::mutex g_lock;
+		g_lock.lock();
+		static std::map<uint64_t, uint32_t> g_list;
+		auto it = g_list.find(iddd);
+		if (it == g_list.end()) {
+			// attribute new ID :
+			static uint32_t tmpId = 0;
+			g_list.insert(std::pair<uint64_t, uint32_t>(iddd,tmpId));
+			out = tmpId;
+			tmpId++;
+		} else {
+			out = it->second;
+		}
+		g_lock.unlock();
+		return out;
+	#else
+		return 0;
+	#endif
 }
 
 static void getDisplayTime(char* data) {
@@ -320,7 +334,7 @@ static void getDisplayTime(char* data) {
 
 
 void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* _className, const char* _funcName, const char* _log) {
-	static std::mutex g_lock;
+	static std11::mutex g_lock;
 	char handle[1024] = "";
 	memset(handle, ' ', 1024);
 	handle[0] = '\0';
@@ -393,30 +407,32 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 		*pointer++ = ' ';
 		*pointer = '\0';
 	}
-	if(getThreadId() == true) {
-		// display thread ID
-		uint32_t iddd = etk::log::getThreadID();
-		sprintf(pointer, "%3d", iddd);
-		pointer = handle+strlen(handle);
-		*pointer++ = ' ';
-		*pointer++ = '|';
-		*pointer++ = ' ';
-		*pointer = '\0';
-	}
-	if(getThreadNameEnable() == true) {
-		// display thread ID
-		std::string name = etk::log::getThreadName();
-		int32_t len = strlen(handle);
-		snprintf(pointer, 20, "%s", name.c_str());
-		pointer = handle+strlen(handle);
-		while (strlen(handle) - len < 20) {
+	#if __cplusplus >= 201103L
+		if(getThreadId() == true) {
+			// display thread ID
+			uint32_t iddd = etk::log::getThreadID();
+			sprintf(pointer, "%3d", iddd);
+			pointer = handle+strlen(handle);
+			*pointer++ = ' ';
+			*pointer++ = '|';
 			*pointer++ = ' ';
 			*pointer = '\0';
 		}
-		*pointer++ = '|';
-		*pointer++ = ' ';
-		*pointer = '\0';
-	}
+		if(getThreadNameEnable() == true) {
+			// display thread ID
+			std::string name = etk::log::getThreadName();
+			int32_t len = strlen(handle);
+			snprintf(pointer, 20, "%s", name.c_str());
+			pointer = handle+strlen(handle);
+			while (strlen(handle) - len < 20) {
+				*pointer++ = ' ';
+				*pointer = '\0';
+			}
+			*pointer++ = '|';
+			*pointer++ = ' ';
+			*pointer = '\0';
+		}
+	#endif
 	if(getLine() == true) {
 		if (_ligne >= 0) {
 			sprintf(pointer, "(l=%5d)", _ligne);

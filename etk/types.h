@@ -41,8 +41,15 @@
 	#endif
 #endif
 
-#ifdef ETK_ENABLE_NULLPTR
+#if __cplusplus <= 201103L
 	#define nullptr NULL
+	typedef uint32_t char32_t;
+	namespace boost {
+		// just define
+	}
+	namespace std11 = boost;
+#else
+	namespace std11 = std;
 #endif
 
 

@@ -30,10 +30,17 @@ def create(target):
 	
 	if target.name=="IOs":
 		myModule.add_src_file('etk/logIOs.m')
-
-	# name of the dependency
-	myModule.add_optionnal_module_depend('linearmath', "ETK_BUILD_LINEARMATH", export=True)
-	myModule.add_optionnal_module_depend('minizip', "ETK_BUILD_MINIZIP")
+	
+	# force old version of C++
+	target.xx_version = 4005000
+	
+	if     target.config["compilator"] == "gcc" \
+	   and target.xx_version < 4007000:
+		pass
+	else:
+		# name of the dependency
+		myModule.add_optionnal_module_depend('linearmath', "ETK_BUILD_LINEARMATH", export=True)
+		myModule.add_optionnal_module_depend('minizip', "ETK_BUILD_MINIZIP")
 	
 	if target.config["mode"] == "release":
 		# TODO : The other way is to remove this ...
@@ -48,8 +55,8 @@ def create(target):
 	
 	if     target.config["compilator"] == "gcc" \
 	   and target.xx_version < 4007000:
-		myModule.add_export_flag_CC("-DETK_ENABLE_NULLPTR")
-	
+		myModule.add_optionnal_module_depend('boost', "ETK_BUILD_BOOST", export=True)
+		myModule.add_export_path(tools.get_current_path(__file__) + "/etk/boost_to_std")
 	
 	if target.name=="Windows":
 		None

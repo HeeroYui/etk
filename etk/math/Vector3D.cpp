@@ -124,9 +124,11 @@ namespace etk {
 		str += ")";
 		return str;
 	}
-	template<> std::u32string to_u32string<vec3>(const vec3& _obj) {
-		return etk::to_u32string(etk::to_string(_obj));
-	}
+	#if __cplusplus >= 201103L
+		template<> std::u32string to_u32string<vec3>(const vec3& _obj) {
+			return etk::to_u32string(etk::to_string(_obj));
+		}
+	#endif
 	
 	template<> std::string to_string<ivec3>(const ivec3& _obj) {
 		std::string str;
@@ -139,9 +141,11 @@ namespace etk {
 		str += ")";
 		return str;
 	}
-	template<> std::u32string to_u32string<ivec3>(const ivec3& _obj) {
-		return etk::to_u32string(etk::to_string(_obj));
-	}
+	#if __cplusplus >= 201103L
+		template<> std::u32string to_u32string<ivec3>(const ivec3& _obj) {
+			return etk::to_u32string(etk::to_string(_obj));
+		}
+	#endif
 	
 	template<> std::string to_string<uivec3>(const uivec3& _obj) {
 		std::string str;
@@ -154,9 +158,11 @@ namespace etk {
 		str += ")";
 		return str;
 	}
-	template<> std::u32string to_u32string<uivec3>(const uivec3& _obj) {
-		return etk::to_u32string(etk::to_string(_obj));
-	}
+	#if __cplusplus >= 201103L
+		template<> std::u32string to_u32string<uivec3>(const uivec3& _obj) {
+			return etk::to_u32string(etk::to_string(_obj));
+		}
+	#endif
 	
 	template<> std::string to_string<bvec3>(const bvec3& _obj) {
 		std::string str;
@@ -169,9 +175,11 @@ namespace etk {
 		str += ")";
 		return str;
 	}
-	template<> std::u32string to_u32string<bvec3>(const bvec3& _obj) {
-		return etk::to_u32string(etk::to_string(_obj));
-	}
+	#if __cplusplus >= 201103L
+		template<> std::u32string to_u32string<bvec3>(const bvec3& _obj) {
+			return etk::to_u32string(etk::to_string(_obj));
+		}
+	#endif
 	
 	template<> bool from_string<vec3>(vec3& _variableRet, const std::string& _value) {
 		float floats[3];
@@ -212,9 +220,11 @@ namespace etk {
 		TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
 		return true;
 	}
-	template<> bool from_string<vec3>(vec3& _variableRet, const std::u32string& _value) {
-		return from_string(_variableRet, etk::to_string(_value));
-	}
+	#if __cplusplus >= 201103L
+		template<> bool from_string<vec3>(vec3& _variableRet, const std::u32string& _value) {
+			return from_string(_variableRet, etk::to_string(_value));
+		}
+	#endif
 	
 	template<> bool from_string<ivec3>(ivec3& _variableRet, const std::string& _value) {
 		int32_t floats[3];
@@ -255,9 +265,11 @@ namespace etk {
 		TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
 		return true;
 	}
-	template<> bool from_string<ivec3>(ivec3& _variableRet, const std::u32string& _value) {
-		return from_string(_variableRet, etk::to_string(_value));
-	}
+	#if __cplusplus >= 201103L
+		template<> bool from_string<ivec3>(ivec3& _variableRet, const std::u32string& _value) {
+			return from_string(_variableRet, etk::to_string(_value));
+		}
+	#endif
 	
 	template<> bool from_string<uivec3>(uivec3& _variableRet, const std::string& _value) {
 		uint32_t floats[3];
@@ -298,9 +310,11 @@ namespace etk {
 		TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
 		return true;
 	}
-	template<> bool from_string<uivec3>(uivec3& _variableRet, const std::u32string& _value) {
-		return from_string(_variableRet, etk::to_string(_value));
-	}
+	#if __cplusplus >= 201103L
+		template<> bool from_string<uivec3>(uivec3& _variableRet, const std::u32string& _value) {
+			return from_string(_variableRet, etk::to_string(_value));
+		}
+	#endif
 	
 	template<> bool from_string<bvec3>(bvec3& _variableRet, const std::string& _value) {
 		bool floats[3];
@@ -341,7 +355,9 @@ namespace etk {
 		TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
 		return true;
 	}
-	template<> bool from_string<bvec3>(bvec3& _variableRet, const std::u32string& _value) {
-		return from_string(_variableRet, etk::to_string(_value));
-	}
+	#if __cplusplus >= 201103L
+		template<> bool from_string<bvec3>(bvec3& _variableRet, const std::u32string& _value) {
+			return from_string(_variableRet, etk::to_string(_value));
+		}
+	#endif
 };

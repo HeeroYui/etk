@@ -276,9 +276,11 @@ std::string getApplicationPath() {
 	TK_INFO("Binary name : " << binaryName);
 	return binaryName;
 }
-std::u32string getUApplicationPath() {
-	return etk::to_u32string(getApplicationPath());
-}
+#if __cplusplus >= 201103L
+	std::u32string getUApplicationPath() {
+		return etk::to_u32string(getApplicationPath());
+	}
+#endif
 
 void etk::initDefaultFolder(const char* _applName) {
 	baseApplName = _applName;
@@ -388,16 +390,20 @@ void etk::initDefaultFolder(const char* _applName) {
 std::string etk::getUserHomeFolder() {
 	return baseFolderHome;
 }
-std::u32string etk::getUUserHomeFolder() {
-	return etk::to_u32string(baseFolderHome);
-}
+#if __cplusplus >= 201103L
+	std::u32string etk::getUUserHomeFolder() {
+		return etk::to_u32string(baseFolderHome);
+	}
+#endif
 
 std::string etk::getUserRunFolder() {
 	return baseRunPath;
 }
-std::u32string etk::getUUserRunFolder() {
-	return etk::to_u32string(baseRunPath);
-}
+#if __cplusplus >= 201103L
+	std::u32string etk::getUUserRunFolder() {
+		return etk::to_u32string(baseRunPath);
+	}
+#endif
 
 
 #ifdef __TARGET_OS__Android
@@ -484,22 +490,23 @@ etk::FSNode::FSNode(const std::string& _nodeName) :
 {
 	privateSetName(_nodeName);
 }
-
-etk::FSNode::FSNode(const std::u32string& _nodeName) :
-  m_userFileName(""),
-  m_type(etk::FSN_TYPE_UNKNOW),
-  m_typeNode(etk::FSN_UNKNOW),
-  m_PointerFile(NULL),
-  m_timeCreate(0),
-  m_timeModify(0),
-  m_timeAccess(0)
-#ifdef __TARGET_OS__Android
-    , m_zipContent(NULL),
-    m_zipReadingOffset(-1)
+#if __cplusplus >= 201103L
+	etk::FSNode::FSNode(const std::u32string& _nodeName) :
+	  m_userFileName(""),
+	  m_type(etk::FSN_TYPE_UNKNOW),
+	  m_typeNode(etk::FSN_UNKNOW),
+	  m_PointerFile(NULL),
+	  m_timeCreate(0),
+	  m_timeModify(0),
+	  m_timeAccess(0)
+	#ifdef __TARGET_OS__Android
+	    , m_zipContent(NULL),
+	    m_zipReadingOffset(-1)
+	#endif
+	{
+		privateSetName(_nodeName);
+	}
 #endif
-{
-	privateSetName(_nodeName);
-}
 
 
 etk::FSNode::~FSNode() {
@@ -702,9 +709,11 @@ void etk::FSNode::privateSetName(const std::string& _newName) {
 	updateFileSystemProperty();
 	TK_DBG_MODE("6 : type :                  [" << m_typeNode << "]  right :" << m_rights);
 }
-void etk::FSNode::privateSetName(const std::u32string& _newName) {
-	privateSetName(etk::to_string(_newName));
-}
+#if __cplusplus >= 201103L
+	void etk::FSNode::privateSetName(const std::u32string& _newName) {
+		privateSetName(etk::to_string(_newName));
+	}
+#endif
 
 bool directCheckFile(std::string _tmpFileNameDirect, bool _checkInAPKIfNeeded = false) {
 	#ifdef __TARGET_OS__Android
@@ -723,9 +732,11 @@ bool directCheckFile(std::string _tmpFileNameDirect, bool _checkInAPKIfNeeded = 
 	}
 	return true;
 }
-bool directCheckFile(std::u32string _tmpFileNameDirect, bool _checkInAPKIfNeeded = false) {
-	return directCheckFile(etk::to_string(_tmpFileNameDirect));
-}
+#if __cplusplus >= 201103L
+	bool directCheckFile(std::u32string _tmpFileNameDirect, bool _checkInAPKIfNeeded = false) {
+		return directCheckFile(etk::to_string(_tmpFileNameDirect));
+	}
+#endif
 // Now we generate the real FS path:
 void etk::FSNode::generateFileSystemPath() {
 	switch (m_type) {
@@ -916,9 +927,11 @@ bool etk::FSNode::setRight(etk::FSNodeRight _newRight) {
 void etk::FSNode::setName(const std::string& _newName) {
 	privateSetName(_newName);
 }
-void etk::FSNode::setName(const std::u32string& _newName) {
-	privateSetName(_newName);
-}
+#if __cplusplus >= 201103L
+	void etk::FSNode::setName(const std::u32string& _newName) {
+		privateSetName(_newName);
+	}
+#endif
 
 std::string etk::FSNode::getNameFolder() const {
 	size_t lastPos = m_systemFileName.rfind('/');
@@ -927,16 +940,20 @@ std::string etk::FSNode::getNameFolder() const {
 	}
 	return "";
 }
-std::u32string etk::FSNode::getUNameFolder() const {
-	return etk::to_u32string(getNameFolder());
-}
+#if __cplusplus >= 201103L
+	std::u32string etk::FSNode::getUNameFolder() const {
+		return etk::to_u32string(getNameFolder());
+	}
+#endif
 
 std::string etk::FSNode::getFileSystemName() const {
 	return m_systemFileName;
 }
-std::u32string etk::FSNode::getUFileSystemName() const {
-	return etk::to_u32string(getFileSystemName());
-}
+#if __cplusplus >= 201103L
+	std::u32string etk::FSNode::getUFileSystemName() const {
+		return etk::to_u32string(getFileSystemName());
+	}
+#endif
 
 std::string etk::FSNode::getName() const {
 	std::string output;
@@ -971,9 +988,11 @@ std::string etk::FSNode::getName() const {
 	output += m_userFileName;
 	return output;
 }
-std::u32string etk::FSNode::getUName() const {
-	return etk::to_u32string(getName());
-}
+#if __cplusplus >= 201103L
+	std::u32string etk::FSNode::getUName() const {
+		return etk::to_u32string(getName());
+	}
+#endif
 
 std::string etk::FSNode::getNameFile() const {
 	size_t lastPos = m_systemFileName.rfind('/');
@@ -982,9 +1001,11 @@ std::string etk::FSNode::getNameFile() const {
 	}
 	return "";
 }
-std::u32string etk::FSNode::getUNameFile() const {
-	return etk::to_u32string(getNameFile());
-}
+#if __cplusplus >= 201103L
+	std::u32string etk::FSNode::getUNameFile() const {
+		return etk::to_u32string(getNameFile());
+	}
+#endif
 
 std::string etk::FSNode::getRelativeFolder() const {
 	std::string tmppp = getName();
@@ -1024,9 +1045,11 @@ std::string etk::FSNode::getRelativeFolder() const {
 	TK_DBG_MODE("     ==> : ''" );
 	return "";
 }
-std::u32string etk::FSNode::getURelativeFolder() const {
-	return etk::to_u32string(getRelativeFolder());
-}
+#if __cplusplus >= 201103L
+	std::u32string etk::FSNode::getURelativeFolder() const {
+		return etk::to_u32string(getRelativeFolder());
+	}
+#endif
 
 
 bool etk::FSNode::touch() {
@@ -1054,9 +1077,11 @@ bool etk::FSNode::move(const std::string& _path) {
 		return true;
 	}
 }
-bool etk::FSNode::move(const std::u32string& _path) {
-	return move(etk::to_string(_path));
-}
+#if __cplusplus >= 201103L
+	bool etk::FSNode::move(const std::u32string& _path) {
+		return move(etk::to_string(_path));
+	}
+#endif
 
 bool etk::FSNode::remove() {
 	if (getNodeType()==etk::FSN_FOLDER) {
@@ -1089,9 +1114,11 @@ std::string etk::FSNode::timeCreatedString() const {
 	}
 	return tmpTime;
 }
-std::u32string etk::FSNode::timeUCreatedString() const {
-	return etk::to_u32string(timeCreatedString());
-}
+#if __cplusplus >= 201103L
+	std::u32string etk::FSNode::timeUCreatedString() const {
+		return etk::to_u32string(timeCreatedString());
+	}
+#endif
 
 uint64_t etk::FSNode::timeModified() const {
 	return m_timeModify;
@@ -1105,9 +1132,11 @@ std::string etk::FSNode::timeModifiedString() const {
 	}
 	return tmpTime;
 }
-std::u32string etk::FSNode::timeUModifiedString() const {
-	return etk::to_u32string(timeModifiedString());
-}
+#if __cplusplus >= 201103L
+	std::u32string etk::FSNode::timeUModifiedString() const {
+		return etk::to_u32string(timeModifiedString());
+	}
+#endif
 
 uint64_t etk::FSNode::timeAccessed() const {
 	return m_timeAccess;
@@ -1121,9 +1150,11 @@ std::string etk::FSNode::timeAccessedString() const {
 	}
 	return tmpTime;
 }
-std::u32string etk::FSNode::timeUAccessedString() const {
-	return etk::to_u32string(timeAccessedString());
-}
+#if __cplusplus >= 201103L
+	std::u32string etk::FSNode::timeUAccessedString() const {
+		return etk::to_u32string(timeAccessedString());
+	}
+#endif
 /*
 	Operator :
 */
@@ -1437,14 +1468,16 @@ void etk::FSNode::folderGetRecursiveFiles(std::vector<std::string>& _output, boo
 	}
 	return;
 }
-void etk::FSNode::folderGetRecursiveFiles(std::vector<std::u32string>& _output, bool _recursiveEnable) {
-	_output.clear();
-	std::vector<std::string> tmpVal;
-	folderGetRecursiveFiles(tmpVal, _recursiveEnable);
-	for (size_t iii=0; iii<tmpVal.size(); ++iii) {
-		_output.push_back(to_u32string(tmpVal[iii]));
+#if __cplusplus >= 201103L
+	void etk::FSNode::folderGetRecursiveFiles(std::vector<std::u32string>& _output, bool _recursiveEnable) {
+		_output.clear();
+		std::vector<std::string> tmpVal;
+		folderGetRecursiveFiles(tmpVal, _recursiveEnable);
+		for (size_t iii=0; iii<tmpVal.size(); ++iii) {
+			_output.push_back(to_u32string(tmpVal[iii]));
+		}
 	}
-}
+#endif
 
 /*
 	File Specific :
@@ -1468,9 +1501,11 @@ std::string etk::FSNode::fileGetExtention() {
 	}
 	return "";
 }
-std::u32string etk::FSNode::fileUGetExtention() {
-	return etk::to_u32string(fileGetExtention());
-}
+#if __cplusplus >= 201103L
+	std::u32string etk::FSNode::fileUGetExtention() {
+		return etk::to_u32string(fileGetExtention());
+	}
+#endif
 
 uint64_t etk::FSNode::fileSize() {
 	if (etk::FSN_FILE != m_typeNode) {
@@ -1823,66 +1858,99 @@ static std::map<std::string, std::string> g_listTheme;
 
 void etk::theme::setName(const std::string& _refName, const std::string& _folderName) {
 	TK_WARNING("Change theme : '" << _refName << "' : '" << _folderName << "'");
-	auto it = g_listTheme.find(_refName);
+	#if __cplusplus >= 201103L
+		auto it = g_listTheme.find(_refName);
+	#else
+		std::map<std::string, std::string>::iterator it = g_listTheme.find(_refName);
+	#endif
 	if (it != g_listTheme.end()) {
 		it->second = _folderName;
 		return;
 	}
 	g_listTheme.insert(std::pair<std::string,std::string>(_refName, _folderName));
 }
-void etk::theme::setName(const std::u32string& _refName, const std::u32string& _folderName) {
-	setName(etk::to_string(_refName), etk::to_string(_folderName));
-}
+#if __cplusplus >= 201103L
+	void etk::theme::setName(const std::u32string& _refName, const std::u32string& _folderName) {
+		setName(etk::to_string(_refName), etk::to_string(_folderName));
+	}
+#endif
 
 std::string etk::theme::getName(const std::string& _refName) {
-	auto it=g_listTheme.find(_refName);
+	#if __cplusplus >= 201103L
+		auto it = g_listTheme.find(_refName);
+	#else
+		std::map<std::string, std::string>::iterator it = g_listTheme.find(_refName);
+	#endif
 	if (it != g_listTheme.end()) {
 		return it->second;
 	}
 	return _refName;
 }
-std::u32string etk::theme::getName(const std::u32string& _refName) {
-	return etk::to_u32string(getName(etk::to_string(_refName)));
-}
+#if __cplusplus >= 201103L
+	std::u32string etk::theme::getName(const std::u32string& _refName) {
+		return etk::to_u32string(getName(etk::to_string(_refName)));
+	}
+#endif
 
 // get the list of all the theme folder availlable in the user Home/appl
 std::vector<std::string> etk::theme::list() {
 	std::vector<std::string> keys;
-	for (auto &it : g_listTheme) {
-		keys.push_back(it.first);
-	}
+	#if __cplusplus >= 201103L
+		for (auto &it : g_listTheme) {
+			keys.push_back(it.first);
+		}
+	#else
+		for (std::map<std::string, std::string>::iterator it(g_listTheme.begin()); it != g_listTheme.end(); ++it) {
+			keys.push_back(it->first);
+		}
+	#endif
 	return keys;
 }
-std::vector<std::u32string> etk::theme::listU() {
-	std::vector<std::u32string> keys;
-	for (auto &it : g_listTheme) {
-		keys.push_back(etk::to_u32string(it.first));
+#if __cplusplus >= 201103L
+	std::vector<std::u32string> etk::theme::listU() {
+		std::vector<std::u32string> keys;
+		for (auto &it : g_listTheme) {
+			keys.push_back(etk::to_u32string(it.first));
+		}
+		return keys;
 	}
-	return keys;
-}
+#endif
 
 static std::map<std::string, std::string> g_listThemeDefault;
 void etk::theme::setNameDefault(const std::string& _refName, const std::string& _folderName) {
-	auto it = g_listThemeDefault.find(_refName);
+	#if __cplusplus >= 201103L
+		auto it = g_listThemeDefault.find(_refName);
+	#else
+		std::map<std::string, std::string>::iterator it = g_listThemeDefault.find(_refName);
+	#endif
 	if (it != g_listThemeDefault.end()) {
 		it->second = _folderName;
 		return;
 	}
 	g_listThemeDefault.insert(std::pair<std::string,std::string>(_refName, _folderName));
 }
-void etk::theme::setNameDefault(const std::u32string& _refName, const std::u32string& _folderName) {
-	setNameDefault(etk::to_string(_refName), etk::to_string(_folderName));
-}
+#if __cplusplus >= 201103L
+	void etk::theme::setNameDefault(const std::u32string& _refName, const std::u32string& _folderName) {
+		setNameDefault(etk::to_string(_refName), etk::to_string(_folderName));
+	}
+#endif
+
 std::string etk::theme::getNameDefault(const std::string& _refName) {
-	auto it=g_listThemeDefault.find(_refName);
+	#if __cplusplus >= 201103L
+		auto it=g_listThemeDefault.find(_refName);
+	#else
+		std::map<std::string, std::string>::iterator it = g_listThemeDefault.find(_refName);
+	#endif
 	if (it != g_listThemeDefault.end()) {
 		return it->second;
 	}
 	return "default";
 }
-std::u32string etk::theme::getNameDefault(const std::u32string& _refName) {
-	return etk::to_u32string(getNameDefault(etk::to_string(_refName)));
-}
+#if __cplusplus >= 201103L
+	std::u32string etk::theme::getNameDefault(const std::u32string& _refName) {
+		return etk::to_u32string(getNameDefault(etk::to_string(_refName)));
+	}
+#endif
 
 
 
@@ -1898,9 +1966,11 @@ bool etk::FSNodeRemove(const std::string& _path) {
 	}
 	return tmpNode.remove();
 }
-bool etk::FSNodeRemove(const std::u32string& _path) {
-	return FSNodeRemove(etk::to_string(_path));
-}
+#if __cplusplus >= 201103L
+	bool etk::FSNodeRemove(const std::u32string& _path) {
+		return FSNodeRemove(etk::to_string(_path));
+	}
+#endif
 
 int64_t etk::FSNodeGetCount(const std::string& _path) {
 	etk::FSNode tmpNode(_path);
@@ -1909,25 +1979,31 @@ int64_t etk::FSNodeGetCount(const std::string& _path) {
 	}
 	return tmpNode.folderCount();
 }
-int64_t etk::FSNodeGetCount(const std::u32string& _path) {
-	return FSNodeGetCount(etk::to_string(_path));
-}
+#if __cplusplus >= 201103L
+	int64_t etk::FSNodeGetCount(const std::u32string& _path) {
+		return FSNodeGetCount(etk::to_string(_path));
+	}
+#endif
 
 bool etk::FSNodeCreate(const std::string& _path, etk::FSNodeRight _right, enum etk::typeNode _type) {
 	// TODO :
 	return false;
 }
-bool etk::FSNodeCreate(const std::u32string& _path, etk::FSNodeRight _right, enum etk::typeNode _type) {
-	return FSNodeCreate(etk::to_string(_path), _right, _type);
-}
+#if __cplusplus >= 201103L
+	bool etk::FSNodeCreate(const std::u32string& _path, etk::FSNodeRight _right, enum etk::typeNode _type) {
+		return FSNodeCreate(etk::to_string(_path), _right, _type);
+	}
+#endif
 
 bool etk::FSNodeExist(const std::string& _path) {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.exist();
 }
-bool etk::FSNodeExist(const std::u32string& _path) {
-	return FSNodeExist(etk::to_string(_path));
-}
+#if __cplusplus >= 201103L
+	bool etk::FSNodeExist(const std::u32string& _path) {
+		return FSNodeExist(etk::to_string(_path));
+	}
+#endif
 
 bool etk::FSNodeMove(const std::string& _path1, const std::string& _path2) {
 	etk::FSNode tmpNode(_path1);
@@ -1940,57 +2016,71 @@ bool etk::FSNodeMove(const std::string& _path1, const std::string& _path2) {
 	//move the node
 	return tmpNode.move(_path2);
 }
-bool etk::FSNodeMove(const std::u32string& _path1, const std::u32string& _path2) {
-	return FSNodeMove(etk::to_string(_path1), etk::to_string(_path2));
-}
+#if __cplusplus >= 201103L
+	bool etk::FSNodeMove(const std::u32string& _path1, const std::u32string& _path2) {
+		return FSNodeMove(etk::to_string(_path1), etk::to_string(_path2));
+	}
+#endif
 
 etk::FSNodeRight etk::FSNodeGetRight(const std::string& _path) {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.getRight();
 }
-etk::FSNodeRight etk::FSNodeGetRight(const std::u32string& _path) {
-	return FSNodeGetRight(etk::to_string(_path));
-}
+#if __cplusplus >= 201103L
+	etk::FSNodeRight etk::FSNodeGetRight(const std::u32string& _path) {
+		return FSNodeGetRight(etk::to_string(_path));
+	}
+#endif
 
 enum etk::typeNode etk::FSNodeGetType(const std::string& _path) {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.getNodeType();
 }
-enum etk::typeNode etk::FSNodeGetType(const std::u32string& _path) {
-	return FSNodeGetType(etk::to_string(_path));
-}
+#if __cplusplus >= 201103L
+	enum etk::typeNode etk::FSNodeGetType(const std::u32string& _path) {
+		return FSNodeGetType(etk::to_string(_path));
+	}
+#endif
 
 uint64_t etk::FSNodeGetTimeCreated(const std::string& _path) {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.timeCreated();
 }
-uint64_t etk::FSNodeGetTimeCreated(const std::u32string& _path) {
-	return FSNodeGetTimeCreated(etk::to_string(_path));
-}
+#if __cplusplus >= 201103L
+	uint64_t etk::FSNodeGetTimeCreated(const std::u32string& _path) {
+		return FSNodeGetTimeCreated(etk::to_string(_path));
+	}
+#endif
 
 uint64_t etk::FSNodeGetTimeModified(const std::string& _path) {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.timeModified();
 }
-uint64_t etk::FSNodeGetTimeModified(const std::u32string& _path) {
-	return FSNodeGetTimeModified(etk::to_string(_path));
-}
+#if __cplusplus >= 201103L
+	uint64_t etk::FSNodeGetTimeModified(const std::u32string& _path) {
+		return FSNodeGetTimeModified(etk::to_string(_path));
+	}
+#endif
 
 uint64_t etk::FSNodeGetTimeAccessed(const std::string& _path) {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.timeAccessed();
 }
-uint64_t etk::FSNodeGetTimeAccessed(const std::u32string& _path) {
-	return FSNodeGetTimeAccessed(etk::to_string(_path));
-}
+#if __cplusplus >= 201103L
+	uint64_t etk::FSNodeGetTimeAccessed(const std::u32string& _path) {
+		return FSNodeGetTimeAccessed(etk::to_string(_path));
+	}
+#endif
 
 bool etk::FSNodeTouch(const std::string& _path) {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.touch();
 }
-bool etk::FSNodeTouch(const std::u32string& _path) {
-	return FSNodeTouch(etk::to_string(_path));
-}
+#if __cplusplus >= 201103L
+	bool etk::FSNodeTouch(const std::u32string& _path) {
+		return FSNodeTouch(etk::to_string(_path));
+	}
+#endif
 
 bool etk::FSNodeEcho(const std::string& _path, const std::string& _dataTowrite) {
 	etk::FSNode tmpNode(_path);
@@ -2010,9 +2100,11 @@ bool etk::FSNodeEcho(const std::string& _path, const std::string& _dataTowrite) 
 	}
 	return tmpNode.fileClose();
 }
-bool etk::FSNodeEcho(const std::u32string& _path, const std::u32string& _dataTowrite) {
-	return FSNodeEcho(etk::to_string(_path), etk::to_string(_dataTowrite));
-}
+#if __cplusplus >= 201103L
+	bool etk::FSNodeEcho(const std::u32string& _path, const std::u32string& _dataTowrite) {
+		return FSNodeEcho(etk::to_string(_path), etk::to_string(_dataTowrite));
+	}
+#endif
 
 bool etk::FSNodeEchoAdd(const std::string& _path, const std::string& _dataTowrite) {
 	etk::FSNode tmpNode(_path);
@@ -2032,9 +2124,11 @@ bool etk::FSNodeEchoAdd(const std::string& _path, const std::string& _dataTowrit
 	}
 	return tmpNode.fileClose();
 }
-bool etk::FSNodeEchoAdd(const std::u32string& _path, const std::u32string& _dataTowrite) {
-	return FSNodeEchoAdd(etk::to_string(_path), etk::to_string(_dataTowrite));
-}
+#if __cplusplus >= 201103L
+	bool etk::FSNodeEchoAdd(const std::u32string& _path, const std::u32string& _dataTowrite) {
+		return FSNodeEchoAdd(etk::to_string(_path), etk::to_string(_dataTowrite));
+	}
+#endif
 
 void etk::FSNodeHistory(const std::string& _path, int32_t _historyCount) {
 	// step 1 : Move the file to prevent writing error
@@ -2048,9 +2142,11 @@ void etk::FSNodeHistory(const std::string& _path, int32_t _historyCount) {
 		etk::FSNodeMove(_path, _path + "-1");
 	}
 }
-void etk::FSNodeHistory(const std::u32string& _path, int32_t _historyCount) {
-	return FSNodeHistory(etk::to_string(_path), _historyCount);
-}
+#if __cplusplus >= 201103L
+	void etk::FSNodeHistory(const std::u32string& _path, int32_t _historyCount) {
+		return FSNodeHistory(etk::to_string(_path), _historyCount);
+	}
+#endif
 
 std::string etk::FSNodeReadAllData(const std::string& _path) {
 	std::string output;

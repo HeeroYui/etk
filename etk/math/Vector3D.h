@@ -159,7 +159,11 @@ namespace etk {
 				#ifdef ETK_BUILD_LINEARMATH
 					return btSqrt(length2());
 				#else
-					return std::sqrt(length2());
+					#if __cplusplus >= 201103L
+						return std::sqrt(length2());
+					#else
+						return sqrt(length2());
+					#endif
 				#endif
 			}
 			
