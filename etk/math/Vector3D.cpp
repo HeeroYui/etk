@@ -124,7 +124,7 @@ namespace etk {
 		str += ")";
 		return str;
 	}
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		template<> std::u32string to_u32string<vec3>(const vec3& _obj) {
 			return etk::to_u32string(etk::to_string(_obj));
 		}
@@ -141,7 +141,7 @@ namespace etk {
 		str += ")";
 		return str;
 	}
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		template<> std::u32string to_u32string<ivec3>(const ivec3& _obj) {
 			return etk::to_u32string(etk::to_string(_obj));
 		}
@@ -158,7 +158,7 @@ namespace etk {
 		str += ")";
 		return str;
 	}
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		template<> std::u32string to_u32string<uivec3>(const uivec3& _obj) {
 			return etk::to_u32string(etk::to_string(_obj));
 		}
@@ -175,7 +175,7 @@ namespace etk {
 		str += ")";
 		return str;
 	}
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		template<> std::u32string to_u32string<bvec3>(const bvec3& _obj) {
 			return etk::to_u32string(etk::to_string(_obj));
 		}
@@ -220,7 +220,7 @@ namespace etk {
 		TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
 		return true;
 	}
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		template<> bool from_string<vec3>(vec3& _variableRet, const std::u32string& _value) {
 			return from_string(_variableRet, etk::to_string(_value));
 		}
@@ -265,7 +265,7 @@ namespace etk {
 		TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
 		return true;
 	}
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		template<> bool from_string<ivec3>(ivec3& _variableRet, const std::u32string& _value) {
 			return from_string(_variableRet, etk::to_string(_value));
 		}
@@ -310,7 +310,7 @@ namespace etk {
 		TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
 		return true;
 	}
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		template<> bool from_string<uivec3>(uivec3& _variableRet, const std::u32string& _value) {
 			return from_string(_variableRet, etk::to_string(_value));
 		}
@@ -355,7 +355,7 @@ namespace etk {
 		TK_VERBOSE("Parse : '" << _value << "' ==> " << _variableRet);
 		return true;
 	}
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		template<> bool from_string<bvec3>(bvec3& _variableRet, const std::u32string& _value) {
 			return from_string(_variableRet, etk::to_string(_value));
 		}

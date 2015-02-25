@@ -174,7 +174,7 @@ void etk::FSNodeRight::setOtherRunable(bool _newStatus)
 		m_rights |= RIGHT_OTHER_EXECUTE;
 	}
 }
-#if __cplusplus >= 201103L
+#if __CPP_VERSION__ >= 2011
 	std::u32string etk::FSNodeRight::getURight() const {
 		return etk::to_u32string(getRight());
 	}

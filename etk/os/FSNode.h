@@ -141,7 +141,7 @@ namespace etk {
 			 * @param[in] _path Path of the curent file /folder ...
 			 */
 			FSNode(const std::string& _path = "~");
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				FSNode(const std::u32string& _path);
 			#endif
 			/**
@@ -163,7 +163,7 @@ namespace etk {
 			 * @param[in] _newName Name of the Node
 			 */
 			void privateSetName(const std::string& _newName);
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				void privateSetName(const std::u32string& _newName);
 			#endif
 		private:
@@ -214,7 +214,7 @@ namespace etk {
 			 * @return false : action not done
 			 */
 			void setName(const std::string& _newName);
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				void setName(const std::u32string& _newName);
 			#endif
 			/**
@@ -222,7 +222,7 @@ namespace etk {
 			 * @return the requested filename
 			 */
 			std::string getFileSystemName() const;
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				std::u32string getUFileSystemName() const;
 			#endif
 			/**
@@ -231,7 +231,7 @@ namespace etk {
 			 * @note Auto remove of ../../../ and //
 			 */
 			std::string getNameFolder() const;
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				std::u32string getUNameFolder() const;
 			#endif
 			/**
@@ -240,7 +240,7 @@ namespace etk {
 			 * @note Auto remove of ../../../ and //
 			 */
 			std::string getName() const;
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				std::u32string getUName() const;
 			#endif
 			/**
@@ -248,7 +248,7 @@ namespace etk {
 			 * @return the name of the node (like myFile.kkk)
 			 */
 			std::string getNameFile() const;
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				std::u32string getUNameFile() const;
 			#endif
 			/**
@@ -257,7 +257,7 @@ namespace etk {
 			 * @note Auto remove of ../../../ and //
 			 */
 			std::string getRelativeFolder() const;
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				std::u32string getURelativeFolder() const;
 			#endif
 			/**
@@ -273,7 +273,7 @@ namespace etk {
 			 * @return false : action not done
 			 */
 			bool move(const std::string& _path);
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				bool move(const std::u32string& _path);
 			#endif
 			/**
@@ -299,7 +299,7 @@ namespace etk {
 			 * @return The time requested (in string)
 			 */
 			std::string timeCreatedString() const;
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				std::u32string timeUCreatedString() const;
 			#endif
 			/**
@@ -312,7 +312,7 @@ namespace etk {
 			 * @return The time requested (in string)
 			 */
 			std::string timeModifiedString() const;
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				std::u32string timeUModifiedString() const;
 			#endif
 			/**
@@ -325,7 +325,7 @@ namespace etk {
 			 * @return The time requested (in string)
 			 */
 			std::string timeAccessedString() const;
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				std::u32string timeUAccessedString() const;
 			#endif
 			/**
@@ -383,7 +383,7 @@ namespace etk {
 			 * @param[in] _recursiveEnable Activate the recursive mode (enable by default)
 			 */
 			void folderGetRecursiveFiles(std::vector<std::string>& _output, bool _recursiveEnable=true);
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				void folderGetRecursiveFiles(std::vector<std::u32string>& _output, bool _recursiveEnable=true);
 			#endif
 			/**
@@ -397,7 +397,7 @@ namespace etk {
 			 * @return the requested extention
 			 */
 			std::string fileGetExtention();
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				std::u32string fileUGetExtention();
 			#endif
 			/**
@@ -524,7 +524,7 @@ namespace etk {
 				fileRead(&value[0], sizeof(char), fileSize()/sizeof(char));
 				return value;
 			}
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 			std::u32string fileReadAllU32String() {
 				return utf8::convertUnicode(fileReadAllString());
 			}
@@ -538,7 +538,7 @@ namespace etk {
 			void fileWriteAll(const std::string& _value) {
 				fileWrite(static_cast<const void*>(&(_value[0])), sizeof(char), _value.size()/sizeof(char));
 			}
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				void fileWriteAll(const std::u32string& _value) {
 					fileWriteAll(u32char::convertToUtf8(_value));
 				}
@@ -578,7 +578,7 @@ namespace etk {
 	 * @return the home folder : like : "/home/machin/"
 	 */
 	std::string getUserHomeFolder();
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		std::u32string getUUserHomeFolder();
 	#endif
 	/**
@@ -586,7 +586,7 @@ namespace etk {
 	 * @return the basic folder name (ex : run ./appl in the pwd=/home/machin/sousFolder ==> this return the pwd folder)
 	 */
 	std::string getUserRunFolder();
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		std::u32string getUUserRunFolder();
 	#endif
 	
@@ -598,7 +598,7 @@ namespace etk {
 		 * @param[in] _folderName The associated folder of the Theme (like "myTheme/folder/folder2/")
 		 */
 		void setName(const std::string& _refName, const std::string& _folderName);
-		#if __cplusplus >= 201103L
+		#if __CPP_VERSION__ >= 2011
 			//! @previous
 			void setName(const std::u32string& _refName, const std::u32string& _folderName);
 		#endif
@@ -608,7 +608,7 @@ namespace etk {
 		 * @return the path of the theme
 		 */
 		std::string getName(const std::string& _refName);
-		#if __cplusplus >= 201103L
+		#if __CPP_VERSION__ >= 2011
 			//! @previous
 			std::u32string getName(const std::u32string& _refName);
 		#endif
@@ -618,7 +618,7 @@ namespace etk {
 		 * @param[in] _folderName The associated default folder of the Theme (like "myTheme/color/default/")
 		 */
 		void setNameDefault(const std::string& _refName, const std::string& _folderName);
-		#if __cplusplus >= 201103L
+		#if __CPP_VERSION__ >= 2011
 			//! @previous
 			void setNameDefault(const std::u32string& _refName, const std::u32string& _folderName);
 		#endif
@@ -628,7 +628,7 @@ namespace etk {
 		 * @return the path of the theme
 		 */
 		std::string getNameDefault(const std::string& _refName);
-		#if __cplusplus >= 201103L
+		#if __CPP_VERSION__ >= 2011
 			//! @previous
 			std::u32string getNameDefault(const std::u32string& _refName);
 		#endif
@@ -637,7 +637,7 @@ namespace etk {
 		 * @return The list of elements
 		 */
 		std::vector<std::string> list();
-		#if __cplusplus >= 201103L
+		#if __CPP_VERSION__ >= 2011
 			//! @previous
 			std::vector<std::u32string> listU();
 		#endif
@@ -650,7 +650,7 @@ namespace etk {
 	 * @return false : An error occured
 	 */
 	bool FSNodeRemove(const std::string& _path);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		bool FSNodeRemove(const std::u32string& _path);
 	#endif
 	/**
@@ -660,7 +660,7 @@ namespace etk {
 	 * @return -1 : An error occured
 	 */
 	int64_t FSNodeGetCount(const std::string& _path);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		int64_t FSNodeGetCount(const std::u32string& _path);
 	#endif
 	/**
@@ -672,7 +672,7 @@ namespace etk {
 	 * @return false : An error occured
 	 */
 	bool FSNodeCreate(const std::string& _path, etk::FSNodeRight _right, enum etk::typeNode _type=etk::FSN_FOLDER);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		bool FSNodeCreate(const std::u32string& _path, etk::FSNodeRight _right, enum etk::typeNode _type=etk::FSN_FOLDER);
 	#endif
 	/**
@@ -682,7 +682,7 @@ namespace etk {
 	 * @return false : An error occured
 	 */
 	bool FSNodeExist(const std::string& _path);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		bool FSNodeExist(const std::u32string& _path);
 	#endif
 	/**
@@ -693,7 +693,7 @@ namespace etk {
 	 * @return false : An error occured
 	 */
 	bool FSNodeMove(const std::string& _path1, const std::string& _path2);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		bool FSNodeMove(const std::u32string& _path1, const std::u32string& _path2);
 	#endif
 	/**
@@ -703,7 +703,7 @@ namespace etk {
 	 * @return false : An error occured
 	 */
 	etk::FSNodeRight FSNodeGetRight(const std::string& _path);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		etk::FSNodeRight FSNodeGetRight(const std::u32string& _path);
 	#endif
 	/**
@@ -713,7 +713,7 @@ namespace etk {
 	 * @return false : An error occured
 	 */
 	enum etk::typeNode FSNodeGetType(const std::string& _path);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		enum etk::typeNode FSNodeGetType(const std::u32string& _path);
 	#endif
 	/**
@@ -723,7 +723,7 @@ namespace etk {
 	 * @return false : An error occured
 	 */
 	uint64_t FSNodeGetTimeCreated(const std::string& _path);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		uint64_t FSNodeGetTimeCreated(const std::u32string& _path);
 	#endif
 	/**
@@ -733,7 +733,7 @@ namespace etk {
 	 * @return false : An error occured
 	 */
 	uint64_t FSNodeGetTimeModified(const std::string& _path);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		uint64_t FSNodeGetTimeModified(const std::u32string& _path);
 	#endif
 	/**
@@ -743,7 +743,7 @@ namespace etk {
 	 * @return false : An error occured
 	 */
 	uint64_t FSNodeGetTimeAccessed(const std::string& _path);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		uint64_t FSNodeGetTimeAccessed(const std::u32string& _path);
 	#endif
 	/**
@@ -753,7 +753,7 @@ namespace etk {
 	 * @return false : An error occured
 	 */
 	bool FSNodeTouch(const std::string& _path);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		bool FSNodeTouch(const std::u32string& _path);
 	#endif
 	/**
@@ -764,7 +764,7 @@ namespace etk {
 	 * @return false : An error occured
 	 */
 	bool FSNodeEcho(const std::string& _path, const std::string& _dataTowrite);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		bool FSNodeEcho(const std::u32string& _path, const std::u32string& _dataTowrite);
 	#endif
 	/**
@@ -775,7 +775,7 @@ namespace etk {
 	 * @return false : An error occured
 	 */
 	bool FSNodeEchoAdd(const std::string& _path, const std::string& _dataTowrite);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		bool FSNodeEchoAdd(const std::u32string& _path, const std::u32string& _dataTowrite);
 	#endif
 	/**
@@ -784,7 +784,7 @@ namespace etk {
 	 * @param[in] _historyCount number of saved file in the history (-xxx)
 	 */
 	void FSNodeHistory(const std::string& _path, int32_t _historyCount);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		void FSNodeHistory(const std::u32string& _path, int32_t _historyCount);
 	#endif
 	/**

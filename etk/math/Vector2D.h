@@ -48,7 +48,7 @@ namespace etk {
 				m_floats[1] = (T)_obj.y();
 			};
 			Vector2D(const std::string& _str);
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				Vector2D(const std::u32string& _str);
 			#endif
 			~Vector2D() { };
@@ -373,7 +373,7 @@ namespace etk {
 			}
 			//!< string cast :
 			operator std::string() const;
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				operator std::u32string() const;
 			#endif
 	};

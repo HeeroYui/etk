@@ -48,7 +48,7 @@ namespace etk {
 			void setOtherReadable(bool _newStatus);
 			void setOtherWritable(bool _newStatus);
 			void setOtherRunable(bool _newStatus);
-			#if __cplusplus >= 201103L
+			#if __CPP_VERSION__ >= 2011
 				std::u32string getURight() const;
 			#endif
 			std::string getRight() const;

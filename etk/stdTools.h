@@ -41,7 +41,7 @@ namespace u32char {
 	
 	char32_t changeOrder(char32_t _val);
 	int8_t convertUtf8(char32_t _val, char _output[5]);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		std::string convertToUtf8(const std::u32string& _input);
 	#endif
 };
@@ -61,7 +61,7 @@ namespace utf8 {
 	bool theoricFirst(const char _input);
 	
 	char32_t convertChar32(const char* _input);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		std::u32string convertUnicode(const std::string& _input);
 	#endif
 	class iterator {
@@ -387,127 +387,127 @@ namespace std {
 namespace etk {
 	// these declaration is to prevent some under template declaration of unknown type
 	template <class TYPE> std::string to_string(const TYPE& _variable);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		template <class TYPE> std::u32string to_u32string(const TYPE& _variable);
 	#endif
 	// these declaration is to prevent some under template declaration of unknown type
 	template <class TYPE> bool from_string(TYPE& _variableRet, const std::string& _value);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		template <class TYPE> bool from_string(TYPE& _variableRet, const std::u32string& _value);
 	#endif
 	
 	// TODO : Change this in : 
 	// TODO :     template <typename TYPE> TYPE string_to<TYPE>(const std::u32string& _value); ==> check exceptions ...
 	long double string_to_long_double(const std::string& _str);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		long double string_to_long_double(const std::u32string& _str);
 	#endif
 	
 	double string_to_double(const std::string& _str);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		double string_to_double(const std::u32string& _str);
 	#endif
 	
 	float string_to_float(const std::string& _str);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		float string_to_float(const std::u32string& _str);
 	#endif
 	
 	int8_t string_to_int8_t(const std::string& _str, int _base = 10);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		int8_t string_to_int8_t(const std::u32string& _str, int _base = 10);
 	#endif
 	
 	int16_t string_to_int16_t(const std::string& _str, int _base = 10);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		int16_t string_to_int16_t(const std::u32string& _str, int _base = 10);
 	#endif
 	
 	int32_t string_to_int32_t(const std::string& _str, int _base = 10);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		int32_t string_to_int32_t(const std::u32string& _str, int _base = 10);
 	#endif
 	
 	int64_t string_to_int64_t(const std::string& _str, int _base = 10);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		int64_t string_to_int64_t(const std::u32string& _str, int _base = 10);
 	#endif
 	
 	uint8_t string_to_uint8_t(const std::string& _str, int _base = 10);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		uint8_t string_to_uint8_t(const std::u32string& _str, int _base = 10);
 	#endif
 	
 	uint16_t string_to_uint16_t(const std::string& _str, int _base = 10);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		uint16_t string_to_uint16_t(const std::u32string& _str, int _base = 10);
 	#endif
 	
 	uint32_t string_to_uint32_t(const std::string& _str, int _base = 10);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		uint32_t string_to_uint32_t(const std::u32string& _str, int _base = 10);
 	#endif
 	
 	uint64_t string_to_uint64_t(const std::string& _str, int _base = 10);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		uint64_t string_to_uint64_t(const std::u32string& _str, int _base = 10);
 	#endif
 	
 	bool string_to_bool(const std::string& _str);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		bool string_to_bool(const std::u32string& _str);
 	#endif
 	
 	std::string tolower(std::string _obj);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		std::u32string tolower(std::u32string _obj);
 	#endif
 	
 	std::string toupper(std::string _obj);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		std::u32string toupper(std::u32string _obj);
 	#endif
 	
 	bool compare_no_case(const std::string& _obj, const std::string& _val);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		bool compare_no_case(const std::u32string& _obj, const std::u32string& _val);
 	#endif
 	
 	bool end_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = true);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		bool end_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = true);
 	#endif
 	
 	bool start_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = true);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		bool start_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = true);
 	#endif
 	
 	std::string replace(const std::string& _obj, char _val, char _replace);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		std::u32string replace(const std::u32string& _obj, char32_t _val, char32_t _replace);
 	#endif
 	
 	std::string extract_line(const std::string& _obj, int32_t _pos);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		std::u32string extract_line(const std::u32string& _obj, int32_t _pos);
 	#endif
 	
 	std::vector<std::string> split(const std::string& _input, char _val);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		std::vector<std::u32string> split(const std::u32string& _input, char32_t _val);
 	#endif
 	
 	void sort(std::vector<std::string *>& _list);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		void sort(std::vector<std::u32string *>& _list);
 	#endif
@@ -531,7 +531,7 @@ namespace std {
 namespace std {
 	std::ostream& operator <<(std::ostream& _os, const std::string& _obj);
 	std::ostream& operator <<(std::ostream& _os, const std::vector<std::string>& _obj);
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		std::ostream& operator <<(std::ostream& _os, const std::u32string& _obj);
 		std::ostream& operator <<(std::ostream& _os, const std::vector<std::u32string>& _obj);
 	#endif

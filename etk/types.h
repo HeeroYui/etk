@@ -41,7 +41,9 @@
 	#endif
 #endif
 
-#if __cplusplus <= 201103L
+
+
+#if __CPP_VERSION__ < 2011
 	#define nullptr NULL
 	typedef uint32_t char32_t;
 	namespace boost {
@@ -60,7 +62,10 @@
 #endif
 
 #ifndef _WIN32
-	typedef float float_t;
+	#include <math.h>
+	#ifndef _MATH_H_MATHDEF
+		typedef float float_t;
+	#endif
 #endif
 
 

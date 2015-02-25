@@ -130,7 +130,7 @@ int8_t u32char::convertUtf8(char32_t _val, char _output[5]) {
 		return 4;
 	}
 }
-#if __cplusplus >= 201103L
+#if __CPP_VERSION__ >= 2011
 	std::string u32char::convertToUtf8(const std::u32string& _input) {
 		TK_TODO("implement this function ...");
 		return "TODO ... std::string u32char::convertToUtf8(const std::u32string& _input)";
@@ -231,7 +231,7 @@ bool utf8::theoricFirst(const char _input) {
 	}
 	return false;
 }
-#if __cplusplus >= 201103L
+#if __CPP_VERSION__ >= 2011
 	std::u32string utf8::convertUnicode(const std::string& _input) {
 		TK_TODO("implement this function ...");
 		return U"TODO ... std::u32string utf8::convertUnicode(const std::string& _input)";
@@ -312,7 +312,7 @@ char32_t utf8::iterator::operator* () {
 #undef __class__
 #define __class__ "etk"
 namespace etk {
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		template<> std::string to_string<std::u32string>(const std::u32string& _input) {
 			std::string out;
 			for (size_t iii=0; iii<_input.size(); ++iii) {
@@ -418,7 +418,7 @@ namespace etk {
 	}
 };
 
-#if __cplusplus >= 201103L
+#if __CPP_VERSION__ >= 2011
 	static std::u32string transform_to_u32string(const char* _input) {
 		if (_input == NULL) {
 			return U"";
@@ -471,7 +471,7 @@ namespace etk {
 		return out;
 	}
 #endif
-#if __cplusplus >= 201103L
+#if __CPP_VERSION__ >= 2011
 	namespace etk {
 		template<> std::u32string to_u32string<char*>(char* const & _input) {
 			return transform_to_u32string(_input);
@@ -569,7 +569,7 @@ bool etk::string_to_bool(const std::string& _str) {
 	if(    true == compare_no_case(_str, "true")
 	    || true == compare_no_case(_str, "enable")
 	    || true == compare_no_case(_str, "yes")
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 	    || _str == u8"1"
 	#else
 	    || _str == "1"
@@ -579,7 +579,7 @@ bool etk::string_to_bool(const std::string& _str) {
 	}
 	return false;
 }
-#if __cplusplus >= 201103L
+#if __CPP_VERSION__ >= 2011
 	bool etk::compare_no_case(const std::u32string& _obj, const std::u32string& _val) {
 		if (_val.size() != _obj.size()) {
 			return false;
@@ -610,7 +610,7 @@ struct doublette {
 	char32_t upper;
 };
 struct doublette convertionTable[] = {
-#if __cplusplus >= 201103L
+#if __CPP_VERSION__ >= 2011
 	{U'ç', U'Ç'},
 
 	{U'á', U'Á'}, {U'à', U'À'}, {U'ä', U'Ä'}, {U'â', U'Â'}, {U'å', U'Å'}, {U'ã', U'Ã'},
@@ -666,7 +666,7 @@ std::string etk::tolower(std::string _obj) {
 	}
 	return _obj;
 }
-#if __cplusplus >= 201103L
+#if __CPP_VERSION__ >= 2011
 	std::u32string etk::tolower(std::u32string _obj) {
 		for(size_t iii=0 ; iii<_obj.size() ; iii++) {
 			_obj[iii] = localToLower(_obj[iii]);
@@ -681,7 +681,7 @@ std::string etk::toupper(std::string _obj) {
 	}
 	return _obj;
 }
-#if __cplusplus >= 201103L
+#if __CPP_VERSION__ >= 2011
 	std::u32string etk::toupper(std::u32string _obj) {
 		for(size_t iii=0 ; iii<_obj.size() ; iii++) {
 			_obj[iii] = localToUpper(_obj[iii]);
@@ -716,7 +716,7 @@ bool etk::end_with(const std::string& _obj, const std::string& _val, bool _caseS
 	}
 	return true;
 }
-#if __cplusplus >= 201103L
+#if __CPP_VERSION__ >= 2011
 	bool etk::end_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive) {
 		if (_val.size() == 0) {
 			return false;
@@ -771,7 +771,7 @@ bool etk::start_with(const std::string& _obj, const std::string& _val, bool _cas
 	}
 	return true;
 }
-#if __cplusplus >= 201103L
+#if __CPP_VERSION__ >= 2011
 	bool etk::start_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive) {
 		if (_val.size() == 0) {
 			return false;
@@ -852,7 +852,7 @@ std::string etk::extract_line(const std::string& _obj, int32_t _pos) {
 	}
 	return std::string(_obj, startPos, stopPos - startPos);
 }
-#if __cplusplus >= 201103L
+#if __CPP_VERSION__ >= 2011
 	std::u32string etk::extract_line(const std::u32string& _obj, int32_t _pos) {
 		// search back : '\n'
 		size_t startPos = _obj.rfind('\n', _pos);
@@ -898,7 +898,7 @@ std::vector<std::string> etk::split(const std::string& _input, char _val) {
 	return list;
 }
 
-#if __cplusplus >= 201103L
+#if __CPP_VERSION__ >= 2011
 	std::vector<std::u32string> etk::split(const std::u32string& _input, char32_t _val) {
 		std::vector<std::u32string> list;
 		size_t lastStartPos = 0;
@@ -1003,7 +1003,7 @@ void etk::sort(std::vector<std::string *> &_list) {
 		_list.insert(_list.begin()+findPos, tmpList[iii]);
 	}
 }
-#if __cplusplus >= 201103L
+#if __CPP_VERSION__ >= 2011
 	void etk::sort(std::vector<std::u32string *> &_list) {
 		std::vector<std::u32string *> tmpList(_list);
 		_list.clear();
@@ -1022,7 +1022,7 @@ void etk::sort(std::vector<std::string *> &_list) {
 #endif
 
 namespace etk {
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		template<> bool from_string<std::u32string>(std::u32string& _variableRet, const std::string& _value) {
 			_variableRet = etk::to_u32string(_value);
 			return true;
@@ -1080,7 +1080,7 @@ namespace etk {
 		_variableRet = string_to_bool(_value);
 		return true;
 	}
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		template<> bool from_string<int8_t>(int8_t& _variableRet, const std::u32string& _value) {
 			_variableRet = string_to_int8_t(_value);
 			return true;
@@ -1149,7 +1149,7 @@ std::ostream& std::operator <<(std::ostream& _os, const std::vector<std::string>
 	_os << "}";
 	return _os;
 }
-#if __cplusplus >= 201103L
+#if __CPP_VERSION__ >= 2011
 	std::ostream& std::operator <<(std::ostream& _os, const std::u32string& _obj) {
 		_os << etk::to_string(_obj).c_str();
 		return _os;

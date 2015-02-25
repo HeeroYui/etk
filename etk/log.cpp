@@ -8,12 +8,8 @@
 
 #include <etk/log.h>
 #include <time.h>
-#if __cplusplus >= 201103L
-	#include <mutex>
-	#include <thread>
-#else
-	#include <etk/mutex.h>
-#endif
+#include <etk/mutex.h>
+#include <etk/thread.h>
 #include <map>
 #include <inttypes.h>
 
@@ -228,7 +224,7 @@ static std::map<uint32_t, std::string>& getThreadList() {
 }
 
 std::string etk::log::getThreadName() {
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		std::map<uint32_t,std::string>& list = getThreadList();
 		uint32_t threadID = getThreadID();
 		std::string out;
@@ -246,11 +242,11 @@ std::string etk::log::getThreadName() {
 }
 
 void etk::log::setThreadName(const std::string& _name) {
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		std::map<uint32_t,std::string>& list = getThreadList();
 		uint32_t threadID = getThreadID();
 		static std11::mutex g_lock;
-		g_lock.lock();-Wc++0x-compat
+		g_lock.lock();
 		auto it = list.find(threadID);
 		if (it == list.end()) {
 			list.insert(std::pair<uint32_t, std::string>(threadID,_name));
@@ -262,7 +258,7 @@ void etk::log::setThreadName(const std::string& _name) {
 }
 
 uint32_t etk::log::getThreadID() {
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		uint32_t out = 0;
 		std::thread::id this_id = std::this_thread::get_id();
 		uint64_t iddd = std::hash<std::thread::id>()(this_id);
@@ -407,7 +403,7 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 		*pointer++ = ' ';
 		*pointer = '\0';
 	}
-	#if __cplusplus >= 201103L
+	#if __CPP_VERSION__ >= 2011
 		if(getThreadId() == true) {
 			// display thread ID
 			uint32_t iddd = etk::log::getThreadID();

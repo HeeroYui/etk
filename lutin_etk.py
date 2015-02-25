@@ -31,16 +31,6 @@ def create(target):
 	if target.name=="IOs":
 		myModule.add_src_file('etk/logIOs.m')
 	
-	# force old version of C++
-	target.xx_version = 4005000
-	
-	if     target.config["compilator"] == "gcc" \
-	   and target.xx_version < 4007000:
-		pass
-	else:
-		# name of the dependency
-		myModule.add_optionnal_module_depend('linearmath', "ETK_BUILD_LINEARMATH", export=True)
-		myModule.add_optionnal_module_depend('minizip', "ETK_BUILD_MINIZIP")
 	
 	if target.config["mode"] == "release":
 		# TODO : The other way is to remove this ...
@@ -55,8 +45,16 @@ def create(target):
 	
 	if     target.config["compilator"] == "gcc" \
 	   and target.xx_version < 4007000:
+		# note : this framework depend on C++ 11, but a simple port of Boost for old compatibility has been done ...
+		myModule.compile_version_XX(2003)
 		myModule.add_optionnal_module_depend('boost', "ETK_BUILD_BOOST", export=True)
-		myModule.add_export_path(tools.get_current_path(__file__) + "/etk/boost_to_std")
+		myModule.add_export_path(tools.get_current_path(__file__) + "/binding_boost")
+	else:
+		myModule.compile_version_XX(2011)
+		# name of the dependency
+		myModule.add_optionnal_module_depend('linearmath', "ETK_BUILD_LINEARMATH", export=True)
+		myModule.add_optionnal_module_depend('minizip', "ETK_BUILD_MINIZIP")
+		myModule.add_export_path(tools.get_current_path(__file__) + "/binding_X11")
 	
 	if target.name=="Windows":
 		None
