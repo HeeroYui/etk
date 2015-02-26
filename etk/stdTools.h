@@ -16,6 +16,7 @@
 #include <string>
 #include <iomanip>
 #include <algorithm>
+#include <etk/chrono.h>
 
 namespace u32char {
 	extern const char32_t Null; //!< '\0' 
@@ -545,6 +546,9 @@ namespace std {
 	std::ostream& operator <<(std::ostream& _os, const std::vector<uint16_t>& _obj);
 	std::ostream& operator <<(std::ostream& _os, const std::vector<int8_t>& _obj);
 	std::ostream& operator <<(std::ostream& _os, const std::vector<uint8_t>& _obj);
+	
+	std::ostream& operator <<(std::ostream& _os, const std11::chrono::system_clock::time_point& _obj);
+	
 };
 
 int32_t strlen(const char32_t * _data);
