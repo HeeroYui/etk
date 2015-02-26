@@ -46,7 +46,7 @@ def create(target):
 	if     target.config["compilator"] == "gcc" \
 	   and target.xx_version < 4007000:
 		# note : this framework depend on C++ 11, but a simple port of Boost for old compatibility has been done ...
-		myModule.compile_version_XX(2003)
+		myModule.compile_version_XX(1999)
 		myModule.add_optionnal_module_depend('boost', "ETK_BUILD_BOOST", export=True)
 		myModule.add_export_path(tools.get_current_path(__file__) + "/binding_boost")
 	else:
