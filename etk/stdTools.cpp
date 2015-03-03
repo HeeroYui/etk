@@ -1392,7 +1392,7 @@ namespace std {
 		int32_t hour = (totalSecond/3600)%24;
 		int32_t day = (totalSecond/(24*3600))%365;
 		int32_t year = totalSecond/(24*3600*365);
-		_os << year << "y " << day << "d " << hour << "h" << minute << ":"<< second << "s " << millisecond << "ms " << microsecond << "µs " << nanosecond << "ns";
+		_os << year << "y " << day << "d " << hour << "h" << minute << ":"<< second << "s " << millisecond << "ms " << microsecond << "Âµs " << nanosecond << "ns";
 		return _os;
 	}
 }
