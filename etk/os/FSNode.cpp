@@ -1776,6 +1776,13 @@ etk::FSNode& etk::FSNode::operator<< (const uint32_t _data) {
 	fileWrite(sss.c_str(), 1, sss.size());
 	return *this;
 }
+etk::FSNode& etk::FSNode::operator<< (const float _data) {
+	std::stringstream tmp;
+	tmp << _data;
+	std::string sss = tmp.str();
+	fileWrite(sss.c_str(), 1, sss.size());
+	return *this;
+}
 
 bool etk::FSNode::fileSeek(long int _offset, enum etk::seekNode _origin)
 {

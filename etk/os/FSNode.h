@@ -491,6 +491,7 @@ namespace etk {
 			etk::FSNode& operator<< (const char* _data);
 			etk::FSNode& operator<< (const int32_t _data);
 			etk::FSNode& operator<< (const uint32_t _data);
+			etk::FSNode& operator<< (const float _data);
 			/**
 			 * @brief Get the position in the file.
 			 * @return the requested position.

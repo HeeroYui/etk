@@ -388,6 +388,17 @@ namespace std {
 namespace etk {
 	// these declaration is to prevent some under template declaration of unknown type
 	template <class TYPE> std::string to_string(const TYPE& _variable);
+	template <class TYPE> std::string to_string(const std::vector<TYPE>& _list) {
+		std::string out = "{";
+		for (size_t iii=0; iii<_list.size(); ++iii) {
+			if (iii!=0) {
+				out += ";";
+			}
+			out+= etk::to_string(_list[iii]);
+		}
+		out += "}";
+		return out;
+	}
 	#if __CPP_VERSION__ >= 2011
 		template <class TYPE> std::u32string to_u32string(const TYPE& _variable);
 	#endif
