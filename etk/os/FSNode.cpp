@@ -357,6 +357,19 @@ void etk::initDefaultFolder(const char* _applName) {
 					baseFolderData += "/";
 				#endif
 				baseFolderData = simplifyPath(baseFolderData);
+				#if defined(__TARGET_OS__Linux)
+					{
+						struct stat statProperty;
+						if (-1 == stat(baseFolderData.c_str(), &statProperty)) {
+							//Normal case when the file does not exist ... ==> the it was in unknow mode ...
+							TK_INFO("Path does not exit : '" << baseFolderData << "' ==> try tools data folder ...");
+							baseFolderData += "/../../../share/";
+							baseFolderData += binaryName;
+							baseFolderData += "/";
+							baseFolderData = simplifyPath(baseFolderData);
+						}
+					}
+				#endif
 			}
 			#if defined(__TARGET_OS__IOs)
 				baseFolderDataUser  = binaryPath;

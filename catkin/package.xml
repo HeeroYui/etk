@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<package>
+  <name>etk</name>
+  <version>0.9.1</version>
+  <description>Ewol Tool kit</description>
+  <maintainer email="yui.heero@gmail.com">Edouard DUPIN</maintainer>
+  <license>Apache-2.0</license>
+  <buildtool_depend>catkin</buildtool_depend>
+</package>
