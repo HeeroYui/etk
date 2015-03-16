@@ -16,6 +16,9 @@
 #if defined(__TARGET_OS__Android)
 #	include <android/log.h>
 #endif
+#if defined(ETK_EXTERN_FRAMEWORK_ROS)
+	#include <ros/ros.h>
+#endif
 
 #include <etk/logIOs.h>
 
@@ -351,11 +354,13 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 		}
 		pointer = handle+strlen(handle);
 	}
-	if(getTime() == true) {
-		getDisplayTime(pointer);
-		pointer = handle+strlen(handle);
-	}
-	#if !defined(__TARGET_OS__Android)
+	#if !defined(ETK_EXTERN_FRAMEWORK_ROS)
+		if(getTime() == true) {
+			getDisplayTime(pointer);
+			pointer = handle+strlen(handle);
+		}
+	#endif
+	#if !defined(__TARGET_OS__Android) && !defined(ETK_EXTERN_FRAMEWORK_ROS)
 		switch(_level) {
 			default:
 				strcat(pointer, "[?] ");
@@ -459,35 +464,61 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 	}
 	
 	g_lock.lock();
-	#if defined(__TARGET_OS__Android)
-		// TODO : Set package name instead of ewol ...
+	#if defined(ETK_EXTERN_FRAMEWORK_ROS)
 		switch(_level) {
 			default:
-				__android_log_print(ANDROID_LOG_VERBOSE, "EWOL", "%s", handle);
+				//ROS_VERBOSE_STREAM(handle);
 				break;
 			case logLevelCritical:
-				__android_log_print(ANDROID_LOG_FATAL, "EWOL", "%s", handle);
+				ROS_FATAL_STREAM(handle);
 				break;
 			case logLevelError:
-				__android_log_print(ANDROID_LOG_ERROR, "EWOL", "%s", handle);
+				ROS_ERROR_STREAM(handle);
 				break;
 			case logLevelWarning:
-				__android_log_print(ANDROID_LOG_WARN, "EWOL", "%s", handle);
+				ROS_WARN_STREAM(handle);
 				break;
 			case logLevelInfo:
-				__android_log_print(ANDROID_LOG_INFO, "EWOL", "%s", handle);
+				ROS_INFO_STREAM(handle);
 				break;
 			case logLevelDebug:
-				__android_log_print(ANDROID_LOG_DEBUG, "EWOL", "%s", handle);
+				ROS_DEBUG_STREAM(handle);
 				break;
 			case logLevelVerbose:
-				__android_log_print(ANDROID_LOG_VERBOSE, "EWOL", "%s", handle);
+				//ROS_VERBOSE_STREAM(handle);
 				break;
 		}
-	#elif defined(__TARGET_OS__IOs)
-		iosNSLog(handle);
 	#else
-		std::cout << handle << std::endl;
+		#if defined(__TARGET_OS__Android)
+			// TODO : Set package name instead of ewol ...
+			switch(_level) {
+				default:
+					__android_log_print(ANDROID_LOG_VERBOSE, "EWOL", "%s", handle);
+					break;
+				case logLevelCritical:
+					__android_log_print(ANDROID_LOG_FATAL, "EWOL", "%s", handle);
+					break;
+				case logLevelError:
+					__android_log_print(ANDROID_LOG_ERROR, "EWOL", "%s", handle);
+					break;
+				case logLevelWarning:
+					__android_log_print(ANDROID_LOG_WARN, "EWOL", "%s", handle);
+					break;
+				case logLevelInfo:
+					__android_log_print(ANDROID_LOG_INFO, "EWOL", "%s", handle);
+					break;
+				case logLevelDebug:
+					__android_log_print(ANDROID_LOG_DEBUG, "EWOL", "%s", handle);
+					break;
+				case logLevelVerbose:
+					__android_log_print(ANDROID_LOG_VERBOSE, "EWOL", "%s", handle);
+					break;
+			}
+		#elif defined(__TARGET_OS__IOs)
+			iosNSLog(handle);
+		#else
+			std::cout << handle << std::endl;
+		#endif
 	#endif
 	g_lock.unlock();
 	if (_level == logLevelCritical) {

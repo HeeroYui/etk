@@ -420,19 +420,18 @@ std::string etk::getUserRunFolder() {
 
 
 #ifdef __TARGET_OS__Android
-bool etk::FSNode::loadDataZip()
-{
-	if (NULL == s_APKArchive) {
+bool etk::FSNode::loadDataZip() {
+	if (s_APKArchive == nullptr) {
 		return false;
 	}
-	if (NULL != m_zipContent) {
+	if (m_zipContent != nullptr) {
 		return true;
 	}
 	if (false == s_APKArchive->exist(m_systemFileName)) {
 		return false;
 	}
 	m_zipContent = &s_APKArchive->getContent(m_systemFileName);
-	if (NULL != m_zipContent) {
+	if (m_zipContent != nullptr) {
 		return true;
 	}
 	return false;
@@ -602,7 +601,7 @@ void etk::FSNode::privateSetName(const std::string& _newName) {
 		isRootFolder = destFilename[0] == '/';
 	#endif
 	if(    start_with(destFilename, "ROOT:") == true
-	           || start_with(destFilename, "root:") == true ) {
+	    || start_with(destFilename, "root:") == true ) {
 		TK_DBG_MODE("    ==> detect root 2 ");
 		destFilename.erase(0, 5);
 		m_type = etk::FSN_TYPE_DIRECT;
@@ -655,7 +654,7 @@ void etk::FSNode::privateSetName(const std::string& _newName) {
 		}
 		m_type = etk::FSN_TYPE_RELATIF;
 	} else if(start_with(destFilename, baseRunPath) == true) {
-		TK_DBG_MODE("    ==> detect relatif 3");
+		TK_DBG_MODE("    ==> detect relatif 3 (run path=" << baseRunPath << ")");
 		destFilename.erase(0, baseRunPath.size());
 		while (destFilename.size()>0 && destFilename[0] == '/') {
 			destFilename.erase(0, 1);

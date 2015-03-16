@@ -54,7 +54,7 @@ add_library(${PROJECT_NAME}
   ../${PROJECT_NAME}/archive/Zip.cpp
 )
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -DDEBUG_LEVEL=3 -DDEBUG=1 -D__CPP_VERSION__=2011 -D__TARGET_OS__Linux")
+set(CMAKE_CXX_FLAGS "-std=c++11 -DDEBUG_LEVEL=3 -DDEBUG=1 -D__CPP_VERSION__=2011 -D__TARGET_OS__Linux -DETK_EXTERN_FRAMEWORK_ROS")
 
 
 ## Add cmake target dependencies of the executable/library
