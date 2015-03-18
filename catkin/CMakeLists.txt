@@ -9,6 +9,10 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 find_package(catkin)
 
 
+
+#set(ETK_DEFINITIONS -D__CPP_VERSION__=2011 -D__TARGET_OS__Linux -DETK_EXTERN_FRAMEWORK_ROS)
+#set(etk_DEFINITIONS -D__CPP_VERSION__=2011 -D__TARGET_OS__Linux -DETK_EXTERN_FRAMEWORK_ROS)
+
 ###################################
 ## catkin specific configuration ##
 ###################################
@@ -22,6 +26,7 @@ catkin_package(
   INCLUDE_DIRS ../ ../binding_X11
   LIBRARIES ${PROJECT_NAME}
   DEPENDS system_lib
+  CFG_EXTRAS ${PROJECT_NAME}-extras.cmake
 )
 
 ###########
@@ -54,12 +59,7 @@ add_library(${PROJECT_NAME}
   ../${PROJECT_NAME}/archive/Zip.cpp
 )
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -DDEBUG_LEVEL=3 -DDEBUG=1 -D__CPP_VERSION__=2011 -D__TARGET_OS__Linux -DETK_EXTERN_FRAMEWORK_ROS")
-
-
-## Add cmake target dependencies of the executable/library
-## as an example, message headers may need to be generated before nodes
-#add_dependencies(${PROJECT_NAME} test_perfo_core_generate_messages_cpp)
+set(CMAKE_CXX_FLAGS "-std=c++11 -D__CPP_VERSION__=2011 -D__TARGET_OS__Linux -DETK_EXTERN_FRAMEWORK_ROS")
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}
