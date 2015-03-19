@@ -8,11 +8,6 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 ## is used, also find other catkin packages
 find_package(catkin)
 
-
-
-#set(ETK_DEFINITIONS -D__CPP_VERSION__=2011 -D__TARGET_OS__Linux -DETK_EXTERN_FRAMEWORK_ROS)
-#set(etk_DEFINITIONS -D__CPP_VERSION__=2011 -D__TARGET_OS__Linux -DETK_EXTERN_FRAMEWORK_ROS)
-
 ###################################
 ## catkin specific configuration ##
 ###################################
