@@ -13,6 +13,8 @@
 #undef __class__
 #define __class__	"etktest"
 
+#ifdef ETK_BUILD_MINIZIP
+
 TEST(TestEtkArchive, CreationWrong) {
 	etk::Archive* tmpArchive = etk::Archive::load("nonExistantFile.zip");
 	EXPECT_NE(tmpArchive, nullptr);
@@ -25,3 +27,5 @@ TEST(TestEtkArchive, Display) {
 	tmpArchive->display();
 }
 */
+
+#endif
