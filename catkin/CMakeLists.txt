@@ -44,6 +44,7 @@ add_library(${PROJECT_NAME}
   ../${PROJECT_NAME}/tool.cpp
   ../${PROJECT_NAME}/Noise.cpp
   ../${PROJECT_NAME}/Color.cpp
+  ../${PROJECT_NAME}/thread/tools.cpp
   ../${PROJECT_NAME}/math/Matrix4.cpp
   ../${PROJECT_NAME}/math/Vector2D.cpp
   ../${PROJECT_NAME}/math/Vector3D.cpp

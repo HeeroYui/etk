@@ -19,6 +19,7 @@ def create(target):
 		'etk/tool.cpp',
 		'etk/Noise.cpp',
 		'etk/Color.cpp',
+		'etk/thread/tools.cpp',
 		'etk/math/Matrix4.cpp',
 		'etk/math/Vector2D.cpp',
 		'etk/math/Vector3D.cpp',

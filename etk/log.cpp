@@ -12,6 +12,7 @@
 #include <etk/thread.h>
 #include <map>
 #include <inttypes.h>
+#include <etk/thread/tools.h>
 
 #if defined(__TARGET_OS__Android)
 #	include <android/log.h>
@@ -220,60 +221,7 @@ static bool& getFunction() {
 void etk::log::setFunction(bool _status) {
 	getFunction() = _status;
 }
-// TODO : add a generic lock ...
-static std::map<uint32_t, std::string>& getThreadList() {
-	static std::map<uint32_t, std::string> g_val;
-	return g_val;
-}
 
-std::string etk::log::getThreadName() {
-	std::map<uint32_t,std::string>& list = getThreadList();
-	uint32_t threadID = getThreadID();
-	std::string out;
-	static std11::mutex g_lock;
-	g_lock.lock();
-	std::map<uint32_t,std::string>::iterator it = list.find(threadID);
-	if (it != list.end()) {
-		out = it->second;
-	}
-	g_lock.unlock();
-	return out;
-}
-
-void etk::log::setThreadName(const std::string& _name) {
-	std::map<uint32_t,std::string>& list = getThreadList();
-	uint32_t threadID = getThreadID();
-	static std11::mutex g_lock;
-	g_lock.lock();
-	std::map<uint32_t,std::string>::iterator it = list.find(threadID);
-	if (it == list.end()) {
-		list.insert(std::pair<uint32_t, std::string>(threadID,_name));
-	} else {
-		it->second = _name;
-	}
-	g_lock.unlock();
-}
-
-uint32_t etk::log::getThreadID() {
-	uint32_t out = 0;
-	std11::thread::id this_id = std11::this_thread::get_id();
-	uint64_t iddd = std11::hash<std11::thread::id>()(this_id);
-	static std11::mutex g_lock;
-	g_lock.lock();
-	static std::map<uint64_t, uint32_t> g_list;
-	std::map<uint64_t, uint32_t>::iterator it = g_list.find(iddd);
-	if (it == g_list.end()) {
-		// attribute new ID :
-		static uint32_t tmpId = 0;
-		g_list.insert(std::pair<uint64_t, uint32_t>(iddd,tmpId));
-		out = tmpId;
-		tmpId++;
-	} else {
-		out = it->second;
-	}
-	g_lock.unlock();
-	return out;
-}
 
 static void getDisplayTime(char* data) {
 #ifdef __TARGET_OS__Android
@@ -400,7 +348,7 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 	}
 	if(getThreadId() == true) {
 		// display thread ID
-		uint32_t iddd = etk::log::getThreadID();
+		uint32_t iddd = etk::thread::getId();
 		sprintf(pointer, "%3d", iddd);
 		pointer = handle+strlen(handle);
 		*pointer++ = ' ';
@@ -410,7 +358,7 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 	}
 	if(getThreadNameEnable() == true) {
 		// display thread ID
-		std::string name = etk::log::getThreadName();
+		std::string name = etk::thread::getName();
 		int32_t len = strlen(handle);
 		snprintf(pointer, 20, "%s", name.c_str());
 		pointer = handle+strlen(handle);
