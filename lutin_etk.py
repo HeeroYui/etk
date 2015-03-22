@@ -14,6 +14,7 @@ def create(target):
 	# add the file to compile:
 	myModule.add_src_file([
 		'etk/debug.cpp',
+		'etk/etk.cpp',
 		'etk/stdTools.cpp',
 		'etk/log.cpp',
 		'etk/tool.cpp',
