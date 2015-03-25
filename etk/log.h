@@ -132,4 +132,15 @@ namespace etk {
 #endif
 #define __class__ (NULL)
 
+// generic define for all logs::
+#define TK_LOG_BASE(logId,info,data) \
+	do { \
+		if (info <= etk::log::getLevel(logId)) { \
+			std::stringbuf sb; \
+			std::ostream tmpStream(&sb); \
+			tmpStream << data; \
+			etk::log::logStream(logId, info, __LINE__, __class__, __func__, tmpStream); \
+		} \
+	} while(0)
+
 #endif

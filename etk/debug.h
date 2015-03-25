@@ -16,16 +16,8 @@
 namespace etk {
 	int32_t getLogId();
 };
-// TODO : Review this problem of multiple intanciation of "std::stringbuf sb"
-#define ETK_BASE(info,data) \
-	do { \
-		if (info <= etk::log::getLevel(etk::getLogId())) { \
-			std::stringbuf sb; \
-			std::ostream tmpStream(&sb); \
-			tmpStream << data; \
-			etk::log::logStream(etk::getLogId(), info, __LINE__, __class__, __func__, tmpStream); \
-		} \
-	} while(0)
+
+#define ETK_BASE(info,data) TK_LOG_BASE(etk::getLogId(),info,data)
 
 #define TK_CRITICAL(data)      ETK_BASE(1, data)
 #define TK_ERROR(data)         ETK_BASE(2, data)
