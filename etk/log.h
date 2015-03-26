@@ -90,6 +90,11 @@ namespace etk {
 		 */
 		void setThreadNameEnable(bool _status);
 		/**
+		 * @brief Set library display enable or disable.
+		 * @param[in] _status New value.
+		 */
+		void setLibName(bool _status);
+		/**
 		 * @brief Call log to display
 		 * @param[in] _id Id of the instance type
 		 * @param[in] _level Level debug
@@ -110,21 +115,6 @@ namespace etk {
 		 * @param[in] _breakAtEnd assert program when backtrace is printed
 		 */
 		void displayBacktrace(bool _breakAtEnd = false, int32_t _removeElement=0);
-		// TODO : Remove this from heare, this is a first version ...
-		/**
-		 * @brief Set the current thread name
-		 * @param[in] name of the thread
-		 */
-		void setThreadName(const std::string& _name);
-		/**
-		 * @brief Get the current thread name
-		 * @return name of the thread
-		 */
-		std::string getThreadName();
-		/**
-		 * @brief get human readable thread ID. (not the std::thread::get_id())
-		 */
-		uint32_t getThreadID();
 	};
 };
 #ifdef __class__

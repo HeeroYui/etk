@@ -74,6 +74,7 @@
 	#define DEFAULT_LOG_THREAD_NAME true
 	#define DEFAULT_LOG_CLASS true
 	#define DEFAULT_LOG_TIME true
+	#define DEFAULT_LOG_LIB_NAME true
 #else
 	#define DEFAULT_LOG_LEVEL etk::log::logLevelNone
 	#define DEFAULT_LOG_COLOR false
@@ -82,6 +83,7 @@
 	#define DEFAULT_LOG_THREAD_NAME false
 	#define DEFAULT_LOG_CLASS false
 	#define DEFAULT_LOG_TIME true
+	#define DEFAULT_LOG_LIB_NAME true
 #endif
 
 enum etk::log::level& getDefaultLevel() {
@@ -89,8 +91,18 @@ enum etk::log::level& getDefaultLevel() {
 	return g_val;
 }
 
-int32_t& getsizeLog() {
-	static int32_t g_val = 5;
+size_t& getFunctionSizeLog() {
+	static size_t g_val = 5;
+	return g_val;
+}
+
+size_t& getThreadSizeLog() {
+	static size_t g_val = 5;
+	return g_val;
+}
+
+size_t& getNameSizeLog() {
+	static size_t g_val = 5;
 	return g_val;
 }
 static std::vector<std::pair<std::string, enum etk::log::level> >& getList() {
@@ -105,8 +117,8 @@ int32_t etk::log::registerInstance(const std::string& _name) {
 		}
 	}
 	getList().push_back(std::make_pair(_name, getDefaultLevel()));
-	if (_name.size() >= getsizeLog()) {
-		getsizeLog() = _name.size()+1;
+	if (_name.size() >= getNameSizeLog()) {
+		getNameSizeLog() = _name.size()+1;
 	}
 	//std::cout << "register log : '" << _name << "'=" << getList().size()-1 << std::endl;
 	return getList().size()-1;
@@ -222,18 +234,25 @@ void etk::log::setFunction(bool _status) {
 	getFunction() = _status;
 }
 
+static bool& getLibName() {
+	static bool g_val = DEFAULT_LOG_LIB_NAME;
+	return g_val;
+}
+void etk::log::setLibName(bool _status) {
+	getLibName() = _status;
+}
 
 static void getDisplayTime(char* data) {
 #ifdef __TARGET_OS__Android
 	struct timeval  now;
 	gettimeofday(&now, nullptr);
-	sprintf(data, " %2dh%2d'%2d | ", (int32_t)(now.tv_sec/3600)%24, (int32_t)(now.tv_sec/60)%60, (int32_t)(now.tv_sec%60));
+	sprintf(data, " %2dh%2d'%2d ", (int32_t)(now.tv_sec/3600)%24, (int32_t)(now.tv_sec/60)%60, (int32_t)(now.tv_sec%60));
 #else
 	time_t rawtime;
 	struct tm * timeinfo;
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
-	sprintf(data, " %2dh%2d'%2d | ", (timeinfo->tm_hour)%24, timeinfo->tm_min, timeinfo->tm_sec);
+	sprintf(data, " %2dh%2d'%2d ", (timeinfo->tm_hour)%24, timeinfo->tm_min, timeinfo->tm_sec);
 #endif
 }
 
@@ -269,11 +288,12 @@ static void getDisplayTime(char* data) {
 //go to the Top of bash
 #define ETK_BASH_GO_TOP					"\e[0;0f"
 
+#define LENGHT_MAX_LOG (2048)
 
 void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* _className, const char* _funcName, const char* _log) {
 	static std11::mutex g_lock;
-	char handle[1024] = "";
-	memset(handle, ' ', 1024);
+	char handle[LENGHT_MAX_LOG] = "";
+	memset(handle, ' ', LENGHT_MAX_LOG);
 	handle[0] = '\0';
 	char* pointer = handle;
 	if(getColor() == true) {
@@ -334,17 +354,19 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 		}
 		pointer = handle+strlen(handle);
 	#endif
-	if (_id >= 0) {
-		int32_t len = strlen(handle);
-		strcat(pointer, getList()[_id].first.c_str());
-		pointer = handle+strlen(handle);
-		while (strlen(handle) - len < getsizeLog()) {
+	if (getLibName() == true) {
+		if (_id >= 0) {
+			int32_t len = strlen(handle);
+			strcat(pointer, getList()[_id].first.c_str());
+			pointer = handle+strlen(handle);
+			while (strlen(handle) - len < getNameSizeLog()) {
+				*pointer++ = ' ';
+				*pointer = '\0';
+			}
+			*pointer++ = '|';
 			*pointer++ = ' ';
 			*pointer = '\0';
 		}
-		*pointer++ = '|';
-		*pointer++ = ' ';
-		*pointer = '\0';
 	}
 	if(getThreadId() == true) {
 		// display thread ID
@@ -359,10 +381,13 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 	if(getThreadNameEnable() == true) {
 		// display thread ID
 		std::string name = etk::thread::getName();
-		int32_t len = strlen(handle);
-		snprintf(pointer, 20, "%s", name.c_str());
+		if (name.size() >= getThreadSizeLog() ) {
+			getThreadSizeLog() = name.size() + 1;
+		}
+		sprintf(pointer, "%s", name.c_str());
 		pointer = handle+strlen(handle);
-		while (strlen(handle) - len < 20) {
+		size_t nbSpaceToAdd = getThreadSizeLog()-name.size();
+		for (size_t iii=0; iii<nbSpaceToAdd; ++iii) {
 			*pointer++ = ' ';
 			*pointer = '\0';
 		}
@@ -378,26 +403,36 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 			*pointer = '\0';
 		}
 	}
+	// TODO :Maybe optimize this one ...
 	if(getFunction() == true) {
 		int32_t len = strlen(handle);
+		char tmpName[1024];
+		char *tmpPointer = tmpName;
 		if (_className != nullptr) {
-			snprintf(pointer, 70, "%s::", _className);
-			pointer = handle+strlen(handle);
+			snprintf(tmpPointer, 1024, "%s::", _className);
+			tmpPointer = tmpPointer+strlen(tmpPointer);
 		}
 		if (_funcName != nullptr) {
-			snprintf(pointer, 70, "%s", _funcName);
-			pointer = handle+strlen(handle);
+			snprintf(tmpPointer, 1024, "%s", _funcName);
+			tmpPointer = tmpPointer+strlen(tmpPointer);
 		}
-		while (strlen(handle) - len < 60) {
-			*pointer++ = ' ';
-			*pointer = '\0';
+		size_t lenFunc = strlen(tmpName);
+		if (lenFunc >= getFunctionSizeLog()) {
+			getFunctionSizeLog() = lenFunc+1;
 		}
-		*pointer++ = '|';
-		*pointer++ = ' ';
-		*pointer = '\0';
+		size_t nbSpaceToAdd = getFunctionSizeLog() - lenFunc;
+		for (size_t iii=0; iii<nbSpaceToAdd; ++iii) {
+			*tmpPointer++ = ' ';
+			*tmpPointer = '\0';
+		}
+		*tmpPointer++ = '|';
+		*tmpPointer++ = ' ';
+		*tmpPointer = '\0';
+		strcat(pointer, tmpName);
+		pointer += strlen(tmpName);
 	}
-	if (strlen(_log) > 1024-strlen(handle)-20) {
-		memcpy(pointer, _log, 1024-strlen(handle)-21);
+	if (strlen(_log) > LENGHT_MAX_LOG - strlen(handle)-20) {
+		memcpy(pointer, _log, LENGHT_MAX_LOG - strlen(handle)-21);
 		handle[1024-25] = ' ';
 		handle[1024-24] = '.';
 		handle[1024-23] = '.';
