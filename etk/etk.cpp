@@ -32,7 +32,7 @@ static etk::log::level getLogLevel(const std::string& _value) {
 	return etk::log::logLevelVerbose;
 }
 
-void etk::init(int _argc, char** _argv) {
+void etk::init(int _argc, const char** _argv) {
 	TK_INFO("E-TK system init (BEGIN)");
 	etk::setArgZero(_argv[0]);
 	for (int32_t iii=0; iii<_argc ; ++iii) {

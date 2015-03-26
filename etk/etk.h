@@ -15,7 +15,7 @@ namespace etk {
 	 * @param[in] _argc Number of argument list
 	 * @param[in] _argv List of arguments
 	 */
-	void init(int _argc, char** _argv);
+	void init(int _argc, const char** _argv);
 }
 
 #endif
