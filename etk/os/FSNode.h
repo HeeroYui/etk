@@ -795,6 +795,47 @@ namespace etk {
 	 */
 	std::string FSNodeReadAllData(const std::string& _path);
 	/**
+	 * @brief Write all the data in a file
+	 * @param[in] _path Folder/File/Pipe path of the node
+	 * @param[in] _data All the data of the file in a string
+	 */
+	void FSNodeWriteAllData(const std::string& _path, const std::string& _data);
+	/**
+	 * @brief Read all the data from a file
+	 * @param[in] _path Folder/File/Pipe path of the node
+	 * @return all the data of the file in a typed vector
+	 */
+	template<typename TTT> std::vector<TTT> FSNodeReadAllDataType(const std::string& _path) {
+		std::vector<TTT> out;
+		etk::FSNode node(_path);
+		if (node.fileOpenRead() == false) {
+			TK_ERROR("can not open file : '" << node << "'");
+			return out;
+		}
+		uint64_t nbByte = node.fileSize();
+		out.resize(nbByte/sizeof(TTT));
+		if (out.size()*sizeof(TTT) != nbByte) {
+			TK_WARNING("Error in reading the file missing some byte at the end ...");
+		}
+		node.fileRead(&out[0], sizeof(TTT), nbByte/sizeof(TTT));
+		node.fileClose();
+		return out;
+	}
+	/**
+	 * @brief Write all the data in a file
+	 * @param[in] _path Folder/File/Pipe path of the node
+	 * @param[in] _data All the data of the file in a vector Typed bits ...
+	 */
+	template<typename TTT> void FSNodeWriteAllDataType(const std::string& _path, const std::vector<TTT>& _data) {
+		etk::FSNode node(_path);
+		if (node.fileOpenWrite() == false) {
+			TK_ERROR("can not open file : '" << node << "'");
+			return;
+		}
+		node.fileWrite(&_data[0], sizeof(TTT), _data.size());
+		node.fileClose();
+	}
+	/**
 	 * @brief get the system name of the current path
 	 * @param[in] _path "DATA:xxx" etk file name.
 	 * @return return real file name "/aaa/bbb/ccc/xxx"

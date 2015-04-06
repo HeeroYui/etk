@@ -2184,7 +2184,19 @@ std::string etk::FSNodeReadAllData(const std::string& _path) {
 	return output;
 }
 
+void etk::FSNodeWriteAllData(const std::string& _path, const std::string& _data) {
+	etk::FSNode node(_path);
+	if (node.fileOpenWrite() == false) {
+		TK_ERROR("can not open file : '" << node << "'");
+		return;
+	}
+	node.fileWrite(&_data[0], sizeof(char), _data.size());
+	node.fileClose();
+}
+
 std::string etk::FSNodeGetRealName(const std::string& _path) {
 	etk::FSNode node(_path);
 	return node.getFileSystemName();
 }
+
+
