@@ -559,6 +559,7 @@ namespace std {
 	std::ostream& operator <<(std::ostream& _os, const std::vector<uint8_t>& _obj);
 	
 	std::ostream& operator <<(std::ostream& _os, const std11::chrono::system_clock::time_point& _obj);
+	std::ostream& operator <<(std::ostream& _os, const std11::chrono::steady_clock::time_point& _obj);
 	
 };
 
