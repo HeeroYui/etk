@@ -5,5 +5,7 @@
   <description>Ewol Tool kit</description>
   <maintainer email="yui.heero@gmail.com">Edouard DUPIN</maintainer>
   <license>Apache-2.0</license>
+  <build_depend>rosconsole</build_depend>
   <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>rosconsole</run_depend>
 </package>

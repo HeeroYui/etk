@@ -20,7 +20,7 @@ find_package(catkin)
 catkin_package(
   INCLUDE_DIRS ../ ../binding_X11
   LIBRARIES ${PROJECT_NAME}
-  DEPENDS system_lib
+  DEPENDS system_lib rosconsole
   CFG_EXTRAS ${PROJECT_NAME}-extras.cmake
 )
 
@@ -39,6 +39,7 @@ include_directories(
 ## Declare a cpp library
 add_library(${PROJECT_NAME}
   ../${PROJECT_NAME}/debug.cpp
+  ../${PROJECT_NAME}/etk.cpp
   ../${PROJECT_NAME}/stdTools.cpp
   ../${PROJECT_NAME}/log.cpp
   ../${PROJECT_NAME}/tool.cpp
