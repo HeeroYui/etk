@@ -81,31 +81,31 @@ void etk::init(int _argc, const char** _argv) {
 		} else if (    data == "-h"
 		            || data == "--help") {
 			etk::log::setLevel(etk::log::logLevelInfo);
-			TK_INFO("etk - help : ");
-			TK_INFO("    " << _argv[0] << " [options]");
-			TK_INFO("        -l/--etk-log-level=   Change the default log level (set all Log lovel):");
-			TK_INFO("            0: debug None (default in release)");
-			TK_INFO("            1: debug Critical");
-			TK_INFO("            2: debug Error");
-			TK_INFO("            3: debug Warning");
-			TK_INFO("            4: debug Info (default in debug)");
-			TK_INFO("            5: debug Debug");
-			TK_INFO("            6: debug Verbose");
-			TK_INFO("        --etk-log-lib=name:X  Set a library specific level:");
-			TK_INFO("            name  Name of the library");
-			TK_INFO("            X     Log level to set [0..6]");
-			TK_INFO("        --etk-log-color       Enable color in log (default in Linux/debug)");
-			TK_INFO("        --etk-log-no-color    Disable color in log (default in Linux/release and Other)");
-			TK_INFO("        --etk-log-config=     Configure the Log interface");
-			TK_INFO("            t: diplay time");
-			TK_INFO("            T: diplay thread id");
-			TK_INFO("            N: diplay thread name");
-			TK_INFO("            L: diplay line number");
-			TK_INFO("            l: diplay lib name");
-			TK_INFO("            f: diplay fundtion name");
-			TK_INFO("        -h/--help: this help");
-			TK_INFO("    example:");
-			TK_INFO("        " << _argv[0] << " --etk-log-color --etk-log-level=2 --etk-log-lib=etk:5 --etk-log-lib=appl:6 --etk-log-config=NLlf");
+			TK_PRINT("etk - help : ");
+			TK_PRINT("    " << _argv[0] << " [options]");
+			TK_PRINT("        -l/--etk-log-level=   Change the default log level (set all Log lovel):");
+			TK_PRINT("            0: debug None (default in release)");
+			TK_PRINT("            1: debug Critical");
+			TK_PRINT("            2: debug Error");
+			TK_PRINT("            3: debug Warning");
+			TK_PRINT("            4: debug Info (default in debug)");
+			TK_PRINT("            5: debug Debug");
+			TK_PRINT("            6: debug Verbose");
+			TK_PRINT("        --etk-log-lib=name:X  Set a library specific level:");
+			TK_PRINT("            name  Name of the library");
+			TK_PRINT("            X     Log level to set [0..6]");
+			TK_PRINT("        --etk-log-color       Enable color in log (default in Linux/debug)");
+			TK_PRINT("        --etk-log-no-color    Disable color in log (default in Linux/release and Other)");
+			TK_PRINT("        --etk-log-config=     Configure the Log interface");
+			TK_PRINT("            t: diplay time");
+			TK_PRINT("            T: diplay thread id");
+			TK_PRINT("            N: diplay thread name");
+			TK_PRINT("            L: diplay line number");
+			TK_PRINT("            l: diplay lib name");
+			TK_PRINT("            f: diplay fundtion name");
+			TK_PRINT("        -h/--help: this help");
+			TK_PRINT("    example:");
+			TK_PRINT("        " << _argv[0] << " --etk-log-color --etk-log-level=2 --etk-log-lib=etk:5 --etk-log-lib=appl:6 --etk-log-config=NLlf");
 		} else if (etk::start_with(data, "--etk")) {
 			TK_ERROR("Can not parse the argument : '" << data << "'");
 		}

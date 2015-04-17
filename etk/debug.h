@@ -19,6 +19,7 @@ namespace etk {
 
 #define ETK_BASE(info,data) TK_LOG_BASE(etk::getLogId(),info,data)
 
+#define TK_PRINT(data)         ETK_BASE(-1, data)
 #define TK_CRITICAL(data)      ETK_BASE(1, data)
 #define TK_ERROR(data)         ETK_BASE(2, data)
 #define TK_WARNING(data)       ETK_BASE(3, data)

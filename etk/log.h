@@ -20,6 +20,7 @@ namespace etk {
 		 * @brief Log level is a simple list of all log availlable. This enum is used when setting a log and when user chose the level of log displayed.
 		 */
 		enum level {
+			logLevelPrint = -1, //!< basic print for Help or result (never filtered)
 			logLevelNone = 0, //!< no display requested
 			logLevelCritical = 1, //!< Display only critical logs (note that critical generally assert with a backtrace (when we can))
 			logLevelError = 2, //!< Display Error and critical logs

@@ -319,6 +319,9 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 			case logLevelVerbose:
 				strcat(pointer, ETK_BASH_COLOR_WHITE);
 				break;
+			case logLevelPrint:
+				strcat(pointer, ETK_BASH_COLOR_WHITE);
+				break;
 		}
 		pointer = handle+strlen(handle);
 	}
@@ -332,6 +335,9 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 		switch(_level) {
 			default:
 				strcat(pointer, "[?] ");
+				break;
+			case logLevelPrint:
+				strcat(pointer, "[P] ");
 				break;
 			case logLevelCritical:
 				strcat(pointer, "[C] ");
@@ -452,6 +458,9 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 			default:
 				//ROS_VERBOSE_STREAM(handle);
 				break;
+			case logLevelPrint:
+				ROS_INFO_STREAM(handle);
+				break;
 			case logLevelCritical:
 				ROS_FATAL_STREAM(handle);
 				break;
@@ -477,6 +486,9 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 			switch(_level) {
 				default:
 					__android_log_print(ANDROID_LOG_VERBOSE, "EWOL", "%s", handle);
+					break;
+				case logLevelPrint:
+					__android_log_print(ANDROID_LOG_INFO, "EWOL", "%s", handle);
 					break;
 				case logLevelCritical:
 					__android_log_print(ANDROID_LOG_FATAL, "EWOL", "%s", handle);
