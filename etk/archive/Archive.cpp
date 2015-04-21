@@ -11,7 +11,7 @@
 #include <etk/archive/Zip.h>
 #include <etk/debug.h>
 
-static const etk::Archive::Content g_error;
+static const etk::ArchiveContent g_error;
 
 
 const std::string& etk::Archive::getName(size_t _id) const {
@@ -26,7 +26,7 @@ const std::string& etk::Archive::getName(size_t _id) const {
 	return error;
 }
 
-const etk::Archive::Content& etk::Archive::getContent(size_t _id) const {
+const etk::ArchiveContent& etk::Archive::getContent(size_t _id) const {
 	size_t id = 0;
 	for (auto &it : m_content) {
 		if (id == _id) {
@@ -37,7 +37,7 @@ const etk::Archive::Content& etk::Archive::getContent(size_t _id) const {
 	return g_error;
 }
 
-const etk::Archive::Content& etk::Archive::getContent(const std::string& _key) const {
+const etk::ArchiveContent& etk::Archive::getContent(const std::string& _key) const {
 	auto it = m_content.find(_key);
 	if (it == m_content.end()) {
 		return g_error;

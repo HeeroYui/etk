@@ -38,7 +38,7 @@ etk::archive::Zip::Zip(const std::string& _fileName) :
 		if(tmpFileName[strlen(tmpFileName) - 1] == '/' ) {
 			// find directory ...
 		} else {
-			m_content.insert(std::pair<std::string, etk::Archive::Content>(tmpFileName, etk::Archive::Content(tmpFileInfo.uncompressed_size)));
+			m_content.insert(std::pair<std::string, etk::ArchiveContent>(tmpFileName, etk::ArchiveContent(tmpFileInfo.uncompressed_size)));
 		}
 		/* Go the the next entry listed in the zip file. */
 		if((iii+1) < m_info.number_entry) {
@@ -57,7 +57,7 @@ etk::archive::Zip::~Zip() {
 	};
 }
 
-void etk::archive::Zip::loadFile(const std::map<std::string, Content>::iterator& it) {
+void etk::archive::Zip::loadFile(const std::map<std::string, ArchiveContent>::iterator& it) {
 	TK_VERBOSE("Real load file : '" << it->first << "'");
 	
 	unzGoToFirstFile(m_ctx);

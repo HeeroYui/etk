@@ -24,7 +24,7 @@
 					Zip(const std::string& _fileName);
 					virtual ~Zip();
 				protected: // herited functions :
-					virtual void loadFile(const std::map<std::string, Content>::iterator& it);
+					virtual void loadFile(const std::map<std::string, ArchiveContent>::iterator& it);
 			};
 		};
 	};

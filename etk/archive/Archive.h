@@ -15,43 +15,42 @@
 #include <map>
 
 namespace etk {
-	class Archive {
+	class ArchiveContent {
+		private:
+			int32_t m_link; //!< number of element open on this file
 		public:
-			class Content {
-				private:
-					int32_t m_link; //!< number of element open on this file
-				public:
-					void increaseRef() {
-						m_link++;
-					};
-					void decreaseRef() {
-						m_link--;
-					};
-					int32_t getNumberOfRef() const {
-						return m_link;
-					};
-				private:
-					int32_t m_theoricSize; //!< number of element open on this file
-				public:
-					int32_t getTheoricSize() const {
-						return m_theoricSize;
-					};
-				private:
-					std::vector<char> m_data;
-				public:
-					Content(int32_t _basicSize=0) :
-					  m_link(-1),
-					  m_theoricSize(_basicSize) { };
-					int32_t size() const {
-						return m_data.size();
-					};
-					void* data() const {
-						return (void*)&m_data[0];
-					};
-					std::vector<char>& getDataVector() {
-						return m_data;
-					};
+			void increaseRef() {
+				m_link++;
 			};
+			void decreaseRef() {
+				m_link--;
+			};
+			int32_t getNumberOfRef() const {
+				return m_link;
+			};
+		private:
+			int32_t m_theoricSize; //!< number of element open on this file
+		public:
+			int32_t getTheoricSize() const {
+				return m_theoricSize;
+			};
+		private:
+			std::vector<char> m_data;
+		public:
+			ArchiveContent(int32_t _basicSize=0) :
+			  m_link(-1),
+			  m_theoricSize(_basicSize) { };
+			int32_t size() const {
+				return m_data.size();
+			};
+			void* data() const {
+				return (void*)&m_data[0];
+			};
+			std::vector<char>& getDataVector() {
+				return m_data;
+			};
+	};
+	class Archive {
 		public:
 			Archive(const std::string& _fileName) :
 			  m_fileName(_fileName) {
@@ -69,7 +68,7 @@ namespace etk {
 				return m_fileName;
 			};
 		protected:
-			std::map<std::string, Content> m_content;
+			std::map<std::string, ArchiveContent> m_content;
 		public:
 			/**
 			 * @brief Get the number of elements
@@ -89,13 +88,13 @@ namespace etk {
 			 * @param[in] _id id of the element (must be < Size())
 			 * @return the archive content
 			 */
-			const Content& getContent(size_t _id) const;
+			const ArchiveContent& getContent(size_t _id) const;
 			/**
 			 * @brief Get the File name of the ID
 			 * @param[in] _key name of the file
 			 * @return FileName of the requested id
 			 */
-			const Content& getContent(const std::string& _key) const;
+			const ArchiveContent& getContent(const std::string& _key) const;
 			/**
 			 * @brief Check if a file exist
 			 * @param[in] _key Name of the file
@@ -121,7 +120,7 @@ namespace etk {
 			 * @brief Request the load in memory of the concerned file.
 			 * @param[in] _id Id of the file to load.
 			 */
-			virtual void loadFile(const std::map<std::string, Content>::iterator& it) { };
+			virtual void loadFile(const std::map<std::string, ArchiveContent>::iterator& it) { };
 		public:
 			/**
 			 * @brief Load an Achive with a specific name.

@@ -25,6 +25,10 @@ extern "C" {
 	#include <errno.h>
 }
 
+#ifdef __TARGET_OS__Android
+#	include <etk/archive/Archive.h>
+#endif
+
 
 #ifdef __TARGET_OS__Windows
 	// For ctime 

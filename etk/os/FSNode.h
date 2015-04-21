@@ -13,14 +13,15 @@
 
 #include <etk/os/FSNodeRight.h>
 
-#ifdef __TARGET_OS__Android
-#	include <etk/archive/Archive.h>
-#endif
-
 #define MAX_FILE_NAME      (10240)
 
 //http://developer.android.com/guide/topics/data/data-storage.html
 
+#ifdef __TARGET_OS__Android
+namespace etk {
+	class ArchiveContent;
+}
+#endif
 namespace etk {
 	void setArgZero(const std::string& _val);
 	std::string simplifyPath(std::string _input);
@@ -174,7 +175,7 @@ namespace etk {
 				 * @return false : An error Occured
 				 */
 				bool loadDataZip();
-				const etk::Archive::Content* m_zipContent;
+				const etk::ArchiveContent* m_zipContent;
 				int32_t m_zipReadingOffset;
 			#endif
 		public:
