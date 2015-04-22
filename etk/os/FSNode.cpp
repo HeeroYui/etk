@@ -25,7 +25,7 @@ extern "C" {
 	#include <errno.h>
 }
 
-#ifdef __TARGET_OS__Android
+#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 #	include <etk/archive/Archive.h>
 #endif
 
@@ -152,12 +152,22 @@ static std::string baseRunPathInHome = "/";
 
 
 #ifdef __TARGET_OS__Android
-	static etk::Archive* s_APKArchive = NULL;
+	static etk::Archive* s_APKArchive = nullptr;
 	static void loadAPK(std::string& _apkPath)
 	{
 		TK_DEBUG("Loading APK \"" << _apkPath << "\"");
 		s_APKArchive = etk::Archive::load(_apkPath);
-		TK_ASSERT(s_APKArchive != NULL, "Error loading APK ...  \"" << _apkPath << "\"");
+		TK_ASSERT(s_APKArchive != nullptr, "Error loading APK ...  \"" << _apkPath << "\"");
+		//Just for debug, print APK contents
+		s_APKArchive->display();
+	}
+#elif defined(__TARGET_OS__Windows)
+	static etk::Archive* s_APKArchive = nullptr;
+	static void loadAPK(std::string& _apkPath)
+	{
+		TK_DEBUG("Loading APK \"" << _apkPath << "\"");
+		s_APKArchive = etk::Archive::loadPackage(_apkPath);
+		TK_ASSERT(s_APKArchive != nullptr, "Error loading APK ...  \"" << _apkPath << "\"");
 		//Just for debug, print APK contents
 		s_APKArchive->display();
 	}
@@ -221,6 +231,7 @@ std::string getApplicationPath() {
 			TK_CRITICAL("Can not get the binary position in the tree ==> this is really bad ...");
 		} else {
 			binaryName = binaryCompleatePath;
+			loadAPK(binaryName);
 		}
 	#else
 		// check it to prevent test mode in local folder ...
@@ -423,7 +434,7 @@ std::string etk::getUserRunFolder() {
 #endif
 
 
-#ifdef __TARGET_OS__Android
+#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 bool etk::FSNode::loadDataZip() {
 	if (s_APKArchive == nullptr) {
 		return false;
@@ -499,7 +510,7 @@ etk::FSNode::FSNode(const std::string& _nodeName) :
   m_timeCreate(0),
   m_timeModify(0),
   m_timeAccess(0)
-#ifdef __TARGET_OS__Android
+#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
     , m_zipContent(NULL),
     m_zipReadingOffset(-1)
 #endif
@@ -515,7 +526,7 @@ etk::FSNode::FSNode(const std::string& _nodeName) :
 	  m_timeCreate(0),
 	  m_timeModify(0),
 	  m_timeAccess(0)
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	    , m_zipContent(NULL),
 	    m_zipReadingOffset(-1)
 	#endif
@@ -527,7 +538,7 @@ etk::FSNode::FSNode(const std::string& _nodeName) :
 
 etk::FSNode::~FSNode() {
 	if(    NULL != m_PointerFile
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	    || NULL != m_zipContent
 	#endif
 	  ) {
@@ -560,7 +571,7 @@ void etk::FSNode::sortElementList(std::vector<etk::FSNode *>& _list) {
 
 void etk::FSNode::privateSetName(const std::string& _newName) {
 	if(    NULL != m_PointerFile
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	    || NULL != m_zipContent
 	#endif
 	  ) {
@@ -570,7 +581,7 @@ void etk::FSNode::privateSetName(const std::string& _newName) {
 	// set right at NULL ...
 	m_rights = 0;
 	
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 		m_zipContent = NULL;
 		m_zipReadingOffset = 0;
 	#endif
@@ -732,7 +743,7 @@ void etk::FSNode::privateSetName(const std::string& _newName) {
 #endif
 
 bool directCheckFile(std::string _tmpFileNameDirect, bool _checkInAPKIfNeeded = false) {
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	if (true == _checkInAPKIfNeeded) {
 		if(    NULL != s_APKArchive
 		    && true == s_APKArchive->exist(_tmpFileNameDirect) ) {
@@ -860,7 +871,7 @@ void etk::FSNode::updateFileSystemProperty() {
 	// File type is not knowns ...
 	m_typeNode=FSN_UNKNOW;
 	
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	if(    m_type == etk::FSN_TYPE_DATA
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
 		// ----------------------------------------
@@ -1180,7 +1191,7 @@ const etk::FSNode& etk::FSNode::operator=  (const etk::FSNode &_obj ) {
 		return *this;
 	}
 	if(    NULL != m_PointerFile
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	    || NULL != m_zipContent
 	#endif
 	   ) {
@@ -1188,7 +1199,7 @@ const etk::FSNode& etk::FSNode::operator=  (const etk::FSNode &_obj ) {
 		fileClose();
 		m_PointerFile = NULL;
 	}
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 		m_zipContent = NULL;
 		m_zipReadingOffset = 0;
 	#endif
@@ -1323,7 +1334,7 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 	if (m_typeNode != etk::FSN_FOLDER ) {
 		return tmpp;
 	}
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	if(    m_type == etk::FSN_TYPE_DATA
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
 		std::vector<std::string> listAdded;
@@ -1417,7 +1428,7 @@ etk::FSNode etk::FSNode::folderGetParent() {
 }
 
 void etk::FSNode::folderGetRecursiveFiles(std::vector<std::string>& _output, bool _recursiveEnable) {
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	if(    m_type == etk::FSN_TYPE_DATA
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
 		std::string assetsName = "assets/";
@@ -1528,7 +1539,7 @@ uint64_t etk::FSNode::fileSize() {
 		TK_ERROR("Request size of a non file node : " << m_typeNode);
 		return 0;
 	}
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	if(    etk::FSN_TYPE_DATA == m_type
 	    || etk::FSN_TYPE_THEME_DATA == m_type) {
 		if (true == loadDataZip()) {
@@ -1554,7 +1565,7 @@ uint64_t etk::FSNode::fileSize() {
 
 
 bool etk::FSNode::fileOpenRead() {
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	if(    etk::FSN_TYPE_DATA == m_type
 	    || etk::FSN_TYPE_THEME_DATA == m_type) {
 		if (false==loadDataZip()) {
@@ -1577,7 +1588,7 @@ bool etk::FSNode::fileOpenRead() {
 	return true;
 }
 bool etk::FSNode::fileOpenWrite() {
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	if(    etk::FSN_TYPE_DATA == m_type
 	    || etk::FSN_TYPE_THEME_DATA == m_type) {
 		return false;
@@ -1598,7 +1609,7 @@ bool etk::FSNode::fileOpenWrite() {
 }
 
 bool etk::FSNode::fileOpenAppend() {
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	if(    etk::FSN_TYPE_DATA == m_type
 	    || etk::FSN_TYPE_THEME_DATA == m_type) {
 		return false;
@@ -1621,7 +1632,7 @@ bool etk::FSNode::fileOpenAppend() {
 }
 
 bool etk::FSNode::fileClose() {
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	if(    etk::FSN_TYPE_DATA == m_type
 	    || etk::FSN_TYPE_THEME_DATA == m_type) {
 		if (m_zipContent == NULL) {
@@ -1645,7 +1656,7 @@ bool etk::FSNode::fileClose() {
 
 char* etk::FSNode::fileGets(char* _elementLine, int64_t _maxData) {
 	memset(_elementLine, 0, _maxData);
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	char * element = _elementLine;
 	int64_t outSize = 0;
 	if(    m_type == etk::FSN_TYPE_DATA
@@ -1715,7 +1726,7 @@ bool etk::FSNode::fileGets(std::string& _output) {
 }
 
 int64_t etk::FSNode::fileRead(void* _data, int64_t _blockSize, int64_t _nbBlock) {
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	if(    m_type == etk::FSN_TYPE_DATA
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
 		if (m_zipContent == NULL) {
@@ -1750,7 +1761,7 @@ bool etk::FSNode::filePuts(const std::string& _input) {
 }
 
 int64_t etk::FSNode::fileWrite(const void * _data, int64_t _blockSize, int64_t _nbBlock) {
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	if(    m_type == etk::FSN_TYPE_DATA
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
 		TK_CRITICAL("Can not write on data inside APK : " << *this);
@@ -1802,7 +1813,7 @@ etk::FSNode& etk::FSNode::operator<< (const float _data) {
 
 bool etk::FSNode::fileSeek(long int _offset, enum etk::seekNode _origin)
 {
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	if(    m_type == etk::FSN_TYPE_DATA
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
 		if (NULL == m_zipContent) {
@@ -1850,7 +1861,7 @@ bool etk::FSNode::fileSeek(long int _offset, enum etk::seekNode _origin)
 	}
 }
 int64_t etk::FSNode::fileTell() {
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	if(    m_type == etk::FSN_TYPE_DATA
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
 		if (NULL == m_zipContent) {
@@ -1864,7 +1875,7 @@ int64_t etk::FSNode::fileTell() {
 }
 
 void etk::FSNode::fileFlush() {
-	#ifdef __TARGET_OS__Android
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	if(    m_type == etk::FSN_TYPE_DATA
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
 		return;

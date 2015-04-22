@@ -17,7 +17,7 @@
 
 //http://developer.android.com/guide/topics/data/data-storage.html
 
-#ifdef __TARGET_OS__Android
+#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 namespace etk {
 	class ArchiveContent;
 }
@@ -168,7 +168,7 @@ namespace etk {
 				void privateSetName(const std::u32string& _newName);
 			#endif
 		private:
-			#ifdef __TARGET_OS__Android
+			#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 				/**
 				 * @brief Explocitly for Android that data are stored in the .apk that is a .zip not compressed
 				 * @return true : Load is OK

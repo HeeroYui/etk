@@ -128,6 +128,12 @@ namespace etk {
 			 * @return A pointer an the specified archive, the user might delete it.
 			 */
 			static Archive* load(const std::string& _fileName);
+			/**
+			 * @brief Load an Achive with a specific name in package mode ==> this mean the data is associated with the basic binary.
+			 * @param[in] _fileName File name of the specific archive.
+			 * @return A pointer an the specified archive, the user might delete it.
+			 */
+			static Archive* loadPackage(const std::string& _fileName);
 			
 			/**
 			 * @brief Create an Achive with a specific name.

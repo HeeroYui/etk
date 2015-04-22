@@ -60,9 +60,9 @@ def create(target):
 		myModule.add_export_path(tools.get_current_path(__file__) + "/binding_X11")
 	
 	if target.name=="Windows":
-		None
+		pass
 	elif target.name=="Android":
-		None
+		pass
 	else:
 		myModule.add_export_flag_LD("-lpthread")
 	

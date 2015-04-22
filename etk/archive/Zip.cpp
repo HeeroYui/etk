@@ -11,11 +11,11 @@
 #include <etk/archive/Zip.h>
 #include <etk/types.h>
 
-etk::archive::Zip::Zip(const std::string& _fileName) :
+etk::archive::Zip::Zip(const std::string& _fileName, uint64_t _offset) :
   etk::Archive(_fileName),
   m_ctx(nullptr) {
 	/* Open the zip file */
-	m_ctx = unzOpen(m_fileName.c_str());
+	m_ctx = unzOpenOffset(m_fileName.c_str(), _offset);
 	if(!m_ctx) {
 		TK_ERROR("Unable to open the zip file '" << m_fileName << "'");
 		return;

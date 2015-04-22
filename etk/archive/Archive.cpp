@@ -60,17 +60,50 @@ void etk::Archive::display()
 }
 
 etk::Archive* etk::Archive::load(const std::string& _fileName) {
-	etk::Archive* output=NULL;
+	etk::Archive* output=nullptr;
 	std::string tmpName = etk::tolower(_fileName);
 	// select the corect Loader :
 	if(    true == end_with(tmpName, ".zip") 
 	    || true == end_with(tmpName, ".apk")  ) {
 		output = new etk::archive::Zip(_fileName);
-		if (NULL==output) {
+		if (nullptr==output) {
 			TK_ERROR("An error occured when load archive : " << _fileName);
 		}
 	} else {
 		TK_ERROR("Extention not managed " << _fileName << " Sopported extention : .zip");
+	}
+	return output;
+}
+
+etk::Archive* etk::Archive::loadPackage(const std::string& _fileName) {
+	etk::Archive* output=nullptr;
+	FILE* file = fopen(_fileName.c_str(), "rb");
+	if (file == nullptr) {
+		TK_ERROR("Can not open file : '" << _fileName);
+		return nullptr;
+	}
+	// move to end - 16 bytes:
+	fseek(file, -8, SEEK_END);
+	// get the basic binary size
+	uint64_t position = 0;
+	fread(&position, 1, sizeof(uint64_t), file);
+	TK_ERROR("position = " << position);
+	// move to the position
+	fseek(file, position, SEEK_SET);
+	char plop[1024];
+	fread(plop, 1, 16, file);
+	plop[16] = '\0';
+	// check if we have the mark: "***START DATA***" ==> if not ==> error
+	if (std::string(plop) != "***START DATA***") {
+		TK_ERROR("Error in the tag file : '" << plop << "'");
+		fclose(file);
+		return nullptr;
+	}
+	fclose(file);
+	file = nullptr;
+	output = new etk::archive::Zip(_fileName, position);
+	if (nullptr==output) {
+		TK_ERROR("An error occured when load archive : " << _fileName);
 	}
 	return output;
 }
