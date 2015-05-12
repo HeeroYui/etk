@@ -1631,6 +1631,21 @@ bool etk::FSNode::fileOpenAppend() {
 	return true;
 }
 
+bool etk::FSNode::fileIsOpen() {
+	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
+	if(    etk::FSN_TYPE_DATA == m_type
+	    || etk::FSN_TYPE_THEME_DATA == m_type) {
+		if (m_zipContent == NULL) {
+			return false;
+		}
+		return true;
+	}
+	#endif
+	if (m_PointerFile == NULL) {
+		return false;
+	}
+	return true;
+}
 bool etk::FSNode::fileClose() {
 	#if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 	if(    etk::FSN_TYPE_DATA == m_type

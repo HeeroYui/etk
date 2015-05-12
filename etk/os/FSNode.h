@@ -427,7 +427,13 @@ namespace etk {
 			 */
 			bool fileOpenAppend();
 			/**
-			 * @brief Close the cuurent file
+			 * @brief Check if the current file is Open
+			 * @return true : File is open in write or in read
+			 * @return false : File is NOT open in write or in read
+			 */
+			bool fileIsOpen();
+			/**
+			 * @brief Close the curent file
 			 * @return true : action done
 			 * @return false : action not done
 			 */
