@@ -235,7 +235,15 @@ namespace etk {
 			 * @brief Return the length of the vector
 			 */
 			btScalar length() const {
-				return btSqrt(length2());
+				#ifdef ETK_BUILD_LINEARMATH
+					return btSqrt(length2());
+				#else
+					#if __CPP_VERSION__ >= 2011
+						return std::sqrt(length2());
+					#else
+						return sqrt(length2());
+					#endif
+				#endif
 			}
 			/**
 			 * @brief Return the distance squared between the ends of this and another vector
