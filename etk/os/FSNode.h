@@ -25,6 +25,12 @@ namespace etk {
 namespace etk {
 	void setArgZero(const std::string& _val);
 	std::string simplifyPath(std::string _input);
+	
+	/**
+	 * @brief Get application name.
+	 * @return The application name
+	 */
+	std::string FSNodeGetApplicationName();
 	/**
 	 * List of Type that a node can have (this wrap some type that not exist on Windows)
 	 */

@@ -112,3 +112,7 @@ void etk::init(int _argc, const char** _argv) {
 	}
 	TK_INFO("E-TK system init (END)");
 }
+
+std::string etk::getApplicationName() {
+	return etk::FSNodeGetApplicationName();
+}

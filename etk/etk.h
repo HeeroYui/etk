@@ -9,6 +9,8 @@
 #ifndef __ETK_H__
 #define __ETK_H__
 
+#include <string>
+
 namespace etk {
 	/**
 	 * @brief Initialize etk
@@ -16,6 +18,12 @@ namespace etk {
 	 * @param[in] _argv List of arguments
 	 */
 	void init(int _argc, const char** _argv);
+	
+	/**
+	 * @brief Get application name.
+	 * @return The application name
+	 */
+	std::string getApplicationName();
 }
 
 #endif

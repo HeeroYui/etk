@@ -150,6 +150,9 @@ static std::string baseRunPathInHome = "/";
 	static std::string baseFolderCache    = "~/.tmp/cache/";      // Temporary data (can be removed the next time)
 #endif
 
+std::string etk::FSNodeGetApplicationName() {
+	return baseApplName;
+}
 
 #ifdef __TARGET_OS__Android
 	static etk::Archive* s_APKArchive = nullptr;
