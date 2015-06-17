@@ -9,7 +9,7 @@ def get_desc():
 
 def create(target):
 	# module name is 'edn' and type binary.
-	myModule = module.Module(__file__, 'etk_test', 'BINARY')
+	myModule = module.Module(__file__, 'etk-test', 'BINARY')
 	
 	# add the file to compile:
 	myModule.add_src_file([

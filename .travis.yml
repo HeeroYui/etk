@@ -10,7 +10,7 @@ os:
 
 before_script: 
   - cd ..
-  - git clone https://github.com/HeeroYui/gtest.git
+  - git clone https://github.com/generic-library/gtest-lutin.git --recursive
   - pwd
   - ls -l
   - if [ "$CXX" == "clang++" ]; then BUILDER=clang; else BUILDER=gcc; fi
@@ -26,8 +26,8 @@ install:
   - sudo pip install lutin
 
 script: 
-  - lutin -C -P -c$BUILDER -mdebug -p etk_test
-  - ./out/Linux_x86_64/debug/staging/$BUILDER/etk_test/usr/bin/etk_test -l6
+  - lutin -C -P -c$BUILDER -mdebug -p etk-test
+  - ./out/Linux_x86_64/debug/staging/$BUILDER/etk-test/usr/bin/etk-test -l6
 
 notifications:
   email:
