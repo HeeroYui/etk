@@ -419,26 +419,30 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 			tmpPointer = tmpPointer+strlen(tmpPointer);
 		}
 		if (_funcName != nullptr) {
-			// cleen for android :
-			char* startPos = strchr(_funcName, ' ');
-			char* stopPos = strchr(_funcName, '(');
-			if (startPos != nullptr) {
-				if (stopPos != nullptr) {
-					if(stopPos < startPos) {
-						snprintf(tmpPointer, std::min(1024, int32_t(stopPos-_funcName)), "%s", _funcName);
+			#if defined(__TARGET_OS__Android)
+				// cleen for android :
+				char* startPos = strchr(_funcName, ' ');
+				char* stopPos = strchr(_funcName, '(');
+				if (startPos != nullptr) {
+					if (stopPos != nullptr) {
+						if(stopPos < startPos) {
+							snprintf(tmpPointer, std::min(1024, int32_t(stopPos-_funcName)), "%s", _funcName);
+						} else {
+							snprintf(tmpPointer, std::min(1024, int32_t(stopPos-startPos)), "%s", startPos+1);
+						}
 					} else {
-						snprintf(tmpPointer, std::min(1024, int32_t(stopPos-startPos)), "%s", startPos+1);
+						snprintf(tmpPointer, 1024, "%s", startPos);
 					}
 				} else {
-					snprintf(tmpPointer, 1024, "%s", startPos);
+					if (stopPos != nullptr) {
+						snprintf(tmpPointer, std::min(1024, int32_t(stopPos-_funcName)), "%s", _funcName);
+					} else {
+						snprintf(tmpPointer, 1024, "%s", _funcName);
+					}
 				}
-			} else {
-				if (stopPos != nullptr) {
-					snprintf(tmpPointer, std::min(1024, int32_t(stopPos-_funcName)), "%s", _funcName);
-				} else {
-					snprintf(tmpPointer, 1024, "%s", _funcName);
-				}
-			}
+			#else
+				snprintf(tmpPointer, 1024, "%s", _funcName);
+			#endif
 			tmpPointer = tmpPointer+strlen(tmpPointer);
 		}
 		size_t lenFunc = strlen(tmpName);
