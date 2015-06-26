@@ -13,6 +13,8 @@
 #define __ETK_ARCHIVE_H__
 
 #include <map>
+#include <mutex>
+#include <memory>
 
 namespace etk {
 	class ArchiveContent {
@@ -51,6 +53,8 @@ namespace etk {
 			};
 	};
 	class Archive {
+		private:
+			mutable std::mutex m_mutex;
 		public:
 			Archive(const std::string& _fileName) :
 			  m_fileName(_fileName) {

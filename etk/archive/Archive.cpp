@@ -15,6 +15,7 @@ static const etk::ArchiveContent g_error;
 
 
 const std::string& etk::Archive::getName(size_t _id) const {
+	std::unique_lock<std::mutex> lock(m_mutex);
 	size_t id = 0;
 	for (auto &it : m_content) {
 		if (id == _id) {
@@ -27,6 +28,7 @@ const std::string& etk::Archive::getName(size_t _id) const {
 }
 
 const etk::ArchiveContent& etk::Archive::getContent(size_t _id) const {
+	std::unique_lock<std::mutex> lock(m_mutex);
 	size_t id = 0;
 	for (auto &it : m_content) {
 		if (id == _id) {
@@ -38,6 +40,7 @@ const etk::ArchiveContent& etk::Archive::getContent(size_t _id) const {
 }
 
 const etk::ArchiveContent& etk::Archive::getContent(const std::string& _key) const {
+	std::unique_lock<std::mutex> lock(m_mutex);
 	auto it = m_content.find(_key);
 	if (it == m_content.end()) {
 		return g_error;
@@ -47,11 +50,12 @@ const etk::ArchiveContent& etk::Archive::getContent(const std::string& _key) con
 
 
 bool etk::Archive::exist(const std::string& _key) const {
+	std::unique_lock<std::mutex> lock(m_mutex);
 	return m_content.find(_key) != m_content.end();
 }
 
-void etk::Archive::display()
-{
+void etk::Archive::display() {
+	std::unique_lock<std::mutex> lock(m_mutex);
 	for (auto &it : m_content) {
 		int32_t size = it.second.getTheoricSize();
 		int32_t sizeR = it.second.size();
@@ -110,6 +114,7 @@ etk::Archive* etk::Archive::loadPackage(const std::string& _fileName) {
 
 
 void etk::Archive::open(const std::string& _key) {
+	std::unique_lock<std::mutex> lock(m_mutex);
 	auto it = m_content.find(_key);
 	if (it == m_content.end()) {
 		TK_ERROR("Try open an unexistant file : '" << _key << "'");
@@ -123,6 +128,7 @@ void etk::Archive::open(const std::string& _key) {
 }
 
 void etk::Archive::close(const std::string& _key) {
+	std::unique_lock<std::mutex> lock(m_mutex);
 	auto it = m_content.find(_key);
 	if (it == m_content.end()) {
 		TK_ERROR("Try close an unexistant file : '" << _key << "'");

@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <etk/tool.h>
 #include <map>
+#include <mutex>
 #ifdef __TARGET_OS__Windows
 	#include <tchar.h>
 	#include <iostream>
@@ -126,7 +127,10 @@ std::string etk::simplifyPath(std::string _input) {
 	return _input;
 }
 
-
+static std::mutex& getNodeMutex() {
+	static std::mutex g_nodeMutex;
+	return g_nodeMutex;
+}
 
 // zip file of the apk file for Android ==> set to zip file apk access
 static std::string s_fileAPK = "";
@@ -156,9 +160,9 @@ std::string etk::FSNodeGetApplicationName() {
 
 #ifdef __TARGET_OS__Android
 	static etk::Archive* s_APKArchive = nullptr;
-	static void loadAPK(std::string& _apkPath)
-	{
-		TK_DEBUG("Loading APK \"" << _apkPath << "\"");
+	static void loadAPK(std::string& _apkPath) {
+		std::unique_lock<std::mutex> lock(getNodeMutex());
+		TK_INFO("Loading APK \"" << _apkPath << "\"");
 		s_APKArchive = etk::Archive::load(_apkPath);
 		TK_ASSERT(s_APKArchive != nullptr, "Error loading APK ...  \"" << _apkPath << "\"");
 		//Just for debug, print APK contents
@@ -166,8 +170,8 @@ std::string etk::FSNodeGetApplicationName() {
 	}
 #elif defined(__TARGET_OS__Windows)
 	static etk::Archive* s_APKArchive = nullptr;
-	static void loadAPK(std::string& _apkPath)
-	{
+	static void loadAPK(std::string& _apkPath) {
+		std::unique_lock<std::mutex> lock(getNodeMutex());
 		TK_DEBUG("Loading APK \"" << _apkPath << "\"");
 		s_APKArchive = etk::Archive::loadPackage(_apkPath);
 		TK_ASSERT(s_APKArchive != nullptr, "Error loading APK ...  \"" << _apkPath << "\"");
@@ -177,19 +181,21 @@ std::string etk::FSNodeGetApplicationName() {
 #endif
 
 // for specific device contraint : 
-void etk::setBaseFolderData(const char* _folder)
-{
+void etk::setBaseFolderData(const char* _folder) {
 	#ifdef __TARGET_OS__Android
-		baseFolderData = "assets/";
-		s_fileAPK = _folder;
+		{
+			std::unique_lock<std::mutex> lock(getNodeMutex());
+			baseFolderData = "assets/";
+			s_fileAPK = _folder;
+		}
 		loadAPK(s_fileAPK);
 	#else
 		TK_WARNING("Not Availlable Outside Android");
 	#endif
 }
 
-void etk::setBaseFolderDataUser(const char* _folder)
-{
+void etk::setBaseFolderDataUser(const char* _folder) {
+	std::unique_lock<std::mutex> lock(getNodeMutex());
 	#ifdef __TARGET_OS__Android
 		baseFolderDataUser = _folder;
 	#else
@@ -197,8 +203,8 @@ void etk::setBaseFolderDataUser(const char* _folder)
 	#endif
 }
 
-void etk::setBaseFolderCache(const char* _folder)
-{
+void etk::setBaseFolderCache(const char* _folder) {
+	std::unique_lock<std::mutex> lock(getNodeMutex());
 	#ifdef __TARGET_OS__Android
 		baseFolderCache = _folder;
 	#else
@@ -208,6 +214,7 @@ void etk::setBaseFolderCache(const char* _folder)
 
 std::string l_argZero = "";
 void etk::setArgZero(const std::string& _val) {
+	std::unique_lock<std::mutex> lock(getNodeMutex());
 	l_argZero = _val;
 }
 /*
@@ -439,6 +446,7 @@ std::string etk::getUserRunFolder() {
 
 #if (defined(__TARGET_OS__Android) || defined(__TARGET_OS__Windows))
 bool etk::FSNode::loadDataZip() {
+	std::unique_lock<std::mutex> lock(getNodeMutex());
 	if (s_APKArchive == nullptr) {
 		return false;
 	}
@@ -1574,6 +1582,7 @@ bool etk::FSNode::fileOpenRead() {
 		if (false==loadDataZip()) {
 			return false;
 		}
+		std::unique_lock<std::mutex> lock(getNodeMutex());
 		s_APKArchive->open(m_systemFileName);
 		return m_zipContent->getTheoricSize() == m_zipContent->size();
 	}
