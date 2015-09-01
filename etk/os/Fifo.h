@@ -104,6 +104,12 @@ namespace etk {
 				m_data.push_back(_data);
 				m_condition.notify_all();
 			};
+			//! @previous
+			void post(const MY_TYPE &_data) {
+				std::unique_lock<std::mutex> lock(m_mutex);
+				m_data.push_back(_data);
+				m_condition.notify_all();
+			};
 			/**
 			 * @brief Remove all the message in the fifo.
 			 */
