@@ -48,13 +48,13 @@ namespace etk {
 			bool wait(MY_TYPE &_data) {
 				std::unique_lock<std::mutex> lock(m_mutex);
 				// Check if data is not previously here
-				while(0==m_data.size()) {
+				while(m_data.size() == 0) {
 					m_condition.wait(lock);
 				}
 				// End Waiting message :
-				if (0<m_data.size()) {
+				if (m_data.size() > 0) {
 					// copy element :
-					_data = m_data[0];
+					std::swap(_data, m_data[0]);
 					// remove element :
 					m_data.erase(m_data.begin());
 					return true;
@@ -71,15 +71,15 @@ namespace etk {
 			bool wait(MY_TYPE &_data, uint32_t _timeOutInUs) {
 				std::unique_lock<std::mutex> lock(m_mutex);
 				// Check if data is not previously here
-				while(0==m_data.size()) {
+				while(m_data.size() == 0) {
 					if (m_condition.wait_for(lock, std::chrono::microseconds(_timeOutInUs)) == std::cv_status::timeout) {
 						return false;
 					}
 				}
 				// End Waiting message :
-				if (0<m_data.size()) {
+				if (m_data.size() > 0) {
 					// copy element :
-					_data = m_data[0];
+					std::swap(_data, m_data[0]);
 					// remove element :
 					m_data.erase(0);
 					return true;
