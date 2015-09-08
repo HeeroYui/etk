@@ -310,7 +310,6 @@ std::string getApplicationPath() {
 void etk::initDefaultFolder(const char* _applName) {
 	baseApplName = _applName;
 	char cCurrentPath[FILENAME_MAX];
-	
 	char * basicPath = getenv("HOME");
 	if (NULL == basicPath) {
 		TK_WARNING("ERROR while trying to get the path of the home folder");
@@ -339,10 +338,8 @@ void etk::initDefaultFolder(const char* _applName) {
 		} else {
 			baseRunPathInHome = baseRunPath;
 		}
-		
 	}
 	TK_DBG_MODE("Find Basic running PATH : '" << baseRunPath << "'");
-	
 	#ifndef __TARGET_OS__Android
 		std::string binaryPath = getApplicationPath();
 		binaryPath = replace(binaryPath, '\\', '/');
@@ -367,9 +364,15 @@ void etk::initDefaultFolder(const char* _applName) {
 			
 			std::string theoricInstalledName = "/usr/bin";
 			theoricInstalledName += binaryName;
-			TK_VERBOSE(" position : '" << binaryPath << "' installed position : '" << theoricInstalledName << "'");
+			TK_DEBUG(" position : '" << binaryPath << "' installed position : '" << theoricInstalledName << "'");
 			if (binaryPath != theoricInstalledName) {
-				TK_INFO(" base path is not correct try to find it : (must only appear in test and not when installed) base name : '" << binaryPath << "'");
+				// can also be in application package:
+				std::string endWith = binaryName + ".app/bin";
+				if (etk::end_with(binaryPath, endWith) == true) {
+					TK_INFO("Application istall in user standalone mode: '" << binaryPath << "'");
+				} else {
+					TK_INFO(" base path is not correct try to find it : (must only appear in test and not when installed) base name : '" << binaryPath << "'");
+				}
 				// remove bin/applName
 				baseFolderData = binaryPath;
 				#if defined(__TARGET_OS__MacOs)
