@@ -33,6 +33,25 @@ def create(target):
 	if target.name=="IOs":
 		myModule.add_src_file('etk/logIOs.m')
 	
+	myModule.add_header_file([
+		'etk/etk.h',
+		'etk/types.h',
+		'etk/stdTools.h',
+		'etk/log.h',
+		'etk/tool.h',
+		'etk/Noise.h',
+		'etk/Color.h',
+		'etk/Hash.h',
+		'etk/thread/tools.h',
+		'etk/math/Matrix4.h',
+		'etk/math/Vector2D.h',
+		'etk/math/Vector3D.h',
+		'etk/math/Vector4D.h',
+		'etk/os/Fifo.h',
+		'etk/os/FSNode.h',
+		'etk/os/FSNodeRight.h',
+		'etk/archive/Archive.h',
+		'etk/archive/Zip.h'])
 	
 	if target.config["mode"] == "release":
 		# TODO : The other way is to remove this ...
@@ -45,19 +64,10 @@ def create(target):
 		if target.name != "Windows":
 			myModule.add_export_flag('link', "-ldl -rdynamic")
 	
-	# for ald C++ compatibility (old GCC) just link with boost ...
-	if     target.config["compilator"] == "gcc" \
-	   and target.xx_version < 4007000:
-		# note : this framework depend on C++ 11, but a simple port of Boost for old compatibility has been done ...
-		myModule.compile_version_XX(1999)
-		myModule.add_optionnal_module_depend('boost', ["c++", "-DETK_BUILD_BOOST"], export=True)
-		myModule.add_export_path(tools.get_current_path(__file__) + "/binding_boost")
-	else:
-		myModule.compile_version_XX(2011)
-		# name of the dependency
-		myModule.add_optionnal_module_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])
-		myModule.add_optionnal_module_depend('linearmath', ["c", "-DETK_BUILD_LINEARMATH"], export=True)
-		myModule.add_export_path(tools.get_current_path(__file__) + "/binding_X11")
+	myModule.compile_version_XX(2011)
+	# name of the dependency
+	myModule.add_optionnal_module_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])
+	myModule.add_optionnal_module_depend('linearmath', ["c", "-DETK_BUILD_LINEARMATH"], export=True)
 	
 	if target.name=="Windows":
 		pass
@@ -66,7 +76,7 @@ def create(target):
 	else:
 		myModule.add_export_flag('link', "-lpthread")
 	
-	myModule.add_export_path(tools.get_current_path(__file__))
+	myModule.add_path(tools.get_current_path(__file__))
 	
 	# add the currrent module at the 
 	return myModule

@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <etk/tool.h>
+#include <etk/debug.h>
 #include <map>
 #include <mutex>
 #ifdef __TARGET_OS__Windows

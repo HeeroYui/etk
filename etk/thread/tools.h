@@ -11,7 +11,7 @@
 #ifndef __ETK_THREAD_TOOLS_H__
 #define __ETK_THREAD_TOOLS_H__
 
-#include <etk/thread.h>
+#include <thread>
 
 namespace etk {
 	namespace thread {

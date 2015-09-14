@@ -43,19 +43,9 @@
 	#endif
 #endif
 
-
-
-#if __CPP_VERSION__ < 2011
-	#define nullptr NULL
-	typedef uint32_t char32_t;
-	namespace boost {
-		// just define
-	}
-	namespace std11 = boost;
-#else
-	namespace std11 = std;
-#endif
-
+namespace std17 = std;
+namespace std14 = std;
+namespace std11 = std;
 
 #include <etk/stdTools.h>
 

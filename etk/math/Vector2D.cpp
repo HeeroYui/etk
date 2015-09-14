@@ -8,6 +8,7 @@
 
 #include <etk/math/Vector2D.h>
 #include <etk/stdTools.h>
+#include <etk/debug.h>
 
 std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector2D<int32_t>& _obj) {
 	_os << "(";

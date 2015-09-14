@@ -11,7 +11,6 @@
 #ifndef __ETK_MATH_VECTOR3D_H__
 #define __ETK_MATH_VECTOR3D_H__
 
-#include <etk/debug.h>
 #include <math.h>
 
 #ifdef ETK_BUILD_LINEARMATH

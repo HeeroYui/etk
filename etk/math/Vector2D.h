@@ -12,7 +12,6 @@
 #ifndef __ETK_MATH_VECTOR2D_H__
 #define __ETK_MATH_VECTOR2D_H__
 
-#include <etk/debug.h>
 #include <math.h>
 
 namespace etk {

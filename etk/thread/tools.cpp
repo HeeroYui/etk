@@ -8,7 +8,7 @@
 
 #include <etk/debug.h>
 #include <etk/thread/tools.h>
-#include <etk/mutex.h>
+#include <mutex>
 #include <map>
 
 static std11::mutex g_lock;

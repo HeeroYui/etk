@@ -8,11 +8,12 @@
 
 #include <etk/log.h>
 #include <time.h>
-#include <etk/mutex.h>
-#include <etk/thread.h>
+#include <mutex>
+#include <thread>
 #include <map>
 #include <inttypes.h>
 #include <etk/thread/tools.h>
+#include <etk/debug.h>
 
 #if defined(__TARGET_OS__Android)
 #	include <android/log.h>

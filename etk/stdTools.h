@@ -9,14 +9,14 @@
 #ifndef __ETK_STD_TOOLS_H__
 #define __ETK_STD_TOOLS_H__
 
-#include <etk/debug.h>
+#include <etk/types.h>
 #include <vector>
 #include <sstream>
 #include <iostream>
 #include <string>
 #include <iomanip>
 #include <algorithm>
-#include <etk/chrono.h>
+#include <chrono>
 
 namespace u32char {
 	extern const char32_t Null; //!< '\0' 

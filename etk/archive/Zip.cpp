@@ -10,6 +10,7 @@
 
 #include <etk/archive/Zip.h>
 #include <etk/types.h>
+#include <etk/debug.h>
 
 etk::archive::Zip::Zip(const std::string& _fileName, uint64_t _offset) :
   etk::Archive(_fileName),

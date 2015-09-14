@@ -8,6 +8,7 @@
 
 #include <etk/math/Vector3D.h>
 #include <etk/stdTools.h>
+#include <etk/debug.h>
 
 std::ostream& etk::operator <<(std::ostream& _os, const ivec3& _obj) {
 	_os << "(";

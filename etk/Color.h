@@ -300,7 +300,7 @@ namespace etk {
 	}
 	
 	template<typename MY_TYPE, int MY_TYPE_SIZE> Color<MY_TYPE, MY_TYPE_SIZE>::Color(const std::string& _input) {
-		TK_VERBOSE("convert color string : '" << _input << "'");
+		//TK_VERBOSE("convert color string : '" << _input << "'");
 		const char* inputData = _input.c_str();
 		size_t len = _input.size();
 		if(    len >=1

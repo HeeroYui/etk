@@ -822,13 +822,13 @@ namespace etk {
 		std::vector<TTT> out;
 		etk::FSNode node(_path);
 		if (node.fileOpenRead() == false) {
-			TK_ERROR("can not open file : '" << node << "'");
+			//TK_ERROR("can not open file : '" << node << "'");
 			return out;
 		}
 		uint64_t nbByte = node.fileSize();
 		out.resize(nbByte/sizeof(TTT));
 		if (out.size()*sizeof(TTT) != nbByte) {
-			TK_WARNING("Error in reading the file missing some byte at the end ...");
+			//TK_WARNING("Error in reading the file missing some byte at the end ...");
 		}
 		node.fileRead(&out[0], sizeof(TTT), nbByte/sizeof(TTT));
 		node.fileClose();
@@ -842,7 +842,7 @@ namespace etk {
 	template<typename TTT> void FSNodeWriteAllDataType(const std::string& _path, const std::vector<TTT>& _data) {
 		etk::FSNode node(_path);
 		if (node.fileOpenWrite() == false) {
-			TK_ERROR("can not open file : '" << node << "'");
+			//TK_ERROR("can not open file : '" << node << "'");
 			return;
 		}
 		node.fileWrite(&_data[0], sizeof(TTT), _data.size());

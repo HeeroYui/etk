@@ -134,7 +134,7 @@ namespace etk {
 				static MY_TYPE g_error;
 				int64_t elementId = getId(_key);
 				if (elementId<0) {
-					TK_ERROR("try to acces at an unexistant hash element : " << _key);
+					//TK_ERROR("try to acces at an unexistant hash element : " << _key);
 					return g_error;
 				}
 				return m_data[elementId]->m_value;
@@ -162,7 +162,7 @@ namespace etk {
 				if (elementId <0) {
 					HashData<MY_TYPE>* tmp = new HashData<MY_TYPE>(_key, _value);
 					if (NULL == tmp) {
-						TK_ERROR("allocation error in Hash table : '" << _key << "'");
+						//TK_ERROR("allocation error in Hash table : '" << _key << "'");
 						return;
 					}
 					m_data.push_back(tmp);
@@ -221,7 +221,7 @@ namespace etk {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
 					if(_pos>m_data.size()){
-						TK_CRITICAL("Access to an unexistant data in hach : " << _pos << "/ " << m_data.size());
+						//TK_CRITICAL("Access to an unexistant data in hach : " << _pos << "/ " << m_data.size());
 					}
 				#endif
 				return m_data[_pos]->m_key;
@@ -248,7 +248,7 @@ namespace etk {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
 					if(_pos>m_data.size()){
-						TK_CRITICAL("Access to an unexistant data in hach : " << _pos << "/ " << m_data.size());
+						//TK_CRITICAL("Access to an unexistant data in hach : " << _pos << "/ " << m_data.size());
 					}
 				#endif
 				return m_data[_pos]->m_value;
@@ -260,7 +260,7 @@ namespace etk {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
 					if(_pos>m_data.size()){
-						TK_CRITICAL("Access to an unexistant data in hach : " << _pos << "/ " << m_data.size());
+						//TK_CRITICAL("Access to an unexistant data in hach : " << _pos << "/ " << m_data.size());
 					}
 				#endif
 				return m_data[_pos]->m_value;
