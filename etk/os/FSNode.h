@@ -580,8 +580,9 @@ namespace etk {
 	/**
 	 * @brief Set manualy the folder of the Data.(like /usr/shared/applName/ for linux)
 	 * @param[in] _folder folder path of the cathegorie
+	 * @param[in] _applName Base name of the application
 	 */
-	void setBaseFolderData(const char* _folder);
+	void setBaseFolderData(const char* _folder, const char* _applName=nullptr);
 	/**
 	 * @brief Set the user data folder (like /home/machin/.local/applName/ for linux)
 	 * @param[in] _folder folder path of the cathegorie

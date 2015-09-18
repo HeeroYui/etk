@@ -176,13 +176,18 @@ std::string etk::FSNodeGetApplicationName() {
 #endif
 
 // for specific device contraint : 
-void etk::setBaseFolderData(const char* _folder) {
+void etk::setBaseFolderData(const char* _folder, const char* _applName) {
 	#ifdef __TARGET_OS__Android
 		{
 			std::unique_lock<std::mutex> lock(getNodeMutex());
 			baseFolderData = "assets/";
+			if (_applName != nullptr) {
+				baseFolderData += _applName;
+				baseFolderData += "/";
+			}
 			s_fileAPK = _folder;
 		}
+		TK_INFO("baseFolderData     : '" << baseFolderData << "'");
 		loadAPK(s_fileAPK);
 	#else
 		TK_WARNING("Not Availlable Outside Android");
@@ -193,6 +198,7 @@ void etk::setBaseFolderDataUser(const char* _folder) {
 	std::unique_lock<std::mutex> lock(getNodeMutex());
 	#ifdef __TARGET_OS__Android
 		baseFolderDataUser = _folder;
+		TK_INFO("baseFolderDataUser : '" << baseFolderDataUser << "'");
 	#else
 		TK_WARNING("Not Availlable Outside Android");
 	#endif
@@ -202,6 +208,7 @@ void etk::setBaseFolderCache(const char* _folder) {
 	std::unique_lock<std::mutex> lock(getNodeMutex());
 	#ifdef __TARGET_OS__Android
 		baseFolderCache = _folder;
+		TK_INFO("baseFolderCache    : '" << baseFolderCache << "'");
 	#else
 		TK_WARNING("Not Availlable Outside Android");
 	#endif
@@ -1351,7 +1358,7 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 	if(    m_type == etk::FSN_TYPE_DATA
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
 		std::vector<std::string> listAdded;
-		std::string assetsName = "assets/";
+		std::string assetsName = baseFolderData;
 		std::string FolderName = getNameFolder();
 		if (s_APKArchive==NULL) {
 			return tmpp;
@@ -1444,7 +1451,7 @@ void etk::FSNode::folderGetRecursiveFiles(std::vector<std::string>& _output, boo
 	#ifdef HAVE_ZIP_DATA
 	if(    m_type == etk::FSN_TYPE_DATA
 	    || m_type == etk::FSN_TYPE_THEME_DATA) {
-		std::string assetsName = "assets/";
+		std::string assetsName = baseFolderData;
 		std::string FolderName = getNameFolder();
 		if (s_APKArchive==NULL) {
 			return;
