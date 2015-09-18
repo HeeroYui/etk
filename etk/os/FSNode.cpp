@@ -40,8 +40,8 @@ extern "C" {
 #undef __class__
 #define __class__ "FSNode"
 
-#define TK_DBG_MODE TK_VERBOSE
-//#define TK_DBG_MODE TK_DEBUG
+//#define TK_DBG_MODE TK_VERBOSE
+#define TK_DBG_MODE TK_DEBUG
 
 std::string etk::simplifyPath(std::string _input) {
 	// step 1 : for windows change \ in /:
@@ -589,7 +589,7 @@ void etk::FSNode::sortElementList(std::vector<etk::FSNode *>& _list) {
 	}
 }
 
-void etk::FSNode::privateSetName(const std::string& _newName) {
+void etk::FSNode::privateSetName(std::string _newName) {
 	if(    NULL != m_PointerFile
 	#ifdef HAVE_ZIP_DATA
 	    || NULL != m_zipContent
@@ -600,6 +600,22 @@ void etk::FSNode::privateSetName(const std::string& _newName) {
 	}
 	// set right at NULL ...
 	m_rights = 0;
+	
+	m_libSearch = "";
+	if (    _newName.size() > 0
+	     && _newName[0] == '{') {
+		// special case: Reference of searching in subLib folder ==> library use-case
+		size_t firstPos = _newName.find('}');
+		if (firstPos != std::string::npos) {
+			// we find a theme name : We extracted it :
+			m_libSearch = std::string(_newName, 1, firstPos-1);
+			_newName = std::string(_newName, firstPos+1);
+		} else {
+			TK_ERROR("start a path name with '{' without '}' : " << _newName);
+			// remove in case the {
+			_newName = std::string(_newName, 1);
+		}
+	}
 	
 	#ifdef HAVE_ZIP_DATA
 		m_zipContent = NULL;
@@ -786,6 +802,11 @@ bool directCheckFile(std::string _tmpFileNameDirect, bool _checkInAPKIfNeeded = 
 #endif
 // Now we generate the real FS path:
 void etk::FSNode::generateFileSystemPath() {
+	bool forceLibFolder(false);
+	if (    m_libSearch.size() > 0
+	     && m_libSearch[0] == '@') {
+		forceLibFolder = true;
+	}
 	switch (m_type) {
 		default:
 		case etk::FSN_TYPE_UNKNOW:
@@ -811,7 +832,23 @@ void etk::FSNode::generateFileSystemPath() {
 			m_systemFileName = baseFolderHome;
 			break;
 		case etk::FSN_TYPE_DATA:
-			m_systemFileName = baseFolderData;
+			{
+				TK_DBG_MODE("DATA lib : \"" << m_libSearch << "\" => \"" << m_userFileName << "\" forceLib = " << forceLibFolder);
+				// search the correct folder:
+				if (forceLibFolder == false) {
+					// check in the application folder.
+					TK_DBG_MODE("DATA Search in application data:");
+					m_systemFileName = simplifyPath(baseFolderData + "/" + m_userFileName);
+					if (directCheckFile(m_systemFileName) == true) {
+						return;
+					}
+					if (m_libSearch.size() == 0) {
+						return;
+					}
+				}
+				m_systemFileName = simplifyPath(baseFolderData + "/../" + m_libSearch + "/" + m_userFileName);
+				return;
+			}
 			break;
 		case etk::FSN_TYPE_USER_DATA:
 			m_systemFileName = baseFolderDataUser;
@@ -835,31 +872,64 @@ void etk::FSNode::generateFileSystemPath() {
 				themeName = etk::theme::getName(themeName);
 				std::string themeNameDefault = etk::theme::getNameDefault(themeName);
 				TK_DBG_MODE("      ==> theme Folder \"" << themeName << "\"");
-				// search the corect folder : 
+				// search the correct folder : 
 				if (themeName == "") {
 					TK_WARNING("no theme name detected : set it to '" << themeNameDefault << "'");
 				} else if (themeName != themeNameDefault) {
-					// Selected theme :
-					// check in the user data :
-					m_systemFileName = simplifyPath(baseFolderDataUser + "theme/" + themeName + "/" + basicName);
-					if (directCheckFile(m_systemFileName) == true) {
-						return;
+					if (forceLibFolder == false) {
+						// Selected theme :
+						// check in the user data :
+						m_systemFileName = simplifyPath(baseFolderDataUser + "theme/" + themeName + "/" + basicName);
+						if (directCheckFile(m_systemFileName) == true) {
+							return;
+						}
+						// check in the Appl data :
+						m_systemFileName = simplifyPath(baseFolderData + "theme/" + themeName + "/" + basicName);
+						if (directCheckFile(m_systemFileName, true) == true) {
+							m_type = etk::FSN_TYPE_THEME_DATA;
+							return;
+						}
 					}
-					// check in the Appl data :
-					m_systemFileName = simplifyPath(baseFolderData + "theme/" + themeName + "/" + basicName);
-					if (directCheckFile(m_systemFileName, true) == true) {
-						m_type = etk::FSN_TYPE_THEME_DATA;
-						return;
+					if (m_libSearch.size() > 0) {
+						// Selected theme :
+						// check in the user data :
+						m_systemFileName = simplifyPath(baseFolderDataUser + "/../" + m_libSearch + "/theme/" + themeName + "/" + basicName);
+						if (directCheckFile(m_systemFileName) == true) {
+							return;
+						}
+						// check in the Appl data :
+						m_systemFileName = simplifyPath(baseFolderData + "/../" + m_libSearch + "/theme/" + themeName + "/" + basicName);
+						if (directCheckFile(m_systemFileName, true) == true) {
+							m_type = etk::FSN_TYPE_THEME_DATA;
+							return;
+						}
 					}
 				}
 				// default theme :
+				if (forceLibFolder == false) {
+					// check in the user data :
+					m_systemFileName = simplifyPath(baseFolderDataUser + "theme/" + themeNameDefault + "/" + basicName);
+					if (true==directCheckFile(m_systemFileName)) {
+						return;
+					}
+					// check in the Appl data : In every case we return this one ...
+					m_systemFileName = simplifyPath(baseFolderData + "theme/" + themeNameDefault + "/" + basicName);
+					if (true==directCheckFile(m_systemFileName, true)) {
+						m_type = etk::FSN_TYPE_THEME_DATA;
+						return;
+					}
+					if (m_libSearch.size() == 0) {
+						m_type = etk::FSN_TYPE_UNKNOW;
+						return;
+					}
+				}
 				// check in the user data :
-				m_systemFileName = simplifyPath(baseFolderDataUser + "theme/" + themeNameDefault + "/" + basicName);
+				m_systemFileName = simplifyPath(baseFolderDataUser + "/../" + m_libSearch + "/theme/" + themeNameDefault + "/" + basicName);
 				if (true==directCheckFile(m_systemFileName)) {
 					return;
 				}
 				// check in the Appl data : In every case we return this one ...
-				m_systemFileName = simplifyPath(baseFolderData + "theme/" + themeNameDefault + "/" + basicName);
+				m_systemFileName = simplifyPath(baseFolderData + "/../" + m_libSearch + "/theme/" + themeNameDefault + "/" + basicName);
 				if (true==directCheckFile(m_systemFileName, true)) {
 					m_type = etk::FSN_TYPE_THEME_DATA;
 					return;
@@ -1003,33 +1073,38 @@ std::string etk::FSNode::getFileSystemName() const {
 #endif
 
 std::string etk::FSNode::getName() const {
-	std::string output;
+	std::string output("");
+	if (m_libSearch.size() > 0) {
+		output += "{";
+		output += m_libSearch;
+		output += "}";
+	}
 	switch (m_type) {
 		default:
 		case etk::FSN_TYPE_UNKNOW:
-			output = "HOME:";
+			output += "HOME:";
 			break;
 		case etk::FSN_TYPE_DIRECT:
-			output = "/";
+			output += "/";
 			break;
 		case etk::FSN_TYPE_RELATIF:
-			output = "REL:";
+			output += "REL:";
 			break;
 		case etk::FSN_TYPE_HOME:
-			output = "~";
+			output += "~";
 			break;
 		case etk::FSN_TYPE_DATA:
-			output = "DATA:";
+			output += "DATA:";
 			break;
 		case etk::FSN_TYPE_USER_DATA:
-			output = "USERDATA:";
+			output += "USERDATA:";
 			break;
 		case etk::FSN_TYPE_CACHE:
-			output = "CACHE:";
+			output += "CACHE:";
 			break;
 		case etk::FSN_TYPE_THEME:
 		case etk::FSN_TYPE_THEME_DATA:
-			output = "THEME:";
+			output += "THEME:";
 			break;
 	}
 	output += m_userFileName;

@@ -94,13 +94,11 @@ namespace etk {
 		FSN_TYPE_CACHE,
 		
 		// depend on case
-		//     - try on FSN_TYPE_USER_DATA/theme/themeName/xxx
-		//     - try on FSN_TYPE_DATA/theme/themeName/xxx
-		//     - try on FSN_TYPE_EWOL_DATA/theme/themeName/xxx ==> later when the lib will be accessible in packages
+		//     - try on FSN_TYPE_USER_DATA:/theme/themeName/xxx
+		//     - try on FSN_TYPE_DATA:/theme/themeName/xxx
 		//     and jump to the default theme file
-		//     - try on FSN_TYPE_USER_DATA/theme/default/xxx
-		//     - try on FSN_TYPE_DATA/theme/default/xxx
-		//     - try on FSN_TYPE_EWOL_DATA/theme/default/xxx ==> later when the lib will be accessible in packages
+		//     - try on FSN_TYPE_USER_DATA:/theme/default/xxx
+		//     - try on FSN_TYPE_DATA:/theme/default/xxx
 		FSN_TYPE_THEME,
 		FSN_TYPE_THEME_DATA
 	};
@@ -109,37 +107,49 @@ namespace etk {
 	
 	/*
 	note : The filename can be
-		Direct mode :
+		Direct mode:
 			DIRECT:/sdfsdfsdf/
 			/XX ==> for Linux / Mac / Android
 			[a-zA-Z]:/xxx ==> for Windows
 		
-		Data mode :
+		Data mode:
 			DATA:folder/File.ccc
+			{libName}DATA:folder/File.ccc ==> try to read in appl data and in next in "libName" lib data folder
+			{@libName}DATA:folder/File.ccc ==> try to read ONLY in "libName" lib data folder
 		
-		User data mode :
+		User data mode:
 			USERDATA:folder/File.ccc
+			{libName}USERDATA:folder/File.ccc
+			{@libName}USERDATA:folder/File.ccc
 		
-		Cache Data :
+		Cache Data:
 			CACHE:folder/File.ccc
 		
-		Theme data :
+		Theme data:
 			THEME:folder/file.xxx
+			THEME:GUI:folder/file.xxx
+			{libName}THEME:GUI:folder/file.xxx
+			{@libName}THEME:GUI:folder/file.xxx
 		
-		Get the root folder :
+		Get the root folder:
 			ROOT:
 			/
 			[a-zA-Z]: ==> create more risk ...
 		
-		Get the Home folder :
+		Get the Home folder:
 			HOME:
 			~
+		
+		Get the relative folder:
+			REL:
+			./
 	*/
 	/**
 	 * @brief FS node is for File system IO access This class is independent of the OS, If you acces to a file in windows, it might generate the right loke Linux (it is important to know that windows right is lighter than linux)
 	 */
 	class FSNode {
 		private:
+			std::string m_libSearch; //!< the name Of the subLib that system must church subData
 			std::string m_userFileName; //!< the name requested by the User
 			std::string m_systemFileName; //!< the compleate filename for the system
 			enum FSNType m_type; //!< the Type of data requested by the User
@@ -179,7 +189,7 @@ namespace etk {
 			 * @brief Common set name of the Node (if the user decide to change the node selection
 			 * @param[in] _newName Name of the Node
 			 */
-			void privateSetName(const std::string& _newName);
+			void privateSetName(std::string _newName);
 			#if __CPP_VERSION__ >= 2011
 				void privateSetName(const std::u32string& _newName);
 			#endif
