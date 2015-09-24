@@ -40,12 +40,12 @@ extern "C" {
 #undef __class__
 #define __class__ "FSNode"
 
-//#define TK_DBG_MODE TK_VERBOSE
-#define TK_DBG_MODE TK_DEBUG
+#define TK_DBG_MODE TK_VERBOSE
+//#define TK_DBG_MODE TK_DEBUG
 
 std::string etk::simplifyPath(std::string _input) {
 	// step 1 : for windows change \ in /:
-	TK_DBG_MODE("Simplify(1) : '" << _input << "'");
+	TK_DEBUG("Simplify(1) : '" << _input << "'");
 	size_t currentPos = 0;
 	if (_input.size() == 0) {
 		return _input;
@@ -124,7 +124,7 @@ std::string etk::simplifyPath(std::string _input) {
 	     || _input == "/.") {
 		_input = "/";
 	}
-	TK_DBG_MODE("Simplify(6) : '" << _input << "'");
+	TK_DEBUG("Simplify(end) : '" << _input << "'");
 	return _input;
 }
 
@@ -386,10 +386,10 @@ void etk::initDefaultFolder(const char* _applName) {
 				#elif defined(__TARGET_OS__IOs)
 					baseFolderData += "/share/";
 				#else
-					baseFolderData += "/../share";
-					baseFolderData += binaryName;
-					baseFolderData += "/";
+					baseFolderData += "/../share/";
 				#endif
+				baseFolderData += binaryName;
+				baseFolderData += "/";
 				baseFolderData = simplifyPath(baseFolderData);
 				#if defined(__TARGET_OS__Linux)
 					{
