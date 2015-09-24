@@ -68,7 +68,7 @@
 #endif
 
 #ifdef DEBUG
-	#define DEFAULT_LOG_LEVEL etk::log::logLevelInfo
+	#define DEFAULT_LOG_LEVEL etk::log::logLevelDebug
 	#define DEFAULT_LOG_COLOR true
 	#define DEFAULT_LOG_LINE true
 	#define DEFAULT_LOG_THREAD_ID true

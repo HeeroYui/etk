@@ -8,12 +8,12 @@ def get_desc():
 
 
 def create(target):
-	myModule = module.Module(__file__, 'test-debug', 'LIBRARY')
-	myModule.add_src_file([
+	my_module = module.Module(__file__, 'test-debug', 'LIBRARY')
+	my_module.add_src_file([
 		'test-debug/debug.cpp'
 		])
-	myModule.add_module_depend('etk')
-	myModule.add_export_path(tools.get_current_path(__file__))
-	return myModule
+	my_module.add_module_depend('etk')
+	my_module.add_export_path(tools.get_current_path(__file__))
+	return my_module
 
 

@@ -8,11 +8,11 @@ def get_desc():
 
 def create(target):
 	# module name is 'edn' and type binary.
-	myModule = module.Module(__file__, 'etk', 'LIBRARY')
+	my_module = module.Module(__file__, 'etk', 'LIBRARY')
 	# add extra compilation flags :
-	myModule.add_extra_compile_flags()
+	my_module.add_extra_compile_flags()
 	# add the file to compile:
-	myModule.add_src_file([
+	my_module.add_src_file([
 		'etk/debug.cpp',
 		'etk/etk.cpp',
 		'etk/stdTools.cpp',
@@ -31,9 +31,9 @@ def create(target):
 		'etk/archive/Zip.cpp'])
 	
 	if target.name=="IOs":
-		myModule.add_src_file('etk/logIOs.m')
+		my_module.add_src_file('etk/logIOs.m')
 	
-	myModule.add_header_file([
+	my_module.add_header_file([
 		'etk/etk.h',
 		'etk/types.h',
 		'etk/stdTools.h',
@@ -56,29 +56,29 @@ def create(target):
 	if target.config["mode"] == "release":
 		# TODO : The other way is to remove this ...
 		# TODO : Fore release mode : the etk folder are absolutly not at the same position in the tree ...
-		myModule.compile_flags('c', "-DMODE_RELEASE")
+		my_module.compile_flags('c', "-DMODE_RELEASE")
 	else:
-		myModule.add_export_flag('c', "-DDEBUG_LEVEL=3")
-		myModule.add_export_flag('c', "-DDEBUG=1")
+		my_module.add_export_flag('c', "-DDEBUG_LEVEL=3")
+		my_module.add_export_flag('c', "-DDEBUG=1")
 		# Bor backtrace display :
 		if target.name != "Windows":
-			myModule.add_export_flag('link', "-ldl -rdynamic")
+			my_module.add_export_flag('link', "-ldl -rdynamic")
 	
-	myModule.compile_version_XX(2011)
+	my_module.compile_version_XX(2011)
 	# name of the dependency
-	myModule.add_optionnal_module_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])
-	myModule.add_optionnal_module_depend('linearmath', ["c", "-DETK_BUILD_LINEARMATH"], export=True)
+	my_module.add_optionnal_module_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])
+	my_module.add_optionnal_module_depend('linearmath', ["c", "-DETK_BUILD_LINEARMATH"], export=True)
 	
 	if target.name=="Windows":
 		pass
 	elif target.name=="Android":
 		pass
 	else:
-		myModule.add_export_flag('link', "-lpthread")
+		my_module.add_export_flag('link', "-lpthread")
 	
-	myModule.add_path(tools.get_current_path(__file__))
+	my_module.add_path(tools.get_current_path(__file__))
 	
 	# add the currrent module at the 
-	return myModule
+	return my_module
 
 

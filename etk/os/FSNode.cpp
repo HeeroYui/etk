@@ -839,7 +839,7 @@ void etk::FSNode::generateFileSystemPath() {
 					// check in the application folder.
 					TK_DBG_MODE("DATA Search in application data:");
 					m_systemFileName = simplifyPath(baseFolderData + "/" + m_userFileName);
-					if (directCheckFile(m_systemFileName) == true) {
+					if (directCheckFile(m_systemFileName, true) == true) {
 						return;
 					}
 					if (m_libSearch.size() == 0) {
@@ -1321,6 +1321,9 @@ bool etk::FSNode::operator!= (const etk::FSNode& _obj ) const {
 }
 
 std::ostream& etk::operator <<(std::ostream &_os, const etk::FSNode &_obj) {
+	if (_obj.m_libSearch.size() != 0) {
+		_os << "{" << _obj.m_libSearch << "}";
+	}
 	_os << "[" << _obj.m_type << "]->\"" << _obj.m_userFileName << "\"";
 	return _os;
 }

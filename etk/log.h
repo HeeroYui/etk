@@ -121,7 +121,7 @@ namespace etk {
 #ifdef __class__
 	#undef  __class__
 #endif
-#define __class__ (NULL)
+#define __class__ (nullptr)
 
 // generic define for all logs::
 #define TK_LOG_BASE(logId,info,data) \

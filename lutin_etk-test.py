@@ -9,16 +9,16 @@ def get_desc():
 
 def create(target):
 	# module name is 'edn' and type binary.
-	myModule = module.Module(__file__, 'etk-test', 'BINARY')
+	my_module = module.Module(__file__, 'etk-test', 'BINARY')
 	
 	# add the file to compile:
-	myModule.add_src_file([
+	my_module.add_src_file([
 		'test/main.cpp'])
 	
-	myModule.add_module_depend(['etk', 'gtest'])
+	my_module.add_module_depend(['etk', 'gtest'])
 	
-	#myModule.compile_flags_XX(["-nostdinc++"]);
+	#my_module.compile_flags_XX(["-nostdinc++"]);
 	
 	# add the currrent module at the system
-	return myModule
+	return my_module
 
