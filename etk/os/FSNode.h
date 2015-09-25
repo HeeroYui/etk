@@ -875,6 +875,21 @@ namespace etk {
 	 * @return return real file name "/aaa/bbb/ccc/xxx"
 	 */
 	std::string FSNodeGetRealName(const std::string& _path);
+	
+	/**
+	 * @brief Get all the Path contain in the specidy path:
+	 * @param[in] _path Generic path to parse ...
+	 * @return The list of path found
+	 * @example[start]
+	 *     auto out = etk::FSNodeExplodeMultiplePath("{ewol}DATA:font");
+	 *     // out contain: {"DATA:font", "{@ewol}DATA:font"}
+	 * @example[stop]
+	 * @example[start]
+	 *     auto out = etk::FSNodeExplodeMultiplePath("{@ewol}DATA:font");
+	 *     // out contain: {"{@ewol}DATA:font"}
+	 * @example[stop]
+	 */
+	std::vector<std::string> FSNodeExplodeMultiplePath(const std::string& _path);
 };
 
 #endif

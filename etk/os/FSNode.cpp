@@ -2328,4 +2328,35 @@ std::string etk::FSNodeGetRealName(const std::string& _path) {
 	return node.getFileSystemName();
 }
 
+std::vector<std::string> etk::FSNodeExplodeMultiplePath(const std::string& _path) {
+	std::vector<std::string> out;
+	
+	std::string libSearch = "";
+	std::string newName = _path;
+	if (    _path.size() > 0
+	     && _path[0] == '{') {
+		// special case: Reference of searching in subLib folder ==> library use-case
+		size_t firstPos = _path.find('}');
+		if (firstPos != std::string::npos) {
+			// we find a theme name : We extracted it :
+			libSearch = std::string(_path, 1, firstPos-1);
+			newName = std::string(_path, firstPos+1);
+		} else {
+			TK_ERROR("start a path name with '{' without '}' : " << _path);
+			// remove in case the {
+			newName = std::string(_path, 1);
+		}
+	}
+	if (libSearch.size() != 0) {
+		if (libSearch[0] != '@') {
+			out.push_back(newName);
+			out.push_back(std::string("{@") + libSearch + "}" + newName);
+			return out;
+		}
+		out.push_back(std::string("{") + libSearch + "}" + newName);
+		return out;
+	}
+	out.push_back(newName);
+	return out;
+}
 
