@@ -415,10 +415,12 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 		int32_t len = strlen(handle);
 		char tmpName[1024];
 		char *tmpPointer = tmpName;
+		#ifndef __TARGET_OS__Android
 		if (_className != nullptr) {
 			snprintf(tmpPointer, 1024, "%s::", _className);
 			tmpPointer = tmpPointer+strlen(tmpPointer);
 		}
+		#endif
 		if (_funcName != nullptr) {
 			#if defined(__TARGET_OS__Android)
 				// cleen for android :
@@ -541,6 +543,7 @@ void etk::log::logChar(int32_t _id, int32_t _level, int32_t _ligne, const char* 
 	#endif
 	g_lock.unlock();
 	if (_level == logLevelCritical) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(700));
 		displayBacktrace(true, 2);
 	}
 }
