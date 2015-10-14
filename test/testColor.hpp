@@ -23,7 +23,7 @@ TEST(TestEtkColor, RGBA8) {
 
 
 void testColor() {
-	TK_INFO("==> test of COLOR (START)");
+	TEST_INFO("==> test of COLOR (START)");
 	etk::Color<uint8_t, 4> colorRGBA8(0x52,0x0F, 0x65, 0x44);
 	etk::Color<uint16_t, 4> colorRGBA16(0x52,0x0F, 0x65, 0x44);
 	etk::Color<uint32_t, 4> colorRGBA32(0x52,0x0F, 0x65, 0x44);
@@ -56,20 +56,20 @@ void testColor() {
 	etk::Color<float, 4> colorRGBAf__(colorRGBA8);
 	etk::Color<uint32_t, 2> colorXX332__(colorRGBA8);
 	
-	TK_INFO("Create a color : RGBA 8 : " << colorRGBA8);
-	TK_INFO("Create a color : RGBA 8 : " << colorRGBAf__ << " (converted)");
-	TK_INFO("Create a color : XX 32 : " << colorXX332__ << " (converted)");
-	TK_INFO("Create a color : RGBA 16 : " << colorRGBA16);
-	TK_INFO("Create a color : RGBA 32 : " << colorRGBA32);
-	TK_INFO("Create a color : RGBA float : " << colorRGBAF);
-	TK_INFO("Create a color : RGB 8 : " << colorRGB8);
-	TK_INFO("Create a color : RGB 16 : " << colorRGB16);
-	TK_INFO("Create a color : RGB 32 : " << colorRGB32);
-	TK_INFO("Create a color : RGB float : " << colorRGBF);
-	TK_INFO("Create a color : MONO 8 : " << colorMono8);
-	TK_INFO("Create a color : MONO 16 : " << colorMono16);
-	TK_INFO("Create a color : MONO 32 : " << colorMono32);
-	TK_INFO("Create a color : MONO float : " << colorMonoF);
-	TK_INFO("Create a color : MONO double : " << colorMonoD);
-	TK_INFO("==> test of Color (STOP)");
+	TEST_INFO("Create a color : RGBA 8 : " << colorRGBA8);
+	TEST_INFO("Create a color : RGBA 8 : " << colorRGBAf__ << " (converted)");
+	TEST_INFO("Create a color : XX 32 : " << colorXX332__ << " (converted)");
+	TEST_INFO("Create a color : RGBA 16 : " << colorRGBA16);
+	TEST_INFO("Create a color : RGBA 32 : " << colorRGBA32);
+	TEST_INFO("Create a color : RGBA float : " << colorRGBAF);
+	TEST_INFO("Create a color : RGB 8 : " << colorRGB8);
+	TEST_INFO("Create a color : RGB 16 : " << colorRGB16);
+	TEST_INFO("Create a color : RGB 32 : " << colorRGB32);
+	TEST_INFO("Create a color : RGB float : " << colorRGBF);
+	TEST_INFO("Create a color : MONO 8 : " << colorMono8);
+	TEST_INFO("Create a color : MONO 16 : " << colorMono16);
+	TEST_INFO("Create a color : MONO 32 : " << colorMono32);
+	TEST_INFO("Create a color : MONO float : " << colorMonoF);
+	TEST_INFO("Create a color : MONO double : " << colorMonoD);
+	TEST_INFO("==> test of Color (STOP)");
 }

@@ -2,14 +2,30 @@
 import lutin.module as module
 import lutin.tools as tools
 
+
+def get_type():
+	return "LIBRARY"
+
 def get_desc():
-	return "e-tk : Ewol tool kit"
+	return "Ewol tool kit"
 
+def get_licence():
+	return "APACHE-2"
 
-def create(target):
-	# module name is 'edn' and type binary.
-	my_module = module.Module(__file__, 'etk', 'LIBRARY')
-	# add extra compilation flags :
+def get_compagny_type():
+	return "com"
+
+def get_compagny_name():
+	return "atria-soft"
+
+def get_maintainer():
+	return ["Mr DUPIN Edouard <yui.heero@gmail.com>"]
+
+def get_version():
+	return [0,0,0]
+
+def create(target, module_name):
+	my_module = module.Module(__file__, module_name, get_type())
 	my_module.add_extra_compile_flags()
 	# add the file to compile:
 	my_module.add_src_file([
@@ -64,8 +80,7 @@ def create(target):
 		if target.name != "Windows":
 			my_module.add_export_flag('link', "-ldl -rdynamic")
 	
-	my_module.compile_version_XX(2011)
-	# name of the dependency
+	my_module.compile_version("c++", 2011)
 	my_module.add_optionnal_module_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])
 	my_module.add_optionnal_module_depend('linearmath', ["c", "-DETK_BUILD_LINEARMATH"], export=True)
 	
@@ -77,8 +92,6 @@ def create(target):
 		my_module.add_export_flag('link', "-lpthread")
 	
 	my_module.add_path(tools.get_current_path(__file__))
-	
-	# add the currrent module at the 
 	return my_module
 
 

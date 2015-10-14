@@ -7,7 +7,7 @@
  */
 
 #include <etk/types.h>
-#include <etk/debug.h>
+#include <test-debug/debug.h>
 #include <vector>
 #include <string>
 #include <etk/Hash.h>
