@@ -77,8 +77,15 @@ def create(target, module_name):
 		my_module.add_export_flag('c', "-DDEBUG_LEVEL=3")
 		my_module.add_export_flag('c', "-DDEBUG=1")
 		# Bor backtrace display :
-		if target.name != "Windows":
-			my_module.add_export_flag('link', "-ldl -rdynamic")
+		if     target.name != "Windows" \
+		   and target.name != "MacOs" \
+		   and target.name != "IOs":
+			my_module.add_export_flag('link', [
+				'-ldl',
+				'-rdynamic'])
+		elif target.name != "Windows":
+			my_module.add_export_flag('link', [
+				'-ldl'])
 	
 	my_module.compile_version("c++", 2011)
 	my_module.add_optionnal_module_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])
