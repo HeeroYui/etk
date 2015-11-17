@@ -12,6 +12,186 @@
 #include <math.h>
 
 #if 1
+
+void etk::Matrix4::identity() {
+	for(int32_t iii=0; iii<4*4 ; iii++) {
+		m_mat[iii] = 0;
+	}
+	m_mat[0] = 1.0;
+	m_mat[5] = 1.0;
+	m_mat[10] = 1.0;
+	m_mat[15] = 1.0;
+}
+
+etk::Matrix4::Matrix4() {
+	identity();
+}
+
+etk::Matrix4::Matrix4(const Matrix4& _obj) {
+	for(int32_t iii=0; iii<4*4 ; iii++) {
+		m_mat[iii] = _obj.m_mat[iii];
+	}
+}
+
+etk::Matrix4::Matrix4(float _a1, float _b1, float _c1, float _d1,
+       float _a2, float _b2, float _c2, float _d2,
+       float _a3, float _b3, float _c3, float _d3,
+       float _a4, float _b4, float _c4, float _d4) {
+	m_mat[0] = _a1;
+	m_mat[1] = _b1;
+	m_mat[2] = _c1;
+	m_mat[3] = _d1;
+	m_mat[4] = _a2;
+	m_mat[5] = _b2;
+	m_mat[6] = _c2;
+	m_mat[7] = _d2;
+	m_mat[8] = _a3;
+	m_mat[9] = _b3;
+	m_mat[10] = _c3;
+	m_mat[11] = _d3;
+	m_mat[12] = _a4;
+	m_mat[13] = _b4;
+	m_mat[14] = _c4;
+	m_mat[15] = _d4;
+}
+
+etk::Matrix4::Matrix4(float* _obj) {
+	if (_obj == nullptr) {
+		identity();
+		return;
+	}
+	for(int32_t iii=0; iii<4*4 ; ++iii) {
+		m_mat[iii] = _obj[iii];
+	}
+}
+
+etk::Matrix4::~Matrix4() {
+	
+}
+
+const etk::Matrix4& etk::Matrix4::operator= (const etk::Matrix4& _obj ) {
+	for(int32_t iii=0; iii<4*4 ; ++iii) {
+		m_mat[iii] = _obj.m_mat[iii];
+	}
+	return *this;
+}
+
+bool etk::Matrix4::operator== (const etk::Matrix4& _obj) const {
+	for(int32_t iii=0; iii<4*4 ; ++iii) {
+		if(m_mat[iii] != _obj.m_mat[iii]) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool etk::Matrix4::operator!= (const etk::Matrix4& _obj) const {
+	for(int32_t iii=0; iii<4*4 ; ++iii) {
+		if(m_mat[iii] != _obj.m_mat[iii]) {
+			return true;
+		}
+	}
+	return false;
+}
+
+const etk::Matrix4& etk::Matrix4::operator+= (const etk::Matrix4& _obj) {
+	for(int32_t iii=0; iii<4*4 ; ++iii) {
+		m_mat[iii] += _obj.m_mat[iii];
+	}
+	return *this;
+}
+
+etk::Matrix4 etk::Matrix4::operator+ (const etk::Matrix4& _obj) const {
+	etk::Matrix4 tmpp(*this);
+	tmpp += _obj;
+	return tmpp;
+}
+
+const etk::Matrix4& etk::Matrix4::operator-= (const etk::Matrix4& _obj) {
+	for(int32_t iii=0; iii<4*4 ; ++iii) {
+		m_mat[iii] -= _obj.m_mat[iii];
+	}
+	return *this;
+}
+
+etk::Matrix4 etk::Matrix4::operator- (const etk::Matrix4& _obj) const {
+	etk::Matrix4 tmpp(*this);
+	tmpp += _obj;
+	return tmpp;
+}
+
+const etk::Matrix4& etk::Matrix4::operator*= (const etk::Matrix4& _obj) {
+	// output Matrix
+	float matrixOut[4*4];
+	for(int32_t jjj=0; jjj<4 ; jjj++) {
+		float* tmpLeft = m_mat + jjj*4;
+		for(int32_t iii=0; iii<4 ; iii++) {
+			const float* tmpUpper = _obj.m_mat+iii;
+			float* tmpLeft2 = tmpLeft;
+			float tmpElement = 0;
+			for(int32_t kkk=0; kkk<4 ; kkk++) {
+				tmpElement += *tmpUpper * *tmpLeft2;
+				tmpUpper += 4;
+				tmpLeft2++;
+			}
+			matrixOut[jjj*4+iii] = tmpElement;
+		}
+	}
+	// set it at the output
+	for(int32_t iii=0; iii<4*4 ; iii++) {
+		m_mat[iii] = matrixOut[iii];
+	}
+	return *this;
+}
+
+etk::Matrix4 etk::Matrix4::operator* (const etk::Matrix4& _obj) const {
+	etk::Matrix4 tmpp(*this);
+	tmpp *= _obj;
+	return tmpp;
+}
+
+vec3 etk::Matrix4::operator*(const vec3& _point) const {
+	return vec3( m_mat[0]*_point.x() + m_mat[1]*_point.y() + m_mat[2]*_point.z()  + m_mat[3],
+	             m_mat[4]*_point.x() + m_mat[5]*_point.y() + m_mat[6]*_point.z()  + m_mat[7],
+	             m_mat[8]*_point.x() + m_mat[9]*_point.y() + m_mat[10]*_point.z() + m_mat[11] );
+}
+
+void etk::Matrix4::transpose() {
+	float tmpVal = m_mat[1];
+	m_mat[1] = m_mat[4];
+	m_mat[4] = tmpVal;
+	
+	tmpVal = m_mat[2];
+	m_mat[2] = m_mat[8];
+	m_mat[8] = tmpVal;
+	
+	tmpVal = m_mat[6];
+	m_mat[6] = m_mat[9];
+	m_mat[9] = tmpVal;
+	
+	tmpVal = m_mat[3];
+	m_mat[3] = m_mat[12];
+	m_mat[12] = tmpVal;
+	
+	tmpVal = m_mat[7];
+	m_mat[7] = m_mat[13];
+	m_mat[13] = tmpVal;
+	
+	tmpVal = m_mat[11];
+	m_mat[11] = m_mat[14];
+	m_mat[14] = tmpVal;
+}
+
+void etk::Matrix4::scale(const vec3& _vect) {
+	scale(_vect.x(), _vect.y(), _vect.z());
+}
+
+void etk::Matrix4::scale(float _sx, float _sy, float _sz) {
+	m_mat[0] *= _sx;	m_mat[1] *= _sy;	m_mat[2] *= _sz;
+	m_mat[4] *= _sx;	m_mat[5] *= _sy;	m_mat[6] *= _sz;
+	m_mat[8] *= _sx;	m_mat[9] *= _sy;	m_mat[10] *= _sz;
+}
+
 void etk::Matrix4::rotate(const vec3& vect, float angleRad)
 {
 	etk::Matrix4 tmpMat = etk::matRotate(vect, angleRad);

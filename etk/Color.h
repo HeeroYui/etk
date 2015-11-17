@@ -253,7 +253,7 @@ namespace etk {
 			 */
 			void setR(MY_TYPE _r) {
 				if (MY_TYPE_SIZE >= 1) {
-					m_element[0] = _r;
+					m_element[0] = MY_TYPE(_r);
 				}
 			};
 			/**
@@ -262,7 +262,7 @@ namespace etk {
 			 */
 			void setG(MY_TYPE _g) {
 				if (MY_TYPE_SIZE >= 2) {
-					m_element[1] = _g;
+					m_element[1] = MY_TYPE(_g);
 				}
 			};
 			/**
@@ -271,7 +271,7 @@ namespace etk {
 			 */
 			void setB(MY_TYPE _b) {
 				if (MY_TYPE_SIZE >= 3) {
-					m_element[2] = _b;
+					m_element[2] = MY_TYPE(_b);
 				}
 			};
 			/**
@@ -280,7 +280,7 @@ namespace etk {
 			 */
 			void setA(MY_TYPE _a) {
 				if (MY_TYPE_SIZE >= 4) {
-					m_element[3] = _a;
+					m_element[3] = MY_TYPE(_a);
 				}
 			};
 	};
@@ -356,15 +356,15 @@ namespace etk {
 		std::ostringstream oss;
 		if (MY_TYPE_SIZE >= 3) {
 			_os << "#";
-			oss << std::setw(2) << std::setfill('0') << std::hex << _obj.r();
+			oss << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.r());
 			if (MY_TYPE_SIZE >= 2) {
-				oss << std::setw(2) << std::setfill('0') << std::hex << _obj.g();
+				oss << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.g());
 			}
 			if (MY_TYPE_SIZE >= 3) {
-				oss << std::setw(2) << std::setfill('0') << std::hex << _obj.b();
+				oss << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.b());
 			}
 			if (MY_TYPE_SIZE >= 4) {
-				oss << std::setw(2) << std::setfill('0') << std::hex << _obj.a();
+				oss << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.a());
 			}
 			_os << oss.str();
 		} else {
@@ -374,10 +374,10 @@ namespace etk {
 				_os << "Mono";
 			}
 			_os << "[U8](";
-			oss << "0x" << std::setw(2) << std::setfill('0') << std::hex << _obj.r();
+			oss << "0x" << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.r());
 			if (MY_TYPE_SIZE >= 2) {
 				_os << ",";
-				oss << "0x" << std::setw(2) << std::setfill('0') << std::hex << _obj.g();
+				oss << "0x" << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.g());
 			}
 			_os << oss.str();
 			_os << ")";

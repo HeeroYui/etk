@@ -31,7 +31,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input)
 	size_t len = _input.size();
 	etk::Color<uint8_t, 4> outputValue(0,0,0,0);
 	if(len == 3) {
-		int32_t red=0, green=0, blue=0;
+		uint32_t red=0, green=0, blue=0;
 		if (sscanf(_input.c_str(), "%1x%1x%1x", &red, &green, &blue) == 3) {
 			outputValue.setR(red | red << 4);
 			outputValue.setG(green | green << 4);
@@ -41,7 +41,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input)
 			TK_ERROR(" pb in parsing the color : '" << _input << "'");
 		}
 	} else if (len==4) {
-		int32_t red=0, green=0, blue=0, alpha=0;
+		uint32_t red=0, green=0, blue=0, alpha=0;
 		if (sscanf(_input.c_str(), "%1x%1x%1x%1x", &red, &green, &blue, &alpha) == 4) {
 			outputValue.setR(red | red << 4);
 			outputValue.setG(green | green << 4);
@@ -51,7 +51,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input)
 			TK_ERROR(" pb in parsing the color : '" << _input << "'");
 		}
 	} else if (len == 6) {
-		int32_t red=0, green=0, blue=0;
+		uint32_t red=0, green=0, blue=0;
 		if (sscanf(_input.c_str(), "%2x%2x%2x", &red, &green, &blue) == 3) {
 			outputValue.setR(red);
 			outputValue.setG(green);
@@ -61,7 +61,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input)
 			TK_ERROR(" pb in parsing the color : '" << _input << "'");
 		}
 	} else if (len == 8) {
-		int32_t red=0, green=0, blue=0, alpha=0;
+		uint32_t red=0, green=0, blue=0, alpha=0;
 		if (sscanf(_input.c_str(), "%2x%2x%2x%2x", &red, &green, &blue, &alpha) == 4) {
 			outputValue.setR(red);
 			outputValue.setG(green);
@@ -73,6 +73,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input)
 	} else {
 		TK_ERROR(" pb in parsing the color : '" << _input << "' ==> unknown methode ...");
 	}
+	TK_VERBOSE("  result: '" << outputValue << "'");
 	return outputValue;
 }
 
