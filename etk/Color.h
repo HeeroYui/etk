@@ -283,6 +283,78 @@ namespace etk {
 					m_element[3] = MY_TYPE(_a);
 				}
 			};
+			/* ****************************************************
+			 *    += operator
+			 *****************************************************/
+			const etk::Color<MY_TYPE,MY_TYPE_SIZE>& operator+= (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) {
+				if (MY_TYPE_SIZE >= 1) {
+					m_element[0] += _obj.m_element[0];
+				}
+				if (MY_TYPE_SIZE >= 2) {
+					m_element[1] += _obj.m_element[1];
+				}
+				if (MY_TYPE_SIZE >= 3) {
+					m_element[2] += _obj.m_element[2];
+				}
+				if (MY_TYPE_SIZE >= 4) {
+					m_element[3] += _obj.m_element[3];
+				}
+				return *this;
+			}
+			/* ****************************************************
+			 *    + operator
+			 *****************************************************/
+			etk::Color<MY_TYPE,MY_TYPE_SIZE> operator+ (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) const {
+				etk::Color<MY_TYPE,MY_TYPE_SIZE> tmpp(*this);
+				tmpp += _obj;
+				return tmpp;
+			}
+			/* ****************************************************
+			 *    *= operator
+			 *****************************************************/
+			const etk::Color<MY_TYPE,MY_TYPE_SIZE>& operator*= (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) {
+				if (MY_TYPE_SIZE >= 1) {
+					m_element[0] *= _obj.m_element[0];
+				}
+				if (MY_TYPE_SIZE >= 2) {
+					m_element[1] *= _obj.m_element[1];
+				}
+				if (MY_TYPE_SIZE >= 3) {
+					m_element[2] *= _obj.m_element[2];
+				}
+				if (MY_TYPE_SIZE >= 4) {
+					m_element[3] *= _obj.m_element[3];
+				}
+				return *this;
+			}
+			const etk::Color<MY_TYPE,MY_TYPE_SIZE>& operator*= (const MY_TYPE _val) {
+				if (MY_TYPE_SIZE >= 1) {
+					m_element[0] *= _val;
+				}
+				if (MY_TYPE_SIZE >= 2) {
+					m_element[1] *= _val;
+				}
+				if (MY_TYPE_SIZE >= 3) {
+					m_element[2] *= _val;
+				}
+				if (MY_TYPE_SIZE >= 4) {
+					m_element[3] *= _val;
+				}
+				return *this;
+			}
+			/* ****************************************************
+			 *    * operator
+			 *****************************************************/
+			etk::Color<MY_TYPE,MY_TYPE_SIZE> operator* (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) const {
+				etk::Color<MY_TYPE,MY_TYPE_SIZE> tmpp(*this);
+				tmpp *= _obj;
+				return tmpp;
+			}
+			etk::Color<MY_TYPE,MY_TYPE_SIZE> operator* (const MY_TYPE _val) const {
+				etk::Color<MY_TYPE,MY_TYPE_SIZE> tmpp(*this);
+				tmpp *= _val;
+				return tmpp;
+			}
 	};
 	etk::Color<uint8_t, 4> parseStringStartWithSharp(const std::string& _input);
 	etk::Color<uint8_t, 4> parseStringStartWithRGBGen(const std::string& _input);
