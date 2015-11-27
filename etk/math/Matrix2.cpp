@@ -152,6 +152,11 @@ etk::Matrix2 etk::Matrix2::operator * (const etk::Matrix2& _obj) {
 	return tmp;
 }
 
+vec2 etk::Matrix2::operator * (const vec2& _obj) {
+	return vec2(_obj.x()*m_mat[0] + _obj.y()*m_mat[1] + m_mat[2],
+	            _obj.x()*m_mat[4] + _obj.y()*m_mat[3] + m_mat[5]);
+}
+
 etk::Matrix2 etk::Matrix2::operator ~ () const {
 	etk::Matrix2 tmp(*this);
 	tmp.invert();
