@@ -217,6 +217,14 @@ namespace etk {
 				return result;
 			}
 			/**
+			 * @brief Return the cross product
+			 * @param v The other vector in the cross product
+			 */
+			btScalar cross(const Vector2D<T>& _v) const {
+				return   m_floats[0] * _v.m_floats[1]
+				       - m_floats[1] * _v.m_floats[0];
+			}
+			/**
 			 * @brief Return the dot product
 			 * @param v The other vector in the dot product
 			 */
