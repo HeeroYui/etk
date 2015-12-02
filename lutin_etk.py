@@ -96,6 +96,7 @@ def create(target, module_name):
 	if target.name=="Windows":
 		pass
 	elif target.name=="Android":
+		#my_module.add_module_depend("SDK")
 		pass
 	else:
 		my_module.add_export_flag('link', "-lpthread")

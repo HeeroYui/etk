@@ -1,20 +1,63 @@
 etk
 ===
 
-`etk` is a simple basic toolkit to wrap some things (I maybe need to not se it ...
+`etk` is a simple basic toolkit to wrap some things (I maybe need not doing it ...)
+
+Release (master)
+----------------
 
 [![Build Status](https://travis-ci.org/atria-soft/etk.svg?branch=master)](https://travis-ci.org/atria-soft/etk)
-
 [![Coverage Status](http://atria-soft.com/ci/coverage/atria-soft/etk.svg?branch=master)](http://atria-soft.com/ci/atria-soft/etk)
-
 [![Test Status](http://atria-soft.com/ci/test/atria-soft/etk.svg?branch=master)](http://atria-soft.com/ci/atria-soft/etk)
-
 [![Warning Status](http://atria-soft.com/ci/warning/atria-soft/etk.svg?branch=master)](http://atria-soft.com/ci/atria-soft/etk)
+
+[![Build Status](http://atria-soft.com/ci/build/atria-soft/etk.svg?branch=master&tag=Linux)](http://atria-soft.com/ci/atria-soft/etk)
+[![Build Status](http://atria-soft.com/ci/build/atria-soft/etk.svg?branch=master&tag=MacOs)](http://atria-soft.com/ci/atria-soft/etk)
+[![Build Status](http://atria-soft.com/ci/build/atria-soft/etk.svg?branch=master&tag=Mingw)](http://atria-soft.com/ci/atria-soft/etk)
+
+[![Build Status](http://atria-soft.com/ci/build/atria-soft/etk.svg?branch=master&tag=Android)](http://atria-soft.com/ci/atria-soft/etk)
+[![Build Status](http://atria-soft.com/ci/build/atria-soft/etk.svg?branch=master&tag=IOs)](http://atria-soft.com/ci/atria-soft/etk)
+
+Developement (dev)
+------------------
+
+[![Build Status](https://travis-ci.org/atria-soft/etk.svg?branch=dev)](https://travis-ci.org/atria-soft/etk)
+[![Coverage Status](http://atria-soft.com/ci/coverage/atria-soft/etk.svg?branch=dev)](http://atria-soft.com/ci/atria-soft/etk)
+[![Test Status](http://atria-soft.com/ci/test/atria-soft/etk.svg?branch=dev)](http://atria-soft.com/ci/atria-soft/etk)
+[![Warning Status](http://atria-soft.com/ci/warning/atria-soft/etk.svg?branch=dev)](http://atria-soft.com/ci/atria-soft/etk)
+
+[![Build Status](http://atria-soft.com/ci/build/atria-soft/etk.svg?branch=dev&tag=Linux)](http://atria-soft.com/ci/atria-soft/etk)
+[![Build Status](http://atria-soft.com/ci/build/atria-soft/etk.svg?branch=dev&tag=MacOs)](http://atria-soft.com/ci/atria-soft/etk)
+[![Build Status](http://atria-soft.com/ci/build/atria-soft/etk.svg?branch=dev&tag=Mingw)](http://atria-soft.com/ci/atria-soft/etk)
+
+[![Build Status](http://atria-soft.com/ci/build/atria-soft/etk.svg?branch=dev&tag=Android)](http://atria-soft.com/ci/atria-soft/etk)
+[![Build Status](http://atria-soft.com/ci/build/atria-soft/etk.svg?branch=dev&tag=IOs)](http://atria-soft.com/ci/atria-soft/etk)
+
 
 Instructions
 ============
 
-To compile and use see 'ewol' or 'edn' project
+download Build system:
+----------------------
+
+	sudo pip install lutin
+	sudo pip install pillow
+
+download the software:
+----------------------
+
+	mkdir WORKING_DIRECTORY
+	cd WORKING_DIRECTORY
+	git clone https://github.com/atria-soft/etk.git
+	git clone https://github.com/generic-library/gtest-lutin.git --recursive
+	git clone https://github.com/generic-library/z-lutin.git --recursive
+
+Compile software:
+-----------------
+
+	cd WORKING_DIRECTORY
+	lutin -C -P etk-test
+
 
 License (APACHE v2.0)
 =====================
