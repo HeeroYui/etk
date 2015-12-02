@@ -21,7 +21,7 @@ addons:
 matrix:
   include:
     - os: linux
-      env: CONF=release BUILDER=gcc TARGET=Linux TAG=Linux COMPILATOR_OPTION="--compilator-version=4.9"
+      env: CONF=release BUILDER=gcc TARGET=Linux TAG=Linux COMPILATOR_OPTION="--compilator-version=4.9" GCOV=--gcov
       compiler: gcc
     - os: linux
       env: CONF=debug BUILDER=clang TARGET=Linux
@@ -61,7 +61,7 @@ before_script:
   - ./ci/build_send.py --tag=$TAG --status=START;
 
 script:
-  - lutin -w -j4 -C -P -t$TARGET -c $BUILDER $COMPILATOR_OPTION $BUS -m $CONF $GCOV $DISABLE_PACKAGE etk-test; STATUS=$?
+  - lutin -w -j4 -C -P -t $TARGET -c $BUILDER $COMPILATOR_OPTION $BUS -m $CONF $GCOV $DISABLE_PACKAGE etk-test; STATUS=$?
   - ./ci/build_send.py --tag=$TAG --status="$STATUS";
 
 after_script:
@@ -71,7 +71,7 @@ after_script:
   - ./out/Linux_x86_64/$CONF/staging/$BUILDER/etk-test/etk-test.app/bin/etk-test --etk-log-level=6 | tee out_test.txt
   - if [ "$GCOV" != "" ]; then
         ./ci/test_send.py --file=out_test.txt;
-        lutin -C -P $TARGET -c $BUILDER $COMPILATOR_OPTION -m $CONF -p etk?gcov;
+        lutin -C -P -t $TARGET -c $BUILDER $COMPILATOR_OPTION $BUS -m $CONF -p etk?gcov;
         ./ci/coverage_send.py --json=out/Linux_x86_64/$CONF/build/$BUILDER/etk/etk_coverage.json;
     fi
 
