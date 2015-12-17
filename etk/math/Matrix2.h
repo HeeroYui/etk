@@ -78,6 +78,7 @@ namespace etk {
 			 *****************************************************/
 			Matrix2 operator * (const Matrix2& _obj);
 			vec2 operator * (const vec2& _obj) const;
+			vec2 applyScaleRotation(const vec2& _obj) const;
 			/*****************************************************
 			 *    ~ operator
 			 *****************************************************/
