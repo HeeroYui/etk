@@ -217,54 +217,50 @@ namespace etk {
 				return result;
 			}
 			/**
-			 * @brief Return the cross product
-			 * @param v The other vector in the cross product
+			 * @brief Return the cross product / determinant
+			 * @param _obj The other vector in the cross product
 			 */
-			btScalar cross(const Vector2D<T>& _v) const {
-				return   m_floats[0] * _v.m_floats[1]
-				       - m_floats[1] * _v.m_floats[0];
+			T cross(const Vector2D<T>& _obj) const {
+				return   m_floats[0] * _obj.m_floats[1]
+				       - m_floats[1] * _obj.m_floats[0];
 			}
 			/**
 			 * @brief Return the dot product
-			 * @param v The other vector in the dot product
+			 * @param _obj The other vector in the dot product
 			 */
-			btScalar dot(const Vector2D<T>& _v) const {
-				return   m_floats[0] * _v.m_floats[0]
-				       + m_floats[1] * _v.m_floats[1];
+			T dot(const Vector2D<T>& _obj) const {
+				return   m_floats[0] * _obj.m_floats[0]
+				       + m_floats[1] * _obj.m_floats[1];
 			}
 			/**
 			 * @brief Return the length of the vector squared
 			 */
-			btScalar length2() const {
+			T length2() const {
 				return dot(*this);
 			}
 			/**
 			 * @brief Return the length of the vector
 			 */
-			btScalar length() const {
-				#ifdef ETK_BUILD_LINEARMATH
-					return btSqrt(length2());
+			float length() const {
+				#if __CPP_VERSION__ >= 2011 && !defined(__TARGET_OS__MacOs) && !defined(__TARGET_OS__IOs)
+					return std::sqrt(length2());
 				#else
-					#if __CPP_VERSION__ >= 2011 && !defined(__TARGET_OS__MacOs) && !defined(__TARGET_OS__IOs)
-						return std::sqrt(length2());
-					#else
-						return sqrt(length2());
-					#endif
+					return sqrt(length2());
 				#endif
 			}
 			/**
 			 * @brief Return the distance squared between the ends of this and another vector
 			 * This is symantically treating the vector like a point
 			 */
-			btScalar distance2(const btVector3& _v) const {
-				return (_v - *this).length2();
+			T distance2(const Vector2D<T>& _obj) const {
+				return (_obj - *this).length2();
 			}
 			/**
 			 * @brief Return the distance between the ends of this and another vector
 			 * This is symantically treating the vector like a point
 			 */
-			btScalar distance(const btVector3& v) const {
-				return (v - *this).length();
+			float distance(const Vector2D<T>& _obj) const {
+				return (_obj - *this).length();
 			}
 			/**
 			 * @brief Normalize this vector 
@@ -361,30 +357,31 @@ namespace etk {
 				return &m_floats[0];
 			}
 			/**
-			 * @brief Set each element to the max of the current values and the values of another btVector3
-			 * @param _other The other btVector3 to compare with 
+			 * @brief Set each element to the max of the current values and the values of another vector
+			 * @param _other The other vector to compare with
 			 */
 			void setMax(const Vector2D<T>& _other) {
-				btSetMax(m_floats[0], _other.m_floats[0]);
-				btSetMax(m_floats[1], _other.m_floats[1]);
+				m_floats[0] = std::max(m_floats[0], _other.m_floats[0]);
+				m_floats[1] = std::max(m_floats[1], _other.m_floats[1]);
 			}
 			/**
-			 * @brief Set each element to the min of the current values and the values of another btVector3
-			 * @param _other The other btVector3 to compare with 
+			 * @brief Set each element to the min of the current values and the values of another vector
+			 * @param _other The other vector to compare with
 			 */
 			void setMin(const Vector2D<T>& _other) {
-				btSetMin(m_floats[0], _other.m_floats[0]);
-				btSetMin(m_floats[1], _other.m_floats[1]);
+				m_floats[0] = std::min(m_floats[0], _other.m_floats[0]);
+				m_floats[1] = std::min(m_floats[1], _other.m_floats[1]);
 			}
-			void setValue(const T& _x, const T& _y) {
-				m_floats[0]=_x;
-				m_floats[1]=_y;
+			void setValue(const T& _xxx, const T& _yyy) {
+				m_floats[0] = _xxx;
+				m_floats[1] = _yyy;
 			}
 			void setZero() {
 				setValue(0,0);
 			}
 			bool isZero() const {
-				return m_floats[0] == 0 && m_floats[1] == 0;
+				return    m_floats[0] == 0
+				       && m_floats[1] == 0;
 			}
 			//!< string cast :
 			operator std::string() const;
