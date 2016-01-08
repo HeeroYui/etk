@@ -88,8 +88,10 @@ def create(target, module_name):
 		elif target.name != "Windows":
 			my_module.add_export_flag('link', [
 				'-ldl'])
-	
+	# build in C++ mode
 	my_module.compile_version("c++", 2011)
+	# ad dependency of the generic C++ library:
+	my_module.add_module_depend('cxx')
 	my_module.add_optionnal_module_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])
 	my_module.add_optionnal_module_depend('linearmath', ["c", "-DETK_BUILD_LINEARMATH"], export=True)
 	

@@ -14,13 +14,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-double etk::tool::frand(double _a, double _b)
-{
+double etk::tool::frand(double _a, double _b) {
 	return (float)(( (double)rand()/(double)RAND_MAX ) * ((double)_b-(double)_a) + (double)_a);
 }
 
-int32_t etk::tool::irand(int32_t _a, int32_t _b)
-{
+int32_t etk::tool::irand(int32_t _a, int32_t _b) {
 	return (int32_t)(( rand()/(double)RAND_MAX ) * ((double)_b-(double)_a) + (double)_a);
 }
 

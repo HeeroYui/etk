@@ -155,14 +155,10 @@ namespace etk {
 			 * @brief Return the length of the vector
 			 */
 			btScalar length() const {
-				#ifdef ETK_BUILD_LINEARMATH
-					return btSqrt(length2());
+				#if __CPP_VERSION__ >= 2011 && !defined(__STDCPP_LLVM__)
+					return std::sqrt(length2());
 				#else
-					#if __CPP_VERSION__ >= 2011 && !defined(__TARGET_OS__MacOs) && !defined(__TARGET_OS__IOs)
-						return std::sqrt(length2());
-					#else
-						return sqrt(length2());
-					#endif
+					return sqrt(length2());
 				#endif
 			}
 			

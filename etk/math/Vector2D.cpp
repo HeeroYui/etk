@@ -88,12 +88,12 @@ std::ostream& etk::operator <<(std::ostream& _os, const std::vector<bvec2 >& _ob
 
 vec2 vec2rotate(const vec2& _val, const vec2& _point, float _angle) {
 	vec2 out = _val;
-	#if (defined(__TARGET_OS__MacOs) || defined(__TARGET_OS__IOs) || __cplusplus < 201103L)
-		float sinAngle = sin(_angle);
-		float cosAngle = cos(_angle);
-	#else
+	#if __CPP_VERSION__ >= 2011 && !defined(__STDCPP_LLVM__)
 		float sinAngle = std::sin(_angle);
 		float cosAngle = std::cos(_angle);
+	#else
+		float sinAngle = sin(_angle);
+		float cosAngle = cos(_angle);
 	#endif
 	if (_point == vec2(0,0)) {
 		float tempX = out.x() * cosAngle - out.y() * sinAngle;

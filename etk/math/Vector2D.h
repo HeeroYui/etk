@@ -242,7 +242,7 @@ namespace etk {
 			 * @brief Return the length of the vector
 			 */
 			float length() const {
-				#if __CPP_VERSION__ >= 2011 && !defined(__TARGET_OS__MacOs) && !defined(__TARGET_OS__IOs)
+				#if __CPP_VERSION__ >= 2011 && !defined(__STDCPP_LLVM__)
 					return std::sqrt(length2());
 				#else
 					return sqrt(length2());
