@@ -24,7 +24,7 @@
 
 #include <etk/logIOs.h>
 
-#if defined(__TARGET_OS__Linux) && defined(DEBUG)
+#if !defined(__STDCPP_LLVM__) && defined(__TARGET_OS__Linux) && defined(DEBUG)
 	#include <execinfo.h>
 	#include <cxxabi.h>
 	#include <dlfcn.h>

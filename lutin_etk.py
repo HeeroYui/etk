@@ -82,6 +82,7 @@ def create(target, module_name):
 		if     target.name != "Windows" \
 		   and target.name != "MacOs" \
 		   and target.name != "IOs":
+			# TODO : check if it is really needed ...
 			my_module.add_export_flag('link', [
 				'-ldl',
 				'-rdynamic'])
@@ -90,8 +91,11 @@ def create(target, module_name):
 				'-ldl'])
 	# build in C++ mode
 	my_module.compile_version("c++", 2011)
-	# ad dependency of the generic C++ library:
+	# add dependency of the generic C++ library:
 	my_module.add_module_depend('cxx')
+	# add dependency of the generic math library:
+	my_module.add_module_depend('m')
+	# add some optionnal libraries
 	my_module.add_optionnal_module_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])
 	my_module.add_optionnal_module_depend('linearmath', ["c", "-DETK_BUILD_LINEARMATH"], export=True)
 	
@@ -101,6 +105,7 @@ def create(target, module_name):
 		#my_module.add_module_depend("SDK")
 		pass
 	else:
+		#TODO : Set it in a generic include system
 		my_module.add_export_flag('link', "-lpthread")
 	
 	my_module.add_path(tools.get_current_path(__file__))
