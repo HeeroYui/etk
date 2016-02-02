@@ -8,9 +8,6 @@
 
 #include <etk/types.h>
 
-#ifndef __ETK_MATH_VECTOR4D_H__
-#define __ETK_MATH_VECTOR4D_H__
-
 #include <math.h>
 #ifdef ETK_BUILD_LINEARMATH
 	#include <LinearMath/btScalar.h>
@@ -441,7 +438,7 @@ namespace etk {
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector4D<float>& _obj);
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector4D<uint32_t>& _obj);
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector4D<bool>& _obj);
-};
+}
 
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
 typedef etk::Vector4D<float>      vec4;
@@ -450,6 +447,4 @@ typedef etk::Vector4D<int32_t>   ivec4;
 typedef etk::Vector4D<uint32_t> uivec4;
 typedef etk::Vector4D<bool>      bvec4;
 
-
-#endif
 

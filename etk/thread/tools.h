@@ -8,8 +8,7 @@
 
 #include <etk/types.h>
 
-#ifndef __ETK_THREAD_TOOLS_H__
-#define __ETK_THREAD_TOOLS_H__
+#pragma once
 
 #include <thread>
 
@@ -74,5 +73,3 @@ namespace etk {
 		int32_t getPriority(std11::thread& _thread);
 	}
 }
-
-#endif

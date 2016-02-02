@@ -8,8 +8,7 @@
 
 #include <etk/types.h>
 
-#ifndef __ETK_HACH_H__
-#define __ETK_HACH_H__
+#pragma once
 
 #undef __class__
 #define __class__ "etk::Hash"
@@ -270,6 +269,4 @@ namespace etk {
 
 #undef __class__
 #define __class__ NULL
-
-#endif
 

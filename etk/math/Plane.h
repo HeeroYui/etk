@@ -8,8 +8,7 @@
 
 #include <etk/types.h>
 
-#ifndef __ETK_TYPES_PLANE_H__
-#define __ETK_TYPES_PLANE_H__
+#pragma once
 
 #include <etk/debug.h>
 #include <vector>
@@ -207,7 +206,6 @@ namespace etk {
 				return *this;
 			}
 	};
-};
+}
 
-#endif
 

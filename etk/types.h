@@ -5,9 +5,7 @@
  * 
  * @license APACHE v2.0 (see license file)
  */
-
-#ifndef __ETK_TYPES_H__
-#define __ETK_TYPES_H__
+#pragma once
 
 #include <iostream>
 
@@ -60,5 +58,3 @@ namespace std11 = std;
 	#endif
 #endif
 
-
-#endif

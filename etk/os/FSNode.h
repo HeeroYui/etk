@@ -8,8 +8,7 @@
 
 #include <etk/types.h>
 
-#ifndef __ETK_FILE_SYSTEM_NODE_H__
-#define __ETK_FILE_SYSTEM_NODE_H__
+#pragma once
 
 #include <etk/os/FSNodeRight.h>
 
@@ -892,5 +891,4 @@ namespace etk {
 	std::vector<std::string> FSNodeExplodeMultiplePath(const std::string& _path);
 };
 
-#endif
 

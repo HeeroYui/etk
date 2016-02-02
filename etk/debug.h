@@ -8,8 +8,7 @@
 
 #include <etk/types.h>
 
-#ifndef __ETK_DEBUG_H__
-#define __ETK_DEBUG_H__
+#pragma once
 
 #include <etk/log.h>
 
@@ -45,5 +44,4 @@ namespace etk {
 		} \
 	} while (0)
 
-#endif
 

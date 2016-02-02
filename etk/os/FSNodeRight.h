@@ -8,8 +8,7 @@
 
 #include <etk/types.h>
 
-#ifndef __ETK_FILE_SYSTEM_NODE_RIGHT_H__
-#define __ETK_FILE_SYSTEM_NODE_RIGHT_H__
+#pragma once
 
 namespace etk {
 	class FSNodeRight {
@@ -54,7 +53,6 @@ namespace etk {
 			std::string getRight() const;
 	};
 	std::ostream& operator <<(std::ostream &_os, const etk::FSNodeRight &_obj);
-};
+}
 
-#endif
 

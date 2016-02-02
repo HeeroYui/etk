@@ -8,8 +8,7 @@
 
 #include <etk/types.h>
 
-#ifndef __ETK_COLOR_H__
-#define __ETK_COLOR_H__
+#pragma once
 
 #include <iomanip>
 
@@ -747,5 +746,4 @@ namespace etk {
 	*/
 };
 
-#endif
 

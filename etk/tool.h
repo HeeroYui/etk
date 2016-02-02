@@ -8,8 +8,7 @@
 
 #include <etk/types.h>
 
-#ifndef __ETK_TOOL_H__
-#define __ETK_TOOL_H__
+#pragma once
 
 namespace etk {
 	namespace tool {
@@ -31,7 +30,6 @@ namespace etk {
 		 * @param[in] _val Seek value for the pseudo random system.
 		 */
 		void randSeek(int32_t _val);
-	};
-};
+	}
+}
 
-#endif

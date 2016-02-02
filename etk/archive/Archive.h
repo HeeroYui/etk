@@ -9,8 +9,7 @@
 
 #include <etk/types.h>
 
-#ifndef __ETK_ARCHIVE_H__
-#define __ETK_ARCHIVE_H__
+#pragma once
 
 #include <map>
 #include <mutex>
@@ -146,7 +145,5 @@ namespace etk {
 			 */
 			//Archive* create(const std::u32string& _fileName);
 	};
-};
-#endif
-
+}
 #endif

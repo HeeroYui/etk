@@ -5,9 +5,7 @@
  * 
  * @license APACHE v2.0 (see license file)
  */
-
-#ifndef __ETK_H__
-#define __ETK_H__
+#pragma once
 
 #include <string>
 
@@ -26,4 +24,3 @@ namespace etk {
 	std::string getApplicationName();
 }
 
-#endif

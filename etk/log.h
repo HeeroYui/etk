@@ -5,9 +5,7 @@
  * 
  * @license APACHE v2.0 (see license file)
  */
-
-#ifndef __ETK_LOG_H__
-#define __ETK_LOG_H__
+#pragma once
 
 #include <etk/types.h>
 #include <sstream>
@@ -133,5 +131,3 @@ namespace etk {
 			etk::log::logStream(logId, info, __LINE__, __class__, __func__, tmpStream); \
 		} \
 	} while(0)
-
-#endif

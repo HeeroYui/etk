@@ -106,7 +106,7 @@ def create(target, module_name):
 		pass
 	else:
 		#TODO : Set it in a generic include system
-		my_module.add_export_flag('link', "-lpthread")
+		my_module.add_export_flag('link-lib', "pthread")
 	
 	my_module.add_path(tools.get_current_path(__file__))
 	return my_module

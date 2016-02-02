@@ -6,8 +6,7 @@
  * @license APACHE v2.0 (see license file)
  */
 
-#ifndef __ETK_TYPES_MATRIX2_H__
-#define __ETK_TYPES_MATRIX2_H__
+#pragma once
 
 #include <etk/math/Vector2D.h>
 #include <etk/types.h>
@@ -131,5 +130,4 @@ namespace etk {
 // simplify using of matrix ...
 typedef etk::Matrix2 mat2;
 
-#endif
 

@@ -5,9 +5,7 @@
  *
  * @license APACHE v2.0 (see license file)
  */
-
-#ifndef __ETK_LOG_IOS_H__
-#define __ETK_LOG_IOS_H__
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,5 +17,4 @@ extern "C" {
 }
 #endif
 
-#endif
 

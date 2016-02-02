@@ -8,8 +8,7 @@
 
 #include <etk/types.h>
 
-#ifndef __ETK_NOISE_H__
-#define __ETK_NOISE_H__
+#pragma once
 
 #include <etk/math/Vector2D.h>
 
@@ -47,6 +46,5 @@ namespace etk {
 			~Noise();
 			float get(int32_t _x, int32_t _y) const;
 	};
-};
+}
 
-#endif

@@ -9,8 +9,7 @@
 #include <etk/math/Vector3D.h>
 #include <etk/types.h>
 
-#ifndef __ETK_MATH_VECTOR2D_H__
-#define __ETK_MATH_VECTOR2D_H__
+#pragma once
 
 #include <math.h>
 
@@ -425,5 +424,5 @@ namespace etk {
 	std::ostream& operator <<(std::ostream& _os, const std::vector<uivec2 >& _obj);
 	//! @previous
 	std::ostream& operator <<(std::ostream& _os, const std::vector<bvec2 >& _obj);
-};
-#endif
+}
+

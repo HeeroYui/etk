@@ -8,8 +8,7 @@
 
 #include <etk/types.h>
 
-#ifndef __ETK_MATH_VECTOR3D_H__
-#define __ETK_MATH_VECTOR3D_H__
+#pragma once
 
 #include <math.h>
 
@@ -498,7 +497,6 @@ namespace etk {
 	std::ostream& operator <<(std::ostream& _os, const std::vector<uivec3>& _obj);
 	//! @previous
 	std::ostream& operator <<(std::ostream& _os, const std::vector<bvec3>& _obj);
-};
+}
 
-#endif
 

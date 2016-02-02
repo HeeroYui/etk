@@ -5,9 +5,7 @@
  * 
  * @license APACHE v2.0 (see license file)
  */
-
-#ifndef __ETK_ARCHIVE_ZIP_H__
-#define __ETK_ARCHIVE_ZIP_H__
+#pragma once
 
 #include <etk/archive/Archive.h>
 #ifdef ETK_BUILD_MINIZIP
@@ -26,10 +24,9 @@
 				protected: // herited functions :
 					virtual void loadFile(const std::map<std::string, ArchiveContent>::iterator& it);
 			};
-		};
-	};
+		}
+	}
 
 #endif
 
-#endif
 

@@ -8,8 +8,7 @@
 
 #include <etk/types.h>
 
-#ifndef __ETK_MESSAGE_FIFO_H__
-#define __ETK_MESSAGE_FIFO_H__
+#pragma once
 
 #include <mutex>
 #include <vector>
@@ -120,6 +119,5 @@ namespace etk {
 				m_condition.wait_for(lock, std::chrono::microseconds(0));
 			};
 	};
-};
+}
 
-#endif
