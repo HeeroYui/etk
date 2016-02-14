@@ -1426,6 +1426,15 @@ int64_t etk::FSNode::folderCount() {
 }
 
 std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bool _getFolderAndOther, bool _getFile, bool _temporaryFile) {
+	std::string filter=".*";
+	if (_temporaryFile == true) {
+		filter = ".*(~|\\.bck|\\.tmp)";
+	}
+	return etk::FSNode::folderGetSubList(_showHidenFile, _getFolderAndOther, _getFile, filter);
+}
+
+std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bool _getFolderAndOther, bool _getFile, const std::string& _filter) {
+	TK_TODO("implement filter ... ");
 	std::vector<etk::FSNode*> tmpp;
 	// regenerate the next list :
 	etk::FSNode * tmpEmement = NULL;

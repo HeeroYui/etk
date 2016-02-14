@@ -398,6 +398,10 @@ namespace etk {
 			                                           bool _getFolderAndOther = true,
 			                                           bool _getFile = true,
 			                                           bool _temporaryFile = true);
+			std::vector<etk::FSNode*> folderGetSubList(bool _showHidenFile = true,
+			                                           bool _getFolderAndOther = true,
+			                                           bool _getFile = true,
+			                                           const std::string& _filter = ".*");
 			/**
 			 * @brief Get the father node of this node
 			 * @return The requested node
