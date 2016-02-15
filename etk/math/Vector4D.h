@@ -5,6 +5,7 @@
  * 
  * @license APACHE v2.0 (see license file)
  */
+#pragma once
 
 #include <etk/types.h>
 
