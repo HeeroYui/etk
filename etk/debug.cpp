@@ -9,7 +9,7 @@
 #include <etk/debug.h>
 
 int32_t etk::getLogId() {
-	static int32_t g_val = etk::log::registerInstance("etk");
+	static int32_t g_val = elog::registerInstance("etk");
 	return g_val;
 }
 

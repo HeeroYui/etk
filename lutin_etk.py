@@ -32,11 +32,9 @@ def create(target, module_name):
 		'etk/debug.cpp',
 		'etk/etk.cpp',
 		'etk/stdTools.cpp',
-		'etk/log.cpp',
 		'etk/tool.cpp',
 		'etk/Noise.cpp',
 		'etk/Color.cpp',
-		'etk/thread/tools.cpp',
 		'etk/math/Matrix2.cpp',
 		'etk/math/Matrix4.cpp',
 		'etk/math/Vector2D.cpp',
@@ -47,19 +45,14 @@ def create(target, module_name):
 		'etk/archive/Archive.cpp',
 		'etk/archive/Zip.cpp'])
 	
-	if target.name=="IOs":
-		my_module.add_src_file('etk/logIOs.m')
-	
 	my_module.add_header_file([
 		'etk/etk.h',
 		'etk/types.h',
 		'etk/stdTools.h',
-		'etk/log.h',
 		'etk/tool.h',
 		'etk/Noise.h',
 		'etk/Color.h',
 		'etk/Hash.h',
-		'etk/thread/tools.h',
 		'etk/math/Matrix2.h',
 		'etk/math/Matrix4.h',
 		'etk/math/Vector2D.h',
@@ -76,7 +69,6 @@ def create(target, module_name):
 		# TODO : Fore release mode : the etk folder are absolutly not at the same position in the tree ...
 		my_module.compile_flags('c', "-DMODE_RELEASE")
 	else:
-		my_module.add_export_flag('c', "-DDEBUG_LEVEL=3")
 		my_module.add_export_flag('c', "-DDEBUG=1")
 		# Bor backtrace display :
 		if     target.name != "Windows" \
@@ -95,6 +87,7 @@ def create(target, module_name):
 	my_module.add_module_depend('cxx')
 	# add dependency of the generic math library:
 	my_module.add_module_depend('m')
+	my_module.add_module_depend('elog')
 	# add some optionnal libraries
 	my_module.add_optionnal_module_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])
 	my_module.add_optionnal_module_depend('linearmath', ["c", "-DETK_BUILD_LINEARMATH"], export=True)

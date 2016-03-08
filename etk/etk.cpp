@@ -7,29 +7,29 @@
  */
 
 #include <etk/etk.h>
-#include <etk/log.h>
+#include <elog/log.h>
 #include <etk/types.h>
 #include <etk/debug.h>
 #include <etk/os/FSNode.h>
 
-static etk::log::level getLogLevel(const std::string& _value) {
+static elog::level getLogLevel(const std::string& _value) {
 	if (_value == "0") {
-		return etk::log::logLevelNone;
+		return elog::logLevelNone;
 	} else if (_value == "1") {
-		return etk::log::logLevelCritical;
+		return elog::logLevelCritical;
 	} else if (_value == "2") {
-		return etk::log::logLevelError;
+		return elog::logLevelError;
 	} else if (_value == "3") {
-		return etk::log::logLevelWarning;
+		return elog::logLevelWarning;
 	} else if (_value == "4") {
-		return etk::log::logLevelInfo;
+		return elog::logLevelInfo;
 	} else if (_value == "5") {
-		return etk::log::logLevelDebug;
+		return elog::logLevelDebug;
 	} else if (_value == "6") {
-		return etk::log::logLevelVerbose;
+		return elog::logLevelVerbose;
 	}
 	TK_ERROR("Unknow log level : " << _value);
-	return etk::log::logLevelVerbose;
+	return elog::logLevelVerbose;
 }
 
 void etk::init(int _argc, const char** _argv) {
@@ -38,34 +38,34 @@ void etk::init(int _argc, const char** _argv) {
 	for (int32_t iii=0; iii<_argc ; ++iii) {
 		std::string data = _argv[iii];
 		if (etk::start_with(data, "--etk-log-level=")) {
-			etk::log::setLevel(getLogLevel(std::string(data.begin()+16, data.end())));
+			elog::setLevel(getLogLevel(std::string(data.begin()+16, data.end())));
 		} else if (etk::start_with(data, "-l=")) {
-			etk::log::setLevel(getLogLevel(std::string(data.begin()+2, data.end())));
+			elog::setLevel(getLogLevel(std::string(data.begin()+2, data.end())));
 		} else if (etk::start_with(data, "--etk-log-color")) {
-			etk::log::setColor(true);
+			elog::setColor(true);
 		} else if (etk::start_with(data, "--etk-log-no-color")) {
-			etk::log::setColor(false);
+			elog::setColor(false);
 		} else if (etk::start_with(data, "--etk-log-config=")) {
 			std::string value(data.begin()+17, data.end());
-			etk::log::setTime(false);
-			etk::log::setLine(false);
-			etk::log::setFunction(false);
-			etk::log::setLibName(false);
-			etk::log::setThreadId(false);
-			etk::log::setThreadNameEnable(false);
+			elog::setTime(false);
+			elog::setLine(false);
+			elog::setFunction(false);
+			elog::setLibName(false);
+			elog::setThreadId(false);
+			elog::setThreadNameEnable(false);
 			for (size_t iii=0; iii<value.size(); ++iii) {
 				if (value[iii] == 't') {
-					etk::log::setTime(true);
+					elog::setTime(true);
 				} else if (value[iii] == 'T') {
-					etk::log::setThreadId(true);
+					elog::setThreadId(true);
 				} else if (value[iii] == 'N') {
-					etk::log::setThreadNameEnable(true);
+					elog::setThreadNameEnable(true);
 				} else if (value[iii] == 'L') {
-					etk::log::setLine(true);
+					elog::setLine(true);
 				} else if (value[iii] == 'l') {
-					etk::log::setLibName(true);
+					elog::setLibName(true);
 				} else if (value[iii] == 'f') {
-					etk::log::setFunction(true);
+					elog::setFunction(true);
 				} else {
 					TK_ERROR("In program argument: --etk-log-config= , the value '" << value[iii] << "' is not supported");
 				}
@@ -77,10 +77,10 @@ void etk::init(int _argc, const char** _argv) {
 				TK_ERROR("Can not set the --etk-log-lib= with value='" << value << "' not formated name:X");
 				continue;
 			}
-			etk::log::setLevel(list[0], getLogLevel(list[1]));
+			elog::setLevel(list[0], getLogLevel(list[1]));
 		} else if (    data == "-h"
 		            || data == "--help") {
-			etk::log::setLevel(etk::log::logLevelInfo);
+			elog::setLevel(elog::logLevelInfo);
 			TK_PRINT("etk - help : ");
 			TK_PRINT("    " << _argv[0] << " [options]");
 			TK_PRINT("        -l/--etk-log-level=   Change the default log level (set all Log lovel):");

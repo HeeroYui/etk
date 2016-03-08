@@ -1380,8 +1380,8 @@ std::ostream& std::operator <<(std::ostream& _os, const std::vector<uint8_t>& _o
 
 
 namespace std {
-	std::ostream& operator <<(std::ostream& _os, const std11::chrono::system_clock::time_point& _obj) {
-		std11::chrono::nanoseconds ns = std11::chrono::duration_cast<std11::chrono::nanoseconds>(_obj.time_since_epoch());
+	std::ostream& operator <<(std::ostream& _os, const std::chrono::system_clock::time_point& _obj) {
+		std::chrono::nanoseconds ns = std::chrono::duration_cast<std::chrono::nanoseconds>(_obj.time_since_epoch());
 		int64_t totalSecond = ns.count()/1000000000;
 		int64_t millisecond = (ns.count()%1000000000)/1000000;
 		int64_t microsecond = (ns.count()%1000000)/1000;
@@ -1395,8 +1395,8 @@ namespace std {
 		_os << year << "y " << day << "d " << hour << "h" << minute << ":"<< second << "s " << millisecond << "ms " << microsecond << "µs " << nanosecond << "ns";
 		return _os;
 	}
-	std::ostream& operator <<(std::ostream& _os, const std11::chrono::steady_clock::time_point& _obj) {
-		std11::chrono::nanoseconds ns = std11::chrono::duration_cast<std11::chrono::nanoseconds>(_obj.time_since_epoch());
+	std::ostream& operator <<(std::ostream& _os, const std::chrono::steady_clock::time_point& _obj) {
+		std::chrono::nanoseconds ns = std::chrono::duration_cast<std::chrono::nanoseconds>(_obj.time_since_epoch());
 		int64_t totalSecond = ns.count()/1000000000;
 		int64_t millisecond = (ns.count()%1000000000)/1000000;
 		int64_t microsecond = (ns.count()%1000000)/1000;

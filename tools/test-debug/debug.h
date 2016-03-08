@@ -10,13 +10,13 @@
 
 #pragma once
 
-#include <etk/log.h>
+#include <elog/log.h>
 
 namespace test {
 	int32_t getLogId();
 };
 
-#define TEST_BASE(info,data) TK_LOG_BASE(test::getLogId(),info,data)
+#define TEST_BASE(info,data) ELOG_BASE(test::getLogId(),info,data)
 
 #define TEST_PRINT(data)         TEST_BASE(-1, data)
 #define TEST_CRITICAL(data)      TEST_BASE(1, data)

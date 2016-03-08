@@ -9,7 +9,7 @@
 #include <test-debug/debug.h>
 
 int32_t test::getLogId() {
-	static int32_t g_val = etk::log::registerInstance("test");
+	static int32_t g_val = elog::registerInstance("test");
 	return g_val;
 }
 

@@ -10,13 +10,13 @@
 
 #pragma once
 
-#include <etk/log.h>
+#include <elog/log.h>
 
 namespace etk {
 	int32_t getLogId();
 };
 
-#define ETK_BASE(info,data) TK_LOG_BASE(etk::getLogId(),info,data)
+#define ETK_BASE(info,data) ELOG_BASE(etk::getLogId(),info,data)
 
 #define TK_PRINT(data)         ETK_BASE(-1, data)
 #define TK_CRITICAL(data)      ETK_BASE(1, data)
