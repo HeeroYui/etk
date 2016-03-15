@@ -752,7 +752,7 @@ bool etk::start_with(const std::string& _obj, const std::string& _val, bool _cas
 	if (_val.size() > _obj.size()) {
 		return false;
 	}
-	if (true == _caseSensitive) {
+	if (_caseSensitive == true) {
 		for( size_t iii = 0;
 		     iii < _val.size();
 		     iii++) {
@@ -779,7 +779,7 @@ bool etk::start_with(const std::string& _obj, const std::string& _val, bool _cas
 		if (_val.size() > _obj.size()) {
 			return false;
 		}
-		if (true == _caseSensitive) {
+		if (_caseSensitive == true) {
 			for( size_t iii = 0;
 			     iii < _val.size();
 			     iii++) {
