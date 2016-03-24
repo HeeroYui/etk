@@ -41,10 +41,6 @@
 	#endif
 #endif
 
-namespace std17 = std;
-namespace std14 = std;
-namespace std11 = std;
-
 #include <etk/stdTools.h>
 
 #ifndef ETK_BUILD_LINEARMATH

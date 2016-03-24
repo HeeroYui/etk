@@ -402,7 +402,7 @@ namespace etk {
 			 * @return The absolute max value.
 			 */
 			T maxDifference(const Matrix<T>& _input) {
-				if (m_size != _input.m_size)
+				if (m_size != _input.m_size) {
 					TK_WARNING("better to do with same size Matrix");
 				}
 				T max = 0;

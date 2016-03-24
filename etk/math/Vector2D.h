@@ -400,11 +400,11 @@ namespace etk {
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector2D<bool>& _obj);
 };
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
-typedef etk::Vector2D<float>      vec2;
-typedef etk::Vector2D<int32_t>   ivec2;
+using   vec2 = etk::Vector2D<float>;
+using  ivec2 = etk::Vector2D<int32_t>;
 // not compatible with glsl ... but it is better to have a same writing
-typedef etk::Vector2D<uint32_t> uivec2;
-typedef etk::Vector2D<bool>      bvec2;
+using uivec2 = etk::Vector2D<uint32_t>;
+using  bvec2 = etk::Vector2D<bool>;
 
 inline vec2 vec2ClipInt32(const vec2& _val) {
 	return vec2((int32_t)_val.x(), (int32_t)_val.y());
