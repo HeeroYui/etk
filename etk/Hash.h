@@ -1,4 +1,4 @@
-/**
+/** @file
  * @author Edouard DUPIN
  * 
  * @copyright 2011, Edouard DUPIN, all right reserved
@@ -18,7 +18,7 @@ namespace etk {
 	/**
 	 * @brief internel data of the [class[etk::hash]] class, it contain
 	 * the name and the value of the hash vector.
-	 * @not-in-doc
+	 * @internal
 	 */
 	template<class MY_TYPE> class HashData {
 		public:

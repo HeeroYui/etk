@@ -1,4 +1,4 @@
-/**
+/** @file
  * @author Edouard DUPIN
  * 
  * @copyright 2011, Edouard DUPIN, all right reserved
@@ -52,6 +52,7 @@ namespace etk {
 			#endif
 			std::string getRight() const;
 	};
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream &_os, const etk::FSNodeRight &_obj);
 }
 

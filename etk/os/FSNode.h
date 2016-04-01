@@ -1,4 +1,4 @@
-/**
+/** @file
  * @author Edouard DUPIN
  * 
  * @copyright 2011, Edouard DUPIN, all right reserved
@@ -883,14 +883,14 @@ namespace etk {
 	 * @brief Get all the Path contain in the specidy path:
 	 * @param[in] _path Generic path to parse ...
 	 * @return The list of path found
-	 * @example[start]
+	 * @code
 	 *     auto out = etk::FSNodeExplodeMultiplePath("{ewol}DATA:font");
 	 *     // out contain: {"DATA:font", "{@ewol}DATA:font"}
-	 * @example[stop]
-	 * @example[start]
+	 * @endcode
+	 * @code
 	 *     auto out = etk::FSNodeExplodeMultiplePath("{@ewol}DATA:font");
 	 *     // out contain: {"{@ewol}DATA:font"}
-	 * @example[stop]
+	 * @endcode
 	 */
 	std::vector<std::string> FSNodeExplodeMultiplePath(const std::string& _path);
 };

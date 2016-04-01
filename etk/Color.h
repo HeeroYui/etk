@@ -1,4 +1,4 @@
-/**
+/** @file
  * @author Edouard DUPIN
  * 
  * @copyright 2011, Edouard DUPIN, all right reserved
@@ -18,11 +18,11 @@ namespace etk {
 	 * 
 	 * It is important to note that the color choice denpznd on the level of developent.
 	 * For example :
-	 * :** Graphic application use:
-	 * ::** Image in 3/4 bytes for rgb(a)
-	 * ::** Color description in char : '#F6780FFF' or the equivalent number:0xF6780FFF
-	 * :** middleware will mainely use a the 4 separate value with 1 byte for each.
-	 * :** graphic interface (openGL) store image in 1/2/3/4 bytes color and interpolate it in 'n' float. And note that the user color is sored in float.
+	 * - Graphic application use:
+	 *   - Image in 3/4 bytes for rgb(a)
+	 *   - Color description in char : '#F6780FFF' or the equivalent number:0xF6780FFF
+	 * - middleware will mainely use a the 4 separate value with 1 byte for each.
+	 * - graphic interface (openGL) store image in 1/2/3/4 bytes color and interpolate it in 'n' float. And note that the user color is sored in float.
 	 * 
 	 * Then with this class we abstract the transformation format and set an easy same way to use the color independing of the developpement level.
 	 * 
@@ -422,7 +422,7 @@ namespace etk {
 	};
 	
 	
-	//! @not-in-doc
+	//! @not_in_doc
 	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint8_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
 		std::ostringstream oss;
 		if (MY_TYPE_SIZE >= 3) {
@@ -455,7 +455,7 @@ namespace etk {
 		}
 		return _os;
 	}
-	//! @not-in-doc
+	//! @not_in_doc
 	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint16_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
 		std::ostringstream oss;
 		if (MY_TYPE_SIZE >= 4) {
@@ -481,7 +481,7 @@ namespace etk {
 		_os << oss.str() << ")";
 		return _os;
 	}
-	//! @not-in-doc
+	//! @not_in_doc
 	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint32_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
 		std::ostringstream oss;
 		if (MY_TYPE_SIZE >= 4) {
@@ -507,7 +507,7 @@ namespace etk {
 		_os << oss.str() << ")";
 		return _os;
 	}
-	//! @not-in-doc
+	//! @not_in_doc
 	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<float, MY_TYPE_SIZE>& _obj) { // RGB float & RGBA float
 		if (MY_TYPE_SIZE >= 4) {
 			_os << "rgba";
@@ -535,7 +535,7 @@ namespace etk {
 		_os << ")";
 		return _os;
 	}
-	//! @not-in-doc
+	//! @not_in_doc
 	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<double, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits 
 		if (MY_TYPE_SIZE >= 4) {
 			_os << "rgba";
@@ -563,7 +563,7 @@ namespace etk {
 		_os << ")";
 		return _os;
 	}
-	//! @not-in-doc
+	//! @not_in_doc
 	template<typename MY_TYPE, int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const std::vector<Color<MY_TYPE, MY_TYPE_SIZE> >& _obj) {
 		for (size_t iii = 0; iii < _obj.size(); ++iii) {
 			if (iii != 0) {
@@ -727,23 +727,6 @@ namespace etk {
 		extern const Color<> yellow;          //!< ++ [color=yellow] yellow color [/color] ++
 		extern const Color<> yellowGreen;     //!< ++ [color=yellowGreen] yellowGreen color [/color] ++
 	};
-	/*
-	template<> std::string etk::to_string<Color<MY_TYPE, MY_TYPE_SIZE>>(const Color<MY_TYPE, MY_TYPE_SIZE>& _val) {
-		return _val.getString();
-	}
-	template<> std::u32string etk::to_u32string<Color<MY_TYPE, MY_TYPE_SIZE>>(const Color<MY_TYPE, MY_TYPE_SIZE>& _val) {
-		return etk::to_u32string(_val.getString());
-	}
-	
-	template<> bool etk::from_string<Color<MY_TYPE, MY_TYPE_SIZE>>(Color<MY_TYPE, MY_TYPE_SIZE>& _variableRet, const std::u32string& _value) {
-		_variableRet = Color<MY_TYPE, MY_TYPE_SIZE>(etk::to_string(_value));
-		return true;
-	}
-	template<> bool etk::from_string<Color<MY_TYPE, MY_TYPE_SIZE>>(Color<MY_TYPE, MY_TYPE_SIZE>& _variableRet, const std::string& _value) {
-		_variableRet = Color<MY_TYPE, MY_TYPE_SIZE>(_value);
-		return true;
-	}
-	*/
 };
 
 

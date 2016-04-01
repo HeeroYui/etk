@@ -1,4 +1,4 @@
-/**
+/** @file
  * @author Edouard DUPIN
  * 
  * @copyright 2011, Edouard DUPIN, all right reserved
@@ -21,9 +21,12 @@
 	};
 #endif
 namespace etk {
+	/**
+	 * @brief Vectorial 4-dimention vector (x/y/z/w)
+	 */
 	template <typename T> class Vector4D {
 		public:
-			T m_floats[4];
+			T m_floats[4]; //!< all internal values
 		public:
 			/**
 			 * @brief No initialization constructor (faster ...)
@@ -31,121 +34,144 @@ namespace etk {
 			Vector4D() {
 				#ifdef DEBUG
 					// in debug mode we set supid value to prevent forget of the inits ...
-					m_floats[0] = (T)34673363;
-					m_floats[1] = (T)34523535;
-					m_floats[2] = (T)43523424;
-					m_floats[3] = (T)23452345;
+					m_floats[0] = T(34673363);
+					m_floats[1] = T(34523535);
+					m_floats[2] = T(43523424);
+					m_floats[3] = T(23452345);
 				#endif
 			}
 			/**
-			 * @brief Constructor from scalars 
-			 * @param x X value
-			 * @param y Y value 
-			 * @param z Z value 
+			 * @brief Constructor from scalars.
+			 * @param _xxx X value
+			 * @param _yyy Y value
+			 * @param _zzz Z value
+			 * @param _www W value
 			 */
-			Vector4D(const T& _x, const T& _y, const T& _z, const T& _w) {
-				m_floats[0] = _x;
-				m_floats[1] = _y;
-				m_floats[2] = _z;
-				m_floats[3] = _w;
+			Vector4D(const T& _xxx, const T& _yyy, const T& _zzz, const T& _www) {
+				m_floats[0] = _xxx;
+				m_floats[1] = _yyy;
+				m_floats[2] = _zzz;
+				m_floats[3] = _www;
 			}
-			
 			/**
-			 * @brief Add a vector to this one 
-			 * @param The vector to add to this one
+			 * @brief Add a vector to this one.
+			 * @param[in] _obj The vector to add to this one
+			 * @return Local reference of the vector
 			 */
-			Vector4D<T>& operator+=(const Vector4D<T>& v) {
-				m_floats[0] += v.m_floats[0];
-				m_floats[1] += v.m_floats[1];
-				m_floats[2] += v.m_floats[2];
-				m_floats[3] += v.m_floats[3];
+			Vector4D<T>& operator+=(const Vector4D<T>& _obj) {
+				m_floats[0] += _obj.m_floats[0];
+				m_floats[1] += _obj.m_floats[1];
+				m_floats[2] += _obj.m_floats[2];
+				m_floats[3] += _obj.m_floats[3];
 				return *this;
 			}
-			Vector4D<T> operator+(const Vector4D<T>& v) {
-				return Vector4D<T>(m_floats[0] + v.m_floats[0],
-				                   m_floats[1] + v.m_floats[1],
-				                   m_floats[2] + v.m_floats[2],
-				                   m_floats[3] + v.m_floats[3]);
+			/**
+			 * @brief Add a vector to this one.
+			 * @param[in] _obj The vector to add to this one
+			 * @return New vector containing the value
+			 */
+			Vector4D<T> operator+(const Vector4D<T>& _obj) {
+				return Vector4D<T>(m_floats[0] + _obj.m_floats[0],
+				                   m_floats[1] + _obj.m_floats[1],
+				                   m_floats[2] + _obj.m_floats[2],
+				                   m_floats[3] + _obj.m_floats[3]);
 			}
-			
-			
 			/**
 			 * @brief Subtract a vector from this one
-			 * @param The vector to subtract
+			 * @param _obj The vector to subtract
+			 * @return Local reference of the vector
 			 */
-			Vector4D<T>& operator-=(const Vector4D<T>& v) {
-				m_floats[0] -= v.m_floats[0];
-				m_floats[1] -= v.m_floats[1];
-				m_floats[2] -= v.m_floats[2];
-				m_floats[3] -= v.m_floats[3];
+			Vector4D<T>& operator-=(const Vector4D<T>& _obj) {
+				m_floats[0] -= _obj.m_floats[0];
+				m_floats[1] -= _obj.m_floats[1];
+				m_floats[2] -= _obj.m_floats[2];
+				m_floats[3] -= _obj.m_floats[3];
 				return *this;
 			}
-			Vector4D<T> operator-(const Vector4D<T>& v) {
-				return Vector4D<T>(m_floats[0] - v.m_floats[0],
-				                   m_floats[1] - v.m_floats[1],
-				                   m_floats[2] - v.m_floats[2],
-				                   m_floats[3] - v.m_floats[3]);
+			/**
+			 * @brief Subtract a vector from this one
+			 * @param _obj The vector to subtract
+			 * @return New vector containing the value
+			 */
+			Vector4D<T> operator-(const Vector4D<T>& _obj) {
+				return Vector4D<T>(m_floats[0] - _obj.m_floats[0],
+				                   m_floats[1] - _obj.m_floats[1],
+				                   m_floats[2] - _obj.m_floats[2],
+				                   m_floats[3] - _obj.m_floats[3]);
 			}
-			
 			/**
 			 * @brief Scale the vector
-			 * @param s Scale factor
+			 * @param[in] _val Scale factor
+			 * @return Local reference of the vector
 			 */
-			Vector4D<T>& operator*=(const T& s) {
-				m_floats[0] *= s; 
-				m_floats[1] *= s;
-				m_floats[2] *= s;
-				m_floats[3] *= s;
+			Vector4D<T>& operator*=(const T& _val) {
+				m_floats[0] *= _val;
+				m_floats[1] *= _val;
+				m_floats[2] *= _val;
+				m_floats[3] *= _val;
 				return *this;
 			}
-			Vector4D<T> operator*(const T& s) {
-				return Vector4D<T>(m_floats[0] * s,
-				                   m_floats[1] * s,
-				                   m_floats[2] * s,
-				                   m_floats[3] * s);
-			}
-			
 			/**
-			 * @brief Inversely scale the vector 
-			 * @param s Scale factor to divide by
+			 * @brief Scale the vector
+			 * @param[in] _val Scale factor
+			 * @return New vector containing the value
 			 */
-			Vector4D<T>& operator/=(const Vector4D<T>& s) {
-				if (0!=s) {
-					return *this *= 1.0f / s;
-				}
-				return *this;
+			Vector4D<T> operator*(const T& _val) {
+				return Vector4D<T>(m_floats[0] * _val,
+				                   m_floats[1] * _val,
+				                   m_floats[2] * _val,
+				                   m_floats[3] * _val);
 			}
-			Vector4D<T>& operator/=(const T& s) {
-				if (0!=s) {
-					m_floats[0]/=s;
-					m_floats[1]/=s;
-					m_floats[2]/=s;
-					m_floats[3]/=s;
+			/**
+			 * @brief Inversely scale the vector
+			 * @param[in] _val Scale factor to divide by.
+			 * @return Local reference of the vector
+			 */
+			Vector4D<T>& operator/=(const T& _val) {
+				if (_val != 0) {
+					m_floats[0] /= _val;
+					m_floats[1] /= _val;
+					m_floats[2] /= _val;
+					m_floats[3] /= _val;
 					return *this;
 				}
 				return *this;
 			}
-			
+			/**
+			 * @brief Inversely scale the vector
+			 * @param[in] _val Scale factor to divide by.
+			 * @return New vector containing the value
+			 */
+			Vector4D<T> operator/(const T& _val) {
+				if (_val != 0) {
+					return Vector4D<T>(m_floats[0] / _val,
+					                   m_floats[1] / _val,
+					                   m_floats[2] / _val,
+					                   m_floats[3] / _val);
+				}
+				return *this;
+			}
 			/**
 			 * @brief Return the dot product
-			 * @param v The other vector in the dot product
+			 * @param _obj The other vector in the dot product
+			 * @return Dot result value
 			 */
-			float dot(const Vector4D<T>& v) const {
-				return	m_floats[0] * v.m_floats[0] + 
-						m_floats[1] * v.m_floats[1] + 
-						m_floats[2] * v.m_floats[2] + 
-						m_floats[3] * v.m_floats[3];
+			float dot(const Vector4D<T>& _obj) const {
+				return	m_floats[0] * _obj.m_floats[0] + 
+						m_floats[1] * _obj.m_floats[1] + 
+						m_floats[2] * _obj.m_floats[2] + 
+						m_floats[3] * _obj.m_floats[3];
 			}
-			
 			/**
-			 * @brief Return the length of the vector squared
+			 * @brief Return the squared length of the vector.
+			 * @return Squared length value.
 			 */
 			float length2() const {
 				return dot(*this);
 			}
-			
 			/**
 			 * @brief Return the length of the vector
+			 * @return Length value
 			 */
 			float length() const {
 				#ifdef ETK_BUILD_LINEARMATH
@@ -158,77 +184,38 @@ namespace etk {
 					#endif
 				#endif
 			}
-			
 			/**
 			 * @brief Return the distance squared between the ends of this and another vector
 			 * This is symantically treating the vector like a point
+			 * @param[in] _obj The other vector to compare distance
+			 * @return the square distance of the 2 points
 			 */
-			float distance2(const Vector4D<T>& v) const {
-				return (v - *this).length2();
+			float distance2(const Vector4D<T>& _obj) const {
+				return (_obj - *this).length2();
 			}
-			
 			/**
 			 * @brief Return the distance between the ends of this and another vector
 			 * This is symantically treating the vector like a point
+			 * @param[in] _obj The other vector to compare distance
+			 * @return the distance of the 2 points
 			 */
-			float distance(const Vector4D<T>& v) const {
-				return (v - *this).length();
+			float distance(const Vector4D<T>& _obj) const {
+				return (_obj - *this).length();
 			}
-			/*
-			Vector4D<T>& safeNormalize()  {
-				Vector4D<T> absVec = this->absolute();
-				int maxIndex = absVec.maxAxis();
-				if (absVec[maxIndex]>0)
-				{
-					*this /= absVec[maxIndex];
-					return *this /= length();
-				}
-				setValue(1,0,0);
-				return *this;
-			}
-			*/
 			/**
-			 * @brief Normalize this vector 
-			 * x^2 + y^2 + z^2 = 1
+			 * @brief Normalize this vector x^2 + y^2 + z^2 + w^2 = 1
+			 * @return Local reference of the vector normalized
 			 */
-			Vector4D<T>& normalize()  {
+			Vector4D<T>& normalize() {
 				return *this /= length();
 			}
-			
 			/**
 			 * @brief Return a normalized version of this vector
+			 * @return New vector containing the value
 			 */
 			Vector4D<T> normalized() const {
 				return *this / length();
 			}
-			
-			/**
-			 * @brief Return a rotated version of this vector
-			 * @param wAxis The axis to rotate about
-			 * @param angle The angle to rotate by
-			 */
-			 /*
-			Vector4D<T> rotate( const Vector3D<T>& wAxis, const btScalar angle ) const {
-				Vector4D<T> o = wAxis * wAxis.dot( *this );
-				Vector4D<T> _x = *this - o;
-				Vector4D<T> _y;
-				_y = wAxis.cross( *this );
-				return ( o + _x * cosf(angle) + _y * sinf(angle) );
-			}
-			*/
-			/**
-			 * @brief Return the angle between this and another vector
-			 * @param v The other vector
-			 */
-			/*
-			btScalar angle(const Vector3D<T>& v) const {
-				btScalar s = sqrtf(length2() * v.length2());
-				if (0!=s) {
-					return acosf(dot(v) / s);
-				}
-				return 0;
-			}
-			*/
 			/**
 			 * @brief Return a vector will the absolute values of each element
 			 */
@@ -238,214 +225,217 @@ namespace etk {
 				                    abs(m_floats[2]),
 				                    abs(m_floats[3]));
 			}
-			
 			/**
-			 * @brief Return the cross product between this and another vector
-			 * @param v The other vector
+			 * @brief Multiply this vector by the other.
+			 * @param _obj The other vector
+			 * @return Local reference of the vector
 			 */
-			 /*
-			Vector4D<T> cross(const Vector4D<T>& v) const {
-				return Vector4D<T>(m_floats[1] * v.m_floats[2] - m_floats[2] * v.m_floats[1],
-				                   m_floats[2] * v.m_floats[0] - m_floats[0] * v.m_floats[2],
-				                   m_floats[0] * v.m_floats[1] - m_floats[1] * v.m_floats[0]);
-			}
-			
-			T triple(const Vector4D<T>& v1, const Vector4D<T>& v2) const {
-				return   m_floats[0] * (v1.m_floats[1] * v2.m_floats[2] - v1.m_floats[2] * v2.m_floats[1])
-				       + m_floats[1] * (v1.m_floats[2] * v2.m_floats[0] - v1.m_floats[0] * v2.m_floats[2])
-				       + m_floats[2] * (v1.m_floats[0] * v2.m_floats[1] - v1.m_floats[1] * v2.m_floats[0]);
-			}
-			*/
-			/**
-			 * @brief Return the axis with the smallest value 
-			 * Note return values are 0,1,2 for x, y, or z
-			 */
-			/*
-			int32_t minAxis() const {
-				return m_floats[0] < m_floats[1] ? (m_floats[0] <m_floats[2] ? 0 : 2) : (m_floats[1] <m_floats[2] ? 1 : 2);
-			}
-			*/
-			/**
-			 * @brief Return the axis with the largest value
-			 * Note return values are 0,1,2 for x, y, or z
-			 */
-			/*
-			int32_t maxAxis() const  {
-				return m_floats[0] < m_floats[1] ? (m_floats[1] <m_floats[2] ? 2 : 1) : (m_floats[0] <m_floats[2] ? 2 : 0);
-			}
-			
-			int32_t furthestAxis() const {
-				return absolute().minAxis();
-			}
-			
-			int32_t closestAxis() const {
-				return absolute().maxAxis();
-			}
-			
-			void setInterpolate3(const Vector4D<T>& v0, const Vector4D<T>& v1, T rt) {
-				btScalar s = 1 - rt;
-				m_floats[0] = s * v0.m_floats[0] + rt * v1.m_floats[0];
-				m_floats[1] = s * v0.m_floats[1] + rt * v1.m_floats[1];
-				m_floats[2] = s * v0.m_floats[2] + rt * v1.m_floats[2];
-				m_floats[3] = s * v0.m_floats[3] + rt * v1.m_floats[3];
-				//don't do the unused w component
-				//		m_co[3] = s * v0[3] + rt * v1[3];
-			}
-			*/
-			/**
-			 * @brief Return the linear interpolation between this and another vector 
-			 * @param v The other vector 
-			 * @param t The ration of this to v (t = 0 => return this, t=1 => return other)
-			 */
-			/*
-			Vector3D<T> lerp(const Vector4D<T>& v, const btScalar& t) const  {
-				return Vector3D<T>(m_floats[0] + (v.m_floats[0] - m_floats[0]) * t,
-				                   m_floats[1] + (v.m_floats[1] - m_floats[1]) * t,
-				                   m_floats[2] + (v.m_floats[2] - m_floats[2]) * t,
-				                   m_floats[3] + (v.m_floats[3] - m_floats[3]) * t);
-			}
-			*/
-			/**
-			 * @brief Elementwise multiply this vector by the other 
-			 * @param v The other vector
-			 */
-			Vector4D<T>& operator*=(const Vector4D<T>& v) {
-				m_floats[0] *= v.m_floats[0];
-				m_floats[1] *= v.m_floats[1];
-				m_floats[2] *= v.m_floats[2];
-				m_floats[3] *= v.m_floats[3];
+			Vector4D<T>& operator*=(const Vector4D<T>& _obj) {
+				m_floats[0] *= _obj.m_floats[0];
+				m_floats[1] *= _obj.m_floats[1];
+				m_floats[2] *= _obj.m_floats[2];
+				m_floats[3] *= _obj.m_floats[3];
 				return *this;
 			}
-			Vector4D<T> operator*(const Vector4D<T>& v) {
-				return Vector4D<T>(m_floats[0] * v.m_floats[0],
-				                   m_floats[1] * v.m_floats[1],
-				                   m_floats[2] * v.m_floats[2],
-				                   m_floats[3] * v.m_floats[3]);
+			/**
+			 * @brief Multiply this vector by the other.
+			 * @param _obj The other vector
+			 * @return New vector containing the value
+			 */
+			Vector4D<T> operator*(const Vector4D<T>& _obj) {
+				return Vector4D<T>(m_floats[0] * _obj.m_floats[0],
+				                   m_floats[1] * _obj.m_floats[1],
+				                   m_floats[2] * _obj.m_floats[2],
+				                   m_floats[3] * _obj.m_floats[3]);
 			}
-			
 			/**
-			 * @brief Return the x value
+			 * @brief Get X value
+			 * @return the x value
 			 */
-			const T& getX() const { return m_floats[0]; }
+			const T& getX() const {
+				return m_floats[0];
+			}
 			/**
-			 * @brief Return the y value
+			 * @brief Get Y value
+			 * @return the y value
 			 */
-			const T& getY() const { return m_floats[1]; }
+			const T& getY() const {
+				return m_floats[1];
+			}
 			/**
-			 * @brief Return the z value
+			 * @brief Get Z value
+			 * @return the z value
 			 */
-			const T& getZ() const { return m_floats[2]; }
+			const T& getZ() const {
+				return m_floats[2];
+			}
 			/**
-			 * @brief Return the z value
+			 * @brief Get W value
+			 * @return the w value
 			 */
-			const T& getW() const { return m_floats[3]; }
+			const T& getW() const {
+				return m_floats[3];
+			}
 			/**
 			 * @brief Set the x value
+			 * @param[in] _x New value
 			 */
-			void	setX(T _x) { m_floats[0] = _x;};
+			void setX(T _x) {
+				m_floats[0] = _x;
+			};
 			/**
 			 * @brief Set the y value
+			 * @param[in] _y New value
 			 */
-			void	setY(T _y) { m_floats[1] = _y;};
+			void setY(T _y) {
+				m_floats[1] = _y;
+			};
 			/**
 			 * @brief Set the z value
+			 * @param[in] _z New value
 			 */
-			void	setZ(T _z) { m_floats[2] = _z;};
+			void setZ(T _z) {
+				m_floats[2] = _z;
+			};
 			/**
 			 * @brief Set the w value
+			 * @param[in] _w New value
 			 */
-			void	setW(T _w) { m_floats[3] = _w;};
+			void setW(T _w) {
+				m_floats[3] = _w;
+			};
 			/**
-			 * @brief Return the x value
+			 * @brief Get X value
+			 * @return the x value
 			 */
-			const T& x() const { return m_floats[0]; }
+			const T& x() const {
+				return m_floats[0];
+			}
 			/**
-			 * @brief Return the y value
+			 * @brief Get Y value
+			 * @return the y value
 			 */
-			const T& y() const { return m_floats[1]; }
+			const T& y() const {
+				return m_floats[1];
+			}
 			/**
-			 * @brief Return the z value
+			 * @brief Get Z value
+			 * @return the z value
 			 */
-			const T& z() const { return m_floats[2]; }
+			const T& z() const {
+				return m_floats[2];
+			}
 			/**
-			 * @brief Return the w value
+			 * @brief Get W value
+			 * @return the w value
 			 */
-			const T& w() const { return m_floats[3]; }
-			
-			operator       T *()       { return &m_floats[0]; }
-			operator const T *() const { return &m_floats[0]; }
-			
-			bool operator==(const Vector4D<T>& other) const {
-				return (    (m_floats[3]==other.m_floats[3])
-				         && (m_floats[2]==other.m_floats[2])
-				         && (m_floats[1]==other.m_floats[1])
-				         && (m_floats[0]==other.m_floats[0]));
+			const T& w() const {
+				return m_floats[3];
 			}
-			
-			bool operator!=(const Vector4D<T>& other) const {
-				return (    (m_floats[3]!=other.m_floats[3])
-				         || (m_floats[2]!=other.m_floats[2])
-				         || (m_floats[1]!=other.m_floats[1])
-				         || (m_floats[0]!=other.m_floats[0]));
-			}
-			
 			/**
-			 * @brief Set each element to the max of the current values and the values of another btVector3
-			 * @param other The other btVector3 to compare with 
+			 * @brief Cast the vector in the type T* requested.
+			 * @return Pointer on the data
 			 */
-			void setMax(const Vector4D<T>& other) {
-				btSetMax(m_floats[0], other.m_floats[0]);
-				btSetMax(m_floats[1], other.m_floats[1]);
-				btSetMax(m_floats[2], other.m_floats[2]);
-				btSetMax(m_floats[3], other.m_floats[3]);
+			operator T *() {
+				return &m_floats[0];
 			}
-			
 			/**
-			 * @brief Set each element to the min of the current values and the values of another btVector3
-			 * @param other The other btVector3 to compare with 
+			 * @brief Cast the vector in the type const T* requested.
+			 * @return Pointer on the const data
 			 */
-			void setMin(const Vector4D<T>& other) {
-				btSetMin(m_floats[0], other.m_floats[0]);
-				btSetMin(m_floats[1], other.m_floats[1]);
-				btSetMin(m_floats[2], other.m_floats[2]);
-				btSetMin(m_floats[3], other.m_floats[3]);
+			operator const T *() const {
+				return &m_floats[0];
 			}
-			
-			void setValue(const T& _x, const T& _y, const T& _z, const T& _w) {
-				m_floats[0]=_x;
-				m_floats[1]=_y;
-				m_floats[2]=_z;
-				m_floats[3]=_w;
+			/**
+			 * @brief Equality compare operator with an other object.
+			 * @param[in] _obj Reference on the comparing object
+			 * @return true The Objects are identical
+			 * @return false The Objects are NOT identical
+			 */
+			bool operator==(const Vector4D<T>& _obj) const {
+				return (    (m_floats[3] == _obj.m_floats[3])
+				         && (m_floats[2] == _obj.m_floats[2])
+				         && (m_floats[1] == _obj.m_floats[1])
+				         && (m_floats[0] == _obj.m_floats[0]));
 			}
-			/*
-			void getSkewSymmetricMatrix(Vector3D<T>* v0,Vector3D<T>* v1,Vector3D<T>* v2) const {
-				v0->setValue(0.   ,-z() ,y());
-				v1->setValue(z()  ,0.   ,-x());
-				v2->setValue(-y() ,x()  ,0.);
+			/**
+			 * @brief In-Equality compare operator with an other object.
+			 * @param[in] _obj Reference on the comparing object
+			 * @return true The Objects are NOT identical
+			 * @return false The Objects are identical
+			 */
+			bool operator!=(const Vector4D<T>& _obj) const {
+				return (    (m_floats[3] != _obj.m_floats[3])
+				         || (m_floats[2] != _obj.m_floats[2])
+				         || (m_floats[1] != _obj.m_floats[1])
+				         || (m_floats[0] != _obj.m_floats[0]));
 			}
-			*/
+			/**
+			 * @brief Set each element to the max of the current values and the values of another Vector
+			 * @param _obj The other Vector to compare with
+			 */
+			void setMax(const Vector4D<T>& _obj) {
+				btSetMax(m_floats[0], _obj.m_floats[0]);
+				btSetMax(m_floats[1], _obj.m_floats[1]);
+				btSetMax(m_floats[2], _obj.m_floats[2]);
+				btSetMax(m_floats[3], _obj.m_floats[3]);
+			}
+			/**
+			 * @brief Set each element to the min of the current values and the values of another Vector
+			 * @param _obj The other Vector to compare with
+			 */
+			void setMin(const Vector4D<T>& _obj) {
+				btSetMin(m_floats[0], _obj.m_floats[0]);
+				btSetMin(m_floats[1], _obj.m_floats[1]);
+				btSetMin(m_floats[2], _obj.m_floats[2]);
+				btSetMin(m_floats[3], _obj.m_floats[3]);
+			}
+			/**
+			 * @brief Set Value on the vector
+			 * @param[in] _xxx X value.
+			 * @param[in] _yyy Y value.
+			 * @param[in] _zzz Z value.
+			 * @param[in] _www W value.
+			 */
+			void setValue(const T& _xxx, const T& _yyy, const T& _zzz, const T& _www) {
+				m_floats[0]=_xxx;
+				m_floats[1]=_yyy;
+				m_floats[2]=_zzz;
+				m_floats[3]=_www;
+			}
+			/**
+			 * @brief Set 0 value on all the vector
+			 */
 			void setZero() {
 				setValue(0,0,0,0);
 			}
-			
+			/**
+			 * @brief Check if the vector is equal to (0,0,0,0)
+			 * @return true The value is equal to (0,0,0,0)
+			 * @return false The value is NOT equal to (0,0,0,0)
+			 */
 			bool isZero() const {
-				return m_floats[0] == 0 && m_floats[1] == 0 && m_floats[2] == 0 && m_floats[3] == 0;
+				return    m_floats[0] == 0
+				       && m_floats[1] == 0
+				       && m_floats[2] == 0
+				       && m_floats[3] == 0;
 			}
 	};
-	/**
-	 * @brief Debug operator To display the curent element in a Human redeable information
-	 */
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector4D<int32_t>& _obj);
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector4D<float>& _obj);
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector4D<uint32_t>& _obj);
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector4D<bool>& _obj);
 }
 
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
-typedef etk::Vector4D<float>      vec4;
-typedef etk::Vector4D<int32_t>   ivec4;
+typedef etk::Vector4D<float>      vec4; //!< wrapper on etk::Vector4D<float> to have the same naming has OpenGL shader
+typedef etk::Vector4D<int32_t>   ivec4; //!< wrapper on etk::Vector4D<int32_t> to have the same naming has OpenGL shader
 // not compatible with glsl ... but it is better to have a same writing
-typedef etk::Vector4D<uint32_t> uivec4;
-typedef etk::Vector4D<bool>      bvec4;
+typedef etk::Vector4D<uint32_t> uivec4; //!< wrapper on etk::Vector4D<uint32_t> to have the same naming has OpenGL shader
+typedef etk::Vector4D<bool>      bvec4; //!< wrapper on etk::Vector4D<bool> to have the same naming has OpenGL shader
 
 

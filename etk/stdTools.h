@@ -1,4 +1,4 @@
-/**
+/** @file
  * @author Edouard DUPIN
  * 
  * @copyright 2011, Edouard DUPIN, all right reserved
@@ -63,24 +63,39 @@ namespace utf8 {
 	#if __CPP_VERSION__ >= 2011
 		std::u32string convertUnicode(const std::string& _input);
 	#endif
+	/**
+	 * @brief Iterator on a simple std::string that contain utf8 value
+	 */
 	class iterator {
 		private:
 			char32_t m_value; //!< store vlue to prevent multiple calcule of getting the data
 			std::string* m_data; //!< Pointer on the current Buffer
 			int64_t m_current; //!< curent Id in the Buffer
 		public:
+			/**
+			 * @brief Basic constructor that is not link on a string
+			 */
 			iterator():
 			  m_value(u32char::Null),
 			  m_data(nullptr),
 			  m_current(0) {
 				// nothing to do ...
 			};
+			/**
+			 * @brief Basic begin constructor link at the start of the string
+			 * @param[in] _str reference on the string to inspect.
+			 */
 			iterator(std::string& _str) :
 			  m_value(u32char::Null),
 			  m_data(&_str),
 			  m_current(0) {
 				// nothing to do ...
 			};
+			/**
+			 * @brief Basic position constructor link at the _pos position of the string
+			 * @param[in] _str reference on the string to inspect.
+			 * @param[in] _pos Iterator position on the string.
+			 */
 			iterator(std::string& _str, const std::string::iterator& _pos) :
 			  m_value(u32char::Null),
 			  m_data(&_str),
@@ -89,6 +104,11 @@ namespace utf8 {
 					m_current = std::distance(m_data->begin(), _pos);
 				}
 			};
+			/**
+			 * @brief Basic position constructor link at the _pos position of the string
+			 * @param[in] _str reference on the string to inspect.
+			 * @param[in] _pos Position on the string (in AINSI value).
+			 */
 			iterator(std::string& _str, size_t _pos) :
 			  m_value(u32char::Null),
 			  m_data(&_str),
@@ -101,6 +121,11 @@ namespace utf8 {
 					}
 				}
 			};
+			/**
+			 * @brief Basic position constructor link at the _pos position of the string
+			 * @param[in] _str Pointer on the string to inspect.
+			 * @param[in] _pos Iterator position on the string.
+			 */
 			iterator(std::string* _str, const std::string::iterator& _pos) :
 			  m_value(u32char::Null),
 			  m_data(_str),
@@ -109,6 +134,11 @@ namespace utf8 {
 					m_current = std::distance(m_data->begin(), _pos);
 				}
 			};
+			/**
+			 * @brief Basic position constructor link at the _pos position of the string
+			 * @param[in] _str Pointer on the string to inspect.
+			 * @param[in] _pos Position on the string (in AINSI value).
+			 */
 			iterator(std::string* _str, size_t _pos) :
 			  m_value(u32char::Null),
 			  m_data(_str),
@@ -133,7 +163,7 @@ namespace utf8 {
 			};
 			/**
 			 * @brief Asignation operator.
-			 * @param[in] _otherIterator The Iterator that might be copy
+			 * @param[in] _obj The Iterator that might be copy
 			 * @return reference on the curent Iterator
 			 */
 			iterator& operator=(const iterator & _obj) {
@@ -196,6 +226,7 @@ namespace utf8 {
 			};
 			/**
 			 * @brief egality iterator
+			 * @param[in] _obj Iterator to compare
 			 * @return true if the iterator is identical pos
 			 */
 			bool operator== (const iterator& _obj) const {
@@ -207,6 +238,7 @@ namespace utf8 {
 			};
 			/**
 			 * @brief egality iterator
+			 * @param[in] _obj Iterator to compare
 			 * @return true if the iterator is identical pos
 			 */
 			bool operator!= (const iterator& _obj) const {
@@ -218,6 +250,7 @@ namespace utf8 {
 			};
 			/**
 			 * @brief <= iterator
+			 * @param[in] _obj Iterator to compare
 			 * @return true if the iterator is identical pos
 			 */
 			bool operator<= (const iterator& _obj) const {
@@ -231,6 +264,7 @@ namespace utf8 {
 			};
 			/**
 			 * @brief >= iterator
+			 * @param[in] _obj Iterator to compare
 			 * @return true if the iterator is identical pos
 			 */
 			bool operator>= (const iterator& _obj) const {
@@ -244,6 +278,7 @@ namespace utf8 {
 			};
 			/**
 			 * @brief < iterator
+			 * @param[in] _obj Iterator to compare
 			 * @return true if the iterator is identical pos
 			 */
 			bool operator< (const iterator& _obj) const {
@@ -257,6 +292,7 @@ namespace utf8 {
 			};
 			/**
 			 * @brief > iterator
+			 * @param[in] _obj Iterator to compare
 			 * @return true if the iterator is identical pos
 			 */
 			bool operator> (const iterator& _obj) const {
@@ -291,6 +327,7 @@ namespace utf8 {
 			};
 			/**
 			 * @brief move the element position
+			 * @param[in] _val Value to add on the Iterator
 			 * @return a new iterator.
 			 */
 			iterator operator+ (const int64_t _val) const {
@@ -300,6 +337,9 @@ namespace utf8 {
 				}
 				return tmpp;
 			};
+			/**
+			 * @copydoc utf8::iterator::operator+ (const int64_t)
+			 */
 			iterator operator+ (const int32_t _val) const {
 				iterator tmpp(*this);
 				for (int64_t iii=0; iii<_val; ++iii) {
@@ -307,6 +347,9 @@ namespace utf8 {
 				}
 				return tmpp;
 			};
+			/**
+			 * @copydoc utf8::iterator::operator+ (const int64_t)
+			 */
 			iterator operator+ (const size_t _val) const {
 				iterator tmpp(*this);
 				for (int64_t iii=0; iii<(int64_t)_val; ++iii) {
@@ -316,6 +359,7 @@ namespace utf8 {
 			};
 			/**
 			 * @brief move the element position
+			 * @param[in] _val Value to remove on the Iterator
 			 * @return a new iterator.
 			 */
 			iterator operator- (const int64_t _val) const {
@@ -325,6 +369,9 @@ namespace utf8 {
 				}
 				return tmpp;
 			};
+			/**
+			 * @copydoc utf8::iterator::operator- (const int64_t)
+			 */
 			iterator operator- (const int32_t _val) const {
 				iterator tmpp(*this);
 				for (int64_t iii=0; iii<_val; ++iii) {
@@ -332,6 +379,9 @@ namespace utf8 {
 				}
 				return tmpp;
 			};
+			/**
+			 * @copydoc utf8::iterator::operator- (const int64_t)
+			 */
 			iterator operator- (const size_t _val) const {
 				iterator tmpp(*this);
 				for (int64_t iii=0; iii<(int64_t)_val; ++iii) {
@@ -539,24 +589,39 @@ namespace std {
 };
 
 namespace std {
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::string& _obj);
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::vector<std::string>& _obj);
 	#if __CPP_VERSION__ >= 2011
+		//! @not_in_doc
 		std::ostream& operator <<(std::ostream& _os, const std::u32string& _obj);
+		//! @not_in_doc
 		std::ostream& operator <<(std::ostream& _os, const std::vector<std::u32string>& _obj);
 	#endif
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::vector<float>& _obj);
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::vector<double>& _obj);
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::vector<int64_t>& _obj);
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::vector<uint64_t>& _obj);
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::vector<int32_t>& _obj);
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::vector<uint32_t>& _obj);
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::vector<int16_t>& _obj);
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::vector<uint16_t>& _obj);
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::vector<int8_t>& _obj);
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::vector<uint8_t>& _obj);
-	
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::chrono::system_clock::time_point& _obj);
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::chrono::steady_clock::time_point& _obj);
 	
 };

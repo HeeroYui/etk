@@ -1,4 +1,4 @@
-/**
+/** @file
  * @author Edouard DUPIN
  * 
  * @copyright 2011, Edouard DUPIN, all right reserved
@@ -125,9 +125,7 @@ namespace etk {
 	Matrix4 matLookAt(const vec3& _eye,
 	                  const vec3& _target,
 	                  const vec3& _up);
-	/**
-	 * @brief Debug operator To display the curent element in a Human redeable information
-	 */
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const etk::Matrix4& _obj);
 };
 
@@ -139,9 +137,7 @@ typedef etk::Matrix4 mat4;
 	#include <vectormath/scalar/vectormath_aos.h>
 	// To siplify the writing of the code ==> this permit to have the same name with the glsl language...
 	typedef Vectormath::Aos::Matrix4  mat4;
-	/**
-	 * @brief Debug operator To display the curent element in a Human redeable information
-	 */
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const mat4& _obj);
 	
 	// TODO : Remove this ???

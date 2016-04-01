@@ -1,4 +1,4 @@
-/**
+/** @file
  * @author Edouard DUPIN
  * 
  * @copyright 2011, Edouard DUPIN, all right reserved
@@ -36,9 +36,6 @@ extern "C" {
 	// For ctime 
 	#include <time.h>
 #endif
-
-#undef __class__
-#define __class__ "FSNode"
 
 #define TK_DBG_MODE TK_VERBOSE
 //#define TK_DBG_MODE TK_DEBUG

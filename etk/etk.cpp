@@ -1,4 +1,4 @@
-/**
+/** @file
  * @author Edouard DUPIN
  * 
  * @copyright 2011, Edouard DUPIN, all right reserved
@@ -21,7 +21,6 @@ void etk::init(int _argc, const char** _argv) {
 		std::string data = _argv[iii];
 		if (    data == "-h"
 		     || data == "--help") {
-			elog::setLevel(elog::logLevelInfo);
 			TK_PRINT("etk - help : ");
 			TK_PRINT("    " << _argv[0] << " [options]");
 			/*

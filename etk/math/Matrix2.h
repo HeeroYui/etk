@@ -1,4 +1,4 @@
-/**
+/** @file
  * @author Edouard DUPIN
  * 
  * @copyright 2011, Edouard DUPIN, all right reserved
@@ -125,6 +125,7 @@ namespace etk {
 	Matrix2 mat2Scale(float _scale);
 	Matrix2 mat2Translate(const vec2& _translate);
 	Matrix2 mat2Skew(const vec2& _skew);
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const etk::Matrix2& _obj);
 }
 // simplify using of matrix ...

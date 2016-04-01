@@ -14,5 +14,9 @@ def create(target, module_name):
 	my_module.add_module_depend([
 	    'elog'
 	    ])
+	my_module.add_module_define([
+		"ETK_BUILD_MINIZIP"
+		])
+	
 	
 	return my_module

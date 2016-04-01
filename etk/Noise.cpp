@@ -1,4 +1,4 @@
-/**
+/** @file
  * @author Edouard DUPIN
  * 
  * @copyright 2011, Edouard DUPIN, all right reserved
@@ -18,23 +18,15 @@
 #include <stdlib.h>
 
 etk::BaseNoise::BaseNoise(ivec2 _size, float _min, float _max) :
-	m_data(_size.x()*_size.y()),
-	m_size(_size)
-{
+  m_data(_size.x()*_size.y()),
+  m_size(_size) {
 	m_data.resize(_size.x()*_size.y(), 0);
-	
 	for(int32_t iii=0; iii<m_size.x()*m_size.y(); iii++) {
 		m_data[iii] = etk::tool::frand(_min, _max);
 	}
 }
 
-etk::BaseNoise::~BaseNoise()
-{
-	
-}
-
-float etk::BaseNoise::get(int32_t _x, int32_t _y) const
-{
+float etk::BaseNoise::get(int32_t _x, int32_t _y) const {
 	// We increment of the size to prevent the <0 result due to the "%" methode ...
 	_x += m_size.x();
 	_y += m_size.y();
@@ -43,8 +35,7 @@ float etk::BaseNoise::get(int32_t _x, int32_t _y) const
 	return m_data[_x + _y*m_size.x()];
 }
 
-float etk::Noise::smoothNoise(float _x, float _y, const etk::BaseNoise& _noise)
-{
+float etk::Noise::smoothNoise(float _x, float _y, const etk::BaseNoise& _noise) {
 	//get fractional part of x and y
 	float fractX = _x - (int32_t)_x;
 	float fractY = _y - (int32_t)_y;
@@ -68,8 +59,7 @@ float etk::Noise::smoothNoise(float _x, float _y, const etk::BaseNoise& _noise)
 }
 
 
-float etk::Noise::turbulence(float _x, float _y, float _size, const etk::BaseNoise& _noise)
-{
+float etk::Noise::turbulence(float _x, float _y, float _size, const etk::BaseNoise& _noise) {
 	float value = 0.0f;
 	float initialSize = _size;
 	while(1<=_size) {
@@ -80,8 +70,7 @@ float etk::Noise::turbulence(float _x, float _y, float _size, const etk::BaseNoi
 	// NOTE : with 128 here, we have wood ...
 }
 
-float etk::Noise::turbulenceNoSmooth(float _x, float _y, float _size, const etk::BaseNoise& _noise)
-{
+float etk::Noise::turbulenceNoSmooth(float _x, float _y, float _size, const etk::BaseNoise& _noise) {
 	float value = 0.0f;
 	float initialSize = _size;
 	while(1<=_size) {
@@ -93,15 +82,14 @@ float etk::Noise::turbulenceNoSmooth(float _x, float _y, float _size, const etk:
 }
 
 
-etk::Noise::Noise(enum noise _type, ivec2 _size, int32_t _depth) :
-	m_data(_size.x()*_size.y()),
-	m_size(_size),
-	m_type(_type)
-{
+etk::Noise::Noise(enum etk::noiseType _type, ivec2 _size, int32_t _depth) :
+  m_data(_size.x()*_size.y()),
+  m_size(_size),
+  m_type(_type) {
 	m_data.resize(_size.x()*_size.y(), 0);
 	switch(m_type) {
 		default:
-		case etk::Noise::NOISE_BASE:
+		case etk::noiseType_base:
 			{
 				etk::BaseNoise myNoise(ivec2(m_size.x()/_depth,m_size.y()/_depth),0.0f,1.0f);
 				for(int32_t iii=0; iii<m_size.y(); iii++) {
@@ -111,7 +99,7 @@ etk::Noise::Noise(enum noise _type, ivec2 _size, int32_t _depth) :
 				}
 			}
 			break;
-		case etk::Noise::NOISE_SMOOTH:
+		case etk::noiseType_smooth:
 			{
 				etk::BaseNoise myNoise(ivec2(m_size.x()/_depth,m_size.y()/_depth),0.0f,1.0f);
 				for(int32_t iii=0; iii<m_size.y(); iii++) {
@@ -121,7 +109,7 @@ etk::Noise::Noise(enum noise _type, ivec2 _size, int32_t _depth) :
 				}
 			}
 			break;
-		case etk::Noise::NOISE_TURBULENCE:
+		case etk::noiseType_turbulence:
 			{
 				etk::BaseNoise myNoise(ivec2(m_size.x()/_depth,m_size.y()/_depth),0.0f,1.0f);
 				for(int32_t iii=0; iii<m_size.y(); iii++) {
@@ -131,7 +119,7 @@ etk::Noise::Noise(enum noise _type, ivec2 _size, int32_t _depth) :
 				}
 			}
 			break;
-		case etk::Noise::NOISE_TURBULENCE_NO_SMOOTH:
+		case etk::noiseType_turbulence_no_smooth:
 			{
 				etk::BaseNoise myNoise(ivec2(m_size.x()/_depth,m_size.y()/_depth),0.0f,1.0f);
 				for(int32_t iii=0; iii<m_size.y(); iii++) {
@@ -141,21 +129,16 @@ etk::Noise::Noise(enum noise _type, ivec2 _size, int32_t _depth) :
 				}
 			}
 			break;
-		case etk::Noise::NOISE_CLOUD:
+		case etk::noiseType_cloud:
 			
 			break;
-		case etk::Noise::NOISE_MARBLE:
+		case etk::noiseType_marble:
 			
 			break;
-		case etk::Noise::NOISE_WOOD:
+		case etk::noiseType_wood:
 			
 			break;
 	}
-	
-}
-
-etk::Noise::~Noise()
-{
 	
 }
 

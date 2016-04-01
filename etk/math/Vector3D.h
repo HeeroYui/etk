@@ -1,4 +1,4 @@
-/**
+/** @file
  * @author Edouard DUPIN
  * 
  * @copyright 2011, Edouard DUPIN, all right reserved
@@ -21,13 +21,17 @@
 	namespace etk {
 		template <typename T> class Vector3D;
 	};
+	//! @brief compatibility with bullet lib
 	typedef etk::Vector3D<float> btVector3;
 #endif
 
 namespace etk {
+	/**
+	 * @brief Vectorial 3-dimention vector (x/y/z)
+	 */
 	template <typename T> class Vector3D {
 		public:
-			T m_floats[4];
+			T m_floats[4]; //!< all internal values
 		public:
 			/**
 			 * @brief No initialization constructor (faster ...)
@@ -49,134 +53,154 @@ namespace etk {
 			}
 			/**
 			 * @brief Constructor from scalars 
-			 * @param _x X value
-			 * @param _y Y value 
-			 * @param _z Z value 
+			 * @param[in] _xxx X value
+			 * @param[in] _yyy Y value
+			 * @param[in] _zzz Z value
 			 */
-			Vector3D(const T& _x, const T& _y, const T& _z) {
-				m_floats[0] = _x;
-				m_floats[1] = _y;
-				m_floats[2] = _z;
+			Vector3D(const T& _xxx, const T& _yyy, const T& _zzz) {
+				m_floats[0] = _xxx;
+				m_floats[1] = _yyy;
+				m_floats[2] = _zzz;
 				m_floats[3] = 0;
 			}
-			
 			/**
 			 * @brief Add a vector to this one 
-			 * @param _v The vector to add to this one
+			 * @param[in] _obj The vector to add to this one
+			 * @return Local reference of the vector
 			 */
-			Vector3D<T>& operator+=(const Vector3D<T>& _v) {
-				m_floats[0] += _v.m_floats[0];
-				m_floats[1] += _v.m_floats[1];
-				m_floats[2] += _v.m_floats[2];
+			Vector3D<T>& operator+=(const Vector3D<T>& _obj) {
+				m_floats[0] += _obj.m_floats[0];
+				m_floats[1] += _obj.m_floats[1];
+				m_floats[2] += _obj.m_floats[2];
 				return *this;
 			}
-			//! @previous
-			Vector3D<T> operator+(const Vector3D<T>& _v) {
-				return Vector3D<T>(m_floats[0] + _v.m_floats[0],
-				                   m_floats[1] + _v.m_floats[1],
-				                   m_floats[2] + _v.m_floats[2]);
+			/**
+			 * @brief Add a vector to this one 
+			 * @param[in] _obj The vector to add to this one
+			 * @return New vector containing the value
+			 */
+			Vector3D<T> operator+(const Vector3D<T>& _obj) {
+				return Vector3D<T>(m_floats[0] + _obj.m_floats[0],
+				                   m_floats[1] + _obj.m_floats[1],
+				                   m_floats[2] + _obj.m_floats[2]);
 			}
-			
-			
 			/**
 			 * @brief Subtract a vector from this one
-			 * @param _v The vector to subtract
+			 * @param[in] _obj The vector to subtract
+			 * @return Local reference of the vector
 			 */
-			Vector3D<T>& operator-=(const Vector3D<T>& _v) {
-				m_floats[0] -= _v.m_floats[0]; 
-				m_floats[1] -= _v.m_floats[1];
-				m_floats[2] -= _v.m_floats[2];
+			Vector3D<T>& operator-=(const Vector3D<T>& _obj) {
+				m_floats[0] -= _obj.m_floats[0]; 
+				m_floats[1] -= _obj.m_floats[1];
+				m_floats[2] -= _obj.m_floats[2];
 				return *this;
 			}
-			//! @previous
-			Vector3D<T> operator-(const Vector3D<T>& _v) {
-				return Vector3D<T>(m_floats[0] - _v.m_floats[0],
-				                   m_floats[1] - _v.m_floats[1],
-				                   m_floats[2] - _v.m_floats[2]);
+			/**
+			 * @brief Subtract a vector from this one
+			 * @param[in] _obj The vector to subtract
+			 * @return New vector containing the value
+			 */
+			Vector3D<T> operator-(const Vector3D<T>& _obj) {
+				return Vector3D<T>(m_floats[0] - _obj.m_floats[0],
+				                   m_floats[1] - _obj.m_floats[1],
+				                   m_floats[2] - _obj.m_floats[2]);
 			}
-			
 			/**
 			 * @brief Scale the vector
-			 * @param _s Scale factor
+			 * @param[in] _val Scale factor
+			 * @return Local reference of the vector
 			 */
-			Vector3D<T>& operator*=(const T& _s) {
-				m_floats[0] *= _s; 
-				m_floats[1] *= _s;
-				m_floats[2] *= _s;
+			Vector3D<T>& operator*=(const T& _val) {
+				m_floats[0] *= _val; 
+				m_floats[1] *= _val;
+				m_floats[2] *= _val;
 				return *this;
 			}
-			//! @previous
-			Vector3D<T> operator*(const T& _s) {
-				return Vector3D<T>(m_floats[0] * _s,
-				                   m_floats[1] * _s,
-				                   m_floats[2] * _s);
+			/**
+			 * @brief Scale the vector
+			 * @param[in] _val Scale factor
+			 * @return New vector containing the value
+			 */
+			Vector3D<T> operator*(const T& _val) {
+				return Vector3D<T>(m_floats[0] * _val,
+				                   m_floats[1] * _val,
+				                   m_floats[2] * _val);
 			}
-			
 			/**
 			 * @brief Inversely scale the vector 
-			 * @param _s Scale factor to divide by
+			 * @param[in] _val Scale factor to divide by
+			 * @return Local reference of the vector
 			 */
-			Vector3D<T>& operator/=(const Vector3D<T>& _s) {
-				if (_s != 0) {
-					return *this *= btScalar(1.0) / _s;
+			Vector3D<T>& operator/=(const Vector3D<T>& _val) {
+				if (_val != 0) {
+					return *this *= float(1.0) / _val;
 				}
 				return *this;
 			}
-			//! @previous
-			Vector3D<T>& operator/=(const T& _s) {
-				if (_s != 0) {
-					m_floats[0] /= _s;
-					m_floats[1] /= _s;
-					m_floats[2] /= _s;
+			/**
+			 * @brief Inversely scale the vector 
+			 * @param[in] _val Scale factor to divide by
+			 * @return Local reference of the vector
+			 */
+			Vector3D<T>& operator/=(const T& _val) {
+				if (_val != 0) {
+					m_floats[0] /= _val;
+					m_floats[1] /= _val;
+					m_floats[2] /= _val;
 					return *this;
 				}
 				return *this;
 			}
-			
 			/**
 			 * @brief Return the dot product
-			 * @param _v The other vector in the dot product
+			 * @param[in] _obj The other vector in the dot product
+			 * @return Dot product value
 			 */
-			btScalar dot(const Vector3D<T>& _v) const {
-				return   m_floats[0] * _v.m_floats[0]
-				       + m_floats[1] * _v.m_floats[1]
-				       + m_floats[2] * _v.m_floats[2];
+			float dot(const Vector3D<T>& _obj) const {
+				return   m_floats[0] * _obj.m_floats[0]
+				       + m_floats[1] * _obj.m_floats[1]
+				       + m_floats[2] * _obj.m_floats[2];
 			}
-			
 			/**
-			 * @brief Return the length of the vector squared
+			 * @brief Get the length of the vector squared
+			 * @return Squared length value.
 			 */
-			btScalar length2() const {
+			float length2() const {
 				return dot(*this);
 			}
-			
 			/**
-			 * @brief Return the length of the vector
+			 * @brief Get the length of the vector
+			 * @return Length value
 			 */
-			btScalar length() const {
-				#if __CPP_VERSION__ >= 2011 && !defined(__STDCPP_LLVM__)
+			float length() const {
+				#if __CPP_objERSION__ >= 2011 && !defined(__STDCPP_LLVM__)
 					return std::sqrt(length2());
 				#else
 					return sqrt(length2());
 				#endif
 			}
-			
 			/**
 			 * @brief Return the distance squared between the ends of this and another vector
 			 * This is symantically treating the vector like a point
+			 * @param[in] _obj The other vector to compare distance
+			 * @return the square distance of the 2 points
 			 */
-			btScalar distance2(const btVector3& _v) const {
-				return (_v - *this).length2();
+			float distance2(const Vector3D<T>& _obj) const {
+				return (_obj - *this).length2();
 			}
-			
 			/**
 			 * @brief Return the distance between the ends of this and another vector
 			 * This is symantically treating the vector like a point
+			 * @param[in] _obj The other vector to compare distance
+			 * @return the distance of the 2 points
 			 */
-			btScalar distance(const btVector3& _v) const {
-				return (_v - *this).length();
+			float distance(const Vector3D<T>& _obj) const {
+				return (_obj - *this).length();
 			}
-			
+			/**
+			 * @brief Normalize this vector x^2 + y^2 + z^2 = 1 (check if not deviding by 0, if it is the case ==> return (1,0,0))
+			 * @return Local reference of the vector normalized
+			 */
 			Vector3D<T>& safeNormalize() {
 				Vector3D<T> absVec = this->absolute();
 				int maxIndex = absVec.maxAxis();
@@ -187,77 +211,80 @@ namespace etk {
 				setValue(1,0,0);
 				return *this;
 			}
-			
 			/**
-			 * @brief Normalize this vector 
-			 * x^2 + y^2 + z^2 = 1
+			 * @brief Normalize this vector x^2 + y^2 + z^2 = 1
+			 * @return Local reference of the vector normalized
 			 */
 			Vector3D<T>& normalize() {
 				return *this /= length();
 			}
-			
 			/**
 			 * @brief Return a normalized version of this vector
+			 * @return New vector containing the value
 			 */
 			Vector3D<T> normalized() const {
 				Vector3D<T> out = *this;
 				out /= length();
 				return out;
 			}
-			
 			/**
 			 * @brief Return a rotated version of this vector
-			 * @param _wAxis The axis to rotate about
-			 * @param _angle The angle to rotate by
+			 * @param[in] _wAxis The axis to rotate about
+			 * @param[in] _angle The angle to rotate by
+			 * @return New vector containing the value
 			 */
-			Vector3D<T> rotate( const Vector3D<T>& _wAxis, const btScalar _angle ) const {
+			Vector3D<T> rotate( const Vector3D<T>& _wAxis, const float _angle ) const {
 				Vector3D<T> o = _wAxis * _wAxis.dot( *this );
 				Vector3D<T> x = *this - o;
 				Vector3D<T> y;
 				y = _wAxis.cross( *this );
 				return ( o + x * cosf(_angle) + y * sinf(_angle) );
 			}
-			
 			/**
-			 * @brief Return the angle between this and another vector
-			 * @param _v The other vector
+			 * @brief Calculate the angle between this and another vector
+			 * @param[in] _obj The other vector
+			 * @return Angle in radian
 			 */
-			btScalar angle(const Vector3D<T>& _v) const {
-				btScalar s = sqrtf(length2() * _v.length2());
+			float angle(const Vector3D<T>& _obj) const {
+				float s = sqrtf(length2() * _obj.length2());
 				if (0!=s) {
-					return acosf(dot(_v) / s);
+					return acosf(dot(_obj) / s);
 				}
 				return 0;
 			}
-			
 			/**
 			 * @brief Return a vector will the absolute values of each element
+			 * @return New vector containing the value
 			 */
 			Vector3D<T> absolute() const {
 				return Vector3D<T>( abs(m_floats[0]),
 				                    abs(m_floats[1]),
 				                    abs(m_floats[2]));
 			}
-			
 			/**
 			 * @brief Return the cross product between this and another vector
-			 * @param _v The other vector
+			 * @param[in] _obj The other vector
+			 * @return Vector with the result of the cross product
 			 */
-			Vector3D<T> cross(const Vector3D<T>& _v) const {
-				return Vector3D<T>(m_floats[1] * _v.m_floats[2] - m_floats[2] * _v.m_floats[1],
-				                   m_floats[2] * _v.m_floats[0] - m_floats[0] * _v.m_floats[2],
-				                   m_floats[0] * _v.m_floats[1] - m_floats[1] * _v.m_floats[0]);
+			Vector3D<T> cross(const Vector3D<T>& _obj) const {
+				return Vector3D<T>(m_floats[1] * _obj.m_floats[2] - m_floats[2] * _obj.m_floats[1],
+				                   m_floats[2] * _obj.m_floats[0] - m_floats[0] * _obj.m_floats[2],
+				                   m_floats[0] * _obj.m_floats[1] - m_floats[1] * _obj.m_floats[0]);
 			}
-			
-			T triple(const Vector3D<T>& _v1, const Vector3D<T>& _v2) const {
-				return   m_floats[0] * (_v1.m_floats[1] * _v2.m_floats[2] - _v1.m_floats[2] * _v2.m_floats[1])
-				       + m_floats[1] * (_v1.m_floats[2] * _v2.m_floats[0] - _v1.m_floats[0] * _v2.m_floats[2])
-				       + m_floats[2] * (_v1.m_floats[0] * _v2.m_floats[1] - _v1.m_floats[1] * _v2.m_floats[0]);
-			}
-			
 			/**
-			 * @brief Return the axis with the smallest value 
-			 * Note return values are 0,1,2 for x, y, or z
+			 * @brief Return the triple product between this and another vector and another
+			 * @param[in] _obj1 The other vector 1
+			 * @param[in] _obj2 The other vector 2
+			 * @return Value with the result of the triple product
+			 */
+			T triple(const Vector3D<T>& _obj1, const Vector3D<T>& _obj2) const {
+				return   m_floats[0] * (_obj1.m_floats[1] * _obj2.m_floats[2] - _obj1.m_floats[2] * _obj2.m_floats[1])
+				       + m_floats[1] * (_obj1.m_floats[2] * _obj2.m_floats[0] - _obj1.m_floats[0] * _obj2.m_floats[2])
+				       + m_floats[2] * (_obj1.m_floats[0] * _obj2.m_floats[1] - _obj1.m_floats[1] * _obj2.m_floats[0]);
+			}
+			/**
+			 * @brief Return the axis with the smallest value
+			 * @return values 0,1,2 for x, y, or z
 			 */
 			int32_t minAxis() const {
 				if (m_floats[0] < m_floats[1]) {
@@ -265,10 +292,9 @@ namespace etk {
 				}
 				return m_floats[1] < m_floats[2] ? 1 : 2;
 			}
-			
 			/**
 			 * @brief Return the axis with the largest value
-			 * Note return values are 0,1,2 for x, y, or z
+			 * @return values 0,1,2 for x, y, or z
 			 */
 			int32_t maxAxis() const {
 				if (m_floats[0] < m_floats[1]) {
@@ -276,226 +302,278 @@ namespace etk {
 				}
 				return m_floats[0] < m_floats[2] ? 2 : 0;
 			}
-			
+			/**
+			 * @brief Return the axis with the smallest ABSOLUTE value
+			 * @return values 0,1,2 for x, y, or z
+			 */
 			int32_t furthestAxis() const {
 				return absolute().minAxis();
 			}
-			
+			/**
+			 * @brief Return the axis with the largest ABSOLUTE value
+			 * @return values 0,1,2 for x, y, or z
+			 */
 			int32_t closestAxis() const {
 				return absolute().maxAxis();
 			}
-			
-			void setInterpolate3(const Vector3D<T>& _v0, const Vector3D<T>& _v1, T _rt) {
-				btScalar s = 1.0 - _rt;
-				m_floats[0] = s * _v0.m_floats[0] + _rt * _v1.m_floats[0];
-				m_floats[1] = s * _v0.m_floats[1] + _rt * _v1.m_floats[1];
-				m_floats[2] = s * _v0.m_floats[2] + _rt * _v1.m_floats[2];
-				//don't do the unused w component
+			/**
+			 * @brief Interpolate the vector with a ration between 2 others
+			 * @param[in] _obj0 First vector
+			 * @param[in] _obj1 Second vector
+			 * @param[in] _ratio Ratio between _obj0 and _obj1
+			 */
+			void setInterpolate3(const Vector3D<T>& _obj0, const Vector3D<T>& _obj1, T _ratio) {
+				float inverse = 1.0 - _ratio;
+				m_floats[0] = inverse * _obj0.m_floats[0] + _ratio * _obj1.m_floats[0];
+				m_floats[1] = inverse * _obj0.m_floats[1] + _ratio * _obj1.m_floats[1];
+				m_floats[2] = inverse * _obj0.m_floats[2] + _ratio * _obj1.m_floats[2];
 				//		m_co[3] = s * v0[3] + rt * v1[3];
 			}
-			
 			/**
-			 * @brief Return the linear interpolation between this and another vector 
-			 * @param _v The other vector 
-			 * @param _t The ration of this to v (t = 0 => return this, t=1 => return other)
+			 * @brief Return the linear interpolation between this and another vector
+			 * @param[in] _obj The other vector 
+			 * @param[in] _ratio The ratio of this to _obj (_ratio = 0 => return copy of this, _ratio=1 => return other)
+			 * @return New vector containing the value
 			 */
-			Vector3D<T> lerp(const Vector3D<T>& _v, const btScalar& _t) const {
-				return Vector3D<T>(m_floats[0] + (_v.m_floats[0] - m_floats[0]) * _t,
-				                   m_floats[1] + (_v.m_floats[1] - m_floats[1]) * _t,
-				                   m_floats[2] + (_v.m_floats[2] - m_floats[2]) * _t);
+			Vector3D<T> lerp(const Vector3D<T>& _obj, const float& _ratio) const {
+				return Vector3D<T>(m_floats[0] + (_obj.m_floats[0] - m_floats[0]) * _ratio,
+				                   m_floats[1] + (_obj.m_floats[1] - m_floats[1]) * _ratio,
+				                   m_floats[2] + (_obj.m_floats[2] - m_floats[2]) * _ratio);
 			}
-			
 			/**
-			 * @brief Elementwise multiply this vector by the other 
-			 * @param _v The other vector
+			 * @brief Elementwise multiply this vector by the other
+			 * @param _obj The other vector
+			 * @return Local reference of the vector normalized
 			 */
-			Vector3D<T>& operator*=(const Vector3D<T>& _v) {
-				m_floats[0] *= _v.m_floats[0]; 
-				m_floats[1] *= _v.m_floats[1];
-				m_floats[2] *= _v.m_floats[2];
+			Vector3D<T>& operator*=(const Vector3D<T>& _obj) {
+				m_floats[0] *= _obj.m_floats[0]; 
+				m_floats[1] *= _obj.m_floats[1];
+				m_floats[2] *= _obj.m_floats[2];
 				return *this;
 			}
-			//! @previous
-			Vector3D<T> operator*(const Vector3D<T>& _v) {
-				return Vector3D<T>(m_floats[0] * _v.m_floats[0],
-				                   m_floats[1] * _v.m_floats[1],
-				                   m_floats[2] * _v.m_floats[2]);
-			}
-			
 			/**
-			 * @brief Return the x value
+			 * @brief Elementwise multiply this vector by the other
+			 * @param _obj The other vector
+			 * @return New vector containing the value
+			 */
+			Vector3D<T> operator*(const Vector3D<T>& _obj) {
+				return Vector3D<T>(m_floats[0] * _obj.m_floats[0],
+				                   m_floats[1] * _obj.m_floats[1],
+				                   m_floats[2] * _obj.m_floats[2]);
+			}
+			/**
+			 * @brief Get X value
+			 * @return the x value
 			 */
 			const T& getX() const {
 				return m_floats[0];
 			}
 			/**
-			 * @brief Return the y value
+			 * @brief Get Y value
+			 * @return the y value
 			 */
 			const T& getY() const {
 				return m_floats[1];
 			}
 			/**
-			 * @brief Return the z value
+			 * @brief Get Z value
+			 * @return the z value
 			 */
 			const T& getZ() const {
 				return m_floats[2];
 			}
 			/**
 			 * @brief Set the x value
+			 * @param[in] _x New value
 			 */
 			void setX(T _x) {
 				m_floats[0] = _x;
-			};
+			}
 			/**
 			 * @brief Set the y value
+			 * @param[in] _y New value
 			 */
 			void setY(T _y) {
 				m_floats[1] = _y;
-			};
+			}
 			/**
 			 * @brief Set the z value
+			 * @param[in] _z New value
 			 */
 			void setZ(T _z) {
 				m_floats[2] = _z;
-			};
+			}
 			/**
-			 * @brief Set the w value
-			 */
-			void setW(T _w) {
-				m_floats[3] = _w;
-			};
-			/**
-			 * @brief Return the x value
+			 * @brief Get X value
+			 * @return the x value
 			 */
 			const T& x() const {
 				return m_floats[0];
 			}
 			/**
-			 * @brief Return the y value
+			 * @brief Get Y value
+			 * @return the y value
 			 */
 			const T& y() const {
 				return m_floats[1];
 			}
 			/**
-			 * @brief Return the z value
+			 * @brief Get Z value
+			 * @return the z value
 			 */
 			const T& z() const {
 				return m_floats[2];
 			}
 			/**
-			 * @brief Return the w value
+			 * @brief Cast the vector in the type T* requested.
+			 * @return Pointer on the data
 			 */
-			const T& w() const {
-				return m_floats[3];
-			}
-			
 			operator T *() {
 				return &m_floats[0];
 			}
-			//! @previous
+			/**
+			 * @brief Cast the vector in the type const T* requested.
+			 * @return Pointer on the const data
+			 */
 			operator const T *() const {
 				return &m_floats[0];
 			}
-			
-			bool operator==(const Vector3D<T>& _other) const {
-				return (    (m_floats[3] == _other.m_floats[3])
-				         && (m_floats[2] == _other.m_floats[2])
-				         && (m_floats[1] == _other.m_floats[1])
-				         && (m_floats[0] == _other.m_floats[0]));
-			}
-			
-			bool operator!=(const Vector3D<T>& _other) const {
-				return (    (m_floats[3] != _other.m_floats[3])
-				         || (m_floats[2] != _other.m_floats[2])
-				         || (m_floats[1] != _other.m_floats[1])
-				         || (m_floats[0] != _other.m_floats[0]));
-			}
-			
 			/**
-			 * @brief Set each element to the max of the current values and the values of another btVector3
-			 * @param _other The other btVector3 to compare with 
+			 * @brief Equality compare operator with an other object.
+			 * @param[in] _obj Reference on the comparing object
+			 * @return true The Objects are identical
+			 * @return false The Objects are NOT identical
 			 */
-			void setMax(const Vector3D<T>& _other) {
-				btSetMax(m_floats[0], _other.m_floats[0]);
-				btSetMax(m_floats[1], _other.m_floats[1]);
-				btSetMax(m_floats[2], _other.m_floats[2]);
-				btSetMax(m_floats[3], _other.m_floats[3]);
+			bool operator==(const Vector3D<T>& _obj) const {
+				return (    (m_floats[3] == _obj.m_floats[3])
+				         && (m_floats[2] == _obj.m_floats[2])
+				         && (m_floats[1] == _obj.m_floats[1])
+				         && (m_floats[0] == _obj.m_floats[0]));
 			}
-			
 			/**
-			 * @brief Set each element to the min of the current values and the values of another btVector3
-			 * @param _other The other btVector3 to compare with 
+			 * @brief In-Equality compare operator with an other object.
+			 * @param[in] _obj Reference on the comparing object
+			 * @return true The Objects are NOT identical
+			 * @return false The Objects are identical
 			 */
-			void setMin(const Vector3D<T>& _other) {
-				btSetMin(m_floats[0], _other.m_floats[0]);
-				btSetMin(m_floats[1], _other.m_floats[1]);
-				btSetMin(m_floats[2], _other.m_floats[2]);
-				btSetMin(m_floats[3], _other.m_floats[3]);
+			bool operator!=(const Vector3D<T>& _obj) const {
+				return (    (m_floats[3] != _obj.m_floats[3])
+				         || (m_floats[2] != _obj.m_floats[2])
+				         || (m_floats[1] != _obj.m_floats[1])
+				         || (m_floats[0] != _obj.m_floats[0]));
 			}
-			
-			void setValue(const T& _x, const T& _y, const T& _z) {
-				m_floats[0]=_x;
-				m_floats[1]=_y;
-				m_floats[2]=_z;
+			/**
+			 * @brief Set each element to the max of the current values and the values of another Vector3D<T>
+			 * @param _obj The other Vector3D<T> to compare with 
+			 */
+			void setMax(const Vector3D<T>& _obj) {
+				btSetMax(m_floats[0], _obj.m_floats[0]);
+				btSetMax(m_floats[1], _obj.m_floats[1]);
+				btSetMax(m_floats[2], _obj.m_floats[2]);
+				btSetMax(m_floats[3], _obj.m_floats[3]);
+			}
+			/**
+			 * @brief Set each element to the min of the current values and the values of another Vector3D<T>
+			 * @param _obj The other Vector3D<T> to compare with 
+			 */
+			void setMin(const Vector3D<T>& _obj) {
+				btSetMin(m_floats[0], _obj.m_floats[0]);
+				btSetMin(m_floats[1], _obj.m_floats[1]);
+				btSetMin(m_floats[2], _obj.m_floats[2]);
+				btSetMin(m_floats[3], _obj.m_floats[3]);
+			}
+			/**
+			 * @brief Set Value on the vector
+			 * @param[in] _xxx X value.
+			 * @param[in] _yyy Y value.
+			 * @param[in] _zzz Z value.
+			 */
+			void setValue(const T& _xxx, const T& _yyy, const T& _zzz) {
+				m_floats[0]=_xxx;
+				m_floats[1]=_yyy;
+				m_floats[2]=_zzz;
 				m_floats[3] = 0;
 			}
-			
-			void getSkewSymmetricMatrix(Vector3D<T>* _v0,Vector3D<T>* _v1,Vector3D<T>* _v2) const {
-				_v0->setValue(0.   ,-z() ,y());
-				_v1->setValue(z()  ,0.   ,-x());
-				_v2->setValue(-y() ,x()  ,0.);
+			/**
+			 * @brief Create a skew matrix of the object
+			 * @param[out] _obj0 Vector matric first line
+			 * @param[out] _obj1 Vector matric second line
+			 * @param[out] _obj2 Vector matric third line
+			 */
+			void getSkewSymmetricMatrix(Vector3D<T>* _obj0,Vector3D<T>* _obj1,Vector3D<T>* _obj2) const {
+				_obj0->setValue(0.   ,-z() ,y());
+				_obj1->setValue(z()  ,0.   ,-x());
+				_obj2->setValue(-y() ,x()  ,0.);
 			}
-			
+			/**
+			 * @brief Set 0 value on all the vector
+			 */
 			void setZero() {
 				setValue(0,0,0);
 			}
-			
+			/**
+			 * @brief Check if the vector is equal to (0,0,0)
+			 * @return true The value is equal to (0,0,0)
+			 * @return false The value is NOT equal to (0,0,0)
+			 */
 			bool isZero() const {
-				return m_floats[0] == 0 && m_floats[1] == 0 && m_floats[2] == 0;
+				return    m_floats[0] == 0
+				       && m_floats[1] == 0
+				       && m_floats[2] == 0;
 			}
 	};
-	/**
-	 * @brief Debug operator To display the curent element in a Human redeable information
-	 */
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector3D<int32_t>& _obj);
-	//! @previous
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector3D<uint32_t>& _obj);
-	//! @previous
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector3D<bool>& _obj);
 };
 
-std::ostream& operator <<(std::ostream& _os, const btVector3& _obj);
-
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
 #ifdef ETK_BUILD_LINEARMATH
-	typedef btVector3            vec3;
+	typedef btVector3            vec3; //!< wrapper on etk::Vector3D<float> to have the same naming has OpenGL shader
 #else
-	typedef etk::Vector3D<float> vec3;
+	typedef etk::Vector3D<float> vec3; //!< wrapper on etk::Vector3D<float> to have the same naming has OpenGL shader
 #endif
-typedef etk::Vector3D<float>     ovec3;  // specific for OpenGL ... ==> never change this ...
-typedef etk::Vector3D<int32_t>   ivec3;
+typedef etk::Vector3D<float>     ovec3; //!< wrapper on etk::Vector3D<float> to be complient all time with openGL internal mode (instead of vec3)
+typedef etk::Vector3D<int32_t>   ivec3; //!< wrapper on etk::Vector3D<int32_t> to have the same naming has OpenGL shader
 // not compatible with glsl ... but it is better to have a same writing
-typedef etk::Vector3D<uint32_t> uivec3;
-typedef etk::Vector3D<bool>      bvec3;
+typedef etk::Vector3D<uint32_t> uivec3; //!< wrapper on etk::Vector3D<uint32_t> to have the same naming has OpenGL shader
+typedef etk::Vector3D<bool>      bvec3; //!< wrapper on etk::Vector3D<bool> to have the same naming has OpenGL shader
+
+//! @not_in_doc
+std::ostream& operator <<(std::ostream& _os, const vec3& _obj);
 
 #ifdef ETK_BUILD_LINEARMATH
 	vec3 quaternionToEulerXYZ(const btQuaternion& quat);
 #endif
 
-inline vec3 vec3ClipInt32(const vec3& val) {
-	return vec3((int32_t)val.x(), (int32_t)val.y(), (int32_t)val.z());
+/**
+ * @brief Limit at integer value the input vector: vec3(1.2, 5.6, -2.9) ==> vec3(1.0, 5.0, -2.0)
+ * @param _val input vector to limit
+ * @return reduced range of vector
+ */
+inline vec3 vec3ClipInt32(const vec3& _val) {
+	return vec3(int32_t(_val.x()), int32_t(_val.y()), int32_t(_val.z()));
 }
-inline vec3 vec3ClipInt64(const vec3& val) {
-	return vec3((int64_t)val.x(), (int64_t)val.y(), (int64_t)val.z());
+/**
+ * @brief Limit at integer value the input vector: vec3(1.2, 5.6, -2.9) ==> vec3(1.0, 5.0, -2.0)
+ * @param _val input vector to limit
+ * @return reduced range of vector
+ */
+inline vec3 vec3ClipInt64(const vec3& _val) {
+	return vec3(int64_t(_val.x()), int64_t(_val.y()), int64_t(_val.z()));
 }
 
 namespace etk {
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::vector<vec3>& _obj);
-	//! @previous
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::vector<ivec3>& _obj);
-	//! @previous
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::vector<uivec3>& _obj);
-	//! @previous
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::vector<bvec3>& _obj);
 }
 

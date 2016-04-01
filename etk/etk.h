@@ -1,4 +1,4 @@
-/**
+/** @file
  * @author Edouard DUPIN
  * 
  * @copyright 2011, Edouard DUPIN, all right reserved
@@ -8,7 +8,9 @@
 #pragma once
 
 #include <string>
-
+/**
+ * @brief basic namespace of the etk library. (it might contain all the etk fuctions/class/structures without macro)
+ */
 namespace etk {
 	/**
 	 * @brief Initialize etk
