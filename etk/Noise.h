@@ -16,18 +16,31 @@ namespace etk {
 	/**
 	 * @brief BaseNoise Noise basic data.
 	 * @todo Validate it, this is a !!! PROTOTYPE !!!
+	 * @todo Remove this from ETK
 	 */
 	class BaseNoise {
 		private:
-			std::vector<float> m_data;
-			ivec2    m_size;
+			std::vector<float> m_data; //!< basic interface date
+			ivec2 m_size; //!< Size of the noise data
 		public:
-			BaseNoise(ivec2 _size, float _min, float _max);
-			~BaseNoise();
+			/**
+			 * @brief basic constructor with randon settings
+			 * @param[in] _size Size of the basic noise
+			 * @param[in] _min Minimum value of the random
+			 * @param[in] _max Maximum value of the random
+			 */
+			BaseNoise(const ivec2& _size, float _min, float _max);
+			/**
+			 * @brief Get value at a specific position.
+			 * @param[in] _x X position
+			 * @param[in] _y Y position
+			 * @return random noise value
+			 */
 			float get(int32_t _x, int32_t _y) const;
 	};
 	/**
 	 * @brief List of noise type supported
+	 * @todo Remove this from ETK
 	 */
 	enum noiseType {
 		noiseType_base, //!< basic random noise
@@ -41,6 +54,7 @@ namespace etk {
 	/**
 	 * @brief Noise basic interface.
 	 * @todo Validate it, this is a !!! PROTOTYPE !!!
+	 * @todo Remove this from ETK
 	 */
 	class Noise {
 		private:

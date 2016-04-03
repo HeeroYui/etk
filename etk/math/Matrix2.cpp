@@ -78,10 +78,6 @@ etk::Matrix2::Matrix2(const double* _values) {
 	m_mat[5] = _values[5];
 }
 
-etk::Matrix2::~Matrix2() {
-	
-}
-
 const etk::Matrix2& etk::Matrix2::operator= (const etk::Matrix2& _obj ) {
 	for(int32_t iii=0; iii<2*3 ; ++iii) {
 		m_mat[iii] = _obj.m_mat[iii];
@@ -152,14 +148,14 @@ etk::Matrix2 etk::Matrix2::operator * (const etk::Matrix2& _obj) {
 	return tmp;
 }
 
-vec2 etk::Matrix2::operator * (const vec2& _obj) const {
-	return vec2(_obj.x()*m_mat[0] + _obj.y()*m_mat[1] + m_mat[2],
-	            _obj.x()*m_mat[4] + _obj.y()*m_mat[3] + m_mat[5]);
+vec2 etk::Matrix2::operator * (const vec2& _point) const {
+	return vec2(_point.x()*m_mat[0] + _point.y()*m_mat[1] + m_mat[2],
+	            _point.x()*m_mat[4] + _point.y()*m_mat[3] + m_mat[5]);
 }
 
-vec2 etk::Matrix2::applyScaleRotation(const vec2& _obj) const {
-	return vec2(_obj.x()*m_mat[0] + _obj.y()*m_mat[1],
-	            _obj.x()*m_mat[4] + _obj.y()*m_mat[3]);
+vec2 etk::Matrix2::applyScaleRotation(const vec2& _point) const {
+	return vec2(_point.x()*m_mat[0] + _point.y()*m_mat[1],
+	            _point.x()*m_mat[4] + _point.y()*m_mat[3]);
 }
 
 etk::Matrix2 etk::Matrix2::operator ~ () const {

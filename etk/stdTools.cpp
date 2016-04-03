@@ -9,8 +9,6 @@
 #include <etk/stdTools.h>
 #include <etk/debug.h>
 
-#undef __class__
-#define __class__ "u32char"
 
 const char32_t u32char::Null('\0');
 const char32_t u32char::Return('\n');
@@ -136,10 +134,6 @@ int8_t u32char::convertUtf8(char32_t _val, char _output[5]) {
 		return "TODO ... std::string u32char::convertToUtf8(const std::u32string& _input)";
 	}
 #endif
-
-#undef __class__
-#define __class__ "utf8"
-
 
 static uint8_t sizeElement(const char* _data, int32_t _lenMax) {
 	uint8_t size = 0;
@@ -309,8 +303,6 @@ char32_t utf8::iterator::operator* () {
 }
 
 
-#undef __class__
-#define __class__ "etk"
 namespace etk {
 	#if __CPP_VERSION__ >= 2011
 		template<> std::string to_string<std::u32string>(const std::u32string& _input) {

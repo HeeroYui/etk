@@ -44,13 +44,15 @@
 #include <etk/stdTools.h>
 
 #ifndef ETK_BUILD_LINEARMATH
-	typedef float btScalar;
+	//! @brief If not using linear math from bullet lib, we need to define the basic element of a btScalar (float)
+	using btScalar = float;
 #endif
 
 #ifndef _WIN32
 	#include <math.h>
 	#ifndef _MATH_H_MATHDEF
-		typedef float float_t;
+		//! @not_in_doc
+		using float_t = float;
 	#endif
 #endif
 

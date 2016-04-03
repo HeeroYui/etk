@@ -10,9 +10,6 @@
 #undef NAME
 #define NAME "FSNode"
 
-#undef __class__
-#define __class__	"etktest"
-
 TEST(TestEtkFSNode, checkType) {
 	std::string fileName("USERDATA:myFileTest.txt");
 	etk::FSNode myNodeTest1(fileName);

@@ -532,15 +532,15 @@ namespace etk {
 
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
 #ifdef ETK_BUILD_LINEARMATH
-	typedef btVector3            vec3; //!< wrapper on etk::Vector3D<float> to have the same naming has OpenGL shader
+	using vec3 = btVector3; //!< wrapper on etk::Vector3D<float> to have the same naming has OpenGL shader
 #else
-	typedef etk::Vector3D<float> vec3; //!< wrapper on etk::Vector3D<float> to have the same naming has OpenGL shader
+	using vec3 = etk::Vector3D<float>; //!< wrapper on etk::Vector3D<float> to have the same naming has OpenGL shader
 #endif
-typedef etk::Vector3D<float>     ovec3; //!< wrapper on etk::Vector3D<float> to be complient all time with openGL internal mode (instead of vec3)
-typedef etk::Vector3D<int32_t>   ivec3; //!< wrapper on etk::Vector3D<int32_t> to have the same naming has OpenGL shader
+using ovec3 = etk::Vector3D<float>; //!< wrapper on etk::Vector3D<float> to be complient all time with openGL internal mode (instead of vec3)
+using ivec3 = etk::Vector3D<int32_t>; //!< wrapper on etk::Vector3D<int32_t> to have the same naming has OpenGL shader
 // not compatible with glsl ... but it is better to have a same writing
-typedef etk::Vector3D<uint32_t> uivec3; //!< wrapper on etk::Vector3D<uint32_t> to have the same naming has OpenGL shader
-typedef etk::Vector3D<bool>      bvec3; //!< wrapper on etk::Vector3D<bool> to have the same naming has OpenGL shader
+using uivec3 = etk::Vector3D<uint32_t>; //!< wrapper on etk::Vector3D<uint32_t> to have the same naming has OpenGL shader
+using bvec3 = etk::Vector3D<bool>; //!< wrapper on etk::Vector3D<bool> to have the same naming has OpenGL shader
 
 //! @not_in_doc
 std::ostream& operator <<(std::ostream& _os, const vec3& _obj);

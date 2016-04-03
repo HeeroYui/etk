@@ -20,20 +20,21 @@ namespace etk {
 	 * For example :
 	 * - Graphic application use:
 	 *   - Image in 3/4 bytes for rgb(a)
-	 *   - Color description in char : '#F6780FFF' or the equivalent number:0xF6780FFF
+	 *   - Color description in char : '\#F6780FFF' or the equivalent number:0xF6780FFF
 	 * - middleware will mainely use a the 4 separate value with 1 byte for each.
 	 * - graphic interface (openGL) store image in 1/2/3/4 bytes color and interpolate it in 'n' float. And note that the user color is sored in float.
 	 * 
 	 * Then with this class we abstract the transformation format and set an easy same way to use the color independing of the developpement level.
 	 * 
-	 * Some of the basic color is defined in the namespace: [namespace[etk::color]].
+	 * Some of the basic color is defined in the namespace: @ref etk::color.
 	 * 
-	 * @template-param MY_TYPE Type of the internal template value. The generic value is uint8_t and float
+	 * @param[in] MY_TYPE Type of the internal template value. The generic value is uint8_t and float
+	 * @param[in] MY_TYPE_SIZE Number of value in the color
 	 */
 	template<typename MY_TYPE=uint8_t, int MY_TYPE_SIZE=4> class Color {
 		public:
-			static const Color<MY_TYPE, MY_TYPE_SIZE> emptyColor; // to auto fill with no data in all case
-			static const MY_TYPE defaultAlpha;
+			static const Color<MY_TYPE, MY_TYPE_SIZE> emptyColor; //!< To auto fill with no data in all case
+			static const MY_TYPE defaultAlpha; //!< Default alpha value
 		private:
 			MY_TYPE m_element[MY_TYPE_SIZE]; //!< all the color.
 		public:
@@ -51,15 +52,27 @@ namespace etk {
 			Color(MY_TYPE _r, MY_TYPE _g, MY_TYPE _b, MY_TYPE _a) {
 				set(_r, _g, _b, _a);
 			};
-			//! @previous
+			/**
+			 * @brief Contructor with request initialisation.
+			 * @param[in] _r Red color.
+			 * @param[in] _g Green color.
+			 * @param[in] _b Blue color.
+			 */
 			Color(MY_TYPE _r, MY_TYPE _g, MY_TYPE _b) {
 				set(_r, _g, _b);
 			};
-			//! @previous
+			/**
+			 * @brief Contructor with request initialisation.
+			 * @param[in] _r Red color.
+			 * @param[in] _g Green color.
+			 */
 			Color(MY_TYPE _r, MY_TYPE _g) {
 				set(_r, _g);
 			};
-			//! @previous
+			/**
+			 * @brief Contructor with request initialisation.
+			 * @param[in] _r Red color.
+			 */
 			Color(MY_TYPE _r) {
 				set(_r);
 			};
@@ -80,7 +93,7 @@ namespace etk {
 			 * @return reference on this element.
 			 */
 			Color<MY_TYPE,MY_TYPE_SIZE>& operator=(const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _input) {
-				for (size_t iii=0; iii<MY_TYPE_SIZE; ++iii) {
+				for (size_t iii=0; iii<MY_TYPE_SIZE;iii) {
 					m_element[iii] = _input.m_element[iii];
 				}
 				return *this;
@@ -92,7 +105,7 @@ namespace etk {
 			 * @return false This is the same color.
 			 */
 			bool operator!= (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) const {
-				for (size_t iii=0; iii<MY_TYPE_SIZE; ++iii) {
+				for (size_t iii=0; iii<MY_TYPE_SIZE;iii) {
 					if(m_element[iii] != _obj.m_element[iii]) {
 						return true;
 					}
@@ -106,7 +119,7 @@ namespace etk {
 			 * @return false The color are different.
 			 */
 			bool operator== (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) const {
-				for (size_t iii=0; iii<MY_TYPE_SIZE; ++iii) {
+				for (size_t iii=0; iii<MY_TYPE_SIZE;iii) {
 					if(m_element[iii] != _obj.m_element[iii]) {
 						return false;
 					}
@@ -114,7 +127,7 @@ namespace etk {
 				return true;
 			}
 			/**
-			 * @breif Get the Generic uint32_t value of the color
+			 * @brief Get the Generic uint32_t value of the color
 			 * @return Color in unsigned integer
 			 */
 			uint32_t get() const;
@@ -139,7 +152,12 @@ namespace etk {
 					m_element[3] = _a;
 				}
 			};
-			//! @previous
+			/**
+			 * @brief Set the specified color elements.
+			 * @param[in] _r Red color.
+			 * @param[in] _g Green color.
+			 * @param[in] _b Blue color.
+			 */
 			void set(MY_TYPE _r, MY_TYPE _g, MY_TYPE _b) {
 				if (MY_TYPE_SIZE >= 1) {
 					m_element[0] = _r;
@@ -154,7 +172,11 @@ namespace etk {
 					m_element[3] = defaultAlpha;
 				}
 			};
-			//! @previous
+			/**
+			 * @brief Set the specified color elements.
+			 * @param[in] _r Red color.
+			 * @param[in] _g Green color.
+			 */
 			void set(MY_TYPE _r, MY_TYPE _g) {
 				if (MY_TYPE_SIZE >= 1) {
 					m_element[0] = _r;
@@ -169,7 +191,10 @@ namespace etk {
 					m_element[3] = defaultAlpha;
 				}
 			};
-			//! @previous
+			/**
+			 * @brief Set the specified color elements.
+			 * @param[in] _r Red color.
+			 */
 			void set(MY_TYPE _r) {
 				if (MY_TYPE_SIZE >= 1) {
 					m_element[0] = _r;
@@ -282,9 +307,11 @@ namespace etk {
 					m_element[3] = MY_TYPE(_a);
 				}
 			};
-			/* ****************************************************
-			 *    += operator
-			 *****************************************************/
+			/**
+			 * @brief Operator+= Addition an other etk::color with this one
+			 * @param[in] _obj Reference on the external object
+			 * @return Local reference of the vector additionned
+			 */
 			const etk::Color<MY_TYPE,MY_TYPE_SIZE>& operator+= (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) {
 				if (MY_TYPE_SIZE >= 1) {
 					m_element[0] += _obj.m_element[0];
@@ -300,18 +327,22 @@ namespace etk {
 				}
 				return *this;
 			}
-			/* ****************************************************
-			 *    + operator
-			 *****************************************************/
+			/**
+			 * @brief Operator+ Addition an other etk::color with this one
+			 * @param[in] _obj Reference on the external object
+			 * @return New vector containing the value
+			 */
 			etk::Color<MY_TYPE,MY_TYPE_SIZE> operator+ (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) const {
 				etk::Color<MY_TYPE,MY_TYPE_SIZE> tmpp(*this);
 				tmpp += _obj;
 				return tmpp;
 			}
-			/* ****************************************************
-			 *    *= operator
-			 *****************************************************/
-			const etk::Color<MY_TYPE,MY_TYPE_SIZE>& operator*= (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) {
+			/**
+			 * @brief Operator*= Multiply 2 color together
+			 * @param[in] _obj Reference on the external object
+			 * @return Local reference of the vector
+			 */
+			etk::Color<MY_TYPE,MY_TYPE_SIZE>& operator*= (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) {
 				if (MY_TYPE_SIZE >= 1) {
 					m_element[0] *= _obj.m_element[0];
 				}
@@ -326,7 +357,12 @@ namespace etk {
 				}
 				return *this;
 			}
-			const etk::Color<MY_TYPE,MY_TYPE_SIZE>& operator*= (const MY_TYPE _val) {
+			/**
+			 * @brief Operator*= Multiply the color With a specific value
+			 * @param[in] _val Value to multiply the color
+			 * @return Local reference of the vector
+			 */
+			etk::Color<MY_TYPE,MY_TYPE_SIZE>& operator*= (const MY_TYPE _val) {
 				if (MY_TYPE_SIZE >= 1) {
 					m_element[0] *= _val;
 				}
@@ -341,28 +377,72 @@ namespace etk {
 				}
 				return *this;
 			}
-			/* ****************************************************
-			 *    * operator
-			 *****************************************************/
+			/**
+			 * @brief Operator*= Multiply 2 color together
+			 * @param[in] _obj Reference on the external object
+			 * @return New vector containing the value
+			 */
 			etk::Color<MY_TYPE,MY_TYPE_SIZE> operator* (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) const {
 				etk::Color<MY_TYPE,MY_TYPE_SIZE> tmpp(*this);
 				tmpp *= _obj;
 				return tmpp;
 			}
+			/**
+			 * @brief Operator*= Multiply the color With a specific value
+			 * @param[in] _val Value to multiply the color
+			 * @return New vector containing the value
+			 */
 			etk::Color<MY_TYPE,MY_TYPE_SIZE> operator* (const MY_TYPE _val) const {
 				etk::Color<MY_TYPE,MY_TYPE_SIZE> tmpp(*this);
 				tmpp *= _val;
 				return tmpp;
 			}
 	};
+	
+	/**
+	 * @brief Get a color value started with a "#"
+	 * @param[in] _input String to parse
+	 * @return Value parsed
+	 */
 	etk::Color<uint8_t, 4> parseStringStartWithSharp(const std::string& _input);
+	/**
+	 * @brief Get a color value started with a "rgb()" converted in uint8
+	 * @param[in] _input String to parse
+	 * @return Value parsed
+	 */
 	etk::Color<uint8_t, 4> parseStringStartWithRGBGen(const std::string& _input);
+	/**
+	 * @brief Get a color value started with a "rgb()" keep in double
+	 * @param[in] _input String to parse
+	 * @return Value parsed
+	 */
 	etk::Color<double, 4> parseStringStartWithRGB(const std::string& _input);
+	/**
+	 * @brief Get a color value started with a "rgb()" converted in uint32
+	 * @param[in] _input String to parse
+	 * @return Value parsed
+	 */
 	etk::Color<uint32_t, 4> parseStringStartWithRGBUnsigned32(const std::string& _input);
+	/**
+	 * @brief Get a color value started with a "rgb()" converted in uint16
+	 * @param[in] _input String to parse
+	 * @return Value parsed
+	 */
 	etk::Color<uint16_t, 4> parseStringStartWithRGBUnsigned16(const std::string& _input);
+	/**
+	 * @brief Get a color value started with a "rgb()" converted in uint6
+	 * @param[in] _input String to parse
+	 * @return Value parsed
+	 */
 	etk::Color<uint8_t, 4> parseStringStartWithRGBUnsigned8(const std::string& _input);
+	/**
+	 * @brief Get a color value started with a "named" converted in uint8 like red, geen ...
+	 * @param[in] _input String to parse
+	 * @return Value parsed
+	 */
 	etk::Color<uint8_t, 4> parseStringColorNamed(const std::string& _input);
 	
+	//! @not_in_doc
 	template<> uint32_t Color<uint8_t, 4>::get() const;
 	
 	template<typename MY_TYPE, int MY_TYPE_SIZE> uint32_t Color<MY_TYPE, MY_TYPE_SIZE>::get() const {
@@ -565,7 +645,7 @@ namespace etk {
 	}
 	//! @not_in_doc
 	template<typename MY_TYPE, int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const std::vector<Color<MY_TYPE, MY_TYPE_SIZE> >& _obj) {
-		for (size_t iii = 0; iii < _obj.size(); ++iii) {
+		for (size_t iii = 0; iii < _obj.size();iii) {
 			if (iii != 0) {
 				_os << " ";
 			}
@@ -579,153 +659,153 @@ namespace etk {
 	 */
 	namespace color {
 		extern const Color<> none;            //!< No color (alpha = 0)
-		extern const Color<> aliceBlue;       //!< ++ [color=aliceBlue] aliceBlue color [/color] ++
-		extern const Color<> antiqueWhite;    //!< ++ [color=antiqueWhite] antiqueWhite color [/color] ++
-		extern const Color<> aqua;            //!< ++ [color=aqua] aqua color [/color] ++
-		extern const Color<> aquamarine;      //!< ++ [color=aquamarine] aquamarine color [/color] ++
-		extern const Color<> azure;           //!< ++ [color=azure] azure color [/color] ++
-		extern const Color<> beige;           //!< ++ [color=beige] beige color [/color] ++
-		extern const Color<> bisque;          //!< ++ [color=bisque] bisque color [/color] ++
-		extern const Color<> black;           //!< ++ [color=black] black color [/color] ++
-		extern const Color<> blanchedAlmond;  //!< ++ [color=blanchedAlmond] blanchedAlmond color [/color] ++
-		extern const Color<> blue;            //!< ++ [color=blue] blue color [/color] ++
-		extern const Color<> blueViolet;      //!< ++ [color=blueViolet] blueViolet color [/color] ++
-		extern const Color<> brown;           //!< ++ [color=brown] brown color [/color] ++
-		extern const Color<> burlyWood;       //!< ++ [color=burlyWood] burlyWood color [/color] ++
-		extern const Color<> cadetBlue;       //!< ++ [color=cadetBlue] cadetBlue color [/color] ++
-		extern const Color<> chartreuse;      //!< ++ [color=chartreuse] chartreuse color [/color] ++
-		extern const Color<> chocolate;       //!< ++ [color=chocolate] chocolate color [/color] ++
-		extern const Color<> coral;           //!< ++ [color=coral] coral color [/color] ++
-		extern const Color<> cornflowerBlue;  //!< ++ [color=cornflowerBlue] cornflowerBlue color [/color] ++
-		extern const Color<> cornsilk;        //!< ++ [color=cornsilk] cornsilk color [/color] ++
-		extern const Color<> crimson;         //!< ++ [color=crimson] crimson color [/color] ++
-		extern const Color<> cyan;            //!< ++ [color=cyan] cyan color [/color] ++
-		extern const Color<> darkBlue;        //!< ++ [color=darkBlue] darkBlue color [/color] ++
-		extern const Color<> darkCyan;        //!< ++ [color=darkCyan] darkCyan color [/color] ++
-		extern const Color<> darkGoldenRod;   //!< ++ [color=darkGoldenRod] darkGoldenRod color [/color] ++
-		extern const Color<> darkGray;        //!< ++ [color=darkGray] darkGray color [/color] ++
-		extern const Color<> darkGrey;        //!< ++ [color=darkGrey] darkGrey color [/color] ++
-		extern const Color<> darkGreen;       //!< ++ [color=darkGreen] darkGreen color [/color] ++
-		extern const Color<> darkKhaki;       //!< ++ [color=darkKhaki] darkKhaki color [/color] ++
-		extern const Color<> darkMagenta;     //!< ++ [color=darkMagenta] darkMagenta color [/color] ++
-		extern const Color<> darkOliveGreen;  //!< ++ [color=darkOliveGreen] darkOliveGreen color [/color] ++
-		extern const Color<> darkorange;      //!< ++ [color=darkorange] darkorange color [/color] ++
-		extern const Color<> darkOrchid;      //!< ++ [color=darkOrchid] darkOrchid color [/color] ++
-		extern const Color<> darkRed;         //!< ++ [color=darkRed] darkRed color [/color] ++
-		extern const Color<> darkSalmon;      //!< ++ [color=darkSalmon] darkSalmon color [/color] ++
-		extern const Color<> darkSeaGreen;    //!< ++ [color=darkSeaGreen] darkSeaGreen color [/color] ++
-		extern const Color<> darkSlateBlue;   //!< ++ [color=darkSlateBlue] darkSlateBlue color [/color] ++
-		extern const Color<> darkSlateGray;   //!< ++ [color=darkSlateGray] darkSlateGray color [/color] ++
-		extern const Color<> darkSlateGrey;   //!< ++ [color=darkSlateGrey] darkSlateGrey color [/color] ++
-		extern const Color<> darkTurquoise;   //!< ++ [color=darkTurquoise] darkTurquoise color [/color] ++
-		extern const Color<> darkViolet;      //!< ++ [color=darkViolet] darkViolet color [/color] ++
-		extern const Color<> deepPink;        //!< ++ [color=deepPink] deepPink color [/color] ++
-		extern const Color<> deepSkyBlue;     //!< ++ [color=deepSkyBlue] deepSkyBlue color [/color] ++
-		extern const Color<> dimGray;         //!< ++ [color=dimGray] dimGray color [/color] ++
-		extern const Color<> dimGrey;         //!< ++ [color=dimGrey] dimGrey color [/color] ++
-		extern const Color<> dodgerBlue;      //!< ++ [color=dodgerBlue] dodgerBlue color [/color] ++
-		extern const Color<> fireBrick;       //!< ++ [color=fireBrick] fireBrick color [/color] ++
-		extern const Color<> floralWhite;     //!< ++ [color=floralWhite] floralWhite color [/color] ++
-		extern const Color<> forestGreen;     //!< ++ [color=forestGreen] forestGreen color [/color] ++
-		extern const Color<> fuchsia;         //!< ++ [color=fuchsia] fuchsia color [/color] ++
-		extern const Color<> gainsboro;       //!< ++ [color=gainsboro] gainsboro color [/color] ++
-		extern const Color<> ghostWhite;      //!< ++ [color=ghostWhite] ghostWhite color [/color] ++
-		extern const Color<> gold;            //!< ++ [color=gold] gold color [/color] ++
-		extern const Color<> goldenRod;       //!< ++ [color=goldenRod] goldenRod color [/color] ++
-		extern const Color<> gray;            //!< ++ [color=gray] gray color [/color] ++
-		extern const Color<> grey;            //!< ++ [color=grey] grey color [/color] ++
-		extern const Color<> green;           //!< ++ [color=green] green color [/color] ++
-		extern const Color<> greenYellow;     //!< ++ [color=greenYellow] greenYellow color [/color] ++
-		extern const Color<> honeyDew;        //!< ++ [color=honeyDew] honeyDew color [/color] ++
-		extern const Color<> hotPink;         //!< ++ [color=hotPink] hotPink color [/color] ++
-		extern const Color<> indianRed;       //!< ++ [color=indianRed] indianRed color [/color] ++
-		extern const Color<> indigo;          //!< ++ [color=indigo] indigo color [/color] ++
-		extern const Color<> ivory;           //!< ++ [color=ivory] ivory color [/color] ++
-		extern const Color<> khaki;           //!< ++ [color=khaki] khaki color [/color] ++
-		extern const Color<> lavender;        //!< ++ [color=lavender] lavender color [/color] ++
-		extern const Color<> lavenderBlush;   //!< ++ [color=lavenderBlush] lavenderBlush color [/color] ++
-		extern const Color<> lawnGreen;       //!< ++ [color=lawnGreen] lawnGreen color [/color] ++
-		extern const Color<> lemonChiffon;    //!< ++ [color=lemonChiffon] lemonChiffon color [/color] ++
-		extern const Color<> lightBlue;       //!< ++ [color=lightBlue] lightBlue color [/color] ++
-		extern const Color<> lightCoral;      //!< ++ [color=lightCoral] lightCoral color [/color] ++
-		extern const Color<> lightCyan;       //!< ++ [color=lightCyan] lightCyan color [/color] ++
-		extern const Color<> lightGoldenRodYellow; //!< ++ [color=lightGoldenRodYellow] lightGoldenRodYellow color [/color] ++
-		extern const Color<> lightGray;       //!< ++ [color=lightGray] lightGray color [/color] ++
-		extern const Color<> lightGrey;       //!< ++ [color=lightGrey] lightGrey color [/color] ++
-		extern const Color<> lightGreen;      //!< ++ [color=lightGreen] lightGreen color [/color] ++
-		extern const Color<> lightPink;       //!< ++ [color=lightPink] lightPink color [/color] ++
-		extern const Color<> lightSalmon;     //!< ++ [color=lightSalmon] lightSalmon color [/color] ++
-		extern const Color<> lightSeaGreen;   //!< ++ [color=lightSeaGreen] lightSeaGreen color [/color] ++
-		extern const Color<> lightSkyBlue;    //!< ++ [color=lightSkyBlue] lightSkyBlue color [/color] ++
-		extern const Color<> lightSlateGray;  //!< ++ [color=lightSlateGray] lightSlateGray color [/color] ++
-		extern const Color<> lightSlateGrey;  //!< ++ [color=lightSlateGrey] lightSlateGrey color [/color] ++
-		extern const Color<> lightSteelBlue;  //!< ++ [color=lightSteelBlue] lightSteelBlue color [/color] ++
-		extern const Color<> lightYellow;     //!< ++ [color=lightYellow] lightYellow color [/color] ++
-		extern const Color<> lime;            //!< ++ [color=lime] lime color [/color] ++
-		extern const Color<> limeGreen;       //!< ++ [color=limeGreen] limeGreen color [/color] ++
-		extern const Color<> linen;           //!< ++ [color=linen] linen color [/color] ++
-		extern const Color<> magenta;         //!< ++ [color=magenta] magenta color [/color] ++
-		extern const Color<> maroon;          //!< ++ [color=maroon] maroon color [/color] ++
-		extern const Color<> mediumAquaMarine; //!< ++ [color=mediumAquaMarine] mediumAquaMarine color [/color] ++
-		extern const Color<> mediumBlue;      //!< ++ [color=mediumBlue] mediumBlue color [/color] ++
-		extern const Color<> mediumOrchid;    //!< ++ [color=mediumOrchid] mediumOrchid color [/color] ++
-		extern const Color<> mediumPurple;    //!< ++ [color=mediumPurple] mediumPurple color [/color] ++
-		extern const Color<> mediumSeaGreen;  //!< ++ [color=mediumSeaGreen] mediumSeaGreen color [/color] ++
-		extern const Color<> mediumSlateBlue; //!< ++ [color=mediumSlateBlue] mediumSlateBlue color [/color] ++
-		extern const Color<> mediumSpringGreen; //!< ++ [color=mediumSpringGreen] mediumSpringGreen color [/color] ++
-		extern const Color<> mediumTurquoise; //!< ++ [color=mediumTurquoise] mediumTurquoise color [/color] ++
-		extern const Color<> mediumVioletRed; //!< ++ [color=mediumVioletRed] mediumVioletRed color [/color] ++
-		extern const Color<> midnightBlue;    //!< ++ [color=midnightBlue] midnightBlue color [/color] ++
-		extern const Color<> mintCream;       //!< ++ [color=mintCream] mintCream color [/color] ++
-		extern const Color<> mistyRose;       //!< ++ [color=mistyRose] mistyRose color [/color] ++
-		extern const Color<> moccasin;        //!< ++ [color=moccasin] moccasin color [/color] ++
-		extern const Color<> navajoWhite;     //!< ++ [color=navajoWhite] navajoWhite color [/color] ++
-		extern const Color<> navy;            //!< ++ [color=navy] navy color [/color] ++
-		extern const Color<> oldLace;         //!< ++ [color=oldLace] oldLace color [/color] ++
-		extern const Color<> olive;           //!< ++ [color=olive] olive color [/color] ++
-		extern const Color<> oliveDrab;       //!< ++ [color=oliveDrab] oliveDrab color [/color] ++
-		extern const Color<> orange;          //!< ++ [color=orange] orange color [/color] ++
-		extern const Color<> orangeRed;       //!< ++ [color=orangeRed] orangeRed color [/color] ++
-		extern const Color<> orchid;          //!< ++ [color=orchid] orchid color [/color] ++
-		extern const Color<> paleGoldenRod;   //!< ++ [color=paleGoldenRod] paleGoldenRod color [/color] ++
-		extern const Color<> paleGreen;       //!< ++ [color=paleGreen] paleGreen color [/color] ++
-		extern const Color<> paleTurquoise;   //!< ++ [color=paleTurquoise] paleTurquoise color [/color] ++
-		extern const Color<> paleVioletRed;   //!< ++ [color=paleVioletRed] paleVioletRed color [/color] ++
-		extern const Color<> papayaWhip;      //!< ++ [color=papayaWhip] papayaWhip color [/color] ++
-		extern const Color<> peachPuff;       //!< ++ [color=peachPuff] peachPuff color [/color] ++
-		extern const Color<> peru;            //!< ++ [color=peru] peru color [/color] ++
-		extern const Color<> pink;            //!< ++ [color=pink] pink color [/color] ++
-		extern const Color<> plum;            //!< ++ [color=plum] plum color [/color] ++
-		extern const Color<> powderBlue;      //!< ++ [color=powderBlue] powderBlue color [/color] ++
-		extern const Color<> purple;          //!< ++ [color=purple] purple color [/color] ++
-		extern const Color<> red;             //!< ++ [color=red] red color [/color] ++
-		extern const Color<> rosyBrown;       //!< ++ [color=rosyBrown] rosyBrown color [/color] ++
-		extern const Color<> royalBlue;       //!< ++ [color=royalBlue] royalBlue color [/color] ++
-		extern const Color<> saddleBrown;     //!< ++ [color=saddleBrown] saddleBrown color [/color] ++
-		extern const Color<> salmon;          //!< ++ [color=salmon] salmon color [/color] ++
-		extern const Color<> sandyBrown;      //!< ++ [color=sandyBrown] sandyBrown color [/color] ++
-		extern const Color<> seaGreen;        //!< ++ [color=seaGreen] seaGreen color [/color] ++
-		extern const Color<> seaShell;        //!< ++ [color=seaShell] seaShell color [/color] ++
-		extern const Color<> sienna;          //!< ++ [color=sienna] sienna color [/color] ++
-		extern const Color<> silver;          //!< ++ [color=silver] silver color [/color] ++
-		extern const Color<> skyBlue;         //!< ++ [color=skyBlue] skyBlue color [/color] ++
-		extern const Color<> slateBlue;       //!< ++ [color=slateBlue] slateBlue color [/color] ++
-		extern const Color<> slateGray;       //!< ++ [color=slateGray] slateGray color [/color] ++
-		extern const Color<> slateGrey;       //!< ++ [color=slateGrey] slateGrey color [/color] ++
-		extern const Color<> snow;            //!< ++ [color=snow] snow color [/color] ++
-		extern const Color<> springGreen;     //!< ++ [color=springGreen] springGreen color [/color] ++
-		extern const Color<> steelBlue;       //!< ++ [color=steelBlue] steelBlue color [/color] ++
-		extern const Color<> tan;             //!< ++ [color=tan] tan color [/color] ++
-		extern const Color<> teal;            //!< ++ [color=teal] teal color [/color] ++
-		extern const Color<> thistle;         //!< ++ [color=thistle] thistle color [/color] ++
-		extern const Color<> tomato;          //!< ++ [color=tomato] tomato color [/color] ++
-		extern const Color<> turquoise;       //!< ++ [color=turquoise] turquoise color [/color] ++
-		extern const Color<> violet;          //!< ++ [color=violet] violet color [/color] ++
-		extern const Color<> wheat;           //!< ++ [color=wheat] wheat color [/color] ++
-		extern const Color<> white;           //!< ++ [color=white] white color [/color] ++
-		extern const Color<> whiteSmoke;      //!< ++ [color=whiteSmoke] whiteSmoke color [/color] ++
-		extern const Color<> yellow;          //!< ++ [color=yellow] yellow color [/color] ++
-		extern const Color<> yellowGreen;     //!< ++ [color=yellowGreen] yellowGreen color [/color] ++
+		extern const Color<> aliceBlue;       //!<   - <span class="color:aliceBlue"> aliceBlue color </span>
+		extern const Color<> antiqueWhite;    //!<   - <span class="color:antiqueWhite"> antiqueWhite color </span>
+		extern const Color<> aqua;            //!<   - <span class="color:aqua"> aqua color </span>
+		extern const Color<> aquamarine;      //!<   - <span class="color:aquamarine"> aquamarine color </span>
+		extern const Color<> azure;           //!<   - <span class="color:azure"> azure color </span>
+		extern const Color<> beige;           //!<   - <span class="color:beige"> beige color </span>
+		extern const Color<> bisque;          //!<   - <span class="color:bisque"> bisque color </span>
+		extern const Color<> black;           //!<   - <span class="color:black"> black color </span>
+		extern const Color<> blanchedAlmond;  //!<   - <span class="color:blanchedAlmond"> blanchedAlmond color </span>
+		extern const Color<> blue;            //!<   - <span class="color:blue"> blue color </span>
+		extern const Color<> blueViolet;      //!<   - <span class="color:blueViolet"> blueViolet color </span>
+		extern const Color<> brown;           //!<   - <span class="color:brown"> brown color </span>
+		extern const Color<> burlyWood;       //!<   - <span class="color:burlyWood"> burlyWood color </span>
+		extern const Color<> cadetBlue;       //!<   - <span class="color:cadetBlue"> cadetBlue color </span>
+		extern const Color<> chartreuse;      //!<   - <span class="color:chartreuse"> chartreuse color </span>
+		extern const Color<> chocolate;       //!<   - <span class="color:chocolate"> chocolate color </span>
+		extern const Color<> coral;           //!<   - <span class="color:coral"> coral color </span>
+		extern const Color<> cornflowerBlue;  //!<   - <span class="color:cornflowerBlue"> cornflowerBlue color </span>
+		extern const Color<> cornsilk;        //!<   - <span class="color:cornsilk"> cornsilk color </span>
+		extern const Color<> crimson;         //!<   - <span class="color:crimson"> crimson color </span>
+		extern const Color<> cyan;            //!<   - <span class="color:cyan"> cyan color </span>
+		extern const Color<> darkBlue;        //!<   - <span class="color:darkBlue"> darkBlue color </span>
+		extern const Color<> darkCyan;        //!<   - <span class="color:darkCyan"> darkCyan color </span>
+		extern const Color<> darkGoldenRod;   //!<   - <span class="color:darkGoldenRod"> darkGoldenRod color </span>
+		extern const Color<> darkGray;        //!<   - <span class="color:darkGray"> darkGray color </span>
+		extern const Color<> darkGrey;        //!<   - <span class="color:darkGrey"> darkGrey color </span>
+		extern const Color<> darkGreen;       //!<   - <span class="color:darkGreen"> darkGreen color </span>
+		extern const Color<> darkKhaki;       //!<   - <span class="color:darkKhaki"> darkKhaki color </span>
+		extern const Color<> darkMagenta;     //!<   - <span class="color:darkMagenta"> darkMagenta color </span>
+		extern const Color<> darkOliveGreen;  //!<   - <span class="color:darkOliveGreen"> darkOliveGreen color </span>
+		extern const Color<> darkorange;      //!<   - <span class="color:darkorange"> darkorange color </span>
+		extern const Color<> darkOrchid;      //!<   - <span class="color:darkOrchid"> darkOrchid color </span>
+		extern const Color<> darkRed;         //!<   - <span class="color:darkRed"> darkRed color </span>
+		extern const Color<> darkSalmon;      //!<   - <span class="color:darkSalmon"> darkSalmon color </span>
+		extern const Color<> darkSeaGreen;    //!<   - <span class="color:darkSeaGreen"> darkSeaGreen color </span>
+		extern const Color<> darkSlateBlue;   //!<   - <span class="color:darkSlateBlue"> darkSlateBlue color </span>
+		extern const Color<> darkSlateGray;   //!<   - <span class="color:darkSlateGray"> darkSlateGray color </span>
+		extern const Color<> darkSlateGrey;   //!<   - <span class="color:darkSlateGrey"> darkSlateGrey color </span>
+		extern const Color<> darkTurquoise;   //!<   - <span class="color:darkTurquoise"> darkTurquoise color </span>
+		extern const Color<> darkViolet;      //!<   - <span class="color:darkViolet"> darkViolet color </span>
+		extern const Color<> deepPink;        //!<   - <span class="color:deepPink"> deepPink color </span>
+		extern const Color<> deepSkyBlue;     //!<   - <span class="color:deepSkyBlue"> deepSkyBlue color </span>
+		extern const Color<> dimGray;         //!<   - <span class="color:dimGray"> dimGray color </span>
+		extern const Color<> dimGrey;         //!<   - <span class="color:dimGrey"> dimGrey color </span>
+		extern const Color<> dodgerBlue;      //!<   - <span class="color:dodgerBlue"> dodgerBlue color </span>
+		extern const Color<> fireBrick;       //!<   - <span class="color:fireBrick"> fireBrick color </span>
+		extern const Color<> floralWhite;     //!<   - <span class="color:floralWhite"> floralWhite color </span>
+		extern const Color<> forestGreen;     //!<   - <span class="color:forestGreen"> forestGreen color </span>
+		extern const Color<> fuchsia;         //!<   - <span class="color:fuchsia"> fuchsia color </span>
+		extern const Color<> gainsboro;       //!<   - <span class="color:gainsboro"> gainsboro color </span>
+		extern const Color<> ghostWhite;      //!<   - <span class="color:ghostWhite"> ghostWhite color </span>
+		extern const Color<> gold;            //!<   - <span class="color:gold"> gold color </span>
+		extern const Color<> goldenRod;       //!<   - <span class="color:goldenRod"> goldenRod color </span>
+		extern const Color<> gray;            //!<   - <span class="color:gray"> gray color </span>
+		extern const Color<> grey;            //!<   - <span class="color:grey"> grey color </span>
+		extern const Color<> green;           //!<   - <span class="color:green"> green color </span>
+		extern const Color<> greenYellow;     //!<   - <span class="color:greenYellow"> greenYellow color </span>
+		extern const Color<> honeyDew;        //!<   - <span class="color:honeyDew"> honeyDew color </span>
+		extern const Color<> hotPink;         //!<   - <span class="color:hotPink"> hotPink color </span>
+		extern const Color<> indianRed;       //!<   - <span class="color:indianRed"> indianRed color </span>
+		extern const Color<> indigo;          //!<   - <span class="color:indigo"> indigo color </span>
+		extern const Color<> ivory;           //!<   - <span class="color:ivory"> ivory color </span>
+		extern const Color<> khaki;           //!<   - <span class="color:khaki"> khaki color </span>
+		extern const Color<> lavender;        //!<   - <span class="color:lavender"> lavender color </span>
+		extern const Color<> lavenderBlush;   //!<   - <span class="color:lavenderBlush"> lavenderBlush color </span>
+		extern const Color<> lawnGreen;       //!<   - <span class="color:lawnGreen"> lawnGreen color </span>
+		extern const Color<> lemonChiffon;    //!<   - <span class="color:lemonChiffon"> lemonChiffon color </span>
+		extern const Color<> lightBlue;       //!<   - <span class="color:lightBlue"> lightBlue color </span>
+		extern const Color<> lightCoral;      //!<   - <span class="color:lightCoral"> lightCoral color </span>
+		extern const Color<> lightCyan;       //!<   - <span class="color:lightCyan"> lightCyan color </span>
+		extern const Color<> lightGoldenRodYellow; //!<   - <span class="color:lightGoldenRodYellow"> lightGoldenRodYellow color </span>
+		extern const Color<> lightGray;       //!<   - <span class="color:lightGray"> lightGray color </span>
+		extern const Color<> lightGrey;       //!<   - <span class="color:lightGrey"> lightGrey color </span>
+		extern const Color<> lightGreen;      //!<   - <span class="color:lightGreen"> lightGreen color </span>
+		extern const Color<> lightPink;       //!<   - <span class="color:lightPink"> lightPink color </span>
+		extern const Color<> lightSalmon;     //!<   - <span class="color:lightSalmon"> lightSalmon color </span>
+		extern const Color<> lightSeaGreen;   //!<   - <span class="color:lightSeaGreen"> lightSeaGreen color </span>
+		extern const Color<> lightSkyBlue;    //!<   - <span class="color:lightSkyBlue"> lightSkyBlue color </span>
+		extern const Color<> lightSlateGray;  //!<   - <span class="color:lightSlateGray"> lightSlateGray color </span>
+		extern const Color<> lightSlateGrey;  //!<   - <span class="color:lightSlateGrey"> lightSlateGrey color </span>
+		extern const Color<> lightSteelBlue;  //!<   - <span class="color:lightSteelBlue"> lightSteelBlue color </span>
+		extern const Color<> lightYellow;     //!<   - <span class="color:lightYellow"> lightYellow color </span>
+		extern const Color<> lime;            //!<   - <span class="color:lime"> lime color </span>
+		extern const Color<> limeGreen;       //!<   - <span class="color:limeGreen"> limeGreen color </span>
+		extern const Color<> linen;           //!<   - <span class="color:linen"> linen color </span>
+		extern const Color<> magenta;         //!<   - <span class="color:magenta"> magenta color </span>
+		extern const Color<> maroon;          //!<   - <span class="color:maroon"> maroon color </span>
+		extern const Color<> mediumAquaMarine; //!<   - <span class="color:mediumAquaMarine"> mediumAquaMarine color </span>
+		extern const Color<> mediumBlue;      //!<   - <span class="color:mediumBlue"> mediumBlue color </span>
+		extern const Color<> mediumOrchid;    //!<   - <span class="color:mediumOrchid"> mediumOrchid color </span>
+		extern const Color<> mediumPurple;    //!<   - <span class="color:mediumPurple"> mediumPurple color </span>
+		extern const Color<> mediumSeaGreen;  //!<   - <span class="color:mediumSeaGreen"> mediumSeaGreen color </span>
+		extern const Color<> mediumSlateBlue; //!<   - <span class="color:mediumSlateBlue"> mediumSlateBlue color </span>
+		extern const Color<> mediumSpringGreen; //!<   - <span class="color:mediumSpringGreen"> mediumSpringGreen color </span>
+		extern const Color<> mediumTurquoise; //!<   - <span class="color:mediumTurquoise"> mediumTurquoise color </span>
+		extern const Color<> mediumVioletRed; //!<   - <span class="color:mediumVioletRed"> mediumVioletRed color </span>
+		extern const Color<> midnightBlue;    //!<   - <span class="color:midnightBlue"> midnightBlue color </span>
+		extern const Color<> mintCream;       //!<   - <span class="color:mintCream"> mintCream color </span>
+		extern const Color<> mistyRose;       //!<   - <span class="color:mistyRose"> mistyRose color </span>
+		extern const Color<> moccasin;        //!<   - <span class="color:moccasin"> moccasin color </span>
+		extern const Color<> navajoWhite;     //!<   - <span class="color:navajoWhite"> navajoWhite color </span>
+		extern const Color<> navy;            //!<   - <span class="color:navy"> navy color </span>
+		extern const Color<> oldLace;         //!<   - <span class="color:oldLace"> oldLace color </span>
+		extern const Color<> olive;           //!<   - <span class="color:olive"> olive color </span>
+		extern const Color<> oliveDrab;       //!<   - <span class="color:oliveDrab"> oliveDrab color </span>
+		extern const Color<> orange;          //!<   - <span class="color:orange"> orange color </span>
+		extern const Color<> orangeRed;       //!<   - <span class="color:orangeRed"> orangeRed color </span>
+		extern const Color<> orchid;          //!<   - <span class="color:orchid"> orchid color </span>
+		extern const Color<> paleGoldenRod;   //!<   - <span class="color:paleGoldenRod"> paleGoldenRod color </span>
+		extern const Color<> paleGreen;       //!<   - <span class="color:paleGreen"> paleGreen color </span>
+		extern const Color<> paleTurquoise;   //!<   - <span class="color:paleTurquoise"> paleTurquoise color </span>
+		extern const Color<> paleVioletRed;   //!<   - <span class="color:paleVioletRed"> paleVioletRed color </span>
+		extern const Color<> papayaWhip;      //!<   - <span class="color:papayaWhip"> papayaWhip color </span>
+		extern const Color<> peachPuff;       //!<   - <span class="color:peachPuff"> peachPuff color </span>
+		extern const Color<> peru;            //!<   - <span class="color:peru"> peru color </span>
+		extern const Color<> pink;            //!<   - <span class="color:pink"> pink color </span>
+		extern const Color<> plum;            //!<   - <span class="color:plum"> plum color </span>
+		extern const Color<> powderBlue;      //!<   - <span class="color:powderBlue"> powderBlue color </span>
+		extern const Color<> purple;          //!<   - <span class="color:purple"> purple color </span>
+		extern const Color<> red;             //!<   - <span class="color:red"> red color </span>
+		extern const Color<> rosyBrown;       //!<   - <span class="color:rosyBrown"> rosyBrown color </span>
+		extern const Color<> royalBlue;       //!<   - <span class="color:royalBlue"> royalBlue color </span>
+		extern const Color<> saddleBrown;     //!<   - <span class="color:saddleBrown"> saddleBrown color </span>
+		extern const Color<> salmon;          //!<   - <span class="color:salmon"> salmon color </span>
+		extern const Color<> sandyBrown;      //!<   - <span class="color:sandyBrown"> sandyBrown color </span>
+		extern const Color<> seaGreen;        //!<   - <span class="color:seaGreen"> seaGreen color </span>
+		extern const Color<> seaShell;        //!<   - <span class="color:seaShell"> seaShell color </span>
+		extern const Color<> sienna;          //!<   - <span class="color:sienna"> sienna color </span>
+		extern const Color<> silver;          //!<   - <span class="color:silver"> silver color </span>
+		extern const Color<> skyBlue;         //!<   - <span class="color:skyBlue"> skyBlue color </span>
+		extern const Color<> slateBlue;       //!<   - <span class="color:slateBlue"> slateBlue color </span>
+		extern const Color<> slateGray;       //!<   - <span class="color:slateGray"> slateGray color </span>
+		extern const Color<> slateGrey;       //!<   - <span class="color:slateGrey"> slateGrey color </span>
+		extern const Color<> snow;            //!<   - <span class="color:snow"> snow color </span>
+		extern const Color<> springGreen;     //!<   - <span class="color:springGreen"> springGreen color </span>
+		extern const Color<> steelBlue;       //!<   - <span class="color:steelBlue"> steelBlue color </span>
+		extern const Color<> tan;             //!<   - <span class="color:tan"> tan color </span>
+		extern const Color<> teal;            //!<   - <span class="color:teal"> teal color </span>
+		extern const Color<> thistle;         //!<   - <span class="color:thistle"> thistle color </span>
+		extern const Color<> tomato;          //!<   - <span class="color:tomato"> tomato color </span>
+		extern const Color<> turquoise;       //!<   - <span class="color:turquoise"> turquoise color </span>
+		extern const Color<> violet;          //!<   - <span class="color:violet"> violet color </span>
+		extern const Color<> wheat;           //!<   - <span class="color:wheat"> wheat color </span>
+		extern const Color<> white;           //!<   - <span class="color:white"> white color </span>
+		extern const Color<> whiteSmoke;      //!<   - <span class="color:whiteSmoke"> whiteSmoke color </span>
+		extern const Color<> yellow;          //!<   - <span class="color:yellow"> yellow color </span>
+		extern const Color<> yellowGreen;     //!<   - <span class="color:yellowGreen"> yellowGreen color </span>
 	};
 };
 

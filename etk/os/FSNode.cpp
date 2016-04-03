@@ -228,14 +228,14 @@ void etk::setArgZero(const std::string& _val) {
 	Afterwards it may be reasonable to check whether the executable isn't actually a symlink. If it is resolve it relative to the symlink directory.
 	This step is not necessary in /proc method (at least for Linux). There the proc symlink points directly to executable.
 	Note that it is up to the calling process to set argv[0] correctly. It is right most of the times however there are occasions when the calling process cannot be trusted (ex. setuid executable).
-	On Windows: use GetModuleFileName(NULL, buf, bufsize)
+	On Windows: use GetModuleFileName(nullptr, buf, bufsize)
 */
 std::string getApplicationPath() {
 	std::string binaryName = "no-name";
 	char binaryCompleatePath[FILENAME_MAX];
 	memset(binaryCompleatePath, 0, FILENAME_MAX);
 	#ifdef __TARGET_OS__Windows
-		GetModuleFileName(NULL, binaryCompleatePath, FILENAME_MAX);
+		GetModuleFileName(nullptr, binaryCompleatePath, FILENAME_MAX);
 		if (0==strlen(binaryCompleatePath)) {
 			TK_CRITICAL("Can not get the binary position in the tree ==> this is really bad ...");
 		} else {
@@ -278,7 +278,7 @@ std::string getApplicationPath() {
 		}
 		TK_VERBOSE("Parse arg0 = '" << l_argZero << "' try add PWD");
 		char * basicPathPWD = getenv("PWD");
-		if (NULL != basicPathPWD) {
+		if (nullptr != basicPathPWD) {
 			std::string testCompleatePath = basicPathPWD;
 			testCompleatePath += "/";
 			testCompleatePath += l_argZero;
@@ -294,7 +294,7 @@ std::string getApplicationPath() {
 			}
 		}
 		//char * basicPathPATH = getenv("PATH");
-		//if (NULL != basicPathPWD) {
+		//if (nullptr != basicPathPWD) {
 			// TODO : bad case ...
 		//}
 		// and now we will really in a bad mood ...
@@ -312,7 +312,7 @@ void etk::initDefaultFolder(const char* _applName) {
 	baseApplName = _applName;
 	char cCurrentPath[FILENAME_MAX];
 	char * basicPath = getenv("HOME");
-	if (NULL == basicPath) {
+	if (nullptr == basicPath) {
 		TK_WARNING("ERROR while trying to get the path of the home folder");
 		#if defined(__TARGET_OS__Windows)
 			baseFolderHome = "c:/";
@@ -498,7 +498,7 @@ static int32_t FSNODE_LOCAL_mkPath(const char* _path, mode_t _mode) {
 	char *sp;
 	int status;
 	char *copypath = strdup(_path);
-	if (NULL==copypath) {
+	if (nullptr==copypath) {
 		return -1;
 	}
 	status = 0;
@@ -521,14 +521,14 @@ static int32_t FSNODE_LOCAL_mkPath(const char* _path, mode_t _mode) {
 
 etk::FSNode::FSNode(const std::string& _nodeName) :
   m_userFileName(""),
-  m_type(etk::FSN_TYPE_UNKNOW),
-  m_typeNode(etk::FSN_UNKNOW),
-  m_PointerFile(NULL),
+  m_type(etk::FSNType_unknow),
+  m_typeNode(etk::typeNode_unknow),
+  m_PointerFile(nullptr),
   m_timeCreate(0),
   m_timeModify(0),
   m_timeAccess(0)
 #ifdef HAVE_ZIP_DATA
-    , m_zipContent(NULL),
+    , m_zipContent(nullptr),
     m_zipReadingOffset(-1)
 #endif
 {
@@ -537,14 +537,14 @@ etk::FSNode::FSNode(const std::string& _nodeName) :
 #if __CPP_VERSION__ >= 2011
 	etk::FSNode::FSNode(const std::u32string& _nodeName) :
 	  m_userFileName(""),
-	  m_type(etk::FSN_TYPE_UNKNOW),
-	  m_typeNode(etk::FSN_UNKNOW),
-	  m_PointerFile(NULL),
+	  m_type(etk::FSNType_unknow),
+	  m_typeNode(etk::typeNode_unknow),
+	  m_PointerFile(nullptr),
 	  m_timeCreate(0),
 	  m_timeModify(0),
 	  m_timeAccess(0)
 	#ifdef HAVE_ZIP_DATA
-	    , m_zipContent(NULL),
+	    , m_zipContent(nullptr),
 	    m_zipReadingOffset(-1)
 	#endif
 	{
@@ -554,9 +554,9 @@ etk::FSNode::FSNode(const std::string& _nodeName) :
 
 
 etk::FSNode::~FSNode() {
-	if(    NULL != m_PointerFile
+	if(    nullptr != m_PointerFile
 	#ifdef HAVE_ZIP_DATA
-	    || NULL != m_zipContent
+	    || nullptr != m_zipContent
 	#endif
 	  ) {
 		TK_ERROR("Missing to close the file : \"" << *this << "\"");
@@ -569,11 +569,11 @@ void etk::FSNode::sortElementList(std::vector<etk::FSNode *>& _list) {
 	std::vector<etk::FSNode *> tmpList = _list;
 	_list.clear();
 	for(size_t iii=0; iii<tmpList.size(); iii++) {
-		if (NULL != tmpList[iii]) {
+		if (nullptr != tmpList[iii]) {
 			size_t findPos = 0;
 			for(size_t jjj=0; jjj<_list.size(); jjj++) {
 				//EWOL_DEBUG("compare : \""<<*tmpList[iii] << "\" and \"" << *m_listDirectory[jjj] << "\"");
-				if (_list[jjj]!=NULL) {
+				if (_list[jjj]!=nullptr) {
 					// TODO : Do something better : this methode is a litthe hard!!!
 					if (etk::toupper(tmpList[iii]->getNameFile()) > etk::toupper(_list[jjj]->getNameFile())) {
 						findPos = jjj+1;
@@ -587,15 +587,15 @@ void etk::FSNode::sortElementList(std::vector<etk::FSNode *>& _list) {
 }
 
 void etk::FSNode::privateSetName(std::string _newName) {
-	if(    NULL != m_PointerFile
+	if(    nullptr != m_PointerFile
 	#ifdef HAVE_ZIP_DATA
-	    || NULL != m_zipContent
+	    || nullptr != m_zipContent
 	#endif
 	  ) {
 		TK_ERROR("Missing to close the file : \"" << *this << "\"");
 		fileClose();
 	}
-	// set right at NULL ...
+	// set right at nullptr ...
 	m_rights = 0;
 	
 	m_libSearch = "";
@@ -615,12 +615,12 @@ void etk::FSNode::privateSetName(std::string _newName) {
 	}
 	
 	#ifdef HAVE_ZIP_DATA
-		m_zipContent = NULL;
+		m_zipContent = nullptr;
 		m_zipReadingOffset = 0;
 	#endif
 	// Reset ALL DATA :
 	m_userFileName = "";
-	m_type = etk::FSN_TYPE_UNKNOW;
+	m_type = etk::FSNType_unknow;
 	TK_DBG_MODE("1 : Set Name :              \"" << _newName << "\"");
 	
 	// generate destination name in case of the input error
@@ -652,47 +652,47 @@ void etk::FSNode::privateSetName(std::string _newName) {
 	    || start_with(destFilename, "root:") == true ) {
 		TK_DBG_MODE("    ==> detect root 2 ");
 		destFilename.erase(0, 5);
-		m_type = etk::FSN_TYPE_DIRECT;
+		m_type = etk::FSNType_direct;
 		if(start_with(destFilename, "~") == true) {
 			destFilename.erase(0, 1);
-			m_type = etk::FSN_TYPE_HOME;
+			m_type = etk::FSNType_home;
 		}
 	} else if(    start_with(destFilename, "DIRECT:") == true
 	           || start_with(destFilename, "direct:") == true ) {
 		TK_DBG_MODE("    ==> detect direct");
 		destFilename.erase(0, 7);
-		m_type = etk::FSN_TYPE_DIRECT;
+		m_type = etk::FSNType_direct;
 		if(start_with(destFilename, "~") == true) {
 			destFilename.erase(0, 1);
-			m_type = etk::FSN_TYPE_HOME;
+			m_type = etk::FSNType_home;
 		}
 	} else if(    start_with(destFilename, "DATA:") == true
 	           || start_with(destFilename, "data:") == true ) {
 		TK_DBG_MODE("    ==> detect data");
 		destFilename.erase(0, 5);
-		m_type = etk::FSN_TYPE_DATA;
+		m_type = etk::FSNType_data;
 	} else if(    start_with(destFilename, "USERDATA:") == true
 	           || start_with(destFilename, "userdata:") == true ) {
 		TK_DBG_MODE("    ==> detect User-data");
 		destFilename.erase(0, 9);
-		m_type = etk::FSN_TYPE_USER_DATA;
+		m_type = etk::FSNType_userData;
 	} else if(    start_with(destFilename, "CACHE:") == true
 	           || start_with(destFilename, "cache:") == true ) {
 		TK_DBG_MODE("    ==> detect Cache");
 		destFilename.erase(0, 6);
-		m_type = etk::FSN_TYPE_CACHE;
+		m_type = etk::FSNType_cache;
 	} else if(    start_with(destFilename, "THEME:") == true
 	           || start_with(destFilename, "theme:") == true ) {
 		TK_DBG_MODE("    ==> detect theme");
 		destFilename.erase(0, 6);
-		m_type = etk::FSN_TYPE_THEME;
+		m_type = etk::FSNType_theme;
 	} else if(start_with(destFilename, "./") == true) {
 		TK_DBG_MODE("    ==> detect relatif 1");
 		destFilename.erase(0, 2);
 		while (destFilename.size()>0 && destFilename[0] == '/') {
 			destFilename.erase(0, 1);
 		}
-		m_type = etk::FSN_TYPE_RELATIF;
+		m_type = etk::FSNType_relatif;
 	} else if(    start_with(destFilename, "REL:") == true
 	           || start_with(destFilename, "rel:") == true ) {
 		TK_DBG_MODE("    ==> detect relatif 2");
@@ -700,14 +700,14 @@ void etk::FSNode::privateSetName(std::string _newName) {
 		while (destFilename.size()>0 && destFilename[0] == '/') {
 			destFilename.erase(0, 1);
 		}
-		m_type = etk::FSN_TYPE_RELATIF;
+		m_type = etk::FSNType_relatif;
 	} else if(start_with(destFilename, baseRunPath) == true) {
 		TK_DBG_MODE("    ==> detect relatif 3 (run path=" << baseRunPath << ")");
 		destFilename.erase(0, baseRunPath.size());
 		while (destFilename.size()>0 && destFilename[0] == '/') {
 			destFilename.erase(0, 1);
 		}
-		m_type = etk::FSN_TYPE_RELATIF;
+		m_type = etk::FSNType_relatif;
 	} else if ((    baseRunPath != baseRunPathInHome
 	             && (    start_with(destFilename, "~" + baseRunPathInHome) == true
 	                  || start_with(destFilename, "HOME:" + baseRunPathInHome) == true
@@ -722,23 +722,23 @@ void etk::FSNode::privateSetName(std::string _newName) {
 		while (destFilename.size()>0 && destFilename[0] == '/') {
 			destFilename.erase(0, 1);
 		}
-		m_type = etk::FSN_TYPE_RELATIF;
+		m_type = etk::FSNType_relatif;
 	} else if(start_with(destFilename, "~")) {
 		TK_DBG_MODE("    ==> detect home 2");
 		destFilename.erase(0, 1);
-		m_type = etk::FSN_TYPE_HOME;
+		m_type = etk::FSNType_home;
 	} else if(    start_with(destFilename, "HOME:") == true
 	           || start_with(destFilename, "home:") == true ) {
 		TK_DBG_MODE("    ==> detect home 3");
 		destFilename.erase(0, 5);
-		m_type = etk::FSN_TYPE_HOME;
+		m_type = etk::FSNType_home;
 		if(start_with(destFilename, "~") == true) {
 			destFilename.erase(0, 1);
 		}
 	} else if (start_with(destFilename, baseFolderHome) == true) {
 		TK_DBG_MODE("    ==> detect home");
 		destFilename.erase(0, baseFolderHome.size());
-		m_type = etk::FSN_TYPE_HOME;
+		m_type = etk::FSNType_home;
 	} else if(isRootFolder == true) {
 		TK_DBG_MODE("    ==> detect root");
 		#ifdef __TARGET_OS__Windows
@@ -746,12 +746,12 @@ void etk::FSNode::privateSetName(std::string _newName) {
 		#else
 			destFilename.erase(0, 1);
 		#endif
-		m_type = etk::FSN_TYPE_DIRECT;
+		m_type = etk::FSNType_direct;
 	} else {
 		TK_DBG_MODE("    ==> detect other");
 		// nothing to remove
 		//Other type is Relative : 
-		m_type = etk::FSN_TYPE_RELATIF;
+		m_type = etk::FSNType_relatif;
 	}
 	m_userFileName = destFilename;
 	TK_DBG_MODE("3 : parse done :            [" << m_type << "]->\"" << m_userFileName << "\"");
@@ -778,7 +778,7 @@ void etk::FSNode::privateSetName(std::string _newName) {
 bool directCheckFile(std::string _tmpFileNameDirect, bool _checkInAPKIfNeeded = false) {
 	#ifdef HAVE_ZIP_DATA
 	if (true == _checkInAPKIfNeeded) {
-		if(    NULL != s_APKArchive
+		if(    nullptr != s_APKArchive
 		    && true == s_APKArchive->exist(_tmpFileNameDirect) ) {
 			return true;
 		}
@@ -806,13 +806,13 @@ void etk::FSNode::generateFileSystemPath() {
 	}
 	switch (m_type) {
 		default:
-		case etk::FSN_TYPE_UNKNOW:
+		case etk::FSNType_unknow:
 			m_systemFileName = baseFolderHome;
 			break;
-		case etk::FSN_TYPE_DIRECT:
+		case etk::FSNType_direct:
 			m_systemFileName = "/";
 			break;
-		case etk::FSN_TYPE_RELATIF: {
+		case etk::FSNType_relatif: {
 				// Get the command came from the running of the program : 
 				char cCurrentPath[FILENAME_MAX];
 				if (!getcwd(cCurrentPath, FILENAME_MAX)) {
@@ -825,10 +825,10 @@ void etk::FSNode::generateFileSystemPath() {
 				//m_systemFileName += "/";
 			break;
 		}
-		case etk::FSN_TYPE_HOME:
+		case etk::FSNType_home:
 			m_systemFileName = baseFolderHome;
 			break;
-		case etk::FSN_TYPE_DATA:
+		case etk::FSNType_data:
 			{
 				TK_DBG_MODE("DATA lib : \"" << m_libSearch << "\" => \"" << m_userFileName << "\" forceLib = " << forceLibFolder);
 				// search the correct folder:
@@ -847,14 +847,14 @@ void etk::FSNode::generateFileSystemPath() {
 				return;
 			}
 			break;
-		case etk::FSN_TYPE_USER_DATA:
+		case etk::FSNType_userData:
 			m_systemFileName = baseFolderDataUser;
 			break;
-		case etk::FSN_TYPE_CACHE:
+		case etk::FSNType_cache:
 			m_systemFileName = baseFolderCache;
 			break;
-		case etk::FSN_TYPE_THEME:
-		case etk::FSN_TYPE_THEME_DATA:
+		case etk::FSNType_theme:
+		case etk::FSNType_themeData:
 			{
 				//std::u32string myCompleateName=baseFolderData + "/theme/";
 				std::string themeName("");
@@ -883,7 +883,7 @@ void etk::FSNode::generateFileSystemPath() {
 						// check in the Appl data :
 						m_systemFileName = simplifyPath(baseFolderData + "theme/" + themeName + "/" + basicName);
 						if (directCheckFile(m_systemFileName, true) == true) {
-							m_type = etk::FSN_TYPE_THEME_DATA;
+							m_type = etk::FSNType_themeData;
 							return;
 						}
 					}
@@ -897,7 +897,7 @@ void etk::FSNode::generateFileSystemPath() {
 						// check in the Appl data :
 						m_systemFileName = simplifyPath(baseFolderData + "/../" + m_libSearch + "/theme/" + themeName + "/" + basicName);
 						if (directCheckFile(m_systemFileName, true) == true) {
-							m_type = etk::FSN_TYPE_THEME_DATA;
+							m_type = etk::FSNType_themeData;
 							return;
 						}
 					}
@@ -912,11 +912,11 @@ void etk::FSNode::generateFileSystemPath() {
 					// check in the Appl data : In every case we return this one ...
 					m_systemFileName = simplifyPath(baseFolderData + "theme/" + themeNameDefault + "/" + basicName);
 					if (true==directCheckFile(m_systemFileName, true)) {
-						m_type = etk::FSN_TYPE_THEME_DATA;
+						m_type = etk::FSNType_themeData;
 						return;
 					}
 					if (m_libSearch.size() == 0) {
-						m_type = etk::FSN_TYPE_UNKNOW;
+						m_type = etk::FSNType_unknow;
 						return;
 					}
 				}
@@ -928,10 +928,10 @@ void etk::FSNode::generateFileSystemPath() {
 				// check in the Appl data : In every case we return this one ...
 				m_systemFileName = simplifyPath(baseFolderData + "/../" + m_libSearch + "/theme/" + themeNameDefault + "/" + basicName);
 				if (true==directCheckFile(m_systemFileName, true)) {
-					m_type = etk::FSN_TYPE_THEME_DATA;
+					m_type = etk::FSNType_themeData;
 					return;
 				}
-				m_type = etk::FSN_TYPE_UNKNOW;
+				m_type = etk::FSNType_unknow;
 				return;
 			}
 			break;
@@ -956,11 +956,11 @@ void etk::FSNode::updateFileSystemProperty() {
 	m_idOwner = 0;
 	m_idGroup = 0;
 	// File type is not knowns ...
-	m_typeNode=FSN_UNKNOW;
+	m_typeNode=typeNode_unknow;
 	
 	#ifdef HAVE_ZIP_DATA
-	if(    m_type == etk::FSN_TYPE_DATA
-	    || m_type == etk::FSN_TYPE_THEME_DATA) {
+	if(    m_type == etk::FSNType_data
+	    || m_type == etk::FSNType_themeData) {
 		// ----------------------------------------
 		// = Check if it was a folder :           =
 		// ----------------------------------------
@@ -971,12 +971,12 @@ void etk::FSNode::updateFileSystemProperty() {
 			folderName = m_systemFileName + "/";
 		}
 		// note : Zip does not support other think than file ...
-		if (s_APKArchive == NULL) {
+		if (s_APKArchive == nullptr) {
 			TK_ERROR("NOT Find the File in APK : '" << m_systemFileName << "'");
 			return;
 		}
 		if (s_APKArchive->exist(m_systemFileName) == true) {
-			m_typeNode=FSN_FILE;
+			m_typeNode=typeNode_file;
 			m_rights.setUserReadable(true);
 			TK_DBG_MODE("Find a File in APK : '" << m_systemFileName << "'");
 			return;
@@ -988,7 +988,7 @@ void etk::FSNode::updateFileSystemProperty() {
 			for (int iii=0; iii<s_APKArchive->size(); iii++) {
 				std::string filename = s_APKArchive->getName(iii);
 				if (start_with(filename, m_systemFileName) == true) {
-					m_typeNode=etk::FSN_FOLDER;
+					m_typeNode=etk::typeNode_folder;
 					m_rights.setUserReadable(true);
 					m_rights.setUserRunable(true);
 					TK_DBG_MODE("Find a Folder in APK : '" << m_systemFileName << "'");
@@ -1008,18 +1008,18 @@ void etk::FSNode::updateFileSystemProperty() {
 	}
 	
 	switch (statProperty.st_mode & S_IFMT) {
-		case S_IFBLK:  m_typeNode=etk::FSN_BLOCK;     break;
-		case S_IFCHR:  m_typeNode=etk::FSN_CHARACTER; break;
-		case S_IFDIR:  m_typeNode=etk::FSN_FOLDER;    break;
-		case S_IFIFO:  m_typeNode=etk::FSN_FIFO;      break;
+		case S_IFBLK:  m_typeNode=etk::typeNode_block;     break;
+		case S_IFCHR:  m_typeNode=etk::typeNode_character; break;
+		case S_IFDIR:  m_typeNode=etk::typeNode_folder;    break;
+		case S_IFIFO:  m_typeNode=etk::typeNode_fifo;      break;
 		#ifndef __TARGET_OS__Windows
-		case S_IFLNK:  m_typeNode=etk::FSN_LINK;      break;
+		case S_IFLNK:  m_typeNode=etk::typeNode_link;      break;
 		#endif
-		case S_IFREG:  m_typeNode=etk::FSN_FILE;      break;
+		case S_IFREG:  m_typeNode=etk::typeNode_file;      break;
 		#ifndef __TARGET_OS__Windows
-		case S_IFSOCK: m_typeNode=etk::FSN_SOCKET;    break;
+		case S_IFSOCK: m_typeNode=etk::typeNode_socket;    break;
 		#endif
-		default:       m_typeNode=etk::FSN_UNKNOW;    break;
+		default:       m_typeNode=etk::typeNode_unknow;    break;
 	}
 	// Right
 	m_rights = statProperty.st_mode;
@@ -1078,29 +1078,29 @@ std::string etk::FSNode::getName() const {
 	}
 	switch (m_type) {
 		default:
-		case etk::FSN_TYPE_UNKNOW:
+		case etk::FSNType_unknow:
 			output += "HOME:";
 			break;
-		case etk::FSN_TYPE_DIRECT:
+		case etk::FSNType_direct:
 			output += "/";
 			break;
-		case etk::FSN_TYPE_RELATIF:
+		case etk::FSNType_relatif:
 			output += "REL:";
 			break;
-		case etk::FSN_TYPE_HOME:
+		case etk::FSNType_home:
 			output += "~";
 			break;
-		case etk::FSN_TYPE_DATA:
+		case etk::FSNType_data:
 			output += "DATA:";
 			break;
-		case etk::FSN_TYPE_USER_DATA:
+		case etk::FSNType_userData:
 			output += "USERDATA:";
 			break;
-		case etk::FSN_TYPE_CACHE:
+		case etk::FSNType_cache:
 			output += "CACHE:";
 			break;
-		case etk::FSN_TYPE_THEME:
-		case etk::FSN_TYPE_THEME_DATA:
+		case etk::FSNType_theme:
+		case etk::FSNType_themeData:
 			output += "THEME:";
 			break;
 	}
@@ -1130,9 +1130,9 @@ std::string etk::FSNode::getRelativeFolder() const {
 	std::string tmppp = getName();
 	TK_DBG_MODE("get REF folder : " << tmppp );
 	switch (m_typeNode) {
-		case etk::FSN_UNKNOW:
-		case etk::FSN_FOLDER:
-		case etk::FSN_LINK:
+		case etk::typeNode_unknow:
+		case etk::typeNode_folder:
+		case etk::typeNode_link:
 		if (tmppp[tmppp.size()-1] == '/') {
 				TK_DBG_MODE("     ==> : " << tmppp );
 				return tmppp;
@@ -1143,11 +1143,11 @@ std::string etk::FSNode::getRelativeFolder() const {
 				return tmpVal;
 			}
 			break;
-		case etk::FSN_BLOCK:
-		case etk::FSN_CHARACTER:
-		case etk::FSN_FIFO:
-		case etk::FSN_FILE:
-		case etk::FSN_SOCKET:
+		case etk::typeNode_block:
+		case etk::typeNode_character:
+		case etk::typeNode_fifo:
+		case etk::typeNode_file:
+		case etk::typeNode_socket:
 		default:
 			break;
 	}
@@ -1203,7 +1203,7 @@ bool etk::FSNode::move(const std::string& _path) {
 #endif
 
 bool etk::FSNode::remove() {
-	if (getNodeType()==etk::FSN_FOLDER) {
+	if (getNodeType()==etk::typeNode_folder) {
 		// remove the folder
 		if( 0!=rmdir(m_systemFileName.c_str()) ) {
 			if (ENOTEMPTY == errno) {
@@ -1282,17 +1282,17 @@ const etk::FSNode& etk::FSNode::operator=  (const etk::FSNode &_obj ) {
 	if( this == &_obj ) {
 		return *this;
 	}
-	if(    NULL != m_PointerFile
+	if(    nullptr != m_PointerFile
 	#ifdef HAVE_ZIP_DATA
-	    || NULL != m_zipContent
+	    || nullptr != m_zipContent
 	#endif
 	   ) {
 		TK_ERROR("Missing close the file : " << *this);
 		fileClose();
-		m_PointerFile = NULL;
+		m_PointerFile = nullptr;
 	}
 	#ifdef HAVE_ZIP_DATA
-		m_zipContent = NULL;
+		m_zipContent = nullptr;
 		m_zipReadingOffset = 0;
 	#endif
 	std::string tmppp = _obj.getName();
@@ -1328,32 +1328,32 @@ std::ostream& etk::operator <<(std::ostream &_os, const etk::FSNode &_obj) {
 std::ostream& etk::operator <<(std::ostream &_os, const enum etk::FSNType &_obj) {
 	switch (_obj)
 	{
-		case etk::FSN_TYPE_UNKNOW:
-			_os << "FSN_TYPE_UNKNOW";
+		case etk::FSNType_unknow:
+			_os << "FSNType_unknow";
 			break;
-		case etk::FSN_TYPE_DIRECT:
-			_os << "FSN_TYPE_DIRECT";
+		case etk::FSNType_direct:
+			_os << "FSNType_direct";
 			break;
-		case etk::FSN_TYPE_RELATIF:
-			_os << "FSN_TYPE_RELATIF";
+		case etk::FSNType_relatif:
+			_os << "FSNType_relatif";
 			break;
-		case etk::FSN_TYPE_HOME:
-			_os << "FSN_TYPE_HOME";
+		case etk::FSNType_home:
+			_os << "FSNType_home";
 			break;
-		case etk::FSN_TYPE_DATA:
-			_os << "FSN_TYPE_DATA";
+		case etk::FSNType_data:
+			_os << "FSNType_data";
 			break;
-		case etk::FSN_TYPE_USER_DATA:
-			_os << "FSN_TYPE_USER_DATA";
+		case etk::FSNType_userData:
+			_os << "FSNType_userData";
 			break;
-		case etk::FSN_TYPE_CACHE:
-			_os << "FSN_TYPE_CACHE";
+		case etk::FSNType_cache:
+			_os << "FSNType_cache";
 			break;
-		case etk::FSN_TYPE_THEME:
-			_os << "FSN_TYPE_THEME";
+		case etk::FSNType_theme:
+			_os << "FSNType_theme";
 			break;
-		case etk::FSN_TYPE_THEME_DATA:
-			_os << "FSN_TYPE_THEME(DATA)";
+		case etk::FSNType_themeData:
+			_os << "FSNType_theme(DATA)";
 			break;
 		default:
 			_os << "FSN_TYPE_????";
@@ -1364,32 +1364,32 @@ std::ostream& etk::operator <<(std::ostream &_os, const enum etk::FSNType &_obj)
 
 std::ostream& etk::operator <<(std::ostream &_os, const enum etk::typeNode &_obj) {
 	switch (_obj) {
-		case etk::FSN_UNKNOW:
-			_os << "FSN_UNKNOW";
+		case etk::typeNode_unknow:
+			_os << "typeNode_unknow";
 			break;
-		case etk::FSN_BLOCK:
-			_os << "FSN_BLOCK";
+		case etk::typeNode_block:
+			_os << "typeNode_block";
 			break;
-		case etk::FSN_CHARACTER:
-			_os << "FSN_CHARACTER";
+		case etk::typeNode_character:
+			_os << "typeNode_character";
 			break;
-		case etk::FSN_FOLDER:
-			_os << "FSN_FOLDER";
+		case etk::typeNode_folder:
+			_os << "typeNode_folder";
 			break;
-		case etk::FSN_FIFO:
-			_os << "FSN_FIFO";
+		case etk::typeNode_fifo:
+			_os << "typeNode_fifo";
 			break;
-		case etk::FSN_LINK:
-			_os << "FSN_LINK";
+		case etk::typeNode_link:
+			_os << "typeNode_link";
 			break;
-		case etk::FSN_FILE:
-			_os << "FSN_FILE";
+		case etk::typeNode_file:
+			_os << "typeNode_file";
 			break;
-		case etk::FSN_SOCKET:
-			_os << "FSN_SOCKET";
+		case etk::typeNode_socket:
+			_os << "typeNode_socket";
 			break;
 		default:
-			_os << "FSN_????";
+			_os << "typeNode_????";
 			break;
 	}
 	return _os;
@@ -1400,12 +1400,12 @@ std::ostream& etk::operator <<(std::ostream &_os, const enum etk::typeNode &_obj
 */
 int64_t etk::FSNode::folderCount() {
 	int64_t counter=0;
-	DIR *dir = NULL;
-	struct dirent *ent = NULL;
+	DIR *dir = nullptr;
+	struct dirent *ent = nullptr;
 	dir = opendir(m_systemFileName.c_str());
-	if (dir != NULL) {
+	if (dir != nullptr) {
 		// for each element in the drectory...
-		while ((ent = readdir(dir)) != NULL) {
+		while ((ent = readdir(dir)) != nullptr) {
 			std::string tmpName(ent->d_name);
 			if(    tmpName == "." 
 			    || tmpName == ".." ) {
@@ -1434,17 +1434,17 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 	TK_TODO("implement filter ... ");
 	std::vector<etk::FSNode*> tmpp;
 	// regenerate the next list :
-	etk::FSNode * tmpEmement = NULL;
-	if (m_typeNode != etk::FSN_FOLDER ) {
+	etk::FSNode * tmpEmement = nullptr;
+	if (m_typeNode != etk::typeNode_folder ) {
 		return tmpp;
 	}
 	#ifdef HAVE_ZIP_DATA
-	if(    m_type == etk::FSN_TYPE_DATA
-	    || m_type == etk::FSN_TYPE_THEME_DATA) {
+	if(    m_type == etk::FSNType_data
+	    || m_type == etk::FSNType_themeData) {
 		std::vector<std::string> listAdded;
 		std::string assetsName = baseFolderData;
 		std::string FolderName = getNameFolder();
-		if (s_APKArchive==NULL) {
+		if (s_APKArchive==nullptr) {
 			return tmpp;
 		}
 		for (int iii=0; iii<s_APKArchive->size(); iii++) {
@@ -1467,25 +1467,25 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 				if (findIt == false) {
 					listAdded.push_back(tmpString);
 					tmpEmement = new etk::FSNode(tmpString);
-					if (NULL == tmpEmement) {
+					if (nullptr == tmpEmement) {
 						TK_ERROR("allocation error ... of ewol::FSNode");
 						continue;
 					}
 					TK_VERBOSE("find element : '" << tmpString << "' --> " << *tmpEmement);
 					tmpp.push_back(tmpEmement);
-					tmpEmement = NULL;
+					tmpEmement = nullptr;
 				}
 			}
 		}
 		return tmpp;
 	}
 	#endif
-	DIR *dir = NULL;
-	struct dirent *ent = NULL;
+	DIR *dir = nullptr;
+	struct dirent *ent = nullptr;
 	dir = opendir(m_systemFileName.c_str());
-	if (dir != NULL) {
+	if (dir != nullptr) {
 		// for each element in the drectory...
-		while ((ent = readdir(dir)) != NULL) {
+		while ((ent = readdir(dir)) != nullptr) {
 			std::string tmpName(ent->d_name);
 			TK_VERBOSE(" search in folder\"" << tmpName << "\"");
 			if(    tmpName == "." 
@@ -1496,22 +1496,22 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 			if(    false == start_with(tmpName, ".")
 			    || true == _showHidenFile) {
 				tmpEmement = new etk::FSNode(getRelativeFolder()+tmpName);
-				if (NULL == tmpEmement) {
+				if (nullptr == tmpEmement) {
 					TK_ERROR("allocation error ... of ewol::FSNode");
 					continue;
 				}
-				if(tmpEmement->getNodeType() == etk::FSN_FILE) {
+				if(tmpEmement->getNodeType() == etk::typeNode_file) {
 					if (true == _getFile) {
 						tmpp.push_back(tmpEmement);
 					} else {
 						delete(tmpEmement);
-						tmpEmement = NULL;
+						tmpEmement = nullptr;
 					}
 				} else if (_getFolderAndOther) {
 					tmpp.push_back(tmpEmement);
 				} else {
 					delete(tmpEmement);
-					tmpEmement = NULL;
+					tmpEmement = nullptr;
 				}
 			}
 		}
@@ -1533,18 +1533,18 @@ etk::FSNode etk::FSNode::folderGetParent() {
 
 void etk::FSNode::folderGetRecursiveFiles(std::vector<std::string>& _output, bool _recursiveEnable) {
 	#ifdef HAVE_ZIP_DATA
-	if(    m_type == etk::FSN_TYPE_DATA
-	    || m_type == etk::FSN_TYPE_THEME_DATA) {
+	if(    m_type == etk::FSNType_data
+	    || m_type == etk::FSNType_themeData) {
 		std::string assetsName = baseFolderData;
 		std::string FolderName = getNameFolder();
-		if (s_APKArchive==NULL) {
+		if (s_APKArchive==nullptr) {
 			return;
 		}
 		for (int iii=0; iii<s_APKArchive->size(); iii++) {
 			std::string filename = s_APKArchive->getName(iii);
 			if (start_with(filename, FolderName) == true) {
 				std::string tmpString;
-				if(m_type == etk::FSN_TYPE_DATA) {
+				if(m_type == etk::FSNType_data) {
 					tmpString = "DATA:";
 				} else {
 					tmpString = "THEME:";
@@ -1561,13 +1561,13 @@ void etk::FSNode::folderGetRecursiveFiles(std::vector<std::string>& _output, boo
 	#endif
 	// regenerate the next list :
 	etk::FSNode * tmpEmement;
-	DIR *dir = NULL;
-	struct dirent *ent = NULL;
+	DIR *dir = nullptr;
+	struct dirent *ent = nullptr;
 	dir = opendir(m_systemFileName.c_str());
 	//TK_DEBUG(" ** open Folder : " << m_systemFileName );
-	if (dir != NULL) {
+	if (dir != nullptr) {
 		// for each element in the drectory...
-		while ((ent = readdir(dir)) != NULL) {
+		while ((ent = readdir(dir)) != nullptr) {
 			std::string tmpName(ent->d_name);
 			if(    tmpName == "." 
 			    || tmpName == ".." ) {
@@ -1576,18 +1576,18 @@ void etk::FSNode::folderGetRecursiveFiles(std::vector<std::string>& _output, boo
 			}
 			//TK_DEBUG(" find : " << ent->d_name << " ==> " << (GetRelativeFolder()+tmpName));
 			tmpEmement = new etk::FSNode(getRelativeFolder()+tmpName);
-			if (NULL != tmpEmement) {
-				if(tmpEmement->getNodeType() == etk::FSN_FILE) {
+			if (nullptr != tmpEmement) {
+				if(tmpEmement->getNodeType() == etk::typeNode_file) {
 					std::string tmpVal = tmpEmement->getName();
 					_output.push_back(tmpVal);
 				}
-				if(tmpEmement->getNodeType() == etk::FSN_FOLDER) {
+				if(tmpEmement->getNodeType() == etk::typeNode_folder) {
 					if (true==_recursiveEnable) {
 						tmpEmement->folderGetRecursiveFiles(_output, _recursiveEnable);
 					}
 				}
 				delete(tmpEmement);
-				tmpEmement = NULL;
+				tmpEmement = nullptr;
 			} else {
 				TK_ERROR("allocation error ... of ewol::FSNode");
 				continue;
@@ -1639,13 +1639,13 @@ std::string etk::FSNode::fileGetExtention() {
 #endif
 
 uint64_t etk::FSNode::fileSize() {
-	if (etk::FSN_FILE != m_typeNode) {
+	if (etk::typeNode_file != m_typeNode) {
 		TK_ERROR("Request size of a non file node : " << m_typeNode);
 		return 0;
 	}
 	#ifdef HAVE_ZIP_DATA
-	if(    etk::FSN_TYPE_DATA == m_type
-	    || etk::FSN_TYPE_THEME_DATA == m_type) {
+	if(    etk::FSNType_data == m_type
+	    || etk::FSNType_themeData == m_type) {
 		if (true == loadDataZip()) {
 			return m_zipContent->getTheoricSize();
 		}
@@ -1670,8 +1670,8 @@ uint64_t etk::FSNode::fileSize() {
 
 bool etk::FSNode::fileOpenRead() {
 	#ifdef HAVE_ZIP_DATA
-	if(    etk::FSN_TYPE_DATA == m_type
-	    || etk::FSN_TYPE_THEME_DATA == m_type) {
+	if(    etk::FSNType_data == m_type
+	    || etk::FSNType_themeData == m_type) {
 		if (false==loadDataZip()) {
 			return false;
 		}
@@ -1680,13 +1680,13 @@ bool etk::FSNode::fileOpenRead() {
 		return m_zipContent->getTheoricSize() == m_zipContent->size();
 	}
 	#endif
-	if (NULL != m_PointerFile) {
+	if (nullptr != m_PointerFile) {
 		TK_CRITICAL("File Already open : " << *this);
 		return true;
 	}
 	TK_VERBOSE(" Read file : " << m_systemFileName);
 	m_PointerFile=fopen(m_systemFileName.c_str(),"rb");
-	if(NULL == m_PointerFile) {
+	if(nullptr == m_PointerFile) {
 		TK_ERROR("Can not find the file " << *this );
 		return false;
 	}
@@ -1694,19 +1694,19 @@ bool etk::FSNode::fileOpenRead() {
 }
 bool etk::FSNode::fileOpenWrite() {
 	#ifdef HAVE_ZIP_DATA
-	if(    etk::FSN_TYPE_DATA == m_type
-	    || etk::FSN_TYPE_THEME_DATA == m_type) {
+	if(    etk::FSNType_data == m_type
+	    || etk::FSNType_themeData == m_type) {
 		return false;
 	}
 	#endif
-	if (NULL != m_PointerFile) {
+	if (nullptr != m_PointerFile) {
 		TK_CRITICAL("File Already open : " << *this);
 		return true;
 	}
 	FSNODE_LOCAL_mkPath(getNameFolder().c_str() , 0777);
 	TK_VERBOSE(" write file : " << m_systemFileName);
 	m_PointerFile=fopen(m_systemFileName.c_str(),"wb");
-	if(NULL == m_PointerFile) {
+	if(nullptr == m_PointerFile) {
 		TK_ERROR("Can not find the file " << *this);
 		return false;
 	}
@@ -1715,12 +1715,12 @@ bool etk::FSNode::fileOpenWrite() {
 
 bool etk::FSNode::fileOpenAppend() {
 	#ifdef HAVE_ZIP_DATA
-	if(    etk::FSN_TYPE_DATA == m_type
-	    || etk::FSN_TYPE_THEME_DATA == m_type) {
+	if(    etk::FSNType_data == m_type
+	    || etk::FSNType_themeData == m_type) {
 		return false;
 	}
 	#endif
-	if (NULL != m_PointerFile) {
+	if (nullptr != m_PointerFile) {
 		TK_CRITICAL("File Already open : " << *this);
 		return true;
 	}
@@ -1729,7 +1729,7 @@ bool etk::FSNode::fileOpenAppend() {
 	TK_VERBOSE(" append file : " << m_systemFileName);
 	
 	m_PointerFile=fopen(m_systemFileName.c_str(),"ab");
-	if(NULL == m_PointerFile) {
+	if(nullptr == m_PointerFile) {
 		TK_ERROR("Can not find the file " << *this);
 		return false;
 	}
@@ -1738,39 +1738,39 @@ bool etk::FSNode::fileOpenAppend() {
 
 bool etk::FSNode::fileIsOpen() {
 	#ifdef HAVE_ZIP_DATA
-	if(    etk::FSN_TYPE_DATA == m_type
-	    || etk::FSN_TYPE_THEME_DATA == m_type) {
-		if (m_zipContent == NULL) {
+	if(    etk::FSNType_data == m_type
+	    || etk::FSNType_themeData == m_type) {
+		if (m_zipContent == nullptr) {
 			return false;
 		}
 		return true;
 	}
 	#endif
-	if (m_PointerFile == NULL) {
+	if (m_PointerFile == nullptr) {
 		return false;
 	}
 	return true;
 }
 bool etk::FSNode::fileClose() {
 	#ifdef HAVE_ZIP_DATA
-	if(    etk::FSN_TYPE_DATA == m_type
-	    || etk::FSN_TYPE_THEME_DATA == m_type) {
-		if (m_zipContent == NULL) {
+	if(    etk::FSNType_data == m_type
+	    || etk::FSNType_themeData == m_type) {
+		if (m_zipContent == nullptr) {
 			TK_CRITICAL("File Already closed : " << *this);
 			return false;
 		}
 		s_APKArchive->close(m_systemFileName);
-		m_zipContent = NULL;
+		m_zipContent = nullptr;
 		m_zipReadingOffset = 0;
 		return true;
 	}
 	#endif
-	if (m_PointerFile == NULL) {
+	if (m_PointerFile == nullptr) {
 		TK_CRITICAL("File Already closed : " << *this);
 		return false;
 	}
 	fclose(m_PointerFile);
-	m_PointerFile = NULL;
+	m_PointerFile = nullptr;
 	return true;
 }
 
@@ -1779,15 +1779,15 @@ char* etk::FSNode::fileGets(char* _elementLine, int64_t _maxData) {
 	#ifdef HAVE_ZIP_DATA
 	char * element = _elementLine;
 	int64_t outSize = 0;
-	if(    m_type == etk::FSN_TYPE_DATA
-	    || m_type == etk::FSN_TYPE_THEME_DATA) {//char * tmpData = internalDataFiles[iii].data + m_readingOffset;
-		if (m_zipContent == NULL) {
+	if(    m_type == etk::FSNType_data
+	    || m_type == etk::FSNType_themeData) {//char * tmpData = internalDataFiles[iii].data + m_readingOffset;
+		if (m_zipContent == nullptr) {
 			element[0] = '\0';
-			return NULL;
+			return nullptr;
 		}
 		if (m_zipReadingOffset >= m_zipContent->size()) {
 			element[0] = '\0';
-			return NULL;
+			return nullptr;
 		}
 		while (((char*)m_zipContent->data())[m_zipReadingOffset] != '\0') {
 			if(    ((char*)m_zipContent->data())[m_zipReadingOffset] == '\n'
@@ -1813,7 +1813,7 @@ char* etk::FSNode::fileGets(char* _elementLine, int64_t _maxData) {
 			outSize++;
 		}
 		if (outSize==0) {
-			return NULL;
+			return nullptr;
 		} else {
 			// send last line
 			return _elementLine;
@@ -1847,9 +1847,9 @@ bool etk::FSNode::fileGets(std::string& _output) {
 
 int64_t etk::FSNode::fileRead(void* _data, int64_t _blockSize, int64_t _nbBlock) {
 	#ifdef HAVE_ZIP_DATA
-	if(    m_type == etk::FSN_TYPE_DATA
-	    || m_type == etk::FSN_TYPE_THEME_DATA) {
-		if (m_zipContent == NULL) {
+	if(    m_type == etk::FSNType_data
+	    || m_type == etk::FSNType_themeData) {
+		if (m_zipContent == nullptr) {
 			((char*)_data)[0] = '\0';
 			return 0;
 		}
@@ -1882,8 +1882,8 @@ bool etk::FSNode::filePuts(const std::string& _input) {
 
 int64_t etk::FSNode::fileWrite(const void * _data, int64_t _blockSize, int64_t _nbBlock) {
 	#ifdef HAVE_ZIP_DATA
-	if(    m_type == etk::FSN_TYPE_DATA
-	    || m_type == etk::FSN_TYPE_THEME_DATA) {
+	if(    m_type == etk::FSNType_data
+	    || m_type == etk::FSNType_themeData) {
 		TK_CRITICAL("Can not write on data inside APK : " << *this);
 		return 0;
 	}
@@ -1934,17 +1934,17 @@ etk::FSNode& etk::FSNode::operator<< (const float _data) {
 bool etk::FSNode::fileSeek(long int _offset, enum etk::seekNode _origin)
 {
 	#ifdef HAVE_ZIP_DATA
-	if(    m_type == etk::FSN_TYPE_DATA
-	    || m_type == etk::FSN_TYPE_THEME_DATA) {
-		if (NULL == m_zipContent) {
+	if(    m_type == etk::FSNType_data
+	    || m_type == etk::FSNType_themeData) {
+		if (nullptr == m_zipContent) {
 			return false;
 		}
 		int32_t positionEnd = 0;
 		switch(_origin) {
-			case etk::FSN_SEEK_END:
+			case etk::seekNode_end:
 				positionEnd = m_zipContent->size();
 				break;
-			case etk::FSN_SEEK_CURRENT:
+			case etk::seekNode_current:
 				positionEnd = m_zipReadingOffset;
 				break;
 			default:
@@ -1963,10 +1963,10 @@ bool etk::FSNode::fileSeek(long int _offset, enum etk::seekNode _origin)
 	#endif
 	int originFS = 0;
 	switch(_origin) {
-		case etk::FSN_SEEK_END:
+		case etk::seekNode_end:
 			originFS = SEEK_END;
 			break;
-		case etk::FSN_SEEK_CURRENT:
+		case etk::seekNode_current:
 			originFS = SEEK_CUR;
 			break;
 		default:
@@ -1982,9 +1982,9 @@ bool etk::FSNode::fileSeek(long int _offset, enum etk::seekNode _origin)
 }
 int64_t etk::FSNode::fileTell() {
 	#ifdef HAVE_ZIP_DATA
-	if(    m_type == etk::FSN_TYPE_DATA
-	    || m_type == etk::FSN_TYPE_THEME_DATA) {
-		if (NULL == m_zipContent) {
+	if(    m_type == etk::FSNType_data
+	    || m_type == etk::FSNType_themeData) {
+		if (nullptr == m_zipContent) {
 			return false;
 		}
 		return m_zipReadingOffset;
@@ -1996,12 +1996,12 @@ int64_t etk::FSNode::fileTell() {
 
 void etk::FSNode::fileFlush() {
 	#ifdef HAVE_ZIP_DATA
-	if(    m_type == etk::FSN_TYPE_DATA
-	    || m_type == etk::FSN_TYPE_THEME_DATA) {
+	if(    m_type == etk::FSNType_data
+	    || m_type == etk::FSNType_themeData) {
 		return;
 	}
 	#endif
-	if (m_PointerFile != NULL) {
+	if (m_PointerFile != nullptr) {
 		fflush(m_PointerFile);
 	}
 }
@@ -2241,7 +2241,7 @@ bool etk::FSNodeEcho(const std::string& _path, const std::string& _dataTowrite) 
 	if (false==tmpNode.exist()) {
 		return false;
 	}
-	if (FSN_FOLDER==tmpNode.getNodeType()) {
+	if (typeNode_folder==tmpNode.getNodeType()) {
 		return false;
 	}
 	if (false==tmpNode.fileOpenWrite()) {
@@ -2265,7 +2265,7 @@ bool etk::FSNodeEchoAdd(const std::string& _path, const std::string& _dataTowrit
 	if (false==tmpNode.exist()) {
 		return false;
 	}
-	if (FSN_FOLDER==tmpNode.getNodeType()) {
+	if (typeNode_folder==tmpNode.getNodeType()) {
 		return false;
 	}
 	if (false==tmpNode.fileOpenAppend()) {

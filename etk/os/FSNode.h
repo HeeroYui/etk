@@ -11,7 +11,9 @@
 #pragma once
 
 #include <etk/os/FSNodeRight.h>
-
+/**
+ * @brief Local maximum file name size
+ */
 #define MAX_FILE_NAME      (10240)
 
 //http://developer.android.com/guide/topics/data/data-storage.html
@@ -32,76 +34,88 @@ namespace etk {
 }
 #endif
 namespace etk {
+	/**
+	 * @brief Set the firt argument of the application start (this permit to get the real position of the execution path and executable position
+	 * @param[in] _val First parameter.
+	 */
 	void setArgZero(const std::string& _val);
+	/**
+	 * @brief Simplify a path with all the complication that mean ".." or "///\//"
+	 * @param[in] _input Parth to simplify
+	 * @return the simplified path.
+	 */
 	std::string simplifyPath(std::string _input);
-	
 	/**
 	 * @brief Get application name.
 	 * @return The application name
 	 */
 	std::string FSNodeGetApplicationName();
 	/**
-	 * List of Type that a node can have (this wrap some type that not exist on Windows)
+	 * @brief List of Type that a node can have (this wrap some type that not exist on Windows)
 	 */
 	enum typeNode {
-		FSN_UNKNOW, //!< Type of the node is not known
-		FSN_BLOCK, //!< The node is a block aceess device (Not availlable on Windows)
-		FSN_CHARACTER, //!< The node is a Char device type (Not availlable on Windows)
-		FSN_FOLDER, //!< The node is a folder
-		FSN_FIFO, //!< The node is a Fifo (Not availlable on Windows)
-		FSN_LINK, //!< The node is a Link
-		FSN_FILE, //!< The node is a File
-		FSN_SOCKET, //!< The node is a socket
+		typeNode_unknow, //!< Type of the node is not known
+		typeNode_block, //!< The node is a block aceess device (Not availlable on Windows)
+		typeNode_character, //!< The node is a Char device type (Not availlable on Windows)
+		typeNode_folder, //!< The node is a folder
+		typeNode_fifo, //!< The node is a Fifo (Not availlable on Windows)
+		typeNode_link, //!< The node is a Link
+		typeNode_file, //!< The node is a File
+		typeNode_socket, //!< The node is a socket
 	};
-	
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream &_os, const enum etk::typeNode &_obj);
-	
+	/**
+	 * @brief Seek mode availlable (just to wrap it ...)
+	 */
 	enum seekNode{
-		FSN_SEEK_START,
-		FSN_SEEK_END,
-		FSN_SEEK_CURRENT,
+		seekNode_start, //!< request seek position start at the START of the file
+		seekNode_end, //!< request seek position start at the END of the file
+		seekNode_current, //!< request seek position start at the CURRENT position in the file
 	};
-	
+	/**
+	 * @brief Type of the file/folder/... accessible in the Node
+	 */
 	enum FSNType {
-		FSN_TYPE_UNKNOW,
+		FSNType_unknow, //!< Unknow type of the node (many time no file name seted)
 		// user might done abstraction ==> acces of the sdcard when possible ...
-		FSN_TYPE_DIRECT,
-		FSN_TYPE_RELATIF,
+		FSNType_direct, //!< Access at the file System with a direct naming like "/home/plop/xxx.txt"
+		FSNType_relatif, //!< Access at the file System with a relative naming like "../plop/xxx.txt"
 		
 		// depend on case
 		//     - PC      : ~/
 		//     - Android : /sdcard/
 		//     - Apple   : ????
-		FSN_TYPE_HOME,
+		FSNType_home, //!< acces at the home path of the system (with name of the current user)
 		
 		// depend of the case
 		//     - PC      : /usr/shared/programName/
 		//     - Android : Internal at the executable file (pointer on static area)
 		//     - Apple   : Internal at the executable file
-		FSN_TYPE_DATA,
+		FSNType_data, //!< Access on the application data (internal application data are the one provided with the binary)
 		
 		// depend on case
 		//     - PC      : ~/.local/programName/
 		//     - Android : /data/data/programName/files/
 		//     - Apple   : ????
-		FSN_TYPE_USER_DATA,
+		FSNType_userData, //!< Access on the user application data (where the data are stored when the application stop)
 		
 		// depend on case
 		//     - PC      : ~/.programName/cache/
 		//     - Android : /data/data/programName/cache/
 		//     - Apple   : ????
-		FSN_TYPE_CACHE,
+		FSNType_cache, //!< Access on the application temporary path (remove when user want and whe the compter restart or have not enought memory)
 		
 		// depend on case
-		//     - try on FSN_TYPE_USER_DATA:/theme/themeName/xxx
-		//     - try on FSN_TYPE_DATA:/theme/themeName/xxx
+		//     - try on USER_DATA:/theme/themeName/xxx
+		//     - try on DATA:/theme/themeName/xxx
 		//     and jump to the default theme file
-		//     - try on FSN_TYPE_USER_DATA:/theme/default/xxx
-		//     - try on FSN_TYPE_DATA:/theme/default/xxx
-		FSN_TYPE_THEME,
-		FSN_TYPE_THEME_DATA
+		//     - try on USER_DATA:/theme/default/xxx
+		//     - try on DATA:/theme/default/xxx
+		FSNType_theme, //!< Theme area
+		FSNType_themeData //!< Theme data area
 	};
-	
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream &_os, const enum etk::FSNType &_obj);
 	
 	/*
@@ -144,7 +158,9 @@ namespace etk {
 			./
 	*/
 	/**
-	 * @brief FS node is for File system IO access This class is independent of the OS, If you acces to a file in windows, it might generate the right loke Linux (it is important to know that windows right is lighter than linux)
+	 * @brief FS node is for File System IO access (named classicly "node in linux EXT)
+	 * This class is independent of the OS, If you acces to a file in windows, it might
+	 * generate the right like Linux (it is important to know that windows right is lighter than linux)
 	 */
 	class FSNode {
 		private:
@@ -210,11 +226,11 @@ namespace etk {
 			 * @return false : The node does not exist.
 			 */
 			bool exist() const {
-				return (m_typeNode!=etk::FSN_UNKNOW);
+				return (m_typeNode!=etk::typeNode_unknow);
 			};
 			/**
 			 * @brief Get the node type
-			 * @return the requested type, FSN_UNKNOW if it does not existed
+			 * @return the requested type, typeNode_unknow if it does not existed
 			 */
 			enum typeNode getNodeType() const {
 				return m_typeNode;
@@ -234,10 +250,10 @@ namespace etk {
 			 */
 			bool setRight(etk::FSNodeRight _newRight);
 			/**
-			 * @brief Change the Node seeing (not rename the node, for this @ref Move)
+			 * @brief Change the Node seeing (not rename the node, for this @ref etk::FSNodeMove)
 			 * @param[in] _newName New node name to show
-			 * @return true : action done
-			 * @return false : action not done
+			 * @return true action done
+			 * @return false action not done
 			 */
 			void setName(const std::string& _newName);
 			#if __CPP_VERSION__ >= 2011
@@ -398,6 +414,14 @@ namespace etk {
 			                                           bool _getFolderAndOther = true,
 			                                           bool _getFile = true,
 			                                           bool _temporaryFile = true);
+			/**
+			 * @brief Get the List of all node inside a node (folder only)
+			 * @param[in] _showHidenFile Add hidden file/folder/...
+			 * @param[in] _getFolderAndOther get folder
+			 * @param[in] _getFile Get files
+			 * @param[in] _filter Generic regex string to filter file names
+			 * @return The requested list
+			 */
 			std::vector<etk::FSNode*> folderGetSubList(bool _showHidenFile = true,
 			                                           bool _getFolderAndOther = true,
 			                                           bool _getFile = true,
@@ -516,17 +540,23 @@ namespace etk {
 			 * @return Number of element written (in block number)
 			 */
 			int64_t fileWrite(const void* _data, int64_t _blockSize, int64_t _nbBlock);
+			// TODO: etk::FSNode& operator<< (const std::ostream& _data);
 			/**
 			 * @brief Stream write mode
 			 * @param[in] _data Stream to write
+			 * @return The current FSNode reference to add other stream.
 			 * @note not stable API ...
 			 */
-			//etk::FSNode& operator<< (const std::ostream& _data);
 			etk::FSNode& operator<< (const std::stringstream& _data);
+			//! @copydoc etk::FSNode::operator<<(const std::stringstream&)
 			etk::FSNode& operator<< (const std::string& _data);
+			//! @copydoc etk::FSNode::operator<<(const std::stringstream&)
 			etk::FSNode& operator<< (const char* _data);
+			//! @copydoc etk::FSNode::operator<<(const std::stringstream&)
 			etk::FSNode& operator<< (const int32_t _data);
+			//! @copydoc etk::FSNode::operator<<(const std::stringstream&)
 			etk::FSNode& operator<< (const uint32_t _data);
+			//! @copydoc etk::FSNode::operator<<(const std::stringstream&)
 			etk::FSNode& operator<< (const float _data);
 			/**
 			 * @brief Get the position in the file.
@@ -555,6 +585,10 @@ namespace etk {
 				fileRead(&value[0], sizeof(T), fileSize()/sizeof(T));
 				return value;
 			}
+			/**
+			 * @brief Read all element in a file and set it in a generic std::string
+			 * @return the read string
+			 */
 			std::string fileReadAllString() {
 				std::string value;
 				value.resize(fileSize());
@@ -568,10 +602,16 @@ namespace etk {
 			#endif
 			/**
 			 * @brief Write all the vector in a file
+			 * @param[in] _value Data to write in the File
 			 */
-			template<typename T> void fileWriteAll(const std::vector<T>& _value) {
+			template<typename T>
+			void fileWriteAll(const std::vector<T>& _value) {
 				fileWrite(static_cast<const void*>(&(_value[0])), sizeof(T), _value.size()/sizeof(T));
 			}
+			/**
+			 * @brief Write all the vector in a file
+			 * @param[in] _value String data to write in the File
+			 */
 			void fileWriteAll(const std::string& _value) {
 				fileWrite(static_cast<const void*>(&(_value[0])), sizeof(char), _value.size()/sizeof(char));
 			}
@@ -587,7 +627,7 @@ namespace etk {
 			 */
 			void sortElementList(std::vector<etk::FSNode *>& _list);
 	};
-	
+	//! @not_in_doc
 	std::ostream& operator <<(std::ostream &_os, const etk::FSNode &_obj);
 	
 	/**
@@ -709,9 +749,9 @@ namespace etk {
 	 * @return true : Action done corectly
 	 * @return false : An error occured
 	 */
-	bool FSNodeCreate(const std::string& _path, etk::FSNodeRight _right, enum etk::typeNode _type=etk::FSN_FOLDER);
+	bool FSNodeCreate(const std::string& _path, etk::FSNodeRight _right, enum etk::typeNode _type=etk::typeNode_folder);
 	#if __CPP_VERSION__ >= 2011
-		bool FSNodeCreate(const std::u32string& _path, etk::FSNodeRight _right, enum etk::typeNode _type=etk::FSN_FOLDER);
+		bool FSNodeCreate(const std::u32string& _path, etk::FSNodeRight _right, enum etk::typeNode _type=etk::typeNode_folder);
 	#endif
 	/**
 	 * @brief Simple access for : chexk the exestance of an element

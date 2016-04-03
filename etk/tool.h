@@ -11,15 +11,24 @@
 #pragma once
 
 namespace etk {
+	/**
+	 * @brief Some un-usefull tools
+	 * @todo Remove all of this use std11 random
+	 */
 	namespace tool {
 		/**
-		 * @brief Get a random value in a specific range.
+		 * @brief Get a random value in a specific range in float.
 		 * @param[in] _a Lower value of the random.
 		 * @param[in] _b Bigger value of the random.
 		 * @return Random Value between [_a and _b]
 		 */
 		double frand(double _a, double _b);
-		//! @previous
+		/**
+		 * @brief Get a random value in a specific range in integer.
+		 * @param[in] _a Lower value of the random.
+		 * @param[in] _b Bigger value of the random.
+		 * @return Random Value between [_a and _b]
+		 */
 		int32_t irand(int32_t _a, int32_t _b);
 		/**
 		 * @brief Reset the random system with a random value (time).

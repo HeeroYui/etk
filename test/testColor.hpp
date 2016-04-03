@@ -10,9 +10,6 @@
 #undef NAME
 #define NAME "Color"
 
-#undef __class__
-#define __class__	"etktest"
-
 TEST(TestEtkColor, RGBA8) {
 	etk::Color<uint8_t, 4> colorRGBA8(0x52,0x0F, 0x65, 0x44);
 	EXPECT_EQ(colorRGBA8.r(), 0x52);

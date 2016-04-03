@@ -98,7 +98,7 @@ namespace etk {
 			 * @return true The Objects are identical
 			 * @return false The Objects are NOT identical
 			 */
-			bool  operator== (const Vector2D<T>& _obj) const {
+			bool operator== (const Vector2D<T>& _obj) const {
 				return (    (T)_obj.m_floats[0] == m_floats[0]
 				         && (T)_obj.m_floats[1] == m_floats[1]);
 			}
@@ -108,7 +108,7 @@ namespace etk {
 			 * @return true The Objects are NOT identical
 			 * @return false The Objects are identical
 			 */
-			bool  operator!= (const Vector2D<T>& _obj) const {
+			bool operator!= (const Vector2D<T>& _obj) const {
 				return (    (T)_obj.m_floats[0] != m_floats[0]
 				         || (T)_obj.m_floats[1] != m_floats[1]);
 			}

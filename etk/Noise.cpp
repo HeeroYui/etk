@@ -17,7 +17,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-etk::BaseNoise::BaseNoise(ivec2 _size, float _min, float _max) :
+etk::BaseNoise::BaseNoise(const ivec2& _size, float _min, float _max) :
   m_data(_size.x()*_size.y()),
   m_size(_size) {
 	m_data.resize(_size.x()*_size.y(), 0);

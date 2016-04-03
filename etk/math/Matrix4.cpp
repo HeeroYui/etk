@@ -11,8 +11,6 @@
 #include <etk/debug.h>
 #include <math.h>
 
-#if 1
-
 void etk::Matrix4::identity() {
 	for(int32_t iii=0; iii<4*4 ; iii++) {
 		m_mat[iii] = 0;
@@ -63,10 +61,6 @@ etk::Matrix4::Matrix4(float* _obj) {
 	for(int32_t iii=0; iii<4*4 ; ++iii) {
 		m_mat[iii] = _obj[iii];
 	}
-}
-
-etk::Matrix4::~Matrix4() {
-	
 }
 
 const etk::Matrix4& etk::Matrix4::operator= (const etk::Matrix4& _obj ) {
@@ -441,6 +435,4 @@ mat4 etk::matRotate(const vec3& _vect, float _angleRad) {
 	tmp.rotation(_angleRad, _vect);
 	return tmp;
 }
-
-#endif
 

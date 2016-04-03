@@ -10,9 +10,6 @@
 #undef NAME
 #define NAME "Archive"
 
-#undef __class__
-#define __class__	"etktest"
-
 #ifdef ETK_BUILD_MINIZIP
 
 TEST(TestEtkArchive, CreationWrong) {

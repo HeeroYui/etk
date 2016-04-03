@@ -11,9 +11,6 @@
 #undef NAME
 #define NAME "Hash"
 
-#undef __class__
-#define __class__	"etktest"
-
 TEST(TestEtkHash, Creation) {
 	etk::Hash<std::string> testData;
 	EXPECT_EQ(testData.size(), 0);

@@ -10,10 +10,6 @@
 
 #pragma once
 
-#undef __class__
-#define __class__ "etk::Hash"
-
-
 namespace etk {
 	/**
 	 * @brief internel data of the [class[etk::hash]] class, it contain
@@ -39,13 +35,17 @@ namespace etk {
 	 * @brief Hash table tamplate is a simple classical hash interface.
 	 * A hash table is a equivalent of the dictionary in python, this is a
 	 * simple interfaace between a name and a value:
-	 * :** "name" : 19
-	 * :** "name 2" : 99
+	 *   - "name" : 19
+	 *   - "name 2" : 99
 	 * 
-	 * [note]The name is unique and the value is what you want.[/note]
+	 * @note The name is unique and the value is what you want
+	 * 
+	 * @todo check if something ele exist in the STD. (not the std::map and the std::unordered_map
+	 * 
+	 * @note The index are all time availlable since they are created. The order is the the one created
 	 * 
 	 * A simple example of use:
-	 * [code style=c++]
+	 * @code{.cpp}
 	 * // Create a integer hash table
 	 * Hash<int> myValue;
 	 * // add some element (note add and set is the same function)
@@ -59,7 +59,7 @@ namespace etk {
 	 * myValue.remove("plop");
 	 * //Clean all the table:
 	 * myValue.clear();
-	 * [/code]
+	 * @endcode
 	 */
 	template<class MY_TYPE> class Hash {
 		private:
@@ -84,10 +84,10 @@ namespace etk {
 			 * @note It does not delete pointer if your value is a pointer type...
 			 */
 			void clear() {
-				for (size_t iii = 0; iii < m_data.size(); ++iii) {
-					if (m_data[iii] != NULL) {
-						delete(m_data[iii]);
-						m_data[iii]=NULL;
+				for (auto &it : m_data) {
+					if (it != nullptr) {
+						delete(it);
+						it=nullptr;
 					}
 				}
 				m_data.clear();
@@ -99,7 +99,7 @@ namespace etk {
 			 */
 			int64_t getId(const std::string& _key) const {
 				for (size_t iii=0; iii<m_data.size(); iii++) {
-					if (m_data[iii] != NULL) {
+					if (m_data[iii] != nullptr) {
 						//TK_INFO("Compare key : '" << m_data[iii]->m_key << "' with '" << _key << "'" );
 						if (m_data[iii]->m_key == _key) {
 							return iii;
@@ -111,7 +111,7 @@ namespace etk {
 			}
 			/**
 			 * @brief Check if an element exist or not
-			 * @param[in] _key Name of the hash requested
+			 * @param[in] _name Name of the hash requested
 			 * @return true if the element exist
 			 */
 			bool exist(const std::string& _name) const {
@@ -160,7 +160,7 @@ namespace etk {
 				int64_t elementId = getId(_key);
 				if (elementId <0) {
 					HashData<MY_TYPE>* tmp = new HashData<MY_TYPE>(_key, _value);
-					if (NULL == tmp) {
+					if (tmp == nullptr) {
 						//TK_ERROR("allocation error in Hash table : '" << _key << "'");
 						return;
 					}
@@ -170,7 +170,10 @@ namespace etk {
 				m_data[elementId]->m_value = _value;
 			}
 			/**
-			 * @previous
+			 * @brief Set an element value
+			 * @note add and set is the same function.
+			 * @param[in] _key Name of the value to set in the hash table.
+			 * @param[in] _value Value to set in the hash table.
 			 */
 			void set(const std::string& _key, const MY_TYPE& _value) {
 				add(_key, _value);
@@ -186,7 +189,7 @@ namespace etk {
 					return;
 				}
 				delete(m_data[elementId]);
-				m_data[elementId] = NULL;
+				m_data[elementId] = nullptr;
 				m_data.erase(m_data.begin()+elementId);
 			}
 			/**
@@ -206,7 +209,10 @@ namespace etk {
 				return getValue(_pos);
 			}
 			/**
-			 * @previous
+			 * @brief get an element with his id.
+			 * @param[in] _pos Position on the element in the hash table.
+			 * @return requested element at this position.
+			 * @note this is a dangerous use of the hash table. Maybe you will use a simple vector.
 			 */
 			const MY_TYPE& operator[] (size_t _pos) const {
 				return getValue(_pos);
@@ -231,16 +237,16 @@ namespace etk {
 			 */
 			std::vector<std::string> getKeys() const {
 				std::vector<std::string> keys;
-				for (size_t iii = 0; iii < m_data.size(); ++iii) {
-					if (m_data[iii] != NULL) {
-						keys.push_back(m_data[iii]->m_key);
+				for (auto &it : m_data) {
+					if (it != nullptr) {
+						keys.push_back(it->m_key);
 					}
 				}
 				return keys;
 			}
 			/**
 			 * @brief Get a value of the hash table at a specific position.
-			 * @param[in] _posPosition of the element in the hash table.
+			 * @param[in] _pos of the element in the hash table.
 			 * @return Value availlable at this position.
 			 */
 			const MY_TYPE& getValue(size_t _pos) const {
@@ -253,7 +259,7 @@ namespace etk {
 				return m_data[_pos]->m_value;
 			}
 			/**
-			 * @previous
+			 * @copydoc getValue (size_t)
 			 */
 			MY_TYPE& getValue(size_t _pos) {
 				// NOTE :Do not change log level, this generate error only in debug mode
@@ -265,8 +271,5 @@ namespace etk {
 				return m_data[_pos]->m_value;
 			}
 	};
-};
-
-#undef __class__
-#define __class__ NULL
+}
 

@@ -432,10 +432,10 @@ namespace etk {
 }
 
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
-typedef etk::Vector4D<float>      vec4; //!< wrapper on etk::Vector4D<float> to have the same naming has OpenGL shader
-typedef etk::Vector4D<int32_t>   ivec4; //!< wrapper on etk::Vector4D<int32_t> to have the same naming has OpenGL shader
+using vec4 = etk::Vector4D<float>; //!< wrapper on etk::Vector4D<float> to have the same naming has OpenGL shader
+using ivec4 = etk::Vector4D<int32_t>; //!< wrapper on etk::Vector4D<int32_t> to have the same naming has OpenGL shader
 // not compatible with glsl ... but it is better to have a same writing
-typedef etk::Vector4D<uint32_t> uivec4; //!< wrapper on etk::Vector4D<uint32_t> to have the same naming has OpenGL shader
-typedef etk::Vector4D<bool>      bvec4; //!< wrapper on etk::Vector4D<bool> to have the same naming has OpenGL shader
+using uivec4 = etk::Vector4D<uint32_t>; //!< wrapper on etk::Vector4D<uint32_t> to have the same naming has OpenGL shader
+using bvec4 = etk::Vector4D<bool>; //!< wrapper on etk::Vector4D<bool> to have the same naming has OpenGL shader
 
 

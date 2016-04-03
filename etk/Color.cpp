@@ -15,9 +15,6 @@
 #include <sstream>
 #include <stdexcept>
 
-#undef __class__
-#define __class__ "Color"
-
 typedef struct {
 	const char * colorName;
 	etk::Color<> color;

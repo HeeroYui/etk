@@ -11,9 +11,6 @@
 #undef NAME
 #define NAME "Shared_ptr"
 
-#undef __class__
-#define __class__	"etktest"
-
 class Example : public std::enable_shared_from_this<Example> {
 	protected:
 		int32_t m_id;

@@ -103,7 +103,10 @@ namespace etk {
 				m_data.push_back(_data);
 				m_condition.notify_all();
 			};
-			//! @previous
+			/**
+			 * @brief Send a message at the other thread by setting a new message in the fifo.
+			 * @param[in] _data New data to add at the fifo.
+			 */
 			void post(const MY_TYPE &_data) {
 				std::unique_lock<std::mutex> lock(m_mutex);
 				m_data.push_back(_data);

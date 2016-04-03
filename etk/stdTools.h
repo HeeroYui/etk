@@ -16,35 +16,66 @@
 #include <algorithm>
 #include <chrono>
 
+/**
+ * @brief Unicode simple wrapper interface
+ */
 namespace u32char {
-	extern const char32_t Null; //!< '\0' 
-	extern const char32_t Return; //!< '\n' 
-	extern const char32_t CarrierReturn; //!< '\r' CR
-	extern const char32_t Tabulation; //!< '\t' TAB
-	extern const char32_t Suppress; //!< BS (SUPPRESS)
-	extern const char32_t Delete; //!< DEL
-	extern const char32_t Space; //!< ' ' SPACE
-	extern const char32_t Escape; //!< ESC Escape
+	extern const char32_t Null; //!< Value '\\0' 
+	extern const char32_t Return; //!< Value '\\n' 
+	extern const char32_t CarrierReturn; //!< Value '\\r' CR
+	extern const char32_t Tabulation; //!< Value '\\t' TAB
+	extern const char32_t Suppress; //!< Value BS (SUPPRESS)
+	extern const char32_t Delete; //!< Value DEL
+	extern const char32_t Space; //!< Value ' ' SPACE
+	extern const char32_t Escape; //!< Value ESC Escape
 	/**
-	 * @brief check if the current element is white or not : '\t' '\n' '\r' ' '
-	 * @return tue if it is white char
+	 * @brief check if the current element is white or not : '\\t' '\\n' '\\r' ' '
+	 * @param[in] _val Value to interprete
+	 * @return true if it is white char
+	 * @return false otherwise
 	 */
 	bool isWhiteChar(char32_t _val);
+	/**
+	 * @brief check if the current element is NOT [a-zA-Z0-9]
+	 * @param[in] _val Value to interprete
+	 * @return true Not in the previous list
+	 * @return false otherwise
+	 */
 	bool isSpecialChar(char32_t _val);
 	/**
-	 * @brief check if the curent element is number or not
-	 * @return tue if it is a number char
+	 * @brief check if the curent element is number or not [0-9]
+	 * @param[in] _val Value to interprete
+	 * @return true if it is a number char
+	 * @return false otherwise
 	 */
 	bool isInteger(char32_t _val);
+	/**
+	 * @brief Convert char32_t in an interfer
+	 * @param[in] _val Value to interprete
+	 * @return The parsed Value or ...
+	 */
 	int32_t toInt(char32_t _val);
-	
+	/**
+	 * @brief Change order of the value to have an order of display with A->Z and after a->z and after 0->9 and after all the rest ....
+	 * @param[in] _val Value in unicode
+	 * @return A value usable in interfer only ... to check order...
+	 */
 	char32_t changeOrder(char32_t _val);
+	/**
+	 * @brief Conver unicode in UTF8 value
+	 * @param[in] _val Value to convert
+	 * @param[out] _output Char data converted
+	 * @return Number of char in utf8
+	 */
 	int8_t convertUtf8(char32_t _val, char _output[5]);
 	#if __CPP_VERSION__ >= 2011
 		std::string convertToUtf8(const std::u32string& _input);
 	#endif
 };
 
+/**
+ * @brief UTF-8 simple wrapper interface
+ */
 namespace utf8 {
 	/**
 	 * @brief Get the size of an utf8 char with his first char.
@@ -58,7 +89,11 @@ namespace utf8 {
 	 * @return true if it was the first char.
 	 */
 	bool theoricFirst(const char _input);
-	
+	/**
+	 * @brief Convert a char* in a unicode value
+	 * @param[in] _input pointer on a string C (utf-8) to convert
+	 * @return Converted Value
+	 */
 	char32_t convertChar32(const char* _input);
 	#if __CPP_VERSION__ >= 2011
 		std::u32string convertUnicode(const std::string& _input);
@@ -402,41 +437,61 @@ namespace utf8 {
 
 namespace std {
 	#if (defined(__TARGET_OS__MacOs) || defined(__TARGET_OS__Windows))
-		typedef std::basic_string<char32_t> u32string;
+		using u32string = std::basic_string<char32_t>;
 	#endif
 	#if (defined(__TARGET_OS__Android))
-		//! @previous
+		//! @not_in_doc
 		std::string to_string(int _val);
-		//! @previous
+		//! @not_in_doc
 		std::string to_string(long _val);
-		//! @previous
+		//! @not_in_doc
 		std::string to_string(long long _val);
-		//! @previous
+		//! @not_in_doc
 		std::string to_string(unsigned _val);
-		//! @previous
+		//! @not_in_doc
 		std::string to_string(unsigned long _val);
-		//! @previous
+		//! @not_in_doc
 		std::string to_string(unsigned long long _val);
-		//! @previous
+		//! @not_in_doc
 		std::string to_string(float _val);
-		//! @previous
+		//! @not_in_doc
 		std::string to_string(double _val);
-		//! @previous
+		//! @not_in_doc
 		std::string to_string(long double _val);
+		//! @not_in_doc
 		double stod(const std::string& _str, size_t* _idx = 0);
+		//! @not_in_doc
 		float stof(const std::string& _str, size_t* _idx = 0);
+		//! @not_in_doc
 		int stoi(const std::string& _str, size_t* _idx = 0, int _base = 10);
+		//! @not_in_doc
 		long stol(const std::string& _str, size_t* _idx = 0, int _base = 10);
+		//! @not_in_doc
 		long double stold(const std::string& _str, size_t* _idx = 0);
+		//! @not_in_doc
 		long long stoll(const std::string& _str, size_t* _idx = 0, int _base = 10);
+		//! @not_in_doc
 		unsigned long stoul(const std::string& _str, size_t* _idx = 0, int _base = 10);
+		//! @not_in_doc
 		unsigned long long stoull(const std::string& _str, size_t* _idx = 0, int _base = 10);
 	#endif
 };
 namespace etk {
 	// these declaration is to prevent some under template declaration of unknown type
-	template <class TYPE> std::string to_string(const TYPE& _variable);
-	template <class TYPE> std::string to_string(const std::vector<TYPE>& _list) {
+	/**
+	 * @brief Template to declare convertion from anything in std::string
+	 * @param[in] _variable Variable to convert
+	 * @return String of the value
+	 */
+	template <class TYPE>
+	std::string to_string(const TYPE& _variable);
+	/**
+	 * @brief Template to declare convertion from std::vector<anything> in std::string
+	 * @param[in] _list Variable to convert
+	 * @return String of the value: {...,...,...}
+	 */
+	template <class TYPE>
+	std::string to_string(const std::vector<TYPE>& _list) {
 		std::string out = "{";
 		for (size_t iii=0; iii<_list.size(); ++iii) {
 			if (iii!=0) {
@@ -448,131 +503,142 @@ namespace etk {
 		return out;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template <class TYPE> std::u32string to_u32string(const TYPE& _variable);
+		template <class TYPE>
+		std::u32string to_u32string(const TYPE& _variable);
 	#endif
 	// these declaration is to prevent some under template declaration of unknown type
-	template <class TYPE> bool from_string(TYPE& _variableRet, const std::string& _value);
+	/**
+	 * @brief Template to declare convertion from string to anything
+	 * @param[out] _variableRet Output value
+	 * @param[in] _value input property
+	 * @return true if the can be converted.
+	 */
+	template <class TYPE>
+	bool from_string(TYPE& _variableRet, const std::string& _value);
 	#if __CPP_VERSION__ >= 2011
-		template <class TYPE> bool from_string(TYPE& _variableRet, const std::u32string& _value);
+		template <class TYPE>
+		bool from_string(TYPE& _variableRet, const std::u32string& _value);
 	#endif
 	
 	// TODO : Change this in : 
 	// TODO :     template <typename TYPE> TYPE string_to<TYPE>(const std::u32string& _value); ==> check exceptions ...
+	//! @not_in_doc
 	long double string_to_long_double(const std::string& _str);
 	#if __CPP_VERSION__ >= 2011
 		long double string_to_long_double(const std::u32string& _str);
 	#endif
-	
+	//! @not_in_doc
 	double string_to_double(const std::string& _str);
 	#if __CPP_VERSION__ >= 2011
 		double string_to_double(const std::u32string& _str);
 	#endif
-	
+	//! @not_in_doc
 	float string_to_float(const std::string& _str);
 	#if __CPP_VERSION__ >= 2011
 		float string_to_float(const std::u32string& _str);
 	#endif
-	
+	//! @not_in_doc
 	int8_t string_to_int8_t(const std::string& _str, int _base = 10);
 	#if __CPP_VERSION__ >= 2011
 		int8_t string_to_int8_t(const std::u32string& _str, int _base = 10);
 	#endif
-	
+	//! @not_in_doc
 	int16_t string_to_int16_t(const std::string& _str, int _base = 10);
 	#if __CPP_VERSION__ >= 2011
 		int16_t string_to_int16_t(const std::u32string& _str, int _base = 10);
 	#endif
-	
+	//! @not_in_doc
 	int32_t string_to_int32_t(const std::string& _str, int _base = 10);
 	#if __CPP_VERSION__ >= 2011
 		int32_t string_to_int32_t(const std::u32string& _str, int _base = 10);
 	#endif
-	
+	//! @not_in_doc
 	int64_t string_to_int64_t(const std::string& _str, int _base = 10);
 	#if __CPP_VERSION__ >= 2011
 		int64_t string_to_int64_t(const std::u32string& _str, int _base = 10);
 	#endif
-	
+	//! @not_in_doc
 	uint8_t string_to_uint8_t(const std::string& _str, int _base = 10);
 	#if __CPP_VERSION__ >= 2011
 		uint8_t string_to_uint8_t(const std::u32string& _str, int _base = 10);
 	#endif
-	
+	//! @not_in_doc
 	uint16_t string_to_uint16_t(const std::string& _str, int _base = 10);
 	#if __CPP_VERSION__ >= 2011
 		uint16_t string_to_uint16_t(const std::u32string& _str, int _base = 10);
 	#endif
-	
+	//! @not_in_doc
 	uint32_t string_to_uint32_t(const std::string& _str, int _base = 10);
 	#if __CPP_VERSION__ >= 2011
 		uint32_t string_to_uint32_t(const std::u32string& _str, int _base = 10);
 	#endif
-	
+	//! @not_in_doc
 	uint64_t string_to_uint64_t(const std::string& _str, int _base = 10);
 	#if __CPP_VERSION__ >= 2011
 		uint64_t string_to_uint64_t(const std::u32string& _str, int _base = 10);
 	#endif
-	
+	//! @not_in_doc
 	bool string_to_bool(const std::string& _str);
 	#if __CPP_VERSION__ >= 2011
 		bool string_to_bool(const std::u32string& _str);
 	#endif
-	
+	//! @not_in_doc
 	std::string tolower(std::string _obj);
 	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		std::u32string tolower(std::u32string _obj);
 	#endif
-	
+	//! @not_in_doc
 	std::string toupper(std::string _obj);
 	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		std::u32string toupper(std::u32string _obj);
 	#endif
-	
+	//! @not_in_doc
 	bool compare_no_case(const std::string& _obj, const std::string& _val);
 	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		bool compare_no_case(const std::u32string& _obj, const std::u32string& _val);
 	#endif
-	
+	//! @not_in_doc
 	bool end_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = true);
 	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		bool end_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = true);
 	#endif
-	
+	//! @not_in_doc
 	bool start_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = true);
 	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		bool start_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = true);
 	#endif
-	
+	//! @not_in_doc
 	std::string replace(const std::string& _obj, char _val, char _replace);
 	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		std::u32string replace(const std::u32string& _obj, char32_t _val, char32_t _replace);
 	#endif
-	
+	//! @not_in_doc
 	std::string extract_line(const std::string& _obj, int32_t _pos);
 	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		std::u32string extract_line(const std::u32string& _obj, int32_t _pos);
 	#endif
-	
+	//! @not_in_doc
 	std::vector<std::string> split(const std::string& _input, char _val);
 	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		std::vector<std::u32string> split(const std::u32string& _input, char32_t _val);
 	#endif
-	
+	//! @not_in_doc
 	void sort(std::vector<std::string *>& _list);
 	#if __CPP_VERSION__ >= 2011
 		//! @previous
 		void sort(std::vector<std::u32string *>& _list);
 	#endif
-	
-	template<typename T, typename T2> bool isIn(const T& _val, const std::vector<T2>& _list) {
+	//! @not_in_doc
+	template<typename T, typename T2>
+	bool isIn(const T& _val, const std::vector<T2>& _list) {
 		for (size_t iii=0; iii<_list.size(); ++iii) {
 			if (_list[iii] == _val) {
 				return true;
@@ -583,8 +649,15 @@ namespace etk {
 };
 
 namespace std {
-	template <class TYPE> const TYPE& avg(const TYPE& a, const TYPE& b, const TYPE& c) {
-		return std::min(std::max(a,b),c);
+	/**
+	 * @brief in std, we have min, max but not avg ==> it is missing... the Defineing avg template.
+	 * @param[in] _min Minimum value of the range
+	 * @param[in] _val The value that we want a min/max
+	 * @param[in] _max Maximum value of the range
+	 * @return Value that min/max applied
+	 */
+	template <class TYPE> const TYPE& avg(const TYPE& _min, const TYPE& _val, const TYPE& _max) {
+		return std::min(std::max(_min,_val),_max);
 	}
 };
 
@@ -623,10 +696,14 @@ namespace std {
 	std::ostream& operator <<(std::ostream& _os, const std::chrono::system_clock::time_point& _obj);
 	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::chrono::steady_clock::time_point& _obj);
-	
-};
+}
 
-int32_t strlen(const char32_t * _data);
+/**
+ * @brief Claculate the size of a string (unicode)
+ * @param[in] _data Data to parse to find the end of string
+ * @return the Number of char32_t befor the '\\0' value
+ */
+int32_t strlen(const char32_t* _data);
 
 #if (defined(__TARGET_OS__Windows))
 	#define M_PI 3.14159265358979323846

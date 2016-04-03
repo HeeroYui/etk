@@ -11,167 +11,146 @@
 
 // Right Flags :
 enum {
-	RIGHT_OTHER_EXECUTE = 1 << 0,
-	RIGHT_OTHER_WRITE   = 1 << 1,
-	RIGHT_OTHER_READ    = 1 << 2,
-	RIGHT_GROUP_EXECUTE = 1 << 3,
-	RIGHT_GROUP_WRITE   = 1 << 4,
-	RIGHT_GROUP_READ    = 1 << 5,
-	RIGHT_USER_EXECUTE  = 1 << 6,
-	RIGHT_USER_WRITE    = 1 << 7,
-	RIGHT_USER_READ     = 1 << 8,
+	right_other_execute = 1 << 0,
+	right_other_write   = 1 << 1,
+	right_other_read    = 1 << 2,
+	right_group_execute = 1 << 3,
+	right_group_write   = 1 << 4,
+	right_group_read    = 1 << 5,
+	right_user_execute  = 1 << 6,
+	right_user_write    = 1 << 7,
+	right_user_read     = 1 << 8,
 };
 
 etk::FSNodeRight::FSNodeRight() :
-	m_rights(0)
-{
+  m_rights(0) {
 	
 }
+
 etk::FSNodeRight::FSNodeRight(int16_t _newRight) :
-	m_rights(_newRight&0x01FF)
-{
+ m_rights(_newRight&0x01FF) {
 	
 }
-// copy operator :
-const etk::FSNodeRight& etk::FSNodeRight::operator= (const etk::FSNodeRight &_obj )
-{
+
+etk::FSNodeRight& etk::FSNodeRight::operator= (const etk::FSNodeRight &_obj ) {
 	m_rights = _obj.m_rights;
 	return *this;
 }
 
-// set right :
-const etk::FSNodeRight& etk::FSNodeRight::operator= (const int32_t _newVal )
-{
+etk::FSNodeRight& etk::FSNodeRight::operator= (const int32_t _newVal) {
 	m_rights = _newVal&0x01FF;
 	return *this;
 }
 
-// User
-bool etk::FSNodeRight::isUserReadable() const
-{
-	return ((m_rights&RIGHT_USER_READ)!=0)?true:false;
+void etk::FSNodeRight::clear() {
+	m_rights = 0;
 }
 
-bool etk::FSNodeRight::isUserWritable() const
-{
-	return ((m_rights&RIGHT_USER_WRITE)!=0)?true:false;
+bool etk::FSNodeRight::isUserReadable() const {
+	return ((m_rights&right_user_read)!=0)?true:false;
 }
 
-bool etk::FSNodeRight::isUserRunable() const
-{
-	return ((m_rights&RIGHT_USER_EXECUTE)!=0)?true:false;
+bool etk::FSNodeRight::isUserWritable() const {
+	return ((m_rights&right_user_write)!=0)?true:false;
 }
 
-void etk::FSNodeRight::setUserReadable(bool _newStatus)
-{
+bool etk::FSNodeRight::isUserRunable() const {
+	return ((m_rights&right_user_execute)!=0)?true:false;
+}
+
+void etk::FSNodeRight::setUserReadable(bool _newStatus) {
 	// reset the flag :
-	m_rights &= (0xFFFFFFFF - RIGHT_USER_READ);
-	if (true == _newStatus) {
-		m_rights |= RIGHT_USER_READ;
+	m_rights &= (0xFFFFFFFF - right_user_read);
+	if (_newStatus == true) {
+		m_rights |= right_user_read;
 	}
 }
 
-void etk::FSNodeRight::setUserWritable(bool _newStatus)
-{
+void etk::FSNodeRight::setUserWritable(bool _newStatus) {
 	// reset the flag :
-	m_rights &= (0xFFFFFFFF - RIGHT_USER_WRITE);
-	if (true == _newStatus) {
-		m_rights |= RIGHT_USER_WRITE;
+	m_rights &= (0xFFFFFFFF - right_user_write);
+	if (_newStatus == true) {
+		m_rights |= right_user_write;
 	}
 }
 
-void etk::FSNodeRight::setUserRunable(bool _newStatus)
-{
+void etk::FSNodeRight::setUserRunable(bool _newStatus) {
 	// reset the flag :
-	m_rights &= (0xFFFFFFFF - RIGHT_USER_EXECUTE);
-	if (true == _newStatus) {
-		m_rights |= RIGHT_USER_EXECUTE;
+	m_rights &= (0xFFFFFFFF - right_user_execute);
+	if (_newStatus == true) {
+		m_rights |= right_user_execute;
 	}
 }
 
-// group
-bool etk::FSNodeRight::isGroupReadable() const
-{
-	return ((m_rights&RIGHT_GROUP_READ)!=0)?true:false;
+bool etk::FSNodeRight::isGroupReadable() const {
+	return ((m_rights&right_group_read)!=0)?true:false;
 }
 
-bool etk::FSNodeRight::isGroupWritable() const
-{
-	return ((m_rights&RIGHT_GROUP_WRITE)!=0)?true:false;
+bool etk::FSNodeRight::isGroupWritable() const {
+	return ((m_rights&right_group_write)!=0)?true:false;
 }
 
-bool etk::FSNodeRight::isGroupRunable() const
-{
-	return ((m_rights&RIGHT_GROUP_EXECUTE)!=0)?true:false;
+bool etk::FSNodeRight::isGroupRunable() const {
+	return ((m_rights&right_group_execute)!=0)?true:false;
 }
 
-void etk::FSNodeRight::setGroupReadable(bool _newStatus)
-{
+void etk::FSNodeRight::setGroupReadable(bool _newStatus) {
 	// reset the flag :
-	m_rights &= (0xFFFFFFFF - RIGHT_GROUP_READ);
+	m_rights &= (0xFFFFFFFF - right_group_read);
 	if (true == _newStatus) {
-		m_rights |= RIGHT_GROUP_READ;
+		m_rights |= right_group_read;
 	}
 }
 
-void etk::FSNodeRight::setGroupWritable(bool _newStatus)
-{
+void etk::FSNodeRight::setGroupWritable(bool _newStatus) {
 	// reset the flag :
-	m_rights &= (0xFFFFFFFF - RIGHT_GROUP_WRITE);
+	m_rights &= (0xFFFFFFFF - right_group_write);
 	if (true == _newStatus) {
-		m_rights |= RIGHT_GROUP_WRITE;
+		m_rights |= right_group_write;
 	}
 }
 
-void etk::FSNodeRight::setGroupRunable(bool _newStatus)
-{
+void etk::FSNodeRight::setGroupRunable(bool _newStatus) {
 	// reset the flag :
-	m_rights &= (0xFFFFFFFF - RIGHT_GROUP_EXECUTE);
+	m_rights &= (0xFFFFFFFF - right_group_execute);
 	if (true == _newStatus) {
-		m_rights |= RIGHT_GROUP_EXECUTE;
+		m_rights |= right_group_execute;
 	}
 }
 
-// other
-bool etk::FSNodeRight::isOtherReadable() const
-{
-	return ((m_rights&RIGHT_OTHER_READ) != 0)?true:false;
+bool etk::FSNodeRight::isOtherReadable() const {
+	return ((m_rights&right_other_read) != 0)?true:false;
 }
 
-bool etk::FSNodeRight::isOtherWritable() const
-{
-	return ((m_rights&RIGHT_OTHER_WRITE) != 0)?true:false;
+bool etk::FSNodeRight::isOtherWritable() const {
+	return ((m_rights&right_other_write) != 0)?true:false;
 }
 
-bool etk::FSNodeRight::isOtherRunable() const
-{
-	return ((m_rights&RIGHT_OTHER_EXECUTE) != 0)?true:false;
+bool etk::FSNodeRight::isOtherRunable() const {
+	return ((m_rights&right_other_execute) != 0)?true:false;
 }
 
-void etk::FSNodeRight::setOtherReadable(bool _newStatus)
-{
-	// reset the flag :
-	m_rights &= (0xFFFFFFFF - RIGHT_OTHER_READ);
-	if (true == _newStatus) {
-		m_rights |= RIGHT_OTHER_READ;
+void etk::FSNodeRight::setOtherReadable(bool _newStatus) {
+	// reset the flag:
+	m_rights &= (0xFFFFFFFF - right_other_read);
+	if (_newStatus == true) {
+		m_rights |= right_other_read;
 	}
 }
 
-void etk::FSNodeRight::setOtherWritable(bool _newStatus)
-{
+void etk::FSNodeRight::setOtherWritable(bool _newStatus) {
 	// reset the flag :
-	m_rights &= (0xFFFFFFFF - RIGHT_OTHER_WRITE);
-	if (true == _newStatus) {
-		m_rights |= RIGHT_OTHER_WRITE;
+	m_rights &= (0xFFFFFFFF - right_other_write);
+	if (_newStatus == true) {
+		m_rights |= right_other_write;
 	}
 }
 
-void etk::FSNodeRight::setOtherRunable(bool _newStatus)
-{
+void etk::FSNodeRight::setOtherRunable(bool _newStatus) {
 	// reset the flag :
-	m_rights &= (0xFFFFFFFF - RIGHT_OTHER_EXECUTE);
-	if (true == _newStatus) {
-		m_rights |= RIGHT_OTHER_EXECUTE;
+	m_rights &= (0xFFFFFFFF - right_other_execute);
+	if (_newStatus == true) {
+		m_rights |= right_other_execute;
 	}
 }
 #if __CPP_VERSION__ >= 2011

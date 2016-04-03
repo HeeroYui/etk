@@ -12,78 +12,147 @@
 
 #include <etk/math/Vector3D.h>
 
-#if 1
 #include <math.h>
 
+/**
+ * @brief Convert degree in radian
+ * @param[in] a Value to converted in degree
+ * @return Angle in radian
+ */
 #define DEG_TO_RAD(a)       ((a)*M_PI/180.0f)
+/**
+ * @brief Convert radian in degree
+ * @param[in] a Value to converted in radian
+ * @return Angle in degree
+ */
 #define RAD_TO_DEG(a)       ((a)*180.0f/M_PI)
 
 namespace etk {
+	/**
+	 * @brief Transformation matrix for vector 3D.
+	 */
 	class Matrix4 {
+		private:
+			float m_mat[4*4]; //!< matrix data
 		public:
-			float m_mat[4*4];
+			/**
+			 * @brief configure identity of the matrix
+			 */
 			void identity();
-			/*****************************************************
-			 *    Constructor
-			 *****************************************************/
+			/**
+			 * @brief Constructor that load identity
+			 */
 			Matrix4();
+			/**
+			 * @brief Copy constructor.
+			 * @param[in] _obj Matrix object to copy
+			 */
 			Matrix4(const Matrix4& _obj);
+			/**
+			 * @brief Configuration constructor.
+			 * @param[in] _a1 1st colomn, 1 line value
+			 * @param[in] _b1 2nd colomn, 1 line value
+			 * @param[in] _c1 3rd colomn, 1 line value
+			 * @param[in] _d1 4th colomn, 1 line value
+			 * @param[in] _a2 1st colomn, 2 line value
+			 * @param[in] _b2 2nd colomn, 2 line value
+			 * @param[in] _c2 3rd colomn, 2 line value
+			 * @param[in] _d2 4th colomn, 2 line value
+			 * @param[in] _a3 1st colomn, 3 line value
+			 * @param[in] _b3 2nd colomn, 3 line value
+			 * @param[in] _c3 3rd colomn, 3 line value
+			 * @param[in] _d3 4th colomn, 3 line value
+			 * @param[in] _a4 1st colomn, 4 line value
+			 * @param[in] _b4 2nd colomn, 4 line value
+			 * @param[in] _c4 3rd colomn, 4 line value
+			 * @param[in] _d4 4th colomn, 4 line value
+			 */
 			Matrix4(float _a1, float _b1, float _c1, float _d1,
 			        float _a2, float _b2, float _c2, float _d2,
 			        float _a3, float _b3, float _c3, float _d3,
 			        float _a4, float _b4, float _c4, float _d4);
-			Matrix4(float* _obj);
-			/*****************************************************
-			 *    Destructor
-			 *****************************************************/
-			~Matrix4();
-			/*****************************************************
-			 *    = assigment
-			 *****************************************************/
-			const Matrix4& operator= (const Matrix4& _obj );
-			/*****************************************************
-			 *    == operator
-			 *****************************************************/
+			/**
+			 * @brief Configuration constructor.
+			 * @param[in] _values vector of values
+			 */
+			Matrix4(float* _values);
+			/**
+			 * @brief Operator= Asign the current object with an other object
+			 * @param[in] _obj Reference on the external object
+			 * @return Local reference of the vector asigned
+			 */
+			const Matrix4& operator= (const Matrix4& _obj);
+			/**
+			 * @brief Equality compare operator with an other object.
+			 * @param[in] _obj Reference on the comparing object
+			 * @return true The Objects are identical
+			 * @return false The Objects are NOT identical
+			 */
 			bool operator== (const Matrix4& _obj) const;
-			/*****************************************************
-			 *    != operator
-			 *****************************************************/
+			/**
+			 * @brief In-Equality compare operator with an other object.
+			 * @param[in] _obj Reference on the comparing object
+			 * @return true The Objects are NOT identical
+			 * @return false The Objects are identical
+			 */
 			bool operator!= (const Matrix4& _obj) const;
-			/*****************************************************
-			 *    += operator
-			 *****************************************************/
+			/**
+			 * @brief Operator+= Addition an other matrix with this one
+			 * @param[in] _obj Reference on the external object
+			 * @return Local reference of the vector additionned
+			 */
 			const Matrix4& operator+= (const Matrix4& _obj);
-			/*****************************************************
-			 *    + operator
-			 *****************************************************/
+			/**
+			 * @brief Operator+ Addition an other matrix with this one
+			 * @param[in] _obj Reference on the external object
+			 * @return New vector containing the value
+			 */
 			Matrix4 operator+ (const Matrix4& _obj) const;
-			/*****************************************************
-			 *    -= operator
-			 *****************************************************/
+			/**
+			 * @brief Operator-= Decrement an other matrix with this one
+			 * @param[in] _obj Reference on the external object
+			 * @return Local reference of the vector decremented
+			 */
 			const Matrix4& operator-= (const Matrix4& _obj);
-			/*****************************************************
-			 *    - operator
-			 *****************************************************/
+			/**
+			 * @brief Operator- Decrement an other matrix with this one
+			 * @param[in] _obj Reference on the external object
+			 * @return New vector containing the value
+			 */
 			Matrix4 operator- (const Matrix4& _obj) const;
-			/*****************************************************
-			 *    *= operator
-			 *****************************************************/
+			/**
+			 * @brief Operator*= Multiplication an other matrix with this one
+			 * @param[in] _obj Reference on the external object
+			 * @return Local reference of the vector multiplicated
+			 */
 			const Matrix4& operator*= (const Matrix4& _obj);
-			/*****************************************************
-			 *    * operator
-			 *****************************************************/
+			/**
+			 * @brief Operator* Multiplication an other matrix with this one
+			 * @param[in] _obj Reference on the external object
+			 * @return New vector containing the value
+			 */
 			Matrix4 operator* (const Matrix4& _obj) const;
+			/**
+			 * @brief Operator* apply matrix on a vector
+			 * @param[in] _point Point value to apply the matrix
+			 * @return New vector containing the value
+			 */
 			vec3 operator*(const vec3& _point) const;
-			/*****************************************************
-			 *  other basic function :
-			 *****************************************************/
+			/**
+			 * @brief Transpose the current matix (usefull for OpenGL display)
+			 */
 			void transpose();
 			/**
 			 * @brief Scale the current Matrix.
 			 * @param[in] _vect Scale vector to apply.
 			 */
 			void scale(const vec3& _vect);
-			//! @previous
+			/**
+			 * @brief Scale the current Matrix.
+			 * @param[in] _sx Scale X value to apply.
+			 * @param[in] _sy Scale Y value to apply.
+			 * @param[in] _sz Scale Z value to apply.
+			 */
 			void scale(float _sx, float _sy, float _sz);
 			/**
 			 * @brief Makes a rotation matrix about an arbitrary axis.
@@ -118,9 +187,26 @@ namespace etk {
 	Matrix4 matFrustum(float _xmin, float _xmax, float _ymin, float _ymax, float _zNear, float _zFar);
 	Matrix4 matPerspective(float _foxy, float _aspect, float _zNear, float _zFar);
 	Matrix4 matOrtho(float _left, float _right, float _bottom, float _top, float _nearVal, float _farVal);
-	Matrix4 matTranslate(vec3 _vect);
-	Matrix4 matScale(vec3 _vect);
-	Matrix4 matRotate(vec3 _vect, float _angleRad=0.0);
+	/**
+	 * @brief Create a matrix 3D with a simple translation
+	 * @param[in] _translate 3 dimention translation
+	 * @return New matrix of the transformation requested
+	 */
+	Matrix4 matTranslate(vec3 _translate);
+	/**
+	 * @brief Create a matrix 3D with a simple scale
+	 * @param[in] _scale 3 dimention scale
+	 * @return New matrix of the transformation requested
+	 */
+	Matrix4 matScale(vec3 _scale);
+	/**
+	 * @brief Create a matrix 3D with a simple rotation
+	 * @param[in] _normal vector aroud witch apply the rotation
+	 * @param[in] _angleRad Radian angle to set at the matrix
+	 * @return New matrix of the transformation requested
+	 */
+	Matrix4 matRotate(vec3 _normal, float _angleRad=0.0);
+	//! @not_in_doc
 	Matrix4 matRotate2(vec3 _vect);
 	Matrix4 matLookAt(const vec3& _eye,
 	                  const vec3& _target,
@@ -131,21 +217,5 @@ namespace etk {
 
 
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
-typedef etk::Matrix4 mat4;
-#else
-	// include matrix from bulletlib mat4 interface:
-	#include <vectormath/scalar/vectormath_aos.h>
-	// To siplify the writing of the code ==> this permit to have the same name with the glsl language...
-	typedef Vectormath::Aos::Matrix4  mat4;
-	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const mat4& _obj);
-	
-	// TODO : Remove this ???
-	namespace etk {
-		mat4 matTranslate(const vec3& _vect);
-		mat4 matScale(const vec3& _vect);
-		mat4 matRotate(const vec3& _vect, float _angleRad=0.0);
-	}
-#endif
-
+using mat4 = etk::Matrix4; //!< Matrix naming like openGl shader
 
