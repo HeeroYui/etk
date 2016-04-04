@@ -93,7 +93,7 @@ namespace etk {
 			 * @return reference on this element.
 			 */
 			Color<MY_TYPE,MY_TYPE_SIZE>& operator=(const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _input) {
-				for (size_t iii=0; iii<MY_TYPE_SIZE;iii) {
+				for (size_t iii=0; iii<MY_TYPE_SIZE; ++iii) {
 					m_element[iii] = _input.m_element[iii];
 				}
 				return *this;
@@ -105,7 +105,7 @@ namespace etk {
 			 * @return false This is the same color.
 			 */
 			bool operator!= (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) const {
-				for (size_t iii=0; iii<MY_TYPE_SIZE;iii) {
+				for (size_t iii=0; iii<MY_TYPE_SIZE;++iii) {
 					if(m_element[iii] != _obj.m_element[iii]) {
 						return true;
 					}
@@ -119,7 +119,7 @@ namespace etk {
 			 * @return false The color are different.
 			 */
 			bool operator== (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) const {
-				for (size_t iii=0; iii<MY_TYPE_SIZE;iii) {
+				for (size_t iii=0; iii<MY_TYPE_SIZE;++iii) {
 					if(m_element[iii] != _obj.m_element[iii]) {
 						return false;
 					}
@@ -645,7 +645,7 @@ namespace etk {
 	}
 	//! @not_in_doc
 	template<typename MY_TYPE, int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const std::vector<Color<MY_TYPE, MY_TYPE_SIZE> >& _obj) {
-		for (size_t iii = 0; iii < _obj.size();iii) {
+		for (size_t iii = 0; iii < _obj.size(); ++iii) {
 			if (iii != 0) {
 				_os << " ";
 			}

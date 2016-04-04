@@ -14,25 +14,30 @@
 
 #include <math.h>
 
-/**
- * @brief Convert degree in radian
- * @param[in] a Value to converted in degree
- * @return Angle in radian
- */
-#define DEG_TO_RAD(a)       ((a)*M_PI/180.0f)
-/**
- * @brief Convert radian in degree
- * @param[in] a Value to converted in radian
- * @return Angle in degree
- */
-#define RAD_TO_DEG(a)       ((a)*180.0f/M_PI)
-
 namespace etk {
+	/**
+	 * @brief Convert degree in radian
+	 * @param[in] _val Value to converted in degree
+	 * @return Angle in radian
+	 */
+	template<class T>
+	T degreeToRadian(T _val) {
+		return _val*M_PI/T(180.0);
+	}
+	/**
+	 * @brief Convert radian in degree
+	 * @param[in] _val Value to converted in radian
+	 * @return Angle in degree
+	 */
+	template<class T>
+	T radianToDegree(T _val) {
+		return _val*T(180.0)/M_PI;
+	}
 	/**
 	 * @brief Transformation matrix for vector 3D.
 	 */
 	class Matrix4 {
-		private:
+		public:
 			float m_mat[4*4]; //!< matrix data
 		public:
 			/**
@@ -183,9 +188,46 @@ namespace etk {
 			 * @return The inverted matrix.
 			 */
 			Matrix4 invert();
+		friend etk::Matrix4 etk::matFrustum(float, float, float, float, float, float);
+		friend etk::Matrix4 etk::matPerspective(float, float, float, float);
+		friend etk::Matrix4 etk::matOrtho(float, float, float, float, float, float);
+		friend etk::Matrix4 etk::matTranslate(vec3);
+		friend etk::Matrix4 etk::matScale(vec3);
+		friend etk::Matrix4 etk::matRotate(vec3, float);
+		friend etk::Matrix4 etk::matRotate2(vec3);
+		friend etk::Matrix4 etk::matLookAt(const vec3&, const vec3&, const vec3&);
+		friend std::ostream& operator <<(std::ostream&, const etk::Matrix4&);
 	};
+	/**
+	 * @brief Create projection matrix with the box parameter (camera view in -z axis)
+	 * @param[in] _xmin X minimum size of the frustum
+	 * @param[in] _xmax X maximum size of the frustum
+	 * @param[in] _ymin Y minimum size of the frustum
+	 * @param[in] _ymax Y maximum size of the frustum
+	 * @param[in] _zNear Z minimum size of the frustum
+	 * @param[in] _zFar Z maximum size of the frustum
+	 * @return New matrix of the transformation requested
+	 */
 	Matrix4 matFrustum(float _xmin, float _xmax, float _ymin, float _ymax, float _zNear, float _zFar);
+	/**
+	 * @brief Create projection matrix with human repensentation view (camera view in -z axis)
+	 * @param[in] _foxy Focal in radian of the camera
+	 * @param[in] _aspect aspect ratio of the camera
+	 * @param[in] _zNear Z near size of the camera
+	 * @param[in] _zFar Z far size of the camera
+	 * @return New matrix of the transformation requested
+	 */
 	Matrix4 matPerspective(float _foxy, float _aspect, float _zNear, float _zFar);
+	/**
+	 * @brief Create orthogonal projection matrix with the box parameter (camera view in -z axis)
+	 * @param[in] _left left size of the camera
+	 * @param[in] _right Right size of the camera
+	 * @param[in] _bottom Buttom size of the camera
+	 * @param[in] _top Top Size of the camera
+	 * @param[in] _nearVal Z near size of the camera
+	 * @param[in] _farVal Z far size of the camera
+	 * @return New matrix of the transformation requested
+	 */
 	Matrix4 matOrtho(float _left, float _right, float _bottom, float _top, float _nearVal, float _farVal);
 	/**
 	 * @brief Create a matrix 3D with a simple translation
@@ -207,7 +249,13 @@ namespace etk {
 	 */
 	Matrix4 matRotate(vec3 _normal, float _angleRad=0.0);
 	//! @not_in_doc
-	Matrix4 matRotate2(vec3 _vect);
+	Matrix4 matRotate2(vec3 _vect);	/**
+	 * @brief Create projection matrix with camera property (camera view in -z axis)
+	 * @param[in] _eye Optical center of the camera
+	 * @param[in] _target Point of where the camera is showing
+	 * @param[in] _up Up vector of the camera
+	 * @return New matrix of the transformation requested
+	 */
 	Matrix4 matLookAt(const vec3& _eye,
 	                  const vec3& _target,
 	                  const vec3& _up);

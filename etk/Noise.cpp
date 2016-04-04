@@ -119,7 +119,7 @@ etk::Noise::Noise(enum etk::noiseType _type, ivec2 _size, int32_t _depth) :
 				}
 			}
 			break;
-		case etk::noiseType_turbulence_no_smooth:
+		case etk::noiseType_turbulenceNoSmooth:
 			{
 				etk::BaseNoise myNoise(ivec2(m_size.x()/_depth,m_size.y()/_depth),0.0f,1.0f);
 				for(int32_t iii=0; iii<m_size.y(); iii++) {

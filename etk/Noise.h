@@ -46,7 +46,7 @@ namespace etk {
 		noiseType_base, //!< basic random noise
 		noiseType_smooth, //!< Noise smoothed
 		noiseType_turbulence, //!< Noise in turbulence mode
-		noiseType_turbulence_no_smooth, //!< Noise Turbulence with no smooth apply
+		noiseType_turbulenceNoSmooth, //!< Noise Turbulence with no smooth apply
 		noiseType_cloud, //!< Noise like a cloud
 		noiseType_marble, //!< Noise like marble
 		noiseType_wood //!< Noise like wood

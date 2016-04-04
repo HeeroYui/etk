@@ -22,11 +22,6 @@ enum {
 	right_user_read     = 1 << 8,
 };
 
-etk::FSNodeRight::FSNodeRight() :
-  m_rights(0) {
-	
-}
-
 etk::FSNodeRight::FSNodeRight(int16_t _newRight) :
  m_rights(_newRight&0x01FF) {
 	
