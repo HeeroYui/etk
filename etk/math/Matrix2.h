@@ -173,12 +173,6 @@ namespace etk {
 			 * @return The inverted matrix.
 			 */
 			void invert();
-		friend Matrix2 mat2Rotate(float);
-		friend Matrix2 mat2Scale(const vec2&);
-		friend Matrix2 mat2Scale(float);
-		friend Matrix2 mat2Translate(const vec2&);
-		friend Matrix2 mat2Skew(const vec2&);
-		friend std::ostream& operator <<(std::ostream&, const etk::Matrix2&);
 	};
 	/**
 	 * @brief Create a matrix 2D with a simple rotation

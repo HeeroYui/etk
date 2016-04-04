@@ -28,7 +28,7 @@ ETK is written in C++.
 Are there any licensing restrictions?
 -------------------------------------
 
-ETK is **FREE software** and //all sub-library are FREE and staticly linkable !!!//
+ETK is **FREE software** and _all sub-library are FREE and staticly linkable !!!_
 
 
 License (APACHE-2.0)

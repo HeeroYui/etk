@@ -188,15 +188,6 @@ namespace etk {
 			 * @return The inverted matrix.
 			 */
 			Matrix4 invert();
-		friend etk::Matrix4 etk::matFrustum(float, float, float, float, float, float);
-		friend etk::Matrix4 etk::matPerspective(float, float, float, float);
-		friend etk::Matrix4 etk::matOrtho(float, float, float, float, float, float);
-		friend etk::Matrix4 etk::matTranslate(vec3);
-		friend etk::Matrix4 etk::matScale(vec3);
-		friend etk::Matrix4 etk::matRotate(vec3, float);
-		friend etk::Matrix4 etk::matRotate2(vec3);
-		friend etk::Matrix4 etk::matLookAt(const vec3&, const vec3&, const vec3&);
-		friend std::ostream& operator <<(std::ostream&, const etk::Matrix4&);
 	};
 	/**
 	 * @brief Create projection matrix with the box parameter (camera view in -z axis)
