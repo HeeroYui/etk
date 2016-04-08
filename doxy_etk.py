@@ -12,15 +12,39 @@ def create(target, module_name):
 	my_module.set_website_sources("http://github.com/atria-soft/" + module_name)
 	my_module.add_path([
 	    module_name,
-	    "doc"
+	    "doc",
 	    ])
-	my_module.add_data_path("data/dox")
+	my_module.add_data_path([
+	    "data/dox",
+	    ])
 	my_module.add_module_depend([
-	    'elog'
+	    'elog',
 	    ])
 	my_module.add_module_define([
-		"ETK_BUILD_MINIZIP"
-		])
+	    "ETK_BUILD_MINIZIP",
+	    ])
+	my_module.add_exclude_symbols([
+	    '*operator<<*',
+	    '*string_to_*',
+	    '*compare_no_case*',
+	    '*end_with*',
+	    '*extract_line*',
+	    '*isIn*',
+	    '*matRotate2*',
+	    '*replace*',
+	    '*sort*',
+	    '*split*',
+	    '*start_with*',
+	    'tolower',
+	    'toupper',
+	    ])
+	my_module.add_exclude_file([
+	    'debug.h',
+	    ])
+	my_module.add_file_patterns([
+	    '*.h',
+	    '*.md',
+	    ])
 	
 	
 	return my_module

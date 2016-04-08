@@ -218,6 +218,7 @@ namespace etk {
 			}
 			/**
 			 * @brief Return a vector will the absolute values of each element
+			 * @return New vector with the absolute value
 			 */
 			Vector4D<T> absolute() const {
 				return Vector4D<T>( abs(m_floats[0]),

@@ -51,7 +51,7 @@
 #ifndef _WIN32
 	#include <math.h>
 	#ifndef _MATH_H_MATHDEF
-		//! @not_in_doc
+		//! @brief Generate a basic type for floating point unit selection (not finished)
 		using float_t = float;
 	#endif
 #endif

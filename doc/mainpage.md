@@ -1,8 +1,8 @@
-ETK library                                {#mainpage}
+ETK library                                 {#mainpage}
 ===========
 
-What is ETK, and how can I use it?
-----------------------------------
+What is ETK, and how can I use it?          {#etk_mainpage_what}
+==================================
 
 ETK, or Ewol Tool kit is a simple abstraction layer for some elements like mutex, std missing element(in android or MacOS) and ...
 
@@ -19,20 +19,20 @@ ETK is composed of some part:
 
 
 
-What languages are supported?
------------------------------
+What languages are supported?               {#etk_mainpage_langue}
+=============================
 
 ETK is written in C++.
 
 
-Are there any licensing restrictions?
--------------------------------------
+Are there any licensing restrictions?       {#etk_mainpage_dependency}
+=====================================
 
 ETK is **FREE software** and _all sub-library are FREE and staticly linkable !!!_
 
 
-License (APACHE-2.0)
---------------------
+License (APACHE-2.0)                        {#etk_mainpage_licence}
+====================
 
 Copyright etk Edouard DUPIN
 
@@ -47,4 +47,13 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+
+Other pages                              {#etk_mainpage_sub_page}
+===========
+
+  - @ref etk_build
+  - [**ewol coding style**](http://atria-soft.github.io/ewol/ewol_coding_style.html)
+
+
 

@@ -442,7 +442,11 @@ namespace etk {
 	 */
 	etk::Color<uint8_t, 4> parseStringColorNamed(const std::string& _input);
 	
-	//! @not_in_doc
+	/**
+	 * @brief Specify that the Get intance is specialized for uint8_t/4 template
+	 * @return unsignad iterger containing the color value in RGBA
+	 * @internal
+	 */
 	template<> uint32_t Color<uint8_t, 4>::get() const;
 	
 	template<typename MY_TYPE, int MY_TYPE_SIZE> uint32_t Color<MY_TYPE, MY_TYPE_SIZE>::get() const {

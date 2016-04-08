@@ -146,7 +146,11 @@ namespace etk {
 			MY_TYPE& operator[] (const std::string& _key) {
 				return get(_key);
 			}
-			//! @previous
+			/**
+			 * @brief Get an copy Element an a special position
+			 * @param[in] _key Name of the hash requested
+			 * @return An reference on the copy of selected element
+			 */
 			const MY_TYPE& operator[] (const std::string& _key) const {
 				return get(_key);
 			}
