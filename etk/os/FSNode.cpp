@@ -1,8 +1,6 @@
 /** @file
  * @author Edouard DUPIN
- * 
  * @copyright 2011, Edouard DUPIN, all right reserved
- * 
  * @license APACHE v2.0 (see license file)
  */
 
@@ -215,6 +213,9 @@ std::string l_argZero = "";
 void etk::setArgZero(const std::string& _val) {
 	std::unique_lock<std::mutex> lock(getNodeMutex());
 	l_argZero = _val;
+	// set defaiult application name ...
+	std::vector<std::string> elems = etk::split(_val, '/');
+	etk::initDefaultFolder(elems[elems.size()-1].c_str());
 }
 /*
 	On Unixes with /proc really straight and realiable way is to:
