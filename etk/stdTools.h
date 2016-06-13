@@ -659,6 +659,19 @@ namespace std {
 	}
 };
 
+namespace etk {
+	/**
+	 * @brief in std, we have min, max but not avg ==> it is missing... the Defineing avg template.
+	 * @param[in] _min Minimum value of the range
+	 * @param[in] _val The value that we want a min/max
+	 * @param[in] _max Maximum value of the range
+	 * @return Value that min/max applied
+	 */
+	template <class TYPE> const TYPE& avg(const TYPE& _min, const TYPE& _val, const TYPE& _max) {
+		return std::min(std::max(_min,_val),_max);
+	}
+};
+
 namespace std {
 	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const std::string& _obj);
