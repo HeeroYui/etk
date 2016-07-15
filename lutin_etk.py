@@ -88,6 +88,7 @@ def create(target, module_name):
 	# add dependency of the generic math library:
 	my_module.add_module_depend('m')
 	my_module.add_module_depend('elog')
+	my_module.add_module_depend('ememory')
 	# add some optionnal libraries
 	my_module.add_optionnal_module_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])
 	my_module.add_optionnal_module_depend('linearmath', ["c", "-DETK_BUILD_LINEARMATH"], export=True)

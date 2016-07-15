@@ -11,7 +11,7 @@
 
 #include <map>
 #include <mutex>
-#include <memory>
+#include <ememory/memory.h>
 
 namespace etk {
 	/**

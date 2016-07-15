@@ -7,11 +7,11 @@
  */
 
 #include <gtest/gtest.h>
-#include <memory>
+#include <ememory/memory.h>
 #undef NAME
 #define NAME "Shared_ptr"
 
-class Example : public std::enable_shared_from_this<Example> {
+class Example : public ememory::EnableSharedFromThis<Example> {
 	protected:
 		int32_t m_id;
 	public:
@@ -32,17 +32,17 @@ TEST(TestSTDSharedPtr, testBaseLocal) {
 }
 
 TEST(TestSTDSharedPtr, testBaseShared) {
-	std::shared_ptr<Example> tmp = std::make_shared<Example>();
+	ememory::SharedPtr<Example> tmp = ememory::makeShared<Example>();
 }
 
 
 TEST(TestSTDSharedPtr, testBaseSharedDouble) {
-	std::shared_ptr<Example> tmp = std::make_shared<Example>();
-	std::shared_ptr<Example> tmp2 = tmp;
+	ememory::SharedPtr<Example> tmp = ememory::makeShared<Example>();
+	ememory::SharedPtr<Example> tmp2 = tmp;
 }
 /*
 TEST(TestSTDSharedPtr, testBaseSharedDirectAndShared) {
 	Example tmp;
-	std::shared_ptr<Example> tmp2 = std::make_shared<tmp>;
+	ememory::SharedPtr<Example> tmp2 = ememory::makeShared<tmp>;
 }
 */
