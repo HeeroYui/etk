@@ -425,6 +425,14 @@ namespace etk {
 			                                           bool _getFile = true,
 			                                           const std::string& _filter = ".*");
 			/**
+			 * @brief Get the List of all node inside a node (folder only)
+			 * @param[in] _getFolder get folder
+			 * @param[in] _getFile Get files
+			 * @param[in] _filter Generic regex string to filter file names
+			 * @return The requested list
+			 */
+			std::vector<std::string> folderGetSub(bool _getFolder, bool _getFile, const std::string& _filter);
+			/**
 			 * @brief Get the father node of this node
 			 * @return The requested node
 			 */

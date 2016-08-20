@@ -1527,6 +1527,83 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 	return tmpp;
 }
 
+std::vector<std::string> etk::FSNode::folderGetSub(bool _getFolder, bool _getFile, const std::string& _filter) {
+	TK_TODO("implement filter ... ");
+	std::vector<std::string> out;
+	// regenerate the next list :
+	etk::FSNode * tmpEmement = nullptr;
+	if (m_typeNode != etk::typeNode_folder ) {
+		return out;
+	}
+	#ifdef HAVE_ZIP_DATA
+	if(    m_type == etk::FSNType_data
+	    || m_type == etk::FSNType_themeData) {
+		std::vector<std::string> listAdded;
+		std::string assetsName = baseFolderData;
+		std::string FolderName = getNameFolder();
+		if (s_APKArchive==nullptr) {
+			return out;
+		}
+		for (int iii=0; iii<s_APKArchive->size(); iii++) {
+			std::string filename = s_APKArchive->getName(iii);
+			if (start_with(filename, FolderName) == true) {
+				std::string tmpString(filename, FolderName.size()+1);
+				size_t pos = tmpString.find('/');
+				if (pos != std::string::npos) {
+					// a simple folder :
+					tmpString = std::string(tmpString, 0, pos+1);
+				}
+				tmpString = getName() + tmpString;
+				bool findIt = false;
+				for (size_t jjj = 0; jjj < listAdded.size(); ++jjj) {
+					if (listAdded[jjj] == tmpString) {
+						findIt = true;
+						break;
+					}
+				}
+				if (findIt == false) {
+					listAdded.push_back(tmpString);
+					etk::FSNode tmpEmement(tmpString);
+					TK_VERBOSE("find element : '" << tmpString << "' --> " << *tmpEmement);
+					out.push_back(tmpEmement.getName());
+				}
+			}
+		}
+		std::sort(out.begin(), out.end());
+		return out;
+	}
+	#endif
+	DIR *dir = nullptr;
+	struct dirent *ent = nullptr;
+	dir = opendir(m_systemFileName.c_str());
+	if (dir != nullptr) {
+		// for each element in the drectory...
+		while ((ent = readdir(dir)) != nullptr) {
+			std::string tmpName(ent->d_name);
+			TK_VERBOSE(" search in folder\"" << tmpName << "\"");
+			if(    tmpName == "." 
+			    || tmpName == ".." ) {
+				// do nothing ...
+				continue;
+			}
+			etk::FSNode tmpEmement(getRelativeFolder()+tmpName);
+			if(tmpEmement.getNodeType() == etk::typeNode_file) {
+				if (_getFile == true) {
+					out.push_back(tmpEmement.getName());
+				}
+			} else if (_getFolder) {
+				out.push_back(tmpEmement.getName());
+			}
+		}
+		closedir(dir);
+	} else {
+		TK_ERROR("could not open directory : \"" << *this << "\"");
+	}
+	// reorder the files
+	std::sort(out.begin(), out.end());
+	return out;
+}
+
 etk::FSNode etk::FSNode::folderGetParent() {
 	etk::FSNode tmpp;
 	return tmpp;
