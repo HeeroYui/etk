@@ -997,6 +997,22 @@ void etk::FSNode::updateFileSystemProperty() {
 				}
 			}
 		}
+		// special case of the user does not set tyhe / at the end of the path ...
+		if (m_systemFileName[m_systemFileName.size()-1] != '/') {
+			std::string tmpName = m_systemFileName + '/';
+			//Might be a folder ==> check if it existed in the start files ...
+			for (int iii=0; iii<s_APKArchive->size(); iii++) {
+				std::string filename = s_APKArchive->getName(iii);
+				if (start_with(filename, tmpName) == true) {
+					m_typeNode = etk::typeNode_folder;
+					m_rights.setUserReadable(true);
+					m_rights.setUserRunable(true);
+					TK_DBG_MODE("Find a Folder in APK : '" << m_systemFileName << "'");
+					m_systemFileName += '/';
+					return;
+				}
+			}
+		}
 		TK_WARNING("File existed ??? in APK : '" << m_systemFileName << "'");
 		return;
 	}
@@ -1541,7 +1557,7 @@ std::vector<std::string> etk::FSNode::folderGetSub(bool _getFolder, bool _getFil
 		std::vector<std::string> listAdded;
 		std::string assetsName = baseFolderData;
 		std::string FolderName = getNameFolder();
-		if (s_APKArchive==nullptr) {
+		if (s_APKArchive == nullptr) {
 			return out;
 		}
 		for (int iii=0; iii<s_APKArchive->size(); iii++) {
