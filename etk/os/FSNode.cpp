@@ -1564,7 +1564,7 @@ std::vector<std::string> etk::FSNode::folderGetSub(bool _getFolder, bool _getFil
 				if (findIt == false) {
 					listAdded.push_back(tmpString);
 					etk::FSNode tmpEmement(tmpString);
-					TK_VERBOSE("find element : '" << tmpString << "' --> " << *tmpEmement);
+					TK_VERBOSE("find element : '" << tmpString << "' --> " << tmpEmement);
 					out.push_back(tmpEmement.getName());
 				}
 			}
