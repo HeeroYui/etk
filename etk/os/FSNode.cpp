@@ -1009,6 +1009,9 @@ void etk::FSNode::updateFileSystemProperty() {
 					m_rights.setUserRunable(true);
 					TK_DBG_MODE("Find a Folder in APK : '" << m_systemFileName << "'");
 					m_systemFileName += '/';
+					if (m_userFileName[m_userFileName.size()-1] != '/') {
+						m_userFileName += '/';
+					}
 					return;
 				}
 			}
@@ -1464,6 +1467,9 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 		if (s_APKArchive==nullptr) {
 			return tmpp;
 		}
+		if (FolderName[FolderName.size()-1] != '/') {
+			FolderName += "/";
+		}
 		for (int iii=0; iii<s_APKArchive->size(); iii++) {
 			std::string filename = s_APKArchive->getName(iii);
 			if (start_with(filename, FolderName) == true) {
@@ -1471,7 +1477,7 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 				size_t pos = tmpString.find('/');
 				if (pos != std::string::npos) {
 					// a simple folder :
-					tmpString = std::string(tmpString, 0, pos+1);
+					tmpString = std::string(tmpString, 0, pos);
 				}
 				tmpString = getName() + tmpString;
 				bool findIt = false;
@@ -1560,10 +1566,13 @@ std::vector<std::string> etk::FSNode::folderGetSub(bool _getFolder, bool _getFil
 		if (s_APKArchive == nullptr) {
 			return out;
 		}
-		for (int iii=0; iii<s_APKArchive->size(); iii++) {
+		if (FolderName[FolderName.size()-1] != '/') {
+			FolderName += "/";
+		}
+		for (size_t iii=0; iii<s_APKArchive->size(); iii++) {
 			std::string filename = s_APKArchive->getName(iii);
 			if (start_with(filename, FolderName) == true) {
-				std::string tmpString(filename, FolderName.size()+1);
+				std::string tmpString(filename, FolderName.size());
 				size_t pos = tmpString.find('/');
 				if (pos != std::string::npos) {
 					// a simple folder :
