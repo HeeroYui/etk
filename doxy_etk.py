@@ -17,7 +17,7 @@ def create(target, module_name):
 	my_module.add_data_path([
 	    "data/dox",
 	    ])
-	my_module.add_module_depend([
+	my_module.add_depend([
 	    'elog',
 	    ])
 	my_module.add_module_define([

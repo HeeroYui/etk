@@ -26,7 +26,7 @@ def get_version():
 
 def create(target, module_name):
 	my_module = module.Module(__file__, module_name, get_type())
-	my_module.add_extra_compile_flags()
+	my_module.add_extra_flags()
 	# add the file to compile:
 	my_module.add_src_file([
 		'etk/debug.cpp',
@@ -64,43 +64,44 @@ def create(target, module_name):
 		'etk/archive/Archive.h',
 		'etk/archive/Zip.h'])
 	
-	if target.config["mode"] == "release":
+	if "release" == target.get_mode():
 		# TODO : The other way is to remove this ...
 		# TODO : Fore release mode : the etk folder are absolutly not at the same position in the tree ...
-		my_module.compile_flags('c', "-DMODE_RELEASE")
+		my_module.add_flag('c', "-DMODE_RELEASE")
 	else:
-		my_module.add_export_flag('c', "-DDEBUG=1")
+		my_module.add_flag('c', "-DDEBUG=1", export=True)
 		# Bor backtrace display :
-		if     target.name != "Windows" \
-		   and target.name != "MacOs" \
-		   and target.name != "IOs":
+		if     "Windows" not in target.get_type() \
+		   and "MacOs" not in target.get_type() \
+		   and "IOs" not in target.get_type():
 			# TODO : check if it is really needed ...
-			my_module.add_export_flag('link', [
+			my_module.add_flag('link', [
 				'-ldl',
-				'-rdynamic'])
-		elif target.name != "Windows":
-			my_module.add_export_flag('link', [
-				'-ldl'])
+				'-rdynamic'],
+				export=True)
+		elif "Windows" not in target.get_type():
+			my_module.add_flag('link', [
+				'-ldl'],
+				export=True)
 	# build in C++ mode
 	my_module.compile_version("c++", 2011)
 	# add dependency of the generic C++ library:
-	my_module.add_module_depend('cxx')
+	my_module.add_depend('cxx')
 	# add dependency of the generic math library:
-	my_module.add_module_depend('m')
-	my_module.add_module_depend('elog')
-	my_module.add_module_depend('ememory')
+	my_module.add_depend('m')
+	my_module.add_depend('elog')
+	my_module.add_depend('ememory')
 	# add some optionnal libraries
-	my_module.add_optionnal_module_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])
-	my_module.add_optionnal_module_depend('linearmath', ["c", "-DETK_BUILD_LINEARMATH"], export=True)
+	my_module.add_optionnal_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])
+	my_module.add_optionnal_depend('linearmath', ["c", "-DETK_BUILD_LINEARMATH"], export=True)
 	
-	if target.name=="Windows":
+	if "Windows" in target.get_type():
 		pass
-	elif target.name=="Android":
-		my_module.add_module_depend("SDK")
+	elif "Android" in target.get_type():
+		my_module.add_depend("SDK")
 		pass
 	else:
-		#TODO : Set it in a generic include system
-		my_module.add_export_flag('link-lib', "pthread")
+		my_module.add_depend("pthread")
 	
 	my_module.add_path(tools.get_current_path(__file__))
 	return my_module
