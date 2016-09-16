@@ -95,13 +95,8 @@ def create(target, module_name):
 	my_module.add_optionnal_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])
 	my_module.add_optionnal_depend('linearmath', ["c", "-DETK_BUILD_LINEARMATH"], export=True)
 	
-	if "Windows" in target.get_type():
-		pass
-	elif "Android" in target.get_type():
+	if "Android" in target.get_type():
 		my_module.add_depend("SDK")
-		pass
-	else:
-		my_module.add_depend("pthread")
 	
 	my_module.add_path(tools.get_current_path(__file__))
 	return my_module
