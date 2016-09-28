@@ -64,25 +64,6 @@ def create(target, module_name):
 		'etk/archive/Archive.h',
 		'etk/archive/Zip.h'])
 	
-	if "release" == target.get_mode():
-		# TODO : The other way is to remove this ...
-		# TODO : Fore release mode : the etk folder are absolutly not at the same position in the tree ...
-		my_module.add_flag('c', "-DMODE_RELEASE")
-	else:
-		my_module.add_flag('c', "-DDEBUG=1", export=True)
-		# Bor backtrace display :
-		if     "Windows" not in target.get_type() \
-		   and "MacOs" not in target.get_type() \
-		   and "IOs" not in target.get_type():
-			# TODO : check if it is really needed ...
-			my_module.add_flag('link', [
-				'-ldl',
-				'-rdynamic'],
-				export=True)
-		elif "Windows" not in target.get_type():
-			my_module.add_flag('link', [
-				'-ldl'],
-				export=True)
 	# build in C++ mode
 	my_module.compile_version("c++", 2011)
 	# add dependency of the generic C++ library:
