@@ -7,15 +7,15 @@
 
 #include <iostream>
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <stdarg.h>
-#include <string.h>
-#include <assert.h>
+#include <cstring>
+#include <cassert>
 // defien type : uintXX_t and intXX_t
 #define __STDC_LIMIT_MACROS
 // note in android include the macro of min max are overwitten
-#include <stdint.h>
+#include <cstdint>
 // in case of android error ...
 #ifdef __TARGET_OS__Android
 	#if __ANDROID_BOARD_ID__ <= 20
@@ -39,7 +39,7 @@
 	#endif
 #endif
 
-#include <etk/stdTools.h>
+#include <etk/stdTools.hpp>
 
 #ifndef ETK_BUILD_LINEARMATH
 	//! @brief If not using linear math from bullet lib, we need to define the basic element of a btScalar (float)
@@ -47,7 +47,7 @@
 #endif
 
 #ifndef _WIN32
-	#include <math.h>
+	#include <cmath>
 	#ifndef _MATH_H_MATHDEF
 		//! @brief Generate a basic type for floating point unit selection (not finished)
 		using float_t = float;

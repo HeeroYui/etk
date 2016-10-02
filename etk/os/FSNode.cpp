@@ -8,7 +8,7 @@
 #include <etk/types.hpp>
 #include <etk/os/FSNode.hpp>
 #include <unistd.h>
-#include <stdlib.h>
+#include <cstdlib>
 #include <etk/tool.hpp>
 #include <etk/debug.hpp>
 #include <map>
@@ -22,7 +22,7 @@ extern "C" {
 	// file browsing ...
 	#include <dirent.h>
 	#include <sys/stat.h>
-	#include <errno.h>
+	#include <cerrno>
 }
 
 #ifdef HAVE_ZIP_DATA

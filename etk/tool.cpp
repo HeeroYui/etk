@@ -10,7 +10,7 @@
 #include <time.h>
 #include <cmath>
 #include <unistd.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 double etk::tool::frand(double _a, double _b) {
 	return (float)(( (double)rand()/(double)RAND_MAX ) * ((double)_b-(double)_a) + (double)_a);
