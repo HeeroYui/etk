@@ -6,9 +6,9 @@
 
 #ifdef ETK_BUILD_MINIZIP
 
-#include <etk/archive/Zip.h>
-#include <etk/types.h>
-#include <etk/debug.h>
+#include <etk/archive/Zip.hpp>
+#include <etk/types.hpp>
+#include <etk/debug.hpp>
 
 etk::archive::Zip::Zip(const std::string& _fileName, uint64_t _offset) :
   etk::Archive(_fileName),

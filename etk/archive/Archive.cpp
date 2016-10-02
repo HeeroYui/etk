@@ -5,9 +5,9 @@
  */
 #ifdef ETK_BUILD_MINIZIP
 
-#include <etk/archive/Archive.h>
-#include <etk/archive/Zip.h>
-#include <etk/debug.h>
+#include <etk/archive/Archive.hpp>
+#include <etk/archive/Zip.hpp>
+#include <etk/debug.hpp>
 
 static const etk::ArchiveContent g_error;
 

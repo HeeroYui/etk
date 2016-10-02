@@ -4,11 +4,11 @@
  * @license APACHE v2.0 (see license file)
  */
 
-#include <etk/types.h>
+#include <etk/types.hpp>
 
 #pragma once
 
-#include <math.h>
+#include <cmath>
 
 #ifdef ETK_BUILD_LINEARMATH
 	#include <LinearMath/btScalar.h>

@@ -4,11 +4,11 @@
  * @license APACHE v2.0 (see license file)
  */
 
-#include <etk/tool.h>
-#include <etk/os/FSNode.h>
+#include <etk/tool.hpp>
+#include <etk/os/FSNode.hpp>
 // for the rand ...
 #include <time.h>
-#include <math.h>
+#include <cmath>
 #include <unistd.h>
 #include <stdlib.h>
 

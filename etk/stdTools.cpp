@@ -4,8 +4,8 @@
  * @license APACHE v2.0 (see license file)
  */
 
-#include <etk/stdTools.h>
-#include <etk/debug.h>
+#include <etk/stdTools.hpp>
+#include <etk/debug.hpp>
 
 
 const char32_t u32char::Null('\0');

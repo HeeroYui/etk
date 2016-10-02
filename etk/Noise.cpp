@@ -5,13 +5,13 @@
  */
 
 
-#include <etk/types.h>
-#include <etk/debug.h>
-#include <etk/tool.h>
-#include <etk/Noise.h>
+#include <etk/types.hpp>
+#include <etk/debug.hpp>
+#include <etk/tool.hpp>
+#include <etk/Noise.hpp>
 // for the rand ...
 #include <time.h>
-#include <math.h>
+#include <cmath>
 #include <unistd.h>
 #include <stdlib.h>
 

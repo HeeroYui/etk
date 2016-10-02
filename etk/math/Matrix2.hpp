@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include <etk/math/Vector2D.h>
-#include <etk/types.h>
+#include <etk/math/Vector2D.hpp>
+#include <etk/types.hpp>
 namespace etk {
 	/**
 	 * @brief Transformation matrix for vector 2D.

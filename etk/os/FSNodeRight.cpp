@@ -5,7 +5,7 @@
  */
 
 
-#include <etk/os/FSNodeRight.h>
+#include <etk/os/FSNodeRight.hpp>
 
 // Right Flags :
 enum {

@@ -4,10 +4,10 @@
  * @license APACHE v2.0 (see license file)
  */
 
-#include <etk/types.h>
-#include <etk/math/Matrix4.h>
-#include <etk/debug.h>
-#include <math.h>
+#include <etk/types.hpp>
+#include <etk/math/Matrix4.hpp>
+#include <etk/debug.hpp>
+#include <cmath>
 
 void etk::Matrix4::identity() {
 	for(int32_t iii=0; iii<4*4 ; iii++) {

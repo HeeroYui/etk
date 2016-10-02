@@ -7,7 +7,7 @@
  */
 
 #include <gtest/gtest.h>
-#include <ememory/memory.h>
+#include <ememory/memory.hpp>
 #undef NAME
 #define NAME "Shared_ptr"
 

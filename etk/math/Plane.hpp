@@ -4,11 +4,11 @@
  * @license APACHE v2.0 (see license file)
  */
 
-#include <etk/types.h>
+#include <etk/types.hpp>
 
 #pragma once
 
-#include <etk/debug.h>
+#include <etk/debug.hpp>
 #include <vector>
 
 namespace etk {

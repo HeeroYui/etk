@@ -4,12 +4,12 @@
  * @license APACHE v2.0 (see license file)
  */
 
-#include <etk/etk.h>
-#include <elog/log.h>
-#include <etk/types.h>
-#include <etk/debug.h>
-#include <elog/elog.h>
-#include <etk/os/FSNode.h>
+#include <etk/etk.hpp>
+#include <elog/log.hpp>
+#include <etk/types.hpp>
+#include <etk/debug.hpp>
+#include <elog/elog.hpp>
+#include <etk/os/FSNode.hpp>
 
 void etk::init(int _argc, const char** _argv) {
 	TK_INFO("E-TK system init (BEGIN) " << _argv[0]);

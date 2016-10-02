@@ -5,12 +5,12 @@
  */
 
 
-#include <etk/types.h>
-#include <etk/os/FSNode.h>
+#include <etk/types.hpp>
+#include <etk/os/FSNode.hpp>
 #include <unistd.h>
 #include <stdlib.h>
-#include <etk/tool.h>
-#include <etk/debug.h>
+#include <etk/tool.hpp>
+#include <etk/debug.hpp>
 #include <map>
 #include <mutex>
 #ifdef __TARGET_OS__Windows
@@ -26,7 +26,7 @@ extern "C" {
 }
 
 #ifdef HAVE_ZIP_DATA
-#	include <etk/archive/Archive.h>
+#	include <etk/archive/Archive.hpp>
 #endif
 
 

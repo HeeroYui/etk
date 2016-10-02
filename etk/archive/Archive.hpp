@@ -5,13 +5,13 @@
  */
 #ifdef ETK_BUILD_MINIZIP
 
-#include <etk/types.h>
+#include <etk/types.hpp>
 
 #pragma once
 
 #include <map>
 #include <mutex>
-#include <ememory/memory.h>
+#include <ememory/memory.hpp>
 
 namespace etk {
 	/**

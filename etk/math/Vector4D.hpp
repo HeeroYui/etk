@@ -5,7 +5,7 @@
  */
 #pragma once
 
-#include <etk/types.h>
+#include <etk/types.hpp>
 
 #include <math.h>
 #ifdef ETK_BUILD_LINEARMATH

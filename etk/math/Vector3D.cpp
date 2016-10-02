@@ -4,9 +4,9 @@
  * @license APACHE v2.0 (see license file)
  */
 
-#include <etk/math/Vector3D.h>
-#include <etk/stdTools.h>
-#include <etk/debug.h>
+#include <etk/math/Vector3D.hpp>
+#include <etk/stdTools.hpp>
+#include <etk/debug.hpp>
 
 std::ostream& etk::operator <<(std::ostream& _os, const ivec3& _obj) {
 	_os << "(";

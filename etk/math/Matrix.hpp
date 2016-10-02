@@ -5,8 +5,8 @@
  */
 #pragma once
 
-#include <etk/types.h>
-#include <etk/math/Vector2D.h>
+#include <etk/types.hpp>
+#include <etk/math/Vector2D.hpp>
 #include <vector>
 
 namespace etk {

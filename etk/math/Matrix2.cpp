@@ -4,7 +4,7 @@
  * @license APACHE v2.0 (see license file)
  */
 
-#include <etk/math/Matrix2.h>
+#include <etk/math/Matrix2.hpp>
 
 std::ostream& etk::operator <<(std::ostream& _os, const etk::Matrix2& _obj) {
 	_os << "{";

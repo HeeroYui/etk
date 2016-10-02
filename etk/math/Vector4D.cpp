@@ -4,7 +4,7 @@
  * @license APACHE v2.0 (see license file)
  */
 
-#include <etk/math/Vector4D.h>
+#include <etk/math/Vector4D.hpp>
 
 std::ostream& etk::operator <<(std::ostream &_os, const etk::Vector4D<int32_t>& _obj) {
 	_os << "(";

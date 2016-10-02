@@ -4,11 +4,11 @@
  * @license APACHE v2.0 (see license file)
  */
 
-#include <etk/types.h>
-#include <etk/tool.h>
-#include <etk/Color.h>
-#include <etk/debug.h>
-#include <etk/stdTools.h>
+#include <etk/types.hpp>
+#include <etk/tool.hpp>
+#include <etk/Color.hpp>
+#include <etk/debug.hpp>
+#include <etk/stdTools.hpp>
 #include <string>
 #include <sstream>
 #include <stdexcept>

@@ -5,7 +5,7 @@
  */
 #pragma once
 
-#include <etk/archive/Archive.h>
+#include <etk/archive/Archive.hpp>
 #ifdef ETK_BUILD_MINIZIP
 	extern "C" {
 		#include <minizip/unzip.h>
