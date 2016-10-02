@@ -46,23 +46,23 @@ def create(target, module_name):
 		'etk/archive/Zip.cpp'])
 	
 	my_module.add_header_file([
-		'etk/etk.h',
-		'etk/types.h',
-		'etk/stdTools.h',
-		'etk/tool.h',
-		'etk/Noise.h',
-		'etk/Color.h',
-		'etk/Hash.h',
-		'etk/math/Matrix2.h',
-		'etk/math/Matrix4.h',
-		'etk/math/Vector2D.h',
-		'etk/math/Vector3D.h',
-		'etk/math/Vector4D.h',
-		'etk/os/Fifo.h',
-		'etk/os/FSNode.h',
-		'etk/os/FSNodeRight.h',
-		'etk/archive/Archive.h',
-		'etk/archive/Zip.h'])
+		'etk/etk.hpp',
+		'etk/types.hpp',
+		'etk/stdTools.hpp',
+		'etk/tool.hpp',
+		'etk/Noise.hpp',
+		'etk/Color.hpp',
+		'etk/Hash.hpp',
+		'etk/math/Matrix2.hpp',
+		'etk/math/Matrix4.hpp',
+		'etk/math/Vector2D.hpp',
+		'etk/math/Vector3D.hpp',
+		'etk/math/Vector4D.hpp',
+		'etk/os/Fifo.hpp',
+		'etk/os/FSNode.hpp',
+		'etk/os/FSNodeRight.hpp',
+		'etk/archive/Archive.hpp',
+		'etk/archive/Zip.hpp'])
 	
 	# build in C++ mode
 	my_module.compile_version("c++", 2011)

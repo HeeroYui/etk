@@ -39,10 +39,10 @@ def create(target, module_name):
 	    'toupper',
 	    ])
 	my_module.add_exclude_file([
-	    'debug.h',
+	    'debug.hpp',
 	    ])
 	my_module.add_file_patterns([
-	    '*.h',
+	    '*.hpp',
 	    '*.md',
 	    ])
 	
