@@ -1,7 +1,6 @@
 #!/usr/bin/python
-import lutin.module as module
+import lutin.debug as debug
 import lutin.tools as tools
-import datetime
 
 
 def get_type():
@@ -25,11 +24,14 @@ def get_compagny_name():
 def get_maintainer():
 	return "authors.txt"
 
-def create(target, module_name):
-	my_module = module.Module(__file__, module_name, get_type())
+def configure(target, my_module):
 	my_module.add_src_file([
-		'test/main.cpp'
-		])
-	my_module.add_depend(['etk', 'gtest', 'test-debug'])
-	return my_module
+	    'test/main.cpp'
+	    ])
+	my_module.add_depend([
+	    'etk',
+	    'gtest',
+	    'test-debug'
+	    ])
+	return True
 
