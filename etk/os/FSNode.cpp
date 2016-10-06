@@ -122,6 +122,97 @@ std::string etk::simplifyPath(std::string _input) {
 	TK_DEBUG("Simplify(end) : '" << _input << "'");
 	return _input;
 }
+static int32_t FSNODE_LOCAL_mkdir(const char* _path, mode_t _mode) {
+	struct stat st;
+	int32_t status = 0;
+	if (stat(_path, &st) != 0) {
+		/* Directory does not exist. EEXIST for race condition */
+		#ifdef __TARGET_OS__Windows
+		if(0!=mkdir(_path)
+		#else
+		if(0!=mkdir(_path, _mode)
+		#endif
+		    && errno != EEXIST) {
+			status = -1;
+		}
+	} else if (!S_ISDIR(st.st_mode)) {
+		errno = ENOTDIR;
+		status = -1;
+	}
+	
+	return(status);
+}
+
+static int32_t FSNODE_LOCAL_mkPath(const char* _path, mode_t _mode) {
+	char *pp;
+	char *sp;
+	int status;
+	char *copypath = strdup(_path);
+	if (nullptr==copypath) {
+		return -1;
+	}
+	status = 0;
+	pp = copypath;
+	while (status == 0 && (sp = strchr(pp, '/')) != 0) {
+		if (sp != pp) {
+			/* Neither root nor double slash in path */
+			*sp = '\0';
+			status = FSNODE_LOCAL_mkdir(copypath, _mode);
+			*sp = '/';
+		}
+		pp = sp + 1;
+	}
+	if (status == 0) {
+		status = FSNODE_LOCAL_mkdir(_path, _mode);
+	}
+	free(copypath);
+	return (status);
+}
+
+static bool FSNODE_LOCAL_exist(const std::string& _path) {
+	struct stat st;
+	int32_t status = 0;
+	if (stat(_path.c_str(), &st) != 0) {
+		return false;
+	}
+	return true;
+}
+static bool FSNODE_LOCAL_isDirectory(const std::string& _path) {
+	struct stat st;
+	int32_t status = 0;
+	if (stat(_path.c_str(), &st) != 0) {
+		return false;
+	} else if (!S_ISDIR(st.st_mode)) {
+		return false;
+	}
+	return true;
+}
+static bool FSNODE_LOCAL_isFile(const std::string& _path) {
+	struct stat st;
+	int32_t status = 0;
+	if (stat(_path.c_str(), &st) != 0) {
+		return false;
+	} else if (!S_ISREG(st.st_mode)) {
+		return false;
+	}
+	return true;
+}
+static std::string FSNODE_LOCAL_join(const std::string& _path1, const std::string& _path2) {
+	std::string out = etk::replace(_path1, '\\', '/');
+	if (out.size() == 0) {
+		out = etk::replace(_path2, '\\', '/');;
+		return out;
+	}
+	if (_path2.size() == 0) {
+		return out;
+	}
+	if (out[out.size()-1] != '/') {
+		out += "/";
+	}
+	out += etk::replace(_path2, '\\', '/');;
+	return out;
+}
+
 
 static std::mutex& getNodeMutex() {
 	static std::mutex g_nodeMutex;
@@ -156,18 +247,34 @@ std::string etk::FSNodeGetApplicationName() {
 
 #ifdef HAVE_ZIP_DATA
 	static etk::Archive* s_APKArchive = nullptr;
-	static void loadAPK(std::string& _apkPath) {
-		std::unique_lock<std::mutex> lock(getNodeMutex());
-		TK_INFO("Loading APK \"" << _apkPath << "\"");
+	static void loadAPK(const std::string& _apkPath) {
 		#ifdef __TARGET_OS__Android
+			std::unique_lock<std::mutex> lock(getNodeMutex());
+			TK_INFO("Loading APK '" << _apkPath << "'");
 			s_APKArchive = etk::Archive::load(_apkPath);
+			TK_ASSERT(s_APKArchive != nullptr, "Error loading APK ...  '" << _apkPath << "'");
 		#else
-			s_APKArchive = etk::Archive::loadPackage(_apkPath);
+			TK_INFO("Loading Intarnal data '" << _apkPath << "'");
+			//s_APKArchive = etk::Archive::loadPackage(_apkPath);
+			s_APKArchive = etk::Archive::load(_apkPath);
+			TK_ASSERT(s_APKArchive != nullptr, "Error loading PKG ...  '" << _apkPath << "'");
 		#endif
-		TK_ASSERT(s_APKArchive != nullptr, "Error loading APK ...  \"" << _apkPath << "\"");
-		//Just for debug, print APK contents
-		s_APKArchive->display();
+		#ifdef DEBUG
+			//Just for debug, print APK contents
+			s_APKArchive->display();
+		#endif
 	}
+	#ifdef __TARGET_OS__Windows
+		static void loadAPKBin(const std::string& _apkPath) {
+			TK_ERROR("Loading Intarnal data '" << _apkPath << "'");
+			s_APKArchive = etk::Archive::loadPackage(_apkPath);
+			TK_ASSERT(s_APKArchive != nullptr, "Error loading PKG ...  '" << _apkPath << "'");
+			#ifdef DEBUG
+				//Just for debug, print APK contents
+				s_APKArchive->display();
+			#endif
+		}
+	#endif
 #endif
 
 // for specific device contraint : 
@@ -237,13 +344,10 @@ std::string getApplicationPath() {
 	memset(binaryCompleatePath, 0, FILENAME_MAX);
 	#ifdef __TARGET_OS__Windows
 		GetModuleFileName(nullptr, binaryCompleatePath, FILENAME_MAX);
-		if (0==strlen(binaryCompleatePath)) {
+		if (strlen(binaryCompleatePath) == 0) {
 			TK_CRITICAL("Can not get the binary position in the tree ==> this is really bad ...");
 		} else {
 			binaryName = binaryCompleatePath;
-			#ifdef HAVE_ZIP_DATA
-				loadAPK(binaryName);
-			#endif
 		}
 	#else
 		// check it to prevent test mode in local folder ...
@@ -344,15 +448,39 @@ void etk::initDefaultFolder(const char* _applName) {
 	TK_DBG_MODE("Find Basic running PATH : '" << baseRunPath << "'");
 	#ifndef __TARGET_OS__Android
 		std::string binaryPath = getApplicationPath();
-		binaryPath = replace(binaryPath, '\\', '/');
+		binaryPath = etk::replace(binaryPath, '\\', '/');
 		size_t pos = binaryPath.rfind('/');
 		std::string binaryName(binaryPath, pos);
+		while(    binaryName.size() >= 2
+		       && binaryName[1] == '/') {
+			binaryName = std::string(binaryName.begin()+1, binaryName.end());
+		}
 		binaryPath.erase(binaryPath.begin() + pos, binaryPath.end());
 		TK_INFO("Bianry name : '" << binaryPath << "' && '" << binaryName << "'" );
 		#ifdef __TARGET_OS__Windows
-			baseFolderData  = binaryPath;
-			baseFolderData += "/data/";
-			baseFolderData += std::string(binaryName.begin(), binaryName.end()-4);
+			// check if we have a data path just near the .exe file
+			if (    FSNODE_LOCAL_exist(FSNODE_LOCAL_join(binaryPath,"data")) == true
+			     && FSNODE_LOCAL_isDirectory(FSNODE_LOCAL_join(binaryPath,"data")) == true) {
+				TK_INFO("Find data in external 'data' path");
+				baseFolderData  = binaryPath;
+				baseFolderData += "/data/";
+			}
+			#ifdef HAVE_ZIP_DATA
+				// check if we have a data.zip just near the .exe file
+				else if (    FSNODE_LOCAL_exist(FSNODE_LOCAL_join(binaryPath,"data.zip")) == true
+				     && FSNODE_LOCAL_isFile(FSNODE_LOCAL_join(binaryPath,"data.zip")) == true) {
+					TK_INFO("Find data in external data.zip file");
+					loadAPK(FSNODE_LOCAL_join(binaryPath,"data.zip"));
+					baseFolderData = "";
+				}
+				// check if the application named .pkg.exe (this mean the data is inside the executable as a zip next the binary)
+				else if (etk::end_with(binaryName, ".pkg.exe") == true) {
+					TK_INFO("Find data in external internal exe package");
+					loadAPKBin(FSNODE_LOCAL_join(binaryPath,binaryName));
+					baseFolderData = "";
+				}
+			#endif
+			baseFolderData += std::string(binaryName.begin()+1, binaryName.end()-4);
 			baseFolderData += "/";
 			
 			baseFolderDataUser  = binaryPath;
@@ -472,54 +600,6 @@ bool etk::FSNode::loadDataZip() {
 #endif
 
 
-
-static int32_t FSNODE_LOCAL_mkdir(const char* _path, mode_t _mode) {
-	struct stat st;
-	int32_t status = 0;
-	if (stat(_path, &st) != 0) {
-		/* Directory does not exist. EEXIST for race condition */
-		#ifdef __TARGET_OS__Windows
-		if(0!=mkdir(_path)
-		#else
-		if(0!=mkdir(_path, _mode)
-		#endif
-		    && errno != EEXIST) {
-			status = -1;
-		}
-	} else if (!S_ISDIR(st.st_mode)) {
-		errno = ENOTDIR;
-		status = -1;
-	}
-	
-	return(status);
-}
-
-static int32_t FSNODE_LOCAL_mkPath(const char* _path, mode_t _mode) {
-	char *pp;
-	char *sp;
-	int status;
-	char *copypath = strdup(_path);
-	if (nullptr==copypath) {
-		return -1;
-	}
-	status = 0;
-	pp = copypath;
-	while (status == 0 && (sp = strchr(pp, '/')) != 0) {
-		if (sp != pp) {
-			/* Neither root nor double slash in path */
-			*sp = '\0';
-			status = FSNODE_LOCAL_mkdir(copypath, _mode);
-			*sp = '/';
-		}
-		pp = sp + 1;
-	}
-	if (status == 0) {
-		status = FSNODE_LOCAL_mkdir(_path, _mode);
-	}
-	free(copypath);
-	return (status);
-}
-
 etk::FSNode::FSNode(const std::string& _nodeName) :
   m_userFileName(""),
   m_type(etk::FSNType_unknow),
@@ -593,7 +673,7 @@ void etk::FSNode::privateSetName(std::string _newName) {
 	    || nullptr != m_zipContent
 	#endif
 	  ) {
-		TK_ERROR("Missing to close the file : \"" << *this << "\"");
+		TK_ERROR("Missing to close the file : '" << *this << "'");
 		fileClose();
 	}
 	// set right at nullptr ...
@@ -831,7 +911,7 @@ void etk::FSNode::generateFileSystemPath() {
 			break;
 		case etk::FSNType_data:
 			{
-				TK_DBG_MODE("DATA lib : \"" << m_libSearch << "\" => \"" << m_userFileName << "\" forceLib = " << forceLibFolder);
+				TK_DBG_MODE("DATA lib : '" << m_libSearch << "' => '" << m_userFileName << "' forceLib = " << forceLibFolder);
 				// search the correct folder:
 				if (forceLibFolder == false) {
 					// check in the application folder.
@@ -923,12 +1003,12 @@ void etk::FSNode::generateFileSystemPath() {
 				}
 				// check in the user data :
 				m_systemFileName = simplifyPath(baseFolderDataUser + "/../" + m_libSearch + "/theme/" + themeNameDefault + "/" + basicName);
-				if (true==directCheckFile(m_systemFileName)) {
+				if (directCheckFile(m_systemFileName) == true) {
 					return;
 				}
 				// check in the Appl data : In every case we return this one ...
 				m_systemFileName = simplifyPath(baseFolderData + "/../" + m_libSearch + "/theme/" + themeNameDefault + "/" + basicName);
-				if (true==directCheckFile(m_systemFileName, true)) {
+				if (directCheckFile(m_systemFileName, true) == true) {
 					m_type = etk::FSNType_themeData;
 					return;
 				}
@@ -966,7 +1046,7 @@ void etk::FSNode::updateFileSystemProperty() {
 		// = Check if it was a folder :           =
 		// ----------------------------------------
 		std::string folderName = "/";
-		if (true == end_with(m_systemFileName, folderName)) {
+		if (etk::end_with(m_systemFileName, folderName) == true) {
 			folderName = m_systemFileName;
 		} else {
 			folderName = m_systemFileName + "/";
@@ -1473,12 +1553,15 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 		for (int iii=0; iii<s_APKArchive->size(); iii++) {
 			std::string filename = s_APKArchive->getName(iii);
 			if (start_with(filename, FolderName) == true) {
-				std::string tmpString(filename, FolderName.size()+1);
+				//TK_INFO("pppppp '" << filename  << "'");
+				//TK_INFO("       '" << FolderName << "'");
+				std::string tmpString(filename, FolderName.size());
 				size_t pos = tmpString.find('/');
 				if (pos != std::string::npos) {
 					// a simple folder :
 					tmpString = std::string(tmpString, 0, pos);
 				}
+				//TK_INFO("plop '" << getName()  << "' '" << tmpString << "'");
 				tmpString = getName() + tmpString;
 				bool findIt = false;
 				for (size_t jjj = 0; jjj < listAdded.size(); ++jjj) {

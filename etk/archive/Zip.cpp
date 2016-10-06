@@ -50,9 +50,9 @@ etk::archive::Zip::Zip(const std::string& _fileName, uint64_t _offset) :
 }
 
 etk::archive::Zip::~Zip() {
-	if (m_ctx!= NULL) {
+	if (m_ctx!= nullptr) {
 		unzClose(m_ctx);
-		m_ctx = NULL;
+		m_ctx = nullptr;
 	};
 }
 
@@ -66,7 +66,7 @@ void etk::archive::Zip::loadFile(const std::map<std::string, ArchiveContent>::it
 		char tmpFileName[FILENAME_MAX];
 		unz_file_info tmpFileInfo;
 		/* Get info about current file. */
-		if(unzGetCurrentFileInfo(m_ctx, &tmpFileInfo, tmpFileName, FILENAME_MAX, NULL, 0, NULL, 0) != UNZ_OK) {
+		if(unzGetCurrentFileInfo(m_ctx, &tmpFileInfo, tmpFileName, FILENAME_MAX, nullptr, 0, nullptr, 0) != UNZ_OK) {
 			TK_ERROR("Could not read file info from the zip file '" << m_fileName << "'");
 			return;
 		}
@@ -80,19 +80,19 @@ void etk::archive::Zip::loadFile(const std::map<std::string, ArchiveContent>::it
 			// request the resize of the data :
 			it->second.getDataVector().resize(it->second.getTheoricSize(), 0);
 			void* data = it->second.data();
-			if(NULL == data) {
+			if(data == nullptr) {
 				TK_ERROR("Allocation error...");
 				return;
 			}
 			/* read the file */
 			do {
 				error = unzReadCurrentFile(m_ctx, data, it->second.getTheoricSize());
-				if ( error < 0 ) {
+				if (error < 0) {
 					TK_ERROR("Could not read file '" << tmpFileName << "' into the zip file '" << m_fileName << "': " <<  error);
 					unzCloseCurrentFile(m_ctx);
 					return;
 				}
-			} while ( error > 0 );
+			} while (error > 0);
 			//((char*)data)[m_content.GetValue(_id).GetTheoricSize()] = '\0';
 			// stop searching here
 			unzCloseCurrentFile(m_ctx);
