@@ -38,6 +38,59 @@ extern "C" {
 #define TK_DBG_MODE TK_VERBOSE
 //#define TK_DBG_MODE TK_DEBUG
 
+
+#ifdef __TARGET_OS__Windows
+	static std::vector<std::string> getListDrive() {
+		std::vector<std::string> out;
+		int dr_type=99;
+		char dr_avail[4096];
+		char *temp=dr_avail;
+		/* 1st we fill the buffer */
+		GetLogicalDriveStrings(4096,dr_avail);
+		while(*temp != 0) {
+			dr_type=GetDriveType(temp);
+			std::string driveName = etk::replace(std::string(temp), '\\', '/');
+			switch(dr_type) {
+				case 0: // Unknown
+					TK_WARNING("'" << driveName << "' : Unknown Drive type");
+					break;
+				case 1: // Invalid
+					TK_WARNING("'" << driveName << "' : Drive is invalid");
+					break;
+				case 2: // Removable Drive
+					TK_WARNING("'" << driveName << "' : Removable Drive type");
+					out.push_back(driveName);
+					break;
+				case 3: // Fixed
+					TK_WARNING("'" << driveName << "' : Hard Disk (Fixed) Drive type");
+					out.push_back(driveName);
+					break;
+				case 4: // Remote
+					TK_WARNING("'" << driveName << "' : Remote (Network) Drive type");
+					out.push_back(driveName);
+					break;
+				case 5: // CDROM
+					TK_WARNING("'" << driveName << "' : CD-Rom/DVD-Rom Drive type");
+					out.push_back(driveName);
+					break;
+				case 6: // RamDrive
+					TK_WARNING("'" << driveName << "' : Ram Drive type");
+					out.push_back(driveName);
+					break;
+			}
+			temp += lstrlen(temp) + 1; // incriment the buffer
+		}
+		return out;
+	}
+#else
+	static std::vector<std::string> getListDrive() {
+		std::vector<std::string> out;
+		return out;
+	}
+#endif
+
+
+
 std::string etk::simplifyPath(std::string _input) {
 	// step 1 : for windows change \ in /:
 	TK_DEBUG("Simplify(1) : '" << _input << "'");
@@ -1513,6 +1566,13 @@ std::ostream& etk::operator <<(std::ostream &_os, const enum etk::typeNode &_obj
 	Folder specific :
 */
 int64_t etk::FSNode::folderCount() {
+	#ifdef __TARGET_OS__Windows
+		/*
+		if (m_systemFileName.size() == 0) {
+			return getListDrive().size();
+		}
+		*/
+	#endif
 	int64_t counter=0;
 	DIR *dir = nullptr;
 	struct dirent *ent = nullptr;
@@ -1547,6 +1607,17 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bool _getFolderAndOther, bool _getFile, const std::string& _filter) {
 	TK_TODO("implement filter ... ");
 	std::vector<etk::FSNode*> tmpp;
+	#ifdef __TARGET_OS__Windows
+		/*
+		if (m_systemFileName.size() == 0) {
+			std::vector<std::string> listDrive = getListDrive();
+			for (auto &it : listDrive) {
+				tmpp.push_back(new etk::FSNode(it));
+			}
+			return tmpp;
+		}
+		*/
+	#endif
 	// regenerate the next list :
 	etk::FSNode * tmpEmement = nullptr;
 	if (m_typeNode != etk::typeNode_folder ) {
@@ -1648,6 +1719,13 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 
 std::vector<std::string> etk::FSNode::folderGetSub(bool _getFolder, bool _getFile, const std::string& _filter) {
 	TK_TODO("implement filter ... ");
+	#ifdef __TARGET_OS__Windows
+		/*
+		if (m_systemFileName.size() == 0) {
+			return getListDrive();
+		}
+		*/
+	#endif
 	std::vector<std::string> out;
 	// regenerate the next list :
 	etk::FSNode * tmpEmement = nullptr;
@@ -1666,7 +1744,7 @@ std::vector<std::string> etk::FSNode::folderGetSub(bool _getFolder, bool _getFil
 		if (FolderName[FolderName.size()-1] != '/') {
 			FolderName += "/";
 		}
-		for (size_t iii=0; iii<s_APKArchive->size(); iii++) {
+		for (int32_t iii=0; iii<s_APKArchive->size(); iii++) {
 			std::string filename = s_APKArchive->getName(iii);
 			if (start_with(filename, FolderName) == true) {
 				std::string tmpString(filename, FolderName.size());
