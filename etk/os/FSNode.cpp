@@ -113,12 +113,26 @@ std::string etk::simplifyPath(std::string _input) {
 	if (_input.size() == 0) {
 		_input = "/";
 	}
-	if (    _input == "/../"
-	     || _input == "/.."
-	     || _input == "/./"
-	     || _input == "/.") {
-		_input = "/";
-	}
+	#ifdef __TARGET_OS__Windows
+		std::string base;
+		base += _input[0];
+		base += ":";
+		if (    _input == base + "/../"
+		     || _input == base + "/.."
+		     || _input == base + "/./"
+		     || _input == base + "/."
+		     || _input == "/") {
+			_input = base + "/";
+		}
+	#else
+		if (    _input == "/../"
+		     || _input == "/.."
+		     || _input == "/./"
+		     || _input == "/.") {
+			_input = "/";
+		}
+	#endif
+	
 	TK_DEBUG("Simplify(end) : '" << _input << "'");
 	return _input;
 }
