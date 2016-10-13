@@ -9,7 +9,7 @@
 // for the rand ...
 #include <time.h>
 #include <cmath>
-#include <unistd.h>
+
 #include <cstdlib>
 
 double etk::tool::frand(double _a, double _b) {

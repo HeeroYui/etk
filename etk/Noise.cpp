@@ -12,7 +12,7 @@
 // for the rand ...
 #include <time.h>
 #include <cmath>
-#include <unistd.h>
+
 #include <cstdlib>
 
 etk::BaseNoise::BaseNoise(const ivec2& _size, float _min, float _max) :
