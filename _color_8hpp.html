@@ -1,0 +1,495 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.12"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Etk: Ewol Tool Kit: framework/atria-soft/etk/etk/Color.hpp File Reference</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Etk: Ewol Tool Kit 0.10.0</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Main&nbsp;Page</a></li>
+                        <li><a href="pages.html">Related&nbsp;Pages</a></li>
+                        <li><a href="namespaces.html">Namespaces</a></li>
+                        <li><a href="annotated.html">Classes</a></li>
+                        <li><a href="files.html">Files</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Link-libs<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://HeeroYui.github.io/lutin">lutin</a></li>
+                                <li><a href="http://atria-soft.github.io/ewol">ewol</a></li>
+                                <li><a href="http://atria-soft.github.io/etk">etk</a></li>
+                                <li><a href="http://atria-soft.github.io/ejson">ejson</a></li>
+                                <li><a href="http://atria-soft.github.io/exml">exml</a></li>
+                                <li><a href="http://atria-soft.github.io/esvg">esvg</a></li>
+                                <li><a href="http://atria-soft.github.io/egami">egami</a></li>
+                                <li><a href="http://atria-soft.github.io/gale">gale</a></li>
+                                <li><a href="http://atria-soft.github.io/ege">ege</a></li>
+                                <li><a href="http://atria-soft.github.io/elog">elog</a></li>
+                                <li><a href="http://atria-soft.github.io/ememory">ememory</a></li>
+                                <li><a href="http://atria-soft.github.io/enet">enet</a></li>
+                                <li><a href="http://atria-soft.github.io/eproperty">eproperty</a></li>
+                                <li><a href="http://atria-soft.github.io/esignal">esignal</a></li>
+                                <li><a href="http://atria-soft.github.io/zeus">zeus</a></li>
+                                <li><a href="http://atria-soft.github.io/audio-ess">audio-ess</a></li>
+                                <li><a href="http://musicdsp.github.io/audio">audio</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-drain">audio-drain</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-orchestra">audio-orchestra</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-river">audio-river</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="search-box" class="input-group">
+                        <div class="input-group-btn">
+                            <button aria-expanded="false" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">All</a></li>
+                                <li><a href="#">Classes</a></li>
+                                <li><a href="#">Namespaces</a></li>
+                                <li><a href="#">Files</a></li>
+                                <li><a href="#">Functions</a></li>
+                                <li><a href="#">Variables</a></li>
+                                <li><a href="#">Typedefs</a></li>
+                                <li><a href="#">Enumerations</a></li>
+                                <li><a href="#">Enumerator</a></li>
+                                <li><a href="#">Friends</a></li>
+                                <li><a href="#">Macros</a></li>
+                                <li><a href="#">Pages</a></li>
+                            </ul>
+                        </div>
+                        <button id="search-close" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <input id="search-field" class="form-control" accesskey="S" onkeydown="searchBox.OnSearchFieldChange(event);" placeholder="Search ..." type="text">
+                    </div>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel panel-default" style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+<!-- Generated by Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Search');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_644e041c3a6521da7b27eba0e4eb2b95.html">framework</a></li><li class="navelem"><a class="el" href="dir_a094892b17be858f66bf3446bbb755c7.html">atria-soft</a></li><li class="navelem"><a class="el" href="dir_101ca691570835542fc832f149ed9b11.html">etk</a></li><li class="navelem"><a class="el" href="dir_8e1854e033aa3ec68b8dd13c773d2923.html">etk</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">Color.hpp File Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="types_8hpp_source.html">etk/types.hpp</a>&gt;</code><br />
+<code>#include &lt;iomanip&gt;</code><br />
+</div>
+<p><a href="_color_8hpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_color.html">etk::Color&lt; MY_TYPE, MY_TYPE_SIZE &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespaceetk"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html">etk</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceetk_1_1color"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html">etk::color</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab04b5eb953698805b801ce6b27caadad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_color.html">etk::Color</a>&lt; uint8_t, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#ab04b5eb953698805b801ce6b27caadad">etk::parseStringStartWithSharp</a> (const std::string &amp;_input)</td></tr>
+<tr class="separator:ab04b5eb953698805b801ce6b27caadad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6601ec7bef55d93c509c8a8feaf339eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_color.html">etk::Color</a>&lt; uint8_t, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a6601ec7bef55d93c509c8a8feaf339eb">etk::parseStringStartWithRGBGen</a> (const std::string &amp;_input)</td></tr>
+<tr class="separator:a6601ec7bef55d93c509c8a8feaf339eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd41387ac07b129579e47844b1bbaf12"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_color.html">etk::Color</a>&lt; double, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#abd41387ac07b129579e47844b1bbaf12">etk::parseStringStartWithRGB</a> (const std::string &amp;_input)</td></tr>
+<tr class="separator:abd41387ac07b129579e47844b1bbaf12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaa9cb1bec5f763cefc99c1d3f081d2c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_color.html">etk::Color</a>&lt; uint32_t, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#afaa9cb1bec5f763cefc99c1d3f081d2c">etk::parseStringStartWithRGBUnsigned32</a> (const std::string &amp;_input)</td></tr>
+<tr class="separator:afaa9cb1bec5f763cefc99c1d3f081d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaad365389dac5e3b8d2e43233934c40"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_color.html">etk::Color</a>&lt; uint16_t, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#abaad365389dac5e3b8d2e43233934c40">etk::parseStringStartWithRGBUnsigned16</a> (const std::string &amp;_input)</td></tr>
+<tr class="separator:abaad365389dac5e3b8d2e43233934c40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5199b1a2efd27589426dc74bcd37102f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_color.html">etk::Color</a>&lt; uint8_t, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a5199b1a2efd27589426dc74bcd37102f">etk::parseStringStartWithRGBUnsigned8</a> (const std::string &amp;_input)</td></tr>
+<tr class="separator:a5199b1a2efd27589426dc74bcd37102f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c25932e9aa31944536c38f9011af6f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_color.html">etk::Color</a>&lt; uint8_t, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a5c25932e9aa31944536c38f9011af6f0">etk::parseStringColorNamed</a> (const std::string &amp;_input)</td></tr>
+<tr class="separator:a5c25932e9aa31944536c38f9011af6f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a4589db8a7e8998273732dae4c83e28c5"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4589db8a7e8998273732dae4c83e28c5">etk::color::none</a></td></tr>
+<tr class="separator:a4589db8a7e8998273732dae4c83e28c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcf86ef9c7918dcb094a0783761899f1"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#adcf86ef9c7918dcb094a0783761899f1">etk::color::aliceBlue</a></td></tr>
+<tr class="separator:adcf86ef9c7918dcb094a0783761899f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88abb6eca9c1ba0f346fb697683fa836"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a88abb6eca9c1ba0f346fb697683fa836">etk::color::antiqueWhite</a></td></tr>
+<tr class="separator:a88abb6eca9c1ba0f346fb697683fa836"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cef110e71ce12876fcfd6605e57f716"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a2cef110e71ce12876fcfd6605e57f716">etk::color::aqua</a></td></tr>
+<tr class="separator:a2cef110e71ce12876fcfd6605e57f716"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b69f67ed3e2db9915acde652a1cff80"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a8b69f67ed3e2db9915acde652a1cff80">etk::color::aquamarine</a></td></tr>
+<tr class="separator:a8b69f67ed3e2db9915acde652a1cff80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51cb04e4a5b927ec82ceef2676b781f7"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a51cb04e4a5b927ec82ceef2676b781f7">etk::color::azure</a></td></tr>
+<tr class="separator:a51cb04e4a5b927ec82ceef2676b781f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68244b2fa52245487cec1154155d0e03"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a68244b2fa52245487cec1154155d0e03">etk::color::beige</a></td></tr>
+<tr class="separator:a68244b2fa52245487cec1154155d0e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad03e04b97263a2c64dedfc405ff983ee"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ad03e04b97263a2c64dedfc405ff983ee">etk::color::bisque</a></td></tr>
+<tr class="separator:ad03e04b97263a2c64dedfc405ff983ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4198b330ccb2e9008665733eee338f73"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4198b330ccb2e9008665733eee338f73">etk::color::black</a></td></tr>
+<tr class="separator:a4198b330ccb2e9008665733eee338f73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12e8ba075411585a68aece7d0fead4cc"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a12e8ba075411585a68aece7d0fead4cc">etk::color::blanchedAlmond</a></td></tr>
+<tr class="separator:a12e8ba075411585a68aece7d0fead4cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50f114c6849684e9984ae1322493572c"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a50f114c6849684e9984ae1322493572c">etk::color::blue</a></td></tr>
+<tr class="separator:a50f114c6849684e9984ae1322493572c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac91bcec9a0a115d1070397f86cfdee4d"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ac91bcec9a0a115d1070397f86cfdee4d">etk::color::blueViolet</a></td></tr>
+<tr class="separator:ac91bcec9a0a115d1070397f86cfdee4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3dff0347662115abb89c6ddb8447227"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#af3dff0347662115abb89c6ddb8447227">etk::color::brown</a></td></tr>
+<tr class="separator:af3dff0347662115abb89c6ddb8447227"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1920dd335710c842ea4706e2383ef784"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1920dd335710c842ea4706e2383ef784">etk::color::burlyWood</a></td></tr>
+<tr class="separator:a1920dd335710c842ea4706e2383ef784"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa007b1fd1b17e1872fbc6f41e147f54f"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aa007b1fd1b17e1872fbc6f41e147f54f">etk::color::cadetBlue</a></td></tr>
+<tr class="separator:aa007b1fd1b17e1872fbc6f41e147f54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dd91ed503e594efb3fbfef33e358066"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a2dd91ed503e594efb3fbfef33e358066">etk::color::chartreuse</a></td></tr>
+<tr class="separator:a2dd91ed503e594efb3fbfef33e358066"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c01526863636486a43270680bc60002"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a7c01526863636486a43270680bc60002">etk::color::chocolate</a></td></tr>
+<tr class="separator:a7c01526863636486a43270680bc60002"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36f2cec268c7c0e30723ac23f9b3f277"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a36f2cec268c7c0e30723ac23f9b3f277">etk::color::coral</a></td></tr>
+<tr class="separator:a36f2cec268c7c0e30723ac23f9b3f277"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90a5242512b4e294b4a660317609f80a"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a90a5242512b4e294b4a660317609f80a">etk::color::cornflowerBlue</a></td></tr>
+<tr class="separator:a90a5242512b4e294b4a660317609f80a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a253d987094e83f3d979dd8fe216297be"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a253d987094e83f3d979dd8fe216297be">etk::color::cornsilk</a></td></tr>
+<tr class="separator:a253d987094e83f3d979dd8fe216297be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa29d7ec12725a55399cfbee0fab1d74e"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aa29d7ec12725a55399cfbee0fab1d74e">etk::color::crimson</a></td></tr>
+<tr class="separator:aa29d7ec12725a55399cfbee0fab1d74e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc0367018e04ae83f0282525443f2c39"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#acc0367018e04ae83f0282525443f2c39">etk::color::cyan</a></td></tr>
+<tr class="separator:acc0367018e04ae83f0282525443f2c39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a222350bf918f872c4e5ff2c44ab0d948"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a222350bf918f872c4e5ff2c44ab0d948">etk::color::darkBlue</a></td></tr>
+<tr class="separator:a222350bf918f872c4e5ff2c44ab0d948"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e2298ea2e2329a2eec98014ad2f62f3"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1e2298ea2e2329a2eec98014ad2f62f3">etk::color::darkCyan</a></td></tr>
+<tr class="separator:a1e2298ea2e2329a2eec98014ad2f62f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8fc1bb410a59107158dc78cbff58637"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aa8fc1bb410a59107158dc78cbff58637">etk::color::darkGoldenRod</a></td></tr>
+<tr class="separator:aa8fc1bb410a59107158dc78cbff58637"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a443370c666ff111e46fd69af0fc8c6f1"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a443370c666ff111e46fd69af0fc8c6f1">etk::color::darkGray</a></td></tr>
+<tr class="separator:a443370c666ff111e46fd69af0fc8c6f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc4d6ece51b12c4d71944c7cfa62df3d"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#acc4d6ece51b12c4d71944c7cfa62df3d">etk::color::darkGrey</a></td></tr>
+<tr class="separator:acc4d6ece51b12c4d71944c7cfa62df3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2c305fa2794088b6518e7d41b5a66cf"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ab2c305fa2794088b6518e7d41b5a66cf">etk::color::darkGreen</a></td></tr>
+<tr class="separator:ab2c305fa2794088b6518e7d41b5a66cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41b7e12409c7c23d2efd5b2002ff8a38"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a41b7e12409c7c23d2efd5b2002ff8a38">etk::color::darkKhaki</a></td></tr>
+<tr class="separator:a41b7e12409c7c23d2efd5b2002ff8a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5967702d70d066cc22d0582816506960"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a5967702d70d066cc22d0582816506960">etk::color::darkMagenta</a></td></tr>
+<tr class="separator:a5967702d70d066cc22d0582816506960"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8658803a964bae9b55b136f17349fb9"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#af8658803a964bae9b55b136f17349fb9">etk::color::darkOliveGreen</a></td></tr>
+<tr class="separator:af8658803a964bae9b55b136f17349fb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7064c68a6a6025e00ce163a1ae89f1ea"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a7064c68a6a6025e00ce163a1ae89f1ea">etk::color::darkorange</a></td></tr>
+<tr class="separator:a7064c68a6a6025e00ce163a1ae89f1ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d7683e234cce9679495ba626cdbd63b"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1d7683e234cce9679495ba626cdbd63b">etk::color::darkOrchid</a></td></tr>
+<tr class="separator:a1d7683e234cce9679495ba626cdbd63b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff3a3b7299b13dfb18983bf5590ba95a"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aff3a3b7299b13dfb18983bf5590ba95a">etk::color::darkRed</a></td></tr>
+<tr class="separator:aff3a3b7299b13dfb18983bf5590ba95a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a907915b5995bce96b1edce13c9e2fdf7"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a907915b5995bce96b1edce13c9e2fdf7">etk::color::darkSalmon</a></td></tr>
+<tr class="separator:a907915b5995bce96b1edce13c9e2fdf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59822524863f5783ee051ad10375892f"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a59822524863f5783ee051ad10375892f">etk::color::darkSeaGreen</a></td></tr>
+<tr class="separator:a59822524863f5783ee051ad10375892f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26484af8b6c58f221f1849b87f3bee74"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a26484af8b6c58f221f1849b87f3bee74">etk::color::darkSlateBlue</a></td></tr>
+<tr class="separator:a26484af8b6c58f221f1849b87f3bee74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a349b3fd1e93f89e01bd862981d02196b"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a349b3fd1e93f89e01bd862981d02196b">etk::color::darkSlateGray</a></td></tr>
+<tr class="separator:a349b3fd1e93f89e01bd862981d02196b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50f19e66e3c3a0af908b5c1efd2abc84"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a50f19e66e3c3a0af908b5c1efd2abc84">etk::color::darkSlateGrey</a></td></tr>
+<tr class="separator:a50f19e66e3c3a0af908b5c1efd2abc84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05e713dcb0b2f4febdbcf35450b841fd"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a05e713dcb0b2f4febdbcf35450b841fd">etk::color::darkTurquoise</a></td></tr>
+<tr class="separator:a05e713dcb0b2f4febdbcf35450b841fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e56b9239824d0b5936d5cff3b60231b"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a9e56b9239824d0b5936d5cff3b60231b">etk::color::darkViolet</a></td></tr>
+<tr class="separator:a9e56b9239824d0b5936d5cff3b60231b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad22e4d8159516802b60b3993b35310d"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aad22e4d8159516802b60b3993b35310d">etk::color::deepPink</a></td></tr>
+<tr class="separator:aad22e4d8159516802b60b3993b35310d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20b4f50841f1edc88b8ebd09764d22ec"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a20b4f50841f1edc88b8ebd09764d22ec">etk::color::deepSkyBlue</a></td></tr>
+<tr class="separator:a20b4f50841f1edc88b8ebd09764d22ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c3f19c27817d52a7dce663597809673"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a9c3f19c27817d52a7dce663597809673">etk::color::dimGray</a></td></tr>
+<tr class="separator:a9c3f19c27817d52a7dce663597809673"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b9159ca54b27a2eb3aef2787cc3f8a4"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1b9159ca54b27a2eb3aef2787cc3f8a4">etk::color::dimGrey</a></td></tr>
+<tr class="separator:a1b9159ca54b27a2eb3aef2787cc3f8a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abded21fe482e526e290b0699c55c1d8d"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#abded21fe482e526e290b0699c55c1d8d">etk::color::dodgerBlue</a></td></tr>
+<tr class="separator:abded21fe482e526e290b0699c55c1d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6967e9c5889d20d52ba7f02ce1a4344"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ad6967e9c5889d20d52ba7f02ce1a4344">etk::color::fireBrick</a></td></tr>
+<tr class="separator:ad6967e9c5889d20d52ba7f02ce1a4344"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa194136648518d6622f0648b1be32886"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aa194136648518d6622f0648b1be32886">etk::color::floralWhite</a></td></tr>
+<tr class="separator:aa194136648518d6622f0648b1be32886"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae828702f8dde36254656074f1539cf27"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ae828702f8dde36254656074f1539cf27">etk::color::forestGreen</a></td></tr>
+<tr class="separator:ae828702f8dde36254656074f1539cf27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add8be07f05dd9acb1021cd813d5d09f5"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#add8be07f05dd9acb1021cd813d5d09f5">etk::color::fuchsia</a></td></tr>
+<tr class="separator:add8be07f05dd9acb1021cd813d5d09f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f3802248416e94cbe57301269bb4597"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a9f3802248416e94cbe57301269bb4597">etk::color::gainsboro</a></td></tr>
+<tr class="separator:a9f3802248416e94cbe57301269bb4597"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15bfc067a56f04e3c95ccc1e08e30582"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a15bfc067a56f04e3c95ccc1e08e30582">etk::color::ghostWhite</a></td></tr>
+<tr class="separator:a15bfc067a56f04e3c95ccc1e08e30582"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa87df42bc06ea637f36058ded83172b8"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aa87df42bc06ea637f36058ded83172b8">etk::color::gold</a></td></tr>
+<tr class="separator:aa87df42bc06ea637f36058ded83172b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3e32a2d70fbe57ccbd45b490b32dfc0"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ab3e32a2d70fbe57ccbd45b490b32dfc0">etk::color::goldenRod</a></td></tr>
+<tr class="separator:ab3e32a2d70fbe57ccbd45b490b32dfc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a319c23dcc37291f96f330abe15b16f89"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a319c23dcc37291f96f330abe15b16f89">etk::color::gray</a></td></tr>
+<tr class="separator:a319c23dcc37291f96f330abe15b16f89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21d8358e48a38d1d701d2165e9ff7ef3"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a21d8358e48a38d1d701d2165e9ff7ef3">etk::color::grey</a></td></tr>
+<tr class="separator:a21d8358e48a38d1d701d2165e9ff7ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fc96147de6d001202802bca7bcf2ba9"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a6fc96147de6d001202802bca7bcf2ba9">etk::color::green</a></td></tr>
+<tr class="separator:a6fc96147de6d001202802bca7bcf2ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a218efa62696750857b5ce07171c34cbd"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a218efa62696750857b5ce07171c34cbd">etk::color::greenYellow</a></td></tr>
+<tr class="separator:a218efa62696750857b5ce07171c34cbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3411f95075bfc9977619fcea76266de"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aa3411f95075bfc9977619fcea76266de">etk::color::honeyDew</a></td></tr>
+<tr class="separator:aa3411f95075bfc9977619fcea76266de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03118a731faf900b1bec48f3b001a8dd"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a03118a731faf900b1bec48f3b001a8dd">etk::color::hotPink</a></td></tr>
+<tr class="separator:a03118a731faf900b1bec48f3b001a8dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13e4d0783eb7e8c10ca87631e5385dcb"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a13e4d0783eb7e8c10ca87631e5385dcb">etk::color::indianRed</a></td></tr>
+<tr class="separator:a13e4d0783eb7e8c10ca87631e5385dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a93b5498bb8c81d57e7a759d1418579"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a3a93b5498bb8c81d57e7a759d1418579">etk::color::indigo</a></td></tr>
+<tr class="separator:a3a93b5498bb8c81d57e7a759d1418579"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab44bec9b6c9231236729f749df94c7ba"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ab44bec9b6c9231236729f749df94c7ba">etk::color::ivory</a></td></tr>
+<tr class="separator:ab44bec9b6c9231236729f749df94c7ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5242622529843c2b59a3a10de215834"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aa5242622529843c2b59a3a10de215834">etk::color::khaki</a></td></tr>
+<tr class="separator:aa5242622529843c2b59a3a10de215834"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f2c8ef5a6ab8b6d0d0bfc261dc1c660"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a2f2c8ef5a6ab8b6d0d0bfc261dc1c660">etk::color::lavender</a></td></tr>
+<tr class="separator:a2f2c8ef5a6ab8b6d0d0bfc261dc1c660"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4232ea43a0d5f4e1a0fda12b2523789e"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4232ea43a0d5f4e1a0fda12b2523789e">etk::color::lavenderBlush</a></td></tr>
+<tr class="separator:a4232ea43a0d5f4e1a0fda12b2523789e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afde65cb2bb3edffeb3c3be844048bea7"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#afde65cb2bb3edffeb3c3be844048bea7">etk::color::lawnGreen</a></td></tr>
+<tr class="separator:afde65cb2bb3edffeb3c3be844048bea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b1f3235d4cb5967be945422180a696e"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1b1f3235d4cb5967be945422180a696e">etk::color::lemonChiffon</a></td></tr>
+<tr class="separator:a1b1f3235d4cb5967be945422180a696e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8387db6883f21400bf5be80372c35647"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a8387db6883f21400bf5be80372c35647">etk::color::lightBlue</a></td></tr>
+<tr class="separator:a8387db6883f21400bf5be80372c35647"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18fa89d253f21d090fb78f9c4c3fa179"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a18fa89d253f21d090fb78f9c4c3fa179">etk::color::lightCoral</a></td></tr>
+<tr class="separator:a18fa89d253f21d090fb78f9c4c3fa179"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50d72f3fa72a15b70950ec3c6294c486"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a50d72f3fa72a15b70950ec3c6294c486">etk::color::lightCyan</a></td></tr>
+<tr class="separator:a50d72f3fa72a15b70950ec3c6294c486"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b1fa30e34836c579b23ad52137bd690"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4b1fa30e34836c579b23ad52137bd690">etk::color::lightGoldenRodYellow</a></td></tr>
+<tr class="separator:a4b1fa30e34836c579b23ad52137bd690"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4083c98e9eded328f2cd91f01affddc0"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4083c98e9eded328f2cd91f01affddc0">etk::color::lightGray</a></td></tr>
+<tr class="separator:a4083c98e9eded328f2cd91f01affddc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77d1ce7214b499fb78f9bbfcd18cb7b4"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a77d1ce7214b499fb78f9bbfcd18cb7b4">etk::color::lightGrey</a></td></tr>
+<tr class="separator:a77d1ce7214b499fb78f9bbfcd18cb7b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d28338bea023156af46b42ac4104d65"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a2d28338bea023156af46b42ac4104d65">etk::color::lightGreen</a></td></tr>
+<tr class="separator:a2d28338bea023156af46b42ac4104d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14d1dd7b18f6b86d7a3c16f417f453b6"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a14d1dd7b18f6b86d7a3c16f417f453b6">etk::color::lightPink</a></td></tr>
+<tr class="separator:a14d1dd7b18f6b86d7a3c16f417f453b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a033bb4d31c48f0dd52fc0662944ab8f6"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a033bb4d31c48f0dd52fc0662944ab8f6">etk::color::lightSalmon</a></td></tr>
+<tr class="separator:a033bb4d31c48f0dd52fc0662944ab8f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a146b8e64718660041ce89a8803661e2a"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a146b8e64718660041ce89a8803661e2a">etk::color::lightSeaGreen</a></td></tr>
+<tr class="separator:a146b8e64718660041ce89a8803661e2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51a95c2b5fd2957e41b027b84df64bb2"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a51a95c2b5fd2957e41b027b84df64bb2">etk::color::lightSkyBlue</a></td></tr>
+<tr class="separator:a51a95c2b5fd2957e41b027b84df64bb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8cb2152fe5df989303dd976f97578ea"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#af8cb2152fe5df989303dd976f97578ea">etk::color::lightSlateGray</a></td></tr>
+<tr class="separator:af8cb2152fe5df989303dd976f97578ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a496840c6c000f27da3a6e8e54e33eb"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4a496840c6c000f27da3a6e8e54e33eb">etk::color::lightSlateGrey</a></td></tr>
+<tr class="separator:a4a496840c6c000f27da3a6e8e54e33eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26bcddd1699b895e233e35f31fda1c0e"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a26bcddd1699b895e233e35f31fda1c0e">etk::color::lightSteelBlue</a></td></tr>
+<tr class="separator:a26bcddd1699b895e233e35f31fda1c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab23ae9842d65ec28e1ff7f06d5b252a8"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ab23ae9842d65ec28e1ff7f06d5b252a8">etk::color::lightYellow</a></td></tr>
+<tr class="separator:ab23ae9842d65ec28e1ff7f06d5b252a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0363b4e80d7960b29e41c1202d36cefb"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a0363b4e80d7960b29e41c1202d36cefb">etk::color::lime</a></td></tr>
+<tr class="separator:a0363b4e80d7960b29e41c1202d36cefb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29c3e83ca4abea8319f8f5671b9720c2"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a29c3e83ca4abea8319f8f5671b9720c2">etk::color::limeGreen</a></td></tr>
+<tr class="separator:a29c3e83ca4abea8319f8f5671b9720c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaed3fa7e8a6f9ed2e79677075bf1e63e"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aaed3fa7e8a6f9ed2e79677075bf1e63e">etk::color::linen</a></td></tr>
+<tr class="separator:aaed3fa7e8a6f9ed2e79677075bf1e63e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afee87f303d370ab6dbc7ac1e2c00ead1"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#afee87f303d370ab6dbc7ac1e2c00ead1">etk::color::magenta</a></td></tr>
+<tr class="separator:afee87f303d370ab6dbc7ac1e2c00ead1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acedfbd93471b71ba9998984b11ba718e"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#acedfbd93471b71ba9998984b11ba718e">etk::color::maroon</a></td></tr>
+<tr class="separator:acedfbd93471b71ba9998984b11ba718e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f0d7a636c8caa196464b499b6280426"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a7f0d7a636c8caa196464b499b6280426">etk::color::mediumAquaMarine</a></td></tr>
+<tr class="separator:a7f0d7a636c8caa196464b499b6280426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fe002b79a78199f18363dd05530378d"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a7fe002b79a78199f18363dd05530378d">etk::color::mediumBlue</a></td></tr>
+<tr class="separator:a7fe002b79a78199f18363dd05530378d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e155686074462e57beee0511146bc97"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a5e155686074462e57beee0511146bc97">etk::color::mediumOrchid</a></td></tr>
+<tr class="separator:a5e155686074462e57beee0511146bc97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b2c512ac26bc28808a8b3dd5656440d"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a3b2c512ac26bc28808a8b3dd5656440d">etk::color::mediumPurple</a></td></tr>
+<tr class="separator:a3b2c512ac26bc28808a8b3dd5656440d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8b45a088646ef1fcf8fe69179dc519b"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ac8b45a088646ef1fcf8fe69179dc519b">etk::color::mediumSeaGreen</a></td></tr>
+<tr class="separator:ac8b45a088646ef1fcf8fe69179dc519b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a215704258654af99ded76d5642d9d462"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a215704258654af99ded76d5642d9d462">etk::color::mediumSlateBlue</a></td></tr>
+<tr class="separator:a215704258654af99ded76d5642d9d462"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b5d44a4ca36262221237f5165af7aae"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a2b5d44a4ca36262221237f5165af7aae">etk::color::mediumSpringGreen</a></td></tr>
+<tr class="separator:a2b5d44a4ca36262221237f5165af7aae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3cfc60cd0c3b29f6a941dd592d90b24"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ac3cfc60cd0c3b29f6a941dd592d90b24">etk::color::mediumTurquoise</a></td></tr>
+<tr class="separator:ac3cfc60cd0c3b29f6a941dd592d90b24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05fe5d6e6d4b13da98ccf1acef57ba3a"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a05fe5d6e6d4b13da98ccf1acef57ba3a">etk::color::mediumVioletRed</a></td></tr>
+<tr class="separator:a05fe5d6e6d4b13da98ccf1acef57ba3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0900bfad0e76b546fbe6b9c3fe3f24a"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#af0900bfad0e76b546fbe6b9c3fe3f24a">etk::color::midnightBlue</a></td></tr>
+<tr class="separator:af0900bfad0e76b546fbe6b9c3fe3f24a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfb434830d70a46377180a95be6d484e"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#adfb434830d70a46377180a95be6d484e">etk::color::mintCream</a></td></tr>
+<tr class="separator:adfb434830d70a46377180a95be6d484e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18204af4290656aeac4f7c88eb85d0f3"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a18204af4290656aeac4f7c88eb85d0f3">etk::color::mistyRose</a></td></tr>
+<tr class="separator:a18204af4290656aeac4f7c88eb85d0f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cb08faeeec554e2a414bc8633b443c5"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a8cb08faeeec554e2a414bc8633b443c5">etk::color::moccasin</a></td></tr>
+<tr class="separator:a8cb08faeeec554e2a414bc8633b443c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b63b8a9a1cc45910237b30a2ba45fca"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1b63b8a9a1cc45910237b30a2ba45fca">etk::color::navajoWhite</a></td></tr>
+<tr class="separator:a1b63b8a9a1cc45910237b30a2ba45fca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20ab31b18ba99ce5faa111a99ab2e83d"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a20ab31b18ba99ce5faa111a99ab2e83d">etk::color::navy</a></td></tr>
+<tr class="separator:a20ab31b18ba99ce5faa111a99ab2e83d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dac38a6103291477259e687e0774c1f"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a6dac38a6103291477259e687e0774c1f">etk::color::oldLace</a></td></tr>
+<tr class="separator:a6dac38a6103291477259e687e0774c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c6df578f49614b0a84b8d60a85522f5"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a7c6df578f49614b0a84b8d60a85522f5">etk::color::olive</a></td></tr>
+<tr class="separator:a7c6df578f49614b0a84b8d60a85522f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a020a9d7d45aa767ddf85ce3091f09700"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a020a9d7d45aa767ddf85ce3091f09700">etk::color::oliveDrab</a></td></tr>
+<tr class="separator:a020a9d7d45aa767ddf85ce3091f09700"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab17f0b0fde63f5895d0da41ecc9e2573"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ab17f0b0fde63f5895d0da41ecc9e2573">etk::color::orange</a></td></tr>
+<tr class="separator:ab17f0b0fde63f5895d0da41ecc9e2573"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb3c67384cae4e9260ddd453a3cc7810"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aeb3c67384cae4e9260ddd453a3cc7810">etk::color::orangeRed</a></td></tr>
+<tr class="separator:aeb3c67384cae4e9260ddd453a3cc7810"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a02f315fb94c24136fd151610d1d2b3"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a8a02f315fb94c24136fd151610d1d2b3">etk::color::orchid</a></td></tr>
+<tr class="separator:a8a02f315fb94c24136fd151610d1d2b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e77005ee52eb9d1b5a4ddb682374e0f"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4e77005ee52eb9d1b5a4ddb682374e0f">etk::color::paleGoldenRod</a></td></tr>
+<tr class="separator:a4e77005ee52eb9d1b5a4ddb682374e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cf19b14d8517bd39851f277029b0931"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a2cf19b14d8517bd39851f277029b0931">etk::color::paleGreen</a></td></tr>
+<tr class="separator:a2cf19b14d8517bd39851f277029b0931"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2652ecc2224179077270ffb4d13fef57"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a2652ecc2224179077270ffb4d13fef57">etk::color::paleTurquoise</a></td></tr>
+<tr class="separator:a2652ecc2224179077270ffb4d13fef57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40929240fd9c26bda27c2a80e5893db5"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a40929240fd9c26bda27c2a80e5893db5">etk::color::paleVioletRed</a></td></tr>
+<tr class="separator:a40929240fd9c26bda27c2a80e5893db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55430464cce8100e33385115a9468cf1"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a55430464cce8100e33385115a9468cf1">etk::color::papayaWhip</a></td></tr>
+<tr class="separator:a55430464cce8100e33385115a9468cf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad30f26284e76fd398359bcd928143311"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ad30f26284e76fd398359bcd928143311">etk::color::peachPuff</a></td></tr>
+<tr class="separator:ad30f26284e76fd398359bcd928143311"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83ed22c571e6ef53e406cc47c51f753f"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a83ed22c571e6ef53e406cc47c51f753f">etk::color::peru</a></td></tr>
+<tr class="separator:a83ed22c571e6ef53e406cc47c51f753f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2726cdc1f4064f8df7b77b7da3d4291"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ad2726cdc1f4064f8df7b77b7da3d4291">etk::color::pink</a></td></tr>
+<tr class="separator:ad2726cdc1f4064f8df7b77b7da3d4291"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4d992f3996f638d234f936153bd7907"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ab4d992f3996f638d234f936153bd7907">etk::color::plum</a></td></tr>
+<tr class="separator:ab4d992f3996f638d234f936153bd7907"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd0e078b144de932065e8a7f01685b6b"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#afd0e078b144de932065e8a7f01685b6b">etk::color::powderBlue</a></td></tr>
+<tr class="separator:afd0e078b144de932065e8a7f01685b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1651c86712c0ebee50517f010a05b527"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1651c86712c0ebee50517f010a05b527">etk::color::purple</a></td></tr>
+<tr class="separator:a1651c86712c0ebee50517f010a05b527"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a365a78d3068cd950ce25fda3f905554e"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a365a78d3068cd950ce25fda3f905554e">etk::color::red</a></td></tr>
+<tr class="separator:a365a78d3068cd950ce25fda3f905554e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ac844cd13feb847816ff94ff20fb84c"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a3ac844cd13feb847816ff94ff20fb84c">etk::color::rosyBrown</a></td></tr>
+<tr class="separator:a3ac844cd13feb847816ff94ff20fb84c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dad77d1418cd34da0e07049781f32d9"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a3dad77d1418cd34da0e07049781f32d9">etk::color::royalBlue</a></td></tr>
+<tr class="separator:a3dad77d1418cd34da0e07049781f32d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5407ca00d7f7bf3815a72616e0be95ae"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a5407ca00d7f7bf3815a72616e0be95ae">etk::color::saddleBrown</a></td></tr>
+<tr class="separator:a5407ca00d7f7bf3815a72616e0be95ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad324737686a8c6ec9208a93e727710d8"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ad324737686a8c6ec9208a93e727710d8">etk::color::salmon</a></td></tr>
+<tr class="separator:ad324737686a8c6ec9208a93e727710d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affd1d87686e7d4fb1a720d4cb5c354cb"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#affd1d87686e7d4fb1a720d4cb5c354cb">etk::color::sandyBrown</a></td></tr>
+<tr class="separator:affd1d87686e7d4fb1a720d4cb5c354cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d3d8140130f2383e7740b4cea443470"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a3d3d8140130f2383e7740b4cea443470">etk::color::seaGreen</a></td></tr>
+<tr class="separator:a3d3d8140130f2383e7740b4cea443470"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b50105504f9be5dcf7ae59cbb115051"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a6b50105504f9be5dcf7ae59cbb115051">etk::color::seaShell</a></td></tr>
+<tr class="separator:a6b50105504f9be5dcf7ae59cbb115051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a8eaf790795f7b5fc63c81ade8652ce"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a0a8eaf790795f7b5fc63c81ade8652ce">etk::color::sienna</a></td></tr>
+<tr class="separator:a0a8eaf790795f7b5fc63c81ade8652ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca25e934d9d1ac1538a4a0c7011c6d0c"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aca25e934d9d1ac1538a4a0c7011c6d0c">etk::color::silver</a></td></tr>
+<tr class="separator:aca25e934d9d1ac1538a4a0c7011c6d0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1576fd8ed2c3fe5ed5a10f8147d0ed1d"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1576fd8ed2c3fe5ed5a10f8147d0ed1d">etk::color::skyBlue</a></td></tr>
+<tr class="separator:a1576fd8ed2c3fe5ed5a10f8147d0ed1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f605302a82a6173de726e797c3edf0d"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4f605302a82a6173de726e797c3edf0d">etk::color::slateBlue</a></td></tr>
+<tr class="separator:a4f605302a82a6173de726e797c3edf0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d3c48d14e696bc1b8d9d43158dfa0b2"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a5d3c48d14e696bc1b8d9d43158dfa0b2">etk::color::slateGray</a></td></tr>
+<tr class="separator:a5d3c48d14e696bc1b8d9d43158dfa0b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cefc035f467790176ba159bb6255c6e"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a9cefc035f467790176ba159bb6255c6e">etk::color::slateGrey</a></td></tr>
+<tr class="separator:a9cefc035f467790176ba159bb6255c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae312c38fc6be5178a4ff63921f162723"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ae312c38fc6be5178a4ff63921f162723">etk::color::snow</a></td></tr>
+<tr class="separator:ae312c38fc6be5178a4ff63921f162723"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3b6e2028b00791f15ddff7f9a1fe703"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ab3b6e2028b00791f15ddff7f9a1fe703">etk::color::springGreen</a></td></tr>
+<tr class="separator:ab3b6e2028b00791f15ddff7f9a1fe703"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9162b466a59a0bbe420b49c565e9dd6f"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a9162b466a59a0bbe420b49c565e9dd6f">etk::color::steelBlue</a></td></tr>
+<tr class="separator:a9162b466a59a0bbe420b49c565e9dd6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a923b2869775837088eabdb48681f4b1e"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a923b2869775837088eabdb48681f4b1e">etk::color::tan</a></td></tr>
+<tr class="separator:a923b2869775837088eabdb48681f4b1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b28dace6aa8c81c0c59a7343875d2b5"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a9b28dace6aa8c81c0c59a7343875d2b5">etk::color::teal</a></td></tr>
+<tr class="separator:a9b28dace6aa8c81c0c59a7343875d2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a729d8532a3b7c147fcaa726ce2d887b8"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a729d8532a3b7c147fcaa726ce2d887b8">etk::color::thistle</a></td></tr>
+<tr class="separator:a729d8532a3b7c147fcaa726ce2d887b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f3fe621ef99b1b452a5a11af1a06ae0"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a9f3fe621ef99b1b452a5a11af1a06ae0">etk::color::tomato</a></td></tr>
+<tr class="separator:a9f3fe621ef99b1b452a5a11af1a06ae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8162f21fcdb858a4c5017a20db4c5830"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a8162f21fcdb858a4c5017a20db4c5830">etk::color::turquoise</a></td></tr>
+<tr class="separator:a8162f21fcdb858a4c5017a20db4c5830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac86b1f752bb46992b83000f1b48957ec"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ac86b1f752bb46992b83000f1b48957ec">etk::color::violet</a></td></tr>
+<tr class="separator:ac86b1f752bb46992b83000f1b48957ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fee5d2cd67adc3c4a5d820616854cde"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a0fee5d2cd67adc3c4a5d820616854cde">etk::color::wheat</a></td></tr>
+<tr class="separator:a0fee5d2cd67adc3c4a5d820616854cde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6559ba632982f84ab6215281bd431b9c"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a6559ba632982f84ab6215281bd431b9c">etk::color::white</a></td></tr>
+<tr class="separator:a6559ba632982f84ab6215281bd431b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b012cf56fb3a1c63e55aa2d83f7472b"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1b012cf56fb3a1c63e55aa2d83f7472b">etk::color::whiteSmoke</a></td></tr>
+<tr class="separator:a1b012cf56fb3a1c63e55aa2d83f7472b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a002d237cb06c35ec373b454af2cbb072"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a002d237cb06c35ec373b454af2cbb072">etk::color::yellow</a></td></tr>
+<tr class="separator:a002d237cb06c35ec373b454af2cbb072"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88244e18c7bcefe71c7f9fbca047125b"><td class="memItemLeft" align="right" valign="top">const Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a88244e18c7bcefe71c7f9fbca047125b">etk::color::yellowGreen</a></td></tr>
+<tr class="separator:a88244e18c7bcefe71c7f9fbca047125b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Edouard DUPIN </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>2011, Edouard DUPIN, all right reserved </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>License: APACHE v2.0 (see license file) </dd></dl>
+</div></div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Oct 24 2016 10:48:19 for Etk: Ewol Tool Kit by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

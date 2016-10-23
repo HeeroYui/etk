@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
         <meta name="generator" content="Doxygen 1.8.12"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <title>Etk: Ewol Tool Kit: ETK library</title>
+        <title>Etk: Ewol Tool Kit: etk::BaseNoise Class Reference</title>
         <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
         <script type="text/javascript" src="dynsections.js"></script>
         <link href="search/search.css" rel="stylesheet" type="text/css"/>
@@ -112,7 +112,6 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -127,42 +126,122 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespaceetk.html">etk</a></li><li class="navelem"><a class="el" href="classetk_1_1_base_noise.html">BaseNoise</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="classetk_1_1_base_noise-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">ETK library </div>  </div>
+<div class="title">etk::BaseNoise Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="etk_mainpage_what"></a>
-What is ETK, and how can I use it?          </h1>
-<p>ETK, or Ewol Tool kit is a simple abstraction layer for some elements like mutex, std missing element(in android or MacOS) and ...</p>
-<p>We can simply say: Just a tool-box **(I use it to add many test prototyping ... and bad things ...)**</p>
-<p>ETK is composed of some part:</p><ul>
-<li>Log system interface</li>
-<li>File access abstraction (for android, data are stored in a .apk (== zip file))</li>
-<li>Mutex / semaphore abstraction (can not use pthread on windows)</li>
-<li>Regular expression</li>
-<li>Generic color interface</li>
-<li>Std adding missing element on some platform.</li>
+
+<p><code>#include &lt;<a class="el" href="_noise_8hpp_source.html">Noise.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ad5cbfcc2d967af185c264744de04cf15"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_base_noise.html#ad5cbfcc2d967af185c264744de04cf15">BaseNoise</a> (const <a class="el" href="_vector2_d_8hpp.html#a920aac35b92f04facb6f3e01b9b3670b">ivec2</a> &amp;_size, float _min, float _max)</td></tr>
+<tr class="separator:ad5cbfcc2d967af185c264744de04cf15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa405241a4a458be6dc3bc331a0cef516"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_base_noise.html#aa405241a4a458be6dc3bc331a0cef516">get</a> (int32_t _x, int32_t _y) const</td></tr>
+<tr class="separator:aa405241a4a458be6dc3bc331a0cef516"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="classetk_1_1_base_noise.html" title="BaseNoise Noise basic data. ">BaseNoise</a> <a class="el" href="classetk_1_1_noise.html" title="Noise basic interface. ">Noise</a> basic data. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd><p class="startdd">Validate it, this is a !!! PROTOTYPE !!! </p>
+<p class="enddd">Remove this from ETK </p>
+</dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad5cbfcc2d967af185c264744de04cf15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5cbfcc2d967af185c264744de04cf15">&sect;&nbsp;</a></span>BaseNoise()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">etk::BaseNoise::BaseNoise </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="_vector2_d_8hpp.html#a920aac35b92f04facb6f3e01b9b3670b">ivec2</a> &amp;&#160;</td>
+          <td class="paramname"><em>_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>basic constructor with randon settings </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_size</td><td>Size of the basic noise </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_min</td><td>Minimum value of the random </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_max</td><td>Maximum value of the random </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa405241a4a458be6dc3bc331a0cef516"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa405241a4a458be6dc3bc331a0cef516">&sect;&nbsp;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float etk::BaseNoise::get </td>
+          <td>(</td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>_x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>_y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get value at a specific position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_x</td><td>X position </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_y</td><td>Y position </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>random noise value </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>framework/atria-soft/etk/etk/<a class="el" href="_noise_8hpp_source.html">Noise.hpp</a></li>
 </ul>
-<h1><a class="anchor" id="etk_mainpage_langue"></a>
-What languages are supported?               </h1>
-<p>ETK is written in C++.</p>
-<h1><a class="anchor" id="etk_mainpage_dependency"></a>
-Are there any licensing restrictions?       </h1>
-<p>ETK is <b>FREE software</b> and <em>all sub-library are FREE and staticly linkable !!!</em></p>
-<h1><a class="anchor" id="etk_mainpage_licence"></a>
-License (APACHE-2.0)                        </h1>
-<p>Copyright etk Edouard DUPIN</p>
-<p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at</p>
-<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-<p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
-<h1><a class="anchor" id="etk_mainpage_sub_page"></a>
-Other pages                              </h1>
-<ul>
-<li><a class="el" href="etk_build.html">Build lib &amp; build sample</a></li>
-<li><a href="http://atria-soft.github.io/ewol/ewol_coding_style.html"><b>ewol coding style</b></a> </li>
-</ul>
-</div></div><!-- contents -->
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 </div>

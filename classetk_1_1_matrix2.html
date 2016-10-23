@@ -1,0 +1,929 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.12"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Etk: Ewol Tool Kit: etk::Matrix2 Class Reference</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Etk: Ewol Tool Kit 0.10.0</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Main&nbsp;Page</a></li>
+                        <li><a href="pages.html">Related&nbsp;Pages</a></li>
+                        <li><a href="namespaces.html">Namespaces</a></li>
+                        <li><a href="annotated.html">Classes</a></li>
+                        <li><a href="files.html">Files</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Link-libs<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://HeeroYui.github.io/lutin">lutin</a></li>
+                                <li><a href="http://atria-soft.github.io/ewol">ewol</a></li>
+                                <li><a href="http://atria-soft.github.io/etk">etk</a></li>
+                                <li><a href="http://atria-soft.github.io/ejson">ejson</a></li>
+                                <li><a href="http://atria-soft.github.io/exml">exml</a></li>
+                                <li><a href="http://atria-soft.github.io/esvg">esvg</a></li>
+                                <li><a href="http://atria-soft.github.io/egami">egami</a></li>
+                                <li><a href="http://atria-soft.github.io/gale">gale</a></li>
+                                <li><a href="http://atria-soft.github.io/ege">ege</a></li>
+                                <li><a href="http://atria-soft.github.io/elog">elog</a></li>
+                                <li><a href="http://atria-soft.github.io/ememory">ememory</a></li>
+                                <li><a href="http://atria-soft.github.io/enet">enet</a></li>
+                                <li><a href="http://atria-soft.github.io/eproperty">eproperty</a></li>
+                                <li><a href="http://atria-soft.github.io/esignal">esignal</a></li>
+                                <li><a href="http://atria-soft.github.io/zeus">zeus</a></li>
+                                <li><a href="http://atria-soft.github.io/audio-ess">audio-ess</a></li>
+                                <li><a href="http://musicdsp.github.io/audio">audio</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-drain">audio-drain</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-orchestra">audio-orchestra</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-river">audio-river</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="search-box" class="input-group">
+                        <div class="input-group-btn">
+                            <button aria-expanded="false" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">All</a></li>
+                                <li><a href="#">Classes</a></li>
+                                <li><a href="#">Namespaces</a></li>
+                                <li><a href="#">Files</a></li>
+                                <li><a href="#">Functions</a></li>
+                                <li><a href="#">Variables</a></li>
+                                <li><a href="#">Typedefs</a></li>
+                                <li><a href="#">Enumerations</a></li>
+                                <li><a href="#">Enumerator</a></li>
+                                <li><a href="#">Friends</a></li>
+                                <li><a href="#">Macros</a></li>
+                                <li><a href="#">Pages</a></li>
+                            </ul>
+                        </div>
+                        <button id="search-close" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <input id="search-field" class="form-control" accesskey="S" onkeydown="searchBox.OnSearchFieldChange(event);" placeholder="Search ..." type="text">
+                    </div>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel panel-default" style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+<!-- Generated by Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Search');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespaceetk.html">etk</a></li><li class="navelem"><a class="el" href="classetk_1_1_matrix2.html">Matrix2</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="classetk_1_1_matrix2-members.html">List of all members</a>  </div>
+  <div class="headertitle">
+<div class="title">etk::Matrix2 Class Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_matrix2_8hpp_source.html">Matrix2.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:af0e00ed1d06d689c1ec6a5b0cfcde0a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#af0e00ed1d06d689c1ec6a5b0cfcde0a8">Matrix2</a> ()</td></tr>
+<tr class="separator:af0e00ed1d06d689c1ec6a5b0cfcde0a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad827d58fc083b1857851a1ae253ed48b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#ad827d58fc083b1857851a1ae253ed48b">Matrix2</a> (const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;_obj)</td></tr>
+<tr class="separator:ad827d58fc083b1857851a1ae253ed48b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13ec157f29c5a00f3209c6af2d773abd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#a13ec157f29c5a00f3209c6af2d773abd">Matrix2</a> (float _sx, float _shy, float _shx, float _sy, float _tx, float _ty)</td></tr>
+<tr class="separator:a13ec157f29c5a00f3209c6af2d773abd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ddbedb1548ee95fb5071ae29df0b3ea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#a3ddbedb1548ee95fb5071ae29df0b3ea">Matrix2</a> (const float *_values)</td></tr>
+<tr class="separator:a3ddbedb1548ee95fb5071ae29df0b3ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecff4215059998ecdfe5aac60b99ebc7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#aecff4215059998ecdfe5aac60b99ebc7">Matrix2</a> (const double *_values)</td></tr>
+<tr class="separator:aecff4215059998ecdfe5aac60b99ebc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af472afddc7b5574eea3f6a4f9b0524f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#af472afddc7b5574eea3f6a4f9b0524f5">identity</a> ()</td></tr>
+<tr class="separator:af472afddc7b5574eea3f6a4f9b0524f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b9b522d791ead398e82fe7c53c16abe"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#a6b9b522d791ead398e82fe7c53c16abe">operator=</a> (const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;_obj)</td></tr>
+<tr class="separator:a6b9b522d791ead398e82fe7c53c16abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b66966766c0899d5dace5843bed61dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#a3b66966766c0899d5dace5843bed61dc">operator==</a> (const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;_obj) const</td></tr>
+<tr class="separator:a3b66966766c0899d5dace5843bed61dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b076152d4fed3e65ab6eeb7d0906381"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#a7b076152d4fed3e65ab6eeb7d0906381">operator!=</a> (const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;_obj) const</td></tr>
+<tr class="separator:a7b076152d4fed3e65ab6eeb7d0906381"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25ff7dd62f40cfa8f4579acc4be460ed"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#a25ff7dd62f40cfa8f4579acc4be460ed">operator+=</a> (const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;_obj)</td></tr>
+<tr class="separator:a25ff7dd62f40cfa8f4579acc4be460ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9910cd95672b95ea2d6b85439fd0646"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_matrix2.html">Matrix2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#af9910cd95672b95ea2d6b85439fd0646">operator+</a> (const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;_obj) const</td></tr>
+<tr class="separator:af9910cd95672b95ea2d6b85439fd0646"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac8943bcc3ff59bdb2edda91bb4bdcfd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#aac8943bcc3ff59bdb2edda91bb4bdcfd">operator-=</a> (const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;_obj)</td></tr>
+<tr class="separator:aac8943bcc3ff59bdb2edda91bb4bdcfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb0caef6d2104dc51bf2c2f778afa935"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_matrix2.html">Matrix2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#acb0caef6d2104dc51bf2c2f778afa935">operator-</a> (const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;_obj) const</td></tr>
+<tr class="separator:acb0caef6d2104dc51bf2c2f778afa935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8027c2001b671f1ef7ac496df4aa9d4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#ad8027c2001b671f1ef7ac496df4aa9d4">operator*=</a> (const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;_obj)</td></tr>
+<tr class="separator:ad8027c2001b671f1ef7ac496df4aa9d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ffce4ef3bc80106345bddd21a9c1966"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_matrix2.html">Matrix2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#a1ffce4ef3bc80106345bddd21a9c1966">operator*</a> (const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;_obj)</td></tr>
+<tr class="separator:a1ffce4ef3bc80106345bddd21a9c1966"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea4534337438e7338531d69dee0ab15f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_vector2_d_8hpp.html#ac499ddf9a4fa1db2545c53a02ee0c44e">vec2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#aea4534337438e7338531d69dee0ab15f">operator*</a> (const <a class="el" href="_vector2_d_8hpp.html#ac499ddf9a4fa1db2545c53a02ee0c44e">vec2</a> &amp;_point) const</td></tr>
+<tr class="separator:aea4534337438e7338531d69dee0ab15f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaafd3d4f83d6fd021b76a54f6a31b010"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_vector2_d_8hpp.html#ac499ddf9a4fa1db2545c53a02ee0c44e">vec2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#aaafd3d4f83d6fd021b76a54f6a31b010">applyScaleRotation</a> (const <a class="el" href="_vector2_d_8hpp.html#ac499ddf9a4fa1db2545c53a02ee0c44e">vec2</a> &amp;_point) const</td></tr>
+<tr class="separator:aaafd3d4f83d6fd021b76a54f6a31b010"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae262f81b736931dd03e32f43d7adfd59"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_matrix2.html">Matrix2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#ae262f81b736931dd03e32f43d7adfd59">operator~</a> () const</td></tr>
+<tr class="separator:ae262f81b736931dd03e32f43d7adfd59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9d9362f988bd8a1098ab7592d88e5de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#ab9d9362f988bd8a1098ab7592d88e5de">flipX</a> ()</td></tr>
+<tr class="separator:ab9d9362f988bd8a1098ab7592d88e5de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c61fb68ee69bb448ef1829b98b94dce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#a6c61fb68ee69bb448ef1829b98b94dce">flipY</a> ()</td></tr>
+<tr class="separator:a6c61fb68ee69bb448ef1829b98b94dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacc34d6c0be39b22fed735cd09ffed84"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#aacc34d6c0be39b22fed735cd09ffed84">scale</a> (const <a class="el" href="_vector2_d_8hpp.html#ac499ddf9a4fa1db2545c53a02ee0c44e">vec2</a> &amp;_vect)</td></tr>
+<tr class="separator:aacc34d6c0be39b22fed735cd09ffed84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaa317393ef799d0ab49c3b10cf47231"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#adaa317393ef799d0ab49c3b10cf47231">scale</a> (float _value)</td></tr>
+<tr class="separator:adaa317393ef799d0ab49c3b10cf47231"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a361d0e76fd78e929f7a490e01e540b36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#a361d0e76fd78e929f7a490e01e540b36">rotate</a> (float _angleRad)</td></tr>
+<tr class="separator:a361d0e76fd78e929f7a490e01e540b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd22ba1cbe8dc53c0446abcb55d8551a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#abd22ba1cbe8dc53c0446abcb55d8551a">translate</a> (const <a class="el" href="_vector2_d_8hpp.html#ac499ddf9a4fa1db2545c53a02ee0c44e">vec2</a> &amp;_vect)</td></tr>
+<tr class="separator:abd22ba1cbe8dc53c0446abcb55d8551a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fa058e133e38985460b0a269a9e125e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#a6fa058e133e38985460b0a269a9e125e">determinant</a> () const</td></tr>
+<tr class="separator:a6fa058e133e38985460b0a269a9e125e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae03bbf1ff6f750e3ecd5ad556b771c4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#ae03bbf1ff6f750e3ecd5ad556b771c4e">invert</a> ()</td></tr>
+<tr class="separator:ae03bbf1ff6f750e3ecd5ad556b771c4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a808056b77862902ee2e117023bbff5b9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_matrix2.html#a808056b77862902ee2e117023bbff5b9">m_mat</a> [2 *3]</td></tr>
+<tr class="separator:a808056b77862902ee2e117023bbff5b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Transformation matrix for vector 2D. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af0e00ed1d06d689c1ec6a5b0cfcde0a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0e00ed1d06d689c1ec6a5b0cfcde0a8">&sect;&nbsp;</a></span>Matrix2() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">etk::Matrix2::Matrix2 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor that load identity. </p>
+
+</div>
+</div>
+<a id="ad827d58fc083b1857851a1ae253ed48b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad827d58fc083b1857851a1ae253ed48b">&sect;&nbsp;</a></span>Matrix2() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">etk::Matrix2::Matrix2 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td><a class="el" href="classetk_1_1_matrix.html" title="2 dimention matrix template to manage simpliest algo ">Matrix</a> object to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a13ec157f29c5a00f3209c6af2d773abd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13ec157f29c5a00f3209c6af2d773abd">&sect;&nbsp;</a></span>Matrix2() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">etk::Matrix2::Matrix2 </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>_sx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>_shy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>_shx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>_sy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>_tx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>_ty</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configuration constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_sx</td><td>Scale threw X axis </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_shy</td><td>Rotate in radian threw Y axis </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_shx</td><td>Rotate in radian threw X axis </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_sy</td><td>Scale threw Y axis </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_tx</td><td>Translate threw X axis </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_ty</td><td>translate threw Y axis </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3ddbedb1548ee95fb5071ae29df0b3ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ddbedb1548ee95fb5071ae29df0b3ea">&sect;&nbsp;</a></span>Matrix2() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">etk::Matrix2::Matrix2 </td>
+          <td>(</td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>_values</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configuration constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_values</td><td>vector of values in float </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aecff4215059998ecdfe5aac60b99ebc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecff4215059998ecdfe5aac60b99ebc7">&sect;&nbsp;</a></span>Matrix2() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">etk::Matrix2::Matrix2 </td>
+          <td>(</td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>_values</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Configuration constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_values</td><td>vector of values in double </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aaafd3d4f83d6fd021b76a54f6a31b010"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaafd3d4f83d6fd021b76a54f6a31b010">&sect;&nbsp;</a></span>applyScaleRotation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_vector2_d_8hpp.html#ac499ddf9a4fa1db2545c53a02ee0c44e">vec2</a> etk::Matrix2::applyScaleRotation </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="_vector2_d_8hpp.html#ac499ddf9a4fa1db2545c53a02ee0c44e">vec2</a> &amp;&#160;</td>
+          <td class="paramname"><em>_point</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Apply matrix on a vector Scale Rotate, but NOT the translation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_point</td><td>Point value to apply the matrix </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>New vector containing the value </dd></dl>
+
+</div>
+</div>
+<a id="a6fa058e133e38985460b0a269a9e125e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fa058e133e38985460b0a269a9e125e">&sect;&nbsp;</a></span>determinant()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float etk::Matrix2::determinant </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the determinant of the matrix. </p>
+<dl class="section return"><dt>Returns</dt><dd>The determinent Value. </dd></dl>
+
+</div>
+</div>
+<a id="ab9d9362f988bd8a1098ab7592d88e5de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9d9362f988bd8a1098ab7592d88e5de">&sect;&nbsp;</a></span>flipX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::Matrix2::flipX </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flip the mathix threw the X axis. </p>
+
+</div>
+</div>
+<a id="a6c61fb68ee69bb448ef1829b98b94dce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c61fb68ee69bb448ef1829b98b94dce">&sect;&nbsp;</a></span>flipY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::Matrix2::flipY </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flip the mathix threw the Y axis. </p>
+
+</div>
+</div>
+<a id="af472afddc7b5574eea3f6a4f9b0524f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af472afddc7b5574eea3f6a4f9b0524f5">&sect;&nbsp;</a></span>identity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::Matrix2::identity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load Identity matrix. </p>
+
+</div>
+</div>
+<a id="ae03bbf1ff6f750e3ecd5ad556b771c4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae03bbf1ff6f750e3ecd5ad556b771c4e">&sect;&nbsp;</a></span>invert()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::Matrix2::invert </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inverts the matrix. </p>
+<dl class="section note"><dt>Note</dt><dd>The determinant must be != 0, otherwithe the matrix can't be inverted. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The inverted matrix. </dd></dl>
+
+</div>
+</div>
+<a id="a7b076152d4fed3e65ab6eeb7d0906381"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b076152d4fed3e65ab6eeb7d0906381">&sect;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::Matrix2::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>In-Equality compare operator with an other object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Reference on the comparing object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true The Objects are NOT identical </dd>
+<dd>
+false The Objects are identical </dd></dl>
+
+</div>
+</div>
+<a id="a1ffce4ef3bc80106345bddd21a9c1966"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ffce4ef3bc80106345bddd21a9c1966">&sect;&nbsp;</a></span>operator*() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> etk::Matrix2::operator* </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Operator* Multiplication an other matrix with this one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Reference on the external object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>New vector containing the value </dd></dl>
+
+</div>
+</div>
+<a id="aea4534337438e7338531d69dee0ab15f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea4534337438e7338531d69dee0ab15f">&sect;&nbsp;</a></span>operator*() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_vector2_d_8hpp.html#ac499ddf9a4fa1db2545c53a02ee0c44e">vec2</a> etk::Matrix2::operator* </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="_vector2_d_8hpp.html#ac499ddf9a4fa1db2545c53a02ee0c44e">vec2</a> &amp;&#160;</td>
+          <td class="paramname"><em>_point</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Operator* apply matrix on a vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_point</td><td>Point value to apply the matrix </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>New vector containing the value </dd></dl>
+
+</div>
+</div>
+<a id="ad8027c2001b671f1ef7ac496df4aa9d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8027c2001b671f1ef7ac496df4aa9d4">&sect;&nbsp;</a></span>operator*=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a>&amp; etk::Matrix2::operator*= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Operator*= Multiplication an other matrix with this one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Reference on the external object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Local reference of the vector multiplicated </dd></dl>
+
+</div>
+</div>
+<a id="af9910cd95672b95ea2d6b85439fd0646"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9910cd95672b95ea2d6b85439fd0646">&sect;&nbsp;</a></span>operator+()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> etk::Matrix2::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Operator+ Addition an other matrix with this one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Reference on the external object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>New vector containing the value </dd></dl>
+
+</div>
+</div>
+<a id="a25ff7dd62f40cfa8f4579acc4be460ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25ff7dd62f40cfa8f4579acc4be460ed">&sect;&nbsp;</a></span>operator+=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a>&amp; etk::Matrix2::operator+= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Operator+= Addition an other matrix with this one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Reference on the external object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Local reference of the vector additionned </dd></dl>
+
+</div>
+</div>
+<a id="acb0caef6d2104dc51bf2c2f778afa935"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb0caef6d2104dc51bf2c2f778afa935">&sect;&nbsp;</a></span>operator-()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> etk::Matrix2::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Operator- Decrement an other matrix with this one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Reference on the external object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>New vector containing the value </dd></dl>
+
+</div>
+</div>
+<a id="aac8943bcc3ff59bdb2edda91bb4bdcfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac8943bcc3ff59bdb2edda91bb4bdcfd">&sect;&nbsp;</a></span>operator-=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a>&amp; etk::Matrix2::operator-= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Operator-= Decrement an other matrix with this one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Reference on the external object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Local reference of the vector decremented </dd></dl>
+
+</div>
+</div>
+<a id="a6b9b522d791ead398e82fe7c53c16abe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b9b522d791ead398e82fe7c53c16abe">&sect;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a>&amp; etk::Matrix2::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Operator= Asign the current object with an other object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Reference on the external object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Local reference of the vector asigned </dd></dl>
+
+</div>
+</div>
+<a id="a3b66966766c0899d5dace5843bed61dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b66966766c0899d5dace5843bed61dc">&sect;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::Matrix2::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Equality compare operator with an other object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Reference on the comparing object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true The Objects are identical </dd>
+<dd>
+false The Objects are NOT identical </dd></dl>
+
+</div>
+</div>
+<a id="ae262f81b736931dd03e32f43d7adfd59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae262f81b736931dd03e32f43d7adfd59">&sect;&nbsp;</a></span>operator~()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classetk_1_1_matrix2.html">Matrix2</a> etk::Matrix2::operator~ </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inverse the current <a class="el" href="classetk_1_1_matrix.html" title="2 dimention matrix template to manage simpliest algo ">Matrix</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>New vector containing the value </dd></dl>
+
+</div>
+</div>
+<a id="a361d0e76fd78e929f7a490e01e540b36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a361d0e76fd78e929f7a490e01e540b36">&sect;&nbsp;</a></span>rotate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::Matrix2::rotate </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>_angleRad</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Makes a rotation matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_angleRad</td><td>angle to apply. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aacc34d6c0be39b22fed735cd09ffed84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacc34d6c0be39b22fed735cd09ffed84">&sect;&nbsp;</a></span>scale() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::Matrix2::scale </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="_vector2_d_8hpp.html#ac499ddf9a4fa1db2545c53a02ee0c44e">vec2</a> &amp;&#160;</td>
+          <td class="paramname"><em>_vect</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Scale the current <a class="el" href="classetk_1_1_matrix.html" title="2 dimention matrix template to manage simpliest algo ">Matrix</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_vect</td><td>Vector to scale matrix. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="adaa317393ef799d0ab49c3b10cf47231"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adaa317393ef799d0ab49c3b10cf47231">&sect;&nbsp;</a></span>scale() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::Matrix2::scale </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>_value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Scale the current <a class="el" href="classetk_1_1_matrix.html" title="2 dimention matrix template to manage simpliest algo ">Matrix</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_value</td><td>Single value to scale in X andf Y. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abd22ba1cbe8dc53c0446abcb55d8551a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd22ba1cbe8dc53c0446abcb55d8551a">&sect;&nbsp;</a></span>translate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::Matrix2::translate </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="_vector2_d_8hpp.html#ac499ddf9a4fa1db2545c53a02ee0c44e">vec2</a> &amp;&#160;</td>
+          <td class="paramname"><em>_vect</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Makes a translation of the matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_vect</td><td>Translation to apply. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a808056b77862902ee2e117023bbff5b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a808056b77862902ee2e117023bbff5b9">&sect;&nbsp;</a></span>m_mat</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float etk::Matrix2::m_mat[2 *3]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Internal data sx shx tx sy shy ty. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>framework/atria-soft/etk/etk/math/<a class="el" href="_matrix2_8hpp_source.html">Matrix2.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Oct 24 2016 10:48:19 for Etk: Ewol Tool Kit by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

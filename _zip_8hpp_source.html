@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
         <meta name="generator" content="Doxygen 1.8.12"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <title>Etk: Ewol Tool Kit: ETK library</title>
+        <title>Etk: Ewol Tool Kit: framework/atria-soft/etk/etk/archive/Zip.hpp Source File</title>
         <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
         <script type="text/javascript" src="dynsections.js"></script>
         <link href="search/search.css" rel="stylesheet" type="text/css"/>
@@ -112,7 +112,6 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -127,42 +126,24 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_644e041c3a6521da7b27eba0e4eb2b95.html">framework</a></li><li class="navelem"><a class="el" href="dir_a094892b17be858f66bf3446bbb755c7.html">atria-soft</a></li><li class="navelem"><a class="el" href="dir_101ca691570835542fc832f149ed9b11.html">etk</a></li><li class="navelem"><a class="el" href="dir_8e1854e033aa3ec68b8dd13c773d2923.html">etk</a></li><li class="navelem"><a class="el" href="dir_798ecbd57274add4c849e5d9524617ed.html">archive</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ETK library </div>  </div>
+<div class="title">Zip.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="etk_mainpage_what"></a>
-What is ETK, and how can I use it?          </h1>
-<p>ETK, or Ewol Tool kit is a simple abstraction layer for some elements like mutex, std missing element(in android or MacOS) and ...</p>
-<p>We can simply say: Just a tool-box **(I use it to add many test prototyping ... and bad things ...)**</p>
-<p>ETK is composed of some part:</p><ul>
-<li>Log system interface</li>
-<li>File access abstraction (for android, data are stored in a .apk (== zip file))</li>
-<li>Mutex / semaphore abstraction (can not use pthread on windows)</li>
-<li>Regular expression</li>
-<li>Generic color interface</li>
-<li>Std adding missing element on some platform.</li>
-</ul>
-<h1><a class="anchor" id="etk_mainpage_langue"></a>
-What languages are supported?               </h1>
-<p>ETK is written in C++.</p>
-<h1><a class="anchor" id="etk_mainpage_dependency"></a>
-Are there any licensing restrictions?       </h1>
-<p>ETK is <b>FREE software</b> and <em>all sub-library are FREE and staticly linkable !!!</em></p>
-<h1><a class="anchor" id="etk_mainpage_licence"></a>
-License (APACHE-2.0)                        </h1>
-<p>Copyright etk Edouard DUPIN</p>
-<p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at</p>
-<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-<p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
-<h1><a class="anchor" id="etk_mainpage_sub_page"></a>
-Other pages                              </h1>
-<ul>
-<li><a class="el" href="etk_build.html">Build lib &amp; build sample</a></li>
-<li><a href="http://atria-soft.github.io/ewol/ewol_coding_style.html"><b>ewol coding style</b></a> </li>
-</ul>
-</div></div><!-- contents -->
+<a href="_zip_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#pragma once</span></div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_archive_8hpp.html">etk/archive/Archive.hpp</a>&gt;</span></div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#ifdef ETK_BUILD_MINIZIP</span></div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">        #include &lt;minizip/unzip.h&gt;</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    }</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">namespace </span><a class="code" href="namespaceetk.html">etk</a> {</div><div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="namespaceetk_1_1archive.html">   17</a></span>&#160;        <span class="keyword">namespace </span>archive {</div><div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classetk_1_1archive_1_1_zip.html">   21</a></span>&#160;            <span class="keyword">class </span><a class="code" href="classetk_1_1archive_1_1_zip.html">Zip</a> : <span class="keyword">public</span> <a class="code" href="classetk_1_1_archive.html">etk::Archive</a> {</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                <span class="keyword">private</span>:</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                    unzFile m_ctx; </div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                    unz_global_info m_info; </div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                <span class="keyword">public</span>:</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                    <a class="code" href="classetk_1_1archive_1_1_zip.html#afb44ec0e03903534beeaa51bd562acda">Zip</a>(<span class="keyword">const</span> std::string&amp; _fileName, uint64_t _offset = 0LL);</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                    <span class="keyword">virtual</span> <a class="code" href="classetk_1_1archive_1_1_zip.html#a79fff570b3ccbee5ffe3d0f85b5c7b24">~Zip</a>();</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                <span class="keyword">protected</span>:</div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                    <span class="keywordtype">void</span> <a class="code" href="classetk_1_1archive_1_1_zip.html#a53e3a637a4f39b14ff15c880c57c14f3">loadFile</a>(<span class="keyword">const</span> std::map&lt;std::string, ArchiveContent&gt;::iterator&amp; _it) <span class="keyword">override</span>;</div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            };</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        }</div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#endif</span></div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div><div class="ttc" id="classetk_1_1archive_1_1_zip_html"><div class="ttname"><a href="classetk_1_1archive_1_1_zip.html">etk::archive::Zip</a></div><div class="ttdoc">Zip acces interface (wrapper) </div><div class="ttdef"><b>Definition:</b> Zip.hpp:21</div></div>
+<div class="ttc" id="namespaceetk_html"><div class="ttname"><a href="namespaceetk.html">etk</a></div><div class="ttdoc">basic namespace of the etk library. (it might contain all the etk fuctions/class/structures without m...</div><div class="ttdef"><b>Definition:</b> Archive.hpp:16</div></div>
+<div class="ttc" id="classetk_1_1archive_1_1_zip_html_a53e3a637a4f39b14ff15c880c57c14f3"><div class="ttname"><a href="classetk_1_1archive_1_1_zip.html#a53e3a637a4f39b14ff15c880c57c14f3">etk::archive::Zip::loadFile</a></div><div class="ttdeci">void loadFile(const std::map&lt; std::string, ArchiveContent &gt;::iterator &amp;_it) override</div><div class="ttdoc">Request the load in memory of the concerned file. </div></div>
+<div class="ttc" id="_archive_8hpp_html"><div class="ttname"><a href="_archive_8hpp.html">Archive.hpp</a></div></div>
+<div class="ttc" id="classetk_1_1archive_1_1_zip_html_afb44ec0e03903534beeaa51bd562acda"><div class="ttname"><a href="classetk_1_1archive_1_1_zip.html#afb44ec0e03903534beeaa51bd562acda">etk::archive::Zip::Zip</a></div><div class="ttdeci">Zip(const std::string &amp;_fileName, uint64_t _offset=0LL)</div><div class="ttdoc">constructor of a zip file access </div></div>
+<div class="ttc" id="classetk_1_1archive_1_1_zip_html_a79fff570b3ccbee5ffe3d0f85b5c7b24"><div class="ttname"><a href="classetk_1_1archive_1_1_zip.html#a79fff570b3ccbee5ffe3d0f85b5c7b24">etk::archive::Zip::~Zip</a></div><div class="ttdeci">virtual ~Zip()</div><div class="ttdoc">basic destructor </div></div>
+<div class="ttc" id="classetk_1_1_archive_html"><div class="ttname"><a href="classetk_1_1_archive.html">etk::Archive</a></div><div class="ttdoc">Access on a zip data file. </div><div class="ttdef"><b>Definition:</b> Archive.hpp:90</div></div>
+</div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 </div>

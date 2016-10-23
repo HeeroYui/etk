@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
         <meta name="generator" content="Doxygen 1.8.12"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <title>Etk: Ewol Tool Kit: ETK library</title>
+        <title>Etk: Ewol Tool Kit: Member List</title>
         <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
         <script type="text/javascript" src="dynsections.js"></script>
         <link href="search/search.css" rel="stylesheet" type="text/css"/>
@@ -112,7 +112,6 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -127,42 +126,35 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespaceetk.html">etk</a></li><li class="navelem"><a class="el" href="classetk_1_1_plane.html">Plane</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ETK library </div>  </div>
+<div class="title">etk::Plane&lt; T &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="etk_mainpage_what"></a>
-What is ETK, and how can I use it?          </h1>
-<p>ETK, or Ewol Tool kit is a simple abstraction layer for some elements like mutex, std missing element(in android or MacOS) and ...</p>
-<p>We can simply say: Just a tool-box **(I use it to add many test prototyping ... and bad things ...)**</p>
-<p>ETK is composed of some part:</p><ul>
-<li>Log system interface</li>
-<li>File access abstraction (for android, data are stored in a .apk (== zip file))</li>
-<li>Mutex / semaphore abstraction (can not use pthread on windows)</li>
-<li>Regular expression</li>
-<li>Generic color interface</li>
-<li>Std adding missing element on some platform.</li>
-</ul>
-<h1><a class="anchor" id="etk_mainpage_langue"></a>
-What languages are supported?               </h1>
-<p>ETK is written in C++.</p>
-<h1><a class="anchor" id="etk_mainpage_dependency"></a>
-Are there any licensing restrictions?       </h1>
-<p>ETK is <b>FREE software</b> and <em>all sub-library are FREE and staticly linkable !!!</em></p>
-<h1><a class="anchor" id="etk_mainpage_licence"></a>
-License (APACHE-2.0)                        </h1>
-<p>Copyright etk Edouard DUPIN</p>
-<p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at</p>
-<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-<p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
-<h1><a class="anchor" id="etk_mainpage_sub_page"></a>
-Other pages                              </h1>
-<ul>
-<li><a class="el" href="etk_build.html">Build lib &amp; build sample</a></li>
-<li><a href="http://atria-soft.github.io/ewol/ewol_coding_style.html"><b>ewol coding style</b></a> </li>
-</ul>
-</div></div><!-- contents -->
+
+<p>This is the complete list of members for <a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="classetk_1_1_plane.html#a6b0377c24a6b076de9fe112400724523">calculateIntercept</a>(const etk::Vector3D&lt; T &gt; &amp;_pointOnPlane)</td><td class="entry"><a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classetk_1_1_plane.html#aa63645925f576389fc111737c1f6af30">getDistance</a>(const etk::Vector3D&lt; T &gt; &amp;_point) const</td><td class="entry"><a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classetk_1_1_plane.html#ac701a8e4aae7df5874e1e97658703c7f">getIntercept</a>() const</td><td class="entry"><a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classetk_1_1_plane.html#ab17849e22fddbc55964ef2990818e2a6">getNormal</a>() const</td><td class="entry"><a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classetk_1_1_plane.html#abc2a4dffb33f88c073d03799a81a902e">intersect3</a>(const Plane&lt; T &gt; &amp;_p2, const Plane&lt; T &gt; &amp;_p3)</td><td class="entry"><a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classetk_1_1_plane.html#a0022135ae6ce5333c7a39e04f16369af">linearInterpolate</a>(const Plane&lt; T &gt; &amp;_p2, float _factor)</td><td class="entry"><a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classetk_1_1_plane.html#a383afb40ac4cfab41b7d221c283b29f0">normalize</a>()</td><td class="entry"><a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classetk_1_1_plane.html#acff6210dea13b9e5d767c017c79dd6a8">operator!=</a>(const Plane&lt; T &gt; &amp;_obj) const</td><td class="entry"><a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classetk_1_1_plane.html#aba7b788f733af40c2eb527809b4bf132">operator==</a>(const Plane&lt; T &gt; &amp;_obj) const</td><td class="entry"><a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classetk_1_1_plane.html#ac45e649cc99e2a64f93c4efd2f5cd3a0">Plane</a>()</td><td class="entry"><a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classetk_1_1_plane.html#ad91eb9e5c7637f30869fd585c0b77f80">Plane</a>(etk::Vector3D&lt; T &gt; _normal, T _intercept=0)</td><td class="entry"><a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classetk_1_1_plane.html#abd201fb9f3ea8d7a31d3590ce4ccbf66">Plane</a>(const Plane &amp;_obj)</td><td class="entry"><a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classetk_1_1_plane.html#a69b4871efd25fa204a3917360bfb8cc9">setFromPoints</a>(const etk::Vector3D&lt; T &gt; &amp;_p0, const etk::Vector3D&lt; T &gt; &amp;_p1, const etk::Vector3D&lt; T &gt; &amp;_p2)</td><td class="entry"><a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classetk_1_1_plane.html#a691582e68a6ee38b0c7c9ccf2a6734f3">setIntercept</a>(float _intercept)</td><td class="entry"><a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classetk_1_1_plane.html#a202b3335b2b71cc84726a1b57b8e1e70">setNormal</a>(const etk::Vector3D&lt; T &gt; &amp;_obj)</td><td class="entry"><a class="el" href="classetk_1_1_plane.html">etk::Plane&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 </div>

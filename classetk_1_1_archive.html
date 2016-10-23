@@ -1,0 +1,673 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.12"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Etk: Ewol Tool Kit: etk::Archive Class Reference</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Etk: Ewol Tool Kit 0.10.0</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Main&nbsp;Page</a></li>
+                        <li><a href="pages.html">Related&nbsp;Pages</a></li>
+                        <li><a href="namespaces.html">Namespaces</a></li>
+                        <li><a href="annotated.html">Classes</a></li>
+                        <li><a href="files.html">Files</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Link-libs<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://HeeroYui.github.io/lutin">lutin</a></li>
+                                <li><a href="http://atria-soft.github.io/ewol">ewol</a></li>
+                                <li><a href="http://atria-soft.github.io/etk">etk</a></li>
+                                <li><a href="http://atria-soft.github.io/ejson">ejson</a></li>
+                                <li><a href="http://atria-soft.github.io/exml">exml</a></li>
+                                <li><a href="http://atria-soft.github.io/esvg">esvg</a></li>
+                                <li><a href="http://atria-soft.github.io/egami">egami</a></li>
+                                <li><a href="http://atria-soft.github.io/gale">gale</a></li>
+                                <li><a href="http://atria-soft.github.io/ege">ege</a></li>
+                                <li><a href="http://atria-soft.github.io/elog">elog</a></li>
+                                <li><a href="http://atria-soft.github.io/ememory">ememory</a></li>
+                                <li><a href="http://atria-soft.github.io/enet">enet</a></li>
+                                <li><a href="http://atria-soft.github.io/eproperty">eproperty</a></li>
+                                <li><a href="http://atria-soft.github.io/esignal">esignal</a></li>
+                                <li><a href="http://atria-soft.github.io/zeus">zeus</a></li>
+                                <li><a href="http://atria-soft.github.io/audio-ess">audio-ess</a></li>
+                                <li><a href="http://musicdsp.github.io/audio">audio</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-drain">audio-drain</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-orchestra">audio-orchestra</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-river">audio-river</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="search-box" class="input-group">
+                        <div class="input-group-btn">
+                            <button aria-expanded="false" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">All</a></li>
+                                <li><a href="#">Classes</a></li>
+                                <li><a href="#">Namespaces</a></li>
+                                <li><a href="#">Files</a></li>
+                                <li><a href="#">Functions</a></li>
+                                <li><a href="#">Variables</a></li>
+                                <li><a href="#">Typedefs</a></li>
+                                <li><a href="#">Enumerations</a></li>
+                                <li><a href="#">Enumerator</a></li>
+                                <li><a href="#">Friends</a></li>
+                                <li><a href="#">Macros</a></li>
+                                <li><a href="#">Pages</a></li>
+                            </ul>
+                        </div>
+                        <button id="search-close" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <input id="search-field" class="form-control" accesskey="S" onkeydown="searchBox.OnSearchFieldChange(event);" placeholder="Search ..." type="text">
+                    </div>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel panel-default" style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+<!-- Generated by Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Search');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespaceetk.html">etk</a></li><li class="navelem"><a class="el" href="classetk_1_1_archive.html">Archive</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="classetk_1_1_archive-members.html">List of all members</a>  </div>
+  <div class="headertitle">
+<div class="title">etk::Archive Class Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_archive_8hpp_source.html">Archive.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for etk::Archive:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classetk_1_1_archive.png" usemap="#etk::Archive_map" alt=""/>
+  <map id="etk::Archive_map" name="etk::Archive_map">
+<area href="classetk_1_1archive_1_1_zip.html" title="Zip acces interface (wrapper) " alt="etk::archive::Zip" shape="rect" coords="0,56,102,80"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a5991c05535749c9ed04eeec185f675ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#a5991c05535749c9ed04eeec185f675ac">Archive</a> (const std::string &amp;_fileName)</td></tr>
+<tr class="separator:a5991c05535749c9ed04eeec185f675ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a712ccb41b94c3d96fa7be82e13d10ee2"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#a712ccb41b94c3d96fa7be82e13d10ee2">~Archive</a> ()=default</td></tr>
+<tr class="separator:a712ccb41b94c3d96fa7be82e13d10ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcd2958b8df98c6f3841dc20b934a26b"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#abcd2958b8df98c6f3841dc20b934a26b">getFileName</a> ()</td></tr>
+<tr class="separator:abcd2958b8df98c6f3841dc20b934a26b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17d06497d98be15f6080cf84010d35a0"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#a17d06497d98be15f6080cf84010d35a0">size</a> () const</td></tr>
+<tr class="separator:a17d06497d98be15f6080cf84010d35a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9da33ff502b21d05d6217963fe3246d4"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#a9da33ff502b21d05d6217963fe3246d4">getName</a> (size_t _id) const</td></tr>
+<tr class="separator:a9da33ff502b21d05d6217963fe3246d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a496024ba396746e78ccd6872b633138f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_archive_content.html">ArchiveContent</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#a496024ba396746e78ccd6872b633138f">getContent</a> (size_t _id) const</td></tr>
+<tr class="separator:a496024ba396746e78ccd6872b633138f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a32911fe1aa9945eac8478924c6ba17"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_archive_content.html">ArchiveContent</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#a2a32911fe1aa9945eac8478924c6ba17">getContent</a> (const std::string &amp;_key) const</td></tr>
+<tr class="separator:a2a32911fe1aa9945eac8478924c6ba17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1fd3f3a8733968d6babe29e5295f439"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#aa1fd3f3a8733968d6babe29e5295f439">exist</a> (const std::string &amp;_key) const</td></tr>
+<tr class="separator:aa1fd3f3a8733968d6babe29e5295f439"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1594998eb11332bba3bcd6a2392c373"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#ad1594998eb11332bba3bcd6a2392c373">open</a> (const std::string &amp;_key)</td></tr>
+<tr class="separator:ad1594998eb11332bba3bcd6a2392c373"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abda6becefeae5944d4001900d3231475"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#abda6becefeae5944d4001900d3231475">close</a> (const std::string &amp;_key)</td></tr>
+<tr class="separator:abda6becefeae5944d4001900d3231475"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bc198e2fda3b1bfe3176ec315e22441"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#a8bc198e2fda3b1bfe3176ec315e22441">display</a> ()</td></tr>
+<tr class="separator:a8bc198e2fda3b1bfe3176ec315e22441"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:aa0d4393b92c0548812cc511a8c5bec19"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classetk_1_1_archive.html">Archive</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#aa0d4393b92c0548812cc511a8c5bec19">load</a> (const std::string &amp;_fileName)</td></tr>
+<tr class="separator:aa0d4393b92c0548812cc511a8c5bec19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad90205aba8b5892b1bd0324821cea294"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classetk_1_1_archive.html">Archive</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#ad90205aba8b5892b1bd0324821cea294">loadPackage</a> (const std::string &amp;_fileName)</td></tr>
+<tr class="separator:ad90205aba8b5892b1bd0324821cea294"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:aca951aabe7595d6217bd6ba9699361f8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#aca951aabe7595d6217bd6ba9699361f8">loadFile</a> (const std::map&lt; std::string, <a class="el" href="classetk_1_1_archive_content.html">ArchiveContent</a> &gt;::iterator &amp;_it)</td></tr>
+<tr class="separator:aca951aabe7595d6217bd6ba9699361f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:ade4fc9b52603f85c4201ad21f5c70073"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#ade4fc9b52603f85c4201ad21f5c70073">m_fileName</a></td></tr>
+<tr class="separator:ade4fc9b52603f85c4201ad21f5c70073"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50e51fc4daee5c4a0f5c1810983e6f16"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, <a class="el" href="classetk_1_1_archive_content.html">ArchiveContent</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_archive.html#a50e51fc4daee5c4a0f5c1810983e6f16">m_content</a></td></tr>
+<tr class="separator:a50e51fc4daee5c4a0f5c1810983e6f16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Access on a zip data file. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a5991c05535749c9ed04eeec185f675ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5991c05535749c9ed04eeec185f675ac">&sect;&nbsp;</a></span>Archive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">etk::Archive::Archive </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_fileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Contructor of the archive element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_fileName</td><td>Zip file name (or .apk for android) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a712ccb41b94c3d96fa7be82e13d10ee2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a712ccb41b94c3d96fa7be82e13d10ee2">&sect;&nbsp;</a></span>~Archive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual etk::Archive::~Archive </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Generic Destructor of the archive element. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="abda6becefeae5944d4001900d3231475"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abda6becefeae5944d4001900d3231475">&sect;&nbsp;</a></span>close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::Archive::close </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un-Load the specific file from the memory. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_key</td><td>Name of the file </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8bc198e2fda3b1bfe3176ec315e22441"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bc198e2fda3b1bfe3176ec315e22441">&sect;&nbsp;</a></span>display()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::Archive::display </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Display all Element in the archive. </p>
+
+</div>
+</div>
+<a id="aa1fd3f3a8733968d6babe29e5295f439"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1fd3f3a8733968d6babe29e5295f439">&sect;&nbsp;</a></span>exist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::Archive::exist </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_key</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if a file exist. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_key</td><td>Name of the file </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the file is present </dd></dl>
+
+</div>
+</div>
+<a id="a496024ba396746e78ccd6872b633138f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a496024ba396746e78ccd6872b633138f">&sect;&nbsp;</a></span>getContent() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_archive_content.html">ArchiveContent</a>&amp; etk::Archive::getContent </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>_id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the File name of the ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_id</td><td>id of the element (must be &lt; Size()) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the archive content </dd></dl>
+
+</div>
+</div>
+<a id="a2a32911fe1aa9945eac8478924c6ba17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a32911fe1aa9945eac8478924c6ba17">&sect;&nbsp;</a></span>getContent() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_archive_content.html">ArchiveContent</a>&amp; etk::Archive::getContent </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_key</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the File name of the ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_key</td><td>name of the file </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>FileName of the requested id </dd></dl>
+
+</div>
+</div>
+<a id="abcd2958b8df98c6f3841dc20b934a26b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcd2958b8df98c6f3841dc20b934a26b">&sect;&nbsp;</a></span>getFileName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; etk::Archive::getFileName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the current file name. </p>
+<dl class="section return"><dt>Returns</dt><dd>the requested file name. </dd></dl>
+
+</div>
+</div>
+<a id="a9da33ff502b21d05d6217963fe3246d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9da33ff502b21d05d6217963fe3246d4">&sect;&nbsp;</a></span>getName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; etk::Archive::getName </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>_id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the File name of the ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_id</td><td>id of the element (must be &lt; Size()) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>FileName of the requested id </dd></dl>
+
+</div>
+</div>
+<a id="aa0d4393b92c0548812cc511a8c5bec19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0d4393b92c0548812cc511a8c5bec19">&sect;&nbsp;</a></span>load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classetk_1_1_archive.html">Archive</a>* etk::Archive::load </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_fileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Load an Achive with a specific name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_fileName</td><td>File name of the specific archive. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer an the specified archive, the user might delete it. </dd></dl>
+
+</div>
+</div>
+<a id="aca951aabe7595d6217bd6ba9699361f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca951aabe7595d6217bd6ba9699361f8">&sect;&nbsp;</a></span>loadFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void etk::Archive::loadFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::map&lt; std::string, <a class="el" href="classetk_1_1_archive_content.html">ArchiveContent</a> &gt;::iterator &amp;&#160;</td>
+          <td class="paramname"><em>_it</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Request the load in memory of the concerned file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_it</td><td>Iterator on the element. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="classetk_1_1archive_1_1_zip.html#a53e3a637a4f39b14ff15c880c57c14f3">etk::archive::Zip</a>.</p>
+
+</div>
+</div>
+<a id="ad90205aba8b5892b1bd0324821cea294"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad90205aba8b5892b1bd0324821cea294">&sect;&nbsp;</a></span>loadPackage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classetk_1_1_archive.html">Archive</a>* etk::Archive::loadPackage </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_fileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Load an Achive with a specific name in package mode ==&gt; this mean the data is associated with the basic binary. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_fileName</td><td>File name of the specific archive. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer an the specified archive, the user might delete it. </dd></dl>
+
+</div>
+</div>
+<a id="ad1594998eb11332bba3bcd6a2392c373"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1594998eb11332bba3bcd6a2392c373">&sect;&nbsp;</a></span>open()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::Archive::open </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load the specific file in the memory. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_key</td><td>Name of the file </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a17d06497d98be15f6080cf84010d35a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17d06497d98be15f6080cf84010d35a0">&sect;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t etk::Archive::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the number of elements. </p>
+<dl class="section return"><dt>Returns</dt><dd>nb files in the archive </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a50e51fc4daee5c4a0f5c1810983e6f16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50e51fc4daee5c4a0f5c1810983e6f16">&sect;&nbsp;</a></span>m_content</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, <a class="el" href="classetk_1_1_archive_content.html">ArchiveContent</a>&gt; etk::Archive::m_content</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>list of element of the zip file </p>
+
+</div>
+</div>
+<a id="ade4fc9b52603f85c4201ad21f5c70073"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade4fc9b52603f85c4201ad21f5c70073">&sect;&nbsp;</a></span>m_fileName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string etk::Archive::m_fileName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>File name when it came from an file. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>framework/atria-soft/etk/etk/archive/<a class="el" href="_archive_8hpp_source.html">Archive.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Oct 24 2016 10:48:19 for Etk: Ewol Tool Kit by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

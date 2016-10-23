@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
         <meta name="generator" content="Doxygen 1.8.12"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <title>Etk: Ewol Tool Kit: ETK library</title>
+        <title>Etk: Ewol Tool Kit: File Members</title>
         <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
         <script type="text/javascript" src="dynsections.js"></script>
         <link href="search/search.css" rel="stylesheet" type="text/css"/>
@@ -127,42 +127,76 @@ $(function() {
 </iframe>
 </div>
 
-<div class="header">
-  <div class="headertitle">
-<div class="title">ETK library </div>  </div>
-</div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="etk_mainpage_what"></a>
-What is ETK, and how can I use it?          </h1>
-<p>ETK, or Ewol Tool kit is a simple abstraction layer for some elements like mutex, std missing element(in android or MacOS) and ...</p>
-<p>We can simply say: Just a tool-box **(I use it to add many test prototyping ... and bad things ...)**</p>
-<p>ETK is composed of some part:</p><ul>
-<li>Log system interface</li>
-<li>File access abstraction (for android, data are stored in a .apk (== zip file))</li>
-<li>Mutex / semaphore abstraction (can not use pthread on windows)</li>
-<li>Regular expression</li>
-<li>Generic color interface</li>
-<li>Std adding missing element on some platform.</li>
+&#160;<ul>
+<li>btScalar
+: <a class="el" href="types_8hpp.html#a1a3ea13679c5a09b0c923b8005f72ef6">types.hpp</a>
+</li>
+<li>btVector3
+: <a class="el" href="_vector3_d_8hpp.html#ab02e91bd8ca404346a23b52cd609871b">Vector3D.hpp</a>
+</li>
+<li>bvec2
+: <a class="el" href="_vector2_d_8hpp.html#a903a47a5a33f5ba4c1524704f5d39cc5">Vector2D.hpp</a>
+</li>
+<li>bvec3
+: <a class="el" href="_vector3_d_8hpp.html#ad106b0db64440bd17550f516cc5c3848">Vector3D.hpp</a>
+</li>
+<li>bvec4
+: <a class="el" href="_vector4_d_8hpp.html#a30487a18dff5856eddcd206a76b78a57">Vector4D.hpp</a>
+</li>
+<li>dmat
+: <a class="el" href="_matrix_8hpp.html#a756b989683c5370413adde4d86ac59b2">Matrix.hpp</a>
+</li>
+<li>float_t
+: <a class="el" href="types_8hpp.html#aef34e23d4cca9aba8d78eeb0ae8fcd2e">types.hpp</a>
+</li>
+<li>imat
+: <a class="el" href="_matrix_8hpp.html#a1660fbf545101f027ea5c88061f334c1">Matrix.hpp</a>
+</li>
+<li>ivec2
+: <a class="el" href="_vector2_d_8hpp.html#a920aac35b92f04facb6f3e01b9b3670b">Vector2D.hpp</a>
+</li>
+<li>ivec3
+: <a class="el" href="_vector3_d_8hpp.html#afa1bb9f691901eef264f38b1750f2cc0">Vector3D.hpp</a>
+</li>
+<li>ivec4
+: <a class="el" href="_vector4_d_8hpp.html#a52d87f8e2fec6457cf223dac512b6cff">Vector4D.hpp</a>
+</li>
+<li>mat
+: <a class="el" href="_matrix_8hpp.html#a45d98ad44526fb0afcbc6d2cacc05d34">Matrix.hpp</a>
+</li>
+<li>mat2
+: <a class="el" href="_matrix2_8hpp.html#a91e098698a1b6803e0368d95ceb782e9">Matrix2.hpp</a>
+</li>
+<li>mat4
+: <a class="el" href="_matrix4_8hpp.html#a116ae4cbc40b3ab7e0925cb605258ac9">Matrix4.hpp</a>
+</li>
+<li>ovec3
+: <a class="el" href="_vector3_d_8hpp.html#a4badba812b2174d71704ce7c8f39baae">Vector3D.hpp</a>
+</li>
+<li>uimat
+: <a class="el" href="_matrix_8hpp.html#a042e3a7f45f57b7ef9811db473231d5b">Matrix.hpp</a>
+</li>
+<li>uivec2
+: <a class="el" href="_vector2_d_8hpp.html#a2317dd9bce79574ebf38d031bd35a6cc">Vector2D.hpp</a>
+</li>
+<li>uivec3
+: <a class="el" href="_vector3_d_8hpp.html#a44e838914fabf3051d8285c2cb95b7f6">Vector3D.hpp</a>
+</li>
+<li>uivec4
+: <a class="el" href="_vector4_d_8hpp.html#a6f53eb3b63a69123cc8c5f570afe014a">Vector4D.hpp</a>
+</li>
+<li>vec2
+: <a class="el" href="_vector2_d_8hpp.html#ac499ddf9a4fa1db2545c53a02ee0c44e">Vector2D.hpp</a>
+</li>
+<li>vec3
+: <a class="el" href="_vector3_d_8hpp.html#a65b33f8f48df3f057393b2b09211829f">Vector3D.hpp</a>
+</li>
+<li>vec4
+: <a class="el" href="_vector4_d_8hpp.html#a165b7cd0af7b9df5b05f131f1d4d544b">Vector4D.hpp</a>
+</li>
 </ul>
-<h1><a class="anchor" id="etk_mainpage_langue"></a>
-What languages are supported?               </h1>
-<p>ETK is written in C++.</p>
-<h1><a class="anchor" id="etk_mainpage_dependency"></a>
-Are there any licensing restrictions?       </h1>
-<p>ETK is <b>FREE software</b> and <em>all sub-library are FREE and staticly linkable !!!</em></p>
-<h1><a class="anchor" id="etk_mainpage_licence"></a>
-License (APACHE-2.0)                        </h1>
-<p>Copyright etk Edouard DUPIN</p>
-<p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at</p>
-<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-<p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
-<h1><a class="anchor" id="etk_mainpage_sub_page"></a>
-Other pages                              </h1>
-<ul>
-<li><a class="el" href="etk_build.html">Build lib &amp; build sample</a></li>
-<li><a href="http://atria-soft.github.io/ewol/ewol_coding_style.html"><b>ewol coding style</b></a> </li>
-</ul>
-</div></div><!-- contents -->
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 </div>

@@ -1,0 +1,1716 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.12"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Etk: Ewol Tool Kit: etk::FSNode Class Reference</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Etk: Ewol Tool Kit 0.10.0</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Main&nbsp;Page</a></li>
+                        <li><a href="pages.html">Related&nbsp;Pages</a></li>
+                        <li><a href="namespaces.html">Namespaces</a></li>
+                        <li><a href="annotated.html">Classes</a></li>
+                        <li><a href="files.html">Files</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Link-libs<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://HeeroYui.github.io/lutin">lutin</a></li>
+                                <li><a href="http://atria-soft.github.io/ewol">ewol</a></li>
+                                <li><a href="http://atria-soft.github.io/etk">etk</a></li>
+                                <li><a href="http://atria-soft.github.io/ejson">ejson</a></li>
+                                <li><a href="http://atria-soft.github.io/exml">exml</a></li>
+                                <li><a href="http://atria-soft.github.io/esvg">esvg</a></li>
+                                <li><a href="http://atria-soft.github.io/egami">egami</a></li>
+                                <li><a href="http://atria-soft.github.io/gale">gale</a></li>
+                                <li><a href="http://atria-soft.github.io/ege">ege</a></li>
+                                <li><a href="http://atria-soft.github.io/elog">elog</a></li>
+                                <li><a href="http://atria-soft.github.io/ememory">ememory</a></li>
+                                <li><a href="http://atria-soft.github.io/enet">enet</a></li>
+                                <li><a href="http://atria-soft.github.io/eproperty">eproperty</a></li>
+                                <li><a href="http://atria-soft.github.io/esignal">esignal</a></li>
+                                <li><a href="http://atria-soft.github.io/zeus">zeus</a></li>
+                                <li><a href="http://atria-soft.github.io/audio-ess">audio-ess</a></li>
+                                <li><a href="http://musicdsp.github.io/audio">audio</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-drain">audio-drain</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-orchestra">audio-orchestra</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-river">audio-river</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="search-box" class="input-group">
+                        <div class="input-group-btn">
+                            <button aria-expanded="false" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">All</a></li>
+                                <li><a href="#">Classes</a></li>
+                                <li><a href="#">Namespaces</a></li>
+                                <li><a href="#">Files</a></li>
+                                <li><a href="#">Functions</a></li>
+                                <li><a href="#">Variables</a></li>
+                                <li><a href="#">Typedefs</a></li>
+                                <li><a href="#">Enumerations</a></li>
+                                <li><a href="#">Enumerator</a></li>
+                                <li><a href="#">Friends</a></li>
+                                <li><a href="#">Macros</a></li>
+                                <li><a href="#">Pages</a></li>
+                            </ul>
+                        </div>
+                        <button id="search-close" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <input id="search-field" class="form-control" accesskey="S" onkeydown="searchBox.OnSearchFieldChange(event);" placeholder="Search ..." type="text">
+                    </div>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel panel-default" style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+<!-- Generated by Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Search');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespaceetk.html">etk</a></li><li class="navelem"><a class="el" href="classetk_1_1_f_s_node.html">FSNode</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="classetk_1_1_f_s_node-members.html">List of all members</a>  </div>
+  <div class="headertitle">
+<div class="title">etk::FSNode Class Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_f_s_node_8hpp_source.html">FSNode.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a9bd5c806953db1a55e1b0653a5111c7b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a9bd5c806953db1a55e1b0653a5111c7b">FSNode</a> (const std::string &amp;_path=&quot;~&quot;)</td></tr>
+<tr class="separator:a9bd5c806953db1a55e1b0653a5111c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa15899502c51cbf37ffc6f7284f3535b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#aa15899502c51cbf37ffc6f7284f3535b">~FSNode</a> ()</td></tr>
+<tr class="separator:aa15899502c51cbf37ffc6f7284f3535b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbdbfccfea72e09573ef9fdeec20d0f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#adbdbfccfea72e09573ef9fdeec20d0f7">exist</a> () const</td></tr>
+<tr class="separator:adbdbfccfea72e09573ef9fdeec20d0f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86038b56fd2349317459c1ce4a58a788"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="namespaceetk.html#a99c2dd948d6da85ed816fa0c267862e8">typeNode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a86038b56fd2349317459c1ce4a58a788">getNodeType</a> () const</td></tr>
+<tr class="separator:a86038b56fd2349317459c1ce4a58a788"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab757b8663591a87ae61ddbb0b69eff89"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_f_s_node_right.html">etk::FSNodeRight</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#ab757b8663591a87ae61ddbb0b69eff89">getRight</a> () const</td></tr>
+<tr class="separator:ab757b8663591a87ae61ddbb0b69eff89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65bce1c8887edad87a90c8c7ffb861d3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a65bce1c8887edad87a90c8c7ffb861d3">setRight</a> (<a class="el" href="classetk_1_1_f_s_node_right.html">etk::FSNodeRight</a> _newRight)</td></tr>
+<tr class="separator:a65bce1c8887edad87a90c8c7ffb861d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e787e7f3148dae0c74139be7b05ab43"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a6e787e7f3148dae0c74139be7b05ab43">setName</a> (const std::string &amp;_newName)</td></tr>
+<tr class="separator:a6e787e7f3148dae0c74139be7b05ab43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3e7ec360ef0d80feed64edd1e43429b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#ad3e7ec360ef0d80feed64edd1e43429b">getFileSystemName</a> () const</td></tr>
+<tr class="separator:ad3e7ec360ef0d80feed64edd1e43429b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c51598f0293cc347ed44d062f7374e1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a0c51598f0293cc347ed44d062f7374e1">getNameFolder</a> () const</td></tr>
+<tr class="separator:a0c51598f0293cc347ed44d062f7374e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cd7ffd53fa3bc5e3654109509da15f7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a0cd7ffd53fa3bc5e3654109509da15f7">getName</a> () const</td></tr>
+<tr class="separator:a0cd7ffd53fa3bc5e3654109509da15f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a047391b0333908c886ee0c53e12dec82"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a047391b0333908c886ee0c53e12dec82">getNameFile</a> () const</td></tr>
+<tr class="separator:a047391b0333908c886ee0c53e12dec82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a596be9f5161b36379271158623e7f0f8"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a596be9f5161b36379271158623e7f0f8">getRelativeFolder</a> () const</td></tr>
+<tr class="separator:a596be9f5161b36379271158623e7f0f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fd01aeb7f84399ad99573e0a7e2f8fc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a6fd01aeb7f84399ad99573e0a7e2f8fc">touch</a> ()</td></tr>
+<tr class="separator:a6fd01aeb7f84399ad99573e0a7e2f8fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2b67e6e158d407375013845b4afd6c4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#af2b67e6e158d407375013845b4afd6c4">move</a> (const std::string &amp;_path)</td></tr>
+<tr class="separator:af2b67e6e158d407375013845b4afd6c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f0c2f85b19d025bd113c62884230784"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="namespaceetk.html#a661ec570d3bddcc050a21b1c4a421d86">FSNType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a5f0c2f85b19d025bd113c62884230784">getTypeAccess</a> () const</td></tr>
+<tr class="separator:a5f0c2f85b19d025bd113c62884230784"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a012796b3f0c823826f04559fd132c32a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a012796b3f0c823826f04559fd132c32a">remove</a> ()</td></tr>
+<tr class="separator:a012796b3f0c823826f04559fd132c32a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46fe9a1916400ca932d31a847dff0f21"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a46fe9a1916400ca932d31a847dff0f21">timeCreated</a> () const</td></tr>
+<tr class="separator:a46fe9a1916400ca932d31a847dff0f21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30a497f2d095469b5846756a1b51a749"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a30a497f2d095469b5846756a1b51a749">timeCreatedString</a> () const</td></tr>
+<tr class="separator:a30a497f2d095469b5846756a1b51a749"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa84341a6764252f5fb70eb48540f496"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#afa84341a6764252f5fb70eb48540f496">timeModified</a> () const</td></tr>
+<tr class="separator:afa84341a6764252f5fb70eb48540f496"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cdee551ca80df9597a408b42b4f7210"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a3cdee551ca80df9597a408b42b4f7210">timeModifiedString</a> () const</td></tr>
+<tr class="separator:a3cdee551ca80df9597a408b42b4f7210"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43c3b946ef91744dd2991734166c1d87"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a43c3b946ef91744dd2991734166c1d87">timeAccessed</a> () const</td></tr>
+<tr class="separator:a43c3b946ef91744dd2991734166c1d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17022f6598927b1b9f169cbcd99099e6"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a17022f6598927b1b9f169cbcd99099e6">timeAccessedString</a> () const</td></tr>
+<tr class="separator:a17022f6598927b1b9f169cbcd99099e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad08da50ffc596edbf26abec30f206e9f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_f_s_node.html">etk::FSNode</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#ad08da50ffc596edbf26abec30f206e9f">operator=</a> (const <a class="el" href="classetk_1_1_f_s_node.html">etk::FSNode</a> &amp;_obj)</td></tr>
+<tr class="separator:ad08da50ffc596edbf26abec30f206e9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3da438d512b71fe1ad5f8d85be432bf4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a3da438d512b71fe1ad5f8d85be432bf4">operator==</a> (const <a class="el" href="classetk_1_1_f_s_node.html">etk::FSNode</a> &amp;_obj) const</td></tr>
+<tr class="separator:a3da438d512b71fe1ad5f8d85be432bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7430072e51239eb82473587db573832"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#aa7430072e51239eb82473587db573832">operator!=</a> (const <a class="el" href="classetk_1_1_f_s_node.html">etk::FSNode</a> &amp;_obj) const</td></tr>
+<tr class="separator:aa7430072e51239eb82473587db573832"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1343533b97b6ced90b9319864db0d5a"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#ad1343533b97b6ced90b9319864db0d5a">folderCount</a> ()</td></tr>
+<tr class="separator:ad1343533b97b6ced90b9319864db0d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6118d019b41ab1f5d7d95ab5a7bb0101"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classetk_1_1_f_s_node.html">etk::FSNode</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a6118d019b41ab1f5d7d95ab5a7bb0101">folderGetSubList</a> (bool _showHidenFile=true, bool _getFolderAndOther=true, bool _getFile=true, bool _temporaryFile=true)</td></tr>
+<tr class="separator:a6118d019b41ab1f5d7d95ab5a7bb0101"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f572a50530850032a1a1c289e09379c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classetk_1_1_f_s_node.html">etk::FSNode</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a4f572a50530850032a1a1c289e09379c">folderGetSubList</a> (bool _showHidenFile=true, bool _getFolderAndOther=true, bool _getFile=true, const std::string &amp;_filter=&quot;.*&quot;)</td></tr>
+<tr class="separator:a4f572a50530850032a1a1c289e09379c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae496271c3d69970b4b0af2539ee535f0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#ae496271c3d69970b4b0af2539ee535f0">folderGetSub</a> (bool _getFolder, bool _getFile, const std::string &amp;_filter)</td></tr>
+<tr class="separator:ae496271c3d69970b4b0af2539ee535f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49da9a7c76bf4ccea34c9b82519cdca4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_f_s_node.html">etk::FSNode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a49da9a7c76bf4ccea34c9b82519cdca4">folderGetParent</a> ()</td></tr>
+<tr class="separator:a49da9a7c76bf4ccea34c9b82519cdca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81cf89d3d642aeaf9b4f5aee6bef88ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a81cf89d3d642aeaf9b4f5aee6bef88ad">folderGetRecursiveFiles</a> (std::vector&lt; std::string &gt; &amp;_output, bool _recursiveEnable=true)</td></tr>
+<tr class="separator:a81cf89d3d642aeaf9b4f5aee6bef88ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f65abf3d418ab2144c18b3d3f620aba"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a6f65abf3d418ab2144c18b3d3f620aba">fileHasExtention</a> ()</td></tr>
+<tr class="separator:a6f65abf3d418ab2144c18b3d3f620aba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a468e51069edcaeb8fcc649610f0e4445"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a468e51069edcaeb8fcc649610f0e4445">fileGetExtention</a> ()</td></tr>
+<tr class="separator:a468e51069edcaeb8fcc649610f0e4445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61e074f418b83b53c1b8ee5afd0cce61"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a61e074f418b83b53c1b8ee5afd0cce61">fileSize</a> ()</td></tr>
+<tr class="separator:a61e074f418b83b53c1b8ee5afd0cce61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac09fb616871d73603e419aa44bf9eacf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#ac09fb616871d73603e419aa44bf9eacf">fileOpenRead</a> ()</td></tr>
+<tr class="separator:ac09fb616871d73603e419aa44bf9eacf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68cf71c003e9ba37cace50e23870feaa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a68cf71c003e9ba37cace50e23870feaa">fileOpenWrite</a> ()</td></tr>
+<tr class="separator:a68cf71c003e9ba37cace50e23870feaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76e77058e7e2a031b57a0662d9333401"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a76e77058e7e2a031b57a0662d9333401">fileOpenAppend</a> ()</td></tr>
+<tr class="separator:a76e77058e7e2a031b57a0662d9333401"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66f7d8975d3f6a4c954681dd6ae3e02a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a66f7d8975d3f6a4c954681dd6ae3e02a">fileIsOpen</a> ()</td></tr>
+<tr class="separator:a66f7d8975d3f6a4c954681dd6ae3e02a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e9146d1e8984f05221d4dbaa1bcf9b7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a5e9146d1e8984f05221d4dbaa1bcf9b7">fileClose</a> ()</td></tr>
+<tr class="separator:a5e9146d1e8984f05221d4dbaa1bcf9b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39af4e62b1edb91776c9c60f5f6b1357"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a39af4e62b1edb91776c9c60f5f6b1357">fileGets</a> (char *_elementLine, int64_t _maxData)</td></tr>
+<tr class="separator:a39af4e62b1edb91776c9c60f5f6b1357"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c1977929df9d1a8c108de087c3ae876"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a6c1977929df9d1a8c108de087c3ae876">fileGet</a> ()</td></tr>
+<tr class="separator:a6c1977929df9d1a8c108de087c3ae876"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a161b49d3946a503212753359211255f2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a161b49d3946a503212753359211255f2">fileGets</a> (std::string &amp;_output)</td></tr>
+<tr class="separator:a161b49d3946a503212753359211255f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c7e5278cf6b163a1c8ec59c94dbe4db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a4c7e5278cf6b163a1c8ec59c94dbe4db">filePut</a> (char _input)</td></tr>
+<tr class="separator:a4c7e5278cf6b163a1c8ec59c94dbe4db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bc82fb7cb089dfbe4ed213b64fc64ab"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a0bc82fb7cb089dfbe4ed213b64fc64ab">filePuts</a> (const std::string &amp;_input)</td></tr>
+<tr class="separator:a0bc82fb7cb089dfbe4ed213b64fc64ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72bb0d5702cb0b43de5133cf238704d4"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a72bb0d5702cb0b43de5133cf238704d4">fileRead</a> (void *_data, int64_t _blockSize, int64_t _nbBlock)</td></tr>
+<tr class="separator:a72bb0d5702cb0b43de5133cf238704d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3473eebff7ce59fc5bb5024b035d3e5"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#aa3473eebff7ce59fc5bb5024b035d3e5">fileWrite</a> (const void *_data, int64_t _blockSize, int64_t _nbBlock)</td></tr>
+<tr class="separator:aa3473eebff7ce59fc5bb5024b035d3e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bb2d304bc95da4a1016d61cd850cc5a"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a7bb2d304bc95da4a1016d61cd850cc5a">fileTell</a> ()</td></tr>
+<tr class="separator:a7bb2d304bc95da4a1016d61cd850cc5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e1033278c99f839709175a77eeebeb5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a6e1033278c99f839709175a77eeebeb5">fileSeek</a> (long int _offset, enum <a class="el" href="namespaceetk.html#a4a0133c254ab2433999c1b61fd9d993e">etk::seekNode</a> _origin)</td></tr>
+<tr class="separator:a6e1033278c99f839709175a77eeebeb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a137d6ce15b480ae93926452ed9fdb970"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a137d6ce15b480ae93926452ed9fdb970">fileFlush</a> ()</td></tr>
+<tr class="separator:a137d6ce15b480ae93926452ed9fdb970"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab0646087feb6c821cf2756ce79f8702"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aab0646087feb6c821cf2756ce79f8702"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#aab0646087feb6c821cf2756ce79f8702">fileReadAll</a> ()</td></tr>
+<tr class="separator:aab0646087feb6c821cf2756ce79f8702"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e8940857bed1b5268cb77c48595168f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#a5e8940857bed1b5268cb77c48595168f">fileReadAllString</a> ()</td></tr>
+<tr class="separator:a5e8940857bed1b5268cb77c48595168f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7861ffd14859cc39fb0b12ceebbcd10"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ab7861ffd14859cc39fb0b12ceebbcd10"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#ab7861ffd14859cc39fb0b12ceebbcd10">fileWriteAll</a> (const std::vector&lt; T &gt; &amp;_value)</td></tr>
+<tr class="separator:ab7861ffd14859cc39fb0b12ceebbcd10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa89ddb8a015833889bb9c1943647acad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html#aa89ddb8a015833889bb9c1943647acad">fileWriteAll</a> (const std::string &amp;_value)</td></tr>
+<tr class="separator:aa89ddb8a015833889bb9c1943647acad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>FS node is for File System IO access (named classicly "node in linux EXT) This class is independent of the OS, If you acces to a file in windows, it might generate the right like Linux (it is important to know that windows right is lighter than linux) </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9bd5c806953db1a55e1b0653a5111c7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bd5c806953db1a55e1b0653a5111c7b">&sect;&nbsp;</a></span>FSNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">etk::FSNode::FSNode </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_path</em> = <code>&quot;~&quot;</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_path</td><td>Path of the curent file /folder ... </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa15899502c51cbf37ffc6f7284f3535b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa15899502c51cbf37ffc6f7284f3535b">&sect;&nbsp;</a></span>~FSNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">etk::FSNode::~FSNode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destructor. </p>
+<dl class="section note"><dt>Note</dt><dd>you will have some warning if you did not close your files </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="adbdbfccfea72e09573ef9fdeec20d0f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbdbfccfea72e09573ef9fdeec20d0f7">&sect;&nbsp;</a></span>exist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::exist </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if the node exist. </p>
+<dl class="section return"><dt>Returns</dt><dd>true : The node existed. </dd>
+<dd>
+false : The node does not exist. </dd></dl>
+
+</div>
+</div>
+<a id="a5e9146d1e8984f05221d4dbaa1bcf9b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e9146d1e8984f05221d4dbaa1bcf9b7">&sect;&nbsp;</a></span>fileClose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::fileClose </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Close the curent file. </p>
+<dl class="section return"><dt>Returns</dt><dd>true : action done </dd>
+<dd>
+false : action not done </dd></dl>
+
+</div>
+</div>
+<a id="a137d6ce15b480ae93926452ed9fdb970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a137d6ce15b480ae93926452ed9fdb970">&sect;&nbsp;</a></span>fileFlush()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::FSNode::fileFlush </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flush the current file. </p>
+
+</div>
+</div>
+<a id="a6c1977929df9d1a8c108de087c3ae876"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c1977929df9d1a8c108de087c3ae876">&sect;&nbsp;</a></span>fileGet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char etk::FSNode::fileGet </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a unique data in the file. </p>
+<dl class="section return"><dt>Returns</dt><dd>the next element in the file. </dd></dl>
+
+</div>
+</div>
+<a id="a468e51069edcaeb8fcc649610f0e4445"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a468e51069edcaeb8fcc649610f0e4445">&sect;&nbsp;</a></span>fileGetExtention()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string etk::FSNode::fileGetExtention </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the extention of the Node. </p>
+<dl class="section return"><dt>Returns</dt><dd>the requested extention </dd></dl>
+
+</div>
+</div>
+<a id="a39af4e62b1edb91776c9c60f5f6b1357"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39af4e62b1edb91776c9c60f5f6b1357">&sect;&nbsp;</a></span>fileGets() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* etk::FSNode::fileGets </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>_elementLine</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>_maxData</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the pointer on the start line and the next line (or null) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">_elementLine</td><td>Pointer to an array of chars where the string read is copied. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_maxData</td><td>Maximum number of characters to be copied into str (including the terminating null-character). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the pointer on the end of the cuurent line. </dd></dl>
+
+</div>
+</div>
+<a id="a161b49d3946a503212753359211255f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a161b49d3946a503212753359211255f2">&sect;&nbsp;</a></span>fileGets() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::fileGets </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>_output</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a compleate line in a text file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">_output</td><td>the next element in the file. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true The file is not ended. </dd>
+<dd>
+false The file is ended. </dd></dl>
+
+</div>
+</div>
+<a id="a6f65abf3d418ab2144c18b3d3f620aba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f65abf3d418ab2144c18b3d3f620aba">&sect;&nbsp;</a></span>fileHasExtention()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::fileHasExtention </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if the file have an extention ( ***.ccc) </p>
+<dl class="section return"><dt>Returns</dt><dd>true The file have an extention. </dd>
+<dd>
+false The file have NO extention. </dd></dl>
+
+</div>
+</div>
+<a id="a66f7d8975d3f6a4c954681dd6ae3e02a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66f7d8975d3f6a4c954681dd6ae3e02a">&sect;&nbsp;</a></span>fileIsOpen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::fileIsOpen </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if the current file is Open. </p>
+<dl class="section return"><dt>Returns</dt><dd>true : File is open in write or in read </dd>
+<dd>
+false : File is NOT open in write or in read </dd></dl>
+
+</div>
+</div>
+<a id="a76e77058e7e2a031b57a0662d9333401"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76e77058e7e2a031b57a0662d9333401">&sect;&nbsp;</a></span>fileOpenAppend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::fileOpenAppend </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Open the file in write Append Mode. </p>
+<dl class="section note"><dt>Note</dt><dd>You can not do it with the DATA: file ==&gt; this is not allowed in some Board like Android) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true : action done </dd>
+<dd>
+false : action not done </dd></dl>
+
+</div>
+</div>
+<a id="ac09fb616871d73603e419aa44bf9eacf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac09fb616871d73603e419aa44bf9eacf">&sect;&nbsp;</a></span>fileOpenRead()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::fileOpenRead </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Open the file in Read mode. </p>
+<dl class="section return"><dt>Returns</dt><dd>true : action done </dd>
+<dd>
+false : action not done </dd></dl>
+
+</div>
+</div>
+<a id="a68cf71c003e9ba37cace50e23870feaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68cf71c003e9ba37cace50e23870feaa">&sect;&nbsp;</a></span>fileOpenWrite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::fileOpenWrite </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Open the file in write Mode. </p>
+<dl class="section note"><dt>Note</dt><dd>You can not do it with the DATA: file ==&gt; this is not allowed in some Board like Android) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true : action done </dd>
+<dd>
+false : action not done </dd></dl>
+
+</div>
+</div>
+<a id="a4c7e5278cf6b163a1c8ec59c94dbe4db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c7e5278cf6b163a1c8ec59c94dbe4db">&sect;&nbsp;</a></span>filePut()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::filePut </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>_input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write data on the file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_input</td><td>data to write. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true Write done corectly. </dd>
+<dd>
+false ErrorOn write. </dd></dl>
+
+</div>
+</div>
+<a id="a0bc82fb7cb089dfbe4ed213b64fc64ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bc82fb7cb089dfbe4ed213b64fc64ab">&sect;&nbsp;</a></span>filePuts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::filePuts </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write data on the file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_input</td><td>data to write. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true Write done corectly. </dd>
+<dd>
+false ErrorOn write. </dd></dl>
+
+</div>
+</div>
+<a id="a72bb0d5702cb0b43de5133cf238704d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72bb0d5702cb0b43de5133cf238704d4">&sect;&nbsp;</a></span>fileRead()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t etk::FSNode::fileRead </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>_blockSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>_nbBlock</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read data from the file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">_data</td><td>Pointer on the buffer that might be set the data </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_blockSize</td><td>Size of one block of data </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_nbBlock</td><td>Number of block needed </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of element read (in block number) </dd></dl>
+
+</div>
+</div>
+<a id="aab0646087feb6c821cf2756ce79f8702"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab0646087feb6c821cf2756ce79f8702">&sect;&nbsp;</a></span>fileReadAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;T&gt; etk::FSNode::fileReadAll </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read all element in a file and set it in a generic vector. </p>
+<dl class="section return"><dt>Returns</dt><dd>the read vector </dd></dl>
+
+</div>
+</div>
+<a id="a5e8940857bed1b5268cb77c48595168f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e8940857bed1b5268cb77c48595168f">&sect;&nbsp;</a></span>fileReadAllString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string etk::FSNode::fileReadAllString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read all element in a file and set it in a generic std::string. </p>
+<dl class="section return"><dt>Returns</dt><dd>the read string </dd></dl>
+
+</div>
+</div>
+<a id="a6e1033278c99f839709175a77eeebeb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e1033278c99f839709175a77eeebeb5">&sect;&nbsp;</a></span>fileSeek()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::fileSeek </td>
+          <td>(</td>
+          <td class="paramtype">long int&#160;</td>
+          <td class="paramname"><em>_offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">enum <a class="el" href="namespaceetk.html#a4a0133c254ab2433999c1b61fd9d993e">etk::seekNode</a>&#160;</td>
+          <td class="paramname"><em>_origin</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Move in the file Position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_offset</td><td>Offset to apply at the file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_origin</td><td>Origin of the position </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true : action done </dd>
+<dd>
+false : action not done </dd></dl>
+
+</div>
+</div>
+<a id="a61e074f418b83b53c1b8ee5afd0cce61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61e074f418b83b53c1b8ee5afd0cce61">&sect;&nbsp;</a></span>fileSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t etk::FSNode::fileSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the File size. </p>
+<dl class="section return"><dt>Returns</dt><dd>the requested size </dd></dl>
+
+</div>
+</div>
+<a id="a7bb2d304bc95da4a1016d61cd850cc5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bb2d304bc95da4a1016d61cd850cc5a">&sect;&nbsp;</a></span>fileTell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t etk::FSNode::fileTell </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the position in the file. </p>
+<dl class="section return"><dt>Returns</dt><dd>the requested position. </dd></dl>
+
+</div>
+</div>
+<a id="aa3473eebff7ce59fc5bb5024b035d3e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3473eebff7ce59fc5bb5024b035d3e5">&sect;&nbsp;</a></span>fileWrite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t etk::FSNode::fileWrite </td>
+          <td>(</td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>_blockSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>_nbBlock</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Write data on the file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_data</td><td>Pointer on the buffer that might be set on the file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_blockSize</td><td>Size of one block of data </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_nbBlock</td><td>Number of block needed </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of element written (in block number) </dd></dl>
+
+</div>
+</div>
+<a id="ab7861ffd14859cc39fb0b12ceebbcd10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7861ffd14859cc39fb0b12ceebbcd10">&sect;&nbsp;</a></span>fileWriteAll() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::FSNode::fileWriteAll </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Write all the vector in a file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_value</td><td>Data to write in the File </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa89ddb8a015833889bb9c1943647acad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa89ddb8a015833889bb9c1943647acad">&sect;&nbsp;</a></span>fileWriteAll() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::FSNode::fileWriteAll </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Write all the vector in a file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_value</td><td>String data to write in the File </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad1343533b97b6ced90b9319864db0d5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1343533b97b6ced90b9319864db0d5a">&sect;&nbsp;</a></span>folderCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t etk::FSNode::folderCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Count the number of subFolder in the curent Folder. </p>
+<dl class="section return"><dt>Returns</dt><dd>&gt;=0 nb of subElement </dd>
+<dd>
+-1 an error occured ==&gt; not a folder ??? </dd></dl>
+
+</div>
+</div>
+<a id="a49da9a7c76bf4ccea34c9b82519cdca4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49da9a7c76bf4ccea34c9b82519cdca4">&sect;&nbsp;</a></span>folderGetParent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classetk_1_1_f_s_node.html">etk::FSNode</a> etk::FSNode::folderGetParent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the father node of this node. </p>
+<dl class="section return"><dt>Returns</dt><dd>The requested node </dd></dl>
+
+</div>
+</div>
+<a id="a81cf89d3d642aeaf9b4f5aee6bef88ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81cf89d3d642aeaf9b4f5aee6bef88ad">&sect;&nbsp;</a></span>folderGetRecursiveFiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::FSNode::folderGetRecursiveFiles </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_recursiveEnable</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get all the File inside a Folder (done recursively) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">_output</td><td>List of all the File names (You must clear it before set it in) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_recursiveEnable</td><td>Activate the recursive mode (enable by default) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae496271c3d69970b4b0af2539ee535f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae496271c3d69970b4b0af2539ee535f0">&sect;&nbsp;</a></span>folderGetSub()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; etk::FSNode::folderGetSub </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_getFolder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_getFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_filter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the List of all node inside a node (folder only) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_getFolder</td><td>get folder </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_getFile</td><td>Get files </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_filter</td><td>Generic regex string to filter file names </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The requested list </dd></dl>
+
+</div>
+</div>
+<a id="a6118d019b41ab1f5d7d95ab5a7bb0101"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6118d019b41ab1f5d7d95ab5a7bb0101">&sect;&nbsp;</a></span>folderGetSubList() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="classetk_1_1_f_s_node.html">etk::FSNode</a>*&gt; etk::FSNode::folderGetSubList </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_showHidenFile</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_getFolderAndOther</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_getFile</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_temporaryFile</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the List of all node inside a node (folder only) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_showHidenFile</td><td>Add hidden file/folder/... </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_getFolderAndOther</td><td>get folder </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_getFile</td><td>Get files </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_temporaryFile</td><td>add Tmp file like .bck or ~ </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The requested list </dd></dl>
+
+</div>
+</div>
+<a id="a4f572a50530850032a1a1c289e09379c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f572a50530850032a1a1c289e09379c">&sect;&nbsp;</a></span>folderGetSubList() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="classetk_1_1_f_s_node.html">etk::FSNode</a>*&gt; etk::FSNode::folderGetSubList </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_showHidenFile</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_getFolderAndOther</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_getFile</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_filter</em> = <code>&quot;.*&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the List of all node inside a node (folder only) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_showHidenFile</td><td>Add hidden file/folder/... </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_getFolderAndOther</td><td>get folder </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_getFile</td><td>Get files </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_filter</td><td>Generic regex string to filter file names </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The requested list </dd></dl>
+
+</div>
+</div>
+<a id="ad3e7ec360ef0d80feed64edd1e43429b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3e7ec360ef0d80feed64edd1e43429b">&sect;&nbsp;</a></span>getFileSystemName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string etk::FSNode::getFileSystemName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the Generate FileSystem name. </p>
+<dl class="section return"><dt>Returns</dt><dd>the requested filename </dd></dl>
+
+</div>
+</div>
+<a id="a0cd7ffd53fa3bc5e3654109509da15f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cd7ffd53fa3bc5e3654109509da15f7">&sect;&nbsp;</a></span>getName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string etk::FSNode::getName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the current compleate node name (file system name) </p>
+<dl class="section return"><dt>Returns</dt><dd>All the user name definition (like /xxxxx/xxxxx/myFile.kkk or c:/xxxxx/xxxxx/myFile.kkk) </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Auto remove of ../../../ and // </dd></dl>
+
+</div>
+</div>
+<a id="a047391b0333908c886ee0c53e12dec82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a047391b0333908c886ee0c53e12dec82">&sect;&nbsp;</a></span>getNameFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string etk::FSNode::getNameFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the file or current file name (if it was a file) </p>
+<dl class="section return"><dt>Returns</dt><dd>the name of the node (like myFile.kkk) </dd></dl>
+
+</div>
+</div>
+<a id="a0c51598f0293cc347ed44d062f7374e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c51598f0293cc347ed44d062f7374e1">&sect;&nbsp;</a></span>getNameFolder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string etk::FSNode::getNameFolder </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the current folder of the Node. (file system name) </p>
+<dl class="section return"><dt>Returns</dt><dd>the common name define (like /xxxxx/xxxxx/ or c:/xxxxx/xxxxx/) </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Auto remove of ../../../ and // </dd></dl>
+
+</div>
+</div>
+<a id="a86038b56fd2349317459c1ce4a58a788"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86038b56fd2349317459c1ce4a58a788">&sect;&nbsp;</a></span>getNodeType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespaceetk.html#a99c2dd948d6da85ed816fa0c267862e8">typeNode</a> etk::FSNode::getNodeType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the node type. </p>
+<dl class="section return"><dt>Returns</dt><dd>the requested type, typeNode_unknow if it does not existed </dd></dl>
+
+</div>
+</div>
+<a id="a596be9f5161b36379271158623e7f0f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a596be9f5161b36379271158623e7f0f8">&sect;&nbsp;</a></span>getRelativeFolder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string etk::FSNode::getRelativeFolder </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the current folder of the Node. </p>
+<dl class="section return"><dt>Returns</dt><dd>the common name define (like DATA:xxxxx/xxxxx/) </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Auto remove of ../../../ and // </dd></dl>
+
+</div>
+</div>
+<a id="ab757b8663591a87ae61ddbb0b69eff89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab757b8663591a87ae61ddbb0b69eff89">&sect;&nbsp;</a></span>getRight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classetk_1_1_f_s_node_right.html">etk::FSNodeRight</a> etk::FSNode::getRight </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the node Right. </p>
+<dl class="section return"><dt>Returns</dt><dd>the requested right </dd></dl>
+
+</div>
+</div>
+<a id="a5f0c2f85b19d025bd113c62884230784"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f0c2f85b19d025bd113c62884230784">&sect;&nbsp;</a></span>getTypeAccess()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespaceetk.html#a661ec570d3bddcc050a21b1c4a421d86">FSNType</a> etk::FSNode::getTypeAccess </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the node type (DATA/DIRECT...) </p>
+<dl class="section return"><dt>Returns</dt><dd>the requested type </dd></dl>
+
+</div>
+</div>
+<a id="af2b67e6e158d407375013845b4afd6c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2b67e6e158d407375013845b4afd6c4">&sect;&nbsp;</a></span>move()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::move </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Move the Node at a new path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_path</td><td>The new path </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true : action done </dd>
+<dd>
+false : action not done </dd></dl>
+
+</div>
+</div>
+<a id="aa7430072e51239eb82473587db573832"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7430072e51239eb82473587db573832">&sect;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_f_s_node.html">etk::FSNode</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if the 2 node are NOT link with the same file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>input node </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>false : same node, true otherwise </dd></dl>
+
+</div>
+</div>
+<a id="ad08da50ffc596edbf26abec30f206e9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad08da50ffc596edbf26abec30f206e9f">&sect;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_f_s_node.html">etk::FSNode</a>&amp; etk::FSNode::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_f_s_node.html">etk::FSNode</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>copy the other FSnode ==&gt; for vector </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>input node </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the current modify node </dd></dl>
+
+</div>
+</div>
+<a id="a3da438d512b71fe1ad5f8d85be432bf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3da438d512b71fe1ad5f8d85be432bf4">&sect;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_f_s_node.html">etk::FSNode</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if the 2 node are link with the same file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>input node </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true : same node, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a012796b3f0c823826f04559fd132c32a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a012796b3f0c823826f04559fd132c32a">&sect;&nbsp;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::remove </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove the current node ( if folder, this remove all subfolder but not the Link subfolder) </p>
+<dl class="section return"><dt>Returns</dt><dd>true : action done </dd>
+<dd>
+false : action not done </dd></dl>
+
+</div>
+</div>
+<a id="a6e787e7f3148dae0c74139be7b05ab43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e787e7f3148dae0c74139be7b05ab43">&sect;&nbsp;</a></span>setName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::FSNode::setName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_newName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change the Node seeing (not rename the node, for this <a class="el" href="namespaceetk.html#adc8c7d89695b20bde7c16279578df6d8">etk::FSNodeMove</a>) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_newName</td><td>New node name to show </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true action done </dd>
+<dd>
+false action not done </dd></dl>
+
+</div>
+</div>
+<a id="a65bce1c8887edad87a90c8c7ffb861d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65bce1c8887edad87a90c8c7ffb861d3">&sect;&nbsp;</a></span>setRight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::setRight </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classetk_1_1_f_s_node_right.html">etk::FSNodeRight</a>&#160;</td>
+          <td class="paramname"><em>_newRight</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the specific right of the node. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_newRight</td><td>new right to set </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true : action done </dd>
+<dd>
+false : action not done </dd></dl>
+
+</div>
+</div>
+<a id="a43c3b946ef91744dd2991734166c1d87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43c3b946ef91744dd2991734166c1d87">&sect;&nbsp;</a></span>timeAccessed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t etk::FSNode::timeAccessed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the Accessed time of the File. </p>
+<dl class="section return"><dt>Returns</dt><dd>The time requested </dd></dl>
+
+</div>
+</div>
+<a id="a17022f6598927b1b9f169cbcd99099e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17022f6598927b1b9f169cbcd99099e6">&sect;&nbsp;</a></span>timeAccessedString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string etk::FSNode::timeAccessedString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the Accessed time of the File. </p>
+<dl class="section return"><dt>Returns</dt><dd>The time requested (in string) </dd></dl>
+
+</div>
+</div>
+<a id="a46fe9a1916400ca932d31a847dff0f21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46fe9a1916400ca932d31a847dff0f21">&sect;&nbsp;</a></span>timeCreated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t etk::FSNode::timeCreated </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the creating time of the File. </p>
+<dl class="section return"><dt>Returns</dt><dd>The time requested </dd></dl>
+
+</div>
+</div>
+<a id="a30a497f2d095469b5846756a1b51a749"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30a497f2d095469b5846756a1b51a749">&sect;&nbsp;</a></span>timeCreatedString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string etk::FSNode::timeCreatedString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the creating time of the File. </p>
+<dl class="section return"><dt>Returns</dt><dd>The time requested (in string) </dd></dl>
+
+</div>
+</div>
+<a id="afa84341a6764252f5fb70eb48540f496"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa84341a6764252f5fb70eb48540f496">&sect;&nbsp;</a></span>timeModified()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t etk::FSNode::timeModified </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the modifying time of the File. </p>
+<dl class="section return"><dt>Returns</dt><dd>The time requested </dd></dl>
+
+</div>
+</div>
+<a id="a3cdee551ca80df9597a408b42b4f7210"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cdee551ca80df9597a408b42b4f7210">&sect;&nbsp;</a></span>timeModifiedString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string etk::FSNode::timeModifiedString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the modifying time of the File. </p>
+<dl class="section return"><dt>Returns</dt><dd>The time requested (in string) </dd></dl>
+
+</div>
+</div>
+<a id="a6fd01aeb7f84399ad99573e0a7e2f8fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fd01aeb7f84399ad99573e0a7e2f8fc">&sect;&nbsp;</a></span>touch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool etk::FSNode::touch </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>update the Time of the file with the current time </p>
+<dl class="section return"><dt>Returns</dt><dd>true : action done </dd>
+<dd>
+false : action not done </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>framework/atria-soft/etk/etk/os/<a class="el" href="_f_s_node_8hpp_source.html">FSNode.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Oct 24 2016 10:48:19 for Etk: Ewol Tool Kit by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

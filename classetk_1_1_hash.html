@@ -1,0 +1,874 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.12"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Etk: Ewol Tool Kit: etk::Hash&lt; MY_TYPE &gt; Class Template Reference</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Etk: Ewol Tool Kit 0.10.0</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Main&nbsp;Page</a></li>
+                        <li><a href="pages.html">Related&nbsp;Pages</a></li>
+                        <li><a href="namespaces.html">Namespaces</a></li>
+                        <li><a href="annotated.html">Classes</a></li>
+                        <li><a href="files.html">Files</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Link-libs<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://HeeroYui.github.io/lutin">lutin</a></li>
+                                <li><a href="http://atria-soft.github.io/ewol">ewol</a></li>
+                                <li><a href="http://atria-soft.github.io/etk">etk</a></li>
+                                <li><a href="http://atria-soft.github.io/ejson">ejson</a></li>
+                                <li><a href="http://atria-soft.github.io/exml">exml</a></li>
+                                <li><a href="http://atria-soft.github.io/esvg">esvg</a></li>
+                                <li><a href="http://atria-soft.github.io/egami">egami</a></li>
+                                <li><a href="http://atria-soft.github.io/gale">gale</a></li>
+                                <li><a href="http://atria-soft.github.io/ege">ege</a></li>
+                                <li><a href="http://atria-soft.github.io/elog">elog</a></li>
+                                <li><a href="http://atria-soft.github.io/ememory">ememory</a></li>
+                                <li><a href="http://atria-soft.github.io/enet">enet</a></li>
+                                <li><a href="http://atria-soft.github.io/eproperty">eproperty</a></li>
+                                <li><a href="http://atria-soft.github.io/esignal">esignal</a></li>
+                                <li><a href="http://atria-soft.github.io/zeus">zeus</a></li>
+                                <li><a href="http://atria-soft.github.io/audio-ess">audio-ess</a></li>
+                                <li><a href="http://musicdsp.github.io/audio">audio</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-drain">audio-drain</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-orchestra">audio-orchestra</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-river">audio-river</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="search-box" class="input-group">
+                        <div class="input-group-btn">
+                            <button aria-expanded="false" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">All</a></li>
+                                <li><a href="#">Classes</a></li>
+                                <li><a href="#">Namespaces</a></li>
+                                <li><a href="#">Files</a></li>
+                                <li><a href="#">Functions</a></li>
+                                <li><a href="#">Variables</a></li>
+                                <li><a href="#">Typedefs</a></li>
+                                <li><a href="#">Enumerations</a></li>
+                                <li><a href="#">Enumerator</a></li>
+                                <li><a href="#">Friends</a></li>
+                                <li><a href="#">Macros</a></li>
+                                <li><a href="#">Pages</a></li>
+                            </ul>
+                        </div>
+                        <button id="search-close" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <input id="search-field" class="form-control" accesskey="S" onkeydown="searchBox.OnSearchFieldChange(event);" placeholder="Search ..." type="text">
+                    </div>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel panel-default" style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+<!-- Generated by Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Search');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespaceetk.html">etk</a></li><li class="navelem"><a class="el" href="classetk_1_1_hash.html">Hash</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="classetk_1_1_hash-members.html">List of all members</a>  </div>
+  <div class="headertitle">
+<div class="title">etk::Hash&lt; MY_TYPE &gt; Class Template Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_hash_8hpp_source.html">Hash.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a2a2399e884a1a61be01ee702d90514db"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#a2a2399e884a1a61be01ee702d90514db">Hash</a> (int32_t _count=0)</td></tr>
+<tr class="separator:a2a2399e884a1a61be01ee702d90514db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2b71e6597e028b28272391e3e951474"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#ac2b71e6597e028b28272391e3e951474">~Hash</a> ()</td></tr>
+<tr class="separator:ac2b71e6597e028b28272391e3e951474"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e8eb6f69743a44f53aa483acb770dbc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#a4e8eb6f69743a44f53aa483acb770dbc">clear</a> ()</td></tr>
+<tr class="separator:a4e8eb6f69743a44f53aa483acb770dbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb138427203bbe63b6ab41e19ed33a6b"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#adb138427203bbe63b6ab41e19ed33a6b">getId</a> (const std::string &amp;_key) const</td></tr>
+<tr class="separator:adb138427203bbe63b6ab41e19ed33a6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a159e9cd496432089fccb73e7eaea376f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#a159e9cd496432089fccb73e7eaea376f">exist</a> (const std::string &amp;_name) const</td></tr>
+<tr class="separator:a159e9cd496432089fccb73e7eaea376f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9f1d4cebc9fc8d6222d7e98829380d4"><td class="memItemLeft" align="right" valign="top">MY_TYPE &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#ae9f1d4cebc9fc8d6222d7e98829380d4">get</a> (const std::string &amp;_key) const</td></tr>
+<tr class="separator:ae9f1d4cebc9fc8d6222d7e98829380d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8308fce79ba6ba0f53beb62979663e8e"><td class="memItemLeft" align="right" valign="top">MY_TYPE &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#a8308fce79ba6ba0f53beb62979663e8e">operator[]</a> (const std::string &amp;_key)</td></tr>
+<tr class="separator:a8308fce79ba6ba0f53beb62979663e8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51a28023b97a63f91d01895c9580932c"><td class="memItemLeft" align="right" valign="top">const MY_TYPE &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#a51a28023b97a63f91d01895c9580932c">operator[]</a> (const std::string &amp;_key) const</td></tr>
+<tr class="separator:a51a28023b97a63f91d01895c9580932c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a723e93ae06d3d612dc4ebf2e1e7ffd5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#a723e93ae06d3d612dc4ebf2e1e7ffd5a">add</a> (const std::string &amp;_key, const MY_TYPE &amp;_value)</td></tr>
+<tr class="separator:a723e93ae06d3d612dc4ebf2e1e7ffd5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af372b733bfbccd0d67f4df1fbfb62ad7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#af372b733bfbccd0d67f4df1fbfb62ad7">set</a> (const std::string &amp;_key, const MY_TYPE &amp;_value)</td></tr>
+<tr class="separator:af372b733bfbccd0d67f4df1fbfb62ad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66ac7988470581697c904abe6c852a62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#a66ac7988470581697c904abe6c852a62">remove</a> (const std::string &amp;_key)</td></tr>
+<tr class="separator:a66ac7988470581697c904abe6c852a62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d639eb19c25b1ff76d34c225a132deb"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#a4d639eb19c25b1ff76d34c225a132deb">size</a> () const</td></tr>
+<tr class="separator:a4d639eb19c25b1ff76d34c225a132deb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd20b0f2f430883c328169640234fd60"><td class="memItemLeft" align="right" valign="top">MY_TYPE &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#acd20b0f2f430883c328169640234fd60">operator[]</a> (size_t _pos)</td></tr>
+<tr class="separator:acd20b0f2f430883c328169640234fd60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a748c385e6c21fca9e78cf02407b198f3"><td class="memItemLeft" align="right" valign="top">const MY_TYPE &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#a748c385e6c21fca9e78cf02407b198f3">operator[]</a> (size_t _pos) const</td></tr>
+<tr class="separator:a748c385e6c21fca9e78cf02407b198f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2068c84a2a91241eb8a59402724a7b6"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#af2068c84a2a91241eb8a59402724a7b6">getKey</a> (size_t _pos) const</td></tr>
+<tr class="separator:af2068c84a2a91241eb8a59402724a7b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31119d35657cb2e0798f58917b51d5c1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#a31119d35657cb2e0798f58917b51d5c1">getKeys</a> () const</td></tr>
+<tr class="separator:a31119d35657cb2e0798f58917b51d5c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a650bf5f92fe0580e9d79793816adc3eb"><td class="memItemLeft" align="right" valign="top">const MY_TYPE &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#a650bf5f92fe0580e9d79793816adc3eb">getValue</a> (size_t _pos) const</td></tr>
+<tr class="separator:a650bf5f92fe0580e9d79793816adc3eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a041e5ec334a0ff90fc4f3590e5ab7c81"><td class="memItemLeft" align="right" valign="top">MY_TYPE &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_hash.html#a041e5ec334a0ff90fc4f3590e5ab7c81">getValue</a> (size_t _pos)</td></tr>
+<tr class="separator:a041e5ec334a0ff90fc4f3590e5ab7c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;class MY_TYPE&gt;<br />
+class etk::Hash&lt; MY_TYPE &gt;</h3>
+
+<p><a class="el" href="classetk_1_1_hash.html" title="Hash table tamplate is a simple classical hash interface. A hash table is a equivalent of the diction...">Hash</a> table tamplate is a simple classical hash interface. A hash table is a equivalent of the dictionary in python, this is a simple interfaace between a name and a value: </p>
+<ul>
+<li>"name" : 19</li>
+<li>"name 2" : 99</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>The name is unique and the value is what you want</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>check if something ele exist in the STD. (not the std::map and the std::unordered_map</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The index are all time availlable since they are created. The order is the the one created</dd></dl>
+<p>A simple example of use: </p><div class="fragment"><div class="line"><span class="comment">// Create a integer hash table</span></div><div class="line">Hash&lt;int&gt; myValue;</div><div class="line"><span class="comment">// add some element (note add and set is the same function)</span></div><div class="line">myValue.add(<span class="stringliteral">&quot;example&quot;</span>, 98837);</div><div class="line">myValue.add(<span class="stringliteral">&quot;plop&quot;</span>, 88);</div><div class="line"><span class="comment">// Display an element:</span></div><div class="line">printf(<span class="stringliteral">&quot;my value is : %d&quot;</span>, myValue[<span class="stringliteral">&quot;example&quot;</span>]);</div><div class="line"><span class="comment">// Change value of an element:</span></div><div class="line">myValue.set(<span class="stringliteral">&quot;example&quot;</span>, 99);</div><div class="line"><span class="comment">// Remove an element:</span></div><div class="line">myValue.remove(<span class="stringliteral">&quot;plop&quot;</span>);</div><div class="line"><span class="comment">//Clean all the table:</span></div><div class="line">myValue.clear();</div></div><!-- fragment --> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2a2399e884a1a61be01ee702d90514db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a2399e884a1a61be01ee702d90514db">&sect;&nbsp;</a></span>Hash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::<a class="el" href="classetk_1_1_hash.html">Hash</a> </td>
+          <td>(</td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>_count</em> = <code>0</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Contructor of the Hach table. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_count</td><td>Number ob basic elent in the vector. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac2b71e6597e028b28272391e3e951474"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2b71e6597e028b28272391e3e951474">&sect;&nbsp;</a></span>~Hash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::~<a class="el" href="classetk_1_1_hash.html">Hash</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destructor of the <a class="el" href="classetk_1_1_hash.html" title="Hash table tamplate is a simple classical hash interface. A hash table is a equivalent of the diction...">Hash</a> table(clear all element in the table) </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a723e93ae06d3d612dc4ebf2e1e7ffd5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a723e93ae06d3d612dc4ebf2e1e7ffd5a">&sect;&nbsp;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::add </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const MY_TYPE &amp;&#160;</td>
+          <td class="paramname"><em>_value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add an element OR set an element value. </p>
+<dl class="section note"><dt>Note</dt><dd>add and set is the same function. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_key</td><td>Name of the value to set in the hash table. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_value</td><td>Value to set in the hash table. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4e8eb6f69743a44f53aa483acb770dbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e8eb6f69743a44f53aa483acb770dbc">&sect;&nbsp;</a></span>clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Remove all entry in the <a class="el" href="classetk_1_1_hash.html" title="Hash table tamplate is a simple classical hash interface. A hash table is a equivalent of the diction...">Hash</a> table. </p>
+<dl class="section note"><dt>Note</dt><dd>It does not delete pointer if your value is a pointer type... </dd></dl>
+
+</div>
+</div>
+<a id="a159e9cd496432089fccb73e7eaea376f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a159e9cd496432089fccb73e7eaea376f">&sect;&nbsp;</a></span>exist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::exist </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if an element exist or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_name</td><td>Name of the hash requested </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the element exist </dd></dl>
+
+</div>
+</div>
+<a id="ae9f1d4cebc9fc8d6222d7e98829380d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9f1d4cebc9fc8d6222d7e98829380d4">&sect;&nbsp;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MY_TYPE&amp; <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::get </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_key</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a current element in the hash table, with his name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_key</td><td>Name of the hash requested </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Reference on the Element </dd></dl>
+
+</div>
+</div>
+<a id="adb138427203bbe63b6ab41e19ed33a6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb138427203bbe63b6ab41e19ed33a6b">&sect;&nbsp;</a></span>getId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::getId </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_key</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a current element ID in the <a class="el" href="classetk_1_1_hash.html" title="Hash table tamplate is a simple classical hash interface. A hash table is a equivalent of the diction...">Hash</a> table. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_key</td><td>Name of the hash requested </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Id of the element in the table or -1 of it does not existed </dd></dl>
+
+</div>
+</div>
+<a id="af2068c84a2a91241eb8a59402724a7b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2068c84a2a91241eb8a59402724a7b6">&sect;&nbsp;</a></span>getKey()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::getKey </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>_pos</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the name of the element at a specific position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_pos</td><td>Position of the element in the hash table. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>name of the element (key). </dd></dl>
+
+</div>
+</div>
+<a id="a31119d35657cb2e0798f58917b51d5c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31119d35657cb2e0798f58917b51d5c1">&sect;&nbsp;</a></span>getKeys()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::getKeys </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get all the element name (keys). </p>
+<dl class="section return"><dt>Returns</dt><dd>a vector of all name (key). </dd></dl>
+
+</div>
+</div>
+<a id="a650bf5f92fe0580e9d79793816adc3eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a650bf5f92fe0580e9d79793816adc3eb">&sect;&nbsp;</a></span>getValue() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const MY_TYPE&amp; <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::getValue </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>_pos</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a value of the hash table at a specific position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_pos</td><td>of the element in the hash table. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Value availlable at this position. </dd></dl>
+
+</div>
+</div>
+<a id="a041e5ec334a0ff90fc4f3590e5ab7c81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a041e5ec334a0ff90fc4f3590e5ab7c81">&sect;&nbsp;</a></span>getValue() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MY_TYPE&amp; <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::getValue </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>_pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get a value of the hash table at a specific position. (size_t) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_pos</td><td>of the element in the hash table. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Value availlable at this position. (size_t) </dd></dl>
+
+</div>
+</div>
+<a id="a8308fce79ba6ba0f53beb62979663e8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8308fce79ba6ba0f53beb62979663e8e">&sect;&nbsp;</a></span>operator[]() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MY_TYPE&amp; <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get an copy Element an a special position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_key</td><td>Name of the hash requested </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An reference on the copy of selected element </dd></dl>
+
+</div>
+</div>
+<a id="a51a28023b97a63f91d01895c9580932c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51a28023b97a63f91d01895c9580932c">&sect;&nbsp;</a></span>operator[]() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const MY_TYPE&amp; <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_key</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get an copy Element an a special position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_key</td><td>Name of the hash requested </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An reference on the copy of selected element </dd></dl>
+
+</div>
+</div>
+<a id="acd20b0f2f430883c328169640234fd60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd20b0f2f430883c328169640234fd60">&sect;&nbsp;</a></span>operator[]() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MY_TYPE&amp; <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>_pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get an element with his id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_pos</td><td>Position on the element in the hash table. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>requested element at this position. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>this is a dangerous use of the hash table. Maybe you will use a simple vector. </dd></dl>
+
+</div>
+</div>
+<a id="a748c385e6c21fca9e78cf02407b198f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a748c385e6c21fca9e78cf02407b198f3">&sect;&nbsp;</a></span>operator[]() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const MY_TYPE&amp; <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>_pos</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>get an element with his id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_pos</td><td>Position on the element in the hash table. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>requested element at this position. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>this is a dangerous use of the hash table. Maybe you will use a simple vector. </dd></dl>
+
+</div>
+</div>
+<a id="a66ac7988470581697c904abe6c852a62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66ac7988470581697c904abe6c852a62">&sect;&nbsp;</a></span>remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::remove </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Remove an element in the hash table. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_key</td><td>Name of the element to remove. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af372b733bfbccd0d67f4df1fbfb62ad7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af372b733bfbccd0d67f4df1fbfb62ad7">&sect;&nbsp;</a></span>set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::set </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const MY_TYPE &amp;&#160;</td>
+          <td class="paramname"><em>_value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set an element value. </p>
+<dl class="section note"><dt>Note</dt><dd>add and set is the same function. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_key</td><td>Name of the value to set in the hash table. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_value</td><td>Value to set in the hash table. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4d639eb19c25b1ff76d34c225a132deb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d639eb19c25b1ff76d34c225a132deb">&sect;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class MY_TYPE &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t <a class="el" href="classetk_1_1_hash.html">etk::Hash</a>&lt; MY_TYPE &gt;::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the number of element in the hash table. </p>
+<dl class="section return"><dt>Returns</dt><dd>number of elements </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>framework/atria-soft/etk/etk/<a class="el" href="_hash_8hpp_source.html">Hash.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Oct 24 2016 10:48:19 for Etk: Ewol Tool Kit by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

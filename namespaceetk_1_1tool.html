@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
         <meta name="generator" content="Doxygen 1.8.12"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <title>Etk: Ewol Tool Kit: ETK library</title>
+        <title>Etk: Ewol Tool Kit: etk::tool Namespace Reference</title>
         <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
         <script type="text/javascript" src="dynsections.js"></script>
         <link href="search/search.css" rel="stylesheet" type="text/css"/>
@@ -112,7 +112,6 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -127,42 +126,156 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespaceetk.html">etk</a></li><li class="navelem"><a class="el" href="namespaceetk_1_1tool.html">tool</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">ETK library </div>  </div>
+<div class="title">etk::tool Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="etk_mainpage_what"></a>
-What is ETK, and how can I use it?          </h1>
-<p>ETK, or Ewol Tool kit is a simple abstraction layer for some elements like mutex, std missing element(in android or MacOS) and ...</p>
-<p>We can simply say: Just a tool-box **(I use it to add many test prototyping ... and bad things ...)**</p>
-<p>ETK is composed of some part:</p><ul>
-<li>Log system interface</li>
-<li>File access abstraction (for android, data are stored in a .apk (== zip file))</li>
-<li>Mutex / semaphore abstraction (can not use pthread on windows)</li>
-<li>Regular expression</li>
-<li>Generic color interface</li>
-<li>Std adding missing element on some platform.</li>
-</ul>
-<h1><a class="anchor" id="etk_mainpage_langue"></a>
-What languages are supported?               </h1>
-<p>ETK is written in C++.</p>
-<h1><a class="anchor" id="etk_mainpage_dependency"></a>
-Are there any licensing restrictions?       </h1>
-<p>ETK is <b>FREE software</b> and <em>all sub-library are FREE and staticly linkable !!!</em></p>
-<h1><a class="anchor" id="etk_mainpage_licence"></a>
-License (APACHE-2.0)                        </h1>
-<p>Copyright etk Edouard DUPIN</p>
-<p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at</p>
-<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-<p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
-<h1><a class="anchor" id="etk_mainpage_sub_page"></a>
-Other pages                              </h1>
-<ul>
-<li><a class="el" href="etk_build.html">Build lib &amp; build sample</a></li>
-<li><a href="http://atria-soft.github.io/ewol/ewol_coding_style.html"><b>ewol coding style</b></a> </li>
-</ul>
-</div></div><!-- contents -->
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a3acc4fd6faa76439bd1651ec86bccd03"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1tool.html#a3acc4fd6faa76439bd1651ec86bccd03">frand</a> (double _a, double _b)</td></tr>
+<tr class="separator:a3acc4fd6faa76439bd1651ec86bccd03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50bc6947ba9add861cd3096d9034effa"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1tool.html#a50bc6947ba9add861cd3096d9034effa">irand</a> (int32_t _a, int32_t _b)</td></tr>
+<tr class="separator:a50bc6947ba9add861cd3096d9034effa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b646bfc4f3a852110b1ec1836a79f08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1tool.html#a4b646bfc4f3a852110b1ec1836a79f08">resetRandom</a> ()</td></tr>
+<tr class="separator:a4b646bfc4f3a852110b1ec1836a79f08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d071f3348cbc576ae170b5ff0b055fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1tool.html#a4d071f3348cbc576ae170b5ff0b055fb">randSeek</a> (int32_t _val)</td></tr>
+<tr class="separator:a4d071f3348cbc576ae170b5ff0b055fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Some un-usefull tools. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Remove all of this use std11 random </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a3acc4fd6faa76439bd1651ec86bccd03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3acc4fd6faa76439bd1651ec86bccd03">&sect;&nbsp;</a></span>frand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double etk::tool::frand </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>_a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>_b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a random value in a specific range in float. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_a</td><td>Lower value of the random. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_b</td><td>Bigger value of the random. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Random Value between [_a and _b] </dd></dl>
+
+</div>
+</div>
+<a id="a50bc6947ba9add861cd3096d9034effa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50bc6947ba9add861cd3096d9034effa">&sect;&nbsp;</a></span>irand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t etk::tool::irand </td>
+          <td>(</td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>_a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>_b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a random value in a specific range in integer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_a</td><td>Lower value of the random. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_b</td><td>Bigger value of the random. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Random Value between [_a and _b] </dd></dl>
+
+</div>
+</div>
+<a id="a4d071f3348cbc576ae170b5ff0b055fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d071f3348cbc576ae170b5ff0b055fb">&sect;&nbsp;</a></span>randSeek()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::tool::randSeek </td>
+          <td>(</td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>_val</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reset the random system with The specify value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_val</td><td>Seek value for the pseudo random system. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4b646bfc4f3a852110b1ec1836a79f08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b646bfc4f3a852110b1ec1836a79f08">&sect;&nbsp;</a></span>resetRandom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::tool::resetRandom </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reset the random system with a random value (time). </p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 </div>

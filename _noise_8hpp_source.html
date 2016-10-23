@@ -1,0 +1,168 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.12"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Etk: Ewol Tool Kit: framework/atria-soft/etk/etk/Noise.hpp Source File</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Etk: Ewol Tool Kit 0.10.0</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Main&nbsp;Page</a></li>
+                        <li><a href="pages.html">Related&nbsp;Pages</a></li>
+                        <li><a href="namespaces.html">Namespaces</a></li>
+                        <li><a href="annotated.html">Classes</a></li>
+                        <li><a href="files.html">Files</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Link-libs<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://HeeroYui.github.io/lutin">lutin</a></li>
+                                <li><a href="http://atria-soft.github.io/ewol">ewol</a></li>
+                                <li><a href="http://atria-soft.github.io/etk">etk</a></li>
+                                <li><a href="http://atria-soft.github.io/ejson">ejson</a></li>
+                                <li><a href="http://atria-soft.github.io/exml">exml</a></li>
+                                <li><a href="http://atria-soft.github.io/esvg">esvg</a></li>
+                                <li><a href="http://atria-soft.github.io/egami">egami</a></li>
+                                <li><a href="http://atria-soft.github.io/gale">gale</a></li>
+                                <li><a href="http://atria-soft.github.io/ege">ege</a></li>
+                                <li><a href="http://atria-soft.github.io/elog">elog</a></li>
+                                <li><a href="http://atria-soft.github.io/ememory">ememory</a></li>
+                                <li><a href="http://atria-soft.github.io/enet">enet</a></li>
+                                <li><a href="http://atria-soft.github.io/eproperty">eproperty</a></li>
+                                <li><a href="http://atria-soft.github.io/esignal">esignal</a></li>
+                                <li><a href="http://atria-soft.github.io/zeus">zeus</a></li>
+                                <li><a href="http://atria-soft.github.io/audio-ess">audio-ess</a></li>
+                                <li><a href="http://musicdsp.github.io/audio">audio</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-drain">audio-drain</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-orchestra">audio-orchestra</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-river">audio-river</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="search-box" class="input-group">
+                        <div class="input-group-btn">
+                            <button aria-expanded="false" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">All</a></li>
+                                <li><a href="#">Classes</a></li>
+                                <li><a href="#">Namespaces</a></li>
+                                <li><a href="#">Files</a></li>
+                                <li><a href="#">Functions</a></li>
+                                <li><a href="#">Variables</a></li>
+                                <li><a href="#">Typedefs</a></li>
+                                <li><a href="#">Enumerations</a></li>
+                                <li><a href="#">Enumerator</a></li>
+                                <li><a href="#">Friends</a></li>
+                                <li><a href="#">Macros</a></li>
+                                <li><a href="#">Pages</a></li>
+                            </ul>
+                        </div>
+                        <button id="search-close" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <input id="search-field" class="form-control" accesskey="S" onkeydown="searchBox.OnSearchFieldChange(event);" placeholder="Search ..." type="text">
+                    </div>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel panel-default" style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+<!-- Generated by Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Search');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_644e041c3a6521da7b27eba0e4eb2b95.html">framework</a></li><li class="navelem"><a class="el" href="dir_a094892b17be858f66bf3446bbb755c7.html">atria-soft</a></li><li class="navelem"><a class="el" href="dir_101ca691570835542fc832f149ed9b11.html">etk</a></li><li class="navelem"><a class="el" href="dir_8e1854e033aa3ec68b8dd13c773d2923.html">etk</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">Noise.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_noise_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="types_8hpp.html">etk/types.hpp</a>&gt;</span></div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#pragma once</span></div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_vector2_d_8hpp.html">etk/math/Vector2D.hpp</a>&gt;</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceetk.html">etk</a> {</div><div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classetk_1_1_base_noise.html">   19</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classetk_1_1_base_noise.html">BaseNoise</a> {</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keyword">private</span>:</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            std::vector&lt;float&gt; m_data; </div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            <a class="code" href="classetk_1_1_vector2_d.html">ivec2</a> m_size; </div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keyword">public</span>:</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <a class="code" href="classetk_1_1_base_noise.html#ad5cbfcc2d967af185c264744de04cf15">BaseNoise</a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_vector2_d.html">ivec2</a>&amp; _size, <span class="keywordtype">float</span> _min, <span class="keywordtype">float</span> _max);</div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordtype">float</span> <span class="keyword">get</span>(int32_t _x, int32_t _y) <span class="keyword">const</span>;</div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    };</div><div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8">   43</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8">noiseType</a> {</div><div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8a4c9b4846f6a3799bf72294573bc68666">   44</a></span>&#160;        <a class="code" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8a4c9b4846f6a3799bf72294573bc68666">noiseType_base</a>, </div><div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8a6073ebe9a4072386bb899a253e227ae5">   45</a></span>&#160;        <a class="code" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8a6073ebe9a4072386bb899a253e227ae5">noiseType_smooth</a>, </div><div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8a991e1a2d3d0fab7d7438598c991ac94a">   46</a></span>&#160;        <a class="code" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8a991e1a2d3d0fab7d7438598c991ac94a">noiseType_turbulence</a>, </div><div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8af2cfe5b480f8c9f42813dab614dbf0e7">   47</a></span>&#160;        <a class="code" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8af2cfe5b480f8c9f42813dab614dbf0e7">noiseType_turbulenceNoSmooth</a>, </div><div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8abbd6669d7350ed4fe1ee27ca37942f38">   48</a></span>&#160;        <a class="code" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8abbd6669d7350ed4fe1ee27ca37942f38">noiseType_cloud</a>, </div><div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8afe321c1b20b2163fa2f8c6cc204c65db">   49</a></span>&#160;        <a class="code" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8afe321c1b20b2163fa2f8c6cc204c65db">noiseType_marble</a>, </div><div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8a66612077d9f772988ea9e89dd7e593ea">   50</a></span>&#160;        <a class="code" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8a66612077d9f772988ea9e89dd7e593ea">noiseType_wood</a> </div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    };</div><div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classetk_1_1_noise.html">   57</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classetk_1_1_noise.html">Noise</a> {</div><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keyword">private</span>:</div><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            std::vector&lt;float&gt; m_data; </div><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <a class="code" href="classetk_1_1_vector2_d.html">ivec2</a> m_size; </div><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keyword">enum</span> <a class="code" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8">noiseType</a> m_type; </div><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordtype">float</span> smoothNoise(<span class="keywordtype">float</span> _x, <span class="keywordtype">float</span> _y, <span class="keyword">const</span> <a class="code" href="classetk_1_1_base_noise.html">etk::BaseNoise</a>&amp; _noise);</div><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordtype">float</span> turbulence(<span class="keywordtype">float</span> _x, <span class="keywordtype">float</span> _y, <span class="keywordtype">float</span> _size, <span class="keyword">const</span> <a class="code" href="classetk_1_1_base_noise.html">etk::BaseNoise</a>&amp; _noise);</div><div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keywordtype">float</span> turbulenceNoSmooth(<span class="keywordtype">float</span> _x, <span class="keywordtype">float</span> _y, <span class="keywordtype">float</span> _size, <span class="keyword">const</span> <a class="code" href="classetk_1_1_base_noise.html">etk::BaseNoise</a>&amp; _noise);</div><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keyword">public</span>:</div><div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <a class="code" href="classetk_1_1_noise.html">Noise</a>(<span class="keyword">enum</span> <a class="code" href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8">noiseType</a> _type, <a class="code" href="classetk_1_1_vector2_d.html">ivec2</a> _size, int32_t _depth);</div><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            <span class="keywordtype">float</span> <span class="keyword">get</span>(int32_t _x, int32_t _y) <span class="keyword">const</span>;</div><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    };</div><div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div><div class="ttc" id="namespaceetk_html_a39a3e59e80103a73310f78333d2d3df8abbd6669d7350ed4fe1ee27ca37942f38"><div class="ttname"><a href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8abbd6669d7350ed4fe1ee27ca37942f38">etk::noiseType_cloud</a></div><div class="ttdoc">Noise like a cloud. </div><div class="ttdef"><b>Definition:</b> Noise.hpp:48</div></div>
+<div class="ttc" id="namespaceetk_html_a39a3e59e80103a73310f78333d2d3df8a4c9b4846f6a3799bf72294573bc68666"><div class="ttname"><a href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8a4c9b4846f6a3799bf72294573bc68666">etk::noiseType_base</a></div><div class="ttdoc">basic random noise </div><div class="ttdef"><b>Definition:</b> Noise.hpp:44</div></div>
+<div class="ttc" id="classetk_1_1_noise_html"><div class="ttname"><a href="classetk_1_1_noise.html">etk::Noise</a></div><div class="ttdoc">Noise basic interface. </div><div class="ttdef"><b>Definition:</b> Noise.hpp:57</div></div>
+<div class="ttc" id="namespaceetk_html_a39a3e59e80103a73310f78333d2d3df8afe321c1b20b2163fa2f8c6cc204c65db"><div class="ttname"><a href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8afe321c1b20b2163fa2f8c6cc204c65db">etk::noiseType_marble</a></div><div class="ttdoc">Noise like marble. </div><div class="ttdef"><b>Definition:</b> Noise.hpp:49</div></div>
+<div class="ttc" id="namespaceetk_html"><div class="ttname"><a href="namespaceetk.html">etk</a></div><div class="ttdoc">basic namespace of the etk library. (it might contain all the etk fuctions/class/structures without m...</div><div class="ttdef"><b>Definition:</b> Archive.hpp:16</div></div>
+<div class="ttc" id="namespaceetk_html_a39a3e59e80103a73310f78333d2d3df8a6073ebe9a4072386bb899a253e227ae5"><div class="ttname"><a href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8a6073ebe9a4072386bb899a253e227ae5">etk::noiseType_smooth</a></div><div class="ttdoc">Noise smoothed. </div><div class="ttdef"><b>Definition:</b> Noise.hpp:45</div></div>
+<div class="ttc" id="namespaceetk_html_a39a3e59e80103a73310f78333d2d3df8af2cfe5b480f8c9f42813dab614dbf0e7"><div class="ttname"><a href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8af2cfe5b480f8c9f42813dab614dbf0e7">etk::noiseType_turbulenceNoSmooth</a></div><div class="ttdoc">Noise Turbulence with no smooth apply. </div><div class="ttdef"><b>Definition:</b> Noise.hpp:47</div></div>
+<div class="ttc" id="types_8hpp_html"><div class="ttname"><a href="types_8hpp.html">types.hpp</a></div></div>
+<div class="ttc" id="namespaceetk_html_a39a3e59e80103a73310f78333d2d3df8"><div class="ttname"><a href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8">etk::noiseType</a></div><div class="ttdeci">noiseType</div><div class="ttdoc">List of noise type supported. </div><div class="ttdef"><b>Definition:</b> Noise.hpp:43</div></div>
+<div class="ttc" id="namespaceetk_html_a39a3e59e80103a73310f78333d2d3df8a66612077d9f772988ea9e89dd7e593ea"><div class="ttname"><a href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8a66612077d9f772988ea9e89dd7e593ea">etk::noiseType_wood</a></div><div class="ttdoc">Noise like wood. </div><div class="ttdef"><b>Definition:</b> Noise.hpp:50</div></div>
+<div class="ttc" id="namespaceetk_html_a39a3e59e80103a73310f78333d2d3df8a991e1a2d3d0fab7d7438598c991ac94a"><div class="ttname"><a href="namespaceetk.html#a39a3e59e80103a73310f78333d2d3df8a991e1a2d3d0fab7d7438598c991ac94a">etk::noiseType_turbulence</a></div><div class="ttdoc">Noise in turbulence mode. </div><div class="ttdef"><b>Definition:</b> Noise.hpp:46</div></div>
+<div class="ttc" id="_vector2_d_8hpp_html"><div class="ttname"><a href="_vector2_d_8hpp.html">Vector2D.hpp</a></div></div>
+<div class="ttc" id="classetk_1_1_base_noise_html"><div class="ttname"><a href="classetk_1_1_base_noise.html">etk::BaseNoise</a></div><div class="ttdoc">BaseNoise Noise basic data. </div><div class="ttdef"><b>Definition:</b> Noise.hpp:19</div></div>
+<div class="ttc" id="classetk_1_1_vector2_d_html"><div class="ttname"><a href="classetk_1_1_vector2_d.html">etk::Vector2D&lt; int32_t &gt;</a></div></div>
+<div class="ttc" id="classetk_1_1_base_noise_html_ad5cbfcc2d967af185c264744de04cf15"><div class="ttname"><a href="classetk_1_1_base_noise.html#ad5cbfcc2d967af185c264744de04cf15">etk::BaseNoise::BaseNoise</a></div><div class="ttdeci">BaseNoise(const ivec2 &amp;_size, float _min, float _max)</div><div class="ttdoc">basic constructor with randon settings </div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Oct 24 2016 10:48:19 for Etk: Ewol Tool Kit by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

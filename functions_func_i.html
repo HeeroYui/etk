@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
         <meta name="generator" content="Doxygen 1.8.12"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <title>Etk: Ewol Tool Kit: ETK library</title>
+        <title>Etk: Ewol Tool Kit: Class Members - Functions</title>
         <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
         <script type="text/javascript" src="dynsections.js"></script>
         <link href="search/search.css" rel="stylesheet" type="text/css"/>
@@ -127,42 +127,61 @@ $(function() {
 </iframe>
 </div>
 
-<div class="header">
-  <div class="headertitle">
-<div class="title">ETK library </div>  </div>
-</div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="etk_mainpage_what"></a>
-What is ETK, and how can I use it?          </h1>
-<p>ETK, or Ewol Tool kit is a simple abstraction layer for some elements like mutex, std missing element(in android or MacOS) and ...</p>
-<p>We can simply say: Just a tool-box **(I use it to add many test prototyping ... and bad things ...)**</p>
-<p>ETK is composed of some part:</p><ul>
-<li>Log system interface</li>
-<li>File access abstraction (for android, data are stored in a .apk (== zip file))</li>
-<li>Mutex / semaphore abstraction (can not use pthread on windows)</li>
-<li>Regular expression</li>
-<li>Generic color interface</li>
-<li>Std adding missing element on some platform.</li>
+&#160;
+
+<h3><a id="index_i"></a>- i -</h3><ul>
+<li>identity()
+: <a class="el" href="classetk_1_1_matrix2.html#af472afddc7b5574eea3f6a4f9b0524f5">etk::Matrix2</a>
+, <a class="el" href="classetk_1_1_matrix4.html#af2b709691e4d6dd41ed54572794ab2a2">etk::Matrix4</a>
+</li>
+<li>increaseRef()
+: <a class="el" href="classetk_1_1_archive_content.html#abe8b416a3f6e5631e16560253ad4191b">etk::ArchiveContent</a>
+</li>
+<li>intersect3()
+: <a class="el" href="classetk_1_1_plane.html#abc2a4dffb33f88c073d03799a81a902e">etk::Plane&lt; T &gt;</a>
+</li>
+<li>invert()
+: <a class="el" href="classetk_1_1_matrix2.html#ae03bbf1ff6f750e3ecd5ad556b771c4e">etk::Matrix2</a>
+, <a class="el" href="classetk_1_1_matrix4.html#adfc631d9817a7ac82d12c243fe52fb93">etk::Matrix4</a>
+</li>
+<li>isGroupReadable()
+: <a class="el" href="classetk_1_1_f_s_node_right.html#a453329fabaebc6c6cce4eadc0a2e49b7">etk::FSNodeRight</a>
+</li>
+<li>isGroupRunable()
+: <a class="el" href="classetk_1_1_f_s_node_right.html#a7a76ff5576933a63d759b326a74933a7">etk::FSNodeRight</a>
+</li>
+<li>isGroupWritable()
+: <a class="el" href="classetk_1_1_f_s_node_right.html#a4a275b98275492aa30a909b1a6f9e325">etk::FSNodeRight</a>
+</li>
+<li>isOtherReadable()
+: <a class="el" href="classetk_1_1_f_s_node_right.html#af7fbdac5122f7ebf65a32651b9cf620e">etk::FSNodeRight</a>
+</li>
+<li>isOtherRunable()
+: <a class="el" href="classetk_1_1_f_s_node_right.html#a0553403781de313a3a60cb08a917263c">etk::FSNodeRight</a>
+</li>
+<li>isOtherWritable()
+: <a class="el" href="classetk_1_1_f_s_node_right.html#a5edec7678e987c70177a60097d762981">etk::FSNodeRight</a>
+</li>
+<li>isUserReadable()
+: <a class="el" href="classetk_1_1_f_s_node_right.html#a6798f0adb3c79d279c8dfefdbeae0531">etk::FSNodeRight</a>
+</li>
+<li>isUserRunable()
+: <a class="el" href="classetk_1_1_f_s_node_right.html#aa660aeb3b884f571b06019e02a5ba438">etk::FSNodeRight</a>
+</li>
+<li>isUserWritable()
+: <a class="el" href="classetk_1_1_f_s_node_right.html#aa0ca67ebdf5fb0ca97836df70180f8da">etk::FSNodeRight</a>
+</li>
+<li>isZero()
+: <a class="el" href="classetk_1_1_vector2_d.html#ab36e9267a66745c77199482284bb8a40">etk::Vector2D&lt; T &gt;</a>
+, <a class="el" href="classetk_1_1_vector3_d.html#a5a2d0c1a587adb016eaf70aa3458c10d">etk::Vector3D&lt; T &gt;</a>
+, <a class="el" href="classetk_1_1_vector4_d.html#ad5ed6c2d0564a9a165147006d891e3d6">etk::Vector4D&lt; T &gt;</a>
+</li>
+<li>iterator()
+: <a class="el" href="classutf8_1_1iterator.html#af9610f601ab0d2729b235f0ec4204ff1">utf8::iterator</a>
+</li>
 </ul>
-<h1><a class="anchor" id="etk_mainpage_langue"></a>
-What languages are supported?               </h1>
-<p>ETK is written in C++.</p>
-<h1><a class="anchor" id="etk_mainpage_dependency"></a>
-Are there any licensing restrictions?       </h1>
-<p>ETK is <b>FREE software</b> and <em>all sub-library are FREE and staticly linkable !!!</em></p>
-<h1><a class="anchor" id="etk_mainpage_licence"></a>
-License (APACHE-2.0)                        </h1>
-<p>Copyright etk Edouard DUPIN</p>
-<p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at</p>
-<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-<p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
-<h1><a class="anchor" id="etk_mainpage_sub_page"></a>
-Other pages                              </h1>
-<ul>
-<li><a class="el" href="etk_build.html">Build lib &amp; build sample</a></li>
-<li><a href="http://atria-soft.github.io/ewol/ewol_coding_style.html"><b>ewol coding style</b></a> </li>
-</ul>
-</div></div><!-- contents -->
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 </div>

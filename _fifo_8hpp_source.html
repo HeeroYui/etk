@@ -1,0 +1,164 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.12"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Etk: Ewol Tool Kit: framework/atria-soft/etk/etk/os/Fifo.hpp Source File</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Etk: Ewol Tool Kit 0.10.0</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Main&nbsp;Page</a></li>
+                        <li><a href="pages.html">Related&nbsp;Pages</a></li>
+                        <li><a href="namespaces.html">Namespaces</a></li>
+                        <li><a href="annotated.html">Classes</a></li>
+                        <li><a href="files.html">Files</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Link-libs<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://HeeroYui.github.io/lutin">lutin</a></li>
+                                <li><a href="http://atria-soft.github.io/ewol">ewol</a></li>
+                                <li><a href="http://atria-soft.github.io/etk">etk</a></li>
+                                <li><a href="http://atria-soft.github.io/ejson">ejson</a></li>
+                                <li><a href="http://atria-soft.github.io/exml">exml</a></li>
+                                <li><a href="http://atria-soft.github.io/esvg">esvg</a></li>
+                                <li><a href="http://atria-soft.github.io/egami">egami</a></li>
+                                <li><a href="http://atria-soft.github.io/gale">gale</a></li>
+                                <li><a href="http://atria-soft.github.io/ege">ege</a></li>
+                                <li><a href="http://atria-soft.github.io/elog">elog</a></li>
+                                <li><a href="http://atria-soft.github.io/ememory">ememory</a></li>
+                                <li><a href="http://atria-soft.github.io/enet">enet</a></li>
+                                <li><a href="http://atria-soft.github.io/eproperty">eproperty</a></li>
+                                <li><a href="http://atria-soft.github.io/esignal">esignal</a></li>
+                                <li><a href="http://atria-soft.github.io/zeus">zeus</a></li>
+                                <li><a href="http://atria-soft.github.io/audio-ess">audio-ess</a></li>
+                                <li><a href="http://musicdsp.github.io/audio">audio</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-drain">audio-drain</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-orchestra">audio-orchestra</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-river">audio-river</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="search-box" class="input-group">
+                        <div class="input-group-btn">
+                            <button aria-expanded="false" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">All</a></li>
+                                <li><a href="#">Classes</a></li>
+                                <li><a href="#">Namespaces</a></li>
+                                <li><a href="#">Files</a></li>
+                                <li><a href="#">Functions</a></li>
+                                <li><a href="#">Variables</a></li>
+                                <li><a href="#">Typedefs</a></li>
+                                <li><a href="#">Enumerations</a></li>
+                                <li><a href="#">Enumerator</a></li>
+                                <li><a href="#">Friends</a></li>
+                                <li><a href="#">Macros</a></li>
+                                <li><a href="#">Pages</a></li>
+                            </ul>
+                        </div>
+                        <button id="search-close" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <input id="search-field" class="form-control" accesskey="S" onkeydown="searchBox.OnSearchFieldChange(event);" placeholder="Search ..." type="text">
+                    </div>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel panel-default" style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+<!-- Generated by Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Search');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_644e041c3a6521da7b27eba0e4eb2b95.html">framework</a></li><li class="navelem"><a class="el" href="dir_a094892b17be858f66bf3446bbb755c7.html">atria-soft</a></li><li class="navelem"><a class="el" href="dir_101ca691570835542fc832f149ed9b11.html">etk</a></li><li class="navelem"><a class="el" href="dir_8e1854e033aa3ec68b8dd13c773d2923.html">etk</a></li><li class="navelem"><a class="el" href="dir_cd05552654816a7fc27950f807d40a47.html">os</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">Fifo.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_fifo_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="types_8hpp.html">etk/types.hpp</a>&gt;</span></div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#pragma once</span></div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceetk.html">etk</a> {</div><div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classetk_1_1_fifo.html">   21</a></span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">class</span> MY_TYPE=<span class="keywordtype">int</span>32_t&gt; <span class="keyword">class </span><a class="code" href="classetk_1_1_fifo.html">Fifo</a> {</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keyword">private</span> :</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            std::mutex m_mutex; </div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;            std::condition_variable m_condition; </div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            std::vector&lt;MY_TYPE&gt; m_data; </div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">public</span> :</div><div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classetk_1_1_fifo.html#a37abc79759bdbfe9e28b273e600c59f0">   30</a></span>&#160;            <a class="code" href="classetk_1_1_fifo.html#a37abc79759bdbfe9e28b273e600c59f0">Fifo</a>() {</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                <span class="comment">// nothing to do ...</span></div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            };</div><div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classetk_1_1_fifo.html#ae3aa50d02d2a5099ead2dcd2bda984ec">   36</a></span>&#160;            <a class="code" href="classetk_1_1_fifo.html#ae3aa50d02d2a5099ead2dcd2bda984ec">~Fifo</a>() {</div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                <span class="comment">// nothing to do ...</span></div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            };</div><div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classetk_1_1_fifo.html#a0693f87b2886e553ccdafdac112ebbd5">   45</a></span>&#160;            <span class="keywordtype">bool</span> <a class="code" href="classetk_1_1_fifo.html#a0693f87b2886e553ccdafdac112ebbd5">wait</a>(MY_TYPE &amp;_data) {</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                std::unique_lock&lt;std::mutex&gt; lock(m_mutex);</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                <span class="comment">// Check if data is not previously here</span></div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                <span class="keywordflow">while</span>(m_data.size() == 0) {</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                    m_condition.wait(lock);</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                }</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                <span class="comment">// End Waiting message :</span></div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                <span class="keywordflow">if</span> (m_data.size() &gt; 0) {</div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                    <span class="comment">// copy element :</span></div><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                    std::swap(_data, m_data[0]);</div><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                    <span class="comment">// remove element :</span></div><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                    m_data.erase(m_data.begin());</div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                }</div><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            };</div><div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classetk_1_1_fifo.html#aa08e5c57d91bc54ea08f377a6e2653e3">   68</a></span>&#160;            <span class="keywordtype">bool</span> <a class="code" href="classetk_1_1_fifo.html#aa08e5c57d91bc54ea08f377a6e2653e3">wait</a>(MY_TYPE &amp;_data, uint32_t _timeOutInUs) {</div><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                std::unique_lock&lt;std::mutex&gt; lock(m_mutex);</div><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                <span class="comment">// Check if data is not previously here</span></div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                <span class="keywordflow">while</span>(m_data.size() == 0) {</div><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                    <span class="keywordflow">if</span> (m_condition.wait_for(lock, std::chrono::microseconds(_timeOutInUs)) == std::cv_status::timeout) {</div><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                    }</div><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                }</div><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                <span class="comment">// End Waiting message :</span></div><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                <span class="keywordflow">if</span> (m_data.size() &gt; 0) {</div><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                    <span class="comment">// copy element :</span></div><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                    std::swap(_data, m_data[0]);</div><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                    <span class="comment">// remove element :</span></div><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                    m_data.erase(0);</div><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                }</div><div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div><div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            };</div><div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="classetk_1_1_fifo.html#a7d43270207b6da91d535a520e18f49c7">   90</a></span>&#160;            int32_t <a class="code" href="classetk_1_1_fifo.html#a7d43270207b6da91d535a520e18f49c7">count</a>() {</div><div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                std::unique_lock&lt;std::mutex&gt; lock(m_mutex);</div><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                int32_t nbElement = m_data.size();</div><div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                <span class="keywordflow">return</span> nbElement;</div><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            };</div><div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classetk_1_1_fifo.html#a844b4b22b7e6da8d88e301cb57555043">   99</a></span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classetk_1_1_fifo.html#a844b4b22b7e6da8d88e301cb57555043">post</a>(MY_TYPE &amp;_data) {</div><div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                std::unique_lock&lt;std::mutex&gt; lock(m_mutex);</div><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                m_data.push_back(_data);</div><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                m_condition.notify_all();</div><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            };</div><div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="classetk_1_1_fifo.html#aee87d87fed54bc307ea3cf3ea12250d9">  108</a></span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classetk_1_1_fifo.html#aee87d87fed54bc307ea3cf3ea12250d9">post</a>(<span class="keyword">const</span> MY_TYPE &amp;_data) {</div><div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                std::unique_lock&lt;std::mutex&gt; lock(m_mutex);</div><div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                m_data.push_back(_data);</div><div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                m_condition.notify_all();</div><div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            };</div><div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classetk_1_1_fifo.html#af8d5cb46bcba3868e9e858a79d3e22cc">  116</a></span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classetk_1_1_fifo.html#af8d5cb46bcba3868e9e858a79d3e22cc">clean</a>() {</div><div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                std::unique_lock&lt;std::mutex&gt; lock(m_mutex);</div><div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                <span class="comment">// remove data</span></div><div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                m_data.clear();</div><div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                m_condition.wait_for(lock, std::chrono::microseconds(0));</div><div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            };</div><div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    };</div><div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}</div><div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div><div class="ttc" id="classetk_1_1_fifo_html_af8d5cb46bcba3868e9e858a79d3e22cc"><div class="ttname"><a href="classetk_1_1_fifo.html#af8d5cb46bcba3868e9e858a79d3e22cc">etk::Fifo::clean</a></div><div class="ttdeci">void clean()</div><div class="ttdoc">Remove all the message in the fifo. </div><div class="ttdef"><b>Definition:</b> Fifo.hpp:116</div></div>
+<div class="ttc" id="classetk_1_1_fifo_html_a844b4b22b7e6da8d88e301cb57555043"><div class="ttname"><a href="classetk_1_1_fifo.html#a844b4b22b7e6da8d88e301cb57555043">etk::Fifo::post</a></div><div class="ttdeci">void post(MY_TYPE &amp;_data)</div><div class="ttdoc">Send a message at the other thread by setting a new message in the fifo. </div><div class="ttdef"><b>Definition:</b> Fifo.hpp:99</div></div>
+<div class="ttc" id="classetk_1_1_fifo_html_aee87d87fed54bc307ea3cf3ea12250d9"><div class="ttname"><a href="classetk_1_1_fifo.html#aee87d87fed54bc307ea3cf3ea12250d9">etk::Fifo::post</a></div><div class="ttdeci">void post(const MY_TYPE &amp;_data)</div><div class="ttdoc">Send a message at the other thread by setting a new message in the fifo. </div><div class="ttdef"><b>Definition:</b> Fifo.hpp:108</div></div>
+<div class="ttc" id="classetk_1_1_fifo_html_a7d43270207b6da91d535a520e18f49c7"><div class="ttname"><a href="classetk_1_1_fifo.html#a7d43270207b6da91d535a520e18f49c7">etk::Fifo::count</a></div><div class="ttdeci">int32_t count()</div><div class="ttdoc">Get the number of message in the fifo. </div><div class="ttdef"><b>Definition:</b> Fifo.hpp:90</div></div>
+<div class="ttc" id="namespaceetk_html"><div class="ttname"><a href="namespaceetk.html">etk</a></div><div class="ttdoc">basic namespace of the etk library. (it might contain all the etk fuctions/class/structures without m...</div><div class="ttdef"><b>Definition:</b> Archive.hpp:16</div></div>
+<div class="ttc" id="types_8hpp_html"><div class="ttname"><a href="types_8hpp.html">types.hpp</a></div></div>
+<div class="ttc" id="classetk_1_1_fifo_html_a37abc79759bdbfe9e28b273e600c59f0"><div class="ttname"><a href="classetk_1_1_fifo.html#a37abc79759bdbfe9e28b273e600c59f0">etk::Fifo::Fifo</a></div><div class="ttdeci">Fifo()</div><div class="ttdoc">Create a fifo with no message. </div><div class="ttdef"><b>Definition:</b> Fifo.hpp:30</div></div>
+<div class="ttc" id="classetk_1_1_fifo_html_ae3aa50d02d2a5099ead2dcd2bda984ec"><div class="ttname"><a href="classetk_1_1_fifo.html#ae3aa50d02d2a5099ead2dcd2bda984ec">etk::Fifo::~Fifo</a></div><div class="ttdeci">~Fifo()</div><div class="ttdoc">Remove the fifo and all message inside. </div><div class="ttdef"><b>Definition:</b> Fifo.hpp:36</div></div>
+<div class="ttc" id="classetk_1_1_fifo_html"><div class="ttname"><a href="classetk_1_1_fifo.html">etk::Fifo</a></div><div class="ttdoc">Fifo tamplate is a simple messaged fifo element to transfer data message from a thead to an other...</div><div class="ttdef"><b>Definition:</b> Fifo.hpp:21</div></div>
+<div class="ttc" id="classetk_1_1_fifo_html_a0693f87b2886e553ccdafdac112ebbd5"><div class="ttname"><a href="classetk_1_1_fifo.html#a0693f87b2886e553ccdafdac112ebbd5">etk::Fifo::wait</a></div><div class="ttdeci">bool wait(MY_TYPE &amp;_data)</div><div class="ttdoc">Wait a message from the other thread. (no timeout set) </div><div class="ttdef"><b>Definition:</b> Fifo.hpp:45</div></div>
+<div class="ttc" id="classetk_1_1_fifo_html_aa08e5c57d91bc54ea08f377a6e2653e3"><div class="ttname"><a href="classetk_1_1_fifo.html#aa08e5c57d91bc54ea08f377a6e2653e3">etk::Fifo::wait</a></div><div class="ttdeci">bool wait(MY_TYPE &amp;_data, uint32_t _timeOutInUs)</div><div class="ttdoc">Wait a message from the other thread, with a specified timeout. </div><div class="ttdef"><b>Definition:</b> Fifo.hpp:68</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Oct 24 2016 10:48:19 for Etk: Ewol Tool Kit by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

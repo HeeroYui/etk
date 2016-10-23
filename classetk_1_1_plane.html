@@ -1,0 +1,777 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.12"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Etk: Ewol Tool Kit: etk::Plane&lt; T &gt; Class Template Reference</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Etk: Ewol Tool Kit 0.10.0</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Main&nbsp;Page</a></li>
+                        <li><a href="pages.html">Related&nbsp;Pages</a></li>
+                        <li><a href="namespaces.html">Namespaces</a></li>
+                        <li><a href="annotated.html">Classes</a></li>
+                        <li><a href="files.html">Files</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Link-libs<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://HeeroYui.github.io/lutin">lutin</a></li>
+                                <li><a href="http://atria-soft.github.io/ewol">ewol</a></li>
+                                <li><a href="http://atria-soft.github.io/etk">etk</a></li>
+                                <li><a href="http://atria-soft.github.io/ejson">ejson</a></li>
+                                <li><a href="http://atria-soft.github.io/exml">exml</a></li>
+                                <li><a href="http://atria-soft.github.io/esvg">esvg</a></li>
+                                <li><a href="http://atria-soft.github.io/egami">egami</a></li>
+                                <li><a href="http://atria-soft.github.io/gale">gale</a></li>
+                                <li><a href="http://atria-soft.github.io/ege">ege</a></li>
+                                <li><a href="http://atria-soft.github.io/elog">elog</a></li>
+                                <li><a href="http://atria-soft.github.io/ememory">ememory</a></li>
+                                <li><a href="http://atria-soft.github.io/enet">enet</a></li>
+                                <li><a href="http://atria-soft.github.io/eproperty">eproperty</a></li>
+                                <li><a href="http://atria-soft.github.io/esignal">esignal</a></li>
+                                <li><a href="http://atria-soft.github.io/zeus">zeus</a></li>
+                                <li><a href="http://atria-soft.github.io/audio-ess">audio-ess</a></li>
+                                <li><a href="http://musicdsp.github.io/audio">audio</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-drain">audio-drain</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-orchestra">audio-orchestra</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-river">audio-river</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="search-box" class="input-group">
+                        <div class="input-group-btn">
+                            <button aria-expanded="false" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">All</a></li>
+                                <li><a href="#">Classes</a></li>
+                                <li><a href="#">Namespaces</a></li>
+                                <li><a href="#">Files</a></li>
+                                <li><a href="#">Functions</a></li>
+                                <li><a href="#">Variables</a></li>
+                                <li><a href="#">Typedefs</a></li>
+                                <li><a href="#">Enumerations</a></li>
+                                <li><a href="#">Enumerator</a></li>
+                                <li><a href="#">Friends</a></li>
+                                <li><a href="#">Macros</a></li>
+                                <li><a href="#">Pages</a></li>
+                            </ul>
+                        </div>
+                        <button id="search-close" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <input id="search-field" class="form-control" accesskey="S" onkeydown="searchBox.OnSearchFieldChange(event);" placeholder="Search ..." type="text">
+                    </div>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel panel-default" style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+<!-- Generated by Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Search');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespaceetk.html">etk</a></li><li class="navelem"><a class="el" href="classetk_1_1_plane.html">Plane</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="classetk_1_1_plane-members.html">List of all members</a>  </div>
+  <div class="headertitle">
+<div class="title">etk::Plane&lt; T &gt; Class Template Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_plane_8hpp_source.html">Plane.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac45e649cc99e2a64f93c4efd2f5cd3a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_plane.html#ac45e649cc99e2a64f93c4efd2f5cd3a0">Plane</a> ()</td></tr>
+<tr class="separator:ac45e649cc99e2a64f93c4efd2f5cd3a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad91eb9e5c7637f30869fd585c0b77f80"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_plane.html#ad91eb9e5c7637f30869fd585c0b77f80">Plane</a> (<a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt; _normal, T _intercept=0)</td></tr>
+<tr class="separator:ad91eb9e5c7637f30869fd585c0b77f80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd201fb9f3ea8d7a31d3590ce4ccbf66"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_plane.html#abd201fb9f3ea8d7a31d3590ce4ccbf66">Plane</a> (const <a class="el" href="classetk_1_1_plane.html">Plane</a> &amp;_obj)</td></tr>
+<tr class="separator:abd201fb9f3ea8d7a31d3590ce4ccbf66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a202b3335b2b71cc84726a1b57b8e1e70"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_plane.html#a202b3335b2b71cc84726a1b57b8e1e70">setNormal</a> (const <a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt; &amp;_obj)</td></tr>
+<tr class="separator:a202b3335b2b71cc84726a1b57b8e1e70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a691582e68a6ee38b0c7c9ccf2a6734f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_plane.html#a691582e68a6ee38b0c7c9ccf2a6734f3">setIntercept</a> (float _intercept)</td></tr>
+<tr class="separator:a691582e68a6ee38b0c7c9ccf2a6734f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69b4871efd25fa204a3917360bfb8cc9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_plane.html#a69b4871efd25fa204a3917360bfb8cc9">setFromPoints</a> (const <a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt; &amp;_p0, const <a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt; &amp;_p1, const <a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt; &amp;_p2)</td></tr>
+<tr class="separator:a69b4871efd25fa204a3917360bfb8cc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b0377c24a6b076de9fe112400724523"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_plane.html#a6b0377c24a6b076de9fe112400724523">calculateIntercept</a> (const <a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt; &amp;_pointOnPlane)</td></tr>
+<tr class="separator:a6b0377c24a6b076de9fe112400724523"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a383afb40ac4cfab41b7d221c283b29f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_plane.html#a383afb40ac4cfab41b7d221c283b29f0">normalize</a> ()</td></tr>
+<tr class="separator:a383afb40ac4cfab41b7d221c283b29f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab17849e22fddbc55964ef2990818e2a6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_plane.html#ab17849e22fddbc55964ef2990818e2a6">getNormal</a> () const</td></tr>
+<tr class="separator:ab17849e22fddbc55964ef2990818e2a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac701a8e4aae7df5874e1e97658703c7f"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_plane.html#ac701a8e4aae7df5874e1e97658703c7f">getIntercept</a> () const</td></tr>
+<tr class="separator:ac701a8e4aae7df5874e1e97658703c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc2a4dffb33f88c073d03799a81a902e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_plane.html#abc2a4dffb33f88c073d03799a81a902e">intersect3</a> (const <a class="el" href="classetk_1_1_plane.html">Plane</a>&lt; T &gt; &amp;_p2, const <a class="el" href="classetk_1_1_plane.html">Plane</a>&lt; T &gt; &amp;_p3)</td></tr>
+<tr class="separator:abc2a4dffb33f88c073d03799a81a902e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa63645925f576389fc111737c1f6af30"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_plane.html#aa63645925f576389fc111737c1f6af30">getDistance</a> (const <a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt; &amp;_point) const</td></tr>
+<tr class="separator:aa63645925f576389fc111737c1f6af30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0022135ae6ce5333c7a39e04f16369af"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_plane.html">Plane</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_plane.html#a0022135ae6ce5333c7a39e04f16369af">linearInterpolate</a> (const <a class="el" href="classetk_1_1_plane.html">Plane</a>&lt; T &gt; &amp;_p2, float _factor)</td></tr>
+<tr class="separator:a0022135ae6ce5333c7a39e04f16369af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba7b788f733af40c2eb527809b4bf132"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_plane.html#aba7b788f733af40c2eb527809b4bf132">operator==</a> (const <a class="el" href="classetk_1_1_plane.html">Plane</a>&lt; T &gt; &amp;_obj) const</td></tr>
+<tr class="separator:aba7b788f733af40c2eb527809b4bf132"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acff6210dea13b9e5d767c017c79dd6a8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_plane.html#acff6210dea13b9e5d767c017c79dd6a8">operator!=</a> (const <a class="el" href="classetk_1_1_plane.html">Plane</a>&lt; T &gt; &amp;_obj) const</td></tr>
+<tr class="separator:acff6210dea13b9e5d767c017c79dd6a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class etk::Plane&lt; T &gt;</h3>
+
+<p><a class="el" href="classetk_1_1_plane.html" title="Plane equation template: define a plane equation. ">Plane</a> equation template: define a plane equation. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Validate it, this is a !!! PROTOTYPE !!! </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac45e649cc99e2a64f93c4efd2f5cd3a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac45e649cc99e2a64f93c4efd2f5cd3a0">&sect;&nbsp;</a></span>Plane() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classetk_1_1_plane.html">etk::Plane</a>&lt; T &gt;::<a class="el" href="classetk_1_1_plane.html">Plane</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor of a <a class="el" href="classetk_1_1_plane.html" title="Plane equation template: define a plane equation. ">Plane</a>. </p>
+
+</div>
+</div>
+<a id="ad91eb9e5c7637f30869fd585c0b77f80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad91eb9e5c7637f30869fd585c0b77f80">&sect;&nbsp;</a></span>Plane() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classetk_1_1_plane.html">etk::Plane</a>&lt; T &gt;::<a class="el" href="classetk_1_1_plane.html">Plane</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>_normal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>_intercept</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor of a <a class="el" href="classetk_1_1_plane.html" title="Plane equation template: define a plane equation. ">Plane</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_normal</td><td>Normal of the plane </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_intercept</td><td>Interception value of the plane </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abd201fb9f3ea8d7a31d3590ce4ccbf66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd201fb9f3ea8d7a31d3590ce4ccbf66">&sect;&nbsp;</a></span>Plane() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classetk_1_1_plane.html">etk::Plane</a>&lt; T &gt;::<a class="el" href="classetk_1_1_plane.html">Plane</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_plane.html">Plane</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copy constructor of a <a class="el" href="classetk_1_1_plane.html" title="Plane equation template: define a plane equation. ">Plane</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td><a class="el" href="classetk_1_1_plane.html" title="Plane equation template: define a plane equation. ">Plane</a> object to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6b0377c24a6b076de9fe112400724523"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b0377c24a6b076de9fe112400724523">&sect;&nbsp;</a></span>calculateIntercept()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classetk_1_1_plane.html">etk::Plane</a>&lt; T &gt;::calculateIntercept </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_pointOnPlane</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calculate interception value with a point in the plane. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_pointOnPlane</td><td>Point in the plane </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa63645925f576389fc111737c1f6af30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa63645925f576389fc111737c1f6af30">&sect;&nbsp;</a></span>getDistance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float <a class="el" href="classetk_1_1_plane.html">etk::Plane</a>&lt; T &gt;::getDistance </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_point</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get distance from a point to the plane. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_point</td><td>Point to calculate the distance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>distance of the Point </dd></dl>
+
+</div>
+</div>
+<a id="ac701a8e4aae7df5874e1e97658703c7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac701a8e4aae7df5874e1e97658703c7f">&sect;&nbsp;</a></span>getIntercept()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T <a class="el" href="classetk_1_1_plane.html">etk::Plane</a>&lt; T &gt;::getIntercept </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get intercept Value of the plane. </p>
+<dl class="section return"><dt>Returns</dt><dd>The Intercept value </dd></dl>
+
+</div>
+</div>
+<a id="ab17849e22fddbc55964ef2990818e2a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab17849e22fddbc55964ef2990818e2a6">&sect;&nbsp;</a></span>getNormal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt;T&gt;&amp; <a class="el" href="classetk_1_1_plane.html">etk::Plane</a>&lt; T &gt;::getNormal </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the normal of the plane. </p>
+<dl class="section return"><dt>Returns</dt><dd>Vector of the normal </dd></dl>
+
+</div>
+</div>
+<a id="abc2a4dffb33f88c073d03799a81a902e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc2a4dffb33f88c073d03799a81a902e">&sect;&nbsp;</a></span>intersect3()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt;T&gt; <a class="el" href="classetk_1_1_plane.html">etk::Plane</a>&lt; T &gt;::intersect3 </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_plane.html">Plane</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_p2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_plane.html">Plane</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_p3</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the intersection between 3 planes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_p2</td><td>Second plane </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_p3</td><td>Third plane </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>vec3(0,0,0) No Intersection find, else when find </dd></dl>
+
+</div>
+</div>
+<a id="a0022135ae6ce5333c7a39e04f16369af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0022135ae6ce5333c7a39e04f16369af">&sect;&nbsp;</a></span>linearInterpolate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classetk_1_1_plane.html">Plane</a>&lt;T&gt; <a class="el" href="classetk_1_1_plane.html">etk::Plane</a>&lt; T &gt;::linearInterpolate </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_plane.html">Plane</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_p2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>_factor</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a linear interpolation of the plane with an other. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_p2</td><td>Second plane </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_factor</td><td>Factor to scale </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>New plane equation </dd></dl>
+
+</div>
+</div>
+<a id="a383afb40ac4cfab41b7d221c283b29f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a383afb40ac4cfab41b7d221c283b29f0">&sect;&nbsp;</a></span>normalize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classetk_1_1_plane.html">etk::Plane</a>&lt; T &gt;::normalize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Normalize tha plane properties. </p>
+
+</div>
+</div>
+<a id="acff6210dea13b9e5d767c017c79dd6a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acff6210dea13b9e5d767c017c79dd6a8">&sect;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classetk_1_1_plane.html">etk::Plane</a>&lt; T &gt;::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_plane.html">Plane</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>In-Equality compare operator with an other object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Reference on the comparing object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true The Objects are NOT identical </dd>
+<dd>
+false The Objects are identical </dd></dl>
+
+</div>
+</div>
+<a id="aba7b788f733af40c2eb527809b4bf132"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba7b788f733af40c2eb527809b4bf132">&sect;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classetk_1_1_plane.html">etk::Plane</a>&lt; T &gt;::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_plane.html">Plane</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equality compare operator with an other object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Reference on the comparing object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true The Objects are identical </dd>
+<dd>
+false The Objects are NOT identical </dd></dl>
+
+</div>
+</div>
+<a id="a69b4871efd25fa204a3917360bfb8cc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69b4871efd25fa204a3917360bfb8cc9">&sect;&nbsp;</a></span>setFromPoints()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classetk_1_1_plane.html">etk::Plane</a>&lt; T &gt;::setFromPoints </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_p0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_p1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_p2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the plane with 3 points in the space. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_p0</td><td>First point </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_p1</td><td>Second point </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_p2</td><td>Thrid point </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a691582e68a6ee38b0c7c9ccf2a6734f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a691582e68a6ee38b0c7c9ccf2a6734f3">&sect;&nbsp;</a></span>setIntercept()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classetk_1_1_plane.html">etk::Plane</a>&lt; T &gt;::setIntercept </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>_intercept</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set interception value of the plane. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_intercept</td><td>Value of the intercept </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a202b3335b2b71cc84726a1b57b8e1e70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a202b3335b2b71cc84726a1b57b8e1e70">&sect;&nbsp;</a></span>setNormal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classetk_1_1_plane.html">etk::Plane</a>&lt; T &gt;::setNormal </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classetk_1_1_vector3_d.html">etk::Vector3D</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the normal of the plane. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Vector of the normal </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>framework/atria-soft/etk/etk/math/<a class="el" href="_plane_8hpp_source.html">Plane.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Oct 24 2016 10:48:19 for Etk: Ewol Tool Kit by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

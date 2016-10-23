@@ -1,0 +1,171 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.12"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Etk: Ewol Tool Kit: framework/atria-soft/etk/etk/archive/Archive.hpp Source File</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Etk: Ewol Tool Kit 0.10.0</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Main&nbsp;Page</a></li>
+                        <li><a href="pages.html">Related&nbsp;Pages</a></li>
+                        <li><a href="namespaces.html">Namespaces</a></li>
+                        <li><a href="annotated.html">Classes</a></li>
+                        <li><a href="files.html">Files</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Link-libs<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://HeeroYui.github.io/lutin">lutin</a></li>
+                                <li><a href="http://atria-soft.github.io/ewol">ewol</a></li>
+                                <li><a href="http://atria-soft.github.io/etk">etk</a></li>
+                                <li><a href="http://atria-soft.github.io/ejson">ejson</a></li>
+                                <li><a href="http://atria-soft.github.io/exml">exml</a></li>
+                                <li><a href="http://atria-soft.github.io/esvg">esvg</a></li>
+                                <li><a href="http://atria-soft.github.io/egami">egami</a></li>
+                                <li><a href="http://atria-soft.github.io/gale">gale</a></li>
+                                <li><a href="http://atria-soft.github.io/ege">ege</a></li>
+                                <li><a href="http://atria-soft.github.io/elog">elog</a></li>
+                                <li><a href="http://atria-soft.github.io/ememory">ememory</a></li>
+                                <li><a href="http://atria-soft.github.io/enet">enet</a></li>
+                                <li><a href="http://atria-soft.github.io/eproperty">eproperty</a></li>
+                                <li><a href="http://atria-soft.github.io/esignal">esignal</a></li>
+                                <li><a href="http://atria-soft.github.io/zeus">zeus</a></li>
+                                <li><a href="http://atria-soft.github.io/audio-ess">audio-ess</a></li>
+                                <li><a href="http://musicdsp.github.io/audio">audio</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-drain">audio-drain</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-orchestra">audio-orchestra</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-river">audio-river</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="search-box" class="input-group">
+                        <div class="input-group-btn">
+                            <button aria-expanded="false" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">All</a></li>
+                                <li><a href="#">Classes</a></li>
+                                <li><a href="#">Namespaces</a></li>
+                                <li><a href="#">Files</a></li>
+                                <li><a href="#">Functions</a></li>
+                                <li><a href="#">Variables</a></li>
+                                <li><a href="#">Typedefs</a></li>
+                                <li><a href="#">Enumerations</a></li>
+                                <li><a href="#">Enumerator</a></li>
+                                <li><a href="#">Friends</a></li>
+                                <li><a href="#">Macros</a></li>
+                                <li><a href="#">Pages</a></li>
+                            </ul>
+                        </div>
+                        <button id="search-close" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <input id="search-field" class="form-control" accesskey="S" onkeydown="searchBox.OnSearchFieldChange(event);" placeholder="Search ..." type="text">
+                    </div>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel panel-default" style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+<!-- Generated by Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Search');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_644e041c3a6521da7b27eba0e4eb2b95.html">framework</a></li><li class="navelem"><a class="el" href="dir_a094892b17be858f66bf3446bbb755c7.html">atria-soft</a></li><li class="navelem"><a class="el" href="dir_101ca691570835542fc832f149ed9b11.html">etk</a></li><li class="navelem"><a class="el" href="dir_8e1854e033aa3ec68b8dd13c773d2923.html">etk</a></li><li class="navelem"><a class="el" href="dir_798ecbd57274add4c849e5d9524617ed.html">archive</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">Archive.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_archive_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifdef ETK_BUILD_MINIZIP</span></div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="types_8hpp.html">etk/types.hpp</a>&gt;</span></div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#pragma once</span></div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;ememory/memory.hpp&gt;</span></div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div><div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespaceetk.html">   16</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceetk.html">etk</a> {</div><div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classetk_1_1_archive_content.html">   20</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classetk_1_1_archive_content.html">ArchiveContent</a> {</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keyword">private</span>:</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            int32_t m_link; </div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keyword">public</span>:</div><div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classetk_1_1_archive_content.html#abe8b416a3f6e5631e16560253ad4191b">   27</a></span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classetk_1_1_archive_content.html#abe8b416a3f6e5631e16560253ad4191b">increaseRef</a>() {</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                m_link++;</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            }</div><div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classetk_1_1_archive_content.html#a3835539a563d971425a4dfe3beb06e05">   33</a></span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classetk_1_1_archive_content.html#a3835539a563d971425a4dfe3beb06e05">decreaseRef</a>() {</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                m_link--;</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            }</div><div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classetk_1_1_archive_content.html#ae36e16fc3d90ee3b996f88b21770b7c3">   40</a></span>&#160;            int32_t <a class="code" href="classetk_1_1_archive_content.html#ae36e16fc3d90ee3b996f88b21770b7c3">getNumberOfRef</a>()<span class="keyword"> const </span>{</div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                <span class="keywordflow">return</span> m_link;</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            }</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">private</span>:</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            int32_t m_theoricSize; </div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">public</span>:</div><div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classetk_1_1_archive_content.html#a3073080dc08423e6801bce2767a6c6b8">   50</a></span>&#160;            int32_t <a class="code" href="classetk_1_1_archive_content.html#a3073080dc08423e6801bce2767a6c6b8">getTheoricSize</a>()<span class="keyword"> const </span>{</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                <span class="keywordflow">return</span> m_theoricSize;</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            }</div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keyword">private</span>:</div><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            std::vector&lt;char&gt; m_data; </div><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keyword">public</span>:</div><div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classetk_1_1_archive_content.html#aac29f8265fa496ca9576f21e13a704d4">   60</a></span>&#160;            <a class="code" href="classetk_1_1_archive_content.html#aac29f8265fa496ca9576f21e13a704d4">ArchiveContent</a>(int32_t _basicSize=0) :</div><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;              m_link(-1),</div><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;              m_theoricSize(_basicSize) {</div><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                </div><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            }</div><div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="classetk_1_1_archive_content.html#a36dc83c35ebdacdce11e04dbcba4334c">   69</a></span>&#160;            int32_t <a class="code" href="classetk_1_1_archive_content.html#a36dc83c35ebdacdce11e04dbcba4334c">size</a>()<span class="keyword"> const </span>{</div><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                <span class="keywordflow">return</span> m_data.size();</div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            }</div><div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="classetk_1_1_archive_content.html#a1d1dd0c1c1956fad8ab3884bb85723c4">   76</a></span>&#160;            <span class="keywordtype">void</span>* <a class="code" href="classetk_1_1_archive_content.html#a1d1dd0c1c1956fad8ab3884bb85723c4">data</a>()<span class="keyword"> const </span>{</div><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                <span class="keywordflow">return</span> (<span class="keywordtype">void</span>*)&amp;m_data[0];</div><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            }</div><div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classetk_1_1_archive_content.html#aee51637347bcb52ea8ce0c7233db928d">   83</a></span>&#160;            std::vector&lt;char&gt;&amp; <a class="code" href="classetk_1_1_archive_content.html#aee51637347bcb52ea8ce0c7233db928d">getDataVector</a>() {</div><div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                <span class="keywordflow">return</span> m_data;</div><div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            }</div><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    };</div><div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="classetk_1_1_archive.html">   90</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classetk_1_1_archive.html">Archive</a> {</div><div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">private</span>:</div><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            <span class="keyword">mutable</span> std::mutex m_mutex; </div><div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keyword">public</span>:</div><div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="classetk_1_1_archive.html#a5991c05535749c9ed04eeec185f675ac">   98</a></span>&#160;            <a class="code" href="classetk_1_1_archive.html#a5991c05535749c9ed04eeec185f675ac">Archive</a>(<span class="keyword">const</span> std::string&amp; _fileName) :</div><div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;              m_fileName(_fileName) {</div><div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                </div><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            };</div><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keyword">virtual</span> ~<a class="code" href="classetk_1_1_archive.html">Archive</a>() = <span class="keywordflow">default</span>;</div><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keyword">protected</span>:</div><div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="classetk_1_1_archive.html#ade4fc9b52603f85c4201ad21f5c70073">  107</a></span>&#160;            std::string <a class="code" href="classetk_1_1_archive.html#ade4fc9b52603f85c4201ad21f5c70073">m_fileName</a>; </div><div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keyword">public</span>:</div><div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="classetk_1_1_archive.html#abcd2958b8df98c6f3841dc20b934a26b">  113</a></span>&#160;            <span class="keyword">const</span> std::string&amp; <a class="code" href="classetk_1_1_archive.html#abcd2958b8df98c6f3841dc20b934a26b">getFileName</a>() {</div><div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                <span class="keywordflow">return</span> m_fileName;</div><div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classetk_1_1_archive.html#a50e51fc4daee5c4a0f5c1810983e6f16">  115</a></span>&#160;            };</div><div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keyword">protected</span>:</div><div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            std::map&lt;std::string, ArchiveContent&gt; <a class="code" href="classetk_1_1_archive.html#a50e51fc4daee5c4a0f5c1810983e6f16">m_content</a>; </div><div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keyword">public</span>:</div><div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="classetk_1_1_archive.html#a17d06497d98be15f6080cf84010d35a0">  123</a></span>&#160;            int32_t <a class="code" href="classetk_1_1_archive.html#a17d06497d98be15f6080cf84010d35a0">size</a>()<span class="keyword"> const </span>{</div><div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                <span class="keywordflow">return</span> m_content.size();</div><div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            };</div><div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            <span class="keyword">const</span> std::string&amp; getName(<span class="keywordtype">size_t</span> _id) <span class="keyword">const</span>;</div><div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            <span class="keyword">const</span> <a class="code" href="classetk_1_1_archive_content.html">ArchiveContent</a>&amp; getContent(<span class="keywordtype">size_t</span> _id) <span class="keyword">const</span>;</div><div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            <span class="keyword">const</span> <a class="code" href="classetk_1_1_archive_content.html">ArchiveContent</a>&amp; getContent(<span class="keyword">const</span> std::string&amp; _key) <span class="keyword">const</span>;</div><div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <span class="keywordtype">bool</span> exist(<span class="keyword">const</span> std::string&amp; _key) <span class="keyword">const</span>;</div><div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            <span class="keywordtype">void</span> open(<span class="keyword">const</span> std::string&amp; _key);</div><div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <span class="keywordtype">void</span> close(<span class="keyword">const</span> std::string&amp; _key);</div><div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            <span class="keywordtype">void</span> display();</div><div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keyword">protected</span>:</div><div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="classetk_1_1_archive.html#aca951aabe7595d6217bd6ba9699361f8">  169</a></span>&#160;            <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classetk_1_1_archive.html#aca951aabe7595d6217bd6ba9699361f8">loadFile</a>(<span class="keyword">const</span> std::map&lt;std::string, ArchiveContent&gt;::iterator&amp; _it) { };</div><div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keyword">public</span>:</div><div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            <span class="keyword">static</span> <a class="code" href="classetk_1_1_archive.html">Archive</a>* load(<span class="keyword">const</span> std::string&amp; _fileName);</div><div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            <span class="keyword">static</span> <a class="code" href="classetk_1_1_archive.html">Archive</a>* loadPackage(<span class="keyword">const</span> std::string&amp; _fileName);</div><div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    };</div><div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;}</div><div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="classetk_1_1_archive_content_html_abe8b416a3f6e5631e16560253ad4191b"><div class="ttname"><a href="classetk_1_1_archive_content.html#abe8b416a3f6e5631e16560253ad4191b">etk::ArchiveContent::increaseRef</a></div><div class="ttdeci">void increaseRef()</div><div class="ttdoc">Increment the number of user of this resource (permit to keep data alive) </div><div class="ttdef"><b>Definition:</b> Archive.hpp:27</div></div>
+<div class="ttc" id="classetk_1_1_archive_content_html"><div class="ttname"><a href="classetk_1_1_archive_content.html">etk::ArchiveContent</a></div><div class="ttdoc">Element of the archive (with associated data) </div><div class="ttdef"><b>Definition:</b> Archive.hpp:20</div></div>
+<div class="ttc" id="classetk_1_1_archive_content_html_aac29f8265fa496ca9576f21e13a704d4"><div class="ttname"><a href="classetk_1_1_archive_content.html#aac29f8265fa496ca9576f21e13a704d4">etk::ArchiveContent::ArchiveContent</a></div><div class="ttdeci">ArchiveContent(int32_t _basicSize=0)</div><div class="ttdoc">Basic constructor of an element. </div><div class="ttdef"><b>Definition:</b> Archive.hpp:60</div></div>
+<div class="ttc" id="classetk_1_1_archive_html_aca951aabe7595d6217bd6ba9699361f8"><div class="ttname"><a href="classetk_1_1_archive.html#aca951aabe7595d6217bd6ba9699361f8">etk::Archive::loadFile</a></div><div class="ttdeci">virtual void loadFile(const std::map&lt; std::string, ArchiveContent &gt;::iterator &amp;_it)</div><div class="ttdoc">Request the load in memory of the concerned file. </div><div class="ttdef"><b>Definition:</b> Archive.hpp:169</div></div>
+<div class="ttc" id="classetk_1_1_archive_content_html_aee51637347bcb52ea8ce0c7233db928d"><div class="ttname"><a href="classetk_1_1_archive_content.html#aee51637347bcb52ea8ce0c7233db928d">etk::ArchiveContent::getDataVector</a></div><div class="ttdeci">std::vector&lt; char &gt; &amp; getDataVector()</div><div class="ttdoc">Get the Data Vector on the file. </div><div class="ttdef"><b>Definition:</b> Archive.hpp:83</div></div>
+<div class="ttc" id="classetk_1_1_archive_content_html_a3073080dc08423e6801bce2767a6c6b8"><div class="ttname"><a href="classetk_1_1_archive_content.html#a3073080dc08423e6801bce2767a6c6b8">etk::ArchiveContent::getTheoricSize</a></div><div class="ttdeci">int32_t getTheoricSize() const</div><div class="ttdoc">Get the size of the element (size set by Zip file (not read)) </div><div class="ttdef"><b>Definition:</b> Archive.hpp:50</div></div>
+<div class="ttc" id="namespaceetk_html"><div class="ttname"><a href="namespaceetk.html">etk</a></div><div class="ttdoc">basic namespace of the etk library. (it might contain all the etk fuctions/class/structures without m...</div><div class="ttdef"><b>Definition:</b> Archive.hpp:16</div></div>
+<div class="ttc" id="types_8hpp_html"><div class="ttname"><a href="types_8hpp.html">types.hpp</a></div></div>
+<div class="ttc" id="classetk_1_1_archive_html_a5991c05535749c9ed04eeec185f675ac"><div class="ttname"><a href="classetk_1_1_archive.html#a5991c05535749c9ed04eeec185f675ac">etk::Archive::Archive</a></div><div class="ttdeci">Archive(const std::string &amp;_fileName)</div><div class="ttdoc">Contructor of the archive element. </div><div class="ttdef"><b>Definition:</b> Archive.hpp:98</div></div>
+<div class="ttc" id="classetk_1_1_archive_html_a17d06497d98be15f6080cf84010d35a0"><div class="ttname"><a href="classetk_1_1_archive.html#a17d06497d98be15f6080cf84010d35a0">etk::Archive::size</a></div><div class="ttdeci">int32_t size() const</div><div class="ttdoc">Get the number of elements. </div><div class="ttdef"><b>Definition:</b> Archive.hpp:123</div></div>
+<div class="ttc" id="classetk_1_1_archive_html_a50e51fc4daee5c4a0f5c1810983e6f16"><div class="ttname"><a href="classetk_1_1_archive.html#a50e51fc4daee5c4a0f5c1810983e6f16">etk::Archive::m_content</a></div><div class="ttdeci">std::map&lt; std::string, ArchiveContent &gt; m_content</div><div class="ttdoc">list of element of the zip file </div><div class="ttdef"><b>Definition:</b> Archive.hpp:115</div></div>
+<div class="ttc" id="classetk_1_1_archive_html"><div class="ttname"><a href="classetk_1_1_archive.html">etk::Archive</a></div><div class="ttdoc">Access on a zip data file. </div><div class="ttdef"><b>Definition:</b> Archive.hpp:90</div></div>
+<div class="ttc" id="classetk_1_1_archive_html_abcd2958b8df98c6f3841dc20b934a26b"><div class="ttname"><a href="classetk_1_1_archive.html#abcd2958b8df98c6f3841dc20b934a26b">etk::Archive::getFileName</a></div><div class="ttdeci">const std::string &amp; getFileName()</div><div class="ttdoc">Get the current file name. </div><div class="ttdef"><b>Definition:</b> Archive.hpp:113</div></div>
+<div class="ttc" id="classetk_1_1_archive_content_html_a3835539a563d971425a4dfe3beb06e05"><div class="ttname"><a href="classetk_1_1_archive_content.html#a3835539a563d971425a4dfe3beb06e05">etk::ArchiveContent::decreaseRef</a></div><div class="ttdeci">void decreaseRef()</div><div class="ttdoc">Release reference on this data. </div><div class="ttdef"><b>Definition:</b> Archive.hpp:33</div></div>
+<div class="ttc" id="classetk_1_1_archive_content_html_a36dc83c35ebdacdce11e04dbcba4334c"><div class="ttname"><a href="classetk_1_1_archive_content.html#a36dc83c35ebdacdce11e04dbcba4334c">etk::ArchiveContent::size</a></div><div class="ttdeci">int32_t size() const</div><div class="ttdoc">Get the size of the Data loaded. </div><div class="ttdef"><b>Definition:</b> Archive.hpp:69</div></div>
+<div class="ttc" id="classetk_1_1_archive_content_html_ae36e16fc3d90ee3b996f88b21770b7c3"><div class="ttname"><a href="classetk_1_1_archive_content.html#ae36e16fc3d90ee3b996f88b21770b7c3">etk::ArchiveContent::getNumberOfRef</a></div><div class="ttdeci">int32_t getNumberOfRef() const</div><div class="ttdoc">Get the number of user link with this reference. </div><div class="ttdef"><b>Definition:</b> Archive.hpp:40</div></div>
+<div class="ttc" id="classetk_1_1_archive_html_ade4fc9b52603f85c4201ad21f5c70073"><div class="ttname"><a href="classetk_1_1_archive.html#ade4fc9b52603f85c4201ad21f5c70073">etk::Archive::m_fileName</a></div><div class="ttdeci">std::string m_fileName</div><div class="ttdoc">File name when it came from an file. </div><div class="ttdef"><b>Definition:</b> Archive.hpp:107</div></div>
+<div class="ttc" id="classetk_1_1_archive_content_html_a1d1dd0c1c1956fad8ab3884bb85723c4"><div class="ttname"><a href="classetk_1_1_archive_content.html#a1d1dd0c1c1956fad8ab3884bb85723c4">etk::ArchiveContent::data</a></div><div class="ttdeci">void * data() const</div><div class="ttdoc">Get the pointer on the data read from the zip file. </div><div class="ttdef"><b>Definition:</b> Archive.hpp:76</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Oct 24 2016 10:48:19 for Etk: Ewol Tool Kit by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

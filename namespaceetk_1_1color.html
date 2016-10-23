@@ -1,0 +1,2973 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.12"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Etk: Ewol Tool Kit: etk::color Namespace Reference</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Etk: Ewol Tool Kit 0.10.0</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Main&nbsp;Page</a></li>
+                        <li><a href="pages.html">Related&nbsp;Pages</a></li>
+                        <li><a href="namespaces.html">Namespaces</a></li>
+                        <li><a href="annotated.html">Classes</a></li>
+                        <li><a href="files.html">Files</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Link-libs<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://HeeroYui.github.io/lutin">lutin</a></li>
+                                <li><a href="http://atria-soft.github.io/ewol">ewol</a></li>
+                                <li><a href="http://atria-soft.github.io/etk">etk</a></li>
+                                <li><a href="http://atria-soft.github.io/ejson">ejson</a></li>
+                                <li><a href="http://atria-soft.github.io/exml">exml</a></li>
+                                <li><a href="http://atria-soft.github.io/esvg">esvg</a></li>
+                                <li><a href="http://atria-soft.github.io/egami">egami</a></li>
+                                <li><a href="http://atria-soft.github.io/gale">gale</a></li>
+                                <li><a href="http://atria-soft.github.io/ege">ege</a></li>
+                                <li><a href="http://atria-soft.github.io/elog">elog</a></li>
+                                <li><a href="http://atria-soft.github.io/ememory">ememory</a></li>
+                                <li><a href="http://atria-soft.github.io/enet">enet</a></li>
+                                <li><a href="http://atria-soft.github.io/eproperty">eproperty</a></li>
+                                <li><a href="http://atria-soft.github.io/esignal">esignal</a></li>
+                                <li><a href="http://atria-soft.github.io/zeus">zeus</a></li>
+                                <li><a href="http://atria-soft.github.io/audio-ess">audio-ess</a></li>
+                                <li><a href="http://musicdsp.github.io/audio">audio</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-drain">audio-drain</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-orchestra">audio-orchestra</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-river">audio-river</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="search-box" class="input-group">
+                        <div class="input-group-btn">
+                            <button aria-expanded="false" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">All</a></li>
+                                <li><a href="#">Classes</a></li>
+                                <li><a href="#">Namespaces</a></li>
+                                <li><a href="#">Files</a></li>
+                                <li><a href="#">Functions</a></li>
+                                <li><a href="#">Variables</a></li>
+                                <li><a href="#">Typedefs</a></li>
+                                <li><a href="#">Enumerations</a></li>
+                                <li><a href="#">Enumerator</a></li>
+                                <li><a href="#">Friends</a></li>
+                                <li><a href="#">Macros</a></li>
+                                <li><a href="#">Pages</a></li>
+                            </ul>
+                        </div>
+                        <button id="search-close" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <input id="search-field" class="form-control" accesskey="S" onkeydown="searchBox.OnSearchFieldChange(event);" placeholder="Search ..." type="text">
+                    </div>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel panel-default" style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+<!-- Generated by Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Search');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespaceetk.html">etk</a></li><li class="navelem"><a class="el" href="namespaceetk_1_1color.html">color</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">etk::color Namespace Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a4589db8a7e8998273732dae4c83e28c5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4589db8a7e8998273732dae4c83e28c5">none</a></td></tr>
+<tr class="separator:a4589db8a7e8998273732dae4c83e28c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcf86ef9c7918dcb094a0783761899f1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#adcf86ef9c7918dcb094a0783761899f1">aliceBlue</a></td></tr>
+<tr class="separator:adcf86ef9c7918dcb094a0783761899f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88abb6eca9c1ba0f346fb697683fa836"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a88abb6eca9c1ba0f346fb697683fa836">antiqueWhite</a></td></tr>
+<tr class="separator:a88abb6eca9c1ba0f346fb697683fa836"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cef110e71ce12876fcfd6605e57f716"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a2cef110e71ce12876fcfd6605e57f716">aqua</a></td></tr>
+<tr class="separator:a2cef110e71ce12876fcfd6605e57f716"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b69f67ed3e2db9915acde652a1cff80"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a8b69f67ed3e2db9915acde652a1cff80">aquamarine</a></td></tr>
+<tr class="separator:a8b69f67ed3e2db9915acde652a1cff80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51cb04e4a5b927ec82ceef2676b781f7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a51cb04e4a5b927ec82ceef2676b781f7">azure</a></td></tr>
+<tr class="separator:a51cb04e4a5b927ec82ceef2676b781f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68244b2fa52245487cec1154155d0e03"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a68244b2fa52245487cec1154155d0e03">beige</a></td></tr>
+<tr class="separator:a68244b2fa52245487cec1154155d0e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad03e04b97263a2c64dedfc405ff983ee"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ad03e04b97263a2c64dedfc405ff983ee">bisque</a></td></tr>
+<tr class="separator:ad03e04b97263a2c64dedfc405ff983ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4198b330ccb2e9008665733eee338f73"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4198b330ccb2e9008665733eee338f73">black</a></td></tr>
+<tr class="separator:a4198b330ccb2e9008665733eee338f73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12e8ba075411585a68aece7d0fead4cc"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a12e8ba075411585a68aece7d0fead4cc">blanchedAlmond</a></td></tr>
+<tr class="separator:a12e8ba075411585a68aece7d0fead4cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50f114c6849684e9984ae1322493572c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a50f114c6849684e9984ae1322493572c">blue</a></td></tr>
+<tr class="separator:a50f114c6849684e9984ae1322493572c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac91bcec9a0a115d1070397f86cfdee4d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ac91bcec9a0a115d1070397f86cfdee4d">blueViolet</a></td></tr>
+<tr class="separator:ac91bcec9a0a115d1070397f86cfdee4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3dff0347662115abb89c6ddb8447227"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#af3dff0347662115abb89c6ddb8447227">brown</a></td></tr>
+<tr class="separator:af3dff0347662115abb89c6ddb8447227"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1920dd335710c842ea4706e2383ef784"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1920dd335710c842ea4706e2383ef784">burlyWood</a></td></tr>
+<tr class="separator:a1920dd335710c842ea4706e2383ef784"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa007b1fd1b17e1872fbc6f41e147f54f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aa007b1fd1b17e1872fbc6f41e147f54f">cadetBlue</a></td></tr>
+<tr class="separator:aa007b1fd1b17e1872fbc6f41e147f54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dd91ed503e594efb3fbfef33e358066"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a2dd91ed503e594efb3fbfef33e358066">chartreuse</a></td></tr>
+<tr class="separator:a2dd91ed503e594efb3fbfef33e358066"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c01526863636486a43270680bc60002"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a7c01526863636486a43270680bc60002">chocolate</a></td></tr>
+<tr class="separator:a7c01526863636486a43270680bc60002"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36f2cec268c7c0e30723ac23f9b3f277"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a36f2cec268c7c0e30723ac23f9b3f277">coral</a></td></tr>
+<tr class="separator:a36f2cec268c7c0e30723ac23f9b3f277"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90a5242512b4e294b4a660317609f80a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a90a5242512b4e294b4a660317609f80a">cornflowerBlue</a></td></tr>
+<tr class="separator:a90a5242512b4e294b4a660317609f80a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a253d987094e83f3d979dd8fe216297be"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a253d987094e83f3d979dd8fe216297be">cornsilk</a></td></tr>
+<tr class="separator:a253d987094e83f3d979dd8fe216297be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa29d7ec12725a55399cfbee0fab1d74e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aa29d7ec12725a55399cfbee0fab1d74e">crimson</a></td></tr>
+<tr class="separator:aa29d7ec12725a55399cfbee0fab1d74e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc0367018e04ae83f0282525443f2c39"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#acc0367018e04ae83f0282525443f2c39">cyan</a></td></tr>
+<tr class="separator:acc0367018e04ae83f0282525443f2c39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a222350bf918f872c4e5ff2c44ab0d948"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a222350bf918f872c4e5ff2c44ab0d948">darkBlue</a></td></tr>
+<tr class="separator:a222350bf918f872c4e5ff2c44ab0d948"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e2298ea2e2329a2eec98014ad2f62f3"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1e2298ea2e2329a2eec98014ad2f62f3">darkCyan</a></td></tr>
+<tr class="separator:a1e2298ea2e2329a2eec98014ad2f62f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8fc1bb410a59107158dc78cbff58637"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aa8fc1bb410a59107158dc78cbff58637">darkGoldenRod</a></td></tr>
+<tr class="separator:aa8fc1bb410a59107158dc78cbff58637"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a443370c666ff111e46fd69af0fc8c6f1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a443370c666ff111e46fd69af0fc8c6f1">darkGray</a></td></tr>
+<tr class="separator:a443370c666ff111e46fd69af0fc8c6f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc4d6ece51b12c4d71944c7cfa62df3d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#acc4d6ece51b12c4d71944c7cfa62df3d">darkGrey</a></td></tr>
+<tr class="separator:acc4d6ece51b12c4d71944c7cfa62df3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2c305fa2794088b6518e7d41b5a66cf"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ab2c305fa2794088b6518e7d41b5a66cf">darkGreen</a></td></tr>
+<tr class="separator:ab2c305fa2794088b6518e7d41b5a66cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41b7e12409c7c23d2efd5b2002ff8a38"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a41b7e12409c7c23d2efd5b2002ff8a38">darkKhaki</a></td></tr>
+<tr class="separator:a41b7e12409c7c23d2efd5b2002ff8a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5967702d70d066cc22d0582816506960"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a5967702d70d066cc22d0582816506960">darkMagenta</a></td></tr>
+<tr class="separator:a5967702d70d066cc22d0582816506960"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8658803a964bae9b55b136f17349fb9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#af8658803a964bae9b55b136f17349fb9">darkOliveGreen</a></td></tr>
+<tr class="separator:af8658803a964bae9b55b136f17349fb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7064c68a6a6025e00ce163a1ae89f1ea"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a7064c68a6a6025e00ce163a1ae89f1ea">darkorange</a></td></tr>
+<tr class="separator:a7064c68a6a6025e00ce163a1ae89f1ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d7683e234cce9679495ba626cdbd63b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1d7683e234cce9679495ba626cdbd63b">darkOrchid</a></td></tr>
+<tr class="separator:a1d7683e234cce9679495ba626cdbd63b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff3a3b7299b13dfb18983bf5590ba95a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aff3a3b7299b13dfb18983bf5590ba95a">darkRed</a></td></tr>
+<tr class="separator:aff3a3b7299b13dfb18983bf5590ba95a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a907915b5995bce96b1edce13c9e2fdf7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a907915b5995bce96b1edce13c9e2fdf7">darkSalmon</a></td></tr>
+<tr class="separator:a907915b5995bce96b1edce13c9e2fdf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59822524863f5783ee051ad10375892f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a59822524863f5783ee051ad10375892f">darkSeaGreen</a></td></tr>
+<tr class="separator:a59822524863f5783ee051ad10375892f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26484af8b6c58f221f1849b87f3bee74"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a26484af8b6c58f221f1849b87f3bee74">darkSlateBlue</a></td></tr>
+<tr class="separator:a26484af8b6c58f221f1849b87f3bee74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a349b3fd1e93f89e01bd862981d02196b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a349b3fd1e93f89e01bd862981d02196b">darkSlateGray</a></td></tr>
+<tr class="separator:a349b3fd1e93f89e01bd862981d02196b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50f19e66e3c3a0af908b5c1efd2abc84"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a50f19e66e3c3a0af908b5c1efd2abc84">darkSlateGrey</a></td></tr>
+<tr class="separator:a50f19e66e3c3a0af908b5c1efd2abc84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05e713dcb0b2f4febdbcf35450b841fd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a05e713dcb0b2f4febdbcf35450b841fd">darkTurquoise</a></td></tr>
+<tr class="separator:a05e713dcb0b2f4febdbcf35450b841fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e56b9239824d0b5936d5cff3b60231b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a9e56b9239824d0b5936d5cff3b60231b">darkViolet</a></td></tr>
+<tr class="separator:a9e56b9239824d0b5936d5cff3b60231b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad22e4d8159516802b60b3993b35310d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aad22e4d8159516802b60b3993b35310d">deepPink</a></td></tr>
+<tr class="separator:aad22e4d8159516802b60b3993b35310d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20b4f50841f1edc88b8ebd09764d22ec"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a20b4f50841f1edc88b8ebd09764d22ec">deepSkyBlue</a></td></tr>
+<tr class="separator:a20b4f50841f1edc88b8ebd09764d22ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c3f19c27817d52a7dce663597809673"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a9c3f19c27817d52a7dce663597809673">dimGray</a></td></tr>
+<tr class="separator:a9c3f19c27817d52a7dce663597809673"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b9159ca54b27a2eb3aef2787cc3f8a4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1b9159ca54b27a2eb3aef2787cc3f8a4">dimGrey</a></td></tr>
+<tr class="separator:a1b9159ca54b27a2eb3aef2787cc3f8a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abded21fe482e526e290b0699c55c1d8d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#abded21fe482e526e290b0699c55c1d8d">dodgerBlue</a></td></tr>
+<tr class="separator:abded21fe482e526e290b0699c55c1d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6967e9c5889d20d52ba7f02ce1a4344"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ad6967e9c5889d20d52ba7f02ce1a4344">fireBrick</a></td></tr>
+<tr class="separator:ad6967e9c5889d20d52ba7f02ce1a4344"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa194136648518d6622f0648b1be32886"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aa194136648518d6622f0648b1be32886">floralWhite</a></td></tr>
+<tr class="separator:aa194136648518d6622f0648b1be32886"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae828702f8dde36254656074f1539cf27"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ae828702f8dde36254656074f1539cf27">forestGreen</a></td></tr>
+<tr class="separator:ae828702f8dde36254656074f1539cf27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add8be07f05dd9acb1021cd813d5d09f5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#add8be07f05dd9acb1021cd813d5d09f5">fuchsia</a></td></tr>
+<tr class="separator:add8be07f05dd9acb1021cd813d5d09f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f3802248416e94cbe57301269bb4597"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a9f3802248416e94cbe57301269bb4597">gainsboro</a></td></tr>
+<tr class="separator:a9f3802248416e94cbe57301269bb4597"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15bfc067a56f04e3c95ccc1e08e30582"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a15bfc067a56f04e3c95ccc1e08e30582">ghostWhite</a></td></tr>
+<tr class="separator:a15bfc067a56f04e3c95ccc1e08e30582"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa87df42bc06ea637f36058ded83172b8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aa87df42bc06ea637f36058ded83172b8">gold</a></td></tr>
+<tr class="separator:aa87df42bc06ea637f36058ded83172b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3e32a2d70fbe57ccbd45b490b32dfc0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ab3e32a2d70fbe57ccbd45b490b32dfc0">goldenRod</a></td></tr>
+<tr class="separator:ab3e32a2d70fbe57ccbd45b490b32dfc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a319c23dcc37291f96f330abe15b16f89"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a319c23dcc37291f96f330abe15b16f89">gray</a></td></tr>
+<tr class="separator:a319c23dcc37291f96f330abe15b16f89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21d8358e48a38d1d701d2165e9ff7ef3"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a21d8358e48a38d1d701d2165e9ff7ef3">grey</a></td></tr>
+<tr class="separator:a21d8358e48a38d1d701d2165e9ff7ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fc96147de6d001202802bca7bcf2ba9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a6fc96147de6d001202802bca7bcf2ba9">green</a></td></tr>
+<tr class="separator:a6fc96147de6d001202802bca7bcf2ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a218efa62696750857b5ce07171c34cbd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a218efa62696750857b5ce07171c34cbd">greenYellow</a></td></tr>
+<tr class="separator:a218efa62696750857b5ce07171c34cbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3411f95075bfc9977619fcea76266de"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aa3411f95075bfc9977619fcea76266de">honeyDew</a></td></tr>
+<tr class="separator:aa3411f95075bfc9977619fcea76266de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03118a731faf900b1bec48f3b001a8dd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a03118a731faf900b1bec48f3b001a8dd">hotPink</a></td></tr>
+<tr class="separator:a03118a731faf900b1bec48f3b001a8dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13e4d0783eb7e8c10ca87631e5385dcb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a13e4d0783eb7e8c10ca87631e5385dcb">indianRed</a></td></tr>
+<tr class="separator:a13e4d0783eb7e8c10ca87631e5385dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a93b5498bb8c81d57e7a759d1418579"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a3a93b5498bb8c81d57e7a759d1418579">indigo</a></td></tr>
+<tr class="separator:a3a93b5498bb8c81d57e7a759d1418579"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab44bec9b6c9231236729f749df94c7ba"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ab44bec9b6c9231236729f749df94c7ba">ivory</a></td></tr>
+<tr class="separator:ab44bec9b6c9231236729f749df94c7ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5242622529843c2b59a3a10de215834"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aa5242622529843c2b59a3a10de215834">khaki</a></td></tr>
+<tr class="separator:aa5242622529843c2b59a3a10de215834"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f2c8ef5a6ab8b6d0d0bfc261dc1c660"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a2f2c8ef5a6ab8b6d0d0bfc261dc1c660">lavender</a></td></tr>
+<tr class="separator:a2f2c8ef5a6ab8b6d0d0bfc261dc1c660"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4232ea43a0d5f4e1a0fda12b2523789e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4232ea43a0d5f4e1a0fda12b2523789e">lavenderBlush</a></td></tr>
+<tr class="separator:a4232ea43a0d5f4e1a0fda12b2523789e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afde65cb2bb3edffeb3c3be844048bea7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#afde65cb2bb3edffeb3c3be844048bea7">lawnGreen</a></td></tr>
+<tr class="separator:afde65cb2bb3edffeb3c3be844048bea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b1f3235d4cb5967be945422180a696e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1b1f3235d4cb5967be945422180a696e">lemonChiffon</a></td></tr>
+<tr class="separator:a1b1f3235d4cb5967be945422180a696e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8387db6883f21400bf5be80372c35647"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a8387db6883f21400bf5be80372c35647">lightBlue</a></td></tr>
+<tr class="separator:a8387db6883f21400bf5be80372c35647"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18fa89d253f21d090fb78f9c4c3fa179"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a18fa89d253f21d090fb78f9c4c3fa179">lightCoral</a></td></tr>
+<tr class="separator:a18fa89d253f21d090fb78f9c4c3fa179"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50d72f3fa72a15b70950ec3c6294c486"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a50d72f3fa72a15b70950ec3c6294c486">lightCyan</a></td></tr>
+<tr class="separator:a50d72f3fa72a15b70950ec3c6294c486"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b1fa30e34836c579b23ad52137bd690"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4b1fa30e34836c579b23ad52137bd690">lightGoldenRodYellow</a></td></tr>
+<tr class="separator:a4b1fa30e34836c579b23ad52137bd690"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4083c98e9eded328f2cd91f01affddc0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4083c98e9eded328f2cd91f01affddc0">lightGray</a></td></tr>
+<tr class="separator:a4083c98e9eded328f2cd91f01affddc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77d1ce7214b499fb78f9bbfcd18cb7b4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a77d1ce7214b499fb78f9bbfcd18cb7b4">lightGrey</a></td></tr>
+<tr class="separator:a77d1ce7214b499fb78f9bbfcd18cb7b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d28338bea023156af46b42ac4104d65"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a2d28338bea023156af46b42ac4104d65">lightGreen</a></td></tr>
+<tr class="separator:a2d28338bea023156af46b42ac4104d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14d1dd7b18f6b86d7a3c16f417f453b6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a14d1dd7b18f6b86d7a3c16f417f453b6">lightPink</a></td></tr>
+<tr class="separator:a14d1dd7b18f6b86d7a3c16f417f453b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a033bb4d31c48f0dd52fc0662944ab8f6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a033bb4d31c48f0dd52fc0662944ab8f6">lightSalmon</a></td></tr>
+<tr class="separator:a033bb4d31c48f0dd52fc0662944ab8f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a146b8e64718660041ce89a8803661e2a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a146b8e64718660041ce89a8803661e2a">lightSeaGreen</a></td></tr>
+<tr class="separator:a146b8e64718660041ce89a8803661e2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51a95c2b5fd2957e41b027b84df64bb2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a51a95c2b5fd2957e41b027b84df64bb2">lightSkyBlue</a></td></tr>
+<tr class="separator:a51a95c2b5fd2957e41b027b84df64bb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8cb2152fe5df989303dd976f97578ea"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#af8cb2152fe5df989303dd976f97578ea">lightSlateGray</a></td></tr>
+<tr class="separator:af8cb2152fe5df989303dd976f97578ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a496840c6c000f27da3a6e8e54e33eb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4a496840c6c000f27da3a6e8e54e33eb">lightSlateGrey</a></td></tr>
+<tr class="separator:a4a496840c6c000f27da3a6e8e54e33eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26bcddd1699b895e233e35f31fda1c0e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a26bcddd1699b895e233e35f31fda1c0e">lightSteelBlue</a></td></tr>
+<tr class="separator:a26bcddd1699b895e233e35f31fda1c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab23ae9842d65ec28e1ff7f06d5b252a8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ab23ae9842d65ec28e1ff7f06d5b252a8">lightYellow</a></td></tr>
+<tr class="separator:ab23ae9842d65ec28e1ff7f06d5b252a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0363b4e80d7960b29e41c1202d36cefb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a0363b4e80d7960b29e41c1202d36cefb">lime</a></td></tr>
+<tr class="separator:a0363b4e80d7960b29e41c1202d36cefb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29c3e83ca4abea8319f8f5671b9720c2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a29c3e83ca4abea8319f8f5671b9720c2">limeGreen</a></td></tr>
+<tr class="separator:a29c3e83ca4abea8319f8f5671b9720c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaed3fa7e8a6f9ed2e79677075bf1e63e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aaed3fa7e8a6f9ed2e79677075bf1e63e">linen</a></td></tr>
+<tr class="separator:aaed3fa7e8a6f9ed2e79677075bf1e63e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afee87f303d370ab6dbc7ac1e2c00ead1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#afee87f303d370ab6dbc7ac1e2c00ead1">magenta</a></td></tr>
+<tr class="separator:afee87f303d370ab6dbc7ac1e2c00ead1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acedfbd93471b71ba9998984b11ba718e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#acedfbd93471b71ba9998984b11ba718e">maroon</a></td></tr>
+<tr class="separator:acedfbd93471b71ba9998984b11ba718e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f0d7a636c8caa196464b499b6280426"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a7f0d7a636c8caa196464b499b6280426">mediumAquaMarine</a></td></tr>
+<tr class="separator:a7f0d7a636c8caa196464b499b6280426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fe002b79a78199f18363dd05530378d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a7fe002b79a78199f18363dd05530378d">mediumBlue</a></td></tr>
+<tr class="separator:a7fe002b79a78199f18363dd05530378d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e155686074462e57beee0511146bc97"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a5e155686074462e57beee0511146bc97">mediumOrchid</a></td></tr>
+<tr class="separator:a5e155686074462e57beee0511146bc97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b2c512ac26bc28808a8b3dd5656440d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a3b2c512ac26bc28808a8b3dd5656440d">mediumPurple</a></td></tr>
+<tr class="separator:a3b2c512ac26bc28808a8b3dd5656440d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8b45a088646ef1fcf8fe69179dc519b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ac8b45a088646ef1fcf8fe69179dc519b">mediumSeaGreen</a></td></tr>
+<tr class="separator:ac8b45a088646ef1fcf8fe69179dc519b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a215704258654af99ded76d5642d9d462"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a215704258654af99ded76d5642d9d462">mediumSlateBlue</a></td></tr>
+<tr class="separator:a215704258654af99ded76d5642d9d462"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b5d44a4ca36262221237f5165af7aae"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a2b5d44a4ca36262221237f5165af7aae">mediumSpringGreen</a></td></tr>
+<tr class="separator:a2b5d44a4ca36262221237f5165af7aae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3cfc60cd0c3b29f6a941dd592d90b24"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ac3cfc60cd0c3b29f6a941dd592d90b24">mediumTurquoise</a></td></tr>
+<tr class="separator:ac3cfc60cd0c3b29f6a941dd592d90b24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05fe5d6e6d4b13da98ccf1acef57ba3a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a05fe5d6e6d4b13da98ccf1acef57ba3a">mediumVioletRed</a></td></tr>
+<tr class="separator:a05fe5d6e6d4b13da98ccf1acef57ba3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0900bfad0e76b546fbe6b9c3fe3f24a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#af0900bfad0e76b546fbe6b9c3fe3f24a">midnightBlue</a></td></tr>
+<tr class="separator:af0900bfad0e76b546fbe6b9c3fe3f24a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfb434830d70a46377180a95be6d484e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#adfb434830d70a46377180a95be6d484e">mintCream</a></td></tr>
+<tr class="separator:adfb434830d70a46377180a95be6d484e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18204af4290656aeac4f7c88eb85d0f3"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a18204af4290656aeac4f7c88eb85d0f3">mistyRose</a></td></tr>
+<tr class="separator:a18204af4290656aeac4f7c88eb85d0f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cb08faeeec554e2a414bc8633b443c5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a8cb08faeeec554e2a414bc8633b443c5">moccasin</a></td></tr>
+<tr class="separator:a8cb08faeeec554e2a414bc8633b443c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b63b8a9a1cc45910237b30a2ba45fca"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1b63b8a9a1cc45910237b30a2ba45fca">navajoWhite</a></td></tr>
+<tr class="separator:a1b63b8a9a1cc45910237b30a2ba45fca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20ab31b18ba99ce5faa111a99ab2e83d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a20ab31b18ba99ce5faa111a99ab2e83d">navy</a></td></tr>
+<tr class="separator:a20ab31b18ba99ce5faa111a99ab2e83d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dac38a6103291477259e687e0774c1f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a6dac38a6103291477259e687e0774c1f">oldLace</a></td></tr>
+<tr class="separator:a6dac38a6103291477259e687e0774c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c6df578f49614b0a84b8d60a85522f5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a7c6df578f49614b0a84b8d60a85522f5">olive</a></td></tr>
+<tr class="separator:a7c6df578f49614b0a84b8d60a85522f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a020a9d7d45aa767ddf85ce3091f09700"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a020a9d7d45aa767ddf85ce3091f09700">oliveDrab</a></td></tr>
+<tr class="separator:a020a9d7d45aa767ddf85ce3091f09700"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab17f0b0fde63f5895d0da41ecc9e2573"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ab17f0b0fde63f5895d0da41ecc9e2573">orange</a></td></tr>
+<tr class="separator:ab17f0b0fde63f5895d0da41ecc9e2573"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb3c67384cae4e9260ddd453a3cc7810"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aeb3c67384cae4e9260ddd453a3cc7810">orangeRed</a></td></tr>
+<tr class="separator:aeb3c67384cae4e9260ddd453a3cc7810"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a02f315fb94c24136fd151610d1d2b3"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a8a02f315fb94c24136fd151610d1d2b3">orchid</a></td></tr>
+<tr class="separator:a8a02f315fb94c24136fd151610d1d2b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e77005ee52eb9d1b5a4ddb682374e0f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4e77005ee52eb9d1b5a4ddb682374e0f">paleGoldenRod</a></td></tr>
+<tr class="separator:a4e77005ee52eb9d1b5a4ddb682374e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cf19b14d8517bd39851f277029b0931"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a2cf19b14d8517bd39851f277029b0931">paleGreen</a></td></tr>
+<tr class="separator:a2cf19b14d8517bd39851f277029b0931"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2652ecc2224179077270ffb4d13fef57"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a2652ecc2224179077270ffb4d13fef57">paleTurquoise</a></td></tr>
+<tr class="separator:a2652ecc2224179077270ffb4d13fef57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40929240fd9c26bda27c2a80e5893db5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a40929240fd9c26bda27c2a80e5893db5">paleVioletRed</a></td></tr>
+<tr class="separator:a40929240fd9c26bda27c2a80e5893db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55430464cce8100e33385115a9468cf1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a55430464cce8100e33385115a9468cf1">papayaWhip</a></td></tr>
+<tr class="separator:a55430464cce8100e33385115a9468cf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad30f26284e76fd398359bcd928143311"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ad30f26284e76fd398359bcd928143311">peachPuff</a></td></tr>
+<tr class="separator:ad30f26284e76fd398359bcd928143311"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83ed22c571e6ef53e406cc47c51f753f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a83ed22c571e6ef53e406cc47c51f753f">peru</a></td></tr>
+<tr class="separator:a83ed22c571e6ef53e406cc47c51f753f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2726cdc1f4064f8df7b77b7da3d4291"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ad2726cdc1f4064f8df7b77b7da3d4291">pink</a></td></tr>
+<tr class="separator:ad2726cdc1f4064f8df7b77b7da3d4291"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4d992f3996f638d234f936153bd7907"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ab4d992f3996f638d234f936153bd7907">plum</a></td></tr>
+<tr class="separator:ab4d992f3996f638d234f936153bd7907"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd0e078b144de932065e8a7f01685b6b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#afd0e078b144de932065e8a7f01685b6b">powderBlue</a></td></tr>
+<tr class="separator:afd0e078b144de932065e8a7f01685b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1651c86712c0ebee50517f010a05b527"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1651c86712c0ebee50517f010a05b527">purple</a></td></tr>
+<tr class="separator:a1651c86712c0ebee50517f010a05b527"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a365a78d3068cd950ce25fda3f905554e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a365a78d3068cd950ce25fda3f905554e">red</a></td></tr>
+<tr class="separator:a365a78d3068cd950ce25fda3f905554e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ac844cd13feb847816ff94ff20fb84c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a3ac844cd13feb847816ff94ff20fb84c">rosyBrown</a></td></tr>
+<tr class="separator:a3ac844cd13feb847816ff94ff20fb84c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dad77d1418cd34da0e07049781f32d9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a3dad77d1418cd34da0e07049781f32d9">royalBlue</a></td></tr>
+<tr class="separator:a3dad77d1418cd34da0e07049781f32d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5407ca00d7f7bf3815a72616e0be95ae"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a5407ca00d7f7bf3815a72616e0be95ae">saddleBrown</a></td></tr>
+<tr class="separator:a5407ca00d7f7bf3815a72616e0be95ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad324737686a8c6ec9208a93e727710d8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ad324737686a8c6ec9208a93e727710d8">salmon</a></td></tr>
+<tr class="separator:ad324737686a8c6ec9208a93e727710d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affd1d87686e7d4fb1a720d4cb5c354cb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#affd1d87686e7d4fb1a720d4cb5c354cb">sandyBrown</a></td></tr>
+<tr class="separator:affd1d87686e7d4fb1a720d4cb5c354cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d3d8140130f2383e7740b4cea443470"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a3d3d8140130f2383e7740b4cea443470">seaGreen</a></td></tr>
+<tr class="separator:a3d3d8140130f2383e7740b4cea443470"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b50105504f9be5dcf7ae59cbb115051"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a6b50105504f9be5dcf7ae59cbb115051">seaShell</a></td></tr>
+<tr class="separator:a6b50105504f9be5dcf7ae59cbb115051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a8eaf790795f7b5fc63c81ade8652ce"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a0a8eaf790795f7b5fc63c81ade8652ce">sienna</a></td></tr>
+<tr class="separator:a0a8eaf790795f7b5fc63c81ade8652ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca25e934d9d1ac1538a4a0c7011c6d0c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#aca25e934d9d1ac1538a4a0c7011c6d0c">silver</a></td></tr>
+<tr class="separator:aca25e934d9d1ac1538a4a0c7011c6d0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1576fd8ed2c3fe5ed5a10f8147d0ed1d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1576fd8ed2c3fe5ed5a10f8147d0ed1d">skyBlue</a></td></tr>
+<tr class="separator:a1576fd8ed2c3fe5ed5a10f8147d0ed1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f605302a82a6173de726e797c3edf0d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a4f605302a82a6173de726e797c3edf0d">slateBlue</a></td></tr>
+<tr class="separator:a4f605302a82a6173de726e797c3edf0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d3c48d14e696bc1b8d9d43158dfa0b2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a5d3c48d14e696bc1b8d9d43158dfa0b2">slateGray</a></td></tr>
+<tr class="separator:a5d3c48d14e696bc1b8d9d43158dfa0b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cefc035f467790176ba159bb6255c6e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a9cefc035f467790176ba159bb6255c6e">slateGrey</a></td></tr>
+<tr class="separator:a9cefc035f467790176ba159bb6255c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae312c38fc6be5178a4ff63921f162723"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ae312c38fc6be5178a4ff63921f162723">snow</a></td></tr>
+<tr class="separator:ae312c38fc6be5178a4ff63921f162723"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3b6e2028b00791f15ddff7f9a1fe703"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ab3b6e2028b00791f15ddff7f9a1fe703">springGreen</a></td></tr>
+<tr class="separator:ab3b6e2028b00791f15ddff7f9a1fe703"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9162b466a59a0bbe420b49c565e9dd6f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a9162b466a59a0bbe420b49c565e9dd6f">steelBlue</a></td></tr>
+<tr class="separator:a9162b466a59a0bbe420b49c565e9dd6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a923b2869775837088eabdb48681f4b1e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a923b2869775837088eabdb48681f4b1e">tan</a></td></tr>
+<tr class="separator:a923b2869775837088eabdb48681f4b1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b28dace6aa8c81c0c59a7343875d2b5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a9b28dace6aa8c81c0c59a7343875d2b5">teal</a></td></tr>
+<tr class="separator:a9b28dace6aa8c81c0c59a7343875d2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a729d8532a3b7c147fcaa726ce2d887b8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a729d8532a3b7c147fcaa726ce2d887b8">thistle</a></td></tr>
+<tr class="separator:a729d8532a3b7c147fcaa726ce2d887b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f3fe621ef99b1b452a5a11af1a06ae0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a9f3fe621ef99b1b452a5a11af1a06ae0">tomato</a></td></tr>
+<tr class="separator:a9f3fe621ef99b1b452a5a11af1a06ae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8162f21fcdb858a4c5017a20db4c5830"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a8162f21fcdb858a4c5017a20db4c5830">turquoise</a></td></tr>
+<tr class="separator:a8162f21fcdb858a4c5017a20db4c5830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac86b1f752bb46992b83000f1b48957ec"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#ac86b1f752bb46992b83000f1b48957ec">violet</a></td></tr>
+<tr class="separator:ac86b1f752bb46992b83000f1b48957ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fee5d2cd67adc3c4a5d820616854cde"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a0fee5d2cd67adc3c4a5d820616854cde">wheat</a></td></tr>
+<tr class="separator:a0fee5d2cd67adc3c4a5d820616854cde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6559ba632982f84ab6215281bd431b9c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a6559ba632982f84ab6215281bd431b9c">white</a></td></tr>
+<tr class="separator:a6559ba632982f84ab6215281bd431b9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b012cf56fb3a1c63e55aa2d83f7472b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a1b012cf56fb3a1c63e55aa2d83f7472b">whiteSmoke</a></td></tr>
+<tr class="separator:a1b012cf56fb3a1c63e55aa2d83f7472b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a002d237cb06c35ec373b454af2cbb072"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a002d237cb06c35ec373b454af2cbb072">yellow</a></td></tr>
+<tr class="separator:a002d237cb06c35ec373b454af2cbb072"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88244e18c7bcefe71c7f9fbca047125b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classetk_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk_1_1color.html#a88244e18c7bcefe71c7f9fbca047125b">yellowGreen</a></td></tr>
+<tr class="separator:a88244e18c7bcefe71c7f9fbca047125b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>List of all native define colors ... </p>
+</div><h2 class="groupheader">Variable Documentation</h2>
+<a id="adcf86ef9c7918dcb094a0783761899f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcf86ef9c7918dcb094a0783761899f1">&sect;&nbsp;</a></span>aliceBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::aliceBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:aliceBlue"> aliceBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a88abb6eca9c1ba0f346fb697683fa836"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88abb6eca9c1ba0f346fb697683fa836">&sect;&nbsp;</a></span>antiqueWhite</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::antiqueWhite</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:antiqueWhite"> antiqueWhite color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a2cef110e71ce12876fcfd6605e57f716"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cef110e71ce12876fcfd6605e57f716">&sect;&nbsp;</a></span>aqua</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::aqua</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:aqua"> aqua color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a8b69f67ed3e2db9915acde652a1cff80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b69f67ed3e2db9915acde652a1cff80">&sect;&nbsp;</a></span>aquamarine</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::aquamarine</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:aquamarine"> aquamarine color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a51cb04e4a5b927ec82ceef2676b781f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51cb04e4a5b927ec82ceef2676b781f7">&sect;&nbsp;</a></span>azure</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::azure</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:azure"> azure color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a68244b2fa52245487cec1154155d0e03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68244b2fa52245487cec1154155d0e03">&sect;&nbsp;</a></span>beige</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::beige</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:beige"> beige color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ad03e04b97263a2c64dedfc405ff983ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad03e04b97263a2c64dedfc405ff983ee">&sect;&nbsp;</a></span>bisque</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::bisque</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:bisque"> bisque color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a4198b330ccb2e9008665733eee338f73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4198b330ccb2e9008665733eee338f73">&sect;&nbsp;</a></span>black</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::black</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:black"> black color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a12e8ba075411585a68aece7d0fead4cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12e8ba075411585a68aece7d0fead4cc">&sect;&nbsp;</a></span>blanchedAlmond</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::blanchedAlmond</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:blanchedAlmond"> blanchedAlmond color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a50f114c6849684e9984ae1322493572c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50f114c6849684e9984ae1322493572c">&sect;&nbsp;</a></span>blue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::blue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:blue"> blue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ac91bcec9a0a115d1070397f86cfdee4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac91bcec9a0a115d1070397f86cfdee4d">&sect;&nbsp;</a></span>blueViolet</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::blueViolet</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:blueViolet"> blueViolet color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="af3dff0347662115abb89c6ddb8447227"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3dff0347662115abb89c6ddb8447227">&sect;&nbsp;</a></span>brown</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::brown</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:brown"> brown color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a1920dd335710c842ea4706e2383ef784"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1920dd335710c842ea4706e2383ef784">&sect;&nbsp;</a></span>burlyWood</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::burlyWood</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:burlyWood"> burlyWood color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="aa007b1fd1b17e1872fbc6f41e147f54f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa007b1fd1b17e1872fbc6f41e147f54f">&sect;&nbsp;</a></span>cadetBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::cadetBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:cadetBlue"> cadetBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a2dd91ed503e594efb3fbfef33e358066"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dd91ed503e594efb3fbfef33e358066">&sect;&nbsp;</a></span>chartreuse</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::chartreuse</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:chartreuse"> chartreuse color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a7c01526863636486a43270680bc60002"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c01526863636486a43270680bc60002">&sect;&nbsp;</a></span>chocolate</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::chocolate</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:chocolate"> chocolate color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a36f2cec268c7c0e30723ac23f9b3f277"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36f2cec268c7c0e30723ac23f9b3f277">&sect;&nbsp;</a></span>coral</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::coral</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:coral"> coral color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a90a5242512b4e294b4a660317609f80a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90a5242512b4e294b4a660317609f80a">&sect;&nbsp;</a></span>cornflowerBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::cornflowerBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:cornflowerBlue"> cornflowerBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a253d987094e83f3d979dd8fe216297be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a253d987094e83f3d979dd8fe216297be">&sect;&nbsp;</a></span>cornsilk</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::cornsilk</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:cornsilk"> cornsilk color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="aa29d7ec12725a55399cfbee0fab1d74e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa29d7ec12725a55399cfbee0fab1d74e">&sect;&nbsp;</a></span>crimson</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::crimson</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:crimson"> crimson color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="acc0367018e04ae83f0282525443f2c39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc0367018e04ae83f0282525443f2c39">&sect;&nbsp;</a></span>cyan</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::cyan</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:cyan"> cyan color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a222350bf918f872c4e5ff2c44ab0d948"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a222350bf918f872c4e5ff2c44ab0d948">&sect;&nbsp;</a></span>darkBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkBlue"> darkBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a1e2298ea2e2329a2eec98014ad2f62f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e2298ea2e2329a2eec98014ad2f62f3">&sect;&nbsp;</a></span>darkCyan</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkCyan</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkCyan"> darkCyan color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="aa8fc1bb410a59107158dc78cbff58637"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8fc1bb410a59107158dc78cbff58637">&sect;&nbsp;</a></span>darkGoldenRod</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkGoldenRod</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkGoldenRod"> darkGoldenRod color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a443370c666ff111e46fd69af0fc8c6f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a443370c666ff111e46fd69af0fc8c6f1">&sect;&nbsp;</a></span>darkGray</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkGray</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkGray"> darkGray color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ab2c305fa2794088b6518e7d41b5a66cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2c305fa2794088b6518e7d41b5a66cf">&sect;&nbsp;</a></span>darkGreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkGreen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkGreen"> darkGreen color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="acc4d6ece51b12c4d71944c7cfa62df3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc4d6ece51b12c4d71944c7cfa62df3d">&sect;&nbsp;</a></span>darkGrey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkGrey</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkGrey"> darkGrey color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a41b7e12409c7c23d2efd5b2002ff8a38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41b7e12409c7c23d2efd5b2002ff8a38">&sect;&nbsp;</a></span>darkKhaki</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkKhaki</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkKhaki"> darkKhaki color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a5967702d70d066cc22d0582816506960"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5967702d70d066cc22d0582816506960">&sect;&nbsp;</a></span>darkMagenta</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkMagenta</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkMagenta"> darkMagenta color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="af8658803a964bae9b55b136f17349fb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8658803a964bae9b55b136f17349fb9">&sect;&nbsp;</a></span>darkOliveGreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkOliveGreen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkOliveGreen"> darkOliveGreen color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a7064c68a6a6025e00ce163a1ae89f1ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7064c68a6a6025e00ce163a1ae89f1ea">&sect;&nbsp;</a></span>darkorange</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkorange</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkorange"> darkorange color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a1d7683e234cce9679495ba626cdbd63b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d7683e234cce9679495ba626cdbd63b">&sect;&nbsp;</a></span>darkOrchid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkOrchid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkOrchid"> darkOrchid color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="aff3a3b7299b13dfb18983bf5590ba95a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff3a3b7299b13dfb18983bf5590ba95a">&sect;&nbsp;</a></span>darkRed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkRed</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkRed"> darkRed color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a907915b5995bce96b1edce13c9e2fdf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a907915b5995bce96b1edce13c9e2fdf7">&sect;&nbsp;</a></span>darkSalmon</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkSalmon</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkSalmon"> darkSalmon color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a59822524863f5783ee051ad10375892f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59822524863f5783ee051ad10375892f">&sect;&nbsp;</a></span>darkSeaGreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkSeaGreen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkSeaGreen"> darkSeaGreen color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a26484af8b6c58f221f1849b87f3bee74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26484af8b6c58f221f1849b87f3bee74">&sect;&nbsp;</a></span>darkSlateBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkSlateBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkSlateBlue"> darkSlateBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a349b3fd1e93f89e01bd862981d02196b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a349b3fd1e93f89e01bd862981d02196b">&sect;&nbsp;</a></span>darkSlateGray</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkSlateGray</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkSlateGray"> darkSlateGray color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a50f19e66e3c3a0af908b5c1efd2abc84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50f19e66e3c3a0af908b5c1efd2abc84">&sect;&nbsp;</a></span>darkSlateGrey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkSlateGrey</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkSlateGrey"> darkSlateGrey color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a05e713dcb0b2f4febdbcf35450b841fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05e713dcb0b2f4febdbcf35450b841fd">&sect;&nbsp;</a></span>darkTurquoise</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkTurquoise</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkTurquoise"> darkTurquoise color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a9e56b9239824d0b5936d5cff3b60231b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e56b9239824d0b5936d5cff3b60231b">&sect;&nbsp;</a></span>darkViolet</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::darkViolet</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:darkViolet"> darkViolet color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="aad22e4d8159516802b60b3993b35310d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad22e4d8159516802b60b3993b35310d">&sect;&nbsp;</a></span>deepPink</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::deepPink</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:deepPink"> deepPink color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a20b4f50841f1edc88b8ebd09764d22ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20b4f50841f1edc88b8ebd09764d22ec">&sect;&nbsp;</a></span>deepSkyBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::deepSkyBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:deepSkyBlue"> deepSkyBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a9c3f19c27817d52a7dce663597809673"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c3f19c27817d52a7dce663597809673">&sect;&nbsp;</a></span>dimGray</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::dimGray</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:dimGray"> dimGray color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a1b9159ca54b27a2eb3aef2787cc3f8a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b9159ca54b27a2eb3aef2787cc3f8a4">&sect;&nbsp;</a></span>dimGrey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::dimGrey</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:dimGrey"> dimGrey color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="abded21fe482e526e290b0699c55c1d8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abded21fe482e526e290b0699c55c1d8d">&sect;&nbsp;</a></span>dodgerBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::dodgerBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:dodgerBlue"> dodgerBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ad6967e9c5889d20d52ba7f02ce1a4344"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6967e9c5889d20d52ba7f02ce1a4344">&sect;&nbsp;</a></span>fireBrick</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::fireBrick</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:fireBrick"> fireBrick color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="aa194136648518d6622f0648b1be32886"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa194136648518d6622f0648b1be32886">&sect;&nbsp;</a></span>floralWhite</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::floralWhite</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:floralWhite"> floralWhite color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ae828702f8dde36254656074f1539cf27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae828702f8dde36254656074f1539cf27">&sect;&nbsp;</a></span>forestGreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::forestGreen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:forestGreen"> forestGreen color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="add8be07f05dd9acb1021cd813d5d09f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add8be07f05dd9acb1021cd813d5d09f5">&sect;&nbsp;</a></span>fuchsia</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::fuchsia</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:fuchsia"> fuchsia color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a9f3802248416e94cbe57301269bb4597"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f3802248416e94cbe57301269bb4597">&sect;&nbsp;</a></span>gainsboro</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::gainsboro</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:gainsboro"> gainsboro color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a15bfc067a56f04e3c95ccc1e08e30582"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15bfc067a56f04e3c95ccc1e08e30582">&sect;&nbsp;</a></span>ghostWhite</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::ghostWhite</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:ghostWhite"> ghostWhite color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="aa87df42bc06ea637f36058ded83172b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa87df42bc06ea637f36058ded83172b8">&sect;&nbsp;</a></span>gold</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::gold</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:gold"> gold color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ab3e32a2d70fbe57ccbd45b490b32dfc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3e32a2d70fbe57ccbd45b490b32dfc0">&sect;&nbsp;</a></span>goldenRod</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::goldenRod</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:goldenRod"> goldenRod color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a319c23dcc37291f96f330abe15b16f89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a319c23dcc37291f96f330abe15b16f89">&sect;&nbsp;</a></span>gray</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::gray</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:gray"> gray color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a6fc96147de6d001202802bca7bcf2ba9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fc96147de6d001202802bca7bcf2ba9">&sect;&nbsp;</a></span>green</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::green</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:green"> green color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a218efa62696750857b5ce07171c34cbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a218efa62696750857b5ce07171c34cbd">&sect;&nbsp;</a></span>greenYellow</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::greenYellow</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:greenYellow"> greenYellow color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a21d8358e48a38d1d701d2165e9ff7ef3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21d8358e48a38d1d701d2165e9ff7ef3">&sect;&nbsp;</a></span>grey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::grey</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:grey"> grey color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="aa3411f95075bfc9977619fcea76266de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3411f95075bfc9977619fcea76266de">&sect;&nbsp;</a></span>honeyDew</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::honeyDew</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:honeyDew"> honeyDew color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a03118a731faf900b1bec48f3b001a8dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03118a731faf900b1bec48f3b001a8dd">&sect;&nbsp;</a></span>hotPink</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::hotPink</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:hotPink"> hotPink color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a13e4d0783eb7e8c10ca87631e5385dcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13e4d0783eb7e8c10ca87631e5385dcb">&sect;&nbsp;</a></span>indianRed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::indianRed</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:indianRed"> indianRed color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a3a93b5498bb8c81d57e7a759d1418579"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a93b5498bb8c81d57e7a759d1418579">&sect;&nbsp;</a></span>indigo</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::indigo</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:indigo"> indigo color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ab44bec9b6c9231236729f749df94c7ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab44bec9b6c9231236729f749df94c7ba">&sect;&nbsp;</a></span>ivory</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::ivory</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:ivory"> ivory color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="aa5242622529843c2b59a3a10de215834"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5242622529843c2b59a3a10de215834">&sect;&nbsp;</a></span>khaki</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::khaki</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:khaki"> khaki color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a2f2c8ef5a6ab8b6d0d0bfc261dc1c660"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f2c8ef5a6ab8b6d0d0bfc261dc1c660">&sect;&nbsp;</a></span>lavender</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lavender</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lavender"> lavender color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a4232ea43a0d5f4e1a0fda12b2523789e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4232ea43a0d5f4e1a0fda12b2523789e">&sect;&nbsp;</a></span>lavenderBlush</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lavenderBlush</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lavenderBlush"> lavenderBlush color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="afde65cb2bb3edffeb3c3be844048bea7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afde65cb2bb3edffeb3c3be844048bea7">&sect;&nbsp;</a></span>lawnGreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lawnGreen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lawnGreen"> lawnGreen color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a1b1f3235d4cb5967be945422180a696e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b1f3235d4cb5967be945422180a696e">&sect;&nbsp;</a></span>lemonChiffon</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lemonChiffon</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lemonChiffon"> lemonChiffon color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a8387db6883f21400bf5be80372c35647"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8387db6883f21400bf5be80372c35647">&sect;&nbsp;</a></span>lightBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lightBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lightBlue"> lightBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a18fa89d253f21d090fb78f9c4c3fa179"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18fa89d253f21d090fb78f9c4c3fa179">&sect;&nbsp;</a></span>lightCoral</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lightCoral</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lightCoral"> lightCoral color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a50d72f3fa72a15b70950ec3c6294c486"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50d72f3fa72a15b70950ec3c6294c486">&sect;&nbsp;</a></span>lightCyan</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lightCyan</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lightCyan"> lightCyan color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a4b1fa30e34836c579b23ad52137bd690"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b1fa30e34836c579b23ad52137bd690">&sect;&nbsp;</a></span>lightGoldenRodYellow</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lightGoldenRodYellow</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lightGoldenRodYellow"> lightGoldenRodYellow color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a4083c98e9eded328f2cd91f01affddc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4083c98e9eded328f2cd91f01affddc0">&sect;&nbsp;</a></span>lightGray</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lightGray</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lightGray"> lightGray color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a2d28338bea023156af46b42ac4104d65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d28338bea023156af46b42ac4104d65">&sect;&nbsp;</a></span>lightGreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lightGreen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lightGreen"> lightGreen color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a77d1ce7214b499fb78f9bbfcd18cb7b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77d1ce7214b499fb78f9bbfcd18cb7b4">&sect;&nbsp;</a></span>lightGrey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lightGrey</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lightGrey"> lightGrey color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a14d1dd7b18f6b86d7a3c16f417f453b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14d1dd7b18f6b86d7a3c16f417f453b6">&sect;&nbsp;</a></span>lightPink</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lightPink</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lightPink"> lightPink color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a033bb4d31c48f0dd52fc0662944ab8f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a033bb4d31c48f0dd52fc0662944ab8f6">&sect;&nbsp;</a></span>lightSalmon</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lightSalmon</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lightSalmon"> lightSalmon color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a146b8e64718660041ce89a8803661e2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a146b8e64718660041ce89a8803661e2a">&sect;&nbsp;</a></span>lightSeaGreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lightSeaGreen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lightSeaGreen"> lightSeaGreen color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a51a95c2b5fd2957e41b027b84df64bb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51a95c2b5fd2957e41b027b84df64bb2">&sect;&nbsp;</a></span>lightSkyBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lightSkyBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lightSkyBlue"> lightSkyBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="af8cb2152fe5df989303dd976f97578ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8cb2152fe5df989303dd976f97578ea">&sect;&nbsp;</a></span>lightSlateGray</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lightSlateGray</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lightSlateGray"> lightSlateGray color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a4a496840c6c000f27da3a6e8e54e33eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a496840c6c000f27da3a6e8e54e33eb">&sect;&nbsp;</a></span>lightSlateGrey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lightSlateGrey</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lightSlateGrey"> lightSlateGrey color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a26bcddd1699b895e233e35f31fda1c0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26bcddd1699b895e233e35f31fda1c0e">&sect;&nbsp;</a></span>lightSteelBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lightSteelBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lightSteelBlue"> lightSteelBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ab23ae9842d65ec28e1ff7f06d5b252a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab23ae9842d65ec28e1ff7f06d5b252a8">&sect;&nbsp;</a></span>lightYellow</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lightYellow</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lightYellow"> lightYellow color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a0363b4e80d7960b29e41c1202d36cefb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0363b4e80d7960b29e41c1202d36cefb">&sect;&nbsp;</a></span>lime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::lime</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:lime"> lime color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a29c3e83ca4abea8319f8f5671b9720c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29c3e83ca4abea8319f8f5671b9720c2">&sect;&nbsp;</a></span>limeGreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::limeGreen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:limeGreen"> limeGreen color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="aaed3fa7e8a6f9ed2e79677075bf1e63e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaed3fa7e8a6f9ed2e79677075bf1e63e">&sect;&nbsp;</a></span>linen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::linen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:linen"> linen color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="afee87f303d370ab6dbc7ac1e2c00ead1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afee87f303d370ab6dbc7ac1e2c00ead1">&sect;&nbsp;</a></span>magenta</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::magenta</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:magenta"> magenta color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="acedfbd93471b71ba9998984b11ba718e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acedfbd93471b71ba9998984b11ba718e">&sect;&nbsp;</a></span>maroon</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::maroon</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:maroon"> maroon color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a7f0d7a636c8caa196464b499b6280426"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f0d7a636c8caa196464b499b6280426">&sect;&nbsp;</a></span>mediumAquaMarine</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::mediumAquaMarine</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:mediumAquaMarine"> mediumAquaMarine color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a7fe002b79a78199f18363dd05530378d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fe002b79a78199f18363dd05530378d">&sect;&nbsp;</a></span>mediumBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::mediumBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:mediumBlue"> mediumBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a5e155686074462e57beee0511146bc97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e155686074462e57beee0511146bc97">&sect;&nbsp;</a></span>mediumOrchid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::mediumOrchid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:mediumOrchid"> mediumOrchid color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a3b2c512ac26bc28808a8b3dd5656440d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b2c512ac26bc28808a8b3dd5656440d">&sect;&nbsp;</a></span>mediumPurple</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::mediumPurple</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:mediumPurple"> mediumPurple color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ac8b45a088646ef1fcf8fe69179dc519b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8b45a088646ef1fcf8fe69179dc519b">&sect;&nbsp;</a></span>mediumSeaGreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::mediumSeaGreen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:mediumSeaGreen"> mediumSeaGreen color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a215704258654af99ded76d5642d9d462"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a215704258654af99ded76d5642d9d462">&sect;&nbsp;</a></span>mediumSlateBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::mediumSlateBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:mediumSlateBlue"> mediumSlateBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a2b5d44a4ca36262221237f5165af7aae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b5d44a4ca36262221237f5165af7aae">&sect;&nbsp;</a></span>mediumSpringGreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::mediumSpringGreen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:mediumSpringGreen"> mediumSpringGreen color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ac3cfc60cd0c3b29f6a941dd592d90b24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3cfc60cd0c3b29f6a941dd592d90b24">&sect;&nbsp;</a></span>mediumTurquoise</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::mediumTurquoise</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:mediumTurquoise"> mediumTurquoise color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a05fe5d6e6d4b13da98ccf1acef57ba3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05fe5d6e6d4b13da98ccf1acef57ba3a">&sect;&nbsp;</a></span>mediumVioletRed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::mediumVioletRed</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:mediumVioletRed"> mediumVioletRed color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="af0900bfad0e76b546fbe6b9c3fe3f24a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0900bfad0e76b546fbe6b9c3fe3f24a">&sect;&nbsp;</a></span>midnightBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::midnightBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:midnightBlue"> midnightBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="adfb434830d70a46377180a95be6d484e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfb434830d70a46377180a95be6d484e">&sect;&nbsp;</a></span>mintCream</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::mintCream</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:mintCream"> mintCream color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a18204af4290656aeac4f7c88eb85d0f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18204af4290656aeac4f7c88eb85d0f3">&sect;&nbsp;</a></span>mistyRose</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::mistyRose</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:mistyRose"> mistyRose color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a8cb08faeeec554e2a414bc8633b443c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cb08faeeec554e2a414bc8633b443c5">&sect;&nbsp;</a></span>moccasin</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::moccasin</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:moccasin"> moccasin color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a1b63b8a9a1cc45910237b30a2ba45fca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b63b8a9a1cc45910237b30a2ba45fca">&sect;&nbsp;</a></span>navajoWhite</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::navajoWhite</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:navajoWhite"> navajoWhite color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a20ab31b18ba99ce5faa111a99ab2e83d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20ab31b18ba99ce5faa111a99ab2e83d">&sect;&nbsp;</a></span>navy</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::navy</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:navy"> navy color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a4589db8a7e8998273732dae4c83e28c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4589db8a7e8998273732dae4c83e28c5">&sect;&nbsp;</a></span>none</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::none</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>No color (alpha = 0) </p>
+
+</div>
+</div>
+<a id="a6dac38a6103291477259e687e0774c1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dac38a6103291477259e687e0774c1f">&sect;&nbsp;</a></span>oldLace</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::oldLace</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:oldLace"> oldLace color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a7c6df578f49614b0a84b8d60a85522f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c6df578f49614b0a84b8d60a85522f5">&sect;&nbsp;</a></span>olive</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::olive</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:olive"> olive color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a020a9d7d45aa767ddf85ce3091f09700"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a020a9d7d45aa767ddf85ce3091f09700">&sect;&nbsp;</a></span>oliveDrab</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::oliveDrab</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:oliveDrab"> oliveDrab color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ab17f0b0fde63f5895d0da41ecc9e2573"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab17f0b0fde63f5895d0da41ecc9e2573">&sect;&nbsp;</a></span>orange</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::orange</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:orange"> orange color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="aeb3c67384cae4e9260ddd453a3cc7810"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb3c67384cae4e9260ddd453a3cc7810">&sect;&nbsp;</a></span>orangeRed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::orangeRed</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:orangeRed"> orangeRed color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a8a02f315fb94c24136fd151610d1d2b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a02f315fb94c24136fd151610d1d2b3">&sect;&nbsp;</a></span>orchid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::orchid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:orchid"> orchid color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a4e77005ee52eb9d1b5a4ddb682374e0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e77005ee52eb9d1b5a4ddb682374e0f">&sect;&nbsp;</a></span>paleGoldenRod</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::paleGoldenRod</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:paleGoldenRod"> paleGoldenRod color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a2cf19b14d8517bd39851f277029b0931"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cf19b14d8517bd39851f277029b0931">&sect;&nbsp;</a></span>paleGreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::paleGreen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:paleGreen"> paleGreen color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a2652ecc2224179077270ffb4d13fef57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2652ecc2224179077270ffb4d13fef57">&sect;&nbsp;</a></span>paleTurquoise</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::paleTurquoise</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:paleTurquoise"> paleTurquoise color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a40929240fd9c26bda27c2a80e5893db5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40929240fd9c26bda27c2a80e5893db5">&sect;&nbsp;</a></span>paleVioletRed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::paleVioletRed</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:paleVioletRed"> paleVioletRed color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a55430464cce8100e33385115a9468cf1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55430464cce8100e33385115a9468cf1">&sect;&nbsp;</a></span>papayaWhip</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::papayaWhip</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:papayaWhip"> papayaWhip color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ad30f26284e76fd398359bcd928143311"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad30f26284e76fd398359bcd928143311">&sect;&nbsp;</a></span>peachPuff</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::peachPuff</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:peachPuff"> peachPuff color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a83ed22c571e6ef53e406cc47c51f753f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83ed22c571e6ef53e406cc47c51f753f">&sect;&nbsp;</a></span>peru</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::peru</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:peru"> peru color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ad2726cdc1f4064f8df7b77b7da3d4291"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2726cdc1f4064f8df7b77b7da3d4291">&sect;&nbsp;</a></span>pink</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::pink</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:pink"> pink color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ab4d992f3996f638d234f936153bd7907"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4d992f3996f638d234f936153bd7907">&sect;&nbsp;</a></span>plum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::plum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:plum"> plum color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="afd0e078b144de932065e8a7f01685b6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd0e078b144de932065e8a7f01685b6b">&sect;&nbsp;</a></span>powderBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::powderBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:powderBlue"> powderBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a1651c86712c0ebee50517f010a05b527"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1651c86712c0ebee50517f010a05b527">&sect;&nbsp;</a></span>purple</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::purple</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:purple"> purple color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a365a78d3068cd950ce25fda3f905554e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a365a78d3068cd950ce25fda3f905554e">&sect;&nbsp;</a></span>red</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::red</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:red"> red color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a3ac844cd13feb847816ff94ff20fb84c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ac844cd13feb847816ff94ff20fb84c">&sect;&nbsp;</a></span>rosyBrown</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::rosyBrown</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:rosyBrown"> rosyBrown color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a3dad77d1418cd34da0e07049781f32d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dad77d1418cd34da0e07049781f32d9">&sect;&nbsp;</a></span>royalBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::royalBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:royalBlue"> royalBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a5407ca00d7f7bf3815a72616e0be95ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5407ca00d7f7bf3815a72616e0be95ae">&sect;&nbsp;</a></span>saddleBrown</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::saddleBrown</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:saddleBrown"> saddleBrown color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ad324737686a8c6ec9208a93e727710d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad324737686a8c6ec9208a93e727710d8">&sect;&nbsp;</a></span>salmon</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::salmon</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:salmon"> salmon color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="affd1d87686e7d4fb1a720d4cb5c354cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affd1d87686e7d4fb1a720d4cb5c354cb">&sect;&nbsp;</a></span>sandyBrown</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::sandyBrown</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:sandyBrown"> sandyBrown color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a3d3d8140130f2383e7740b4cea443470"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d3d8140130f2383e7740b4cea443470">&sect;&nbsp;</a></span>seaGreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::seaGreen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:seaGreen"> seaGreen color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a6b50105504f9be5dcf7ae59cbb115051"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b50105504f9be5dcf7ae59cbb115051">&sect;&nbsp;</a></span>seaShell</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::seaShell</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:seaShell"> seaShell color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a0a8eaf790795f7b5fc63c81ade8652ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a8eaf790795f7b5fc63c81ade8652ce">&sect;&nbsp;</a></span>sienna</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::sienna</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:sienna"> sienna color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="aca25e934d9d1ac1538a4a0c7011c6d0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca25e934d9d1ac1538a4a0c7011c6d0c">&sect;&nbsp;</a></span>silver</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::silver</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:silver"> silver color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a1576fd8ed2c3fe5ed5a10f8147d0ed1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1576fd8ed2c3fe5ed5a10f8147d0ed1d">&sect;&nbsp;</a></span>skyBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::skyBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:skyBlue"> skyBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a4f605302a82a6173de726e797c3edf0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f605302a82a6173de726e797c3edf0d">&sect;&nbsp;</a></span>slateBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::slateBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:slateBlue"> slateBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a5d3c48d14e696bc1b8d9d43158dfa0b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d3c48d14e696bc1b8d9d43158dfa0b2">&sect;&nbsp;</a></span>slateGray</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::slateGray</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:slateGray"> slateGray color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a9cefc035f467790176ba159bb6255c6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cefc035f467790176ba159bb6255c6e">&sect;&nbsp;</a></span>slateGrey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::slateGrey</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:slateGrey"> slateGrey color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ae312c38fc6be5178a4ff63921f162723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae312c38fc6be5178a4ff63921f162723">&sect;&nbsp;</a></span>snow</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::snow</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:snow"> snow color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ab3b6e2028b00791f15ddff7f9a1fe703"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3b6e2028b00791f15ddff7f9a1fe703">&sect;&nbsp;</a></span>springGreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::springGreen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:springGreen"> springGreen color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a9162b466a59a0bbe420b49c565e9dd6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9162b466a59a0bbe420b49c565e9dd6f">&sect;&nbsp;</a></span>steelBlue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::steelBlue</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:steelBlue"> steelBlue color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a923b2869775837088eabdb48681f4b1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a923b2869775837088eabdb48681f4b1e">&sect;&nbsp;</a></span>tan</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::tan</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:tan"> tan color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a9b28dace6aa8c81c0c59a7343875d2b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b28dace6aa8c81c0c59a7343875d2b5">&sect;&nbsp;</a></span>teal</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::teal</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:teal"> teal color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a729d8532a3b7c147fcaa726ce2d887b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a729d8532a3b7c147fcaa726ce2d887b8">&sect;&nbsp;</a></span>thistle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::thistle</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:thistle"> thistle color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a9f3fe621ef99b1b452a5a11af1a06ae0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f3fe621ef99b1b452a5a11af1a06ae0">&sect;&nbsp;</a></span>tomato</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::tomato</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:tomato"> tomato color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a8162f21fcdb858a4c5017a20db4c5830"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8162f21fcdb858a4c5017a20db4c5830">&sect;&nbsp;</a></span>turquoise</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::turquoise</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:turquoise"> turquoise color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="ac86b1f752bb46992b83000f1b48957ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac86b1f752bb46992b83000f1b48957ec">&sect;&nbsp;</a></span>violet</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::violet</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:violet"> violet color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a0fee5d2cd67adc3c4a5d820616854cde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fee5d2cd67adc3c4a5d820616854cde">&sect;&nbsp;</a></span>wheat</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::wheat</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:wheat"> wheat color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a6559ba632982f84ab6215281bd431b9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6559ba632982f84ab6215281bd431b9c">&sect;&nbsp;</a></span>white</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::white</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:white"> white color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a1b012cf56fb3a1c63e55aa2d83f7472b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b012cf56fb3a1c63e55aa2d83f7472b">&sect;&nbsp;</a></span>whiteSmoke</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::whiteSmoke</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:whiteSmoke"> whiteSmoke color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a002d237cb06c35ec373b454af2cbb072"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a002d237cb06c35ec373b454af2cbb072">&sect;&nbsp;</a></span>yellow</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::yellow</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:yellow"> yellow color </span> </li>
+</ul>
+
+</div>
+</div>
+<a id="a88244e18c7bcefe71c7f9fbca047125b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88244e18c7bcefe71c7f9fbca047125b">&sect;&nbsp;</a></span>yellowGreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classetk_1_1_color.html">Color</a> etk::color::yellowGreen</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<ul>
+<li><span class="color:yellowGreen"> yellowGreen color </span> </li>
+</ul>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Oct 24 2016 10:48:19 for Etk: Ewol Tool Kit by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

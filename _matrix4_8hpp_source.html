@@ -1,0 +1,186 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.12"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Etk: Ewol Tool Kit: framework/atria-soft/etk/etk/math/Matrix4.hpp Source File</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Etk: Ewol Tool Kit 0.10.0</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Main&nbsp;Page</a></li>
+                        <li><a href="pages.html">Related&nbsp;Pages</a></li>
+                        <li><a href="namespaces.html">Namespaces</a></li>
+                        <li><a href="annotated.html">Classes</a></li>
+                        <li><a href="files.html">Files</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Link-libs<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://HeeroYui.github.io/lutin">lutin</a></li>
+                                <li><a href="http://atria-soft.github.io/ewol">ewol</a></li>
+                                <li><a href="http://atria-soft.github.io/etk">etk</a></li>
+                                <li><a href="http://atria-soft.github.io/ejson">ejson</a></li>
+                                <li><a href="http://atria-soft.github.io/exml">exml</a></li>
+                                <li><a href="http://atria-soft.github.io/esvg">esvg</a></li>
+                                <li><a href="http://atria-soft.github.io/egami">egami</a></li>
+                                <li><a href="http://atria-soft.github.io/gale">gale</a></li>
+                                <li><a href="http://atria-soft.github.io/ege">ege</a></li>
+                                <li><a href="http://atria-soft.github.io/elog">elog</a></li>
+                                <li><a href="http://atria-soft.github.io/ememory">ememory</a></li>
+                                <li><a href="http://atria-soft.github.io/enet">enet</a></li>
+                                <li><a href="http://atria-soft.github.io/eproperty">eproperty</a></li>
+                                <li><a href="http://atria-soft.github.io/esignal">esignal</a></li>
+                                <li><a href="http://atria-soft.github.io/zeus">zeus</a></li>
+                                <li><a href="http://atria-soft.github.io/audio-ess">audio-ess</a></li>
+                                <li><a href="http://musicdsp.github.io/audio">audio</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-drain">audio-drain</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-orchestra">audio-orchestra</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-river">audio-river</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="search-box" class="input-group">
+                        <div class="input-group-btn">
+                            <button aria-expanded="false" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">All</a></li>
+                                <li><a href="#">Classes</a></li>
+                                <li><a href="#">Namespaces</a></li>
+                                <li><a href="#">Files</a></li>
+                                <li><a href="#">Functions</a></li>
+                                <li><a href="#">Variables</a></li>
+                                <li><a href="#">Typedefs</a></li>
+                                <li><a href="#">Enumerations</a></li>
+                                <li><a href="#">Enumerator</a></li>
+                                <li><a href="#">Friends</a></li>
+                                <li><a href="#">Macros</a></li>
+                                <li><a href="#">Pages</a></li>
+                            </ul>
+                        </div>
+                        <button id="search-close" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <input id="search-field" class="form-control" accesskey="S" onkeydown="searchBox.OnSearchFieldChange(event);" placeholder="Search ..." type="text">
+                    </div>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel panel-default" style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+<!-- Generated by Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Search');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_644e041c3a6521da7b27eba0e4eb2b95.html">framework</a></li><li class="navelem"><a class="el" href="dir_a094892b17be858f66bf3446bbb755c7.html">atria-soft</a></li><li class="navelem"><a class="el" href="dir_101ca691570835542fc832f149ed9b11.html">etk</a></li><li class="navelem"><a class="el" href="dir_8e1854e033aa3ec68b8dd13c773d2923.html">etk</a></li><li class="navelem"><a class="el" href="dir_f311a0a6eba1dc32efa9f7eace7d8ad2.html">math</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">Matrix4.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_matrix4_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="types_8hpp.html">etk/types.hpp</a>&gt;</span></div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#pragma once</span></div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_vector3_d_8hpp.html">etk/math/Vector3D.hpp</a>&gt;</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceetk.html">etk</a> {</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div><div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="namespaceetk.html#aae0bc3aae3180e4cc444264c2b39a9bd">   22</a></span>&#160;    T <a class="code" href="namespaceetk.html#aae0bc3aae3180e4cc444264c2b39a9bd">degreeToRadian</a>(T _val) {</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordflow">return</span> _val*M_PI/T(180.0);</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    }</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div><div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="namespaceetk.html#a65f1e1a46582dc76219cb453b36d9a38">   31</a></span>&#160;    T <a class="code" href="namespaceetk.html#a65f1e1a46582dc76219cb453b36d9a38">radianToDegree</a>(T _val) {</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">return</span> _val*T(180.0)/M_PI;</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div><div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classetk_1_1_matrix4.html">   37</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classetk_1_1_matrix4.html">Matrix4</a> {</div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">public</span>:</div><div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classetk_1_1_matrix4.html#a831cacb3f32e4d5a1aeddc313e8d2abc">   39</a></span>&#160;            <span class="keywordtype">float</span> <a class="code" href="classetk_1_1_matrix4.html#a831cacb3f32e4d5a1aeddc313e8d2abc">m_mat</a>[4*4]; </div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keyword">public</span>:</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classetk_1_1_matrix4.html#af2b709691e4d6dd41ed54572794ab2a2">identity</a>();</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <a class="code" href="classetk_1_1_matrix4.html#a728743db03715fe8853be92741ba7e71">Matrix4</a>();</div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <a class="code" href="classetk_1_1_matrix4.html#a728743db03715fe8853be92741ba7e71">Matrix4</a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a>&amp; _obj);</div><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <a class="code" href="classetk_1_1_matrix4.html#a728743db03715fe8853be92741ba7e71">Matrix4</a>(<span class="keywordtype">float</span> _a1, <span class="keywordtype">float</span> _b1, <span class="keywordtype">float</span> _c1, <span class="keywordtype">float</span> _d1,</div><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                    <span class="keywordtype">float</span> _a2, <span class="keywordtype">float</span> _b2, <span class="keywordtype">float</span> _c2, <span class="keywordtype">float</span> _d2,</div><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                    <span class="keywordtype">float</span> _a3, <span class="keywordtype">float</span> _b3, <span class="keywordtype">float</span> _c3, <span class="keywordtype">float</span> _d3,</div><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                    <span class="keywordtype">float</span> _a4, <span class="keywordtype">float</span> _b4, <span class="keywordtype">float</span> _c4, <span class="keywordtype">float</span> _d4);</div><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <a class="code" href="classetk_1_1_matrix4.html#a728743db03715fe8853be92741ba7e71">Matrix4</a>(<span class="keywordtype">float</span>* _values);</div><div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keyword">const</span> <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a>&amp; <a class="code" href="classetk_1_1_matrix4.html#abbc1539e5a9a31f4a185cb8e2cf094a5">operator= </a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a>&amp; _obj);</div><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="keywordtype">bool</span> <a class="code" href="classetk_1_1_matrix4.html#a36e969eecdfed437e47da36de10785e2">operator== </a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a>&amp; _obj) <span class="keyword">const</span>;</div><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordtype">bool</span> <a class="code" href="classetk_1_1_matrix4.html#a7c930d4ee187543ac580b35feb1748e9">operator!= </a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a>&amp; _obj) <span class="keyword">const</span>;</div><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="keyword">const</span> <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a>&amp; <a class="code" href="classetk_1_1_matrix4.html#a5594a9cd7f0ab447e21cdd73e10f8298">operator+= </a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a>&amp; _obj);</div><div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a> <a class="code" href="classetk_1_1_matrix4.html#a13b43e5b81c17075c0a9f5ec7c258db1">operator+ </a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a>&amp; _obj) <span class="keyword">const</span>;</div><div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            <span class="keyword">const</span> <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a>&amp; <a class="code" href="classetk_1_1_matrix4.html#a33b3c850301ba202558304253b2c2d74">operator-= </a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a>&amp; _obj);</div><div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a> <a class="code" href="classetk_1_1_matrix4.html#a10b9b22f70c06e3a2a92cd5113ae7a94">operator- </a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a>&amp; _obj) <span class="keyword">const</span>;</div><div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            <span class="keyword">const</span> <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a>&amp; <a class="code" href="classetk_1_1_matrix4.html#a33a3183d112bb8cb527606acb9e6242f">operator*= </a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a>&amp; _obj);</div><div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a> <a class="code" href="classetk_1_1_matrix4.html#ae6f120779daf255ccfe413d967311caf">operator* </a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a>&amp; _obj) <span class="keyword">const</span>;</div><div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            <a class="code" href="classetk_1_1_vector3_d.html">vec3</a> <a class="code" href="classetk_1_1_matrix4.html#ae6f120779daf255ccfe413d967311caf">operator*</a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_vector3_d.html">vec3</a>&amp; _point) <span class="keyword">const</span>;</div><div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classetk_1_1_matrix4.html#a8214b2300ebdc4b42bde1efe93e84fae">transpose</a>();</div><div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classetk_1_1_matrix4.html#aa3121f90430c2e2d80bc967d4b94c114">scale</a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_vector3_d.html">vec3</a>&amp; _vect);</div><div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classetk_1_1_matrix4.html#aa3121f90430c2e2d80bc967d4b94c114">scale</a>(<span class="keywordtype">float</span> _sx, <span class="keywordtype">float</span> _sy, <span class="keywordtype">float</span> _sz);</div><div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classetk_1_1_matrix4.html#aecf1afef2a8d42c5da39bac540106bc1">rotate</a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_vector3_d.html">vec3</a>&amp; _vect, <span class="keywordtype">float</span> _angleRad=0.0);</div><div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classetk_1_1_matrix4.html#aa6cd07f3a802c5a57bddbf5a6db95c4d">translate</a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_vector3_d.html">vec3</a>&amp; _vect);</div><div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;            <span class="keywordtype">float</span> <a class="code" href="classetk_1_1_matrix4.html#a0679dea1b04a02692629b6f4476dc2d9">coFactor</a>(int32_t _row, int32_t _col) <span class="keyword">const</span>;</div><div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            <span class="keywordtype">float</span> <a class="code" href="classetk_1_1_matrix4.html#a17e00a9267a06fca1f68e3782fb07477">determinant</a>() <span class="keyword">const</span>;</div><div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a> <a class="code" href="classetk_1_1_matrix4.html#adfc631d9817a7ac82d12c243fe52fb93">invert</a>();</div><div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    };</div><div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a> <a class="code" href="namespaceetk.html#a8835f0fbba4a6ecd74d69991a19f20f4">matFrustum</a>(<span class="keywordtype">float</span> _xmin, <span class="keywordtype">float</span> _xmax, <span class="keywordtype">float</span> _ymin, <span class="keywordtype">float</span> _ymax, <span class="keywordtype">float</span> _zNear, <span class="keywordtype">float</span> _zFar);</div><div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a> <a class="code" href="namespaceetk.html#ad857bb4a4bb34e01d0b5534536cbe075">matPerspective</a>(<span class="keywordtype">float</span> _foxy, <span class="keywordtype">float</span> _aspect, <span class="keywordtype">float</span> _zNear, <span class="keywordtype">float</span> _zFar);</div><div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a> <a class="code" href="namespaceetk.html#aad05fa6714ff5e51a7ed4c0f432f95b2">matOrtho</a>(<span class="keywordtype">float</span> _left, <span class="keywordtype">float</span> _right, <span class="keywordtype">float</span> _bottom, <span class="keywordtype">float</span> _top, <span class="keywordtype">float</span> _nearVal, <span class="keywordtype">float</span> _farVal);</div><div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a> <a class="code" href="namespaceetk.html#a2f39480afa2135de814543dac27cc4f6">matTranslate</a>(<a class="code" href="classetk_1_1_vector3_d.html">vec3</a> _translate);</div><div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a> <a class="code" href="namespaceetk.html#ac4286b0e352d8ceb11585f7903cea76a">matScale</a>(<a class="code" href="classetk_1_1_vector3_d.html">vec3</a> _scale);</div><div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a> <a class="code" href="namespaceetk.html#a1547ff95cb3d6e5338fa4b7599606514">matRotate</a>(<a class="code" href="classetk_1_1_vector3_d.html">vec3</a> _normal, <span class="keywordtype">float</span> _angleRad=0.0);</div><div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a> matRotate2(<a class="code" href="classetk_1_1_vector3_d.html">vec3</a> _vect); </div><div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <a class="code" href="classetk_1_1_matrix4.html">Matrix4</a> <a class="code" href="namespaceetk.html#abb36cca3305ba6a4891dbbc78900e853">matLookAt</a>(<span class="keyword">const</span> <a class="code" href="classetk_1_1_vector3_d.html">vec3</a>&amp; _eye,</div><div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;                      <span class="keyword">const</span> <a class="code" href="classetk_1_1_vector3_d.html">vec3</a>&amp; _target,</div><div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                      <span class="keyword">const</span> <a class="code" href="classetk_1_1_vector3_d.html">vec3</a>&amp; _up);</div><div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    std::ostream&amp; operator &lt;&lt;(std::ostream&amp; _os, <span class="keyword">const</span> <a class="code" href="classetk_1_1_matrix4.html">etk::Matrix4</a>&amp; _obj);</div><div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;};</div><div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;</div><div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;</div><div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="comment">// To siplify the writing of the code ==&gt; this permit to have the same name with the glsl language...</span></div><div class="line"><a name="l00257"></a><span class="lineno"><a class="line" href="_matrix4_8hpp.html#a116ae4cbc40b3ab7e0925cb605258ac9">  257</a></span>&#160;<span class="keyword">using</span> <a class="code" href="classetk_1_1_matrix4.html">mat4</a> = <a class="code" href="classetk_1_1_matrix4.html">etk::Matrix4</a>; </div><div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;</div><div class="ttc" id="namespaceetk_html_a8835f0fbba4a6ecd74d69991a19f20f4"><div class="ttname"><a href="namespaceetk.html#a8835f0fbba4a6ecd74d69991a19f20f4">etk::matFrustum</a></div><div class="ttdeci">Matrix4 matFrustum(float _xmin, float _xmax, float _ymin, float _ymax, float _zNear, float _zFar)</div><div class="ttdoc">Create projection matrix with the box parameter (camera view in -z axis) </div></div>
+<div class="ttc" id="namespaceetk_html_aad05fa6714ff5e51a7ed4c0f432f95b2"><div class="ttname"><a href="namespaceetk.html#aad05fa6714ff5e51a7ed4c0f432f95b2">etk::matOrtho</a></div><div class="ttdeci">Matrix4 matOrtho(float _left, float _right, float _bottom, float _top, float _nearVal, float _farVal)</div><div class="ttdoc">Create orthogonal projection matrix with the box parameter (camera view in -z axis) ...</div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_a0679dea1b04a02692629b6f4476dc2d9"><div class="ttname"><a href="classetk_1_1_matrix4.html#a0679dea1b04a02692629b6f4476dc2d9">etk::Matrix4::coFactor</a></div><div class="ttdeci">float coFactor(int32_t _row, int32_t _col) const</div><div class="ttdoc">Computes a cofactor. Used for matrix inversion. </div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_a10b9b22f70c06e3a2a92cd5113ae7a94"><div class="ttname"><a href="classetk_1_1_matrix4.html#a10b9b22f70c06e3a2a92cd5113ae7a94">etk::Matrix4::operator-</a></div><div class="ttdeci">Matrix4 operator-(const Matrix4 &amp;_obj) const</div><div class="ttdoc">Operator- Decrement an other matrix with this one. </div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_aa3121f90430c2e2d80bc967d4b94c114"><div class="ttname"><a href="classetk_1_1_matrix4.html#aa3121f90430c2e2d80bc967d4b94c114">etk::Matrix4::scale</a></div><div class="ttdeci">void scale(const vec3 &amp;_vect)</div><div class="ttdoc">Scale the current Matrix. </div></div>
+<div class="ttc" id="namespaceetk_html_a65f1e1a46582dc76219cb453b36d9a38"><div class="ttname"><a href="namespaceetk.html#a65f1e1a46582dc76219cb453b36d9a38">etk::radianToDegree</a></div><div class="ttdeci">T radianToDegree(T _val)</div><div class="ttdoc">Convert radian in degree. </div><div class="ttdef"><b>Definition:</b> Matrix4.hpp:31</div></div>
+<div class="ttc" id="namespaceetk_html"><div class="ttname"><a href="namespaceetk.html">etk</a></div><div class="ttdoc">basic namespace of the etk library. (it might contain all the etk fuctions/class/structures without m...</div><div class="ttdef"><b>Definition:</b> Archive.hpp:16</div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_aecf1afef2a8d42c5da39bac540106bc1"><div class="ttname"><a href="classetk_1_1_matrix4.html#aecf1afef2a8d42c5da39bac540106bc1">etk::Matrix4::rotate</a></div><div class="ttdeci">void rotate(const vec3 &amp;_vect, float _angleRad=0.0)</div><div class="ttdoc">Makes a rotation matrix about an arbitrary axis. </div></div>
+<div class="ttc" id="namespaceetk_html_ac4286b0e352d8ceb11585f7903cea76a"><div class="ttname"><a href="namespaceetk.html#ac4286b0e352d8ceb11585f7903cea76a">etk::matScale</a></div><div class="ttdeci">Matrix4 matScale(vec3 _scale)</div><div class="ttdoc">Create a matrix 3D with a simple scale. </div></div>
+<div class="ttc" id="namespaceetk_html_abb36cca3305ba6a4891dbbc78900e853"><div class="ttname"><a href="namespaceetk.html#abb36cca3305ba6a4891dbbc78900e853">etk::matLookAt</a></div><div class="ttdeci">Matrix4 matLookAt(const vec3 &amp;_eye, const vec3 &amp;_target, const vec3 &amp;_up)</div><div class="ttdoc">Create projection matrix with camera property (camera view in -z axis) </div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_a5594a9cd7f0ab447e21cdd73e10f8298"><div class="ttname"><a href="classetk_1_1_matrix4.html#a5594a9cd7f0ab447e21cdd73e10f8298">etk::Matrix4::operator+=</a></div><div class="ttdeci">const Matrix4 &amp; operator+=(const Matrix4 &amp;_obj)</div><div class="ttdoc">Operator+= Addition an other matrix with this one. </div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_a13b43e5b81c17075c0a9f5ec7c258db1"><div class="ttname"><a href="classetk_1_1_matrix4.html#a13b43e5b81c17075c0a9f5ec7c258db1">etk::Matrix4::operator+</a></div><div class="ttdeci">Matrix4 operator+(const Matrix4 &amp;_obj) const</div><div class="ttdoc">Operator+ Addition an other matrix with this one. </div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_abbc1539e5a9a31f4a185cb8e2cf094a5"><div class="ttname"><a href="classetk_1_1_matrix4.html#abbc1539e5a9a31f4a185cb8e2cf094a5">etk::Matrix4::operator=</a></div><div class="ttdeci">const Matrix4 &amp; operator=(const Matrix4 &amp;_obj)</div><div class="ttdoc">Operator= Asign the current object with an other object. </div></div>
+<div class="ttc" id="namespaceetk_html_aae0bc3aae3180e4cc444264c2b39a9bd"><div class="ttname"><a href="namespaceetk.html#aae0bc3aae3180e4cc444264c2b39a9bd">etk::degreeToRadian</a></div><div class="ttdeci">T degreeToRadian(T _val)</div><div class="ttdoc">Convert degree in radian. </div><div class="ttdef"><b>Definition:</b> Matrix4.hpp:22</div></div>
+<div class="ttc" id="types_8hpp_html"><div class="ttname"><a href="types_8hpp.html">types.hpp</a></div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_af2b709691e4d6dd41ed54572794ab2a2"><div class="ttname"><a href="classetk_1_1_matrix4.html#af2b709691e4d6dd41ed54572794ab2a2">etk::Matrix4::identity</a></div><div class="ttdeci">void identity()</div><div class="ttdoc">configure identity of the matrix </div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_a728743db03715fe8853be92741ba7e71"><div class="ttname"><a href="classetk_1_1_matrix4.html#a728743db03715fe8853be92741ba7e71">etk::Matrix4::Matrix4</a></div><div class="ttdeci">Matrix4()</div><div class="ttdoc">Constructor that load identity. </div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html"><div class="ttname"><a href="classetk_1_1_matrix4.html">etk::Matrix4</a></div><div class="ttdoc">Transformation matrix for vector 3D. </div><div class="ttdef"><b>Definition:</b> Matrix4.hpp:37</div></div>
+<div class="ttc" id="namespaceetk_html_ad857bb4a4bb34e01d0b5534536cbe075"><div class="ttname"><a href="namespaceetk.html#ad857bb4a4bb34e01d0b5534536cbe075">etk::matPerspective</a></div><div class="ttdeci">Matrix4 matPerspective(float _foxy, float _aspect, float _zNear, float _zFar)</div><div class="ttdoc">Create projection matrix with human repensentation view (camera view in -z axis) </div></div>
+<div class="ttc" id="namespaceetk_html_a2f39480afa2135de814543dac27cc4f6"><div class="ttname"><a href="namespaceetk.html#a2f39480afa2135de814543dac27cc4f6">etk::matTranslate</a></div><div class="ttdeci">Matrix4 matTranslate(vec3 _translate)</div><div class="ttdoc">Create a matrix 3D with a simple translation. </div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_a17e00a9267a06fca1f68e3782fb07477"><div class="ttname"><a href="classetk_1_1_matrix4.html#a17e00a9267a06fca1f68e3782fb07477">etk::Matrix4::determinant</a></div><div class="ttdeci">float determinant() const</div><div class="ttdoc">Computes the determinant of the matrix. </div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_aa6cd07f3a802c5a57bddbf5a6db95c4d"><div class="ttname"><a href="classetk_1_1_matrix4.html#aa6cd07f3a802c5a57bddbf5a6db95c4d">etk::Matrix4::translate</a></div><div class="ttdeci">void translate(const vec3 &amp;_vect)</div><div class="ttdoc">Makes a translation of the matrix. </div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_a33b3c850301ba202558304253b2c2d74"><div class="ttname"><a href="classetk_1_1_matrix4.html#a33b3c850301ba202558304253b2c2d74">etk::Matrix4::operator-=</a></div><div class="ttdeci">const Matrix4 &amp; operator-=(const Matrix4 &amp;_obj)</div><div class="ttdoc">Operator-= Decrement an other matrix with this one. </div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_a831cacb3f32e4d5a1aeddc313e8d2abc"><div class="ttname"><a href="classetk_1_1_matrix4.html#a831cacb3f32e4d5a1aeddc313e8d2abc">etk::Matrix4::m_mat</a></div><div class="ttdeci">float m_mat[4 *4]</div><div class="ttdoc">matrix data </div><div class="ttdef"><b>Definition:</b> Matrix4.hpp:39</div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_a8214b2300ebdc4b42bde1efe93e84fae"><div class="ttname"><a href="classetk_1_1_matrix4.html#a8214b2300ebdc4b42bde1efe93e84fae">etk::Matrix4::transpose</a></div><div class="ttdeci">void transpose()</div><div class="ttdoc">Transpose the current matix (usefull for OpenGL display) </div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_a36e969eecdfed437e47da36de10785e2"><div class="ttname"><a href="classetk_1_1_matrix4.html#a36e969eecdfed437e47da36de10785e2">etk::Matrix4::operator==</a></div><div class="ttdeci">bool operator==(const Matrix4 &amp;_obj) const</div><div class="ttdoc">Equality compare operator with an other object. </div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_ae6f120779daf255ccfe413d967311caf"><div class="ttname"><a href="classetk_1_1_matrix4.html#ae6f120779daf255ccfe413d967311caf">etk::Matrix4::operator*</a></div><div class="ttdeci">Matrix4 operator*(const Matrix4 &amp;_obj) const</div><div class="ttdoc">Operator* Multiplication an other matrix with this one. </div></div>
+<div class="ttc" id="namespaceetk_html_a1547ff95cb3d6e5338fa4b7599606514"><div class="ttname"><a href="namespaceetk.html#a1547ff95cb3d6e5338fa4b7599606514">etk::matRotate</a></div><div class="ttdeci">Matrix4 matRotate(vec3 _normal, float _angleRad=0.0)</div><div class="ttdoc">Create a matrix 3D with a simple rotation. </div></div>
+<div class="ttc" id="_vector3_d_8hpp_html"><div class="ttname"><a href="_vector3_d_8hpp.html">Vector3D.hpp</a></div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_a7c930d4ee187543ac580b35feb1748e9"><div class="ttname"><a href="classetk_1_1_matrix4.html#a7c930d4ee187543ac580b35feb1748e9">etk::Matrix4::operator!=</a></div><div class="ttdeci">bool operator!=(const Matrix4 &amp;_obj) const</div><div class="ttdoc">In-Equality compare operator with an other object. </div></div>
+<div class="ttc" id="classetk_1_1_vector3_d_html"><div class="ttname"><a href="classetk_1_1_vector3_d.html">etk::Vector3D</a></div><div class="ttdoc">Vectorial 3-dimention vector (x/y/z) </div><div class="ttdef"><b>Definition:</b> Vector3D.hpp:20</div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_adfc631d9817a7ac82d12c243fe52fb93"><div class="ttname"><a href="classetk_1_1_matrix4.html#adfc631d9817a7ac82d12c243fe52fb93">etk::Matrix4::invert</a></div><div class="ttdeci">Matrix4 invert()</div><div class="ttdoc">Inverts the matrix. </div></div>
+<div class="ttc" id="classetk_1_1_matrix4_html_a33a3183d112bb8cb527606acb9e6242f"><div class="ttname"><a href="classetk_1_1_matrix4.html#a33a3183d112bb8cb527606acb9e6242f">etk::Matrix4::operator*=</a></div><div class="ttdeci">const Matrix4 &amp; operator*=(const Matrix4 &amp;_obj)</div><div class="ttdoc">Operator*= Multiplication an other matrix with this one. </div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Oct 24 2016 10:48:19 for Etk: Ewol Tool Kit by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

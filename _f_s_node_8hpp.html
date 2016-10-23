@@ -1,0 +1,458 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.12"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Etk: Ewol Tool Kit: framework/atria-soft/etk/etk/os/FSNode.hpp File Reference</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Etk: Ewol Tool Kit 0.10.0</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Main&nbsp;Page</a></li>
+                        <li><a href="pages.html">Related&nbsp;Pages</a></li>
+                        <li><a href="namespaces.html">Namespaces</a></li>
+                        <li><a href="annotated.html">Classes</a></li>
+                        <li><a href="files.html">Files</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Link-libs<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://HeeroYui.github.io/lutin">lutin</a></li>
+                                <li><a href="http://atria-soft.github.io/ewol">ewol</a></li>
+                                <li><a href="http://atria-soft.github.io/etk">etk</a></li>
+                                <li><a href="http://atria-soft.github.io/ejson">ejson</a></li>
+                                <li><a href="http://atria-soft.github.io/exml">exml</a></li>
+                                <li><a href="http://atria-soft.github.io/esvg">esvg</a></li>
+                                <li><a href="http://atria-soft.github.io/egami">egami</a></li>
+                                <li><a href="http://atria-soft.github.io/gale">gale</a></li>
+                                <li><a href="http://atria-soft.github.io/ege">ege</a></li>
+                                <li><a href="http://atria-soft.github.io/elog">elog</a></li>
+                                <li><a href="http://atria-soft.github.io/ememory">ememory</a></li>
+                                <li><a href="http://atria-soft.github.io/enet">enet</a></li>
+                                <li><a href="http://atria-soft.github.io/eproperty">eproperty</a></li>
+                                <li><a href="http://atria-soft.github.io/esignal">esignal</a></li>
+                                <li><a href="http://atria-soft.github.io/zeus">zeus</a></li>
+                                <li><a href="http://atria-soft.github.io/audio-ess">audio-ess</a></li>
+                                <li><a href="http://musicdsp.github.io/audio">audio</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-drain">audio-drain</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-orchestra">audio-orchestra</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-river">audio-river</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="search-box" class="input-group">
+                        <div class="input-group-btn">
+                            <button aria-expanded="false" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">All</a></li>
+                                <li><a href="#">Classes</a></li>
+                                <li><a href="#">Namespaces</a></li>
+                                <li><a href="#">Files</a></li>
+                                <li><a href="#">Functions</a></li>
+                                <li><a href="#">Variables</a></li>
+                                <li><a href="#">Typedefs</a></li>
+                                <li><a href="#">Enumerations</a></li>
+                                <li><a href="#">Enumerator</a></li>
+                                <li><a href="#">Friends</a></li>
+                                <li><a href="#">Macros</a></li>
+                                <li><a href="#">Pages</a></li>
+                            </ul>
+                        </div>
+                        <button id="search-close" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <input id="search-field" class="form-control" accesskey="S" onkeydown="searchBox.OnSearchFieldChange(event);" placeholder="Search ..." type="text">
+                    </div>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel panel-default" style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+<!-- Generated by Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Search');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_644e041c3a6521da7b27eba0e4eb2b95.html">framework</a></li><li class="navelem"><a class="el" href="dir_a094892b17be858f66bf3446bbb755c7.html">atria-soft</a></li><li class="navelem"><a class="el" href="dir_101ca691570835542fc832f149ed9b11.html">etk</a></li><li class="navelem"><a class="el" href="dir_8e1854e033aa3ec68b8dd13c773d2923.html">etk</a></li><li class="navelem"><a class="el" href="dir_cd05552654816a7fc27950f807d40a47.html">os</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle">
+<div class="title">FSNode.hpp File Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="types_8hpp_source.html">etk/types.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_f_s_node_right_8hpp_source.html">etk/os/FSNodeRight.hpp</a>&gt;</code><br />
+</div>
+<p><a href="_f_s_node_8hpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classetk_1_1_f_s_node.html">etk::FSNode</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespaceetk"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html">etk</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:af43dedece15d018ffad8970492870bac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_f_s_node_8hpp.html#af43dedece15d018ffad8970492870bac">MAX_FILE_NAME</a>&#160;&#160;&#160;(10240)</td></tr>
+<tr class="separator:af43dedece15d018ffad8970492870bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a99c2dd948d6da85ed816fa0c267862e8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a99c2dd948d6da85ed816fa0c267862e8">etk::typeNode</a> { <br />
+&#160;&#160;<a class="el" href="namespaceetk.html#a99c2dd948d6da85ed816fa0c267862e8a4c85a6b7dccfd424a20b383e5dbe63bf">etk::typeNode_unknow</a>, 
+<a class="el" href="namespaceetk.html#a99c2dd948d6da85ed816fa0c267862e8a18f1c41a5c9bc4842a512954af23d630">etk::typeNode_block</a>, 
+<a class="el" href="namespaceetk.html#a99c2dd948d6da85ed816fa0c267862e8a07f61c5191a0e393871ecf69f4f32eed">etk::typeNode_character</a>, 
+<a class="el" href="namespaceetk.html#a99c2dd948d6da85ed816fa0c267862e8a67fbbfd55ff1568df12ca9719bc73680">etk::typeNode_folder</a>, 
+<br />
+&#160;&#160;<a class="el" href="namespaceetk.html#a99c2dd948d6da85ed816fa0c267862e8af5a5a8cef27d1c2abf4c6b7b9a893890">etk::typeNode_fifo</a>, 
+<a class="el" href="namespaceetk.html#a99c2dd948d6da85ed816fa0c267862e8a73f8fdd1c9f08183be017f372935cf14">etk::typeNode_link</a>, 
+<a class="el" href="namespaceetk.html#a99c2dd948d6da85ed816fa0c267862e8a4bb596537f408d12f89da085cac752c6">etk::typeNode_file</a>, 
+<a class="el" href="namespaceetk.html#a99c2dd948d6da85ed816fa0c267862e8a9b46f1f9d230b9490b2c17af379c61bc">etk::typeNode_socket</a>
+<br />
+ }</td></tr>
+<tr class="separator:a99c2dd948d6da85ed816fa0c267862e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a0133c254ab2433999c1b61fd9d993e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a4a0133c254ab2433999c1b61fd9d993e">etk::seekNode</a> { <a class="el" href="namespaceetk.html#a4a0133c254ab2433999c1b61fd9d993ea9019d83f9a109a54ab84067c2aa8abcd">etk::seekNode_start</a>, 
+<a class="el" href="namespaceetk.html#a4a0133c254ab2433999c1b61fd9d993ea981349cc2910e974472575409d19f0b6">etk::seekNode_end</a>, 
+<a class="el" href="namespaceetk.html#a4a0133c254ab2433999c1b61fd9d993ea8da2a40c899dc80a97a96999766d1598">etk::seekNode_current</a>
+ }</td></tr>
+<tr class="separator:a4a0133c254ab2433999c1b61fd9d993e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a661ec570d3bddcc050a21b1c4a421d86"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a661ec570d3bddcc050a21b1c4a421d86">etk::FSNType</a> { <br />
+&#160;&#160;<a class="el" href="namespaceetk.html#a661ec570d3bddcc050a21b1c4a421d86a263b4ecc93b26982d222fd87c3cf12a1">etk::FSNType_unknow</a>, 
+<a class="el" href="namespaceetk.html#a661ec570d3bddcc050a21b1c4a421d86ab90cc866be4fcb2e6006ec816b2683da">etk::FSNType_direct</a>, 
+<a class="el" href="namespaceetk.html#a661ec570d3bddcc050a21b1c4a421d86ae6596d8a97ab0bdd4775f66089ad894b">etk::FSNType_relatif</a>, 
+<a class="el" href="namespaceetk.html#a661ec570d3bddcc050a21b1c4a421d86aafe2d7ca46505000342694c4526209b6">etk::FSNType_home</a>, 
+<br />
+&#160;&#160;<a class="el" href="namespaceetk.html#a661ec570d3bddcc050a21b1c4a421d86a85e888743bc92e15e92cb038180658a8">etk::FSNType_data</a>, 
+<a class="el" href="namespaceetk.html#a661ec570d3bddcc050a21b1c4a421d86aff5b33005b2a7937bec1d9e426e1d9d2">etk::FSNType_userData</a>, 
+<a class="el" href="namespaceetk.html#a661ec570d3bddcc050a21b1c4a421d86a11b6d9f004dfe2dbb0f0936295d96fab">etk::FSNType_cache</a>, 
+<a class="el" href="namespaceetk.html#a661ec570d3bddcc050a21b1c4a421d86ac430963593558fcb3de198c74fc9a63c">etk::FSNType_theme</a>, 
+<br />
+&#160;&#160;<a class="el" href="namespaceetk.html#a661ec570d3bddcc050a21b1c4a421d86ae2fc2115dae24e08f7025f4ac4671dea">etk::FSNType_themeData</a>
+<br />
+ }</td></tr>
+<tr class="separator:a661ec570d3bddcc050a21b1c4a421d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a5eda91763c9f02f0e7e16c099092695d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a5eda91763c9f02f0e7e16c099092695d">etk::setArgZero</a> (const std::string &amp;_val)</td></tr>
+<tr class="separator:a5eda91763c9f02f0e7e16c099092695d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0087446ff0e9b533ea70b3043ae2addc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a0087446ff0e9b533ea70b3043ae2addc">etk::simplifyPath</a> (std::string _input)</td></tr>
+<tr class="separator:a0087446ff0e9b533ea70b3043ae2addc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a878a614b55bdc9e5730905dcbf1e7da1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a878a614b55bdc9e5730905dcbf1e7da1">etk::FSNodeGetApplicationName</a> ()</td></tr>
+<tr class="separator:a878a614b55bdc9e5730905dcbf1e7da1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8546560f91d95e2df5f176f5ec0fc99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#ab8546560f91d95e2df5f176f5ec0fc99">etk::setBaseFolderData</a> (const char *_folder, const char *_applName=nullptr)</td></tr>
+<tr class="separator:ab8546560f91d95e2df5f176f5ec0fc99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91fb8f53bc0d3ad4ed2061b3f5af7734"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a91fb8f53bc0d3ad4ed2061b3f5af7734">etk::setBaseFolderDataUser</a> (const char *_folder)</td></tr>
+<tr class="separator:a91fb8f53bc0d3ad4ed2061b3f5af7734"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cdcbe0aeba288278c89a995481b9e6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a6cdcbe0aeba288278c89a995481b9e6f">etk::setBaseFolderCache</a> (const char *_folder)</td></tr>
+<tr class="separator:a6cdcbe0aeba288278c89a995481b9e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5156cd13050789ca79157400805b04e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#af5156cd13050789ca79157400805b04e">etk::initDefaultFolder</a> (const char *_applName)</td></tr>
+<tr class="separator:af5156cd13050789ca79157400805b04e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa745063a5cc6f651f1245a1ff7ca3c1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#afa745063a5cc6f651f1245a1ff7ca3c1">etk::getUserHomeFolder</a> ()</td></tr>
+<tr class="separator:afa745063a5cc6f651f1245a1ff7ca3c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a3491e777d456c9ddd6871e0f7ffdfc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a7a3491e777d456c9ddd6871e0f7ffdfc">etk::getUserRunFolder</a> ()</td></tr>
+<tr class="separator:a7a3491e777d456c9ddd6871e0f7ffdfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a856f999ded476786c58fc99b89d410bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_f_s_node_8hpp.html#a856f999ded476786c58fc99b89d410bd">etk::theme::setName</a> (const std::string &amp;_refName, const std::string &amp;_folderName)</td></tr>
+<tr class="separator:a856f999ded476786c58fc99b89d410bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb042eb3c3641fb2d10af30b4be2e68b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_f_s_node_8hpp.html#adb042eb3c3641fb2d10af30b4be2e68b">etk::theme::getName</a> (const std::string &amp;_refName)</td></tr>
+<tr class="separator:adb042eb3c3641fb2d10af30b4be2e68b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfde4f1e1394fcc72234c913ef099c48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_f_s_node_8hpp.html#abfde4f1e1394fcc72234c913ef099c48">etk::theme::setNameDefault</a> (const std::string &amp;_refName, const std::string &amp;_folderName)</td></tr>
+<tr class="separator:abfde4f1e1394fcc72234c913ef099c48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a017817820ca8d776a938311ac2c6573d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_f_s_node_8hpp.html#a017817820ca8d776a938311ac2c6573d">etk::theme::getNameDefault</a> (const std::string &amp;_refName)</td></tr>
+<tr class="separator:a017817820ca8d776a938311ac2c6573d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a973cfede5000857a500e2dd5ffad3507"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_f_s_node_8hpp.html#a973cfede5000857a500e2dd5ffad3507">etk::theme::list</a> ()</td></tr>
+<tr class="separator:a973cfede5000857a500e2dd5ffad3507"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada11ec07c70d723eead76332e040a8e3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#ada11ec07c70d723eead76332e040a8e3">etk::FSNodeRemove</a> (const std::string &amp;_path)</td></tr>
+<tr class="separator:ada11ec07c70d723eead76332e040a8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4da725251cd89ff3e797d4017198ef67"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a4da725251cd89ff3e797d4017198ef67">etk::FSNodeGetCount</a> (const std::string &amp;_path)</td></tr>
+<tr class="separator:a4da725251cd89ff3e797d4017198ef67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4adf742ba1e1aaaabce3c26c94405d2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#af4adf742ba1e1aaaabce3c26c94405d2">etk::FSNodeCreate</a> (const std::string &amp;_path, <a class="el" href="classetk_1_1_f_s_node_right.html">etk::FSNodeRight</a> _right, enum <a class="el" href="namespaceetk.html#a99c2dd948d6da85ed816fa0c267862e8">etk::typeNode</a> _type=<a class="el" href="namespaceetk.html#a99c2dd948d6da85ed816fa0c267862e8a67fbbfd55ff1568df12ca9719bc73680">etk::typeNode_folder</a>)</td></tr>
+<tr class="separator:af4adf742ba1e1aaaabce3c26c94405d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5f8ddf464f42564ece7edd83b3e6aa9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#aa5f8ddf464f42564ece7edd83b3e6aa9">etk::FSNodeExist</a> (const std::string &amp;_path)</td></tr>
+<tr class="separator:aa5f8ddf464f42564ece7edd83b3e6aa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc8c7d89695b20bde7c16279578df6d8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#adc8c7d89695b20bde7c16279578df6d8">etk::FSNodeMove</a> (const std::string &amp;_path1, const std::string &amp;_path2)</td></tr>
+<tr class="separator:adc8c7d89695b20bde7c16279578df6d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a104daf9dd822c992b4e91d219529c0d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classetk_1_1_f_s_node_right.html">etk::FSNodeRight</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a104daf9dd822c992b4e91d219529c0d4">etk::FSNodeGetRight</a> (const std::string &amp;_path)</td></tr>
+<tr class="separator:a104daf9dd822c992b4e91d219529c0d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeaa76db5b02d5275ee6faa9240688730"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="namespaceetk.html#a99c2dd948d6da85ed816fa0c267862e8">etk::typeNode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#aeaa76db5b02d5275ee6faa9240688730">etk::FSNodeGetType</a> (const std::string &amp;_path)</td></tr>
+<tr class="separator:aeaa76db5b02d5275ee6faa9240688730"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada8865e7710783f51f2caf3c55727d6a"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#ada8865e7710783f51f2caf3c55727d6a">etk::FSNodeGetTimeCreated</a> (const std::string &amp;_path)</td></tr>
+<tr class="separator:ada8865e7710783f51f2caf3c55727d6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15a33fbd48325bbee3cc362b1bbd25d0"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a15a33fbd48325bbee3cc362b1bbd25d0">etk::FSNodeGetTimeModified</a> (const std::string &amp;_path)</td></tr>
+<tr class="separator:a15a33fbd48325bbee3cc362b1bbd25d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a7c80620d52319f98c370913ad6116b"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a7a7c80620d52319f98c370913ad6116b">etk::FSNodeGetTimeAccessed</a> (const std::string &amp;_path)</td></tr>
+<tr class="separator:a7a7c80620d52319f98c370913ad6116b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af86474607a59dd8492c978ec48c015c5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#af86474607a59dd8492c978ec48c015c5">etk::FSNodeTouch</a> (const std::string &amp;_path)</td></tr>
+<tr class="separator:af86474607a59dd8492c978ec48c015c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95a89a04f30fed73e5656b26b6d3e55b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a95a89a04f30fed73e5656b26b6d3e55b">etk::FSNodeEcho</a> (const std::string &amp;_path, const std::string &amp;_dataTowrite)</td></tr>
+<tr class="separator:a95a89a04f30fed73e5656b26b6d3e55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a014ce8a7311896847cd4978d96410d24"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a014ce8a7311896847cd4978d96410d24">etk::FSNodeEchoAdd</a> (const std::string &amp;_path, const std::string &amp;_dataTowrite)</td></tr>
+<tr class="separator:a014ce8a7311896847cd4978d96410d24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f856fe66d99e595a01861f651194f47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a2f856fe66d99e595a01861f651194f47">etk::FSNodeHistory</a> (const std::string &amp;_path, int32_t _historyCount)</td></tr>
+<tr class="separator:a2f856fe66d99e595a01861f651194f47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acec1246a208ad95518c76ca3de513f40"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#acec1246a208ad95518c76ca3de513f40">etk::FSNodeReadAllData</a> (const std::string &amp;_path)</td></tr>
+<tr class="separator:acec1246a208ad95518c76ca3de513f40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9318ff052b5d458ee66c0aaf4021fc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#ac9318ff052b5d458ee66c0aaf4021fc2">etk::FSNodeWriteAllData</a> (const std::string &amp;_path, const std::string &amp;_data)</td></tr>
+<tr class="separator:ac9318ff052b5d458ee66c0aaf4021fc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc051561490776f836b7da5b81eba290"><td class="memTemplParams" colspan="2">template&lt;typename TTT &gt; </td></tr>
+<tr class="memitem:afc051561490776f836b7da5b81eba290"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; TTT &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceetk.html#afc051561490776f836b7da5b81eba290">etk::FSNodeReadAllDataType</a> (const std::string &amp;_path)</td></tr>
+<tr class="separator:afc051561490776f836b7da5b81eba290"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6e9afde0376252114884445cab1382e"><td class="memTemplParams" colspan="2">template&lt;typename TTT &gt; </td></tr>
+<tr class="memitem:ae6e9afde0376252114884445cab1382e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceetk.html#ae6e9afde0376252114884445cab1382e">etk::FSNodeWriteAllDataType</a> (const std::string &amp;_path, const std::vector&lt; TTT &gt; &amp;_data)</td></tr>
+<tr class="separator:ae6e9afde0376252114884445cab1382e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ef89557d910726f6b5253f11257fc0c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a4ef89557d910726f6b5253f11257fc0c">etk::FSNodeGetRealName</a> (const std::string &amp;_path)</td></tr>
+<tr class="separator:a4ef89557d910726f6b5253f11257fc0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a757318b34e8a012b84d49dd291286076"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a757318b34e8a012b84d49dd291286076">etk::FSNodeExplodeMultiplePath</a> (const std::string &amp;_path)</td></tr>
+<tr class="separator:a757318b34e8a012b84d49dd291286076"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Edouard DUPIN </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>2011, Edouard DUPIN, all right reserved </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>License: APACHE v2.0 (see license file) </dd></dl>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="af43dedece15d018ffad8970492870bac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af43dedece15d018ffad8970492870bac">&sect;&nbsp;</a></span>MAX_FILE_NAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_FILE_NAME&#160;&#160;&#160;(10240)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Local maximum file name size. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="file_adb042eb3c3641fb2d10af30b4be2e68b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_adb042eb3c3641fb2d10af30b4be2e68b">&sect;&nbsp;</a></span>getName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string etk::theme::getName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_refName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get the folder from a Reference theme </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_refName</td><td>Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the path of the theme </dd></dl>
+
+</div>
+</div>
+<a id="file_a017817820ca8d776a938311ac2c6573d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a017817820ca8d776a938311ac2c6573d">&sect;&nbsp;</a></span>getNameDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string etk::theme::getNameDefault </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_refName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get the default folder from a Reference theme </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_refName</td><td>Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the path of the theme </dd></dl>
+
+</div>
+</div>
+<a id="file_a973cfede5000857a500e2dd5ffad3507"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a973cfede5000857a500e2dd5ffad3507">&sect;&nbsp;</a></span>list()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; etk::theme::list </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the list of all the theme folder availlable in the user Home/appl. </p>
+<dl class="section return"><dt>Returns</dt><dd>The list of elements </dd></dl>
+
+</div>
+</div>
+<a id="file_a856f999ded476786c58fc99b89d410bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a856f999ded476786c58fc99b89d410bd">&sect;&nbsp;</a></span>setName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::theme::setName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_refName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_folderName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the Folder of a subset of a theme ... </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_refName</td><td>Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_folderName</td><td>The associated folder of the Theme (like "myTheme/folder/folder2/") </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="file_abfde4f1e1394fcc72234c913ef099c48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_abfde4f1e1394fcc72234c913ef099c48">&sect;&nbsp;</a></span>setNameDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void etk::theme::setNameDefault </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_refName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>_folderName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the default folder of a subset of a theme ... </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_refName</td><td>Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_folderName</td><td>The associated default folder of the Theme (like "myTheme/color/default/") </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Oct 24 2016 10:48:19 for Etk: Ewol Tool Kit by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

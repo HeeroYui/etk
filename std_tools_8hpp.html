@@ -1,0 +1,317 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.12"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Etk: Ewol Tool Kit: framework/atria-soft/etk/etk/stdTools.hpp File Reference</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Etk: Ewol Tool Kit 0.10.0</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Main&nbsp;Page</a></li>
+                        <li><a href="pages.html">Related&nbsp;Pages</a></li>
+                        <li><a href="namespaces.html">Namespaces</a></li>
+                        <li><a href="annotated.html">Classes</a></li>
+                        <li><a href="files.html">Files</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Link-libs<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://HeeroYui.github.io/lutin">lutin</a></li>
+                                <li><a href="http://atria-soft.github.io/ewol">ewol</a></li>
+                                <li><a href="http://atria-soft.github.io/etk">etk</a></li>
+                                <li><a href="http://atria-soft.github.io/ejson">ejson</a></li>
+                                <li><a href="http://atria-soft.github.io/exml">exml</a></li>
+                                <li><a href="http://atria-soft.github.io/esvg">esvg</a></li>
+                                <li><a href="http://atria-soft.github.io/egami">egami</a></li>
+                                <li><a href="http://atria-soft.github.io/gale">gale</a></li>
+                                <li><a href="http://atria-soft.github.io/ege">ege</a></li>
+                                <li><a href="http://atria-soft.github.io/elog">elog</a></li>
+                                <li><a href="http://atria-soft.github.io/ememory">ememory</a></li>
+                                <li><a href="http://atria-soft.github.io/enet">enet</a></li>
+                                <li><a href="http://atria-soft.github.io/eproperty">eproperty</a></li>
+                                <li><a href="http://atria-soft.github.io/esignal">esignal</a></li>
+                                <li><a href="http://atria-soft.github.io/zeus">zeus</a></li>
+                                <li><a href="http://atria-soft.github.io/audio-ess">audio-ess</a></li>
+                                <li><a href="http://musicdsp.github.io/audio">audio</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-drain">audio-drain</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-orchestra">audio-orchestra</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-river">audio-river</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="search-box" class="input-group">
+                        <div class="input-group-btn">
+                            <button aria-expanded="false" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">All</a></li>
+                                <li><a href="#">Classes</a></li>
+                                <li><a href="#">Namespaces</a></li>
+                                <li><a href="#">Files</a></li>
+                                <li><a href="#">Functions</a></li>
+                                <li><a href="#">Variables</a></li>
+                                <li><a href="#">Typedefs</a></li>
+                                <li><a href="#">Enumerations</a></li>
+                                <li><a href="#">Enumerator</a></li>
+                                <li><a href="#">Friends</a></li>
+                                <li><a href="#">Macros</a></li>
+                                <li><a href="#">Pages</a></li>
+                            </ul>
+                        </div>
+                        <button id="search-close" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <input id="search-field" class="form-control" accesskey="S" onkeydown="searchBox.OnSearchFieldChange(event);" placeholder="Search ..." type="text">
+                    </div>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel panel-default" style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+<!-- Generated by Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Search');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_644e041c3a6521da7b27eba0e4eb2b95.html">framework</a></li><li class="navelem"><a class="el" href="dir_a094892b17be858f66bf3446bbb755c7.html">atria-soft</a></li><li class="navelem"><a class="el" href="dir_101ca691570835542fc832f149ed9b11.html">etk</a></li><li class="navelem"><a class="el" href="dir_8e1854e033aa3ec68b8dd13c773d2923.html">etk</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">stdTools.hpp File Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="types_8hpp_source.html">etk/types.hpp</a>&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;iomanip&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;chrono&gt;</code><br />
+</div>
+<p><a href="std_tools_8hpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html">utf8::iterator</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespaceu32char"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceu32char.html">u32char</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceutf8"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceutf8.html">utf8</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceetk"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceetk.html">etk</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a7ffdd433efbedf5bed193e9d9df7eb6d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceu32char.html#a7ffdd433efbedf5bed193e9d9df7eb6d">u32char::isWhiteChar</a> (char32_t _val)</td></tr>
+<tr class="separator:a7ffdd433efbedf5bed193e9d9df7eb6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a408c8318f6077bfeeb94efa12d48e60f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceu32char.html#a408c8318f6077bfeeb94efa12d48e60f">u32char::isSpecialChar</a> (char32_t _val)</td></tr>
+<tr class="separator:a408c8318f6077bfeeb94efa12d48e60f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc40d527459e3869ea8dc54d3b5ef225"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceu32char.html#afc40d527459e3869ea8dc54d3b5ef225">u32char::toInt</a> (char32_t _val)</td></tr>
+<tr class="separator:afc40d527459e3869ea8dc54d3b5ef225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d8866bc81b174c81df61536be36e7ef"><td class="memItemLeft" align="right" valign="top">char32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceu32char.html#a7d8866bc81b174c81df61536be36e7ef">u32char::changeOrder</a> (char32_t _val)</td></tr>
+<tr class="separator:a7d8866bc81b174c81df61536be36e7ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9eca2aab7a201251a465410688226a81"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceu32char.html#a9eca2aab7a201251a465410688226a81">u32char::convertUtf8</a> (char32_t _val, char _output[5])</td></tr>
+<tr class="separator:a9eca2aab7a201251a465410688226a81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad408da64c12fe3345b9576ab487bd7e3"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceutf8.html#ad408da64c12fe3345b9576ab487bd7e3">utf8::theoricLen</a> (const char _input)</td></tr>
+<tr class="separator:ad408da64c12fe3345b9576ab487bd7e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52043c6c7cf75da5f8e8812ffb4ffc1c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceutf8.html#a52043c6c7cf75da5f8e8812ffb4ffc1c">utf8::theoricFirst</a> (const char _input)</td></tr>
+<tr class="separator:a52043c6c7cf75da5f8e8812ffb4ffc1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab857b45e0371b7d83a4de8d9e86133fd"><td class="memItemLeft" align="right" valign="top">char32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceutf8.html#ab857b45e0371b7d83a4de8d9e86133fd">utf8::convertChar32</a> (const char *_input)</td></tr>
+<tr class="separator:ab857b45e0371b7d83a4de8d9e86133fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48ed31a00f989f5b188d7254e6945a74"><td class="memTemplParams" colspan="2">template&lt;class TYPE &gt; </td></tr>
+<tr class="memitem:a48ed31a00f989f5b188d7254e6945a74"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a48ed31a00f989f5b188d7254e6945a74">etk::to_string</a> (const TYPE &amp;_variable)</td></tr>
+<tr class="separator:a48ed31a00f989f5b188d7254e6945a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17aa4febea213096442bcb8e7ca80805"><td class="memTemplParams" colspan="2">template&lt;class TYPE &gt; </td></tr>
+<tr class="memitem:a17aa4febea213096442bcb8e7ca80805"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a17aa4febea213096442bcb8e7ca80805">etk::to_string</a> (const std::vector&lt; TYPE &gt; &amp;_list)</td></tr>
+<tr class="separator:a17aa4febea213096442bcb8e7ca80805"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec3aaa1c735552d02f4eec1fb72c1616"><td class="memTemplParams" colspan="2">template&lt;class TYPE &gt; </td></tr>
+<tr class="memitem:aec3aaa1c735552d02f4eec1fb72c1616"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceetk.html#aec3aaa1c735552d02f4eec1fb72c1616">etk::from_string</a> (TYPE &amp;_variableRet, const std::string &amp;_value)</td></tr>
+<tr class="separator:aec3aaa1c735552d02f4eec1fb72c1616"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abea57b26fc85a5287bf5853561b5490d"><td class="memTemplParams" colspan="2">template&lt;class TYPE &gt; </td></tr>
+<tr class="memitem:abea57b26fc85a5287bf5853561b5490d"><td class="memTemplItemLeft" align="right" valign="top">const TYPE &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="std_tools_8hpp.html#abea57b26fc85a5287bf5853561b5490d">std::avg</a> (const TYPE &amp;_min, const TYPE &amp;_val, const TYPE &amp;_max)</td></tr>
+<tr class="separator:abea57b26fc85a5287bf5853561b5490d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4397d293209affffd0c2f6832ebe2aea"><td class="memTemplParams" colspan="2">template&lt;class TYPE &gt; </td></tr>
+<tr class="memitem:a4397d293209affffd0c2f6832ebe2aea"><td class="memTemplItemLeft" align="right" valign="top">const TYPE &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceetk.html#a4397d293209affffd0c2f6832ebe2aea">etk::avg</a> (const TYPE &amp;_min, const TYPE &amp;_val, const TYPE &amp;_max)</td></tr>
+<tr class="separator:a4397d293209affffd0c2f6832ebe2aea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd08ebd804dfba6c412ffa429f831c86"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="std_tools_8hpp.html#afd08ebd804dfba6c412ffa429f831c86">strlen</a> (const char32_t *_data)</td></tr>
+<tr class="separator:afd08ebd804dfba6c412ffa429f831c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a5bf343cb9ca744a833c6d0466542fd23"><td class="memItemLeft" align="right" valign="top">const char32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceu32char.html#a5bf343cb9ca744a833c6d0466542fd23">u32char::Null</a></td></tr>
+<tr class="separator:a5bf343cb9ca744a833c6d0466542fd23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfa1971c05b539d159d5ed9ac716b0c2"><td class="memItemLeft" align="right" valign="top">const char32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceu32char.html#abfa1971c05b539d159d5ed9ac716b0c2">u32char::Return</a></td></tr>
+<tr class="separator:abfa1971c05b539d159d5ed9ac716b0c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65eaeefb77c1b694f336eedda60c30af"><td class="memItemLeft" align="right" valign="top">const char32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceu32char.html#a65eaeefb77c1b694f336eedda60c30af">u32char::CarrierReturn</a></td></tr>
+<tr class="separator:a65eaeefb77c1b694f336eedda60c30af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7a0c42ea443e20bfceb69f863bebc6a"><td class="memItemLeft" align="right" valign="top">const char32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceu32char.html#ad7a0c42ea443e20bfceb69f863bebc6a">u32char::Tabulation</a></td></tr>
+<tr class="separator:ad7a0c42ea443e20bfceb69f863bebc6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cff086787b8b0321e36251a27c40321"><td class="memItemLeft" align="right" valign="top">const char32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceu32char.html#a9cff086787b8b0321e36251a27c40321">u32char::Suppress</a></td></tr>
+<tr class="separator:a9cff086787b8b0321e36251a27c40321"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55bf46c0555440472df720e2e3b553bf"><td class="memItemLeft" align="right" valign="top">const char32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceu32char.html#a55bf46c0555440472df720e2e3b553bf">u32char::Delete</a></td></tr>
+<tr class="separator:a55bf46c0555440472df720e2e3b553bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a114cf0424bb72fd7f3f10c9cd017e8"><td class="memItemLeft" align="right" valign="top">const char32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceu32char.html#a7a114cf0424bb72fd7f3f10c9cd017e8">u32char::Space</a></td></tr>
+<tr class="separator:a7a114cf0424bb72fd7f3f10c9cd017e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabc11b96eac4f8821aabf1e8c9b4e68b"><td class="memItemLeft" align="right" valign="top">const char32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceu32char.html#aabc11b96eac4f8821aabf1e8c9b4e68b">u32char::Escape</a></td></tr>
+<tr class="separator:aabc11b96eac4f8821aabf1e8c9b4e68b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><dl class="section author"><dt>Author</dt><dd>Edouard DUPIN </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>2011, Edouard DUPIN, all right reserved </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>License: APACHE v2.0 (see license file) </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="file_abea57b26fc85a5287bf5853561b5490d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_abea57b26fc85a5287bf5853561b5490d">&sect;&nbsp;</a></span>avg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class TYPE &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const TYPE&amp; std::avg </td>
+          <td>(</td>
+          <td class="paramtype">const TYPE &amp;&#160;</td>
+          <td class="paramname"><em>_min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TYPE &amp;&#160;</td>
+          <td class="paramname"><em>_val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TYPE &amp;&#160;</td>
+          <td class="paramname"><em>_max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>in std, we have min, max but not avg ==&gt; it is missing... the Defineing avg template. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_min</td><td>Minimum value of the range </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_val</td><td>The value that we want a min/max </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_max</td><td>Maximum value of the range </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Value that min/max applied </dd></dl>
+
+</div>
+</div>
+<a id="afd08ebd804dfba6c412ffa429f831c86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd08ebd804dfba6c412ffa429f831c86">&sect;&nbsp;</a></span>strlen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t strlen </td>
+          <td>(</td>
+          <td class="paramtype">const char32_t *&#160;</td>
+          <td class="paramname"><em>_data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Claculate the size of a string (unicode) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_data</td><td>Data to parse to find the end of string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the Number of char32_t befor the '\0' value </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Oct 24 2016 10:48:19 for Etk: Ewol Tool Kit by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

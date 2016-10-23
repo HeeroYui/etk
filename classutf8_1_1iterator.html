@@ -1,0 +1,1159 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.8.12"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Etk: Ewol Tool Kit: utf8::iterator Class Reference</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Etk: Ewol Tool Kit 0.10.0</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="index.html">Main&nbsp;Page</a></li>
+                        <li><a href="pages.html">Related&nbsp;Pages</a></li>
+                        <li><a href="namespaces.html">Namespaces</a></li>
+                        <li><a href="annotated.html">Classes</a></li>
+                        <li><a href="files.html">Files</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Link-libs<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="http://HeeroYui.github.io/lutin">lutin</a></li>
+                                <li><a href="http://atria-soft.github.io/ewol">ewol</a></li>
+                                <li><a href="http://atria-soft.github.io/etk">etk</a></li>
+                                <li><a href="http://atria-soft.github.io/ejson">ejson</a></li>
+                                <li><a href="http://atria-soft.github.io/exml">exml</a></li>
+                                <li><a href="http://atria-soft.github.io/esvg">esvg</a></li>
+                                <li><a href="http://atria-soft.github.io/egami">egami</a></li>
+                                <li><a href="http://atria-soft.github.io/gale">gale</a></li>
+                                <li><a href="http://atria-soft.github.io/ege">ege</a></li>
+                                <li><a href="http://atria-soft.github.io/elog">elog</a></li>
+                                <li><a href="http://atria-soft.github.io/ememory">ememory</a></li>
+                                <li><a href="http://atria-soft.github.io/enet">enet</a></li>
+                                <li><a href="http://atria-soft.github.io/eproperty">eproperty</a></li>
+                                <li><a href="http://atria-soft.github.io/esignal">esignal</a></li>
+                                <li><a href="http://atria-soft.github.io/zeus">zeus</a></li>
+                                <li><a href="http://atria-soft.github.io/audio-ess">audio-ess</a></li>
+                                <li><a href="http://musicdsp.github.io/audio">audio</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-drain">audio-drain</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-orchestra">audio-orchestra</a></li>
+                                <li><a href="http://musicdsp.github.io/audio-river">audio-river</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="search-box" class="input-group">
+                        <div class="input-group-btn">
+                            <button aria-expanded="false" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-search"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">All</a></li>
+                                <li><a href="#">Classes</a></li>
+                                <li><a href="#">Namespaces</a></li>
+                                <li><a href="#">Files</a></li>
+                                <li><a href="#">Functions</a></li>
+                                <li><a href="#">Variables</a></li>
+                                <li><a href="#">Typedefs</a></li>
+                                <li><a href="#">Enumerations</a></li>
+                                <li><a href="#">Enumerator</a></li>
+                                <li><a href="#">Friends</a></li>
+                                <li><a href="#">Macros</a></li>
+                                <li><a href="#">Pages</a></li>
+                            </ul>
+                        </div>
+                        <button id="search-close" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                        </button>
+                        <input id="search-field" class="form-control" accesskey="S" onkeydown="searchBox.OnSearchFieldChange(event);" placeholder="Search ..." type="text">
+                    </div>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel panel-default" style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+<!-- Generated by Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Search');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespaceutf8.html">utf8</a></li><li class="navelem"><a class="el" href="classutf8_1_1iterator.html">iterator</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="classutf8_1_1iterator-members.html">List of all members</a>  </div>
+  <div class="headertitle">
+<div class="title">utf8::iterator Class Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="std_tools_8hpp_source.html">stdTools.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aebb30cce96db460dffdb275170a979cb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#aebb30cce96db460dffdb275170a979cb">iterator</a> ()</td></tr>
+<tr class="separator:aebb30cce96db460dffdb275170a979cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad640e78bef39d56b5282e8a9011c0d59"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#ad640e78bef39d56b5282e8a9011c0d59">iterator</a> (std::string &amp;_str)</td></tr>
+<tr class="separator:ad640e78bef39d56b5282e8a9011c0d59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2676d3eba675ecfa0f789ba15e7335d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a2676d3eba675ecfa0f789ba15e7335d7">iterator</a> (std::string &amp;_str, const std::string::iterator &amp;_pos)</td></tr>
+<tr class="separator:a2676d3eba675ecfa0f789ba15e7335d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f0ab43734e7324ad6c01c143d35a26a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a7f0ab43734e7324ad6c01c143d35a26a">iterator</a> (std::string &amp;_str, size_t _pos)</td></tr>
+<tr class="separator:a7f0ab43734e7324ad6c01c143d35a26a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a627ca7ef0ee43bf15445b4b29a775d2e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a627ca7ef0ee43bf15445b4b29a775d2e">iterator</a> (std::string *_str, const std::string::iterator &amp;_pos)</td></tr>
+<tr class="separator:a627ca7ef0ee43bf15445b4b29a775d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92e5ead9e0b57f889a635306c7e7b6fe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a92e5ead9e0b57f889a635306c7e7b6fe">iterator</a> (std::string *_str, size_t _pos)</td></tr>
+<tr class="separator:a92e5ead9e0b57f889a635306c7e7b6fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9610f601ab0d2729b235f0ec4204ff1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#af9610f601ab0d2729b235f0ec4204ff1">iterator</a> (const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;_obj)</td></tr>
+<tr class="separator:af9610f601ab0d2729b235f0ec4204ff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a026f9c7bec14739d0346adf834f3cf6f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a026f9c7bec14739d0346adf834f3cf6f">operator=</a> (const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;_obj)</td></tr>
+<tr class="separator:a026f9c7bec14739d0346adf834f3cf6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4de42494301339b944f846b649504f4f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a4de42494301339b944f846b649504f4f">~iterator</a> ()</td></tr>
+<tr class="separator:a4de42494301339b944f846b649504f4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7143946e5fca162dccd02e82e6763fef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a7143946e5fca162dccd02e82e6763fef">operator size_t</a> () const</td></tr>
+<tr class="separator:a7143946e5fca162dccd02e82e6763fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6e8470c3e2ca1216c6663b2a120c7b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#ac6e8470c3e2ca1216c6663b2a120c7b0">operator++</a> ()</td></tr>
+<tr class="separator:ac6e8470c3e2ca1216c6663b2a120c7b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30bad80656165761acba9a5bf336bb24"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a30bad80656165761acba9a5bf336bb24">operator--</a> ()</td></tr>
+<tr class="separator:a30bad80656165761acba9a5bf336bb24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76dfdca4191ed484149d6ed260f0b0c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classutf8_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a76dfdca4191ed484149d6ed260f0b0c7">operator++</a> (int32_t)</td></tr>
+<tr class="separator:a76dfdca4191ed484149d6ed260f0b0c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bb362e7ef8f382c06b26734ac1eb753"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classutf8_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a5bb362e7ef8f382c06b26734ac1eb753">operator--</a> (int32_t)</td></tr>
+<tr class="separator:a5bb362e7ef8f382c06b26734ac1eb753"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae45282e1b982fd3ba02c91ea1dd191c6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#ae45282e1b982fd3ba02c91ea1dd191c6">operator==</a> (const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;_obj) const</td></tr>
+<tr class="separator:ae45282e1b982fd3ba02c91ea1dd191c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a342ea299a2db67686b6e1b5bcd87276f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a342ea299a2db67686b6e1b5bcd87276f">operator!=</a> (const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;_obj) const</td></tr>
+<tr class="separator:a342ea299a2db67686b6e1b5bcd87276f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a346ff026e12a1aa5f75881bd9a2101db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a346ff026e12a1aa5f75881bd9a2101db">operator&lt;=</a> (const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;_obj) const</td></tr>
+<tr class="separator:a346ff026e12a1aa5f75881bd9a2101db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51dc6ee6f507c2cce9bd8edc9b804fad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a51dc6ee6f507c2cce9bd8edc9b804fad">operator&gt;=</a> (const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;_obj) const</td></tr>
+<tr class="separator:a51dc6ee6f507c2cce9bd8edc9b804fad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac74e8ae878532c46806564905a8527c7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#ac74e8ae878532c46806564905a8527c7">operator&lt;</a> (const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;_obj) const</td></tr>
+<tr class="separator:ac74e8ae878532c46806564905a8527c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6747633f8b16db61fafdb3358a628625"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a6747633f8b16db61fafdb3358a628625">operator&gt;</a> (const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;_obj) const</td></tr>
+<tr class="separator:a6747633f8b16db61fafdb3358a628625"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5e5fc32fe6f48f3218464627e416c76"><td class="memItemLeft" align="right" valign="top">char32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#ae5e5fc32fe6f48f3218464627e416c76">operator*</a> ()</td></tr>
+<tr class="separator:ae5e5fc32fe6f48f3218464627e416c76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a491dfde52d1bb01bd284ddda702fac61"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a491dfde52d1bb01bd284ddda702fac61">getPos</a> () const</td></tr>
+<tr class="separator:a491dfde52d1bb01bd284ddda702fac61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1eecc0edaf9245a53d1ebe8e90261300"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classutf8_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a1eecc0edaf9245a53d1ebe8e90261300">operator+</a> (const int64_t _val) const</td></tr>
+<tr class="separator:a1eecc0edaf9245a53d1ebe8e90261300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9e55971044201725a9672913b0e7dca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classutf8_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#aa9e55971044201725a9672913b0e7dca">operator+</a> (const int32_t _val) const</td></tr>
+<tr class="separator:aa9e55971044201725a9672913b0e7dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f77f61d4a6869c6ade054f22fc77b44"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classutf8_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a9f77f61d4a6869c6ade054f22fc77b44">operator+</a> (const size_t _val) const</td></tr>
+<tr class="separator:a9f77f61d4a6869c6ade054f22fc77b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf02b2a76b3648e6d6a6554726f0f5ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classutf8_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#abf02b2a76b3648e6d6a6554726f0f5ab">operator-</a> (const int64_t _val) const</td></tr>
+<tr class="separator:abf02b2a76b3648e6d6a6554726f0f5ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4938a35a2705a089de16b20eaf5c98c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classutf8_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#a4938a35a2705a089de16b20eaf5c98c2">operator-</a> (const int32_t _val) const</td></tr>
+<tr class="separator:a4938a35a2705a089de16b20eaf5c98c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8505389bd5e41973c0971cb5a9f8b86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classutf8_1_1iterator.html">iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutf8_1_1iterator.html#ac8505389bd5e41973c0971cb5a9f8b86">operator-</a> (const size_t _val) const</td></tr>
+<tr class="separator:ac8505389bd5e41973c0971cb5a9f8b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Iterator on a simple std::string that contain <a class="el" href="namespaceutf8.html" title="UTF-8 simple wrapper interface. ">utf8</a> value. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aebb30cce96db460dffdb275170a979cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebb30cce96db460dffdb275170a979cb">&sect;&nbsp;</a></span>iterator() <span class="overload">[1/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">utf8::iterator::iterator </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Basic constructor that is not link on a string. </p>
+
+</div>
+</div>
+<a id="ad640e78bef39d56b5282e8a9011c0d59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad640e78bef39d56b5282e8a9011c0d59">&sect;&nbsp;</a></span>iterator() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">utf8::iterator::iterator </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>_str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Basic begin constructor link at the start of the string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_str</td><td>reference on the string to inspect. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2676d3eba675ecfa0f789ba15e7335d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2676d3eba675ecfa0f789ba15e7335d7">&sect;&nbsp;</a></span>iterator() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">utf8::iterator::iterator </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>_str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string::iterator &amp;&#160;</td>
+          <td class="paramname"><em>_pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Basic position constructor link at the _pos position of the string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_str</td><td>reference on the string to inspect. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_pos</td><td>Iterator position on the string. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7f0ab43734e7324ad6c01c143d35a26a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f0ab43734e7324ad6c01c143d35a26a">&sect;&nbsp;</a></span>iterator() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">utf8::iterator::iterator </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>_str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>_pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Basic position constructor link at the _pos position of the string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_str</td><td>reference on the string to inspect. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_pos</td><td>Position on the string (in AINSI value). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a627ca7ef0ee43bf15445b4b29a775d2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a627ca7ef0ee43bf15445b4b29a775d2e">&sect;&nbsp;</a></span>iterator() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">utf8::iterator::iterator </td>
+          <td>(</td>
+          <td class="paramtype">std::string *&#160;</td>
+          <td class="paramname"><em>_str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string::iterator &amp;&#160;</td>
+          <td class="paramname"><em>_pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Basic position constructor link at the _pos position of the string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_str</td><td>Pointer on the string to inspect. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_pos</td><td>Iterator position on the string. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a92e5ead9e0b57f889a635306c7e7b6fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92e5ead9e0b57f889a635306c7e7b6fe">&sect;&nbsp;</a></span>iterator() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">utf8::iterator::iterator </td>
+          <td>(</td>
+          <td class="paramtype">std::string *&#160;</td>
+          <td class="paramname"><em>_str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>_pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Basic position constructor link at the _pos position of the string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_str</td><td>Pointer on the string to inspect. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">_pos</td><td>Position on the string (in AINSI value). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af9610f601ab0d2729b235f0ec4204ff1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9610f601ab0d2729b235f0ec4204ff1">&sect;&nbsp;</a></span>iterator() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">utf8::iterator::iterator </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Recopy constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>The Iterator that might be copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4de42494301339b944f846b649504f4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4de42494301339b944f846b649504f4f">&sect;&nbsp;</a></span>~iterator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual utf8::iterator::~iterator </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Basic destructor. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a491dfde52d1bb01bd284ddda702fac61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a491dfde52d1bb01bd284ddda702fac61">&sect;&nbsp;</a></span>getPos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t utf8::iterator::getPos </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the position in the buffer. </p>
+<dl class="section return"><dt>Returns</dt><dd>The requested position. </dd></dl>
+
+</div>
+</div>
+<a id="a7143946e5fca162dccd02e82e6763fef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7143946e5fca162dccd02e82e6763fef">&sect;&nbsp;</a></span>operator size_t()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">utf8::iterator::operator size_t </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>basic boolean cast </p>
+<dl class="section return"><dt>Returns</dt><dd>true if the element is present in buffer </dd></dl>
+
+</div>
+</div>
+<a id="a342ea299a2db67686b6e1b5bcd87276f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a342ea299a2db67686b6e1b5bcd87276f">&sect;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool utf8::iterator::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>egality iterator </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Iterator to compare </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the iterator is identical pos </dd></dl>
+
+</div>
+</div>
+<a id="ae5e5fc32fe6f48f3218464627e416c76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5e5fc32fe6f48f3218464627e416c76">&sect;&nbsp;</a></span>operator*()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char32_t utf8::iterator::operator* </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the value on the current element. </p>
+<dl class="section return"><dt>Returns</dt><dd>The request element value </dd></dl>
+
+</div>
+</div>
+<a id="a1eecc0edaf9245a53d1ebe8e90261300"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1eecc0edaf9245a53d1ebe8e90261300">&sect;&nbsp;</a></span>operator+() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classutf8_1_1iterator.html">iterator</a> utf8::iterator::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const int64_t&#160;</td>
+          <td class="paramname"><em>_val</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>move the element position </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_val</td><td>Value to add on the Iterator </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a new iterator. </dd></dl>
+
+</div>
+</div>
+<a id="aa9e55971044201725a9672913b0e7dca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9e55971044201725a9672913b0e7dca">&sect;&nbsp;</a></span>operator+() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classutf8_1_1iterator.html">iterator</a> utf8::iterator::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>_val</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>move the element position (const int64_t) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_val</td><td>Value to add on the Iterator </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a new iterator. (const int64_t) </dd></dl>
+
+</div>
+</div>
+<a id="a9f77f61d4a6869c6ade054f22fc77b44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f77f61d4a6869c6ade054f22fc77b44">&sect;&nbsp;</a></span>operator+() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classutf8_1_1iterator.html">iterator</a> utf8::iterator::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramname"><em>_val</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>move the element position (const int64_t) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_val</td><td>Value to add on the Iterator </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a new iterator. (const int64_t) </dd></dl>
+
+</div>
+</div>
+<a id="ac6e8470c3e2ca1216c6663b2a120c7b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6e8470c3e2ca1216c6663b2a120c7b0">&sect;&nbsp;</a></span>operator++() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classutf8_1_1iterator.html">iterator</a>&amp; utf8::iterator::operator++ </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Incremental operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Reference on the current iterator incremented </dd></dl>
+
+</div>
+</div>
+<a id="a76dfdca4191ed484149d6ed260f0b0c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76dfdca4191ed484149d6ed260f0b0c7">&sect;&nbsp;</a></span>operator++() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classutf8_1_1iterator.html">iterator</a> utf8::iterator::operator++ </td>
+          <td>(</td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Incremental operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Reference on a new iterator and increment the other one </dd></dl>
+
+</div>
+</div>
+<a id="abf02b2a76b3648e6d6a6554726f0f5ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf02b2a76b3648e6d6a6554726f0f5ab">&sect;&nbsp;</a></span>operator-() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classutf8_1_1iterator.html">iterator</a> utf8::iterator::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const int64_t&#160;</td>
+          <td class="paramname"><em>_val</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>move the element position </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_val</td><td>Value to remove on the Iterator </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a new iterator. </dd></dl>
+
+</div>
+</div>
+<a id="a4938a35a2705a089de16b20eaf5c98c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4938a35a2705a089de16b20eaf5c98c2">&sect;&nbsp;</a></span>operator-() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classutf8_1_1iterator.html">iterator</a> utf8::iterator::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const int32_t&#160;</td>
+          <td class="paramname"><em>_val</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>move the element position (const int64_t) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_val</td><td>Value to remove on the Iterator </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a new iterator. (const int64_t) </dd></dl>
+
+</div>
+</div>
+<a id="ac8505389bd5e41973c0971cb5a9f8b86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8505389bd5e41973c0971cb5a9f8b86">&sect;&nbsp;</a></span>operator-() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classutf8_1_1iterator.html">iterator</a> utf8::iterator::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramname"><em>_val</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>move the element position (const int64_t) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_val</td><td>Value to remove on the Iterator </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a new iterator. (const int64_t) </dd></dl>
+
+</div>
+</div>
+<a id="a30bad80656165761acba9a5bf336bb24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30bad80656165761acba9a5bf336bb24">&sect;&nbsp;</a></span>operator--() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classutf8_1_1iterator.html">iterator</a>&amp; utf8::iterator::operator-- </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Decremental operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Reference on the current iterator decremented </dd></dl>
+
+</div>
+</div>
+<a id="a5bb362e7ef8f382c06b26734ac1eb753"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bb362e7ef8f382c06b26734ac1eb753">&sect;&nbsp;</a></span>operator--() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classutf8_1_1iterator.html">iterator</a> utf8::iterator::operator-- </td>
+          <td>(</td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Decremental operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>Reference on a new iterator and decrement the other one </dd></dl>
+
+</div>
+</div>
+<a id="ac74e8ae878532c46806564905a8527c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac74e8ae878532c46806564905a8527c7">&sect;&nbsp;</a></span>operator<()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool utf8::iterator::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>&lt; iterator </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Iterator to compare </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the iterator is identical pos </dd></dl>
+
+</div>
+</div>
+<a id="a346ff026e12a1aa5f75881bd9a2101db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a346ff026e12a1aa5f75881bd9a2101db">&sect;&nbsp;</a></span>operator<=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool utf8::iterator::operator&lt;= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>&lt;= iterator </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Iterator to compare </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the iterator is identical pos </dd></dl>
+
+</div>
+</div>
+<a id="a026f9c7bec14739d0346adf834f3cf6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a026f9c7bec14739d0346adf834f3cf6f">&sect;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classutf8_1_1iterator.html">iterator</a>&amp; utf8::iterator::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Asignation operator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>The Iterator that might be copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>reference on the curent Iterator </dd></dl>
+
+</div>
+</div>
+<a id="ae45282e1b982fd3ba02c91ea1dd191c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae45282e1b982fd3ba02c91ea1dd191c6">&sect;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool utf8::iterator::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>egality iterator </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Iterator to compare </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the iterator is identical pos </dd></dl>
+
+</div>
+</div>
+<a id="a6747633f8b16db61fafdb3358a628625"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6747633f8b16db61fafdb3358a628625">&sect;&nbsp;</a></span>operator>()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool utf8::iterator::operator&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><blockquote class="doxtable">
+<p>iterator </p>
+</blockquote>
+</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Iterator to compare </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the iterator is identical pos </dd></dl>
+
+</div>
+</div>
+<a id="a51dc6ee6f507c2cce9bd8edc9b804fad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51dc6ee6f507c2cce9bd8edc9b804fad">&sect;&nbsp;</a></span>operator>=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool utf8::iterator::operator&gt;= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classutf8_1_1iterator.html">iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>_obj</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>&gt;= iterator </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">_obj</td><td>Iterator to compare </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the iterator is identical pos </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>framework/atria-soft/etk/etk/<a class="el" href="std_tools_8hpp_source.html">stdTools.hpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Oct 24 2016 10:48:19 for Etk: Ewol Tool Kit by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>
