@@ -16,7 +16,7 @@ etk::archive::Zip::Zip(const std::string& _fileName, uint64_t _offset) :
 	/* Open the zip file */
 	m_ctx = unzOpenOffset(m_fileName.c_str(), _offset);
 	if(!m_ctx) {
-		TK_ERROR("Unable to open the zip file '" << m_fileName << "'");
+		TK_ERROR("Unable to open the zip file '" << m_fileName << "' offset=" << _offset);
 		return;
 	}
 	/* Get info about the zip file */
@@ -30,13 +30,14 @@ etk::archive::Zip::Zip(const std::string& _fileName, uint64_t _offset) :
 		char tmpFileName[FILENAME_MAX];
 		unz_file_info tmpFileInfo;
 		/* Get info about current file. */
-		if(unzGetCurrentFileInfo(m_ctx, &tmpFileInfo, tmpFileName, FILENAME_MAX, NULL, 0, NULL, 0) != UNZ_OK) {
+		if(unzGetCurrentFileInfo(m_ctx, &tmpFileInfo, tmpFileName, FILENAME_MAX, nullptr, 0, nullptr, 0) != UNZ_OK) {
 			TK_ERROR("Could not read file info from the zip file '" << m_fileName << "'");
 			return;
 		}
 		if(tmpFileName[strlen(tmpFileName) - 1] == '/' ) {
 			// find directory ...
 		} else {
+			TK_INFO("find file : " << tmpFileName);
 			m_content.insert(std::pair<std::string, etk::ArchiveContent>(tmpFileName, etk::ArchiveContent(tmpFileInfo.uncompressed_size)));
 		}
 		/* Go the the next entry listed in the zip file. */

@@ -324,6 +324,14 @@ std::string etk::FSNodeGetApplicationName() {
 			TK_INFO("Loading Intarnal data '" << _apkPath << "'");
 			//s_APKArchive = etk::Archive::loadPackage(_apkPath);
 			s_APKArchive = etk::Archive::load(_apkPath);
+			/*
+			FILE* tmp = fopen(_apkPath.c_str(), "r");
+			if (tmp == nullptr) {
+				TK_ERROR("File does not exist ...");
+			} else {
+				TK_ERROR("File open OK ...");
+			}
+			*/
 			TK_ASSERT(s_APKArchive != nullptr, "Error loading PKG ...  '" << _apkPath << "'");
 		#endif
 		#ifdef DEBUG
@@ -389,7 +397,9 @@ void etk::setArgZero(const std::string& _val) {
 	l_argZero = _val;
 	// set defaiult application name ...
 	std::vector<std::string> elems = etk::split(_val, '/');
+	TK_WARNING("ppppppp" << elems);
 	etk::initDefaultFolder(elems[elems.size()-1].c_str());
+	TK_WARNING("ppppppp 222");
 }
 /*
 	On Unixes with /proc really straight and realiable way is to:
@@ -513,7 +523,12 @@ void etk::initDefaultFolder(const char* _applName) {
 		}
 	}
 	TK_DBG_MODE("Find Basic running PATH : '" << baseRunPath << "'");
-	#ifndef __TARGET_OS__Android
+	#if defined(__TARGET_OS__Web)
+		loadAPK("data.zip");
+		baseFolderData = "zz_generic_zz";
+	#endif
+	#if    !defined(__TARGET_OS__Android) \
+	    && !defined(__TARGET_OS__Web)
 		std::string binaryPath = getApplicationPath();
 		binaryPath = etk::replace(binaryPath, '\\', '/');
 		size_t pos = binaryPath.rfind('/');

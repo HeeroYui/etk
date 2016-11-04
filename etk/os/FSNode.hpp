@@ -25,6 +25,10 @@
 	#define HAVE_ZIP_DATA
 #endif
 
+#ifdef __TARGET_OS__Web
+	#define HAVE_ZIP_DATA
+#endif
+
 
 #ifdef HAVE_ZIP_DATA
 namespace etk {
