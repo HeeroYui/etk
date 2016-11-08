@@ -525,7 +525,7 @@ void etk::initDefaultFolder(const char* _applName) {
 	TK_DBG_MODE("Find Basic running PATH : '" << baseRunPath << "'");
 	#if defined(__TARGET_OS__Web)
 		loadAPK("data.zip");
-		baseFolderData = "zz_generic_zz";
+		baseFolderData = "zz_generic_zz/";
 	#endif
 	#if    !defined(__TARGET_OS__Android) \
 	    && !defined(__TARGET_OS__Web)
