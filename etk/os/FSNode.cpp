@@ -289,6 +289,7 @@ static std::mutex& getNodeMutex() {
 // zip file of the apk file for Android ==> set to zip file apk access
 static std::string s_fileAPK = "";
 static std::string baseApplName = "ewolNoName";
+static std::string baseApplPath = "ewolNoName";
 static std::string baseRunPath = "/";
 static std::string baseRunPathInHome = "/";
 #if defined(__TARGET_OS__Android)
@@ -310,6 +311,10 @@ static std::string baseRunPathInHome = "/";
 
 std::string etk::FSNodeGetApplicationName() {
 	return baseApplName;
+}
+
+std::string etk::FSNodeGetApplicationPath() {
+	return baseApplPath;
 }
 
 #ifdef HAVE_ZIP_DATA
@@ -538,6 +543,7 @@ void etk::initDefaultFolder(const char* _applName) {
 			binaryName = std::string(binaryName.begin()+1, binaryName.end());
 		}
 		binaryPath.erase(binaryPath.begin() + pos, binaryPath.end());
+		baseApplPath = binaryPath;
 		TK_INFO("Bianry name : '" << binaryPath << "' && '" << binaryName << "'" );
 		#ifdef __TARGET_OS__Windows
 			// check if we have a data path just near the .exe file

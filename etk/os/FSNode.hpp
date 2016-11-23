@@ -53,6 +53,11 @@ namespace etk {
 	 */
 	std::string FSNodeGetApplicationName();
 	/**
+	 * @brief Get application binary path.
+	 * @return The application path
+	 */
+	std::string FSNodeGetApplicationPath();
+	/**
 	 * @brief List of Type that a node can have (this wrap some type that not exist on Windows)
 	 */
 	enum typeNode {

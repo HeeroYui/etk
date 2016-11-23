@@ -54,3 +54,16 @@
 	#endif
 #endif
 
+#ifdef _WIN32
+	//#define ETK_EXPORT_API extern "C" __declspec( dllimport )
+	#define ETK_EXPORT_API 
+#else
+	#define ETK_EXPORT_API extern "C" __attribute__ ((visibility ("default")))
+#endif
+
+#ifdef _WIN32
+	#define ETK_EXPORT_VISIBILITY 
+#else
+	#define ETK_EXPORT_VISIBILITY __attribute__ ((visibility ("default")))
+#endif
+
