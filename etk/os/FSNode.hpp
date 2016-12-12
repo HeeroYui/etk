@@ -735,6 +735,15 @@ namespace etk {
 			std::vector<std::u32string> listU();
 		#endif
 	};
+	/**
+	 * @brief Get the size of a specific file
+	 * @param[in] _path Folder/File/Pipe path of the node
+	 * @return size of the file
+	 */
+	uint64_t FSNodeGetSize(const std::string& _path);
+	#if __CPP_VERSION__ >= 2011
+		uint64_t FSNodeGetSize(const std::u32string& _path);
+	#endif
 	
 	/**
 	 * @brief Simple access for : Remove folder and subFolder, files pipes ...

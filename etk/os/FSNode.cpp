@@ -2412,6 +2412,19 @@ std::string etk::theme::getNameDefault(const std::string& _refName) {
  *  Simple direct wrapper on the FileSystem node access :
  * 
  * -------------------------------------------------------------------------- */
+uint64_t etk::FSNodeGetSize(const std::string& _path) {
+	etk::FSNode tmpNode(_path);
+	if (false==tmpNode.exist()) {
+		return 0;
+	}
+	return tmpNode.fileSize();
+}
+#if __CPP_VERSION__ >= 2011
+	uint64_t etk::FSNodeGetSize(const std::u32string& _path) {
+		return FSNodeGetSize(etk::to_string(_path));
+	}
+#endif
+
 bool etk::FSNodeRemove(const std::string& _path) {
 	etk::FSNode tmpNode(_path);
 	if (false==tmpNode.exist()) {
