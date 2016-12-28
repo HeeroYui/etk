@@ -629,6 +629,8 @@ namespace etk {
 		std::vector<std::u32string> split(const std::u32string& _input, char32_t _val);
 	#endif
 	//! @not_in_doc
+	std::vector<std::string> split(const std::string& _input, std::string _val);
+	//! @not_in_doc
 	void sort(std::vector<std::string *>& _list);
 	#if __CPP_VERSION__ >= 2011
 		//! @previous

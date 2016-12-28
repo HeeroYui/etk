@@ -905,6 +905,22 @@ std::vector<std::string> etk::split(const std::string& _input, char _val) {
 	}
 #endif
 
+std::vector<std::string> etk::split(const std::string& _input, std::string _val) {
+	std::vector<std::string> list;
+	size_t lastStartPos = 0;
+	for(size_t iii=0; iii<_input.size()-_val.size(); iii++) {
+		if (std::string(_input.begin()+iii, _input.begin()+iii+_val.size()) ==_val) {
+			list.push_back(std::string(_input, lastStartPos, iii - lastStartPos));
+			lastStartPos = iii+_val.size();
+			iii += _val.size()-1;
+		}
+	}
+	if (lastStartPos<_input.size()) {
+		list.push_back(std::string(_input, lastStartPos));
+	}
+	return list;
+}
+
 long double etk::string_to_long_double(const std::string& _str) {
 	long double ret = 0;
 	sscanf(_str.c_str(), "%Lf", &ret);
