@@ -58,6 +58,11 @@ namespace etk {
 	 */
 	std::string FSNodeGetApplicationPath();
 	/**
+	 * @brief Get the user Home path.
+	 * @return The Home path: "~"
+	 */
+	std::string FSNodeGetHomePath();
+	/**
 	 * @brief List of Type that a node can have (this wrap some type that not exist on Windows)
 	 */
 	enum typeNode {

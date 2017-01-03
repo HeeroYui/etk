@@ -89,8 +89,6 @@ extern "C" {
 	}
 #endif
 
-
-
 std::string etk::simplifyPath(std::string _input) {
 	// step 1 : for windows change \ in /:
 	TK_DEBUG("Simplify(1) : '" << _input << "'");
@@ -315,6 +313,10 @@ std::string etk::FSNodeGetApplicationName() {
 
 std::string etk::FSNodeGetApplicationPath() {
 	return baseApplPath;
+}
+
+std::string etk::FSNodeGetHomePath() {
+	return baseFolderHome;
 }
 
 #ifdef HAVE_ZIP_DATA
@@ -2473,8 +2475,8 @@ bool etk::FSNodeExist(const std::string& _path) {
 
 bool etk::FSNodeMove(const std::string& _path1, const std::string& _path2) {
 	etk::FSNode tmpNode(_path1);
-	if (false==tmpNode.exist()) {
-		TK_DEBUG("try to move un existant file \"" << _path1 << "\"");
+	if (tmpNode.exist() == false) {
+		TK_DEBUG("try to move un existant file '" << _path1 << "'");
 		return false;
 	}
 	// no check error in every case
@@ -2550,13 +2552,13 @@ bool etk::FSNodeTouch(const std::string& _path) {
 
 bool etk::FSNodeEcho(const std::string& _path, const std::string& _dataTowrite) {
 	etk::FSNode tmpNode(_path);
-	if (false==tmpNode.exist()) {
+	if (tmpNode.exist() == false) {
 		return false;
 	}
-	if (typeNode_folder==tmpNode.getNodeType()) {
+	if (tmpNode.getNodeType() == typeNode_folder) {
 		return false;
 	}
-	if (false==tmpNode.fileOpenWrite()) {
+	if (tmpNode.fileOpenWrite() == false) {
 		return false;
 	}
 	// convert in UTF8 :
@@ -2574,13 +2576,13 @@ bool etk::FSNodeEcho(const std::string& _path, const std::string& _dataTowrite) 
 
 bool etk::FSNodeEchoAdd(const std::string& _path, const std::string& _dataTowrite) {
 	etk::FSNode tmpNode(_path);
-	if (false==tmpNode.exist()) {
+	if (tmpNode.exist() == false) {
 		return false;
 	}
-	if (typeNode_folder==tmpNode.getNodeType()) {
+	if (tmpNode.getNodeType() == typeNode_folder) {
 		return false;
 	}
-	if (false==tmpNode.fileOpenAppend()) {
+	if (tmpNode.fileOpenAppend() == false) {
 		return false;
 	}
 	// convert in UTF8 :
@@ -2600,11 +2602,11 @@ void etk::FSNodeHistory(const std::string& _path, int32_t _historyCount) {
 	// step 1 : Move the file to prevent writing error
 	//Get the first oldest save :
 	for (int32_t iii=_historyCount-1; iii>0 ; iii--) {
-		if (true==etk::FSNodeExist(_path + "-" + etk::to_string(iii)) ) {
+		if (etk::FSNodeExist(_path + "-" + etk::to_string(iii)) == true) {
 			etk::FSNodeMove(_path + "-" + etk::to_string(iii), _path + "-" + etk::to_string(iii+1));
 		}
 	}
-	if (true==etk::FSNodeExist(_path) ) {
+	if (etk::FSNodeExist(_path) == true) {
 		etk::FSNodeMove(_path, _path + "-1");
 	}
 }
