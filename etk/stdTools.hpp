@@ -617,6 +617,8 @@ namespace etk {
 		std::u32string replace(const std::u32string& _obj, char32_t _val, char32_t _replace);
 	#endif
 	//! @not_in_doc
+	std::string replace(const std::string& _obj, const std::string& _val, const std::string& _replace);
+	//! @not_in_doc
 	std::string extract_line(const std::string& _obj, int32_t _pos);
 	#if __CPP_VERSION__ >= 2011
 		//! @previous

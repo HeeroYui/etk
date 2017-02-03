@@ -804,12 +804,18 @@ bool etk::start_with(const std::string& _obj, const std::string& _val, bool _cas
 
 std::string etk::replace(const std::string& _obj, char _val, char _replace) {
 	std::string copy(_obj);
-	for( size_t iii = 0;
-	     iii < copy.size();
-	     iii++) {
-		if (copy[iii] == _val) {
-			copy[iii] = _replace;
-		}
+	std::replace(copy.begin(), copy.end(), _val, _replace);
+	return copy;
+
+}
+
+//! @not_in_doc
+std::string etk::replace(const std::string& _obj, const std::string& _val, const std::string& _replace) {
+	std::string copy(_obj);
+	size_t pos = 0;
+	while ((pos = copy.find(_val, pos)) != std::string::npos) {
+		copy.replace(pos, _val.length(), _replace);
+		pos += _replace.length();
 	}
 	return copy;
 }
