@@ -1940,14 +1940,14 @@ std::string etk::FSNode::fileGetExtention() {
 #endif
 
 uint64_t etk::FSNode::fileSize() {
-	if (etk::typeNode_file != m_typeNode) {
+	if (m_typeNode != etk::typeNode_file) {
 		TK_ERROR("Request size of a non file node : " << m_typeNode);
 		return 0;
 	}
 	#ifdef HAVE_ZIP_DATA
-	if(    etk::FSNType_data == m_type
-	    || etk::FSNType_themeData == m_type) {
-		if (true == loadDataZip()) {
+	if(    m_type == etk::FSNType_data
+	    || m_type == etk::FSNType_themeData) {
+		if (loadDataZip() == true) {
 			return m_zipContent->getTheoricSize();
 		}
 		return 0;
@@ -1956,13 +1956,13 @@ uint64_t etk::FSNode::fileSize() {
 	// Note : this is a proper methode to get the file size for Big files ... otherwithe the size is limited at 2^31 bytes
 	// tmpStat Buffer :
 	struct stat statProperty;
-	if (-1 == stat(m_systemFileName.c_str(), &statProperty)) {
+	if (stat(m_systemFileName.c_str(), &statProperty) == -1) {
 		//Normal case when the file does not exist ... ==> the it was in unknow mode ...
 		TK_ERROR("mlkmlkmlkmlkmlkmlk");
 		return 0;
 	}
 	TK_VERBOSE(" file size : " << (int64_t)statProperty.st_size << " bytes");
-	if ((uint64_t)statProperty.st_size<=0) {
+	if ((uint64_t)statProperty.st_size <= 0) {
 		return 0;
 	}
 	return (uint64_t)statProperty.st_size;
@@ -1971,9 +1971,9 @@ uint64_t etk::FSNode::fileSize() {
 
 bool etk::FSNode::fileOpenRead() {
 	#ifdef HAVE_ZIP_DATA
-	if(    etk::FSNType_data == m_type
-	    || etk::FSNType_themeData == m_type) {
-		if (false==loadDataZip()) {
+	if(    m_type == etk::FSNType_data
+	    || m_type == etk::FSNType_themeData) {
+		if (loadDataZip() == false) {
 			return false;
 		}
 		std::unique_lock<std::mutex> lock(getNodeMutex());
@@ -1981,13 +1981,13 @@ bool etk::FSNode::fileOpenRead() {
 		return m_zipContent->getTheoricSize() == m_zipContent->size();
 	}
 	#endif
-	if (nullptr != m_PointerFile) {
+	if (m_PointerFile != nullptr) {
 		TK_CRITICAL("File Already open : " << *this);
 		return true;
 	}
 	TK_VERBOSE(" Read file : " << m_systemFileName);
-	m_PointerFile=fopen(m_systemFileName.c_str(),"rb");
-	if(nullptr == m_PointerFile) {
+	m_PointerFile = fopen(m_systemFileName.c_str(),"rb");
+	if(m_PointerFile == nullptr) {
 		TK_ERROR("Can not find the file " << *this );
 		return false;
 	}
@@ -2000,14 +2000,14 @@ bool etk::FSNode::fileOpenWrite() {
 		return false;
 	}
 	#endif
-	if (nullptr != m_PointerFile) {
+	if (m_PointerFile != nullptr) {
 		TK_CRITICAL("File Already open : " << *this);
 		return true;
 	}
 	FSNODE_LOCAL_mkPath(getNameFolder().c_str() , 0777);
-	TK_VERBOSE(" write file : " << m_systemFileName);
-	m_PointerFile=fopen(m_systemFileName.c_str(),"wb");
-	if(nullptr == m_PointerFile) {
+	TK_VERBOSE("Write file : " << m_systemFileName);
+	m_PointerFile = fopen(m_systemFileName.c_str(),"wb");
+	if(m_PointerFile == nullptr) {
 		TK_ERROR("Can not find the file " << *this);
 		return false;
 	}
@@ -2021,16 +2021,16 @@ bool etk::FSNode::fileOpenAppend() {
 		return false;
 	}
 	#endif
-	if (nullptr != m_PointerFile) {
+	if (m_PointerFile != nullptr) {
 		TK_CRITICAL("File Already open : " << *this);
 		return true;
 	}
 	FSNODE_LOCAL_mkPath(getNameFolder().c_str() , 0777);
 	
-	TK_VERBOSE(" append file : " << m_systemFileName);
+	TK_VERBOSE("Append file : " << m_systemFileName);
 	
-	m_PointerFile=fopen(m_systemFileName.c_str(),"ab");
-	if(nullptr == m_PointerFile) {
+	m_PointerFile = fopen(m_systemFileName.c_str(),"ab");
+	if(m_PointerFile == nullptr) {
 		TK_ERROR("Can not find the file " << *this);
 		return false;
 	}
@@ -2113,7 +2113,7 @@ char* etk::FSNode::fileGets(char* _elementLine, int64_t _maxData) {
 			}
 			outSize++;
 		}
-		if (outSize==0) {
+		if (outSize == 0) {
 			return nullptr;
 		} else {
 			// send last line
@@ -2164,6 +2164,10 @@ int64_t etk::FSNode::fileRead(void* _data, int64_t _blockSize, int64_t _nbBlock)
 		return _nbBlock;
 	}
 	#endif
+	if (m_PointerFile == nullptr) {
+		TK_ERROR("Can not read in a file that is not open : " << *this);
+		return 0;
+	}
 	return fread(_data, _blockSize, _nbBlock, m_PointerFile);
 }
 
@@ -2189,6 +2193,10 @@ int64_t etk::FSNode::fileWrite(const void * _data, int64_t _blockSize, int64_t _
 		return 0;
 	}
 	#endif
+	if (m_PointerFile == nullptr) {
+		TK_ERROR("Can not write in a file that is not open : " << *this);
+		return 0;
+	}
 	return fwrite(_data, _blockSize, _nbBlock, m_PointerFile);
 }
 /*
