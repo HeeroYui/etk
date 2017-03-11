@@ -54,6 +54,7 @@ def configure(target, my_module):
 	    'etk/Noise.hpp',
 	    'etk/Color.hpp',
 	    'etk/RegExp.hpp',
+	    'etk/Buffer.hpp',
 	    'etk/Hash.hpp',
 	    'etk/math/Matrix2.hpp',
 	    'etk/math/Matrix4.hpp',
