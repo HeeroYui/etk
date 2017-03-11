@@ -34,6 +34,7 @@ def configure(target, my_module):
 	    'etk/tool.cpp',
 	    'etk/Noise.cpp',
 	    'etk/Color.cpp',
+	    'etk/RegExp.cpp',
 	    'etk/math/Matrix2.cpp',
 	    'etk/math/Matrix4.cpp',
 	    'etk/math/Vector2D.cpp',
@@ -46,11 +47,13 @@ def configure(target, my_module):
 	
 	my_module.add_header_file([
 	    'etk/etk.hpp',
+	    'etk/debug.hpp',
 	    'etk/types.hpp',
 	    'etk/stdTools.hpp',
 	    'etk/tool.hpp',
 	    'etk/Noise.hpp',
 	    'etk/Color.hpp',
+	    'etk/RegExp.hpp',
 	    'etk/Hash.hpp',
 	    'etk/math/Matrix2.hpp',
 	    'etk/math/Matrix4.hpp',

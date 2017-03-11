@@ -22,6 +22,7 @@
 #include "testColor.hpp"
 #include "testFSNode.hpp"
 #include "testHash.hpp"
+#include "testRegExp.hpp"
 #include "testStdShared.hpp"
 
 int main(int argc, const char *argv[]) {
@@ -30,6 +31,7 @@ int main(int argc, const char *argv[]) {
 	// the only one init for etk:
 	etk::init(argc, argv);
 	etk::initDefaultFolder("ewolApplNoName");
+	//testRegExp();
 	return RUN_ALL_TESTS();
 }
 
