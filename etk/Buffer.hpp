@@ -7,7 +7,8 @@
  */
 #pragma once
 
-#include <etk/os/FSNode.h>
+#include <etk/os/FSNode.hpp>
+#include <etk/debug.hpp>
 
 // minimum gapSize when allocated
 #define GAP_SIZE_MIN		(80)

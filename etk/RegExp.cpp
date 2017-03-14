@@ -223,7 +223,7 @@ int64_t etk::regexp::getLenOfBracket(const std::vector<char32_t>& _data, int64_t
 	pos++;
 	// find size ...
 	while (pos < (int64_t)_data.size() ) {
-		if(_data[pos]==regexpOpcodeBracketOut) {
+		if(_data[pos] == regexpOpcodeBracketOut) {
 			// Find the end of the [...]
 			// just return the size inside
 			int32_t sizeInside = pos - _startPos -1 ;
@@ -232,9 +232,29 @@ int64_t etk::regexp::getLenOfBracket(const std::vector<char32_t>& _data, int64_t
 				return 0;
 			}
 			return sizeInside;
-		} else if(    _data[pos] != regexpOpcodeTo
-		           && _data[pos] > 0xFF ) {
-			TK_ERROR("Error in the [...] not permited element at "<< pos << " '" << (char)_data[pos] << "'");
+		} else if (    _data[pos] == regexpOpcodeStartOfLine
+		            || _data[pos] == regexpOpcodeDigit
+		            || _data[pos] == regexpOpcodeLetter
+		            || _data[pos] == regexpOpcodeSpace
+		            || _data[pos] == regexpOpcodeWord
+		            || _data[pos] == regexpOpcodeTo) {
+			// nothing to do ... it is permited
+		} else if(_data[pos] > 0xFF ) {
+			std::string displayElement;
+			if (_data[pos] == regexpOpcodeStartOfLine) {
+				displayElement = "^";
+			} else if (_data[pos] == regexpOpcodeDigitNot) {
+				displayElement = "\\D";
+			} else if (_data[pos] == regexpOpcodeLetterNot) {
+				displayElement = "\\L";
+			} else if (_data[pos] == regexpOpcodeSpaceNot) {
+				displayElement = "\\S";
+			} else if (_data[pos] == regexpOpcodeWordNot) {
+				displayElement = "\\W";
+			} else {
+				displayElement = (char)_data[pos];
+			}
+			TK_ERROR("Error in the [...] not permited element at "<< pos << " '" << displayElement << "'");
 			return 0;
 		}
 		pos++;

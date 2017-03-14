@@ -98,16 +98,15 @@ normal mode :
 	\W                  NOT a "Word" character                  [^a-zA-Z0-9_]
 	\@                  at the start or the end                 not in the parsing of element ==> check if \w is not present   (other regExp will be <> ...)
 	\e                  end-of-file / end-of-data               [\x00] ==> not counted
-	[anjdi] or [a-gt-j] range
+	[anjdi] or [a-gt-j] range: It support the \d \w \s \l elements. If you add at the first element a '^' it will invert the value selected
 	.                   dot                                     [^\x00]
 	$                   End / Start of line of line             ==> ce sera un truc suplémentaire comme le \@
 	@                   Previous
 ==> TODO :
-	^in the []			invertion of the range element
 	Sart of line
 	force regexp to be the shortest.
 
-multiplicity :
+multiplicity:
 	*     ==> {0, 2147483647} (try to have the minimum size)
 	?     ==> {0, 1}
 	+     ==> {1, 2147483647} (try to have the minimum size)
@@ -202,7 +201,7 @@ class FindProperty {
 		void setPositionStop(int64_t _newPos) {
 			m_positionStop = _newPos;
 			if (m_positionStop < m_positionStart) {
-				TK_CRITICAL("set volontary a stop position before end : " << this);
+				TK_CRITICAL("set volontary a stop position before end : " << this << " start=" << m_positionStart << " stop=" << m_positionStop);
 			}
 		}
 		uint32_t getMultiplicity() const {
@@ -638,9 +637,32 @@ template<class CLASS_TYPE> class NodeBracket : public NodeRangeValue<CLASS_TYPE>
 			
 			char32_t lastElement = 0;
 			bool multipleElement = false;
-			//
+			// Parse the elements:
 			for (int32_t kkk=0; kkk<(int64_t)Node<CLASS_TYPE>::m_regExpData.size(); kkk++) {
-				if (    Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeTo
+				if (    kkk == 0
+				     && Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeStartOfLine) {
+					// Check if the user request an invertion check:
+					NodeRangeValue<CLASS_TYPE>::setInvertion(true);
+				} else if (Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeStartOfLine) {
+					TK_ERROR("Unsupported Element '^' inside the [...] not at the first element");
+					return 0;
+				} else if (Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeDigit) {
+					NodeRangeValue<CLASS_TYPE>::addRange('0', '9');
+				} else if (Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeLetter) {
+					NodeRangeValue<CLASS_TYPE>::addRange('a', 'z');
+					NodeRangeValue<CLASS_TYPE>::addRange('A', 'Z');
+				} else if (Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeSpace) {
+					NodeRangeValue<CLASS_TYPE>::addValue(' ');
+					NodeRangeValue<CLASS_TYPE>::addValue('\t');
+					NodeRangeValue<CLASS_TYPE>::addValue('\n');
+					NodeRangeValue<CLASS_TYPE>::addValue('\r');
+					NodeRangeValue<CLASS_TYPE>::addValue('\f');
+					NodeRangeValue<CLASS_TYPE>::addValue('\v');
+				} else if (Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeWord) {
+					NodeRangeValue<CLASS_TYPE>::addRange('a', 'z');
+					NodeRangeValue<CLASS_TYPE>::addRange('A', 'Z');
+					NodeRangeValue<CLASS_TYPE>::addRange('0', '9');
+				} else if (    Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeTo
 				     && multipleElement == true) {
 					TK_ERROR("Can not have 2 consecutive - in [...]");
 					return 0;
@@ -938,7 +960,6 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 							m_subNode.push_back(tmpNode);
 						}
 						break;
-					
 					default: {
 							elementSize = getLenOfNormal(Node<CLASS_TYPE>::m_regExpData, pos);
 							for (int64_t kkk=pos; kkk<pos+elementSize; kkk++) {
@@ -1303,7 +1324,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
  *     \w                    "Word" character               [a-zA-Z0-9_]
  *     \W                    NOT a "Word" character         [^a-zA-Z0-9_]
  *     \@                    at the start or the end        not in the parsing of element ==> check if \w is not present   (other regExp will be <> ...)
- *     [anjdi] or [a-gt-j]   range
+ *     [anjdi] or [a-gt-j]   range. It support the \d \w \s \l elements. If you add at the first element a '^' it will invert the value selected
  *     .                     dot                            [^\x00-\x08\x0A-\x1F\x7F]
  * ==> TODO :
  *     $                     End / Start of line of line    ==> ce sera un truc suplé comme le \@
@@ -1382,6 +1403,7 @@ template<class CLASS_TYPE> class RegExp {
 		 * @brief Set a new regular expression matching
 		 * @param[in] _exp the new expression to search
 		 */
+		// TODO : Add an error ...
 		void compile(const std::string &_exp) {
 			if (_exp.size() != 0) {
 				TK_REG_DEBUG("normal string parse : '" << _exp << "'");
@@ -1491,22 +1513,20 @@ template<class CLASS_TYPE> class RegExp {
 				return;
 			}
 			// need to check if all () [] and {} is well set ...
-			if (false == checkGoodPosition(tmpExp) ) {
+			if (checkGoodPosition(tmpExp) == false) {
 				return;
 			}
 			
 			//TK_REG_DEBUG("Main element :" << createString(tmpExp) );
-			if (    tmpExp.size()>0
-			     && tmpExp[0] == regexpOpcodeNoChar)
-			{
+			if (    tmpExp.size() > 0
+			     && tmpExp[0] == regexpOpcodeNoChar) {
 				//TK_DEBUG("=> must not begin with char");
 				m_notBeginWithChar = true;
 				// remove element
 				tmpExp.erase(tmpExp.begin());
 			}
-			if (    tmpExp.size()>0
-			     && tmpExp[tmpExp.size()-1] == regexpOpcodeNoChar)
-			{
+			if (    tmpExp.size() > 0
+			     && tmpExp[tmpExp.size()-1] == regexpOpcodeNoChar) {
 				//TK_DEBUG("=> must not end with char");
 				m_notEndWithChar = true;
 				// remove element
@@ -1573,7 +1593,7 @@ template<class CLASS_TYPE> class RegExp {
 				int64_t maxlen = _endPos-iii;
 				TK_REG_DEBUG("----------------------------------------------");
 				TK_REG_DEBUG("parse element : " << iii << " : '" << _SearchIn[iii] << "'");
-				if (true == m_notBeginWithChar) {
+				if (m_notBeginWithChar == true) {
 					if (iii>0) {
 						char32_t tmpVal = _SearchIn[iii-1];
 						if(    (    tmpVal >= 'a'
@@ -1780,7 +1800,8 @@ template<class CLASS_TYPE> class RegExp {
 				return false;
 			}
 			//TK_DEBUG(" ==> Find ELEMENT : ([{");
-			// case dependent : 
+			// case dependent:
+			int32_t localOffset = 0;
 			if (    curentCode == regexpOpcodeBracketIn
 			     || curentCode == regexpOpcodeBracetIn) {
 				while(_pos<(int64_t)_tmpExp.size()) {
@@ -1790,7 +1811,7 @@ template<class CLASS_TYPE> class RegExp {
 						return true;
 					} else {
 						// otherwise, we check the error in the element ...
-						char *find = NULL;
+						char *find = nullptr;
 						switch (_tmpExp[_pos]) {
 							case regexpOpcodePTheseIn:		find = (char*)"(";			break;
 							case regexpOpcodeBracketIn:		find = (char*)"[";			break;
@@ -1803,26 +1824,37 @@ template<class CLASS_TYPE> class RegExp {
 							case regexpOpcodeQuestion:		find = (char*)"?";			break;
 							case regexpOpcodePlus:			find = (char*)"+";			break;
 							case regexpOpcodePipe:			find = (char*)"|";			break;
-							case regexpOpcodeStartOfLine:	find = (char*)"^";			break;
 							case regexpOpcodeEndOfLine:		find = (char*)"$";			break;
-							case regexpOpcodeDigit:			find = (char*)"\\d";		break;
 							case regexpOpcodeDigitNot:		find = (char*)"\\D";		break;
-							case regexpOpcodeLetter:		find = (char*)"\\l";		break;
 							case regexpOpcodeLetterNot:		find = (char*)"\\L";		break;
-							case regexpOpcodeSpace:			find = (char*)"\\s";		break;
 							case regexpOpcodeSpaceNot:		find = (char*)"\\S";		break;
-							case regexpOpcodeWord:			find = (char*)"\\w";		break;
 							case regexpOpcodeWordNot:		find = (char*)"\\W";		break;
 							case regexpOpcodeNoChar:		find = (char*)"\\@";		break;
+							case regexpOpcodeStartOfLine:
+								if (    endCode == regexpOpcodeBracetOut
+								     || localOffset != 0) {
+									find = (char*)"^";			break;
+								}
 							default:													break;
 						}
-						if (NULL != find) {
+						// Specific element forbiden for (...) but not for [...]
+						if (endCode == regexpOpcodeBracetOut) {
+							switch (_tmpExp[_pos]) {
+								case regexpOpcodeDigit:			find = (char*)"\\d";		break;
+								case regexpOpcodeLetter:		find = (char*)"\\l";		break;
+								case regexpOpcodeSpace:			find = (char*)"\\s";		break;
+								case regexpOpcodeWord:			find = (char*)"\\w";		break;
+								default:													break;
+							}
+						}
+						if (find != nullptr) {
 							(void)input;
 							TK_ERROR("can not have : '" << find << "' inside " << input << " element");
 							return false;
 						}
 					}
 					_pos++;
+					localOffset++;
 				}
 			} else {
 				while(_pos< (int64_t)_tmpExp.size()) {
@@ -1839,7 +1871,7 @@ template<class CLASS_TYPE> class RegExp {
 						if(    _tmpExp[_pos] == regexpOpcodePTheseIn
 						    || _tmpExp[_pos] == regexpOpcodeBracketIn
 						    || _tmpExp[_pos] == regexpOpcodeBracetIn ) {
-							if (false==checkGoodPosition(_tmpExp, _pos) ) {
+							if (checkGoodPosition(_tmpExp, _pos) == false ) {
 								return false;
 							}
 						}
