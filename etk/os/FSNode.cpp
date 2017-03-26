@@ -613,7 +613,7 @@ void etk::initDefaultFolder(const char* _applName) {
 						if (-1 == stat(baseFolderData.c_str(), &statProperty)) {
 							//Normal case when the file does not exist ... ==> the it was in unknow mode ...
 							TK_INFO("Path does not exit : '" << baseFolderData << "' ==> try tools data folder ...");
-							baseFolderData += "/../../../share/";
+							baseFolderData += "/../../share/";
 							baseFolderData += binaryName;
 							baseFolderData += "/";
 							baseFolderData = simplifyPath(baseFolderData);
