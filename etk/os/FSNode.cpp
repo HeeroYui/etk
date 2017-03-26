@@ -213,7 +213,7 @@ static int32_t FSNODE_LOCAL_mkPath(const char* _path, mode_t _mode) {
 	char *sp;
 	int status;
 	char *copypath = strdup(_path);
-	if (nullptr==copypath) {
+	if (copypath == nullptr) {
 		return -1;
 	}
 	status = 0;
@@ -1375,12 +1375,16 @@ bool etk::FSNode::touch() {
 
 bool etk::FSNode::move(const std::string& _path) {
 	etk::FSNode tmpDst(_path);
-	if (tmpDst.exist()==true) {
+	if (tmpDst.exist() == true) {
 		tmpDst.remove();
 	}
 	TK_DEBUG("Move : \"" << getFileSystemName() << "\" ==> \"" << tmpDst.getFileSystemName() << "\"");
+	// create path to be sure it exist ...
+	TK_VERBOSE("create path: '" << tmpDst.getNameFolder() << "'");
+	FSNODE_LOCAL_mkPath(tmpDst.getNameFolder().c_str() , 0755);
 	int32_t res = rename(getFileSystemName().c_str(), tmpDst.getFileSystemName().c_str());
 	if (res!=0) {
+		TK_ERROR("Can not move the file: '" << getFileSystemName() << "' ==> '" << tmpDst.getFileSystemName() << "'");
 		return false;
 	} else {
 		return true;
@@ -2004,7 +2008,7 @@ bool etk::FSNode::fileOpenWrite() {
 		TK_CRITICAL("File Already open : " << *this);
 		return true;
 	}
-	FSNODE_LOCAL_mkPath(getNameFolder().c_str() , 0777);
+	FSNODE_LOCAL_mkPath(getNameFolder().c_str() , 0744);
 	TK_VERBOSE("Write file : " << m_systemFileName);
 	m_PointerFile = fopen(m_systemFileName.c_str(),"wb");
 	if(m_PointerFile == nullptr) {
@@ -2025,7 +2029,7 @@ bool etk::FSNode::fileOpenAppend() {
 		TK_CRITICAL("File Already open : " << *this);
 		return true;
 	}
-	FSNODE_LOCAL_mkPath(getNameFolder().c_str() , 0777);
+	FSNODE_LOCAL_mkPath(getNameFolder().c_str() , 0744);
 	
 	TK_VERBOSE("Append file : " << m_systemFileName);
 	
