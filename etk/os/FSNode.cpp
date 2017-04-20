@@ -2488,7 +2488,7 @@ bool etk::FSNodeExist(const std::string& _path) {
 bool etk::FSNodeMove(const std::string& _path1, const std::string& _path2) {
 	etk::FSNode tmpNode(_path1);
 	if (tmpNode.exist() == false) {
-		TK_DEBUG("try to move un existant file '" << _path1 << "'");
+		TK_WARNING("try to move an un-existant file '" << _path1 << "'");
 		return false;
 	}
 	// no check error in every case
