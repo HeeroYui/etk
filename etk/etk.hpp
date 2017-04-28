@@ -16,6 +16,10 @@ namespace etk {
 	 * @param[in] _argv List of arguments
 	 */
 	void init(int _argc, const char** _argv);
+	/**
+	 * @brief Un-Initialize etk
+	 */
+	void unInit();
 	
 	/**
 	 * @brief Get application name.
