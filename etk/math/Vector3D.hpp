@@ -563,6 +563,27 @@ inline vec3 vec3ClipInt32(const vec3& _val) {
 inline vec3 vec3ClipInt64(const vec3& _val) {
 	return vec3(int64_t(_val.x()), int64_t(_val.y()), int64_t(_val.z()));
 }
+#ifdef ETK_BUILD_LINEARMATH
+namespace etk {
+	inline btVector3 min(const btVector3& _val1, const btVector3& _val2) {
+		return btVector3(std::min(_val1.x(), _val2.x()), std::min(_val1.y(), _val2.y()), std::min(_val1.z(), _val2.z()));
+	}
+	inline btVector3 max(const btVector3& _val1, const btVector3& _val2) {
+		return btVector3(std::max(_val1.x(), _val2.x()), std::max(_val1.y(), _val2.y()), std::max(_val1.z(), _val2.z()));
+	}
+}
+#endif
+namespace etk {
+	template<class ETK_TYPE>
+	inline etk::Vector3D<ETK_TYPE> min(const etk::Vector3D<ETK_TYPE>& _val1, const etk::Vector3D<ETK_TYPE>& _val2) {
+		return etk::Vector3D<ETK_TYPE>(std::min(_val1.x(), _val2.x()), std::min(_val1.y(), _val2.y()), std::min(_val1.z(), _val2.z()));
+	}
+	template<class ETK_TYPE>
+	inline etk::Vector3D<ETK_TYPE> max(const etk::Vector3D<ETK_TYPE>& _val1, const etk::Vector3D<ETK_TYPE>& _val2) {
+		return etk::Vector3D<ETK_TYPE>(std::max(_val1.x(), _val2.x()), std::max(_val1.y(), _val2.y()), std::max(_val1.z(), _val2.z()));
+	}
+}
+
 
 namespace etk {
 	//! @not_in_doc
