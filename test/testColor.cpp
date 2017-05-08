@@ -7,7 +7,8 @@
  */
 
 #include <gtest/gtest.h>
-#undef NAME
+#include <etk/Color.hpp>
+#include <test-debug/debug.hpp>
 #define NAME "Color"
 
 TEST(TestEtkColor, RGBA8) {

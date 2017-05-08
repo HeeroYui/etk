@@ -8,8 +8,8 @@
 
 #include <gtest/gtest.h>
 #include <etk/RegExp.hpp>
+#include <test-debug/debug.hpp>
 
-#undef NAME
 #define NAME "Hash"
 
 std::pair<int32_t, int32_t> testRegExpSingle(const std::string& _expression, const std::string& _search) {

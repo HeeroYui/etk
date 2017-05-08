@@ -8,7 +8,8 @@
 
 #include <gtest/gtest.h>
 
-#undef NAME
+#include <etk/Hash.hpp>
+#include <test-debug/debug.hpp>
 #define NAME "Hash"
 
 TEST(TestEtkHash, Creation) {

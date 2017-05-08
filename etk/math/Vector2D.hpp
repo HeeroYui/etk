@@ -15,9 +15,9 @@ namespace etk {
 	/**
 	 * @brief Vectorial 2-dimention vector (x/y)
 	 */
-	template <typename T> class Vector2D {
+	template <typename ETK_TYPE> class Vector2D {
 		public:
-			T m_floats[2]; //!< all internal values
+			ETK_TYPE m_floats[2]; //!< all internal values
 		public:
 			/* ****************************************************
 			 *    Constructor
@@ -25,16 +25,18 @@ namespace etk {
 			Vector2D() {
 				#ifdef DEBUG
 					// in debug mode we set supid value to prevent forget of the inits ...
-					m_floats[0] = (T)34673363;
-					m_floats[1] = (T)34523535;
+					m_floats[0] = (ETK_TYPE)34673363;
+					m_floats[1] = (ETK_TYPE)34523535;
 				#endif
+				m_floats[0] = (ETK_TYPE)0;
+				m_floats[1] = (ETK_TYPE)0;
 			}
 			/**
 			 * @brief Constructor from scalars
 			 * @param[in] _xxx X value
 			 * @param[in] _yyy Y value
 			 */
-			Vector2D(T _xxx, T _yyy) {
+			Vector2D(ETK_TYPE _xxx, ETK_TYPE _yyy) {
 				m_floats[0] = _xxx;
 				m_floats[1] = _yyy;
 			}
@@ -43,24 +45,24 @@ namespace etk {
 			 * @param[in] _obj The vector to add to this one
 			 */
 			Vector2D(const Vector2D<double>& _obj) {
-				m_floats[0] = (T)_obj.x();
-				m_floats[1] = (T)_obj.y();
+				m_floats[0] = (ETK_TYPE)_obj.x();
+				m_floats[1] = (ETK_TYPE)_obj.y();
 			}
 			/**
 			 * @brief Constructor with external vector
 			 * @param[in] _obj The vector to add to this one
 			 */
 			Vector2D(const Vector2D<float>& _obj) {
-				m_floats[0] = (T)_obj.x();
-				m_floats[1] = (T)_obj.y();
+				m_floats[0] = (ETK_TYPE)_obj.x();
+				m_floats[1] = (ETK_TYPE)_obj.y();
 			}
 			/**
 			 * @brief Constructor with external vector
 			 * @param[in] _obj The vector to add to this one
 			 */
 			Vector2D(const Vector2D<int32_t>& _obj) {
-				m_floats[0] = (T)_obj.x();
-				m_floats[1] = (T)_obj.y();
+				m_floats[0] = (ETK_TYPE)_obj.x();
+				m_floats[1] = (ETK_TYPE)_obj.y();
 			}
 			/**
 			 * @brief Constructor with string data
@@ -75,7 +77,7 @@ namespace etk {
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector asigned
 			 */
-			const Vector2D<T>& operator= (const Vector2D<T>& _obj ) {
+			const Vector2D<ETK_TYPE>& operator= (const Vector2D<ETK_TYPE>& _obj ) {
 				m_floats[0] = _obj.m_floats[0];
 				m_floats[1] = _obj.m_floats[1];
 				return *this;
@@ -85,7 +87,7 @@ namespace etk {
 			 * @param[in] _val Value to assign on the object
 			 * @return Local reference of the vector asigned
 			 */
-			const Vector2D<T>& operator= (const T _val ) {
+			const Vector2D<ETK_TYPE>& operator= (const ETK_TYPE _val ) {
 				m_floats[0] = _val;
 				m_floats[1] = _val;
 				return *this;
@@ -96,9 +98,9 @@ namespace etk {
 			 * @return true The Objects are identical
 			 * @return false The Objects are NOT identical
 			 */
-			bool operator== (const Vector2D<T>& _obj) const {
-				return (    (T)_obj.m_floats[0] == m_floats[0]
-				         && (T)_obj.m_floats[1] == m_floats[1]);
+			bool operator== (const Vector2D<ETK_TYPE>& _obj) const {
+				return (    (ETK_TYPE)_obj.m_floats[0] == m_floats[0]
+				         && (ETK_TYPE)_obj.m_floats[1] == m_floats[1]);
 			}
 			/**
 			 * @brief In-Equality compare operator with an other object.
@@ -106,16 +108,16 @@ namespace etk {
 			 * @return true The Objects are NOT identical
 			 * @return false The Objects are identical
 			 */
-			bool operator!= (const Vector2D<T>& _obj) const {
-				return (    (T)_obj.m_floats[0] != m_floats[0]
-				         || (T)_obj.m_floats[1] != m_floats[1]);
+			bool operator!= (const Vector2D<ETK_TYPE>& _obj) const {
+				return (    (ETK_TYPE)_obj.m_floats[0] != m_floats[0]
+				         || (ETK_TYPE)_obj.m_floats[1] != m_floats[1]);
 			}
 			/**
 			 * @brief Operator+= Addition an other vertor with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector additionned
 			 */
-			const Vector2D<T>& operator+= (const Vector2D<T>& _obj) {
+			const Vector2D<ETK_TYPE>& operator+= (const Vector2D<ETK_TYPE>& _obj) {
 				m_floats[0] += _obj.m_floats[0];
 				m_floats[1] += _obj.m_floats[1];
 				return *this;
@@ -125,7 +127,7 @@ namespace etk {
 			 * @param[in] _val Value to addition at x/y
 			 * @return Local reference of the vector additionned
 			 */
-			const Vector2D<T>& operator+= (const T _val) {
+			const Vector2D<ETK_TYPE>& operator+= (const ETK_TYPE _val) {
 				m_floats[0] += _val;
 				m_floats[1] += _val;
 				return *this;
@@ -135,8 +137,8 @@ namespace etk {
 			 * @param[in] _obj Reference on the external object
 			 * @return New vector containing the value
 			 */
-			Vector2D<T> operator+ (const Vector2D<T>& _obj) const {
-				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
+			Vector2D<ETK_TYPE> operator+ (const Vector2D<ETK_TYPE>& _obj) const {
+				Vector2D<ETK_TYPE> tmpp(m_floats[0],m_floats[1]);
 				tmpp.m_floats[0] += _obj.m_floats[0];
 				tmpp.m_floats[1] += _obj.m_floats[1];
 				return tmpp;
@@ -146,8 +148,8 @@ namespace etk {
 			 * @param[in] _val Value to addition at x/y
 			 * @return New vector containing the value
 			 */
-			Vector2D<T> operator+ (const T _val) const {
-				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
+			Vector2D<ETK_TYPE> operator+ (const ETK_TYPE _val) const {
+				Vector2D<ETK_TYPE> tmpp(m_floats[0],m_floats[1]);
 				tmpp.m_floats[0] += _val;
 				tmpp.m_floats[1] += _val;
 				return tmpp;
@@ -157,7 +159,7 @@ namespace etk {
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector decremented
 			 */
-			const Vector2D<T>& operator-= (const Vector2D<T>& _obj) {
+			const Vector2D<ETK_TYPE>& operator-= (const Vector2D<ETK_TYPE>& _obj) {
 				m_floats[0] -= _obj.m_floats[0];
 				m_floats[1] -= _obj.m_floats[1];
 				return *this;
@@ -167,7 +169,7 @@ namespace etk {
 			 * @param[in] _val Value to addition at x/y
 			 * @return Local reference of the vector decremented
 			 */
-			const Vector2D<T>& operator-= (const T _val) {
+			const Vector2D<ETK_TYPE>& operator-= (const ETK_TYPE _val) {
 				m_floats[0] -= _val;
 				m_floats[1] -= _val;
 				return *this;
@@ -177,8 +179,8 @@ namespace etk {
 			 * @param[in] _obj Reference on the external object
 			 * @return New vector containing the value
 			 */
-			Vector2D<T> operator- (const Vector2D<T>& _obj) const {
-				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
+			Vector2D<ETK_TYPE> operator- (const Vector2D<ETK_TYPE>& _obj) const {
+				Vector2D<ETK_TYPE> tmpp(m_floats[0],m_floats[1]);
 				tmpp.m_floats[0] -= _obj.m_floats[0];
 				tmpp.m_floats[1] -= _obj.m_floats[1];
 				return tmpp;
@@ -188,8 +190,8 @@ namespace etk {
 			 * @param[in] _val Value to addition at x/y
 			 * @return New vector containing the value
 			 */
-			Vector2D<T> operator- (const T _val) const {
-				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
+			Vector2D<ETK_TYPE> operator- (const ETK_TYPE _val) const {
+				Vector2D<ETK_TYPE> tmpp(m_floats[0],m_floats[1]);
 				tmpp.m_floats[0] -= _val;
 				tmpp.m_floats[1] -= _val;
 				return tmpp;
@@ -199,7 +201,7 @@ namespace etk {
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector multiplicated
 			 */
-			const Vector2D<T>& operator*= (const Vector2D<T>& _obj) {
+			const Vector2D<ETK_TYPE>& operator*= (const Vector2D<ETK_TYPE>& _obj) {
 				m_floats[0] *= _obj.m_floats[0];
 				m_floats[1] *= _obj.m_floats[1];
 				return *this;
@@ -209,7 +211,7 @@ namespace etk {
 			 * @param[in] _val Value to addition at x/y
 			 * @return Local reference of the vector multiplicated
 			 */
-			const Vector2D<T>& operator*= (const T _val) {
+			const Vector2D<ETK_TYPE>& operator*= (const ETK_TYPE _val) {
 				m_floats[0] *= _val;
 				m_floats[1] *= _val;
 				return *this;
@@ -219,8 +221,8 @@ namespace etk {
 			 * @param[in] _obj Reference on the external object
 			 * @return New vector containing the value
 			 */
-			Vector2D<T> operator* (const Vector2D<T>& _obj) const {
-				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
+			Vector2D<ETK_TYPE> operator* (const Vector2D<ETK_TYPE>& _obj) const {
+				Vector2D<ETK_TYPE> tmpp(m_floats[0],m_floats[1]);
 				tmpp.m_floats[0] *= _obj.m_floats[0];
 				tmpp.m_floats[1] *= _obj.m_floats[1];
 				return tmpp;
@@ -230,8 +232,8 @@ namespace etk {
 			 * @param[in] _val Value to addition at x/y
 			 * @return New vector containing the value
 			 */
-			Vector2D<T> operator* (const T _val) const {
-				Vector2D<T> tmpp(m_floats[0],m_floats[1]);
+			Vector2D<ETK_TYPE> operator* (const ETK_TYPE _val) const {
+				Vector2D<ETK_TYPE> tmpp(m_floats[0],m_floats[1]);
 				tmpp.m_floats[0] *= _val;
 				tmpp.m_floats[1] *= _val;
 				return tmpp;
@@ -241,8 +243,8 @@ namespace etk {
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector divided
 			 */
-			Vector2D<T> operator/ (const Vector2D<T>& _obj) const{
-				Vector2D<T> tmpp(m_floats[0], m_floats[1]);
+			Vector2D<ETK_TYPE> operator/ (const Vector2D<ETK_TYPE>& _obj) const{
+				Vector2D<ETK_TYPE> tmpp(m_floats[0], m_floats[1]);
 				tmpp.m_floats[0] /= _obj.m_floats[0];
 				tmpp.m_floats[1] /= _obj.m_floats[1];
 				return tmpp;
@@ -252,8 +254,8 @@ namespace etk {
 			 * @param[in] _val Value to addition at x/y
 			 * @return Local reference of the vector divided
 			 */
-			Vector2D<T> operator/ (const T _val) const {
-				Vector2D<T> tmpp(m_floats[0], m_floats[1]);
+			Vector2D<ETK_TYPE> operator/ (const ETK_TYPE _val) const {
+				Vector2D<ETK_TYPE> tmpp(m_floats[0], m_floats[1]);
 				tmpp.m_floats[0] /= _val;
 				tmpp.m_floats[1] /= _val;
 				return tmpp;
@@ -263,7 +265,7 @@ namespace etk {
 			 * @param[in] _obj Reference on the external object
 			 * @return New vector containing the value
 			 */
-			const Vector2D<T>& operator/= (const Vector2D<T>& _obj) {
+			const Vector2D<ETK_TYPE>& operator/= (const Vector2D<ETK_TYPE>& _obj) {
 				m_floats[0] /= _obj.m_floats[0];
 				m_floats[1] /= _obj.m_floats[1];
 				return *this;
@@ -273,7 +275,7 @@ namespace etk {
 			 * @param[in] _val Value to addition at x/y
 			 * @return New vector containing the value
 			 */
-			const Vector2D<T>& operator/= (const T _val) {
+			const Vector2D<ETK_TYPE>& operator/= (const ETK_TYPE _val) {
 				m_floats[0] /= _val;
 				m_floats[1] /= _val;
 				return *this;
@@ -282,7 +284,7 @@ namespace etk {
 			 * @brief Operator++ Pre-incrementation of this vector
 			 * @return Local reference of the vector incremented
 			 */
-			Vector2D<T>& operator++() {
+			Vector2D<ETK_TYPE>& operator++() {
 				++m_floats[0];
 				++m_floats[1];
 				return *this;
@@ -291,8 +293,8 @@ namespace etk {
 			 * @brief Operator++ Post-incrementation of this vector
 			 * @return New vector containing the last value
 			 */
-			Vector2D<T> operator++(int) {
-				Vector2D<T> result = *this;
+			Vector2D<ETK_TYPE> operator++(int) {
+				Vector2D<ETK_TYPE> result = *this;
 				++(*this);
 				return result;
 			}
@@ -300,7 +302,7 @@ namespace etk {
 			 * @brief Operator++ Pre-decrementation of this vector
 			 * @return Local reference of the vector incremented
 			 */
-			Vector2D<T>& operator--() {
+			Vector2D<ETK_TYPE>& operator--() {
 				--m_floats[0];
 				--m_floats[1];
 				return *this;
@@ -309,8 +311,8 @@ namespace etk {
 			 * @brief Operator++ Post-decrementation of this vector
 			 * @return New vector containing the last value
 			 */
-			Vector2D<T> operator--(int) {
-				Vector2D<T> result = *this;
+			Vector2D<ETK_TYPE> operator--(int) {
+				Vector2D<ETK_TYPE> result = *this;
 				--(*this);
 				return result;
 			}
@@ -319,7 +321,7 @@ namespace etk {
 			 * @param _obj The other vector in the cross product
 			 * @return cross product value
 			 */
-			T cross(const Vector2D<T>& _obj) const {
+			ETK_TYPE cross(const Vector2D<ETK_TYPE>& _obj) const {
 				return   m_floats[0] * _obj.m_floats[1]
 				       - m_floats[1] * _obj.m_floats[0];
 			}
@@ -328,7 +330,7 @@ namespace etk {
 			 * @param _obj The other vector in the dot product
 			 * @return Dot product value
 			 */
-			T dot(const Vector2D<T>& _obj) const {
+			ETK_TYPE dot(const Vector2D<ETK_TYPE>& _obj) const {
 				return   m_floats[0] * _obj.m_floats[0]
 				       + m_floats[1] * _obj.m_floats[1];
 			}
@@ -336,7 +338,7 @@ namespace etk {
 			 * @brief Get the length of the vector squared
 			 * @return Squared length value.
 			 */
-			T length2() const {
+			ETK_TYPE length2() const {
 				return dot(*this);
 			}
 			/**
@@ -356,7 +358,7 @@ namespace etk {
 			 * @param[in] _obj The other vector to compare distance
 			 * @return the square distance of the 2 points
 			 */
-			T distance2(const Vector2D<T>& _obj) const {
+			ETK_TYPE distance2(const Vector2D<ETK_TYPE>& _obj) const {
 				return (_obj - *this).length2();
 			}
 			/**
@@ -365,14 +367,14 @@ namespace etk {
 			 * @param[in] _obj The other vector to compare distance
 			 * @return the distance of the 2 points
 			 */
-			float distance(const Vector2D<T>& _obj) const {
+			float distance(const Vector2D<ETK_TYPE>& _obj) const {
 				return (_obj - *this).length();
 			}
 			/**
 			 * @brief Normalize this vector x^2 + y^2 = 1
 			 * @return Local reference of the vector normalized
 			 */
-			Vector2D<T>& normalize() {
+			Vector2D<ETK_TYPE>& normalize() {
 				*this /= length();
 				return *this;
 			}
@@ -380,8 +382,8 @@ namespace etk {
 			 * @brief Normalize this vector x^2 + y^2 = 1 (check if not deviding by 0, if it is the case ==> return (1,0))
 			 * @return Local reference of the vector normalized
 			 */
-			Vector2D<T>& safeNormalize() {
-				T tmp = length();
+			Vector2D<ETK_TYPE>& safeNormalize() {
+				ETK_TYPE tmp = length();
 				if (tmp != 0) {
 					*this /= length();
 					return *this;
@@ -393,16 +395,16 @@ namespace etk {
 			 * @brief Return a normalized version of this vector
 			 * @return New vector containing the value
 			 */
-			Vector2D<T> normalized() const {
+			Vector2D<ETK_TYPE> normalized() const {
 				return *this / length();
 			}
 			/**
 			 * @brief Return a vector will the absolute values of each element
 			 * @return New vector containing the value
 			 */
-			Vector2D<T> absolute() const {
-				return Vector2D<T>( abs(m_floats[0]),
-				                    abs(m_floats[1]));
+			Vector2D<ETK_TYPE> absolute() const {
+				return Vector2D<ETK_TYPE>( std::abs(m_floats[0]),
+				                    std::abs(m_floats[1]));
 			}
 			/**
 			 * @brief Return the axis with the smallest value 
@@ -436,63 +438,63 @@ namespace etk {
 			 * @brief Get X value
 			 * @return the x value
 			 */
-			const T& getX() const {
+			const ETK_TYPE& getX() const {
 				return m_floats[0];
 			}
 			/**
 			 * @brief Get Y value
 			 * @return the y value
 			 */
-			const T& getY() const {
+			const ETK_TYPE& getY() const {
 				return m_floats[1];
 			}
 			/**
 			 * @brief Set the x value
 			 * @param[in] _xxx New value
 			 */
-			void setX(T _xxx) {
+			void setX(ETK_TYPE _xxx) {
 				m_floats[0] = _xxx;
 			};
 			/**
 			 * @brief Set the y value
 			 * @param[in] _yyy New value
 			 */
-			void setY(T _yyy) {
+			void setY(ETK_TYPE _yyy) {
 				m_floats[1] = _yyy;
 			};
 			/**
 			 * @brief Get X value
 			 * @return the x value
 			 */
-			const T& x() const {
+			const ETK_TYPE& x() const {
 				return m_floats[0];
 			}
 			/**
 			 * @brief Get Y value
 			 * @return the y value
 			 */
-			const T& y() const {
+			const ETK_TYPE& y() const {
 				return m_floats[1];
 			}
 			/**
 			 * @brief Cast the vector in the type T* requested.
 			 * @return Pointer on the data
 			 */
-			operator T *() {
+			operator ETK_TYPE *() {
 				return &m_floats[0];
 			}
 			/**
 			 * @brief Cast the vector in the type const T* requested.
 			 * @return Pointer on the const data
 			 */
-			operator const T *() const {
+			operator const ETK_TYPE *() const {
 				return &m_floats[0];
 			}
 			/**
 			 * @brief Set each element to the max of the current values and the values of another vector
 			 * @param _other The other vector to compare with
 			 */
-			void setMax(const Vector2D<T>& _other) {
+			void setMax(const Vector2D<ETK_TYPE>& _other) {
 				m_floats[0] = std::max(m_floats[0], _other.m_floats[0]);
 				m_floats[1] = std::max(m_floats[1], _other.m_floats[1]);
 			}
@@ -500,7 +502,7 @@ namespace etk {
 			 * @brief Set each element to the min of the current values and the values of another vector
 			 * @param _other The other vector to compare with
 			 */
-			void setMin(const Vector2D<T>& _other) {
+			void setMin(const Vector2D<ETK_TYPE>& _other) {
 				m_floats[0] = std::min(m_floats[0], _other.m_floats[0]);
 				m_floats[1] = std::min(m_floats[1], _other.m_floats[1]);
 			}
@@ -509,7 +511,7 @@ namespace etk {
 			 * @param[in] _xxx X value.
 			 * @param[in] _yyy Y value.
 			 */
-			void setValue(const T& _xxx, const T& _yyy) {
+			void setValue(const ETK_TYPE& _xxx, const ETK_TYPE& _yyy) {
 				m_floats[0] = _xxx;
 				m_floats[1] = _yyy;
 			}
@@ -528,6 +530,17 @@ namespace etk {
 				return    m_floats[0] == 0
 				       && m_floats[1] == 0;
 			}
+			/*
+			// -------------------- Friends -------------------- //
+			friend Vector2D<ETK_TYPE> operator+(const Vector2D<ETK_TYPE>& _vect1, const Vector2D<ETK_TYPE>& _vect2);
+			friend Vector2D<ETK_TYPE> operator-(const Vector2D<ETK_TYPE>& _vect1, const Vector2D<ETK_TYPE>& _vect2);
+			friend Vector2D<ETK_TYPE> operator-(const Vector2D<ETK_TYPE>& _vect);
+			friend Vector2D<ETK_TYPE> operator*(const Vector2D<ETK_TYPE>& _vect, ETK_TYPE _value);
+			friend Vector2D<ETK_TYPE> operator*(ETK_TYPE _value, const Vector2D<ETK_TYPE>& _vect);
+			friend Vector2D<ETK_TYPE> operator*(const Vector2D<ETK_TYPE>& _vect1, const Vector2D<ETK_TYPE>& _vect2);
+			friend Vector2D<ETK_TYPE> operator/(const Vector2D<ETK_TYPE>& _vect, ETK_TYPE _value);
+			friend Vector2D<ETK_TYPE> operator/(const Vector2D<ETK_TYPE>& _vect1, const Vector2D<ETK_TYPE>& _vect2);
+			*/
 			/**
 			 * @brief String caster of the object.
 			 * @return the Object cated in string (x.x,y.y)
@@ -594,3 +607,45 @@ namespace etk {
 	std::ostream& operator <<(std::ostream& _os, const std::vector<bvec2 >& _obj);
 }
 
+template<class ETK_TYPE>
+inline etk::Vector2D<ETK_TYPE> operator+(const etk::Vector2D<ETK_TYPE>& _vect1, const etk::Vector2D<ETK_TYPE>& _vect2) {
+    return etk::Vector2D<ETK_TYPE>(_vect1.x() + _vect2.x(), _vect1.y() + _vect2.y());
+}
+
+template<class ETK_TYPE>
+inline etk::Vector2D<ETK_TYPE> operator-(const etk::Vector2D<ETK_TYPE>& _vect1, const etk::Vector2D<ETK_TYPE>& _vect2) {
+    return etk::Vector2D<ETK_TYPE>(_vect1.x() - _vect2.x(), _vect1.y() - _vect2.y());
+}
+
+template<class ETK_TYPE>
+inline etk::Vector2D<ETK_TYPE> operator-(const etk::Vector2D<ETK_TYPE>& _vect) {
+    return etk::Vector2D<ETK_TYPE>(-_vect.x(), -_vect.y());
+}
+
+template<class ETK_TYPE>
+inline etk::Vector2D<ETK_TYPE> operator*(const etk::Vector2D<ETK_TYPE>& _vect, ETK_TYPE _value) {
+    return etk::Vector2D<ETK_TYPE>(_value * _vect.x(), _value * _vect.y());
+}
+
+template<class ETK_TYPE>
+inline etk::Vector2D<ETK_TYPE> operator*(const etk::Vector2D<ETK_TYPE>& _vect1, const etk::Vector2D<ETK_TYPE>& _vect2) {
+    return etk::Vector2D<ETK_TYPE>(_vect1.x() * _vect2.x(), _vect1.y() * _vect2.y());
+}
+
+template<class ETK_TYPE>
+inline etk::Vector2D<ETK_TYPE> operator/(const etk::Vector2D<ETK_TYPE>& _vect, ETK_TYPE _value) {
+    //assert(_value > MACHINE_EPSILON);
+    return etk::Vector2D<ETK_TYPE>(_vect.x() / _value, _vect.y() / _value);
+}
+
+template<class ETK_TYPE>
+inline etk::Vector2D<ETK_TYPE> operator/(const etk::Vector2D<ETK_TYPE>& _vect1, const etk::Vector2D<ETK_TYPE>& _vect2) {
+    //assert(_vect2.x() > MACHINE_EPSILON);
+    //assert(_vect2.y() > MACHINE_EPSILON);
+    return etk::Vector2D<ETK_TYPE>(_vect1.x() / _vect2.x(), _vect1.y() / _vect2.y());
+}
+
+template<class ETK_TYPE>
+inline etk::Vector2D<ETK_TYPE> operator*(ETK_TYPE _value, const etk::Vector2D<ETK_TYPE>& _vect) {
+    return _vect * _value;
+}

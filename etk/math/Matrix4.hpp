@@ -32,7 +32,7 @@ namespace etk {
 		return _val*T(180.0)/M_PI;
 	}
 	/**
-	 * @brief Transformation matrix for vector 3D.
+	 * @brief This class represents a 4x4 matrix.
 	 */
 	class Matrix4 {
 		public:
@@ -238,7 +238,8 @@ namespace etk {
 	 */
 	Matrix4 matRotate(vec3 _normal, float _angleRad=0.0);
 	//! @not_in_doc
-	Matrix4 matRotate2(vec3 _vect);	/**
+	Matrix4 matRotate2(vec3 _vect);
+	/**
 	 * @brief Create projection matrix with camera property (camera view in -z axis)
 	 * @param[in] _eye Optical center of the camera
 	 * @param[in] _target Point of where the camera is showing

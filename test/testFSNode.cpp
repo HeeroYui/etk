@@ -7,7 +7,8 @@
  */
 
 #include <gtest/gtest.h>
-#undef NAME
+#include <test-debug/debug.hpp>
+#include <etk/os/FSNode.hpp>
 #define NAME "FSNode"
 
 TEST(TestEtkFSNode, checkType) {

@@ -219,10 +219,10 @@ namespace etk {
 			 * @return New vector with the absolute value
 			 */
 			Vector4D<T> absolute() const {
-				return Vector4D<T>( abs(m_floats[0]),
-				                    abs(m_floats[1]),
-				                    abs(m_floats[2]),
-				                    abs(m_floats[3]));
+				return Vector4D<T>( std::abs(m_floats[0]),
+				                    std::abs(m_floats[1]),
+				                    std::abs(m_floats[2]),
+				                    std::abs(m_floats[3]));
 			}
 			/**
 			 * @brief Multiply this vector by the other.

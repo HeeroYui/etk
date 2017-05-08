@@ -8,22 +8,12 @@
 #include <test-debug/debug.hpp>
 #include <vector>
 #include <string>
-#include <etk/Hash.hpp>
-#include <etk/os/FSNode.hpp>
-#include <etk/archive/Archive.hpp>
 #include <etk/etk.hpp>
-#include <etk/Color.hpp>
 #include <etk/stdTools.hpp>
 #include <string>
 
-#define NAME "Empty"
+#include <etk/os/FSNode.hpp>
 #include <gtest/gtest.h>
-#include "testArchive.hpp"
-#include "testColor.hpp"
-#include "testFSNode.hpp"
-#include "testHash.hpp"
-#include "testRegExp.hpp"
-#include "testStdShared.hpp"
 
 int main(int argc, const char *argv[]) {
 	// init Google test :

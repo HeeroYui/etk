@@ -5,6 +5,7 @@
  */
 
 #include <etk/types.hpp>
+#include <etk/debug.hpp>
 
 #pragma once
 
@@ -77,7 +78,7 @@ namespace etk {
 			 * @param[in] _obj The vector to add to this one
 			 * @return New vector containing the value
 			 */
-			Vector3D<T> operator+(const Vector3D<T>& _obj) {
+			Vector3D<T> operator+(const Vector3D<T>& _obj) const {
 				return Vector3D<T>(m_floats[0] + _obj.m_floats[0],
 				                   m_floats[1] + _obj.m_floats[1],
 				                   m_floats[2] + _obj.m_floats[2]);
@@ -98,7 +99,7 @@ namespace etk {
 			 * @param[in] _obj The vector to subtract
 			 * @return New vector containing the value
 			 */
-			Vector3D<T> operator-(const Vector3D<T>& _obj) {
+			Vector3D<T> operator-(const Vector3D<T>& _obj) const {
 				return Vector3D<T>(m_floats[0] - _obj.m_floats[0],
 				                   m_floats[1] - _obj.m_floats[1],
 				                   m_floats[2] - _obj.m_floats[2]);
@@ -119,7 +120,7 @@ namespace etk {
 			 * @param[in] _val Scale factor
 			 * @return New vector containing the value
 			 */
-			Vector3D<T> operator*(const T& _val) {
+			Vector3D<T> operator*(const T& _val) const {
 				return Vector3D<T>(m_floats[0] * _val,
 				                   m_floats[1] * _val,
 				                   m_floats[2] * _val);
@@ -200,10 +201,8 @@ namespace etk {
 			 * @return Local reference of the vector normalized
 			 */
 			Vector3D<T>& safeNormalize() {
-				Vector3D<T> absVec = this->absolute();
-				int maxIndex = absVec.maxAxis();
-				if (absVec[maxIndex]>0) {
-					*this /= absVec[maxIndex];
+				float lenght = length();
+				if (lenght != 0.0f) {
 					return *this /= length();
 				}
 				setValue(1,0,0);
@@ -214,6 +213,7 @@ namespace etk {
 			 * @return Local reference of the vector normalized
 			 */
 			Vector3D<T>& normalize() {
+				TK_ASSERT(length() != 0.0f, "Normalisation error");
 				return *this /= length();
 			}
 			/**
@@ -222,8 +222,7 @@ namespace etk {
 			 */
 			Vector3D<T> normalized() const {
 				Vector3D<T> out = *this;
-				out /= length();
-				return out;
+				return out.normalize();
 			}
 			/**
 			 * @brief Return a rotated version of this vector
@@ -255,9 +254,9 @@ namespace etk {
 			 * @return New vector containing the value
 			 */
 			Vector3D<T> absolute() const {
-				return Vector3D<T>( abs(m_floats[0]),
-				                    abs(m_floats[1]),
-				                    abs(m_floats[2]));
+				return Vector3D<T>( std::abs(m_floats[0]),
+				                    std::abs(m_floats[1]),
+				                    std::abs(m_floats[2]));
 			}
 			/**
 			 * @brief Return the cross product between this and another vector
@@ -344,7 +343,7 @@ namespace etk {
 			 * @return Local reference of the vector normalized
 			 */
 			Vector3D<T>& operator*=(const Vector3D<T>& _obj) {
-				m_floats[0] *= _obj.m_floats[0]; 
+				m_floats[0] *= _obj.m_floats[0];
 				m_floats[1] *= _obj.m_floats[1];
 				m_floats[2] *= _obj.m_floats[2];
 				return *this;
@@ -354,7 +353,7 @@ namespace etk {
 			 * @param _obj The other vector
 			 * @return New vector containing the value
 			 */
-			Vector3D<T> operator*(const Vector3D<T>& _obj) {
+			Vector3D<T> operator*(const Vector3D<T>& _obj) const {
 				return Vector3D<T>(m_floats[0] * _obj.m_floats[0],
 				                   m_floats[1] * _obj.m_floats[1],
 				                   m_floats[2] * _obj.m_floats[2]);
@@ -597,3 +596,47 @@ namespace etk {
 }
 
 
+
+template<class ETK_TYPE>
+inline etk::Vector3D<ETK_TYPE> operator+(const etk::Vector3D<ETK_TYPE>& _vect1, const etk::Vector3D<ETK_TYPE>& _vect2) {
+    return etk::Vector3D<ETK_TYPE>(_vect1.x() + _vect2.x(), _vect1.y() + _vect2.y(), _vect1.z() + _vect2.z());
+}
+
+template<class ETK_TYPE>
+inline etk::Vector3D<ETK_TYPE> operator-(const etk::Vector3D<ETK_TYPE>& _vect1, const etk::Vector3D<ETK_TYPE>& _vect2) {
+    return etk::Vector3D<ETK_TYPE>(_vect1.x() - _vect2.x(), _vect1.y() + _vect2.y(), _vect1.z() + _vect2.z());
+}
+
+template<class ETK_TYPE>
+inline etk::Vector3D<ETK_TYPE> operator-(const etk::Vector3D<ETK_TYPE>& _vect) {
+    return etk::Vector3D<ETK_TYPE>(-_vect.x(), -_vect.y(), -_vect.z());
+}
+
+template<class ETK_TYPE>
+inline etk::Vector3D<ETK_TYPE> operator*(const etk::Vector3D<ETK_TYPE>& _vect, ETK_TYPE _value) {
+    return etk::Vector3D<ETK_TYPE>(_value * _vect.x(), _value * _vect.y(), _value * _vect.z());
+}
+
+template<class ETK_TYPE>
+inline etk::Vector3D<ETK_TYPE> operator*(const etk::Vector3D<ETK_TYPE>& _vect1, const etk::Vector3D<ETK_TYPE>& _vect2) {
+    return etk::Vector3D<ETK_TYPE>(_vect1.x() * _vect2.x(), _vect1.y() * _vect2.y(), _vect1.z() * _vect2.z());
+}
+
+template<class ETK_TYPE>
+inline etk::Vector3D<ETK_TYPE> operator/(const etk::Vector3D<ETK_TYPE>& _vect, ETK_TYPE _value) {
+    //assert(_value > MACHINE_EPSILON);
+    return etk::Vector3D<ETK_TYPE>(_vect.x() / _value, _vect.y() / _value, _vect.z() / _value);
+}
+
+template<class ETK_TYPE>
+inline etk::Vector3D<ETK_TYPE> operator/(const etk::Vector3D<ETK_TYPE>& _vect1, const etk::Vector3D<ETK_TYPE>& _vect2) {
+    //assert(_vect2.x() > MACHINE_EPSILON);
+    //assert(_vect2.y() > MACHINE_EPSILON);
+    //assert(_vect2.z() > MACHINE_EPSILON);
+    return etk::Vector3D<ETK_TYPE>(_vect1.x() / _vect2.x(), _vect1.y() / _vect2.y(), _vect1.z() / _vect2.z());
+}
+
+template<class ETK_TYPE>
+inline etk::Vector3D<ETK_TYPE> operator*(ETK_TYPE _value, const etk::Vector3D<ETK_TYPE>& _vect) {
+    return _vect * _value;
+}

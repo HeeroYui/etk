@@ -26,7 +26,19 @@ def get_maintainer():
 
 def configure(target, my_module):
 	my_module.add_src_file([
-	    'test/main.cpp'
+	    'test/main.cpp',
+	    'test/testColor.cpp',
+	    'test/testHash.cpp',
+	    'test/testMatrix3x3.cpp',
+	    'test/testRegExp.cpp',
+	    'test/testTransform.cpp',
+	    'test/testVector3_f.cpp',
+	    'test/testArchive.cpp',
+	    'test/testFSNode.cpp',
+	    'test/testMatrix2x2.cpp',
+	    'test/testQuaternion.cpp',
+	    'test/testStdShared.cpp',
+	    'test/testVector2_f.cpp',
 	    ])
 	my_module.add_depend([
 	    'etk',

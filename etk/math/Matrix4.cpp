@@ -346,7 +346,7 @@ float etk::Matrix4::determinant() const {
 
 etk::Matrix4 etk::Matrix4::invert() {
 	float det = determinant();
-	if(fabsf(det) < (1.0e-7f)) {
+	if(std::abs(det) < (1.0e-7f)) {
 		// The matrix is not invertible! Singular case!
 		return *this;
 	}

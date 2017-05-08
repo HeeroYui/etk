@@ -8,7 +8,7 @@
 
 #include <gtest/gtest.h>
 #include <ememory/memory.hpp>
-#undef NAME
+#include <test-debug/debug.hpp>
 #define NAME "Shared_ptr"
 
 class Example : public ememory::EnableSharedFromThis<Example> {

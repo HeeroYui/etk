@@ -7,8 +7,9 @@
  */
 
 #include <gtest/gtest.h>
-#undef NAME
 #define NAME "Archive"
+#include <etk/archive/Archive.hpp>
+#include <test-debug/debug.hpp>
 
 #ifdef ETK_BUILD_MINIZIP
 
