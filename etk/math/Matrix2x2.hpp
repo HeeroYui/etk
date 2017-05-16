@@ -12,7 +12,7 @@ namespace etk {
 	/**
 	 * This class represents a 2x2 matrix.
 	 */
-	class Matrix2 {
+	class Matrix2x2 {
 		public:
 			/**
 			 * @brief Internal data
@@ -24,12 +24,12 @@ namespace etk {
 			/**
 			 * @brief Constructor that load zero matrix
 			 */
-			Matrix2();
+			Matrix2x2();
 			/**
 			 * @brief Configuration constructorwith single value.
 			 * @param[in] _value single vamue
 			 */
-			Matrix2(float _value);
+			Matrix2x2(float _value);
 			/**
 			 * @brief Configuration constructor.
 			 * @param[in] _a1 element 0x0
@@ -37,12 +37,12 @@ namespace etk {
 			 * @param[in] _b1 element 1x0
 			 * @param[in] _b2 element 1x1
 			 */
-			Matrix2(float _a1, float _a2, float _b1, float _b2);
+			Matrix2x2(float _a1, float _a2, float _b1, float _b2);
 			/**
 			 * @brief Copy constructor.
 			 * @param[in] _obj Matrix object to copy
 			 */
-			Matrix2(const Matrix2& _matrix);
+			Matrix2x2(const Matrix2x2& _matrix);
 			/**
 			 * @brief Set Value on the matrix
 			 * @param[in] _a1 element 0x0
@@ -71,7 +71,7 @@ namespace etk {
 			 * @brief get a transpose matrix of this one.
 			 * @return the transpose matrix
 			 */
-			Matrix2 getTranspose() const;
+			Matrix2x2 getTranspose() const;
 			/**
 			 * @brief Transpose the current matrix.
 			 */
@@ -91,7 +91,7 @@ namespace etk {
 			 * @note The determinant must be != 0, otherwithe the matrix can't be inverted.
 			 * @return The inverted matrix.
 			 */
-			Matrix2 getInverse() const;
+			Matrix2x2 getInverse() const;
 			/**
 			 * @brief Inverts the current matrix.
 			 * @note The determinant must be != 0, otherwithe the matrix can't be inverted.
@@ -101,7 +101,7 @@ namespace etk {
 			 * @brief get the mathix with the absolute value
 			 * @return matix in absolute
 			 */
-			Matrix2 getAbsolute() const;
+			Matrix2x2 getAbsolute() const;
 			/**
 			 * @brief absolutise the matrix
 			 */
@@ -114,80 +114,80 @@ namespace etk {
 			 * @brief create a Identity matrix
 			 * @return created new matrix
 			 */
-			static etk::Matrix2 identity();
+			static etk::Matrix2x2 identity();
 			/**
 			 * @brief create a ZERO matrix
 			 * @return created new matrix
 			 */
-			static Matrix2 zero();
+			static Matrix2x2 zero();
 			/**
 			 * @brief Operator= Asign the current object with an other object
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector asigned
 			 */
-			const Matrix2& operator= (const Matrix2& _obj );
+			const Matrix2x2& operator= (const Matrix2x2& _obj );
 			/**
 			 * @brief Equality compare operator with an other object.
 			 * @param[in] _obj Reference on the comparing object
 			 * @return true The Objects are identical
 			 * @return false The Objects are NOT identical
 			 */
-			bool operator== (const Matrix2& _obj) const;
+			bool operator== (const Matrix2x2& _obj) const;
 			/**
 			 * @brief In-Equality compare operator with an other object.
 			 * @param[in] _obj Reference on the comparing object
 			 * @return true The Objects are NOT identical
 			 * @return false The Objects are identical
 			 */
-			bool operator!= (const Matrix2& _obj) const;
+			bool operator!= (const Matrix2x2& _obj) const;
 			/**
 			 * @brief Operator+= Addition an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector additionned
 			 */
-			const Matrix2& operator+= (const Matrix2& _obj);
+			const Matrix2x2& operator+= (const Matrix2x2& _obj);
 			/**
 			 * @brief Operator+ Addition an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return New vector containing the value
 			 */
-			Matrix2 operator+ (const Matrix2& _obj) const;
+			Matrix2x2 operator+ (const Matrix2x2& _obj) const;
 			/**
 			 * @brief Operator-= Decrement an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector decremented
 			 */
-			const Matrix2& operator-= (const Matrix2& _obj);
+			const Matrix2x2& operator-= (const Matrix2x2& _obj);
 			/**
 			 * @brief Operator- Decrement an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return New vector containing the value
 			 */
-			Matrix2 operator- (const Matrix2& _obj) const;
+			Matrix2x2 operator- (const Matrix2x2& _obj) const;
 			/**
 			 * @brief Operator*= Multiplication an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector multiplicated
 			 */
-			const Matrix2& operator *= (const Matrix2& _obj);
+			const Matrix2x2& operator *= (const Matrix2x2& _obj);
 			/**
 			 * @brief Operator* Multiplication an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return New vector containing the value
 			 */
-			Matrix2 operator * (const Matrix2& _obj) const;
+			Matrix2x2 operator * (const Matrix2x2& _obj) const;
 			/**
 			 * @brief Operator*= Multiplication a value
 			 * @param[in] _value value to multiply all the matrix
 			 * @return Local reference of the vector multiplicated
 			 */
-			const Matrix2& operator *= (float _value);
+			const Matrix2x2& operator *= (float _value);
 			/**
 			 * @brief Operator*= Multiplication a value
 			 * @param[in] _value value to multiply all the matrix
 			 * @return Local reference of the vector multiplicated
 			 */
-			Matrix2 operator * (float _value) const;
+			Matrix2x2 operator * (float _value) const;
 			/**
 			 * @brief Operator* apply matrix on a vector
 			 * @param[in] _point Point value to apply the matrix
@@ -201,32 +201,32 @@ namespace etk {
 	 * @param[in] _angleRad Radian angle to set at the matrix
 	 * @return New matrix of the transformation requested
 	 */
-	Matrix2 mat2Rotate(float _angleRad);
+	Matrix2x2 mat2x2Rotate(float _angleRad);
 	/**
 	 * @brief Create a matrix 2D with a simple scale
 	 * @param[in] _scale 2 dimention scale
 	 * @return New matrix of the transformation requested
 	 */
-	Matrix2 mat2Scale(const vec2& _scale);
+	Matrix2x2 mat2x2Scale(const vec2& _scale);
 	/**
 	 * @brief Create a matrix 2D with a simple scale
 	 * @param[in] _scale same scale in 2 and Y
 	 * @return New matrix of the transformation requested
 	 */
-	Matrix2 mat2Scale(float _scale);
+	Matrix2x2 mat2x2Scale(float _scale);
 	/**
 	 * @brief Create a matrix 2D with a simple skew
 	 * @param[in] _skew 2 dimention skew
 	 * @return New matrix of the transformation requested
 	 */
-	Matrix2 mat2Skew(const vec2& _skew);
+	Matrix2x2 mat2x2Skew(const vec2& _skew);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Matrix2& _obj);
+	std::ostream& operator <<(std::ostream& _os, const etk::Matrix2x2& _obj);
 }
 
-etk::Matrix2 operator-(const etk::Matrix2& _matrix);
+etk::Matrix2x2 operator-(const etk::Matrix2x2& _matrix);
 
 // simplify using of matrix ...
-using mat2 = etk::Matrix2; //!< Use simplification in upper application to use matrix like openGL shader
+using mat2 = etk::Matrix2x2; //!< Use simplification in upper application to use matrix like openGL shader
 
 

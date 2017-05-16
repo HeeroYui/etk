@@ -19,7 +19,7 @@ std::ostream& etk::operator <<(std::ostream &_os, const etk::Quaternion& _obj) {
 	return _os;
 }
 
-etk::Quaternion::Quaternion(const etk::Matrix3& _matrix) {
+etk::Quaternion::Quaternion(const etk::Matrix3x3& _matrix) {
 	float trace = _matrix.getTrace();
 	if (trace < 0.0f) {
 		if (_matrix.m_mat[4] > _matrix.m_mat[0]) {
@@ -71,7 +71,7 @@ void etk::Quaternion::getAngleAxis(float& _angle, vec3& _axis) const {
 	_axis.setValue(rotationAxis.x(), rotationAxis.y(), rotationAxis.z());
 }
 
-etk::Matrix3 etk::Quaternion::getMatrix() const {
+etk::Matrix3x3 etk::Quaternion::getMatrix() const {
 	float nQ =   m_floats[0]*m_floats[0]
 	           + m_floats[1]*m_floats[1]
 	           + m_floats[2]*m_floats[2]
@@ -92,15 +92,15 @@ etk::Matrix3 etk::Quaternion::getMatrix() const {
 	float yys = m_floats[1]*ys;
 	float yzs = m_floats[1]*zs;
 	float zzs = m_floats[2]*zs;
-	return etk::Matrix3(1.0f - yys - zzs,
-	                    xys - wzs,
-	                    xzs + wys,
-	                    xys + wzs,
-	                    1.0f - xxs - zzs,
-	                    yzs - wxs,
-	                    xzs - wys,
-	                    yzs + wxs,
-	                    1.0f - xxs - yys);
+	return etk::Matrix3x3(1.0f - yys - zzs,
+	                      xys - wzs,
+	                      xzs + wys,
+	                      xys + wzs,
+	                      1.0f - xxs - zzs,
+	                      yzs - wxs,
+	                      xzs - wys,
+	                      yzs + wxs,
+	                      1.0f - xxs - yys);
 }
 
 etk::Quaternion etk::Quaternion::slerp(const Quaternion& _obj1,

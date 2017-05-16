@@ -12,19 +12,19 @@ namespace etk {
 	/**
 	 *  @brief This class represents a 3x3 matrix.
 	 */
-	class Matrix3 {
+	class Matrix3x3 {
 		public:
 			float m_mat[3*3]; //!< matrix data
 		public :
 			/**
 			 * @brief Constructor that load zero matrix
 			 */
-			Matrix3();
+			Matrix3x3();
 			/**
 			 * @brief Configuration constructorwith single value.
 			 * @param[in] _value single vamue
 			 */
-			Matrix3(float value);
+			Matrix3x3(float value);
 			/**
 			 * @brief Configuration constructor.
 			 * @param[in] _a1 element 0x0
@@ -37,14 +37,14 @@ namespace etk {
 			 * @param[in] _c2 element 2x1
 			 * @param[in] _c3 element 2x2
 			 */
-			Matrix3(float _a1, float _a2, float _a3,
+			Matrix3x3(float _a1, float _a2, float _a3,
 			        float _b1, float _b2, float _b3,
 			        float _c1, float _c2, float _c3);
 			/**
 			 * @brief Copy constructor.
 			 * @param[in] _obj Matrix object to copy
 			 */
-			Matrix3(const Matrix3& _obj);
+			Matrix3x3(const Matrix3x3& _obj);
 			/**
 			 * @brief Set Value on the matrix
 			 * @param[in] _a1 element 0x0
@@ -80,7 +80,7 @@ namespace etk {
 			 * @brief get a transpose matrix of this one.
 			 * @return the transpose matrix
 			 */
-			Matrix3 getTranspose() const;
+			Matrix3x3 getTranspose() const;
 			/**
 			 * @brief Transpose the current matrix.
 			 */
@@ -100,7 +100,7 @@ namespace etk {
 			 * @note The determinant must be != 0, otherwithe the matrix can't be inverted.
 			 * @return The inverted matrix.
 			 */
-			Matrix3 getInverse() const;
+			Matrix3x3 getInverse() const;
 			/**
 			 * @brief Inverts the current matrix.
 			 * @note The determinant must be != 0, otherwithe the matrix can't be inverted.
@@ -110,7 +110,7 @@ namespace etk {
 			 * @brief get the matrix with the absolute value
 			 * @return matix in absolute
 			 */
-			Matrix3 getAbsolute() const;
+			Matrix3x3 getAbsolute() const;
 			/**
 			 * @brief absolutise the matrix
 			 */
@@ -123,86 +123,86 @@ namespace etk {
 			 * @brief create a Identity matrix
 			 * @return created new matrix
 			 */
-			static Matrix3 identity();
+			static Matrix3x3 identity();
 			/**
 			 * @brief create a ZERO matrix
 			 * @return created new matrix
 			 */
-			static Matrix3 zero();
+			static Matrix3x3 zero();
 			/**
 			 * @brief create a skew-symmetric matrix using a given vector that can be used to compute cross product with another vector using matrix multiplication
 			 * @param[in] _vector Vector to comute
 			 * @return Matrix to compute
 			 */
-			static Matrix3 computeSkewSymmetricMatrixForCrossProduct(const vec3& _vector);
+			static Matrix3x3 computeSkewSymmetricMatrixForCrossProduct(const vec3& _vector);
 			/**
 			 * @brief Operator= Asign the current object with an other object
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector asigned
 			 */
-			const Matrix3& operator= (const Matrix3& _obj );
+			const Matrix3x3& operator= (const Matrix3x3& _obj );
 			/**
 			 * @brief Equality compare operator with an other object.
 			 * @param[in] _obj Reference on the comparing object
 			 * @return true The Objects are identical
 			 * @return false The Objects are NOT identical
 			 */
-			bool operator== (const Matrix3& _obj) const;
+			bool operator== (const Matrix3x3& _obj) const;
 			/**
 			 * @brief In-Equality compare operator with an other object.
 			 * @param[in] _obj Reference on the comparing object
 			 * @return true The Objects are NOT identical
 			 * @return false The Objects are identical
 			 */
-			bool operator!= (const Matrix3& _obj) const;
+			bool operator!= (const Matrix3x3& _obj) const;
 			/**
 			 * @brief Operator+= Addition an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector additionned
 			 */
-			const Matrix3& operator+= (const Matrix3& _obj);
+			const Matrix3x3& operator+= (const Matrix3x3& _obj);
 			/**
 			 * @brief Operator+ Addition an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return New vector containing the value
 			 */
-			Matrix3 operator+ (const Matrix3& _obj) const;
+			Matrix3x3 operator+ (const Matrix3x3& _obj) const;
 			/**
 			 * @brief Operator-= Decrement an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector decremented
 			 */
-			const Matrix3& operator-= (const Matrix3& _obj);
+			const Matrix3x3& operator-= (const Matrix3x3& _obj);
 			/**
 			 * @brief Operator- Decrement an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return New vector containing the value
 			 */
-			Matrix3 operator- (const Matrix3& _obj) const;
+			Matrix3x3 operator- (const Matrix3x3& _obj) const;
 			/**
 			 * @brief Operator*= Multiplication an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector multiplicated
 			 */
-			const Matrix3& operator *= (const Matrix3& _obj);
+			const Matrix3x3& operator *= (const Matrix3x3& _obj);
 			/**
 			 * @brief Operator* Multiplication an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return New vector containing the value
 			 */
-			Matrix3 operator * (const Matrix3& _obj) const;
+			Matrix3x3 operator * (const Matrix3x3& _obj) const;
 			/**
 			 * @brief Operator*= Multiplication a value
 			 * @param[in] _value value to multiply all the matrix
 			 * @return Local reference of the vector multiplicated
 			 */
-			const Matrix3& operator *= (float _value);
+			const Matrix3x3& operator *= (float _value);
 			/**
 			 * @brief Operator*= Multiplication a value
 			 * @param[in] _value value to multiply all the matrix
 			 * @return Local reference of the vector multiplicated
 			 */
-			Matrix3 operator * (float _value) const;
+			Matrix3x3 operator * (float _value) const;
 			/**
 			 * @brief Operator* apply matrix on a vector
 			 * @param[in] _point Point value to apply the matrix
@@ -211,12 +211,12 @@ namespace etk {
 			vec3 operator * (const vec3& _point) const;
 	};
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Matrix3& _obj);
+	std::ostream& operator <<(std::ostream& _os, const etk::Matrix3x3& _obj);
 }
 
-etk::Matrix3 operator-(const etk::Matrix3& _matrix);
+etk::Matrix3x3 operator-(const etk::Matrix3x3& _matrix);
 
 // simplify using of matrix ...
-using mat3 = etk::Matrix3; //!< Use simplification in upper application to use matrix like openGL shader
+using mat3 = etk::Matrix3x3; //!< Use simplification in upper application to use matrix like openGL shader
 
 

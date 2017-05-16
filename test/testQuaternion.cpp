@@ -16,7 +16,7 @@ TEST(TestQuaternion, constructor) {
 	EXPECT_FLOAT_EQ(test0.y(), 2.0);
 	EXPECT_FLOAT_EQ(test0.z(), 3.0);
 	EXPECT_FLOAT_EQ(test0.w(), 4.0);
-	etk::Quaternion test1(4, etk::Vector3D<float>(1,2,3));
+	etk::Quaternion test1(4, vec3(1,2,3));
 	EXPECT_FLOAT_EQ(test1.x(), 1.0);
 	EXPECT_FLOAT_EQ(test1.y(), 2.0);
 	EXPECT_FLOAT_EQ(test1.z(), 3.0);
@@ -53,7 +53,7 @@ TEST(TestQuaternion, constructorMatrix) {
 }
 
 TEST(TestQuaternion, constructorEuler) {
-	etk::Quaternion test0(etk::Vector3D<float>(M_PI*0.5f, 0, 0));
+	etk::Quaternion test0(vec3(M_PI*0.5f, 0, 0));
 	etk::Quaternion test01(std::sin(M_PI*0.25f), 0, 0, std::cos(M_PI*0.25f));
 	test01.normalize();
 	EXPECT_FLOAT_EQ(test0.x(), test01.x());
@@ -61,7 +61,7 @@ TEST(TestQuaternion, constructorEuler) {
 	EXPECT_FLOAT_EQ(test0.z(), test01.z());
 	EXPECT_FLOAT_EQ(test0.w(), test01.w());
 	
-	etk::Quaternion test1(etk::Vector3D<float>(0, M_PI*0.5f, 0));
+	etk::Quaternion test1(vec3(0, M_PI*0.5f, 0));
 	etk::Quaternion test11(0, std::sin(M_PI*0.25f), 0, std::cos(M_PI*0.25f));
 	test11.normalize();
 	EXPECT_FLOAT_EQ(test1.x(), test11.x());
@@ -69,7 +69,7 @@ TEST(TestQuaternion, constructorEuler) {
 	EXPECT_FLOAT_EQ(test1.z(), test11.z());
 	EXPECT_FLOAT_EQ(test1.w(), test11.w());
 	
-	etk::Quaternion test2(etk::Vector3D<float>(0, 0, M_PI*0.5f));
+	etk::Quaternion test2(vec3(0, 0, M_PI*0.5f));
 	etk::Quaternion test21(0, 0, std::sin(M_PI*0.25f), std::cos(M_PI*0.25f));
 	test21.normalize();
 	EXPECT_FLOAT_EQ(test2.x(), test21.x());
@@ -135,7 +135,7 @@ TEST(TestQuaternion, set) {
 
 TEST(TestQuaternion, getVector) {
 	etk::Quaternion test1(5, 3, 8, 2);
-	etk::Vector3D<float> test2 = test1.getVectorV();
+	vec3 test2 = test1.getVectorV();
 	EXPECT_FLOAT_EQ(test2.x(), 5.0);
 	EXPECT_FLOAT_EQ(test2.y(), 3.0);
 	EXPECT_FLOAT_EQ(test2.z(), 8.0);

@@ -34,7 +34,7 @@ namespace etk {
 	/**
 	 * @brief This class represents a 4x4 matrix.
 	 */
-	class Matrix4 {
+	class Matrix4x4 {
 		public:
 			float m_mat[4*4]; //!< matrix data
 		public:
@@ -45,12 +45,12 @@ namespace etk {
 			/**
 			 * @brief Constructor that load identity
 			 */
-			Matrix4();
+			Matrix4x4();
 			/**
 			 * @brief Copy constructor.
 			 * @param[in] _obj Matrix object to copy
 			 */
-			Matrix4(const Matrix4& _obj);
+			Matrix4x4(const Matrix4x4& _obj);
 			/**
 			 * @brief Configuration constructor.
 			 * @param[in] _a1 1st colomn, 1 line value
@@ -70,7 +70,7 @@ namespace etk {
 			 * @param[in] _c4 3rd colomn, 4 line value
 			 * @param[in] _d4 4th colomn, 4 line value
 			 */
-			Matrix4(float _a1, float _b1, float _c1, float _d1,
+			Matrix4x4(float _a1, float _b1, float _c1, float _d1,
 			        float _a2, float _b2, float _c2, float _d2,
 			        float _a3, float _b3, float _c3, float _d3,
 			        float _a4, float _b4, float _c4, float _d4);
@@ -78,63 +78,63 @@ namespace etk {
 			 * @brief Configuration constructor.
 			 * @param[in] _values vector of values
 			 */
-			Matrix4(float* _values);
+			Matrix4x4(float* _values);
 			/**
 			 * @brief Operator= Asign the current object with an other object
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector asigned
 			 */
-			const Matrix4& operator= (const Matrix4& _obj);
+			const Matrix4x4& operator= (const Matrix4x4& _obj);
 			/**
 			 * @brief Equality compare operator with an other object.
 			 * @param[in] _obj Reference on the comparing object
 			 * @return true The Objects are identical
 			 * @return false The Objects are NOT identical
 			 */
-			bool operator== (const Matrix4& _obj) const;
+			bool operator== (const Matrix4x4& _obj) const;
 			/**
 			 * @brief In-Equality compare operator with an other object.
 			 * @param[in] _obj Reference on the comparing object
 			 * @return true The Objects are NOT identical
 			 * @return false The Objects are identical
 			 */
-			bool operator!= (const Matrix4& _obj) const;
+			bool operator!= (const Matrix4x4& _obj) const;
 			/**
 			 * @brief Operator+= Addition an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector additionned
 			 */
-			const Matrix4& operator+= (const Matrix4& _obj);
+			const Matrix4x4& operator+= (const Matrix4x4& _obj);
 			/**
 			 * @brief Operator+ Addition an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return New vector containing the value
 			 */
-			Matrix4 operator+ (const Matrix4& _obj) const;
+			Matrix4x4 operator+ (const Matrix4x4& _obj) const;
 			/**
 			 * @brief Operator-= Decrement an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector decremented
 			 */
-			const Matrix4& operator-= (const Matrix4& _obj);
+			const Matrix4x4& operator-= (const Matrix4x4& _obj);
 			/**
 			 * @brief Operator- Decrement an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return New vector containing the value
 			 */
-			Matrix4 operator- (const Matrix4& _obj) const;
+			Matrix4x4 operator- (const Matrix4x4& _obj) const;
 			/**
 			 * @brief Operator*= Multiplication an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return Local reference of the vector multiplicated
 			 */
-			const Matrix4& operator*= (const Matrix4& _obj);
+			const Matrix4x4& operator*= (const Matrix4x4& _obj);
 			/**
 			 * @brief Operator* Multiplication an other matrix with this one
 			 * @param[in] _obj Reference on the external object
 			 * @return New vector containing the value
 			 */
-			Matrix4 operator* (const Matrix4& _obj) const;
+			Matrix4x4 operator* (const Matrix4x4& _obj) const;
 			/**
 			 * @brief Operator* apply matrix on a vector
 			 * @param[in] _point Point value to apply the matrix
@@ -185,7 +185,7 @@ namespace etk {
 			 * @note The determinant must be != 0, otherwithe the matrix can't be inverted.
 			 * @return The inverted matrix.
 			 */
-			Matrix4 invert();
+			Matrix4x4 invert();
 	};
 	/**
 	 * @brief Create projection matrix with the box parameter (camera view in -z axis)
@@ -197,7 +197,7 @@ namespace etk {
 	 * @param[in] _zFar Z maximum size of the frustum
 	 * @return New matrix of the transformation requested
 	 */
-	Matrix4 matFrustum(float _xmin, float _xmax, float _ymin, float _ymax, float _zNear, float _zFar);
+	Matrix4x4 matFrustum(float _xmin, float _xmax, float _ymin, float _ymax, float _zNear, float _zFar);
 	/**
 	 * @brief Create projection matrix with human repensentation view (camera view in -z axis)
 	 * @param[in] _foxy Focal in radian of the camera
@@ -206,7 +206,7 @@ namespace etk {
 	 * @param[in] _zFar Z far size of the camera
 	 * @return New matrix of the transformation requested
 	 */
-	Matrix4 matPerspective(float _foxy, float _aspect, float _zNear, float _zFar);
+	Matrix4x4 matPerspective(float _foxy, float _aspect, float _zNear, float _zFar);
 	/**
 	 * @brief Create orthogonal projection matrix with the box parameter (camera view in -z axis)
 	 * @param[in] _left left size of the camera
@@ -217,28 +217,28 @@ namespace etk {
 	 * @param[in] _farVal Z far size of the camera
 	 * @return New matrix of the transformation requested
 	 */
-	Matrix4 matOrtho(float _left, float _right, float _bottom, float _top, float _nearVal, float _farVal);
+	Matrix4x4 matOrtho(float _left, float _right, float _bottom, float _top, float _nearVal, float _farVal);
 	/**
 	 * @brief Create a matrix 3D with a simple translation
 	 * @param[in] _translate 3 dimention translation
 	 * @return New matrix of the transformation requested
 	 */
-	Matrix4 matTranslate(vec3 _translate);
+	Matrix4x4 matTranslate(vec3 _translate);
 	/**
 	 * @brief Create a matrix 3D with a simple scale
 	 * @param[in] _scale 3 dimention scale
 	 * @return New matrix of the transformation requested
 	 */
-	Matrix4 matScale(vec3 _scale);
+	Matrix4x4 matScale(vec3 _scale);
 	/**
 	 * @brief Create a matrix 3D with a simple rotation
 	 * @param[in] _normal vector aroud witch apply the rotation
 	 * @param[in] _angleRad Radian angle to set at the matrix
 	 * @return New matrix of the transformation requested
 	 */
-	Matrix4 matRotate(vec3 _normal, float _angleRad=0.0);
+	Matrix4x4 matRotate(vec3 _normal, float _angleRad=0.0);
 	//! @not_in_doc
-	Matrix4 matRotate2(vec3 _vect);
+	Matrix4x4 matRotate2(vec3 _vect);
 	/**
 	 * @brief Create projection matrix with camera property (camera view in -z axis)
 	 * @param[in] _eye Optical center of the camera
@@ -246,14 +246,14 @@ namespace etk {
 	 * @param[in] _up Up vector of the camera
 	 * @return New matrix of the transformation requested
 	 */
-	Matrix4 matLookAt(const vec3& _eye,
+	Matrix4x4 matLookAt(const vec3& _eye,
 	                  const vec3& _target,
 	                  const vec3& _up);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Matrix4& _obj);
+	std::ostream& operator <<(std::ostream& _os, const etk::Matrix4x4& _obj);
 };
 
 
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
-using mat4 = etk::Matrix4; //!< Matrix naming like openGl shader
+using mat4 = etk::Matrix4x4; //!< Matrix naming like openGl shader
 

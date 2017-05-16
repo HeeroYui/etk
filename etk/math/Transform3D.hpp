@@ -15,24 +15,24 @@ namespace etk {
 	/**
 	 * @brief This class represents a position and an orientation in 3D. It can also be seen as representing a translation and a rotation.
 	 */
-	class Transform {
+	class Transform3D {
 		public:
-			Transform():
+			Transform3D():
 			  m_position(vec3(0.0, 0.0, 0.0)),
 			  m_orientation(Quaternion::identity()) {
 				
 			}
-			Transform(const vec3& _position, const Matrix3x3& _orientation):
+			Transform3D(const vec3& _position, const Matrix3x3& _orientation):
 			  m_position(_position),
 			  m_orientation(Quaternion(_orientation)) {
 				
 			}
-			Transform(const vec3& _position, const Quaternion& _orientation):
+			Transform3D(const vec3& _position, const Quaternion& _orientation):
 			  m_position(_position),
 			  m_orientation(_orientation) {
 				
 			}
-			Transform(const Transform& _other):
+			Transform3D(const Transform3D& _other):
 			  m_position(_other.m_position),
 			  m_orientation(_other.m_orientation) {
 				
@@ -60,7 +60,7 @@ namespace etk {
 				m_orientation = _orientation;
 			}
 		public:
-			/// Set the transform to the identity transform
+			/// Set the Transform3D to the identity transform
 			void setToIdentity() {
 				m_position = vec3(0.0, 0.0, 0.0);
 				m_orientation = Quaternion::identity();
@@ -94,45 +94,45 @@ namespace etk {
 				_matrix[15] = 1.0;
 			}
 			/// Return the inverse of the transform
-			Transform getInverse() const  {
+			Transform3D getInverse() const  {
 				const Quaternion& invQuaternion = m_orientation.getInverse();
 				Matrix3x3 invMatrix = invQuaternion.getMatrix();
-				return Transform(invMatrix * (-m_position), invQuaternion);
+				return Transform3D(invMatrix * (-m_position), invQuaternion);
 			}
 			/// Return an interpolated transform
-			Transform interpolateTransforms(const Transform& _old,
-			                                const Transform& _new,
+			Transform3D interpolateTransforms(const Transform3D& _old,
+			                                const Transform3D& _new,
 			                                float _interpolationFactor) {
 				vec3 interPosition = _old.m_position * (decimal(1.0) - _interpolationFactor) +
 				                     _new.m_position * _interpolationFactor;
 				Quaternion interOrientation = Quaternion::slerp(_old.m_orientation,
 				                                                _naw.m_orientation,
 				                                                _interpolationFactor);
-				return Transform(interPosition, interOrientation);
+				return Transform3D(interPosition, interOrientation);
 			}
 			/// Return the identity transform
-			Transform identity() {
-				return Transform(vec3(0, 0, 0), Quaternion::identity());
+			Transform3D identity() {
+				return Transform3D(vec3(0, 0, 0), Quaternion::identity());
 			}
 			/// Return the transformed vector
 			vec3 operator*(const vec3& _vector) const {
 				return (m_orientation.getMatrix() * _vector) + m_position;
 			}
 			/// Operator of multiplication of a transform with another one
-			Transform operator*(const Transform& _transform2) const {
-				return Transform(m_position + m_orientation.getMatrix() * _transform2.m_position,
+			Transform3D operator*(const Transform3D& _transform2) const {
+				return Transform3D(m_position + m_orientation.getMatrix() * _transform2.m_position,
 				                 m_orientation * _transform2.m_orientation);
 			}
 			/// Return true if the two transforms are equal
-			bool operator==(const Transform& _transform2) const {
+			bool operator==(const Transform3D& _transform2) const {
 				return (m_position == _transform2.m_position) && (m_orientation == _transform2.m_orientation);
 			}
 			/// Return true if the two transforms are different
-			bool operator!=(const Transform& _transform2) const {
+			bool operator!=(const Transform3D& _transform2) const {
 				return !(*this == _transform2);
 			}
 			/// Assignment operator
-			Transform& operator=(const Transform& _transform) {
+			Transform3D& operator=(const Transform3D& _transform) {
 				if (&_transform != this) {
 					m_position = _transform.m_position;
 					m_orientation = _transform.m_orientation;

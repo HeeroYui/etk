@@ -8,7 +8,7 @@
 #include <etk/types.hpp>
 
 #include <cmath>
-#include <etk/math/Matrix3.hpp>
+#include <etk/math/Matrix3x3.hpp>
 #include <etk/math/Vector3D.hpp>
 
 namespace etk {
@@ -63,7 +63,7 @@ namespace etk {
 			 * @brief Create a unit quaternion from a rotation matrix
 			 * @param _matrix generic matrix
 			 */
-			Quaternion(const etk::Matrix3& _matrix);
+			Quaternion(const etk::Matrix3x3& _matrix);
 			/**
 			 * @brief Add a vector to this one.
 			 * @param[in] _obj The vector to add to this one
@@ -527,7 +527,7 @@ namespace etk {
 			 * @brief Get the orientation matrix corresponding to this quaternion
 			 * @return the 3x3 transformation matrix
 			 */
-			etk::Matrix3 getMatrix() const;
+			etk::Matrix3x3 getMatrix() const;
 			/**
 			 * @brief Compute the spherical linear interpolation between two quaternions.
 			 * @param[in] _obj1 First quaternion

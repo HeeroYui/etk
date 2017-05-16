@@ -12,19 +12,19 @@
 
 TEST(TestVector3D_f, constructor) {
 	// Test contructor value
-	etk::Vector3D<float> test0(0,0,0);
+	vec3 test0(0,0,0);
 	EXPECT_FLOAT_EQ(test0.x(), 0.0);
 	EXPECT_FLOAT_EQ(test0.y(), 0.0);
 	EXPECT_FLOAT_EQ(test0.z(), 0.0);
-	etk::Vector3D<float> vect1(4,5,8);
+	vec3 vect1(4,5,8);
 	EXPECT_FLOAT_EQ(vect1.x(), 4.0);
 	EXPECT_FLOAT_EQ(vect1.y(), 5.0);
 	EXPECT_FLOAT_EQ(vect1.z(), 8.0);
-	etk::Vector3D<float> vect2(vect1);
+	vec3 vect2(vect1);
 	EXPECT_FLOAT_EQ(vect2.x(), 4.0);
 	EXPECT_FLOAT_EQ(vect2.y(), 5.0);
 	EXPECT_FLOAT_EQ(vect2.z(), 8.0);
-	etk::Vector3D<float> vect3 = vect1;
+	vec3 vect3 = vect1;
 	EXPECT_FLOAT_EQ(vect3.x(), 4.0);
 	EXPECT_FLOAT_EQ(vect3.y(), 5.0);
 	EXPECT_FLOAT_EQ(vect3.z(), 8.0);
@@ -35,9 +35,9 @@ TEST(TestVector3D_f, constructor) {
 }
 
 TEST(TestVector3D_f, equity) {
-	etk::Vector3D<float> test1(99,32,56);
-	etk::Vector3D<float> test2(11,22,33);
-	etk::Vector3D<float> test3(11,22,33);
+	vec3 test1(99,32,56);
+	vec3 test2(11,22,33);
+	vec3 test3(11,22,33);
 	EXPECT_EQ(test1 == test2, false);
 	EXPECT_EQ(test1 != test2, true);
 	EXPECT_EQ(test3 == test2, true);
@@ -46,7 +46,7 @@ TEST(TestVector3D_f, equity) {
 
 TEST(TestVector3D_f, set) {
 	// Test contructor value
-	etk::Vector3D<float> test1(0,0,0);
+	vec3 test1(0,0,0);
 	EXPECT_FLOAT_EQ(test1.x(), 0.0);
 	EXPECT_FLOAT_EQ(test1.y(), 0.0);
 	EXPECT_FLOAT_EQ(test1.z(), 0.0);
@@ -58,7 +58,7 @@ TEST(TestVector3D_f, set) {
 
 TEST(TestVector3D_f, setSetZero) {
 	// Test contructor value
-	etk::Vector3D<float> test1(4,5,6);
+	vec3 test1(4,5,6);
 	EXPECT_FLOAT_EQ(test1.x(), 4.0);
 	EXPECT_FLOAT_EQ(test1.y(), 5.0);
 	EXPECT_FLOAT_EQ(test1.z(), 6.0);
@@ -71,7 +71,7 @@ TEST(TestVector3D_f, setSetZero) {
 
 TEST(TestVector3D_f, length) {
 	// Test contructor value
-	etk::Vector3D<float> test1(0,0,0);
+	vec3 test1(0,0,0);
 	EXPECT_FLOAT_EQ(test1.length(), 0.0);
 	EXPECT_FLOAT_EQ(test1.length2(), 0.0);
 	test1.setValue(2,0,0);
@@ -85,8 +85,8 @@ TEST(TestVector3D_f, length) {
 }
 
 TEST(TestVector3D_f, normalize) {
-	etk::Vector3D<float> test1(11,22,33);
-	etk::Vector3D<float> test2 = test1.normalized();
+	vec3 test1(11,22,33);
+	vec3 test2 = test1.normalized();
 	EXPECT_FLOAT_EQ(test1.x(), 11.0);
 	EXPECT_FLOAT_EQ(test1.y(), 22.0);
 	EXPECT_FLOAT_EQ(test1.z(), 33.0);
@@ -100,8 +100,8 @@ TEST(TestVector3D_f, normalize) {
 }
 
 TEST(TestVector3D_f, dot) {
-	etk::Vector3D<float> test1(11,0,0);
-	etk::Vector3D<float> test2(0,88,66);
+	vec3 test1(11,0,0);
+	vec3 test2(0,88,66);
 	EXPECT_FLOAT_EQ(test1.dot(test1), 121.0);
 	EXPECT_FLOAT_EQ(test1.dot(test2), 0.0);
 	test1.setValue(2,3,5);
@@ -110,8 +110,8 @@ TEST(TestVector3D_f, dot) {
 }
 
 TEST(TestVector3D_f, cross) {
-	etk::Vector3D<float> test1(0,0,0);
-	etk::Vector3D<float> test2(-55,88,66);
+	vec3 test1(0,0,0);
+	vec3 test2(-55,88,66);
 	EXPECT_EQ(test1.cross(test1), vec3(0,0,0));
 	EXPECT_EQ(test2.cross(test2), vec3(0,0,0));
 	test1.setValue(1,0,0);
