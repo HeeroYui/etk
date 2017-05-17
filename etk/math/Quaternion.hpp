@@ -534,7 +534,7 @@ namespace etk {
 			 * @param[in] _obj2 Second quaternion
 			 * @param[in] _ttt linar coefficient interpolation to be such that [0..1]
 			 */
-			Quaternion slerp(const Quaternion& _obj1, const Quaternion& _obj2, float _ttt);
+			static Quaternion slerp(const Quaternion& _obj1, const Quaternion& _obj2, float _ttt);
 			/**
 			 * @brief Configure the quaternion with euler angles.
 			 * @param[out] _angles Eular angle of the quaternion.

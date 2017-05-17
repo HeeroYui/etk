@@ -17,26 +17,14 @@ namespace etk {
 	 */
 	class Transform3D {
 		public:
-			Transform3D():
-			  m_position(vec3(0.0, 0.0, 0.0)),
-			  m_orientation(Quaternion::identity()) {
-				
-			}
-			Transform3D(const vec3& _position, const Matrix3x3& _orientation):
-			  m_position(_position),
-			  m_orientation(Quaternion(_orientation)) {
-				
-			}
-			Transform3D(const vec3& _position, const Quaternion& _orientation):
-			  m_position(_position),
-			  m_orientation(_orientation) {
-				
-			}
-			Transform3D(const Transform3D& _other):
-			  m_position(_other.m_position),
-			  m_orientation(_other.m_orientation) {
-				
-			}
+			Transform3D();
+			Transform3D(const vec3& _position, const Matrix3x3& _orientation);
+			Transform3D(const vec3& _position, const Quaternion& _orientation);
+			Transform3D(const Transform3D& _other);
+			/**
+			 * @brief Get the identity of the transformation
+			 */
+			static Transform3D identity();
 		protected:
 			vec3 m_position; //! Position
 		public:
@@ -76,17 +64,17 @@ namespace etk {
 			/// Get the OpenGL matrix of the transform
 			void getOpenGLMatrix(float* _matrix) const {
 				const Matrix3x3& matrix = m_orientation.getMatrix();
-				_matrix[0] = matrix[0][0];
-				_matrix[1] = matrix[1][0];
-				_matrix[2] = matrix[2][0];
+				_matrix[0] = matrix.m_mat[0];
+				_matrix[1] = matrix.m_mat[3];
+				_matrix[2] = matrix.m_mat[6];
 				_matrix[3] = 0.0;
-				_matrix[4] = matrix[0][1];
-				_matrix[5] = matrix[1][1];
-				_matrix[6] = matrix[2][1];
+				_matrix[4] = matrix.m_mat[1];
+				_matrix[5] = matrix.m_mat[4];
+				_matrix[6] = matrix.m_mat[7];
 				_matrix[7] = 0.0;
-				_matrix[8] = matrix[0][2];
-				_matrix[9] = matrix[1][2];
-				_matrix[10] = matrix[2][2];
+				_matrix[8] = matrix.m_mat[2];
+				_matrix[9] = matrix.m_mat[5];
+				_matrix[10] = matrix.m_mat[8];
 				_matrix[11] = 0.0;
 				_matrix[12] = m_position.x();
 				_matrix[13] = m_position.y();
@@ -103,16 +91,12 @@ namespace etk {
 			Transform3D interpolateTransforms(const Transform3D& _old,
 			                                const Transform3D& _new,
 			                                float _interpolationFactor) {
-				vec3 interPosition = _old.m_position * (decimal(1.0) - _interpolationFactor) +
+				vec3 interPosition = _old.m_position * (1.0f - _interpolationFactor) +
 				                     _new.m_position * _interpolationFactor;
 				Quaternion interOrientation = Quaternion::slerp(_old.m_orientation,
-				                                                _naw.m_orientation,
+				                                                _new.m_orientation,
 				                                                _interpolationFactor);
 				return Transform3D(interPosition, interOrientation);
-			}
-			/// Return the identity transform
-			Transform3D identity() {
-				return Transform3D(vec3(0, 0, 0), Quaternion::identity());
 			}
 			/// Return the transformed vector
 			vec3 operator*(const vec3& _vector) const {
