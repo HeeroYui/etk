@@ -8,7 +8,7 @@
 #include <etk/stdTools.hpp>
 #include <etk/debug.hpp>
 
-std::ostream& etk::operator <<(std::ostream& _os, const ivec3& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector3D<int32_t>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -19,7 +19,20 @@ std::ostream& etk::operator <<(std::ostream& _os, const ivec3& _obj) {
 	return _os;
 }
 
-std::ostream& operator <<(std::ostream& _os, const vec3& _obj) {
+#ifdef ETK_BUILD_LINEARMATH
+	std::ostream& operator <<(std::ostream& _os, const btVector3& _obj) {
+		_os << "(";
+		_os << _obj.x();
+		_os << ",";
+		_os << _obj.y();
+		_os << ",";
+		_os << _obj.z();
+		_os << ")";
+		return _os;
+	}
+#endif
+
+std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector3D<float>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -30,7 +43,7 @@ std::ostream& operator <<(std::ostream& _os, const vec3& _obj) {
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const uivec3& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector3D<uint32_t>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -41,7 +54,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const uivec3& _obj) {
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const bvec3& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector3D<bool>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -53,7 +66,20 @@ std::ostream& etk::operator <<(std::ostream& _os, const bvec3& _obj) {
 }
 
 
-std::ostream& etk::operator <<(std::ostream& _os, const std::vector<vec3>& _obj) {
+
+#ifdef ETK_BUILD_LINEARMATH
+	std::ostream& etk::operator <<(std::ostream& _os, const std::vector<btVector3>& _obj) {
+		for (size_t iii = 0; iii < _obj.size(); ++iii) {
+			if (iii != 0) {
+				_os << " ";
+			}
+			_os << _obj[iii];
+		}
+		return _os;
+	}
+#endif
+
+std::ostream& etk::operator <<(std::ostream& _os, const std::vector<etk::Vector3D<float>>& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -63,7 +89,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const std::vector<vec3>& _obj)
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const std::vector<ivec3>& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const std::vector<etk::Vector3D<int32_t>>& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -73,7 +99,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const std::vector<ivec3>& _obj
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const std::vector<uivec3>& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const std::vector<etk::Vector3D<uint32_t>>& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -83,7 +109,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const std::vector<uivec3>& _ob
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const std::vector<bvec3>& _obj) {
+std::ostream& etk::operator <<(std::ostream& _os, const std::vector<etk::Vector3D<bool>>& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
