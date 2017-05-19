@@ -68,7 +68,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector3D<bool>& _ob
 
 
 #ifdef ETK_BUILD_LINEARMATH
-	std::ostream& etk::operator <<(std::ostream& _os, const std::vector<btVector3>& _obj) {
+	std::ostream& operator <<(std::ostream& _os, const std::vector<btVector3>& _obj) {
 		for (size_t iii = 0; iii < _obj.size(); ++iii) {
 			if (iii != 0) {
 				_os << " ";
