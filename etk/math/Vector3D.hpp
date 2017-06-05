@@ -131,8 +131,8 @@ namespace etk {
 			 * @return Local reference of the vector
 			 */
 			Vector3D<T>& operator/=(const Vector3D<T>& _val) {
-				if (_val != 0) {
-					return *this *= float(1.0) / _val;
+				if (_val != 0.0f) {
+					return *this *= 1.0f / _val;
 				}
 				return *this;
 			}
@@ -142,10 +142,11 @@ namespace etk {
 			 * @return Local reference of the vector
 			 */
 			Vector3D<T>& operator/=(const T& _val) {
-				if (_val != 0) {
-					m_floats[0] /= _val;
-					m_floats[1] /= _val;
-					m_floats[2] /= _val;
+				if (_val != 0.0f) {
+					float tmpVal = 1.0f / _val;
+					m_floats[0] *= tmpVal;
+					m_floats[1] *= tmpVal;
+					m_floats[2] *= tmpVal;
 					return *this;
 				}
 				return *this;
@@ -172,7 +173,7 @@ namespace etk {
 			 * @return Length value
 			 */
 			float length() const {
-				#if __CPP_objERSION__ >= 2011 && !defined(__STDCPP_LLVM__)
+				#if __CPP_VERSION__ >= 2011 && !defined(__STDCPP_LLVM__)
 					return std::sqrt(length2());
 				#else
 					return sqrt(length2());
