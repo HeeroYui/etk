@@ -226,6 +226,14 @@ namespace etk {
 				return out.normalize();
 			}
 			/**
+			 * @brief Return a normalized version of this vector (check if not deviding by 0, if it is the case ==> return (1,0,0))
+			 * @return New vector containing the value
+			 */
+			Vector3D<T> safeNormalized() const {
+				Vector3D<T> out = *this;
+				return out.safeNormalize();
+			}
+			/**
 			 * @brief Return a rotated version of this vector
 			 * @param[in] _wAxis The axis to rotate about
 			 * @param[in] _angle The angle to rotate by
@@ -477,6 +485,20 @@ namespace etk {
 				m_floats[2] = std::min(m_floats[2], _obj.m_floats[2]);
 			}
 			/**
+			 * @brief Get the minimum value of the vector (x, y, z)
+			 * @return The min value
+			 */
+			T getMin() const {
+				return std::min(std::min(m_floats[0], m_floats[1]), m_floats[2]);
+			}
+			/**
+			 * @brief Get the maximum value of the vector (x, y, z)
+			 * @return The max value
+			 */
+			T getMax() const {
+				return std::max(std::max(m_floats[0], m_floats[1]), m_floats[2]);
+			}
+			/**
 			 * @brief Set Value on the vector
 			 * @param[in] _xxx X value.
 			 * @param[in] _yyy Y value.
@@ -514,6 +536,20 @@ namespace etk {
 				return    m_floats[0] == 0
 				       && m_floats[1] == 0
 				       && m_floats[2] == 0;
+			}
+			/**
+			 * @brief Get the Axis id with the minimum value
+			 * @return Axis ID 0,1,2
+			 */
+			int32_t getMinAxis() const {
+				return (m_floats[0] < m_floats[1] ? (m_floats[0] < m_floats[2] ? 0 : 2) : (m_floats[1] < m_floats[2] ? 1 : 2));
+			}
+			/**
+			 * @brief Get the Axis id with the maximum value
+			 * @return Axis ID 0,1,2
+			 */
+			int32_t getMaxAxis() const {
+				return (m_floats[0] < m_floats[1] ? (m_floats[1] < m_floats[2] ? 2 : 1) : (m_floats[0] < m_floats[2] ? 2 : 0));
 			}
 	};
 	//! @not_in_doc
