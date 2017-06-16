@@ -36,6 +36,7 @@ namespace etk {
 			 * @brief No initialization constructor (faster ...)
 			 */
 			Vector3D() {
+				#if 0
 				#ifdef DEBUG
 					// in debug mode we set supid value to prevent forget of the inits ...
 					m_floats[0] = (T)34673363;
@@ -49,6 +50,13 @@ namespace etk {
 					// hide a bullet warning
 					(void)btInfinityMask;
 				#endif
+				#else
+				m_floats[0] = 0;
+				m_floats[1] = 0;
+				m_floats[2] = 0;
+				m_floats[3] = 0;
+				#endif
+				
 			}
 			/**
 			 * @brief Constructor from scalars 
@@ -551,6 +559,24 @@ namespace etk {
 			int32_t getMaxAxis() const {
 				return (m_floats[0] < m_floats[1] ? (m_floats[1] < m_floats[2] ? 2 : 1) : (m_floats[0] < m_floats[2] ? 2 : 0));
 			}
+			/**
+			 * @breif Get the orthogonalm vector of the current vector
+			 * @return The ortho vector
+			 */
+			Vector3D<T> getOrthoVector() const {
+				Vector3D<T> vectorAbs(std::abs(m_floats[0]), std::abs(m_floats[1]), std::abs(m_floats[2]));
+				int32_t minElement = vectorAbs.getMinAxis();
+				if (minElement == 0) {
+					float devider = 1.0f / std::sqrt(m_floats[1]*m_floats[1] + m_floats[2]*m_floats[2]);
+					return Vector3D<T>(0.0f, -m_floats[2]*devider, m_floats[1]*devider);
+				} else if (minElement == 1) {
+					float devider = 1.0f / std::sqrt(m_floats[0]*m_floats[0] + m_floats[2]*m_floats[2]);
+					return Vector3D<T>(-m_floats[2]*devider, 0.0f, m_floats[0]*devider);
+				}
+					float devider = 1.0f / std::sqrt(m_floats[0]*m_floats[0] + m_floats[1]*m_floats[1]);
+				return Vector3D<T>(-m_floats[1]*devider, m_floats[0]*devider, 0.0f);
+			}
+
 	};
 	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector3D<float>& _obj);

@@ -235,6 +235,35 @@ namespace etk {
 				return tmp;
 			}
 			/**
+			 * @brief Normalize this quaternion x^2 + y^2 + z^2 + w^2 = 1
+			 * @return Local reference of the quaternion normalized
+			 */
+			Quaternion& safeNormalize() {
+				float lengthTmp = length();
+				if (lengthTmp == 0.0f) {
+					m_floats[0] = 0.0f;
+					m_floats[1] = 0.0f;
+					m_floats[2] = 0.0f;
+					m_floats[3] = 1.0f;
+					return *this;
+				}
+				float invLength = 1.0f / lengthTmp;
+				m_floats[0] *= invLength;
+				m_floats[1] *= invLength;
+				m_floats[2] *= invLength;
+				m_floats[3] *= invLength;
+				return *this;
+			}
+			/**
+			 * @brief Return a normalized version of this quaternion
+			 * @return New quaternion containing the value
+			 */
+			Quaternion safeNormalized() const {
+				etk::Quaternion tmp = *this;
+				tmp.normalized();
+				return tmp;
+			}
+			/**
 			 * @brief Return a quaternion will the absolute values of each element
 			 * @return New quaternion with the absolute value
 			 */
