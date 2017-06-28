@@ -198,7 +198,7 @@ namespace etk {
 			 * @brief Get the number of element in the hash table
 			 * @return number of elements
 			 */
-			int32_t size() const {
+			size_t size() const {
 				return m_data.size();
 			}
 			/**
