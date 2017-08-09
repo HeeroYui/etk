@@ -607,7 +607,8 @@ void etk::initDefaultFolder(const char* _applName) {
 				baseFolderData += binaryName;
 				baseFolderData += "/";
 				baseFolderData = simplifyPath(baseFolderData);
-				#if defined(__TARGET_OS__Linux)
+				#if    defined(__TARGET_OS__Linux) \
+				    || defined(__TARGET_OS__buildroot)
 					{
 						struct stat statProperty;
 						if (-1 == stat(baseFolderData.c_str(), &statProperty)) {
