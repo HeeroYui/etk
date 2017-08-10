@@ -404,9 +404,7 @@ void etk::setArgZero(const std::string& _val) {
 	l_argZero = _val;
 	// set defaiult application name ...
 	std::vector<std::string> elems = etk::split(_val, '/');
-	TK_WARNING("ppppppp" << elems);
 	etk::initDefaultFolder(elems[elems.size()-1].c_str());
-	TK_WARNING("ppppppp 222");
 }
 /*
 	On Unixes with /proc really straight and realiable way is to:

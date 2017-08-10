@@ -42,11 +42,9 @@ void etk::init(int _argc, const char** _argv) {
 		TK_INFO("E-TK system init (BEGIN) ");
 	}
 	elog::init(_argc, _argv);
-	TK_PRINT("plooooooooooooooooooooppppppppppppppppppppppppp");
 	#if !defined(__TARGET_OS__Android) and !defined(__TARGET_OS__IOs)
 		// This action is done by the main wrapper...
 		if (_argc >= 1) {
-			TK_PRINT("ploppppppppppppppppppppppppp");
 			etk::setArgZero(_argv[0]);
 		}
 	#endif
