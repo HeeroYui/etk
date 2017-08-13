@@ -13,9 +13,9 @@
 #include <vector>
 #include <memory>
 
-#define TK_REG_DEBUG TK_HIDDEN
+//#define TK_REG_DEBUG TK_HIDDEN
 //#define TK_REG_DEBUG TK_VERBOSE
-//#define TK_REG_DEBUG TK_DEBUG
+#define TK_REG_DEBUG TK_DEBUG
 
 #define TK_REG_DEBUG_3 TK_HIDDEN
 //#define TK_REG_DEBUG_3 TK_VERBOSE
@@ -234,18 +234,22 @@ class FindProperty {
 		void setSubIndex(int32_t _newIndex) {
 			m_subIndex = _newIndex;
 		}
-		
-		void display(const std::string& _data, int32_t _level = 0) {
+		template<class CLASS_TYPE>
+		static void display(const FindProperty& _elem, const CLASS_TYPE& _data, int32_t _level = 0) {
+			std::string tmp;
+			for (int32_t iii=_elem.m_positionStart; iii<_elem.m_positionStop; ++iii) {
+				tmp += _data[iii];
+			}
 			TK_INFO("prop : " << levelSpace(_level) << " ["
-			        << m_positionStart << ","
-			        << m_positionStop << "]*"
-			        << m_multiplicity << " data='"
-			        << std::string(_data, m_positionStart, m_positionStop-m_positionStart) << "'");
-			for (auto &it : m_subProperty) {
-				it.display(_data, _level+1);
+			        << _elem.m_positionStart << ","
+			        << _elem.m_positionStop << "]*"
+			        << _elem.m_multiplicity << " data='"
+			        << tmp << "'");
+			for (auto &it : _elem.m_subProperty) {
+				FindProperty::display<CLASS_TYPE>(it, _data, _level+1);
 			}
 		}
-		void display(int32_t _level = 0) {
+		void display(int32_t _level = 0) const {
 			TK_INFO("prop : " << levelSpace(_level) << " ["
 			        << m_positionStart << ","
 			        << m_positionStop << "]*"
@@ -1161,9 +1165,9 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 			}
 			if (_property.getStatus() != parseStatusPartial) {
 				if (Node<CLASS_TYPE>::m_multipleMin == 0) {
+					TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "     ==> partial (minSize=0)");
 					_property.setStatus(parseStatusPartial);
 					_property.setPositionStop(_property.getPositionStart());
-					TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "     ==> partial (minSize=0)");
 					return;
 				}
 			}
@@ -1189,9 +1193,9 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 						prop = _property.m_subProperty[jjj];
 						tmpCurrentPos = prop.getPositionStop();
 						_property.m_subProperty.erase(_property.m_subProperty.begin()+jjj, _property.m_subProperty.end());
-						_property.setPositionStop(tmpCurrentPos);
 						iiiStartPos = prop.getSubIndex();
 						TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) Rewind to " << iiiStartPos << " last elem=" << prop);
+						_property.setPositionStop(tmpCurrentPos);
 						break;
 					}
 				}
@@ -1199,6 +1203,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 				if (    _property.getPositionStop() < 0
 				     && Node<CLASS_TYPE>::m_multipleMin == 0
 				     && _property.getMultiplicity() == 0) {
+					TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) Finish to " << iiiStartPos << " last elem=" << prop);
 					_property.setPositionStop(_property.getPositionStart());
 					_property.setStatus(parseStatusPartial);
 					return;
@@ -1262,8 +1267,13 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 				}
 			}
 			if (_property.m_subProperty.size() == 0) {
+				TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...)  sub empty ...");
 				_property.setPositionStop(_property.getPositionStart());
 			} else {
+				TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...)  sub finished ...");
+				for (auto &it: _property.m_subProperty) {
+					FindProperty::display<CLASS_TYPE>(it, _data, 2);
+				}
 				_property.setPositionStop(_property.m_subProperty.back().getPositionStop());
 			}
 			if(    _property.getMultiplicity() >= Node<CLASS_TYPE>::m_multipleMin

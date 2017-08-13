@@ -81,6 +81,13 @@ TEST(TestEtkRegExp, complexString ) {
 }
 
 
+TEST(TestEtkRegExp, endError ) {
+	std::string expression = "\\@((0(x|X)[0-9a-fA-F]*)|(\\d+\\.?\\d*|\\.\\d+)((e|E)(\\+|\\-)?\\d+)?)(LL|L|l|UL|ul|u|U|F|f)?\\@";
+	std::string dataToParse = "(9,";
+	std::pair<int32_t, int32_t> res;
+	res = testRegExpSingle(expression, dataToParse);
+	EXPECT_EQ(res, std::make_pair(7,31));
+}
 
 
 
