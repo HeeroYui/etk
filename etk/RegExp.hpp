@@ -59,7 +59,7 @@ namespace etk {
 //in the unicode section we have : [E000..F8FF]   private area ==> we will store element in this area:
 // internal define to permit to have all needed system
 enum regExpPrivateSection {
-	regexpOpcodePTheseIn=0xE000,	/* ( */
+	regexpOpcodePTheseIn=0xE000,/* ( */
 	regexpOpcodePTheseOut,/* ) */
 	regexpOpcodeBracketIn,/* [ */
 	regexpOpcodeBracketOut,/* ] */
@@ -114,7 +114,7 @@ normal mode :
 
 multiplicity:
 	*     ==> {0, 2147483647} (try to have the minimum size)
-	?     ==> {0, 1}
+	?     ==> {0, 1} (or force the size to be the smallest)
 	+     ==> {1, 2147483647} (try to have the minimum size)
 	{x}   ==> {x, x} (try to have the minimum size)
 	{x,y} ==> {x, y} (try to have the minimum size)
@@ -122,6 +122,12 @@ multiplicity:
 option of the system parsing:
 	enable-multiple-lines ...
 */
+
+class OptionList {
+	public:
+		bool m_multilineEnable;
+};
+
 /**
  * @brief convertion table of every element in a regular expression.
  * @not-in-doc
@@ -1378,9 +1384,8 @@ template<class CLASS_TYPE> class RegExp {
 		bool m_notBeginWithChar; //!< The regular expression must not have previously a char [a-zA-Z0-9_]
 		bool m_notEndWithChar; //!< The regular expression must not have after the end a char [a-zA-Z0-9_]
 		bool m_maximize; //!< by default the regexp find the minimum size of a regexp .
+		OptionList m_options; //!< Global option list of the reg-ex.
 	public:
-		// create the regular expression
-		
 		/**
 		 * @brief Constructor
 		 * @param[in,out] _exp Regular expression to parse
@@ -1412,13 +1417,13 @@ template<class CLASS_TYPE> class RegExp {
 				compile(etk::to_u32string(_exp));
 			}
 		};
-		
 		/**
 		 * @brief Destructor
 		 */
 		~RegExp() {
 			m_isOk = false;
 		};
+		
 		/**
 		 * @brief SetMaximizing of the regexp
 		 * @param[in] _value Maximize or not the regExp
