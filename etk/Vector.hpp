@@ -6,6 +6,7 @@
 #pragma once
 
 #include <etk/types.hpp>
+#include <etk/stdTools.hpp>
 #include <etk/debug.hpp>
 
 namespace etk {
@@ -605,7 +606,7 @@ namespace etk {
 						return;
 					}
 					// copy data in the new pool
-					size_t nbElements = etk_min(requestSize, m_allocated);
+					size_t nbElements = etk::min(requestSize, m_allocated);
 					for(size_t iii=0; iii<nbElements; iii++) {
 						m_dataTmp[iii] = std::move(m_data[iii]);
 					}
@@ -668,4 +669,16 @@ namespace etk {
 				return false;
 			}
 	};
+	template<class ETK_VECTOR_TYPE>
+	std::ostream& operator <<(std::ostream& _os, const etk::Vector<ETK_VECTOR_TYPE>& _obj) {
+		_os << "{";
+		for (size_t iii=0; iii< _obj.size(); iii++) {
+			if (iii>0) {
+				_os << ";";
+			}
+			_os << _obj[iii];
+		}
+		_os << "}";
+		return _os;
+	}
 }

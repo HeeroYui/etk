@@ -60,6 +60,8 @@ def configure(target, my_module):
 	    'etk/RegEx.hpp',
 	    'etk/Buffer.hpp',
 	    'etk/Hash.hpp',
+	    'etk/String.hpp',
+	    'etk/Vector.hpp',
 	    'etk/math/Matrix2x2.hpp',
 	    'etk/math/Matrix2x3.hpp',
 	    'etk/math/Matrix3x3.hpp',

@@ -433,209 +433,34 @@ namespace utf8 {
 	};
 };
 
-namespace std {
-	#if (defined(__TARGET_OS__MacOs) || defined(__TARGET_OS__Windows))
-		using u32string = std::basic_string<char32_t>;
-	#endif
-	#if (defined(__TARGET_OS__Android))
-		//! @not_in_doc
-		std::string to_string(int _val);
-		//! @not_in_doc
-		std::string to_string(long _val);
-		//! @not_in_doc
-		std::string to_string(long long _val);
-		//! @not_in_doc
-		std::string to_string(unsigned _val);
-		//! @not_in_doc
-		std::string to_string(unsigned long _val);
-		//! @not_in_doc
-		std::string to_string(unsigned long long _val);
-		//! @not_in_doc
-		std::string to_string(float _val);
-		//! @not_in_doc
-		std::string to_string(double _val);
-		//! @not_in_doc
-		std::string to_string(long double _val);
-		//! @not_in_doc
-		double stod(const std::string& _str, size_t* _id = 0);
-		//! @not_in_doc
-		float stof(const std::string& _str, size_t* _id = 0);
-		//! @not_in_doc
-		int stoi(const std::string& _str, size_t* _id = 0, int _base = 10);
-		//! @not_in_doc
-		long stol(const std::string& _str, size_t* _id = 0, int _base = 10);
-		//! @not_in_doc
-		long double stold(const std::string& _str, size_t* _id = 0);
-		//! @not_in_doc
-		long long stoll(const std::string& _str, size_t* _id = 0, int _base = 10);
-		//! @not_in_doc
-		unsigned long stoul(const std::string& _str, size_t* _id = 0, int _base = 10);
-		//! @not_in_doc
-		unsigned long long stoull(const std::string& _str, size_t* _id = 0, int _base = 10);
-	#endif
-};
 namespace etk {
 	// these declaration is to prevent some under template declaration of unknown type
-	/**
-	 * @brief Template to declare conversion from anything in std::string
-	 * @param[in] _variable Variable to convert
-	 * @return String of the value
-	 */
-	template <class TYPE>
-	std::string to_string(const TYPE& _variable);
-	/**
-	 * @brief Template to declare conversion from std::vector<anything> in std::string
-	 * @param[in] _list Variable to convert
-	 * @return String of the value: {...,...,...}
-	 */
-	template <class TYPE>
-	std::string to_string(const std::vector<TYPE>& _list) {
-		std::string out = "{";
-		for (size_t iii=0; iii<_list.size(); ++iii) {
-			if (iii!=0) {
-				out += ";";
-			}
-			out+= etk::to_string(_list[iii]);
-		}
-		out += "}";
-		return out;
-	}
+
 	#if __CPP_VERSION__ >= 2011
 		template <class TYPE>
 		std::u32string to_u32string(const TYPE& _variable);
-	#endif
-	// these declaration is to prevent some under template declaration of unknown type
-	/**
-	 * @brief Template to declare conversion from string to anything
-	 * @param[out] _variableRet Output value
-	 * @param[in] _value input property
-	 * @return true if the can be converted.
-	 */
-	template <class TYPE>
-	bool from_string(TYPE& _variableRet, const std::string& _value);
-	#if __CPP_VERSION__ >= 2011
 		template <class TYPE>
 		bool from_string(TYPE& _variableRet, const std::u32string& _value);
-	#endif
-	
-	// TODO : Change this in : 
-	// TODO :     template <typename TYPE> TYPE string_to<TYPE>(const std::u32string& _value); ==> check exceptions ...
-	//! @not_in_doc
-	long double string_to_long_double(const std::string& _str);
-	#if __CPP_VERSION__ >= 2011
 		long double string_to_long_double(const std::u32string& _str);
-	#endif
-	//! @not_in_doc
-	double string_to_double(const std::string& _str);
-	#if __CPP_VERSION__ >= 2011
 		double string_to_double(const std::u32string& _str);
-	#endif
-	//! @not_in_doc
-	float string_to_float(const std::string& _str);
-	#if __CPP_VERSION__ >= 2011
 		float string_to_float(const std::u32string& _str);
-	#endif
-	//! @not_in_doc
-	int8_t string_to_int8_t(const std::string& _str, int _base = 10);
-	#if __CPP_VERSION__ >= 2011
 		int8_t string_to_int8_t(const std::u32string& _str, int _base = 10);
-	#endif
-	//! @not_in_doc
-	int16_t string_to_int16_t(const std::string& _str, int _base = 10);
-	#if __CPP_VERSION__ >= 2011
 		int16_t string_to_int16_t(const std::u32string& _str, int _base = 10);
-	#endif
-	//! @not_in_doc
-	int32_t string_to_int32_t(const std::string& _str, int _base = 10);
-	#if __CPP_VERSION__ >= 2011
 		int32_t string_to_int32_t(const std::u32string& _str, int _base = 10);
-	#endif
-	//! @not_in_doc
-	int64_t string_to_int64_t(const std::string& _str, int _base = 10);
-	#if __CPP_VERSION__ >= 2011
 		int64_t string_to_int64_t(const std::u32string& _str, int _base = 10);
-	#endif
-	//! @not_in_doc
-	uint8_t string_to_uint8_t(const std::string& _str, int _base = 10);
-	#if __CPP_VERSION__ >= 2011
 		uint8_t string_to_uint8_t(const std::u32string& _str, int _base = 10);
-	#endif
-	//! @not_in_doc
-	uint16_t string_to_uint16_t(const std::string& _str, int _base = 10);
-	#if __CPP_VERSION__ >= 2011
 		uint16_t string_to_uint16_t(const std::u32string& _str, int _base = 10);
-	#endif
-	//! @not_in_doc
-	uint32_t string_to_uint32_t(const std::string& _str, int _base = 10);
-	#if __CPP_VERSION__ >= 2011
 		uint32_t string_to_uint32_t(const std::u32string& _str, int _base = 10);
-	#endif
-	//! @not_in_doc
-	uint64_t string_to_uint64_t(const std::string& _str, int _base = 10);
-	#if __CPP_VERSION__ >= 2011
 		uint64_t string_to_uint64_t(const std::u32string& _str, int _base = 10);
-	#endif
-	//! @not_in_doc
-	bool string_to_bool(const std::string& _str);
-	#if __CPP_VERSION__ >= 2011
 		bool string_to_bool(const std::u32string& _str);
-	#endif
-	//! @not_in_doc
-	std::string tolower(std::string _obj);
-	#if __CPP_VERSION__ >= 2011
-		//! @previous
 		std::u32string tolower(std::u32string _obj);
-	#endif
-	//! @not_in_doc
-	std::string toupper(std::string _obj);
-	#if __CPP_VERSION__ >= 2011
-		//! @previous
 		std::u32string toupper(std::u32string _obj);
-	#endif
-	//! @not_in_doc
-	bool compare_no_case(const std::string& _obj, const std::string& _val);
-	#if __CPP_VERSION__ >= 2011
-		//! @previous
 		bool compare_no_case(const std::u32string& _obj, const std::u32string& _val);
-	#endif
-	//! @not_in_doc
-	bool end_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = true);
-	#if __CPP_VERSION__ >= 2011
-		//! @previous
 		bool end_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = true);
-	#endif
-	//! @not_in_doc
-	bool start_with(const std::string& _obj, const std::string& _val, bool _caseSensitive = true);
-	#if __CPP_VERSION__ >= 2011
-		//! @previous
 		bool start_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive = true);
-	#endif
-	//! @not_in_doc
-	std::string replace(const std::string& _obj, char _val, char _replace);
-	#if __CPP_VERSION__ >= 2011
-		//! @previous
 		std::u32string replace(const std::u32string& _obj, char32_t _val, char32_t _replace);
-	#endif
-	//! @not_in_doc
-	std::string replace(const std::string& _obj, const std::string& _val, const std::string& _replace);
-	//! @not_in_doc
-	std::string extract_line(const std::string& _obj, int32_t _pos);
-	#if __CPP_VERSION__ >= 2011
-		//! @previous
 		std::u32string extract_line(const std::u32string& _obj, int32_t _pos);
-	#endif
-	//! @not_in_doc
-	std::vector<std::string> split(const std::string& _input, char _val);
-	#if __CPP_VERSION__ >= 2011
-		//! @previous
 		std::vector<std::u32string> split(const std::u32string& _input, char32_t _val);
-	#endif
-	//! @not_in_doc
-	std::vector<std::string> split(const std::string& _input, std::string _val);
-	//! @not_in_doc
-	void sort(std::vector<std::string *>& _list);
-	#if __CPP_VERSION__ >= 2011
-		//! @previous
 		void sort(std::vector<std::u32string *>& _list);
 	#endif
 	//! @not_in_doc
@@ -650,20 +475,13 @@ namespace etk {
 	}
 };
 
-namespace std {
-	/**
-	 * @brief in std, we have min, max but not avg ==> it is missing... the define of avg template.
-	 * @param[in] _min Minimum value of the range
-	 * @param[in] _val The value that we want a min/max
-	 * @param[in] _max Maximum value of the range
-	 * @return Value that min/max applied
-	 */
-	template <class TYPE> const TYPE& avg(const TYPE& _min, const TYPE& _val, const TYPE& _max) {
-		return std::min(std::max(_min,_val),_max);
-	}
-};
-
 namespace etk {
+	template <class TYPE> const TYPE& min(const TYPE& _val1, const TYPE& _val2) {
+		return (_val1 > _val2) ? _val2 : _val1;
+	}
+	template <class TYPE> const TYPE& max(const TYPE& _val1, const TYPE& _val2) {
+		return (_val1 > _val2) ? _val1 : _val2;
+	}
 	/**
 	 * @brief in std, we have min, max but not avg ==> it is missing... the Define of avg template.
 	 * @param[in] _min Minimum value of the range
@@ -677,10 +495,6 @@ namespace etk {
 };
 
 namespace std {
-	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const std::string& _obj);
-	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const std::vector<std::string>& _obj);
 	#if __CPP_VERSION__ >= 2011
 		//! @not_in_doc
 		std::ostream& operator <<(std::ostream& _os, const std::u32string& _obj);
