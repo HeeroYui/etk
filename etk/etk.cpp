@@ -16,17 +16,17 @@ static int32_t nbTimeInit = 0;
 void etk::unInit() {
 	if (nbTimeInit > 1) {
 		nbTimeInit--;
-		// not the time to uninit
+		// not the time to un-init
 		return;
 	}
 	nbTimeInit--;
 	if (nbTimeInit < 0) {
-		TK_ERROR("E-TK system un-init More un-init than init ...");
+		TK_ERROR("ETK system un-init More un-init than init ...");
 		nbTimeInit = 0;
 		return;
 	}
-	TK_INFO("E-TK system un-init (BEGIN)");
-	TK_INFO("E-TK system un-init (END)");
+	TK_INFO("ETK system un-init (BEGIN)");
+	TK_INFO("ETK system un-init (END)");
 }
 
 void etk::init(int _argc, const char** _argv) {
@@ -37,9 +37,9 @@ void etk::init(int _argc, const char** _argv) {
 	}
 	nbTimeInit++;
 	if (_argc >= 1) {
-		TK_INFO("E-TK system init (BEGIN) " << _argv[0]);
+		TK_INFO("ETK system init (BEGIN) " << _argv[0]);
 	} else {
-		TK_INFO("E-TK system init (BEGIN) ");
+		TK_INFO("ETK system init (BEGIN) ");
 	}
 	elog::init(_argc, _argv);
 	#if !defined(__TARGET_OS__Android) and !defined(__TARGET_OS__IOs)
@@ -67,7 +67,7 @@ void etk::init(int _argc, const char** _argv) {
 			TK_ERROR("Can not parse the argument : '" << data << "'");
 		}
 	}
-	TK_INFO("E-TK system init (END)");
+	TK_INFO("ETK system init (END)");
 }
 
 std::string etk::getApplicationName() {

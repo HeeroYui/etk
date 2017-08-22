@@ -13,13 +13,14 @@
 #include <sstream>
 #include <stdexcept>
 
-typedef struct {
-	const char * colorName;
-	etk::Color<> color;
-} colorList_ts;
+class ColorList {
+	public:
+		const char * colorName;
+		etk::Color<> color;
+};
 
 static int32_t getColorSize();
-static const colorList_ts* getColorList();
+static const ColorList* getColorList();
 
 etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input) {
 	TK_VERBOSE("parseStringStartWithSharp('" << _input << "'");
@@ -33,7 +34,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input)
 			outputValue.setB(blue | blue << 4);
 			outputValue.setA(0xFF);
 		} else {
-			TK_ERROR(" pb in parsing the color : '" << _input << "'");
+			TK_ERROR("Error in parsing the color : '" << _input << "'");
 		}
 	} else if (len==4) {
 		uint32_t red=0, green=0, blue=0, alpha=0;
@@ -43,7 +44,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input)
 			outputValue.setB(blue | blue << 4);
 			outputValue.setA(alpha | alpha << 4);
 		} else {
-			TK_ERROR(" pb in parsing the color : '" << _input << "'");
+			TK_ERROR("Error in parsing the color : '" << _input << "'");
 		}
 	} else if (len == 6) {
 		uint32_t red=0, green=0, blue=0;
@@ -53,7 +54,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input)
 			outputValue.setB(blue);
 			outputValue.setA(0xFF);
 		} else {
-			TK_ERROR(" pb in parsing the color : '" << _input << "'");
+			TK_ERROR("Error in parsing the color : '" << _input << "'");
 		}
 	} else if (len == 8) {
 		uint32_t red=0, green=0, blue=0, alpha=0;
@@ -63,10 +64,10 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input)
 			outputValue.setB(blue);
 			outputValue.setA(alpha);
 		} else {
-			TK_ERROR(" pb in parsing the color : '" << _input << "'");
+			TK_ERROR("Error in parsing the color : '" << _input << "'");
 		}
 	} else {
-		TK_ERROR(" pb in parsing the color : '" << _input << "' ==> unknown methode ...");
+		TK_ERROR("Error in parsing the color : '" << _input << "' ==> unknown method ...");
 	}
 	TK_VERBOSE("  result: '" << outputValue << "'");
 	return outputValue;
@@ -76,7 +77,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithRGBGen(const std::string& _input
 	TK_VERBOSE("parseStringStartWithRGB('" << _input << "'");
 	etk::Color<uint8_t, 4> outputValue(0,0,0,0);
 	int32_t red=0, green=0, blue=0, alpha=0;
-	float   fred=0, fgreen=0, fblue=0, falpha=0;
+	float   float_red=0, float_green=0, float_blue=0, float_alpha=0;
 	if (sscanf(_input.c_str(), "%u,%u,%u,%u", &red, &green, &blue, &alpha) == 4) {
 		outputValue.setR(std::min(0xFF, red));
 		outputValue.setG(std::min(0xFF, green));
@@ -95,24 +96,24 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithRGBGen(const std::string& _input
 		outputValue.setR(std::min(0xFF, red));
 		outputValue.setG(std::min(0xFF, green));
 		outputValue.setB(std::min(0xFF, blue));
-	} else if (sscanf(_input.c_str(), "%f,%f,%f,%f", &fred, &fgreen, &fblue, &falpha) == 4) {
-		fred   = std::avg(0.0f, fred, 1.0f);
-		fgreen = std::avg(0.0f, fgreen, 1.0f);
-		fblue  = std::avg(0.0f, fblue, 1.0f);
-		falpha = std::avg(0.0f, falpha, 1.0f);
-		outputValue.setR((uint8_t)(fred * 255.f));
-		outputValue.setG((uint8_t)(fgreen * 255.f));
-		outputValue.setB((uint8_t)(fblue * 255.f));
-		outputValue.setR((uint8_t)(falpha * 255.f));
-	} else if (sscanf(_input.c_str(), "%f,%f,%f", &fred, &fgreen, &fblue) == 3) {
-		fred  = std::avg(0.0f, fred, 1.0f);
-		fgreen= std::avg(0.0f, fgreen, 1.0f);
-		fblue = std::avg(0.0f, fblue, 1.0f);
-		outputValue.setR((uint8_t)(fred * 255.f));
-		outputValue.setG((uint8_t)(fgreen * 255.f));
-		outputValue.setB((uint8_t)(fblue * 255.f));
+	} else if (sscanf(_input.c_str(), "%f,%f,%f,%f", &float_red, &float_green, &float_blue, &float_alpha) == 4) {
+		float_red   = std::avg(0.0f, float_red, 1.0f);
+		float_green = std::avg(0.0f, float_green, 1.0f);
+		float_blue  = std::avg(0.0f, float_blue, 1.0f);
+		float_alpha = std::avg(0.0f, float_alpha, 1.0f);
+		outputValue.setR((uint8_t)(float_red * 255.f));
+		outputValue.setG((uint8_t)(float_green * 255.f));
+		outputValue.setB((uint8_t)(float_blue * 255.f));
+		outputValue.setR((uint8_t)(float_alpha * 255.f));
+	} else if (sscanf(_input.c_str(), "%f,%f,%f", &float_red, &float_green, &float_blue) == 3) {
+		float_red  = std::avg(0.0f, float_red, 1.0f);
+		float_green= std::avg(0.0f, float_green, 1.0f);
+		float_blue = std::avg(0.0f, float_blue, 1.0f);
+		outputValue.setR((uint8_t)(float_red * 255.f));
+		outputValue.setG((uint8_t)(float_green * 255.f));
+		outputValue.setB((uint8_t)(float_blue * 255.f));
 	} else {
-		TK_ERROR(" pb in parsing the color : '" << _input << "' ==> unknown methode ...");
+		TK_ERROR("Error in parsing the color : '" << _input << "' ==> unknown method ...");
 	}
 	return outputValue;
 }
@@ -120,17 +121,17 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithRGBGen(const std::string& _input
 etk::Color<double, 4> etk::parseStringStartWithRGB(const std::string& _input) {
 	TK_VERBOSE("parseStringStartWithRGB('" << _input << "')");
 	etk::Color<double, 4> outputValue(0,0,0,0);
-	double fred=0, fgreen=0, fblue=0, falpha=0;
+	double float_red=0, float_green=0, float_blue=0, float_alpha=0;
 	int32_t red=0, green=0, blue=0, alpha=0;
-	if (sscanf(_input.c_str(), "%lf,%lf,%lf,%lf", &fred, &fgreen, &fblue, &falpha) == 4) {
-		outputValue.setR(fred);
-		outputValue.setG(fgreen);
-		outputValue.setB(fblue);
-		outputValue.setA(falpha);
-	} else if (sscanf(_input.c_str(), "%lf,%lf,%lf", &fred, &fgreen, &fblue) == 3) {
-		outputValue.setR(fred);
-		outputValue.setG(fgreen);
-		outputValue.setB(fblue);
+	if (sscanf(_input.c_str(), "%lf,%lf,%lf,%lf", &float_red, &float_green, &float_blue, &float_alpha) == 4) {
+		outputValue.setR(float_red);
+		outputValue.setG(float_green);
+		outputValue.setB(float_blue);
+		outputValue.setA(float_alpha);
+	} else if (sscanf(_input.c_str(), "%lf,%lf,%lf", &float_red, &float_green, &float_blue) == 3) {
+		outputValue.setR(float_red);
+		outputValue.setG(float_green);
+		outputValue.setB(float_blue);
 	} else if (sscanf(_input.c_str(), "%u,%u,%u,%u", &red, &green, &blue, &alpha) == 4) {
 		outputValue.setR(std::min(0xFF, red)/255.0);
 		outputValue.setG(std::min(0xFF, green)/255.0);
@@ -150,14 +151,14 @@ etk::Color<double, 4> etk::parseStringStartWithRGB(const std::string& _input) {
 		outputValue.setG(std::min(0xFF, green)/255.0);
 		outputValue.setB(std::min(0xFF, blue)/255.0);
 	} else {
-		TK_ERROR(" pb in parsing the color : '" << _input << "' ==> unknown methode ...");
+		TK_ERROR("Error in parsing the color : '" << _input << "' ==> unknown method ...");
 	}
 	return outputValue;
 }
 etk::Color<uint32_t, 4> etk::parseStringStartWithRGBUnsigned32(const std::string& _input) {
 	etk::Color<uint32_t, 4> outputValue(0,0,0,0);
 	int32_t red=0, green=0, blue=0, alpha=0;
-	double fred=0, fgreen=0, fblue=0, falpha=0;
+	double float_red=0, float_green=0, float_blue=0, float_alpha=0;
 	if (sscanf(_input.c_str(), "%u,%u,%u,%u", &red, &green, &blue, &alpha) == 4) {
 		outputValue.setR(red);
 		outputValue.setG(green);
@@ -176,17 +177,17 @@ etk::Color<uint32_t, 4> etk::parseStringStartWithRGBUnsigned32(const std::string
 		outputValue.setR(red);
 		outputValue.setG(green);
 		outputValue.setB(blue);
-	} else if (sscanf(_input.c_str(), "%lf,%lf,%lf,%lf", &fred, &fgreen, &fblue, &falpha) == 4) {
-		outputValue.setR((uint32_t)(std::min(1.0, fred)*0xFFFFFFFF));
-		outputValue.setG((uint32_t)(std::min(1.0, fgreen)*0xFFFFFFFF));
-		outputValue.setB((uint32_t)(std::min(1.0, fblue)*0xFFFFFFFF));
-		outputValue.setA((uint32_t)(std::min(1.0, falpha)*0xFFFFFFFF));
-	} else if (sscanf(_input.c_str(), "%lf,%lf,%lf", &fred, &fgreen, &fblue) == 3) {
-		outputValue.setR((uint32_t)(std::min(1.0, fred)*0xFFFFFFFF));
-		outputValue.setG((uint32_t)(std::min(1.0, fgreen)*0xFFFFFFFF));
-		outputValue.setB((uint32_t)(std::min(1.0, fblue)*0xFFFFFFFF));
+	} else if (sscanf(_input.c_str(), "%lf,%lf,%lf,%lf", &float_red, &float_green, &float_blue, &float_alpha) == 4) {
+		outputValue.setR((uint32_t)(std::min(1.0, float_red)*0xFFFFFFFF));
+		outputValue.setG((uint32_t)(std::min(1.0, float_green)*0xFFFFFFFF));
+		outputValue.setB((uint32_t)(std::min(1.0, float_blue)*0xFFFFFFFF));
+		outputValue.setA((uint32_t)(std::min(1.0, float_alpha)*0xFFFFFFFF));
+	} else if (sscanf(_input.c_str(), "%lf,%lf,%lf", &float_red, &float_green, &float_blue) == 3) {
+		outputValue.setR((uint32_t)(std::min(1.0, float_red)*0xFFFFFFFF));
+		outputValue.setG((uint32_t)(std::min(1.0, float_green)*0xFFFFFFFF));
+		outputValue.setB((uint32_t)(std::min(1.0, float_blue)*0xFFFFFFFF));
 	} else {
-		TK_ERROR(" pb in parsing the color : '" << _input << "' ==> unknown methode ...");
+		TK_ERROR("Error in parsing the color : '" << _input << "' ==> unknown method ...");
 	}
 	return outputValue;
 }
@@ -194,7 +195,7 @@ etk::Color<uint32_t, 4> etk::parseStringStartWithRGBUnsigned32(const std::string
 etk::Color<uint16_t, 4> etk::parseStringStartWithRGBUnsigned16(const std::string& _input) {
 	etk::Color<uint16_t, 4> outputValue(0,0,0,0);
 	int32_t red=0, green=0, blue=0, alpha=0;
-	double fred=0, fgreen=0, fblue=0, falpha=0;
+	double float_red=0, float_green=0, float_blue=0, float_alpha=0;
 	if (sscanf(_input.c_str(), "%u,%u,%u,%u", &red, &green, &blue, &alpha) == 4) {
 		outputValue.setR(std::min(0xFFFF, red));
 		outputValue.setG(std::min(0xFFFF, green));
@@ -213,17 +214,17 @@ etk::Color<uint16_t, 4> etk::parseStringStartWithRGBUnsigned16(const std::string
 		outputValue.setR(std::min(0xFFFF, red));
 		outputValue.setG(std::min(0xFFFF, green));
 		outputValue.setB(std::min(0xFFFF, blue));
-	} else if (sscanf(_input.c_str(), "%lf,%lf,%lf,%lf", &fred, &fgreen, &fblue, &falpha) == 4) {
-		outputValue.setR((uint16_t)(std::min(1.0, fred)*0xFFFF));
-		outputValue.setG((uint16_t)(std::min(1.0, fgreen)*0xFFFF));
-		outputValue.setB((uint16_t)(std::min(1.0, fblue)*0xFFFF));
-		outputValue.setA((uint16_t)(std::min(1.0, falpha)*0xFFFF));
-	} else if (sscanf(_input.c_str(), "%lf,%lf,%lf", &fred, &fgreen, &fblue) == 3) {
-		outputValue.setR((uint16_t)(std::min(1.0, fred)*0xFFFF));
-		outputValue.setG((uint16_t)(std::min(1.0, fgreen)*0xFFFF));
-		outputValue.setB((uint16_t)(std::min(1.0, fblue)*0xFFFF));
+	} else if (sscanf(_input.c_str(), "%lf,%lf,%lf,%lf", &float_red, &float_green, &float_blue, &float_alpha) == 4) {
+		outputValue.setR((uint16_t)(std::min(1.0, float_red)*0xFFFF));
+		outputValue.setG((uint16_t)(std::min(1.0, float_green)*0xFFFF));
+		outputValue.setB((uint16_t)(std::min(1.0, float_blue)*0xFFFF));
+		outputValue.setA((uint16_t)(std::min(1.0, float_alpha)*0xFFFF));
+	} else if (sscanf(_input.c_str(), "%lf,%lf,%lf", &float_red, &float_green, &float_blue) == 3) {
+		outputValue.setR((uint16_t)(std::min(1.0, float_red)*0xFFFF));
+		outputValue.setG((uint16_t)(std::min(1.0, float_green)*0xFFFF));
+		outputValue.setB((uint16_t)(std::min(1.0, float_blue)*0xFFFF));
 	} else {
-		TK_ERROR(" pb in parsing the color : '" << _input << "' ==> unknown methode ...");
+		TK_ERROR("Error in parsing the color : '" << _input << "' ==> unknown method ...");
 	}
 	return outputValue;
 }
@@ -231,7 +232,7 @@ etk::Color<uint16_t, 4> etk::parseStringStartWithRGBUnsigned16(const std::string
 etk::Color<uint8_t, 4> etk::parseStringStartWithRGBUnsigned8(const std::string& _input) {
 	etk::Color<uint8_t, 4> outputValue(0,0,0,0);
 	int32_t red=0, green=0, blue=0, alpha=0;
-	double fred=0, fgreen=0, fblue=0, falpha=0;
+	double float_red=0, float_green=0, float_blue=0, float_alpha=0;
 	if (sscanf(_input.c_str(), "%u,%u,%u,%u", &red, &green, &blue, &alpha) == 4) {
 		outputValue.setR(std::min(0xFF, red));
 		outputValue.setG(std::min(0xFF, green));
@@ -250,17 +251,17 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithRGBUnsigned8(const std::string& 
 		outputValue.setR(std::min(0xFF, red));
 		outputValue.setG(std::min(0xFF, green));
 		outputValue.setB(std::min(0xFF, blue));
-	} else if (sscanf(_input.c_str(), "%lf,%lf,%lf,%lf", &fred, &fgreen, &fblue, &falpha) == 4) {
-		outputValue.setR((uint8_t)(std::min(1.0, fred)*0xFF));
-		outputValue.setG((uint8_t)(std::min(1.0, fgreen)*0xFF));
-		outputValue.setB((uint8_t)(std::min(1.0, fblue)*0xFF));
-		outputValue.setA((uint8_t)(std::min(1.0, falpha)*0xFF));
-	} else if (sscanf(_input.c_str(), "%lf,%lf,%lf", &fred, &fgreen, &fblue) == 3) {
-		outputValue.setR((uint8_t)(std::min(1.0, fred)*0xFF));
-		outputValue.setG((uint8_t)(std::min(1.0, fgreen)*0xFF));
-		outputValue.setB((uint8_t)(std::min(1.0, fblue)*0xFF));
+	} else if (sscanf(_input.c_str(), "%lf,%lf,%lf,%lf", &float_red, &float_green, &float_blue, &float_alpha) == 4) {
+		outputValue.setR((uint8_t)(std::min(1.0, float_red)*0xFF));
+		outputValue.setG((uint8_t)(std::min(1.0, float_green)*0xFF));
+		outputValue.setB((uint8_t)(std::min(1.0, float_blue)*0xFF));
+		outputValue.setA((uint8_t)(std::min(1.0, float_alpha)*0xFF));
+	} else if (sscanf(_input.c_str(), "%lf,%lf,%lf", &float_red, &float_green, &float_blue) == 3) {
+		outputValue.setR((uint8_t)(std::min(1.0, float_red)*0xFF));
+		outputValue.setG((uint8_t)(std::min(1.0, float_green)*0xFF));
+		outputValue.setB((uint8_t)(std::min(1.0, float_blue)*0xFF));
 	} else {
-		TK_ERROR(" pb in parsing the color : '" << _input << "' ==> unknown methode ...");
+		TK_ERROR("Error in parsing the color : '" << _input << "' ==> unknown method ...");
 	}
 	return outputValue;
 }
@@ -272,7 +273,7 @@ etk::Color<uint8_t, 4> etk::parseStringColorNamed(const std::string& _input) {
 			return getColorList()[iii].color;
 		}
 	}
-	TK_ERROR(" pb in parsing the color : '" << _input << "' not find ...");
+	TK_ERROR("Error in parsing the color : '" << _input << "' not find ...");
 	return etk::Color<uint8_t, 4>(0,0,0,0);
 }
 
@@ -432,7 +433,7 @@ const etk::Color<> etk::color::whiteSmoke(0xF5, 0xF5, 0xF5, 0xFF);
 const etk::Color<> etk::color::yellow(0xFF, 0xFF, 0x00, 0xFF);
 const etk::Color<> etk::color::yellowGreen(0x9A, 0xCD, 0x32, 0xFF);
 
-static const colorList_ts listOfColor[] = {
+static const ColorList listOfColor[] = {
 	{ "none",				etk::color::none},
 	{ "AliceBlue",			etk::color::aliceBlue},
 	{ "AntiqueWhite",		etk::color::antiqueWhite},
@@ -583,15 +584,15 @@ static const colorList_ts listOfColor[] = {
 	{ "YellowGreen",		etk::color::yellowGreen}
 };
 
-static const colorList_ts* getColorList()
+static const ColorList* getColorList()
 {
 	return listOfColor;
 }
 
 static int32_t getColorSize()
 {
-	static const int32_t tmpp = sizeof(listOfColor) / sizeof(colorList_ts);
-	return tmpp;
+	static const int32_t tmp = sizeof(listOfColor) / sizeof(ColorList);
+	return tmp;
 }
 
 namespace etk {

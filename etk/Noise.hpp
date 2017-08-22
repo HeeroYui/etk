@@ -22,7 +22,7 @@ namespace etk {
 			ivec2 m_size; //!< Size of the noise data
 		public:
 			/**
-			 * @brief basic constructor with randon settings
+			 * @brief Basic constructor with random settings.
 			 * @param[in] _size Size of the basic noise
 			 * @param[in] _min Minimum value of the random
 			 * @param[in] _max Maximum value of the random
@@ -68,7 +68,7 @@ namespace etk {
 			 */
 			float smoothNoise(float _x, float _y, const etk::BaseNoise& _noise);
 			/**
-			 * @brief Calculate the Tubulence noise at a specific position
+			 * @brief Calculate the turbulence noise at a specific position
 			 * @param[in] _x X position
 			 * @param[in] _y Y position
 			 * @param[in] _size Turbulence ratio value
@@ -77,7 +77,7 @@ namespace etk {
 			 */
 			float turbulence(float _x, float _y, float _size, const etk::BaseNoise& _noise);
 			/**
-			 * @brief Calculate the Tubulence Not Smooth noise at a specific position
+			 * @brief Calculate the turbulence Not Smooth noise at a specific position
 			 * @param[in] _x X position
 			 * @param[in] _y Y position
 			 * @param[in] _size Turbulence ratio value
@@ -87,7 +87,7 @@ namespace etk {
 			float turbulenceNoSmooth(float _x, float _y, float _size, const etk::BaseNoise& _noise);
 		public:
 			/**
-			 * @brief Contructor of a noise specific
+			 * @brief Constructor of a noise specific
 			 * @param[in] _type Type of noise
 			 * @param[in] _size Size of the image output
 			 * @param[in] _depth Depth calculation

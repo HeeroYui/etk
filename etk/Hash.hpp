@@ -10,7 +10,7 @@
 
 namespace etk {
 	/**
-	 * @brief internel data of the [class[etk::hash]] class, it contain
+	 * @brief Internal data of the [class[etk::hash]] class, it contain
 	 * the name and the value of the hash vector.
 	 * @internal
 	 */
@@ -30,17 +30,17 @@ namespace etk {
 			}
 	};
 	/**
-	 * @brief Hash table tamplate is a simple classical hash interface.
+	 * @brief Hash table template is a simple classical hash interface.
 	 * A hash table is a equivalent of the dictionary in python, this is a
-	 * simple interfaace between a name and a value:
+	 * simple interface between a name and a value:
 	 *   - "name" : 19
 	 *   - "name 2" : 99
 	 * 
 	 * @note The name is unique and the value is what you want
 	 * 
-	 * @todo check if something ele exist in the STD. (not the std::map and the std::unordered_map
+	 * @todo check if something else exist in the generic library. (not the std::map and the std::unordered_map
 	 * 
-	 * @note The index are all time availlable since they are created. The order is the the one created
+	 * @note The index are all time available since they are created. The order is the the one created
 	 * 
 	 * A simple example of use:
 	 * @code{.cpp}
@@ -61,18 +61,18 @@ namespace etk {
 	 */
 	template<class MY_TYPE> class Hash {
 		private:
-			std::vector<HashData<MY_TYPE>* > m_data; //!< Data of the hash ==> the Hash table is composed of pointer, this permit to have high speed when resize the vestor ...
+			std::vector<HashData<MY_TYPE>* > m_data; //!< Data of the hash ==> the Hash table is composed of pointer, this permit to have high speed when resize the vector ...
 		public:
 			/**
-			 * @brief Contructor of the Hach table.
-			 * @param[in] _count Number ob basic elent in the vector.
+			 * @brief Constructor of the Hash table.
+			 * @param[in] _count Number of basic element in the table.
 			 */
 			Hash(int32_t _count = 0) :
 			  m_data(_count) {
 				// nothing to do
 			}
 			/**
-			 * @brief Destructor of the Hash table(clear all element in the table)
+			 * @brief Destructor of the Hash table (clear all element in the table)
 			 */
 			~Hash() {
 				clear();
@@ -131,7 +131,7 @@ namespace etk {
 				static MY_TYPE g_error;
 				int64_t elementId = getId(_key);
 				if (elementId<0) {
-					//TK_ERROR("try to acces at an unexistant hash element : " << _key);
+					//TK_ERROR("try to access at an inexistent hash element : " << _key);
 					return g_error;
 				}
 				return m_data[elementId]->m_value;
@@ -228,7 +228,7 @@ namespace etk {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
 					if(_pos>m_data.size()){
-						//TK_CRITICAL("Access to an unexistant data in hach : " << _pos << "/ " << m_data.size());
+						//TK_CRITICAL("Access to an inexistent data in hash : " << _pos << "/ " << m_data.size());
 					}
 				#endif
 				return m_data[_pos]->m_key;
@@ -249,13 +249,13 @@ namespace etk {
 			/**
 			 * @brief Get a value of the hash table at a specific position.
 			 * @param[in] _pos of the element in the hash table.
-			 * @return Value availlable at this position.
+			 * @return Value available at this position.
 			 */
 			const MY_TYPE& getValue(size_t _pos) const {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
 					if(_pos>m_data.size()){
-						//TK_CRITICAL("Access to an unexistant data in hach : " << _pos << "/ " << m_data.size());
+						//TK_CRITICAL("Access to an inexistent data in hash : " << _pos << "/ " << m_data.size());
 					}
 				#endif
 				return m_data[_pos]->m_value;
@@ -267,7 +267,7 @@ namespace etk {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
 					if(_pos>m_data.size()){
-						//TK_CRITICAL("Access to an unexistant data in hach : " << _pos << "/ " << m_data.size());
+						//TK_CRITICAL("Access to an inexistent data in hash : " << _pos << "/ " << m_data.size());
 					}
 				#endif
 				return m_data[_pos]->m_value;

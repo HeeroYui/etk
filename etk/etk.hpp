@@ -7,7 +7,7 @@
 
 #include <string>
 /**
- * @brief basic namespace of the etk library. (it might contain all the etk fuctions/class/structures without macro)
+ * @brief basic namespace of the etk library. (it might contain all the etk functions/class/structures without macro)
  */
 namespace etk {
 	/**

@@ -92,11 +92,11 @@ static uint32_t getUtf8Val(char32_t _val) {
 		output+= (_val & 0x00000FC0)<<2;
 		output+=  _val & 0x0000003F;
 	} else {
-		//TK_ERROR("NON UTF8 caracter input...");
+		//TK_ERROR("NOT UTF8 character input...");
 		printf("not an utf8 char : %#08x\n", _val);
 		return 0;
 	}
-	//printf("utf8convertion : %d=%08x ==> %08x\n",value, value, output);
+	//printf("utf-8 conversion : %d=%08x ==> %08x\n",value, value, output);
 	return output;
 }
 
@@ -172,7 +172,7 @@ char32_t utf8::convertChar32(const char* _input) {
 	len = sizeElement(_input, len);
 	switch (len) {
 		default:
-			// case 0 : An error occured...
+			// case 0 : An error occurred...
 			value = _input[0];
 			return value;
 		case 1:
@@ -196,7 +196,7 @@ char32_t utf8::convertChar32(const char* _input) {
 	}
 }
 
-int8_t utf8::theoricLen(const char _input) {
+int8_t utf8::length(const char _input) {
 	if((_input&0x80) == 0x00 ) {
 		return 1;
 	}
@@ -212,8 +212,8 @@ int8_t utf8::theoricLen(const char _input) {
 	return 1;
 }
 
-bool utf8::theoricFirst(const char _input) {
-	// When started with the bit 0 then the size is signle element.
+bool utf8::first(const char _input) {
+	// When started with the bit 0 then the size is single element.
 	if((_input&0x80) == 0x00 ) {
 		return true;
 	}
@@ -525,11 +525,12 @@ bool etk::compare_no_case(const std::string& _obj, const std::string& _val) {
 	return true;
 }
 
-struct doublette {
-	char32_t lower;
-	char32_t upper;
+class DoubleChar {
+	public:
+		char32_t lower;
+		char32_t upper;
 };
-struct doublette convertionTable[] = {
+DoubleChar conversionTable[] = {
 #if __CPP_VERSION__ >= 2011
 	{U'ç', U'Ç'},
 
@@ -553,15 +554,15 @@ struct doublette convertionTable[] = {
 	{U'ø', U'Ø'}
 #endif
 };
-size_t convertionTableSize = sizeof(convertionTable)/sizeof(struct doublette);
+size_t conversionTableSize = sizeof(conversionTable)/sizeof(DoubleChar);
 
 static char32_t localToUpper(char32_t _input) {
 	if (_input >= 'a' && _input <= 'z') {
 		return _input + ((int)'A'-(int)'a');
 	}
-	for (size_t iii = 0; iii < convertionTableSize; ++iii) {
-		if (convertionTable[iii].lower == _input) {
-			return convertionTable[iii].upper;
+	for (size_t iii = 0; iii < conversionTableSize; ++iii) {
+		if (conversionTable[iii].lower == _input) {
+			return conversionTable[iii].upper;
 		}
 	}
 	return _input;
@@ -571,9 +572,9 @@ static char32_t localToLower(char32_t _input) {
 	if (_input >= 'A' && _input <= 'Z') {
 		return _input + ((int)'a'-(int)'A');
 	}
-	for (size_t iii = 0; iii < convertionTableSize; ++iii) {
-		if (convertionTable[iii].upper == _input) {
-			return convertionTable[iii].lower;
+	for (size_t iii = 0; iii < conversionTableSize; ++iii) {
+		if (conversionTable[iii].upper == _input) {
+			return conversionTable[iii].lower;
 		}
 	}
 	return _input;
@@ -936,12 +937,12 @@ void etk::sort(std::vector<std::string *> &_list) {
 	for(size_t iii=0; iii<tmpList.size(); iii++) {
 		size_t findPos = 0;
 		for(size_t jjj=0; jjj<_list.size(); jjj++) {
-			//EWOL_DEBUG("compare : \""<<*tmpList[iii] << "\" and \"" << *m_listDirectory[jjj] << "\"");
+			//TK_DEBUG("compare : \""<<*tmpList[iii] << "\" and \"" << *m_listDirectory[jjj] << "\"");
 			if (*tmpList[iii] > *_list[jjj]) {
 				findPos = jjj+1;
 			}
 		}
-		//EWOL_DEBUG("position="<<findPos);
+		//TK_DEBUG("position="<<findPos);
 		_list.insert(_list.begin()+findPos, tmpList[iii]);
 	}
 }
@@ -952,12 +953,12 @@ void etk::sort(std::vector<std::string *> &_list) {
 		for(size_t iii=0; iii<tmpList.size(); iii++) {
 			size_t findPos = 0;
 			for(size_t jjj=0; jjj<_list.size(); jjj++) {
-				//EWOL_DEBUG("compare : \""<<*tmpList[iii] << "\" and \"" << *m_listDirectory[jjj] << "\"");
+				//TK_DEBUG("compare : \""<<*tmpList[iii] << "\" and \"" << *m_listDirectory[jjj] << "\"");
 				if (*tmpList[iii] > *_list[jjj]) {
 					findPos = jjj+1;
 				}
 			}
-			//EWOL_DEBUG("position="<<findPos);
+			//TK_DEBUG("position="<<findPos);
 			_list.insert(_list.begin()+findPos, tmpList[iii]);
 		}
 	}
@@ -1277,42 +1278,42 @@ std::ostream& std::operator <<(std::ostream& _os, const std::vector<uint8_t>& _o
 		return tmpVal;
 	}
 	
-	double std::stod(const std::string& _str, size_t* _idx) {
+	double std::stod(const std::string& _str, size_t* _id) {
 		double ret = 0;
 		sscanf(_str.c_str(), "%lf", &ret);
 		return ret;
 	}
-	float std::stof(const std::string& _str, size_t* _idx) {
+	float std::stof(const std::string& _str, size_t* _id) {
 		float ret = 0;
 		sscanf(_str.c_str(), "%f", &ret);
 		return ret;
 	}
-	int std::stoi(const std::string& _str, size_t* _idx, int _base) {
+	int std::stoi(const std::string& _str, size_t* _id, int _base) {
 		int ret = 0;
 		sscanf(_str.c_str(), "%d", &ret);
 		return ret;
 	}
-	long std::stol(const std::string& _str, size_t* _idx, int _base) {
+	long std::stol(const std::string& _str, size_t* _id, int _base) {
 		long ret = 0;
 		sscanf(_str.c_str(), "%ld", &ret);
 		return ret;
 	}
-	long double std::stold(const std::string& _str, size_t* _idx) {
+	long double std::stold(const std::string& _str, size_t* _id) {
 		long double ret = 0;
 		sscanf(_str.c_str(), "%Lf", &ret);
 		return ret;
 	}
-	long long std::stoll(const std::string& _str, size_t* _idx, int _base) {
+	long long std::stoll(const std::string& _str, size_t* _id, int _base) {
 		long long ret = 0;
 		sscanf(_str.c_str(), "%lld", &ret);
 		return ret;
 	}
-	unsigned long std::stoul(const std::string& _str, size_t* _idx, int _base) {
+	unsigned long std::stoul(const std::string& _str, size_t* _id, int _base) {
 		unsigned long ret = 0;
 		sscanf(_str.c_str(), "%lu", &ret);
 		return ret;
 	}
-	unsigned long long std::stoull(const std::string& _str, size_t* _idx, int _base) {
+	unsigned long long std::stoull(const std::string& _str, size_t* _id, int _base) {
 		unsigned long long ret = 0;
 		sscanf(_str.c_str(), "%llu", &ret);
 		return ret;

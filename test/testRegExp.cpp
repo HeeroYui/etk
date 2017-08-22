@@ -7,18 +7,18 @@
  */
 
 #include <gtest/gtest.h>
-#include <etk/RegExp.hpp>
+#include <etk/RegEx.hpp>
 #include <test-debug/debug.hpp>
 
 #define NAME "Hash"
 
-std::pair<int32_t, int32_t> testRegExpSingle(const std::string& _expression, const std::string& _search) {
-	etk::RegExp<std::string> expression(_expression);
+std::pair<int32_t, int32_t> testRegExSingle(const std::string& _expression, const std::string& _search) {
+	etk::RegEx<std::string> expression(_expression);
 	TK_INFO("Parse RegEx: \"" << expression.getRegExDecorated() << "\"");
-	TK_INFO("         IN: \"" << etk::regexp::autoStr(_search) << "\"");
+	TK_INFO("         IN: \"" << etk::regex::autoStr(_search) << "\"");
 	if (expression.parse(_search, 0, _search.size()) == true) {
 		TK_INFO("    match [" << expression.start() << ".." << expression.stop() << "] ");
-		TK_INFO("        ==> '" << etk::regexp::autoStr(std::string(_search, expression.start(), expression.stop() - expression.start())) << "'");
+		TK_INFO("        ==> '" << etk::regex::autoStr(std::string(_search, expression.start(), expression.stop() - expression.start())) << "'");
 		return std::make_pair(expression.start(), expression.stop());
 	}
 	TK_INFO("        ==> ---------------");
@@ -29,95 +29,95 @@ static std::string data1 = " a /* plop */ \n int eee = 22; // error value \nint 
 static std::string data2 = "alpha /* plop */ test";
 static std::string data3 = "pp \n // qdfqdfsdf \nde";
 
-TEST(TestEtkRegExp, MultipleLineComment ) {
+TEST(TestEtkRegEx, MultipleLineComment ) {
 	std::string expression = "/\\*.*\\*/";
 	std::pair<int32_t, int32_t> res;
-	res = testRegExpSingle(expression, data1);
+	res = testRegExSingle(expression, data1);
 	EXPECT_EQ(res, std::make_pair(3,13));
-	res = testRegExpSingle(expression, data2);
+	res = testRegExSingle(expression, data2);
 	EXPECT_EQ(res, std::make_pair(6,16));
-	res = testRegExpSingle(expression, data3);
+	res = testRegExSingle(expression, data3);
 	EXPECT_EQ(res, std::make_pair(0,0));
 }
-TEST(TestEtkRegExp, MultipleEndDollar ) {
+TEST(TestEtkRegEx, MultipleEndDollar ) {
 	std::string expression = "//.*$";
 	std::pair<int32_t, int32_t> res;
-	res = testRegExpSingle(expression, data1);
+	res = testRegExSingle(expression, data1);
 	EXPECT_EQ(res, std::make_pair(30,46));
-	res = testRegExpSingle(expression, data2);
+	res = testRegExSingle(expression, data2);
 	EXPECT_EQ(res, std::make_pair(0,0));
-	res = testRegExpSingle(expression, data3);
+	res = testRegExSingle(expression, data3);
 	EXPECT_EQ(res, std::make_pair(5,19));
 }
 
-TEST(TestEtkRegExp, MultipleNoEnd ) {
+TEST(TestEtkRegEx, MultipleNoEnd ) {
 	std::string expression = "/\\*.*";
 	std::pair<int32_t, int32_t> res;
-	res = testRegExpSingle(expression, data1);
+	res = testRegExSingle(expression, data1);
 	EXPECT_EQ(res, std::make_pair(3,5));
-	res = testRegExpSingle(expression, data2);
+	res = testRegExSingle(expression, data2);
 	EXPECT_EQ(res, std::make_pair(6,8));
-	res = testRegExpSingle(expression, data3);
+	res = testRegExSingle(expression, data3);
 	EXPECT_EQ(res, std::make_pair(0,0));
 }
 
-TEST(TestEtkRegExp, aToZ ) {
+TEST(TestEtkRegEx, aToZ ) {
 	std::string expression = "[a-z]";
 	std::pair<int32_t, int32_t> res;
-	res = testRegExpSingle(expression, data1);
+	res = testRegExSingle(expression, data1);
 	EXPECT_EQ(res, std::make_pair(1,2));
-	res = testRegExpSingle(expression, data2);
+	res = testRegExSingle(expression, data2);
 	EXPECT_EQ(res, std::make_pair(0,1));
-	res = testRegExpSingle(expression, data3);
+	res = testRegExSingle(expression, data3);
 	EXPECT_EQ(res, std::make_pair(0,1));
 }
 
-TEST(TestEtkRegExp, complexString ) {
+TEST(TestEtkRegEx, complexString ) {
 	std::string expression = "a.*plop(z{2,3}|h+)+r";
 	std::string dataToParse = "  eesd a lzzml plophzzzzzhhhhhrlkmlkml";
 	std::pair<int32_t, int32_t> res;
-	res = testRegExpSingle(expression, dataToParse);
+	res = testRegExSingle(expression, dataToParse);
 	EXPECT_EQ(res, std::make_pair(7,31));
 }
 
-TEST(TestEtkRegExp, multipleUnderscore ) {
+TEST(TestEtkRegEx, multipleUnderscore ) {
 	std::string expression = "\\@\\w+_\\@";
 	std::string dataToParse = "  aaa_bbb_ plop_ ";
 	std::pair<int32_t, int32_t> res;
-	res = testRegExpSingle(expression, dataToParse);
+	res = testRegExSingle(expression, dataToParse);
 	EXPECT_EQ(res, std::make_pair(2,10));
 }
 
 
-TEST(TestEtkRegExp, endError ) {
+TEST(TestEtkRegEx, endError ) {
 	std::string expression = "\\@((0(x|X)[0-9a-fA-F]*)|(\\d+\\.?\\d*|\\.\\d+)((e|E)(\\+|\\-)?\\d+)?)(LL|L|l|UL|ul|u|U|F|f)?\\@";
 	std::string dataToParse = "(95";
 	std::pair<int32_t, int32_t> res;
-	res = testRegExpSingle(expression, dataToParse);
+	res = testRegExSingle(expression, dataToParse);
 	EXPECT_EQ(res, std::make_pair(7,31));
 }
 
 
 
-void testRegExp() {
+void testRegEx() {
 	std::string data;
 	
 	//std::string data = "pp \n# plop // qdfqdfsdf \nde";
 	//std::string data = "pp \n# plop //\\\n qdfqdfsdf \nde";
 	//std::string data = "p#\ne";
-	//testRegExpSingle("#(\\\\\\\\|\\\\\\n|.)*$", data);
-	//testRegExpSingle("#.*$", data);
+	//testRegExSingle("#(\\\\\\\\|\\\\\\n|.)*$", data);
+	//testRegExSingle("#.*$", data);
 	
 	//std::string data = "p//TODO:\ndse";
 	//std::string data = "p// TODO:\ndse";
 	//std::string data = "p// TODO :\ndse";
 	//std::string data = "p// TODO 	: sdfgsdfsd \ndse";
-	//testRegExpSingle("//[ \\t]*TODO[ \\t]*:.*$", data);
+	//testRegExSingle("//[ \\t]*TODO[ \\t]*:.*$", data);
 	
 	data = "abc  m_def ghi";
 	data =  "	protected:\n"
 			"		vec2 m_offset; \n";
-	//testRegExpSingle("\\@m_[A-Za-z_0-9]*\\@", data);
+	//testRegExSingle("\\@m_[A-Za-z_0-9]*\\@", data);
 	
 	
 	data = " * @param[in] _mode Configuring mode.\n"
@@ -126,7 +126,7 @@ void testRegExp() {
 	"		void setAnnimationTime(enum ";
 	data = "virtual vec2 relativePosition(const vec2& _pos);";
 	
-	//testRegExpSingle("\\@(\\w|_)+[ \\t]*\\(", data);
+	//testRegExSingle("\\@(\\w|_)+[ \\t]*\\(", data);
 	
 	data = "include <ewol/Dimensio2n.h>\n"
 		"#include <ewol/Dimension.h>\n"
@@ -142,17 +142,17 @@ void testRegExp() {
 		"	};\n"
 		"};\n"
 		"#include <etk/types.h>\n";
-	//testRegExpSingle("#(\\\\[\\\\\\n]|.)*$", data);
+	//testRegExSingle("#(\\\\[\\\\\\n]|.)*$", data);
 	
 	
 	data =  "	'dfgd\\'fg'  \n"
 			"	vec2 m_offset; \n";
-	//testRegExpSingle("'((\\\\[\\\\'])|.)*'", data);
+	//testRegExSingle("'((\\\\[\\\\'])|.)*'", data);
 	
 	
 	/*
 	data = "ddfgdfgh";
-	etk::RegExp<std::string> reg(".*");
+	etk::RegEx<std::string> reg(".*");
 	reg.setMaximize(true);
 	
 	TK_INFO("Parse RegEx : '" << reg.getRegExDecorated() << "'");
@@ -163,7 +163,7 @@ void testRegExp() {
 	}
 	
 	data = "plop \"\" sdfsdf s\"swdfsqd sdfgsdfg \" \" sdfsf";
-	reg = etk::RegExp<std::string>("\"(\\\\[\\\\\"]|.)*\"");
+	reg = etk::RegEx<std::string>("\"(\\\\[\\\\\"]|.)*\"");
 	reg.setMaximize(false);
 	TK_INFO("Parse RegEx : '" << reg.getRegExDecorated() << "'");
 	if (reg.parse(data, 0, data.size()) == true) {
@@ -174,7 +174,7 @@ void testRegExp() {
 	//TODO : good : "(\\+|[0-9])*" ==> really bad : "(+|[0-9])*"
 	
 	data = "void limit(const vec2& _origin, const vec2& _size);\n";
-	reg = etk::RegExp<std::string>("\\@(\\w|_)+[ \\t]*\\(");
+	reg = etk::RegEx<std::string>("\\@(\\w|_)+[ \\t]*\\(");
 	reg.setMaximize(false);
 	TK_INFO("Parse RegEx : '" << reg.getRegExDecorated() << "'");
 	if (reg.parse(data, 0, data.size()) == true) {

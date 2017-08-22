@@ -34,11 +34,11 @@ namespace etk {
 
 #define TK_HIDDEN(data)          do { } while(false)
 
-#define TK_ASSERT(cond,data) \
+#define TK_ASSERT(condition,data) \
 	do { \
-		if (!(cond)) { \
+		if (!(condition)) { \
 			TK_CRITICAL(data); \
-			assert(!#cond); \
+			assert(!#condition); \
 		} \
 	} while (0)
 

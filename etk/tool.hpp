@@ -10,7 +10,7 @@
 
 namespace etk {
 	/**
-	 * @brief Some un-usefull tools
+	 * @brief Some useful tools
 	 * @todo Remove all of this use std11 random
 	 */
 	namespace tool {

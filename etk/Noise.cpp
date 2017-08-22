@@ -25,7 +25,7 @@ etk::BaseNoise::BaseNoise(const ivec2& _size, float _min, float _max) :
 }
 
 float etk::BaseNoise::get(int32_t _x, int32_t _y) const {
-	// We increment of the size to prevent the <0 result due to the "%" methode ...
+	// We increment of the size to prevent the <0 result due to the "%" method ...
 	_x += m_size.x();
 	_y += m_size.y();
 	_x %= m_size.x();
@@ -35,8 +35,8 @@ float etk::BaseNoise::get(int32_t _x, int32_t _y) const {
 
 float etk::Noise::smoothNoise(float _x, float _y, const etk::BaseNoise& _noise) {
 	//get fractional part of x and y
-	float fractX = _x - (int32_t)_x;
-	float fractY = _y - (int32_t)_y;
+	float fractionX = _x - (int32_t)_x;
+	float fractionY = _y - (int32_t)_y;
 	
 	//wrap around
 	int32_t x1 = (int32_t)_x;
@@ -48,10 +48,10 @@ float etk::Noise::smoothNoise(float _x, float _y, const etk::BaseNoise& _noise) 
 	
 	//smooth the noise with bilinear interpolation
 	float value = 0.0f;
-	value += fractX       * fractY       * _noise.get(x1,y1);
-	value += fractX       * (1 - fractY) * _noise.get(x1,y2);
-	value += (1 - fractX) * fractY       * _noise.get(x2,y1);
-	value += (1 - fractX) * (1 - fractY) * _noise.get(x2,y2);
+	value += fractionX       * fractionY       * _noise.get(x1,y1);
+	value += fractionX       * (1 - fractionY) * _noise.get(x1,y2);
+	value += (1 - fractionX) * fractionY       * _noise.get(x2,y1);
+	value += (1 - fractionX) * (1 - fractionY) * _noise.get(x2,y2);
 	
 	return value;
 }
@@ -142,7 +142,7 @@ etk::Noise::Noise(enum etk::noiseType _type, ivec2 _size, int32_t _depth) :
 
 float etk::Noise::get(int32_t _x, int32_t _y) const
 {
-	// We increment of the size to prevent the <0 result due to the "%" methode ...
+	// We increment of the size to prevent the <0 result due to the "%" method ...
 	_x += m_size.x();
 	_y += m_size.y();
 	_x %= m_size.x();

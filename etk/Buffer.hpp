@@ -12,7 +12,7 @@
 
 // minimum gapSize when allocated
 #define GAP_SIZE_MIN		(80)
-// maximum gap that is automaticly resize
+// maximum gap that is automatically resize
 #define GAP_SIZE_MAX		(GAP_SIZE_MIN*4)
 
 /*
@@ -43,7 +43,7 @@ namespace etk {
 	 */
 	class Buffer {
 		private:
-			int8_t* m_data; //!< pointer on the curetn table of Data
+			int8_t* m_data; //!< pointer on the current table of Data
 			int32_t m_allocated; //!< Current allocated size
 			// empty part of the buffer data
 			int32_t m_gapStart; //!< points to the first character of the gap
@@ -90,8 +90,8 @@ namespace etk {
 			/**
 			 * @brief Store the selected data in the requested file.
 			 * @param[in] _file Name of the file that might be written.
-			 * @return true if the data corectly stored
-			 * @return false if an error occured
+			 * @return true if the data correctly stored
+			 * @return false if an error occurred
 			 */
 			bool dumpIn(const std::string& _file) {
 				etk::FSNode file(_file);
@@ -106,10 +106,10 @@ namespace etk {
 				return ret;
 			}
 			/**
-			 * @brief Load data fron a selected file name.
+			 * @brief Load data from a selected file name.
 			 * @param[in] _file Name of the file to store buffer data.
-			 * @return true if the data corectly stored
-			 * @return false if an error occured
+			 * @return true if the data correctly stored
+			 * @return false if an error occurred
 			 */
 			bool dumpFrom(const std::string& _file) {
 				etk::FSNode file(_file);
@@ -126,13 +126,13 @@ namespace etk {
 				changeAllocation(length + GAP_SIZE_MIN);
 				// insert Data
 				int32_t nbReadData = file.fileRead(&m_data[GAP_SIZE_MIN], sizeof(int8_t), length);
-				TK_INFO("load data : filesize=" << length << ", readData=" << nbReadData);
+				TK_INFO("load data : fileSize=" << length << ", readData=" << nbReadData);
 				// check ERROR
 				if (nbReadData != length) {
-					TK_ERROR("load data pb : filesize=" << length << ", readData=" << nbReadData);
+					TK_ERROR("load data error: fileSize=" << length << ", readData=" << nbReadData);
 					ret = false;
 				}
-				// set the gapsize at the fd ...
+				// set the gap size at the buffer ...
 				m_gapStart = 0;
 				m_gapEnd = GAP_SIZE_MIN;
 				file.fileClose();
@@ -142,7 +142,7 @@ namespace etk {
 			/**
 			 * @brief Re-copy operator
 			 * @param[in] _obj Buffer that might be copy
-			 * @return reference on the curent copied Buffer
+			 * @return reference on the current copied Buffer
 			 */
 			etk::Buffer& operator=(const etk::Buffer& _obj) {
 				if( this == &_obj ) {// avoid copy to itself
@@ -161,7 +161,7 @@ namespace etk {
 				TK_ASSERT(NULL!=m_data, "Error in data allocation");
 				// Copy all data ...
 				memcpy(m_data, _obj.m_data, m_allocated * sizeof(int8_t) );
-				// Return the curent pointer
+				// Return the current pointer
 				return *this;
 			}
 			/**
@@ -170,7 +170,7 @@ namespace etk {
 			 * @return Element at the request pos.
 			 */
 			int8_t operator[] (int32_t _pos) const {
-				TK_ASSERT(0 <= _pos || _pos < size(), "try to read an element non existing");
+				TK_ASSERT(0 <= _pos || _pos < size(), "try to read an element not existing");
 				if (_pos < m_gapStart) {
 					return m_data[_pos];
 				}
@@ -183,7 +183,7 @@ namespace etk {
 			 * @return Reference on the Element
 			 */
 			int8_t& get(int32_t _pos) const {
-				TK_ASSERT(0 <= _pos || _pos < size(), "try to read an element non existing");
+				TK_ASSERT(0 <= _pos || _pos < size(), "try to read an element not existing");
 				if (_pos < m_gapStart) {
 					return m_data[_pos];
 				}
@@ -245,7 +245,7 @@ namespace etk {
 				} else if(    _pos == m_gapStart
 				           && _pos == m_gapEnd-1 )
 				{
-					// mothing to do ...
+					// Nothing to do ...
 				} else {
 					if (gapMove(_pos) == false) {
 						return;
@@ -414,22 +414,22 @@ namespace etk {
 			 * @param[in] _newSize Minimum number of element needed
 			 */
 			void changeAllocation(int32_t _newSize) {
-				// set the minimal size to 1
+				// Set the minimal size to 1
 				if(_newSize <= 0) {
 					_newSize = 1;
 				}
-				// set the size with the corect chose type : 
+				// Set the size with the correct chose type:
 				if (_newSize == m_allocated) {
 					return;
 				}
 				//TODO : use new and delete and multiple of power of 2.
 				TK_DEBUG("Change Allocation : " << m_allocated << " ==> " << _newSize);
-				// check if something is allocated : 
+				// Check if something is allocated:
 				if (m_data == NULL) {
 					// no data allocated ==> request an allocation (might be the first)
 					m_data = (int8_t *)malloc( _newSize * sizeof(int8_t) );
 				} else {
-					// move datas
+					// move data
 					m_data = (int8_t *)realloc( m_data, _newSize* sizeof(int8_t) );
 				}
 				// Check result with assert : 
@@ -440,7 +440,7 @@ namespace etk {
 			/**
 			 * @brief Move the current gap at an other position
 			 * @param[in] _pos Position of the new Gap.
-			 * @return false The operation can not be proccesed.
+			 * @return false The operation can not be processed.
 			 * @return true The operation done correctly.
 			 */
 			bool gapMove(int32_t _pos) {
@@ -478,7 +478,7 @@ namespace etk {
 					return true;
 				} else {
 					if (_newGapLen > gapSize() ) {
-						// reallocation
+						// Change allocation size.
 						changeAllocation( previousSize + _newGapLen);
 					}
 					// move Data
@@ -499,7 +499,7 @@ namespace etk {
 						memmove(&m_data[m_gapStart + _newGapLen], &m_data[m_gapEnd], previousSize - m_gapStart);
 					}
 					if (_newGapLen < gapSize() ) {
-						// rellocation
+						// Change allocation size.
 						changeAllocation(previousSize + _newGapLen);
 					}
 				}

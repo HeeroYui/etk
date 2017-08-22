@@ -28,39 +28,39 @@ namespace u32char {
 	extern const char32_t Escape; //!< Value ESC Escape
 	/**
 	 * @brief check if the current element is white or not : '\\t' '\\n' '\\r' ' '
-	 * @param[in] _val Value to interprete
+	 * @param[in] _val Value to interpret
 	 * @return true if it is white char
 	 * @return false otherwise
 	 */
 	bool isWhiteChar(char32_t _val);
 	/**
 	 * @brief check if the current element is NOT [a-zA-Z0-9]
-	 * @param[in] _val Value to interprete
+	 * @param[in] _val Value to interpret
 	 * @return true Not in the previous list
 	 * @return false otherwise
 	 */
 	bool isSpecialChar(char32_t _val);
 	/**
-	 * @brief check if the curent element is number or not [0-9]
-	 * @param[in] _val Value to interprete
+	 * @brief check if the current element is number or not [0-9]
+	 * @param[in] _val Value to interpret
 	 * @return true if it is a number char
 	 * @return false otherwise
 	 */
 	bool isInteger(char32_t _val);
 	/**
-	 * @brief Convert char32_t in an interfer
-	 * @param[in] _val Value to interprete
+	 * @brief Convert char32_t in an integer
+	 * @param[in] _val Value to interpret
 	 * @return The parsed Value or ...
 	 */
 	int32_t toInt(char32_t _val);
 	/**
 	 * @brief Change order of the value to have an order of display with A->Z and after a->z and after 0->9 and after all the rest ....
 	 * @param[in] _val Value in unicode
-	 * @return A value usable in interfer only ... to check order...
+	 * @return A value usable in integer only ... to check order...
 	 */
 	char32_t changeOrder(char32_t _val);
 	/**
-	 * @brief Conver unicode in UTF8 value
+	 * @brief Convert unicode in UTF8 value
 	 * @param[in] _val Value to convert
 	 * @param[out] _output Char data converted
 	 * @return Number of char in utf8
@@ -80,13 +80,13 @@ namespace utf8 {
 	 * @param[in] _input Char to parse
 	 * @return number of char needed
 	 */
-	int8_t theoricLen(const char _input);
+	int8_t length(const char _input);
 	/**
 	 * @brief When parsing a string in a reverse mode, we need to know if we get the first char
 	 * @param[in] _input Char to parse.
 	 * @return true if it was the first char.
 	 */
-	bool theoricFirst(const char _input);
+	bool first(const char _input);
 	/**
 	 * @brief Convert a char* in a unicode value
 	 * @param[in] _input pointer on a string C (utf-8) to convert
@@ -101,9 +101,9 @@ namespace utf8 {
 	 */
 	class iterator {
 		private:
-			char32_t m_value; //!< store vlue to prevent multiple calcule of getting the data
+			char32_t m_value; //!< store value to prevent multiple calculation of getting the data
 			std::string* m_data; //!< Pointer on the current Buffer
-			int64_t m_current; //!< curent Id in the Buffer
+			int64_t m_current; //!< current Id in the Buffer
 		public:
 			/**
 			 * @brief Basic constructor that is not link on a string
@@ -195,9 +195,9 @@ namespace utf8 {
 				// nothing to do ...
 			};
 			/**
-			 * @brief Asignation operator.
+			 * @brief Assignation operator.
 			 * @param[in] _obj The Iterator that might be copy
-			 * @return reference on the curent Iterator
+			 * @return reference on the current Iterator
 			 */
 			iterator& operator=(const iterator & _obj) {
 				m_current = _obj.m_current;
@@ -231,12 +231,12 @@ namespace utf8 {
 			};
 			/**
 			 * @brief Incremental operator
-			 * @return Reference on the current iterator incremented
+			 * @return Reference on the current iterator increment
 			 */
 			iterator& operator++ ();
 			/**
 			 * @brief Decremental operator
-			 * @return Reference on the current iterator decremented
+			 * @return Reference on the current iterator decrement
 			 */
 			iterator& operator-- ();
 			/**
@@ -258,7 +258,7 @@ namespace utf8 {
 				return it;
 			};
 			/**
-			 * @brief egality iterator
+			 * @brief equality iterator
 			 * @param[in] _obj Iterator to compare
 			 * @return true if the iterator is identical pos
 			 */
@@ -270,7 +270,7 @@ namespace utf8 {
 				return false;
 			};
 			/**
-			 * @brief egality iterator
+			 * @brief equality iterator
 			 * @param[in] _obj Iterator to compare
 			 * @return true if the iterator is identical pos
 			 */
@@ -364,64 +364,64 @@ namespace utf8 {
 			 * @return a new iterator.
 			 */
 			iterator operator+ (const int64_t _val) const {
-				iterator tmpp(*this);
+				iterator tmp(*this);
 				for (int64_t iii=0; iii<_val; ++iii) {
-					++tmpp;
+					++tmp;
 				}
-				return tmpp;
+				return tmp;
 			};
 			/**
 			 * @copydoc utf8::iterator::operator+ (const int64_t)
 			 */
 			iterator operator+ (const int32_t _val) const {
-				iterator tmpp(*this);
+				iterator tmp(*this);
 				for (int64_t iii=0; iii<_val; ++iii) {
-					++tmpp;
+					++tmp;
 				}
-				return tmpp;
-			};
+				return tmp;
+			}
 			/**
 			 * @copydoc utf8::iterator::operator+ (const int64_t)
 			 */
 			iterator operator+ (const size_t _val) const {
-				iterator tmpp(*this);
+				iterator tmp(*this);
 				for (int64_t iii=0; iii<(int64_t)_val; ++iii) {
-					++tmpp;
+					++tmp;
 				}
-				return tmpp;
-			};
+				return tmp;
+			}
 			/**
 			 * @brief move the element position
 			 * @param[in] _val Value to remove on the Iterator
 			 * @return a new iterator.
 			 */
 			iterator operator- (const int64_t _val) const {
-				iterator tmpp(*this);
+				iterator tmp(*this);
 				for (int64_t iii=0; iii<_val; ++iii) {
-					--tmpp;
+					--tmp;
 				}
-				return tmpp;
-			};
+				return tmp;
+			}
 			/**
 			 * @copydoc utf8::iterator::operator- (const int64_t)
 			 */
 			iterator operator- (const int32_t _val) const {
-				iterator tmpp(*this);
+				iterator tmp(*this);
 				for (int64_t iii=0; iii<_val; ++iii) {
-					--tmpp;
+					--tmp;
 				}
-				return tmpp;
-			};
+				return tmp;
+			}
 			/**
 			 * @copydoc utf8::iterator::operator- (const int64_t)
 			 */
 			iterator operator- (const size_t _val) const {
-				iterator tmpp(*this);
+				iterator tmp(*this);
 				for (int64_t iii=0; iii<(int64_t)_val; ++iii) {
-					--tmpp;
+					--tmp;
 				}
-				return tmpp;
-			};
+				return tmp;
+			}
 			/*
 			iterator begin() const {
 				return iterator(m_data);
@@ -457,34 +457,34 @@ namespace std {
 		//! @not_in_doc
 		std::string to_string(long double _val);
 		//! @not_in_doc
-		double stod(const std::string& _str, size_t* _idx = 0);
+		double stod(const std::string& _str, size_t* _id = 0);
 		//! @not_in_doc
-		float stof(const std::string& _str, size_t* _idx = 0);
+		float stof(const std::string& _str, size_t* _id = 0);
 		//! @not_in_doc
-		int stoi(const std::string& _str, size_t* _idx = 0, int _base = 10);
+		int stoi(const std::string& _str, size_t* _id = 0, int _base = 10);
 		//! @not_in_doc
-		long stol(const std::string& _str, size_t* _idx = 0, int _base = 10);
+		long stol(const std::string& _str, size_t* _id = 0, int _base = 10);
 		//! @not_in_doc
-		long double stold(const std::string& _str, size_t* _idx = 0);
+		long double stold(const std::string& _str, size_t* _id = 0);
 		//! @not_in_doc
-		long long stoll(const std::string& _str, size_t* _idx = 0, int _base = 10);
+		long long stoll(const std::string& _str, size_t* _id = 0, int _base = 10);
 		//! @not_in_doc
-		unsigned long stoul(const std::string& _str, size_t* _idx = 0, int _base = 10);
+		unsigned long stoul(const std::string& _str, size_t* _id = 0, int _base = 10);
 		//! @not_in_doc
-		unsigned long long stoull(const std::string& _str, size_t* _idx = 0, int _base = 10);
+		unsigned long long stoull(const std::string& _str, size_t* _id = 0, int _base = 10);
 	#endif
 };
 namespace etk {
 	// these declaration is to prevent some under template declaration of unknown type
 	/**
-	 * @brief Template to declare convertion from anything in std::string
+	 * @brief Template to declare conversion from anything in std::string
 	 * @param[in] _variable Variable to convert
 	 * @return String of the value
 	 */
 	template <class TYPE>
 	std::string to_string(const TYPE& _variable);
 	/**
-	 * @brief Template to declare convertion from std::vector<anything> in std::string
+	 * @brief Template to declare conversion from std::vector<anything> in std::string
 	 * @param[in] _list Variable to convert
 	 * @return String of the value: {...,...,...}
 	 */
@@ -506,7 +506,7 @@ namespace etk {
 	#endif
 	// these declaration is to prevent some under template declaration of unknown type
 	/**
-	 * @brief Template to declare convertion from string to anything
+	 * @brief Template to declare conversion from string to anything
 	 * @param[out] _variableRet Output value
 	 * @param[in] _value input property
 	 * @return true if the can be converted.
@@ -652,7 +652,7 @@ namespace etk {
 
 namespace std {
 	/**
-	 * @brief in std, we have min, max but not avg ==> it is missing... the Defineing avg template.
+	 * @brief in std, we have min, max but not avg ==> it is missing... the define of avg template.
 	 * @param[in] _min Minimum value of the range
 	 * @param[in] _val The value that we want a min/max
 	 * @param[in] _max Maximum value of the range
@@ -665,7 +665,7 @@ namespace std {
 
 namespace etk {
 	/**
-	 * @brief in std, we have min, max but not avg ==> it is missing... the Defineing avg template.
+	 * @brief in std, we have min, max but not avg ==> it is missing... the Define of avg template.
 	 * @param[in] _min Minimum value of the range
 	 * @param[in] _val The value that we want a min/max
 	 * @param[in] _max Maximum value of the range
@@ -714,9 +714,9 @@ namespace std {
 }
 
 /**
- * @brief Claculate the size of a string (unicode)
+ * @brief Calculate the size of a string (unicode)
  * @param[in] _data Data to parse to find the end of string
- * @return the Number of char32_t befor the '\\0' value
+ * @return The Number of char32_t before the '\\0' value
  */
 int32_t strlen(const char32_t* _data);
 

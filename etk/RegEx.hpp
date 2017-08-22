@@ -33,7 +33,7 @@
 #define ETK_BASH_COLOR_MAGENTA			"\e[0;35m"
 #define ETK_BASH_COLOR_CYAN				"\e[0;36m"
 #define ETK_BASH_COLOR_WHITE			"\e[0;37m"
-//emphasized (bolded) colors
+//emphasized (bold) colors
 #define ETK_BASH_COLOR_BOLD_BLACK		"\e[1;30m"
 #define ETK_BASH_COLOR_BOLD_RED			"\e[1;31m"
 #define ETK_BASH_COLOR_BOLD_GREEN		"\e[1;32m"
@@ -43,47 +43,47 @@
 #define ETK_BASH_COLOR_BOLD_CYAN		"\e[1;36m"
 #define ETK_BASH_COLOR_BOLD_WHITE		"\e[1;37m"
 //background colors
-#define ETK_BASH_COLOR_BG_BLACK			"\e[40m"
-#define ETK_BASH_COLOR_BG_RED			"\e[41m"
-#define ETK_BASH_COLOR_BG_GREEN			"\e[42m"
-#define ETK_BASH_COLOR_BG_YELLOW		"\e[43m"
-#define ETK_BASH_COLOR_BG_BLUE			"\e[44m"
-#define ETK_BASH_COLOR_BG_MAGENTA		"\e[45m"
-#define ETK_BASH_COLOR_BG_CYAN			"\e[46m"
-#define ETK_BASH_COLOR_BG_WHITE			"\e[47m"
-// Return to the normal color setings
+#define ETK_BASH_COLOR_BACKGROUND_BLACK			"\e[40m"
+#define ETK_BASH_COLOR_BACKGROUND_RED			"\e[41m"
+#define ETK_BASH_COLOR_BACKGROUND_GREEN			"\e[42m"
+#define ETK_BASH_COLOR_BACKGROUND_YELLOW		"\e[43m"
+#define ETK_BASH_COLOR_BACKGROUND_BLUE			"\e[44m"
+#define ETK_BASH_COLOR_BACKGROUND_MAGENTA		"\e[45m"
+#define ETK_BASH_COLOR_BACKGROUND_CYAN			"\e[46m"
+#define ETK_BASH_COLOR_BACKGROUND_WHITE			"\e[47m"
+// Return to the normal color settings
 #define ETK_BASH_COLOR_NORMAL			"\e[0m"
 
 
 namespace etk {
 //in the unicode section we have : [E000..F8FF]   private area ==> we will store element in this area:
 // internal define to permit to have all needed system
-enum regExpPrivateSection {
-	regexpOpcodePTheseIn=0xE000,/* ( */
-	regexpOpcodePTheseOut,/* ) */
-	regexpOpcodeBracketIn,/* [ */
-	regexpOpcodeBracketOut,/* ] */
-	regexpOpcodeBracetIn,/* { */
-	regexpOpcodeBracetOut,/* } */
-	regexpOpcodeTo,/* - */
-	regexpOpcodeStar,/* * */
-	regexpOpcodeDot,/* . */
-	regexpOpcodeEOF,/* \e */
-	regexpOpcodeQuestion,/* ? */
-	regexpOpcodePlus,/* + */
-	regexpOpcodePipe,/* | */
-	regexpOpcodeStartOfLine,/* ^  this is also NOT, but not manage */
-	regexpOpcodeEndOfLine,/* $ */
-	regexpOpcodeDigit,/* \d */
-	regexpOpcodeDigitNot,/* \D */
-	regexpOpcodeLetter,/* \l */
-	regexpOpcodeLetterNot,/* \L */
-	regexpOpcodeSpace,/* \s */
-	regexpOpcodeSpaceNot,/* \S */
-	regexpOpcodeWord,/* \w */
-	regexpOpcodeWordNot,/* \W */
-	regexpOpcodeNoChar,/* \@ */
-	regexpOpcodeError, // not used
+enum regExPrivateSection {
+	regexOpcodePTheseIn=0xE000,/* ( */
+	regexOpcodePTheseOut,/* ) */
+	regexOpcodeBracketIn,/* [ */
+	regexOpcodeBracketOut,/* ] */
+	regexOpcodeBraceIn,/* { */
+	regexOpcodeBraceOut,/* } */
+	regexOpcodeTo,/* - */
+	regexOpcodeStar,/* * */
+	regexOpcodeDot,/* . */
+	regexOpcodeEOF,/* \e */
+	regexOpcodeQuestion,/* ? */
+	regexOpcodePlus,/* + */
+	regexOpcodePipe,/* | */
+	regexOpcodeStartOfLine,/* ^  this is also NOT, but not manage */
+	regexOpcodeEndOfLine,/* $ */
+	regexOpcodeDigit,/* \d */
+	regexOpcodeDigitNot,/* \D */
+	regexOpcodeLetter,/* \l */
+	regexOpcodeLetterNot,/* \L */
+	regexOpcodeSpace,/* \s */
+	regexOpcodeSpaceNot,/* \S */
+	regexOpcodeWord,/* \w */
+	regexOpcodeWordNot,/* \W */
+	regexOpcodeNoChar,/* \@ */
+	regexOpcodeError, // not used
 };
 /*
 normal mode :
@@ -92,25 +92,25 @@ normal mode :
 	\D                  NOT a digit                             [^0-9]
 	\l                  Letters                                 [a-zA-Z]
 	\L                  NOT a Letter                            [^a-zA-Z]
-	\s                  Whitespace                              [ \t\n\r\f\v]
-	\S                  NOT Whitespace                          [^ \t\n\r\f\v]
+	\s                  White space                             [ \t\n\r\f\v]
+	\S                  NOT White space                         [^ \t\n\r\f\v]
 	\w                  "Word" character                        [a-zA-Z0-9_]
 	\W                  NOT a "Word" character                  [^a-zA-Z0-9_]
-	\@                  at the start or the end                 not in the parsing of element ==> check if \w is not present   (other regExp will be <> ...)
+	\@                  at the start or the end                 not in the parsing of element ==> check if \w is not present   (other regEx will be <> ...)
 	\e                  end-of-file / end-of-data               [\x00] ==> not counted
 	[anjdi] or [a-gt-j] range: It support the \d \w \s \l elements. If you add at the first element a '^' it will invert the value selected
 	.                   dot                                     [^\x00]
-	$                   End / Start of line of line             ==> ce sera un truc suplémentaire comme le \@
+	$                   End / Start of line of line             ==> same as \@
 	@                   Previous
 ==> TODO :
 	Start of line
-	force regexp to be the shortest.
+	force regex to be the shortest.
 	    short:  [a-z]{2,4}?   in string "  abghjkh  " ==> find "ab"
-	    gready: [a-z]{2,4}    in string "  abghjkh  " ==> find "abgh"
+	    greedy: [a-z]{2,4}    in string "  abghjkh  " ==> find "abgh"
 	    short:  [a-z]+? ==> at least 1
-	    short:  [a-z]+
+	    greedy: [a-z]+
 	    short:  [a-z]*? ==> at least 0
-	    short:  [a-z]*
+	    greedy: [a-z]*
 
 multiplicity:
 	*     ==> {0, 2147483647} (try to have the minimum size)
@@ -129,18 +129,18 @@ class OptionList {
 };
 
 /**
- * @brief convertion table of every element in a regular expression.
+ * @brief Conversion table of every element in a regular expression.
  * @not-in-doc
  */
-struct convertionTable {
+struct conversionTable {
 	bool haveBackSlash;
 	char inputValue;
 	char newValue;
-	enum etk::regExpPrivateSection specialChar;
+	enum etk::regExPrivateSection specialChar;
 };
-namespace regexp {
+namespace regex {
 enum parseStatus {
-	parseStatusUnknow, //!< No status set
+	parseStatusUnknown, //!< No status set
 	parseStatusNone, //!< parse have no data
 	parseStatusPartial, //!< parse is done partially, and can have more data
 	parseStatusFull //!< can not parse more elements
@@ -148,15 +148,15 @@ enum parseStatus {
 //! @not-in-doc
 std::ostream& operator <<(std::ostream& _os, enum parseStatus _obj);
 //! @not-in-doc
-extern const struct convertionTable constConvertionTable[];
+extern const struct conversionTable constConversionTable[];
 //! @not-in-doc
-extern const int64_t constConvertionTableSize;
+extern const int64_t constConversionTableSize;
 //! @not-in-doc
 std::string createString(const std::vector<char32_t>& _data, int64_t _start=0, int64_t _stop=0x7FFFFFFF);
 //! @not-in-doc
 char * levelSpace(uint32_t _level);
 //! @not-in-doc
-int64_t getLenOfPTheseElem(const std::vector<char32_t>& _data, int64_t _startPos);
+int64_t getLenOfPTheseElement(const std::vector<char32_t>& _data, int64_t _startPos);
 //! @not-in-doc
 int64_t getLenOfPThese(const std::vector<char32_t>& _data, int64_t _startPos);
 //! @not-in-doc
@@ -180,9 +180,9 @@ class FindProperty {
 	public:
 		int64_t m_positionStart; //!< find start position
 		int64_t m_positionStop; //!< find end position
-		uint32_t m_multiplicity; //!< curent multiplicity of find element
-		enum parseStatus m_status; //!< curent status of parsing
-		int32_t m_subIndex; //!< dubindex int the upper list ... for (...) 
+		uint32_t m_multiplicity; //!< current multiplicity of find element
+		enum parseStatus m_status; //!< current status of parsing
+		int32_t m_subIndex; //!< under index int the upper list ... for (...) 
 	public:
 		std::vector<FindProperty> m_subProperty; //!< list of all sub elements
 	public:
@@ -190,7 +190,7 @@ class FindProperty {
 		  m_positionStart(-1),
 		  m_positionStop(-1),
 		  m_multiplicity(0),
-		  m_status(parseStatusUnknow),
+		  m_status(parseStatusUnknown),
 		  m_subIndex(-1) {
 			// nothing to do ...
 		}
@@ -198,7 +198,7 @@ class FindProperty {
 		  m_positionStart = -1;
 		  m_positionStop = -1;
 		  m_multiplicity = 0;
-		  m_status = parseStatusUnknow;
+		  m_status = parseStatusUnknown;
 		  m_subIndex = -1;
 		}
 		int64_t getPositionStart() const {
@@ -216,7 +216,7 @@ class FindProperty {
 		void setPositionStop(int64_t _newPos) {
 			m_positionStop = _newPos;
 			if (m_positionStop < m_positionStart) {
-				TK_CRITICAL("set volontary a stop position before end : " << this << " start=" << m_positionStart << " stop=" << m_positionStop);
+				TK_CRITICAL("set voluntary a stop position before end : " << this << " start=" << m_positionStart << " stop=" << m_positionStop);
 			}
 		}
 		uint32_t getMultiplicity() const {
@@ -250,17 +250,17 @@ class FindProperty {
 			m_subIndex = _newIndex;
 		}
 		template<class CLASS_TYPE>
-		static void display(const FindProperty& _elem, const CLASS_TYPE& _data, int32_t _level = 0) {
+		static void display(const FindProperty& _element, const CLASS_TYPE& _data, int32_t _level = 0) {
 			std::string tmp;
-			for (int32_t iii=_elem.m_positionStart; iii<_elem.m_positionStop; ++iii) {
+			for (int32_t iii=_element.m_positionStart; iii<_element.m_positionStop; ++iii) {
 				tmp += _data[iii];
 			}
 			TK_INFO("prop : " << levelSpace(_level) << " ["
-			        << _elem.m_positionStart << ","
-			        << _elem.m_positionStop << "]*"
-			        << _elem.m_multiplicity << " data='"
+			        << _element.m_positionStart << ","
+			        << _element.m_positionStop << "]*"
+			        << _element.m_multiplicity << " data='"
 			        << tmp << "'");
-			for (auto &it : _elem.m_subProperty) {
+			for (auto &it : _element.m_subProperty) {
 				FindProperty::display<CLASS_TYPE>(it, _data, _level+1);
 			}
 		}
@@ -284,14 +284,14 @@ std::ostream& operator <<(std::ostream& _os, const FindProperty& _obj);
 template<class CLASS_TYPE> class Node {
 	protected :
 		// Data Section ... (can have no data...)
-		std::vector<char32_t> m_regExpData; //!< data to parse and compare in some case ...
+		std::vector<char32_t> m_regExData; //!< data to parse and compare in some case ...
 		int32_t m_nodeLevel;
 	public :
 		/**
 		 * @brief Constructor
 		 */
 		Node(int32_t _level) :
-		  m_regExpData(),
+		  m_regExData(),
 		  m_nodeLevel(_level),
 		  m_canHaveMultiplicity(true),
 		  m_multipleMin(1),
@@ -305,7 +305,7 @@ template<class CLASS_TYPE> class Node {
 		virtual ~Node() { };
 		/**
 		 * @brief Generate the regular expression with the current "converted string"
-		 * @param[in] _data Property of the regexp
+		 * @param[in] _data Property of the regex
 		 * @param[in] _level Node level in the tree
 		 * @return the number of element used
 		 */
@@ -316,7 +316,7 @@ template<class CLASS_TYPE> class Node {
 		 * @brief Parse the current node
 		 * @param[in] _data Data to parse (start pointer / or class that have access with operator[] )
 		 * @param[in] _currentPos Current parsing position.
-		 * @param[in] _lenMax Maximum position to parse the data (can be not hte end of the data due to the fact sometime we want to parse sub section).
+		 * @param[in] _lenMax Maximum position to parse the data (can be not the end of the data due to the fact sometime we want to parse sub section).
 		 * @return Full Find something (can not find more...)
 		 * @return Partial can find more data ...
 		 * @return None Find nothing
@@ -327,14 +327,14 @@ template<class CLASS_TYPE> class Node {
 		 * @param[in] level of the node
 		 */
 		virtual void display() {
-			TK_INFO("Find NODE : " << levelSpace(m_nodeLevel) << "@???@ {" << getMultMin() << "," << getMultMax() << "}  subdata=" << createString(m_regExpData) );
+			TK_INFO("Find NODE : " << levelSpace(m_nodeLevel) << "@???@ {" << getMultiplicityMin() << "," << getMultiplicityMax() << "}  under-data=" << createString(m_regExData) );
 		};
 	protected:
 		bool m_canHaveMultiplicity; //!< minimum repetition (included)
 	public:
 		/**
 		 * @brief Set the multiplicity capabilities.
-		 * @paran[in] _newVal new capabilities.
+		 * @param[in] _newVal new capabilities.
 		 */
 		void setMultiplicityAbility(bool _newVal) {
 			m_canHaveMultiplicity = _newVal;
@@ -346,7 +346,7 @@ template<class CLASS_TYPE> class Node {
 	protected:
 		/**
 		 * @brief Get the multiplicity capabilities.
-		 * @return Multiplicity availlable.
+		 * @return Multiplicity available.
 		 */
 		bool getMultiplicityAbility() const {
 			return m_canHaveMultiplicity;
@@ -360,7 +360,7 @@ template<class CLASS_TYPE> class Node {
 		 * @param[in] _min The minimum appear time.
 		 * @param[in] _max The maximum appear time.
 		 */
-		void setMult(uint32_t _min, uint32_t _max) {
+		void setMultiplicity(uint32_t _min, uint32_t _max) {
 			if (m_canHaveMultiplicity == false) {
 				TK_WARNING("can not set multiplicity ...");
 				return;
@@ -371,32 +371,32 @@ template<class CLASS_TYPE> class Node {
 	protected:
 		/**
 		 * @brief Get the minimum multiplicity.
-		 * @return The minimum appear availlable.
+		 * @return The minimum appear available.
 		 */
-		uint32_t getMultMin() const {
+		uint32_t getMultiplicityMin() const {
 			return m_multipleMin;
 		};
 		/**
 		 * @brief Get the maximum multiplicity.
-		 * @return The maximum appear availlable.
+		 * @return The maximum appear available.
 		 */
-		uint32_t getMultMax() const {
+		uint32_t getMultiplicityMax() const {
 			return m_multipleMax;
 		};
 	protected:
 		bool m_countOutput; //!< minimum repetition (included)
 	public:
 		/**
-		 * @brief Set the output count availlable in regexp.
-		 * @paran[in] _newVal new capabilities.
+		 * @brief Set the output count available in regex.
+		 * @param[in] _newVal new capabilities.
 		 */
 		void setCountOutput(bool _newVal) {
 			m_countOutput = _newVal;
 		};
 	protected:
 		/**
-		 * @brief Get the output count availlable in regexp.
-		 * @return count availlable.
+		 * @brief Get the output count available in regex.
+		 * @return count available.
 		 */
 		bool getCountOutput() const {
 			return m_countOutput;
@@ -418,20 +418,20 @@ template<class CLASS_TYPE> class NodeValue : public Node<CLASS_TYPE> {
 		};
 		
 		int32_t generate(const std::vector<char32_t>& _data) {
-			Node<CLASS_TYPE>::m_regExpData = _data;
-			TK_REG_DEBUG("Request Parse \"Value\" data=" << createString(Node<CLASS_TYPE>::m_regExpData) );
+			Node<CLASS_TYPE>::m_regExData = _data;
+			TK_REG_DEBUG("Request Parse \"Value\" data=" << createString(Node<CLASS_TYPE>::m_regExData) );
 			m_data.clear();
-			for (int32_t i=0; i<(int64_t)Node<CLASS_TYPE>::m_regExpData.size(); i++) {
-				m_data.push_back(Node<CLASS_TYPE>::m_regExpData[i]);
+			for (int32_t i=0; i<(int64_t)Node<CLASS_TYPE>::m_regExData.size(); i++) {
+				m_data.push_back(Node<CLASS_TYPE>::m_regExData[i]);
 			}
 			return _data.size();
 		};
 		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
 			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " Value{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "} : " << (char)m_data[0]);
-			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       " << createString(Node<CLASS_TYPE>::m_regExpData));
+			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       " << createString(Node<CLASS_TYPE>::m_regExData));
 			TK_REG_DEBUG_3("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " Value " << _property);
 			if (m_data.size() == 0) {
-				TK_ERROR("No data inside type elemTypeValue");
+				TK_ERROR("No data inside type elementTypeValue");
 				_property.setStatus(parseStatusNone);
 				return;
 			}
@@ -447,28 +447,28 @@ template<class CLASS_TYPE> class NodeValue : public Node<CLASS_TYPE> {
 			int32_t findLen = 0;
 			while(    _property.getMultiplicity() < Node<CLASS_TYPE>::m_multipleMax
 			       && tmpFind == true) {
-				uint32_t ofset = 0;
+				uint32_t offset = 0;
 				int64_t kkk;
 				for (kkk=0; findLen+kkk<_lenMax && kkk < (int64_t)m_data.size(); kkk++) {
 					TK_REG_DEBUG("     " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel)
 					                    << "      check element value : '"
-					                    << etk::regexp::autoStr((char)m_data[kkk])
+					                    << etk::regex::autoStr((char)m_data[kkk])
 					                    << "' ?= '"
-					                    << etk::regexp::autoStr((char)_data[_currentPos+findLen+kkk])
+					                    << etk::regex::autoStr((char)_data[_currentPos+findLen+kkk])
 					                    << "'");
 					if (m_data[kkk] != (char32_t)_data[_currentPos+findLen+kkk]) {
 						tmpFind=false;
 						break;
 					}
-					ofset++;
+					offset++;
 				}
 				if (kkk != (int64_t)m_data.size()) {
 					// parsing not ended ...
 					tmpFind = false;
 				}
-				// Update local ofset of data
+				// Update local offset of data
 				if (tmpFind == true) {
-					findLen += ofset;
+					findLen += offset;
 				}
 				_property.multiplicityIncrement();
 			}
@@ -491,8 +491,8 @@ template<class CLASS_TYPE> class NodeValue : public Node<CLASS_TYPE> {
 		void display() {
 			TK_INFO("Find NODE : " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "@Value@ {"
 			        << Node<CLASS_TYPE>::m_multipleMin << ","
-			        << Node<CLASS_TYPE>::m_multipleMax << "} subdata="
-			        << createString(Node<CLASS_TYPE>::m_regExpData)
+			        << Node<CLASS_TYPE>::m_multipleMax << "} under-data="
+			        << createString(Node<CLASS_TYPE>::m_regExData)
 			        << " data: " << createString(m_data) );
 		};
 };
@@ -526,7 +526,7 @@ template<class CLASS_TYPE> class NodeRangeValue : public Node<CLASS_TYPE> {
 		void addValue(char32_t _value) {
 			m_dataList.push_back(_value);
 		}
-		void setInvertion(bool _newVal) {
+		void setInvert(bool _newVal) {
 			m_invert = _newVal;
 		}
 		const char* getDescriptiveName() const {
@@ -535,11 +535,11 @@ template<class CLASS_TYPE> class NodeRangeValue : public Node<CLASS_TYPE> {
 		void setDescriptiveName(const char* _name) {
 			m_typeName = _name;
 		}
-		// Truc a faire : multipliciter min, return partiel, et ...
+		// TODO: multiplicity minimum, return partial, and ...
 		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
 			int32_t findLen = 0;
 			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " " << getDescriptiveName() << "{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
-			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       " << createString(Node<CLASS_TYPE>::m_regExpData));
+			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       " << createString(Node<CLASS_TYPE>::m_regExData));
 			TK_REG_DEBUG_3("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " " << getDescriptiveName() << " " << _property);
 			if (_property.getStatus() != parseStatusPartial) {
 				if (Node<CLASS_TYPE>::m_multipleMin == 0) {
@@ -632,7 +632,7 @@ template<class CLASS_TYPE> class NodeRangeValue : public Node<CLASS_TYPE> {
 			TK_INFO("Find NODE : " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " " << getDescriptiveName() << " {"
 			        << Node<CLASS_TYPE>::m_multipleMin << ","
 			        << Node<CLASS_TYPE>::m_multipleMax <<
-			        "}  subdata=" << createString(Node<CLASS_TYPE>::m_regExpData));
+			        "}  under-data=" << createString(Node<CLASS_TYPE>::m_regExData));
 		};
 };
 
@@ -651,51 +651,51 @@ template<class CLASS_TYPE> class NodeBracket : public NodeRangeValue<CLASS_TYPE>
 			generate(_data);
 		};
 		int32_t generate(const std::vector<char32_t>& _data) {
-			Node<CLASS_TYPE>::m_regExpData = _data;
-			TK_REG_DEBUG("Request Parse [...] data=" << createString(Node<CLASS_TYPE>::m_regExpData) );
+			Node<CLASS_TYPE>::m_regExData = _data;
+			TK_REG_DEBUG("Request Parse [...] data=" << createString(Node<CLASS_TYPE>::m_regExData) );
 			
 			char32_t lastElement = 0;
 			bool multipleElement = false;
 			// Parse the elements:
-			for (int32_t kkk=0; kkk<(int64_t)Node<CLASS_TYPE>::m_regExpData.size(); kkk++) {
+			for (int32_t kkk=0; kkk<(int64_t)Node<CLASS_TYPE>::m_regExData.size(); kkk++) {
 				if (    kkk == 0
-				     && Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeStartOfLine) {
-					// Check if the user request an invertion check:
-					NodeRangeValue<CLASS_TYPE>::setInvertion(true);
-				} else if (Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeStartOfLine) {
+				     && Node<CLASS_TYPE>::m_regExData[kkk] == regexOpcodeStartOfLine) {
+					// Check if the user request an invert check:
+					NodeRangeValue<CLASS_TYPE>::setInvert(true);
+				} else if (Node<CLASS_TYPE>::m_regExData[kkk] == regexOpcodeStartOfLine) {
 					TK_ERROR("Unsupported Element '^' inside the [...] not at the first element");
 					return 0;
-				} else if (Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeDigit) {
+				} else if (Node<CLASS_TYPE>::m_regExData[kkk] == regexOpcodeDigit) {
 					NodeRangeValue<CLASS_TYPE>::addRange('0', '9');
-				} else if (Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeLetter) {
+				} else if (Node<CLASS_TYPE>::m_regExData[kkk] == regexOpcodeLetter) {
 					NodeRangeValue<CLASS_TYPE>::addRange('a', 'z');
 					NodeRangeValue<CLASS_TYPE>::addRange('A', 'Z');
-				} else if (Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeSpace) {
+				} else if (Node<CLASS_TYPE>::m_regExData[kkk] == regexOpcodeSpace) {
 					NodeRangeValue<CLASS_TYPE>::addValue(' ');
 					NodeRangeValue<CLASS_TYPE>::addValue('\t');
 					NodeRangeValue<CLASS_TYPE>::addValue('\n');
 					NodeRangeValue<CLASS_TYPE>::addValue('\r');
 					NodeRangeValue<CLASS_TYPE>::addValue('\f');
 					NodeRangeValue<CLASS_TYPE>::addValue('\v');
-				} else if (Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeWord) {
+				} else if (Node<CLASS_TYPE>::m_regExData[kkk] == regexOpcodeWord) {
 					NodeRangeValue<CLASS_TYPE>::addRange('a', 'z');
 					NodeRangeValue<CLASS_TYPE>::addRange('A', 'Z');
 					NodeRangeValue<CLASS_TYPE>::addRange('0', '9');
-				} else if (    Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeTo
+				} else if (    Node<CLASS_TYPE>::m_regExData[kkk] == regexOpcodeTo
 				     && multipleElement == true) {
 					TK_ERROR("Can not have 2 consecutive - in [...]");
 					return 0;
 				} else if (multipleElement == true) {
-					NodeRangeValue<CLASS_TYPE>::addRange(lastElement, Node<CLASS_TYPE>::m_regExpData[kkk]);
+					NodeRangeValue<CLASS_TYPE>::addRange(lastElement, Node<CLASS_TYPE>::m_regExData[kkk]);
 					multipleElement = false;
 					lastElement = 0;
-				} else if(Node<CLASS_TYPE>::m_regExpData[kkk] == regexpOpcodeTo) {
+				} else if(Node<CLASS_TYPE>::m_regExData[kkk] == regexOpcodeTo) {
 					multipleElement = true;
 				} else {
 					if (lastElement != 0) {
 						NodeRangeValue<CLASS_TYPE>::addValue(lastElement);
 					}
-					lastElement = Node<CLASS_TYPE>::m_regExpData[kkk];
+					lastElement = Node<CLASS_TYPE>::m_regExData[kkk];
 				}
 			}
 			if (lastElement != 0) {
@@ -722,8 +722,8 @@ template<class CLASS_TYPE> class NodeSOL : public Node<CLASS_TYPE> {
 			int32_t findLen = 0;
 			bool tmpFind = false;
 			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " SOL{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
-			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       " << createString(Node<CLASS_TYPE>::m_regExpData));
-			// TODO : is it really what I want ... (maybe next ellement will be requested... (check if previous element is \r or \n
+			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       " << createString(Node<CLASS_TYPE>::m_regExData));
+			// TODO : is it really what I want ... (maybe next element will be requested... (check if previous element is \r or \n
 			while (    _property.getMultiplicity() < Node<CLASS_TYPE>::m_multipleMax
 			        && tmpFind == true
 			        && _property.getMultiplicity() <_lenMax) {
@@ -755,13 +755,13 @@ template<class CLASS_TYPE> class NodeSOL : public Node<CLASS_TYPE> {
 		void display() {
 			TK_INFO("Find NODE : " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "@SOL@ {"
 			        << Node<CLASS_TYPE>::m_multipleMin << ","
-			        << Node<CLASS_TYPE>::m_multipleMax << "}  subdata="
-			        << createString(Node<CLASS_TYPE>::m_regExpData) );
+			        << Node<CLASS_TYPE>::m_multipleMax << "}  under-data="
+			        << createString(Node<CLASS_TYPE>::m_regExData) );
 		};
 };
 
 
-class elementPos_ts {
+class ElementPos {
 	public:
 		int64_t start;
 		int64_t stop;
@@ -772,7 +772,7 @@ template<class CLASS_TYPE> class NodePThese;
 /**
  * @not-in-doc
  */
-template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
+template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 	protected :
 		// SubNodes :
 		std::vector<Node<CLASS_TYPE>*> m_subNode;
@@ -780,14 +780,14 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 		/**
 		 * @brief Constructor
 		 */
-		NodePTheseElem(int32_t _level) : Node<CLASS_TYPE>::Node(_level) { };
-		NodePTheseElem(const std::vector<char32_t>& _data, int32_t _level) : Node<CLASS_TYPE>::Node(_level) {
+		NodePTheseElement(int32_t _level) : Node<CLASS_TYPE>::Node(_level) { };
+		NodePTheseElement(const std::vector<char32_t>& _data, int32_t _level) : Node<CLASS_TYPE>::Node(_level) {
 			generate(_data);
 		};
 		/**
 		 * @brief Destructor
 		 */
-		~NodePTheseElem() {
+		~NodePTheseElement() {
 			/*
 			for (auto it : m_subNode) {
 				delete *it;
@@ -797,46 +797,46 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 			m_subNode.clear();
 		};
 		int32_t generate(const std::vector<char32_t>& _data) {
-			Node<CLASS_TYPE>::m_regExpData = _data;
-			TK_REG_DEBUG("Request Parse (elem) data=" << createString(Node<CLASS_TYPE>::m_regExpData) );
+			Node<CLASS_TYPE>::m_regExData = _data;
+			TK_REG_DEBUG("Request Parse (element) data=" << createString(Node<CLASS_TYPE>::m_regExData) );
 			int64_t pos = 0;
 			int64_t elementSize = 0;
 			std::vector<char32_t> tmpData;
-			while (pos < (int64_t)Node<CLASS_TYPE>::m_regExpData.size()) {
+			while (pos < (int64_t)Node<CLASS_TYPE>::m_regExData.size()) {
 				tmpData.clear();
-				switch (Node<CLASS_TYPE>::m_regExpData[pos]) {
-					case regexpOpcodePTheseIn:{
-							elementSize=getLenOfPThese(Node<CLASS_TYPE>::m_regExpData, pos);
+				switch (Node<CLASS_TYPE>::m_regExData[pos]) {
+					case regexOpcodePTheseIn:{
+							elementSize=getLenOfPThese(Node<CLASS_TYPE>::m_regExData, pos);
 							for (int64_t kkk=pos+1; kkk<pos+elementSize+1; ++kkk) {
-								tmpData.push_back(Node<CLASS_TYPE>::m_regExpData[kkk]);
+								tmpData.push_back(Node<CLASS_TYPE>::m_regExData[kkk]);
 							}
-							// add to the subnode list :
+							// add to the under-node list :
 							m_subNode.push_back(new NodePThese<CLASS_TYPE>(tmpData, Node<CLASS_TYPE>::m_nodeLevel+1));
 							// move current position ...
 							pos += elementSize+1;
 						}
 						break;
-					case regexpOpcodePTheseOut:
+					case regexOpcodePTheseOut:
 						TK_ERROR("Impossible case :  ')' " << pos);
 						return false;
-					case regexpOpcodeBracketIn: {
-							elementSize=getLenOfBracket(Node<CLASS_TYPE>::m_regExpData, pos);
+					case regexOpcodeBracketIn: {
+							elementSize=getLenOfBracket(Node<CLASS_TYPE>::m_regExData, pos);
 							for (int64_t kkk=pos+1; kkk<pos+elementSize+1; ++kkk) {
-								tmpData.push_back(Node<CLASS_TYPE>::m_regExpData[kkk]);
+								tmpData.push_back(Node<CLASS_TYPE>::m_regExData[kkk]);
 							}
-							// add to the subnode list : 
+							// add to the under-node list : 
 							m_subNode.push_back(new NodeBracket<CLASS_TYPE>(tmpData, Node<CLASS_TYPE>::m_nodeLevel+1));
 							// move current position ...
 							pos += elementSize+1;
 						}
 						break;
-					case regexpOpcodeBracketOut:
+					case regexOpcodeBracketOut:
 						TK_ERROR("Impossible case :  ']' " << pos);
 						return false;
-					case regexpOpcodeBracetIn: {
-							elementSize = getLenOfBrace(Node<CLASS_TYPE>::m_regExpData, pos);
+					case regexOpcodeBraceIn: {
+							elementSize = getLenOfBrace(Node<CLASS_TYPE>::m_regExData, pos);
 							for (int64_t kkk=pos+1; kkk<pos+elementSize+1; ++kkk) {
-								tmpData.push_back(Node<CLASS_TYPE>::m_regExpData[kkk]);
+								tmpData.push_back(Node<CLASS_TYPE>::m_regExData[kkk]);
 							}
 							uint32_t min = 0;
 							uint32_t max = 0;
@@ -847,25 +847,25 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 							pos += elementSize+1;
 						}
 						break;
-					case regexpOpcodeBracetOut:
+					case regexOpcodeBraceOut:
 						TK_ERROR("Impossible case :  '}' " << pos);
 						return false;
-					case regexpOpcodeTo:
+					case regexOpcodeTo:
 						TK_ERROR("Impossible case :  '-' " << pos);
 						return false;
-					case regexpOpcodeStar:
+					case regexOpcodeStar:
 						setMultiplicityOnLastNode(0, 0x7FFFFFFF);
 						break;
-					case regexpOpcodeQuestion:
+					case regexOpcodeQuestion:
 						setMultiplicityOnLastNode(0, 1);
 						break;
-					case regexpOpcodePlus:
+					case regexOpcodePlus:
 						setMultiplicityOnLastNode(1, 0x7FFFFFFF);
 						break;
-					case regexpOpcodePipe:
+					case regexOpcodePipe:
 						TK_ERROR("Impossible case :  '|' " << pos);
 						return false;
-					case regexpOpcodeEOF:
+					case regexOpcodeEOF:
 						{
 							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("EOF");
@@ -875,19 +875,19 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 							m_subNode.push_back(tmpNode);
 						}
 						break;
-					case regexpOpcodeDot:
+					case regexOpcodeDot:
 						{
 							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("dot");
 							tmpNode->addValue('\0');
-							tmpNode->setInvertion(true);
+							tmpNode->setInvert(true);
 							m_subNode.push_back(tmpNode);
 						}
 						break;
-					case regexpOpcodeStartOfLine:
+					case regexOpcodeStartOfLine:
 						m_subNode.push_back(new NodeSOL<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1));
 						break;
-					case regexpOpcodeEndOfLine:
+					case regexOpcodeEndOfLine:
 						{
 							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("EOL");
@@ -895,7 +895,7 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 							m_subNode.push_back(tmpNode);
 						}
 						break;
-					case regexpOpcodeDigit:
+					case regexOpcodeDigit:
 						{
 							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("digit");
@@ -903,16 +903,16 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 							m_subNode.push_back(tmpNode);
 						}
 						break;
-					case regexpOpcodeDigitNot:
+					case regexOpcodeDigitNot:
 						{
 							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("digit-not");
 							tmpNode->addRange('0', '9');
-							tmpNode->setInvertion(true);
+							tmpNode->setInvert(true);
 							m_subNode.push_back(tmpNode);
 						}
 						break;
-					case regexpOpcodeLetter:
+					case regexOpcodeLetter:
 						{
 							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("letter");
@@ -921,17 +921,17 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 							m_subNode.push_back(tmpNode);
 						}
 						break;
-					case regexpOpcodeLetterNot:
+					case regexOpcodeLetterNot:
 						{
 							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("letter-not");
 							tmpNode->addRange('a', 'z');
 							tmpNode->addRange('A', 'Z');
-							tmpNode->setInvertion(true);
+							tmpNode->setInvert(true);
 							m_subNode.push_back(tmpNode);
 						}
 						break;
-					case regexpOpcodeSpace:
+					case regexOpcodeSpace:
 						{
 							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("space");
@@ -944,7 +944,7 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 							m_subNode.push_back(tmpNode);
 						}
 						break;
-					case regexpOpcodeSpaceNot:
+					case regexOpcodeSpaceNot:
 						{
 							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("space-not");
@@ -954,11 +954,11 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 							tmpNode->addValue('\r');
 							tmpNode->addValue('\f');
 							tmpNode->addValue('\v');
-							tmpNode->setInvertion(true);
+							tmpNode->setInvert(true);
 							m_subNode.push_back(tmpNode);
 						}
 						break;
-					case regexpOpcodeWord:
+					case regexOpcodeWord:
 						{
 							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("word");
@@ -968,23 +968,23 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 							m_subNode.push_back(tmpNode);
 						}
 						break;
-					case regexpOpcodeWordNot:
+					case regexOpcodeWordNot:
 						{
 							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("word-not");
 							tmpNode->addRange('a', 'z');
 							tmpNode->addRange('A', 'Z');
 							tmpNode->addRange('0', '9');
-							tmpNode->setInvertion(true);
+							tmpNode->setInvert(true);
 							m_subNode.push_back(tmpNode);
 						}
 						break;
 					default: {
-							elementSize = getLenOfNormal(Node<CLASS_TYPE>::m_regExpData, pos);
+							elementSize = getLenOfNormal(Node<CLASS_TYPE>::m_regExData, pos);
 							for (int64_t kkk=pos; kkk<pos+elementSize; kkk++) {
-								tmpData.push_back(Node<CLASS_TYPE>::m_regExpData[kkk]);
+								tmpData.push_back(Node<CLASS_TYPE>::m_regExData[kkk]);
 							}
-							// add to the subnode list : 
+							// add to the under-node list : 
 							m_subNode.push_back(new NodeValue<CLASS_TYPE>(tmpData, Node<CLASS_TYPE>::m_nodeLevel+1));
 							// move current position ...
 							pos += elementSize-1;
@@ -996,10 +996,10 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 			return _data.size();
 		};
 		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
-			//TK_REG_DEBUG_2("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem) data to parse : '" << autoStr(std::string(_data, _currentPos, _lenMax-_currentPos)) << "'");
-			//TK_REG_DEBUG_2("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem) m_data='" << autoStr(Node<CLASS_TYPE>::m_data) << "'");
-			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem) " << _property);
-			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       work on: " << createString(Node<CLASS_TYPE>::m_regExpData));
+			//TK_REG_DEBUG_2("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element) data to parse : '" << autoStr(std::string(_data, _currentPos, _lenMax-_currentPos)) << "'");
+			//TK_REG_DEBUG_2("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element) m_data='" << autoStr(Node<CLASS_TYPE>::m_data) << "'");
+			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element) " << _property);
+			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       work on: " << createString(Node<CLASS_TYPE>::m_regExData));
 			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       pos=" << _currentPos << " ==> " << _lenMax);
 			int findLen = 0;
 			bool error = false;
@@ -1019,7 +1019,7 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 						tmpCurrentPos = prop.getPositionStop();
 						_property.m_subProperty.erase(_property.m_subProperty.begin()+jjj, _property.m_subProperty.end());
 						iii = jjj;
-						TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem) rewind=" << iii);
+						TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element) rewind=" << iii);
 						break;
 					}
 				}
@@ -1033,10 +1033,10 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 				prop.setPositionStart(tmpCurrentPos);
 			}
 			while (iii < m_subNode.size()) {
-				//TK_REG_DEBUG_2("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=" << iii << "/" << m_subNode.size() << ") data='" << autoStr(std::string(_data, tmpCurrentPos, _lenMax-tmpCurrentPos)) << "'");
+				//TK_REG_DEBUG_2("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element=" << iii << "/" << m_subNode.size() << ") data='" << autoStr(std::string(_data, tmpCurrentPos, _lenMax-tmpCurrentPos)) << "'");
 				m_subNode[iii]->parse(_data, tmpCurrentPos, _lenMax, prop);
 				if (prop.getStatus() == parseStatusNone) {
-					TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=" << iii << "/" << m_subNode.size() << ") ===None===      : " << prop);
+					TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element=" << iii << "/" << m_subNode.size() << ") ===None===      : " << prop);
 					// rewind the list:
 					bool findPartialNode = false;
 					for (int64_t jjj=_property.m_subProperty.size()-1; jjj>=0; --jjj) {
@@ -1046,18 +1046,18 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 							tmpCurrentPos = prop.getPositionStop();
 							_property.m_subProperty.erase(_property.m_subProperty.begin()+jjj, _property.m_subProperty.end());
 							iii = jjj;
-							TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=?/" << m_subNode.size() << ") == rewind at " << iii << "");
+							TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element=?/" << m_subNode.size() << ") == rewind at " << iii << "");
 							break;
 						}
 					}
 					// We did not find the element :
 					if (findPartialNode == false) {
 						_property.setStatus(parseStatusNone);
-						TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem) return=" << _property);
+						TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element) return=" << _property);
 						return;
 					} else {
 						if (tmpCurrentPos >= (int64_t)_data.size()) {
-							TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=?/" << m_subNode.size() << ") Reach end of buffer");
+							TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element=?/" << m_subNode.size() << ") Reach end of buffer");
 							_property.setStatus(parseStatusNone);
 							return;
 						}
@@ -1070,7 +1070,7 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 				}
 				tmpCurrentPos = prop.getPositionStop();
 				_property.m_subProperty.push_back(prop);
-				TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem=" << iii << "/" << m_subNode.size() << ") === OK === find : " << prop);
+				TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element=" << iii << "/" << m_subNode.size() << ") === OK === find : " << prop);
 				prop.reset();
 				prop.setPositionStart(tmpCurrentPos);
 				iii++;
@@ -1078,7 +1078,7 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 			_property.setStatus(parseStatusFull);
 			// Display sub List :
 			for (auto &it : _property.m_subProperty) {
-				TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem) sub=" << it);
+				TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element) sub=" << it);
 			}
 			for (int64_t iii=_property.m_subProperty.size()-1; iii>=0; --iii) {
 				if (_property.m_subProperty[iii].getStatus() == parseStatusPartial) {
@@ -1089,33 +1089,33 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
 			if (_property.m_subProperty.size()>0) {
 				_property.setPositionStop(_property.m_subProperty.back().getPositionStop() );
 			} else {
-				TK_WARNING("RegExp ERROR");
+				TK_WARNING("RegEx ERROR");
 			}
-			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (elem) return=" << _property);
+			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element) return=" << _property);
 		}
 		
 		void display() {
-			TK_INFO("Find NODE : " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "@(Elem)@ {"
+			TK_INFO("Find NODE : " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "@(Element)@ {"
 			        << Node<CLASS_TYPE>::m_multipleMin << ","
-			        << Node<CLASS_TYPE>::m_multipleMax << "}  subdata="
-			        << createString(Node<CLASS_TYPE>::m_regExpData) );
+			        << Node<CLASS_TYPE>::m_multipleMax << "}  under-data="
+			        << createString(Node<CLASS_TYPE>::m_regExData) );
 			for(auto &it : m_subNode) {
 				it->display();
 			}
 		};
 	private :
 		/**
-		 * @brief Set the number of repeate time on a the last node in the list ...
+		 * @brief Set the number of repeat time on a the last node in the list ...
 		 * @param[in] _min Minimum of the multiplicity
 		 * @param[in] _max Maximum of the multiplicity
 		 * @return true if we find the node, false otherwise
 		 */
 		bool setMultiplicityOnLastNode(uint32_t _min, uint32_t _max) {
 			if (m_subNode.size() == 0) {
-				TK_ERROR("Set multiplicity on an inexistant element ....");
+				TK_ERROR("Set multiplicity on an inexistent element ....");
 				return false;
 			}
-			m_subNode.back()->setMult(_min, _max);
+			m_subNode.back()->setMultiplicity(_min, _max);
 			return true;
 		}
 };
@@ -1125,7 +1125,7 @@ template<class CLASS_TYPE> class NodePTheseElem : public Node<CLASS_TYPE> {
  */
 template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 	protected :
-		std::vector<Node<CLASS_TYPE>*> m_subNode; //!< Subnode list 
+		std::vector<Node<CLASS_TYPE>*> m_subNode; //!< Under-node list 
 	public :
 		/**
 		 * @brief Constructor
@@ -1147,23 +1147,23 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 			m_subNode.clear();
 		}
 		int32_t generate(const std::vector<char32_t>& _data) {
-			Node<CLASS_TYPE>::m_regExpData = _data;
-			TK_REG_DEBUG("Request Parse (...) data=" << createString(Node<CLASS_TYPE>::m_regExpData) );
+			Node<CLASS_TYPE>::m_regExData = _data;
+			TK_REG_DEBUG("Request Parse (...) data=" << createString(Node<CLASS_TYPE>::m_regExData) );
 			//Find all the '|' in the string (and at the good level ...) 
 			int64_t pos = 0;
-			int32_t elementSize = getLenOfPTheseElem(Node<CLASS_TYPE>::m_regExpData, pos);
-			// generate all the "elemTypePTheseElem" of the Node
+			int32_t elementSize = getLenOfPTheseElement(Node<CLASS_TYPE>::m_regExData, pos);
+			// generate all the "elementTypePTheseElement" of the Node
 			while (elementSize>0) {
-				// geerate output deta ...
+				// Generate output data ...
 				std::vector<char32_t> tmpData;
 				for (int64_t kkk=pos; kkk<pos+elementSize; kkk++) {
-					tmpData.push_back(Node<CLASS_TYPE>::m_regExpData[kkk]);
+					tmpData.push_back(Node<CLASS_TYPE>::m_regExData[kkk]);
 				}
-				// add to the subnode list : 
-				m_subNode.push_back(new NodePTheseElem<CLASS_TYPE>(tmpData, Node<CLASS_TYPE>::m_nodeLevel+1));
+				// add to the under-node list : 
+				m_subNode.push_back(new NodePTheseElement<CLASS_TYPE>(tmpData, Node<CLASS_TYPE>::m_nodeLevel+1));
 				pos += elementSize+1;
-				TK_REG_DEBUG("plop=" << createString(Node<CLASS_TYPE>::m_regExpData, pos, pos+1) );
-				elementSize = getLenOfPTheseElem(Node<CLASS_TYPE>::m_regExpData, pos);
+				TK_REG_DEBUG("plop=" << createString(Node<CLASS_TYPE>::m_regExData, pos, pos+1) );
+				elementSize = getLenOfPTheseElement(Node<CLASS_TYPE>::m_regExData, pos);
 				TK_REG_DEBUG("find " << elementSize << " elements");
 			}
 			if (    pos == 0
@@ -1175,7 +1175,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 		};
 		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
 			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) {" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
-			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       work on: " << createString(Node<CLASS_TYPE>::m_regExpData));
+			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       work on: " << createString(Node<CLASS_TYPE>::m_regExData));
 			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       pos=" << _currentPos << " ==> " << _lenMax);
 			TK_REG_DEBUG_2("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) data='" << autoStr(std::string(_data, _currentPos, _lenMax-_currentPos)) << "'");
 			TK_REG_DEBUG_3("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) input property=" << _property);
@@ -1219,7 +1219,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 						tmpCurrentPos = prop.getPositionStop();
 						_property.m_subProperty.erase(_property.m_subProperty.begin()+jjj, _property.m_subProperty.end());
 						iiiStartPos = prop.getSubIndex();
-						TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) Rewind to " << iiiStartPos << " last elem=" << prop);
+						TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) Rewind to " << iiiStartPos << " last element=" << prop);
 						_property.setPositionStop(tmpCurrentPos);
 						break;
 					}
@@ -1228,7 +1228,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 				if (    _property.getPositionStop() < 0
 				     && Node<CLASS_TYPE>::m_multipleMin == 0
 				     && _property.getMultiplicity() == 0) {
-					TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) Finish to " << iiiStartPos << " last elem=" << prop);
+					TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) Finish to " << iiiStartPos << " last element=" << prop);
 					_property.setPositionStop(_property.getPositionStart());
 					_property.setStatus(parseStatusPartial);
 					return;
@@ -1277,7 +1277,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 				iiiStartPos = 0;
 				if (tmpFind == true) {
 					_property.setMultiplicity(_property.m_subProperty.size());
-					TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) mult=" << _property.getMultiplicity() << " find " << findLen);
+					TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) multiplicity=" << _property.getMultiplicity() << " find " << findLen);
 					if (_property.getMultiplicity() >= Node<CLASS_TYPE>::m_multipleMin) {
 						_property.setStatus(parseStatusPartial);
 						break;
@@ -1314,29 +1314,29 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 		
 		void display() {
 			if (9999 <= Node<CLASS_TYPE>::m_nodeLevel) {
-				TK_INFO("regExp :" << createString(Node<CLASS_TYPE>::m_regExpData) );
+				TK_INFO("regEx :" << createString(Node<CLASS_TYPE>::m_regExData) );
 			} else {
 				TK_INFO("Find NODE : " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "@(...)@ {"
 				        << Node<CLASS_TYPE>::m_multipleMin << ","
-				        << Node<CLASS_TYPE>::m_multipleMax << "}  subdata="
-				        << createString(Node<CLASS_TYPE>::m_regExpData) );
+				        << Node<CLASS_TYPE>::m_multipleMax << "}  under-data="
+				        << createString(Node<CLASS_TYPE>::m_regExData) );
 				for(auto &it : m_subNode) {
 					it->display();
 				}
 			}
 		};
 		/**
-		 * @brief Just display the regExp in color ...
+		 * @brief Just display the regEx in color ...
 		 */
 		void drawColoredRegEx() {
-			TK_INFO("regExp :" << createString(Node<CLASS_TYPE>::m_regExpData) );
+			TK_INFO("regEx :" << createString(Node<CLASS_TYPE>::m_regExData) );
 		}
 		/**
-		 * @brief get the string represented the regexp (colored)
-		 * @return Regexp string
+		 * @brief get the string represented the regex (colored)
+		 * @return Regex string
 		 */
 		std::string getColoredRegEx() {
-			return createString(Node<CLASS_TYPE>::m_regExpData);
+			return createString(Node<CLASS_TYPE>::m_regExData);
 		}
 };
 }
@@ -1344,7 +1344,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 /**
  * @brief Regular expression interface template.
  * 
- * List of elment that can be displayed :
+ * List of element that can be displayed:
  * 
  * [pre]
  *     (...)                 sub element is separate with |
@@ -1352,16 +1352,16 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
  *     \D                    NOT a digit                    [^0-9]
  *     \l                    Letters                        [a-zA-Z]
  *     \L                    NOT a Letter                   [^a-zA-Z]
- *     \s                    Whitespace                     [ \t\n\r\f\v]
- *     \S                    NOT Whitespace                 [^ \t\n\r\f\v]
+ *     \s                    White space                    [ \t\n\r\f\v]
+ *     \S                    NOT White space                [^ \t\n\r\f\v]
  *     \w                    "Word" character               [a-zA-Z0-9_]
  *     \W                    NOT a "Word" character         [^a-zA-Z0-9_]
- *     \@                    at the start or the end        not in the parsing of element ==> check if \w is not present   (other regExp will be <> ...)
+ *     \@                    at the start or the end        not in the parsing of element ==> check if \w is not present   (other regEx will be <> ...)
  *     [anjdi] or [a-gt-j]   range. It support the \d \w \s \l elements. If you add at the first element a '^' it will invert the value selected
  *     .                     dot                            [^\x00-\x08\x0A-\x1F\x7F]
  * ==> TODO :
- *     $                     End / Start of line of line    ==> ce sera un truc suplé comme le \@
- *     ^in the []            invertion of the range element
+ *     $                     End / Start of line of line    ==> same as \@
+ *     ^in the []            invert the range element
  * 
  * multiplicity :
  *     *     ==> {0, 2147483647}
@@ -1371,26 +1371,26 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
  *     {x,y} ==> {x, y}
  * [/pre]
  * 
- * @param[in] CLASS_TYPE Type of theclass that might be parsed. This class might have a interface : operator[] that return a char or a char32_t.
+ * @param[in] CLASS_TYPE Type of the class that might be parsed. This class might have a interface : operator[] that return a char or a char32_t.
  * 
  * Regular is easy to use:
  */
-template<class CLASS_TYPE> class RegExp {
+template<class CLASS_TYPE> class RegEx {
 	private:
 		std::u32string m_expressionRequested; //!< Regular expression parsed ...
-		regexp::elementPos_ts m_areaFind; //!< position around selection
-		regexp::NodePThese<CLASS_TYPE> m_exprRootNode; //!< The tree where data is set
-		bool m_isOk; //!< Known if we can process with this regExp
+		regex::ElementPos m_areaFind; //!< position around selection
+		regex::NodePThese<CLASS_TYPE> m_expressionRootNode; //!< The tree where data is set
+		bool m_isOk; //!< Known if we can process with this regEx
 		bool m_notBeginWithChar; //!< The regular expression must not have previously a char [a-zA-Z0-9_]
 		bool m_notEndWithChar; //!< The regular expression must not have after the end a char [a-zA-Z0-9_]
-		bool m_maximize; //!< by default the regexp find the minimum size of a regexp .
+		bool m_maximize; //!< by default the regex find the minimum size of a regex .
 		OptionList m_options; //!< Global option list of the reg-ex.
 	public:
 		/**
 		 * @brief Constructor
-		 * @param[in,out] _exp Regular expression to parse
+		 * @param[in,out] _expression Regular expression to parse
 		 */
-		RegExp(const std::u32string &_exp=U"") :
+		RegEx(const std::u32string &_expression=U"") :
 		  m_expressionRequested(U""),
 		  m_isOk(false),
 		  m_notBeginWithChar(false),
@@ -1398,14 +1398,14 @@ template<class CLASS_TYPE> class RegExp {
 		  m_maximize(false) {
 			m_areaFind.start=0;
 			m_areaFind.stop=0;
-			if (_exp.size() != 0) {
-				compile(_exp);
+			if (_expression.size() != 0) {
+				compile(_expression);
 			}
 		}
 		/**
 		 * @previous
 		 */
-		RegExp(const std::string &_exp) :
+		RegEx(const std::string &_expression) :
 		  m_expressionRequested(U""),
 		  m_isOk(false),
 		  m_notBeginWithChar(false),
@@ -1413,118 +1413,118 @@ template<class CLASS_TYPE> class RegExp {
 		  m_maximize(false) {
 			m_areaFind.start=0;
 			m_areaFind.stop=0;
-			if (_exp.size() != 0) {
-				compile(etk::to_u32string(_exp));
+			if (_expression.size() != 0) {
+				compile(etk::to_u32string(_expression));
 			}
 		};
 		/**
 		 * @brief Destructor
 		 */
-		~RegExp() {
+		~RegEx() {
 			m_isOk = false;
 		};
 		
 		/**
-		 * @brief SetMaximizing of the regexp
-		 * @param[in] _value Maximize or not the regExp
+		 * @brief SetMaximizing of the regex
+		 * @param[in] _value Maximize or not the regEx
 		 */
 		void setMaximize(bool _value) {
 			m_maximize = _value;
 		}
 		/**
 		 * @brief Set a new regular expression matching
-		 * @param[in] _exp the new expression to search
+		 * @param[in] _expression the new expression to search
 		 */
 		// TODO : Add an error ...
-		void compile(const std::string &_exp) {
-			if (_exp.size() != 0) {
-				TK_REG_DEBUG("normal string parse : '" << _exp << "'");
-				compile(etk::to_u32string(_exp));
+		void compile(const std::string &_expression) {
+			if (_expression.size() != 0) {
+				TK_REG_DEBUG("normal string parse : '" << _expression << "'");
+				compile(etk::to_u32string(_expression));
 			}
 		}
 		/**
 		 * @previous
 		 */
-		void compile(const std::u32string &_regexp) {
-			m_expressionRequested = _regexp;
-			std::vector<char32_t> tmpExp;
+		void compile(const std::u32string &_expression) {
+			m_expressionRequested = _expression;
+			std::vector<char32_t> tmpExpression;
 			
 			TK_REG_DEBUG("---------------------------------------------------------------------");
-			TK_REG_DEBUG("Parse RegExp : (" << m_expressionRequested << ")" );
+			TK_REG_DEBUG("Parse RegEx : (" << m_expressionRequested << ")" );
 			m_isOk = false;
 			m_areaFind.start=0;
 			m_areaFind.stop=0;
 			m_notBeginWithChar = false;
 			m_notEndWithChar = false;
 			
-			// change in the regular Opcode ==> replace \x with the corect element ... x if needed
+			// Change in the regular Opcode ==> replace \x with the correct element ... x if needed
 			int32_t countBraceIn = 0;
 			int32_t countBraceOut = 0;
 			int32_t countPTheseIn = 0;
 			int32_t countPTheseOut = 0;
 			int32_t countBracketIn = 0;
 			int32_t countBracketOut = 0;
-			for (int64_t iii=0; iii<(int64_t)_regexp.size(); iii++) {
-				if (_regexp[iii] == '\\') {
-					if(iii+1>=(int64_t)_regexp.size()) {
+			for (int64_t iii=0; iii<(int64_t)_expression.size(); iii++) {
+				if (_expression[iii] == '\\') {
+					if(iii+1>=(int64_t)_expression.size()) {
 						TK_ERROR("Dangerous parse of the element pos " << iii << " \\ with nothing after");
-						// TODO : Generate Exeption ...
+						// TODO : Generate Exception ...
 						return;
 					}
 					int64_t jjj;
 					// Find the element in the list...
-					for (jjj=0; jjj<regexp::constConvertionTableSize; ++jjj) {
-						if (    regexp::constConvertionTable[jjj].haveBackSlash == true
-						     && _regexp[iii+1] == (char32_t)regexp::constConvertionTable[jjj].inputValue) {
-							if (regexp::constConvertionTable[jjj].newValue == 0) {
-								tmpExp.push_back(regexp::constConvertionTable[jjj].specialChar);
+					for (jjj=0; jjj<regex::constConversionTableSize; ++jjj) {
+						if (    regex::constConversionTable[jjj].haveBackSlash == true
+						     && _expression[iii+1] == (char32_t)regex::constConversionTable[jjj].inputValue) {
+							if (regex::constConversionTable[jjj].newValue == 0) {
+								tmpExpression.push_back(regex::constConversionTable[jjj].specialChar);
 							} else {
-								tmpExp.push_back(regexp::constConvertionTable[jjj].newValue);
+								tmpExpression.push_back(regex::constConversionTable[jjj].newValue);
 							}
 							break;
 						}
 					}
 					// check error : 
-					if (jjj == regexp::constConvertionTableSize) {
-						TK_WARNING(" parse : " << _regexp);
-						TK_WARNING("         " << etk::regexp::strTick(iii+1));
-						TK_ERROR("Dangerous parse of the \\x with the value : '" << _regexp[iii+1] << "' at element " << iii);
+					if (jjj == regex::constConversionTableSize) {
+						TK_WARNING(" parse : " << _expression);
+						TK_WARNING("         " << etk::regex::strTick(iii+1));
+						TK_ERROR("Dangerous parse of the \\x with the value : '" << _expression[iii+1] << "' at element " << iii);
 						return;
 					}
 					// less one char in the regular expression ...
 					iii++;
 				} else {
-					if (_regexp[iii] == '(') {
+					if (_expression[iii] == '(') {
 						countPTheseIn++;
-					} else if (_regexp[iii] == ')') {
+					} else if (_expression[iii] == ')') {
 						countPTheseOut++;
-					} else if (_regexp[iii] == '[') {
+					} else if (_expression[iii] == '[') {
 						countBracketIn++;
-					} else if (_regexp[iii] == ']') {
+					} else if (_expression[iii] == ']') {
 						countBracketOut++;
-					} else if (_regexp[iii] == '{') {
+					} else if (_expression[iii] == '{') {
 						countBraceIn++;
-					} else if (_regexp[iii] == '}') {
+					} else if (_expression[iii] == '}') {
 						countBraceOut++;
 					}
 					int64_t jjj;
 					// find the element in the list...
-					for (jjj=0; jjj<regexp::constConvertionTableSize; ++jjj) {
-						if(		regexp::constConvertionTable[jjj].haveBackSlash == false
-							&&	_regexp[iii] == (char32_t)regexp::constConvertionTable[jjj].inputValue)
+					for (jjj=0; jjj<regex::constConversionTableSize; ++jjj) {
+						if(		regex::constConversionTable[jjj].haveBackSlash == false
+							&&	_expression[iii] == (char32_t)regex::constConversionTable[jjj].inputValue)
 						{
-							if (regexp::constConvertionTable[jjj].newValue == 0) {
-								tmpExp.push_back(regexp::constConvertionTable[jjj].specialChar);
+							if (regex::constConversionTable[jjj].newValue == 0) {
+								tmpExpression.push_back(regex::constConversionTable[jjj].specialChar);
 							} else {
-								tmpExp.push_back(regexp::constConvertionTable[jjj].newValue);
+								tmpExpression.push_back(regex::constConversionTable[jjj].newValue);
 							}
 							break;
 						}
 					}
 					// not find : normal element
-					if (jjj == regexp::constConvertionTableSize) {
-						//TK_REG_DEBUG("parse : '" << _regexp[iii] << "'" );
-						tmpExp.push_back(_regexp[iii]);
+					if (jjj == regex::constConversionTableSize) {
+						//TK_REG_DEBUG("parse : '" << _regex[iii] << "'" );
+						tmpExpression.push_back(_expression[iii]);
 					}
 				}
 			}
@@ -1545,27 +1545,27 @@ template<class CLASS_TYPE> class RegExp {
 				return;
 			}
 			// need to check if all () [] and {} is well set ...
-			if (checkGoodPosition(tmpExp) == false) {
+			if (checkGoodPosition(tmpExpression) == false) {
 				return;
 			}
 			
-			//TK_REG_DEBUG("Main element :" << createString(tmpExp) );
-			if (    tmpExp.size() > 0
-			     && tmpExp[0] == regexpOpcodeNoChar) {
+			//TK_REG_DEBUG("Main element :" << createString(tmpExpression) );
+			if (    tmpExpression.size() > 0
+			     && tmpExpression[0] == regexOpcodeNoChar) {
 				//TK_DEBUG("=> must not begin with char");
 				m_notBeginWithChar = true;
 				// remove element
-				tmpExp.erase(tmpExp.begin());
+				tmpExpression.erase(tmpExpression.begin());
 			}
-			if (    tmpExp.size() > 0
-			     && tmpExp[tmpExp.size()-1] == regexpOpcodeNoChar) {
+			if (    tmpExpression.size() > 0
+			     && tmpExpression[tmpExpression.size()-1] == regexOpcodeNoChar) {
 				//TK_DEBUG("=> must not end with char");
 				m_notEndWithChar = true;
 				// remove element
-				tmpExp.erase(tmpExp.end()-1);
+				tmpExpression.erase(tmpExpression.end()-1);
 			}
 			
-			if ((int64_t)tmpExp.size() != (int64_t)m_exprRootNode.generate(tmpExp) ) {
+			if ((int64_t)tmpExpression.size() != (int64_t)m_expressionRootNode.generate(tmpExpression) ) {
 				return;
 			}
 			// TODO : optimize node here ...
@@ -1578,22 +1578,22 @@ template<class CLASS_TYPE> class RegExp {
 		
 		/**
 		 * @brief Get the regular expression string
-		 * @return the string representing the RegExp
+		 * @return the string representing the RegEx
 		 */
-		std::string getRegExp() const {
+		std::string getRegEx() const {
 			return etk::to_string(m_expressionRequested);
 		};
 		/**
 		 * @previous
 		 */
-		const std::u32string& getURegExp() const {
+		const std::u32string& getURegEx() const {
 			return m_expressionRequested;
 		};
 		
 		/**
 		 * @brief Get the status if the regular expression parsing
-		 * @return true : the regExp is correctly parsed
-		 * @return false : an error occcured (check log ...)
+		 * @return true : the regEx is correctly parsed
+		 * @return false : an error occurred (check log ...)
 		 */
 		bool getStatus() {
 			return m_isOk;
@@ -1614,16 +1614,16 @@ template<class CLASS_TYPE> class RegExp {
 				return false;
 			}
 			TK_REG_DEBUG("Request parse : " << _startPos << " --> " << _endPos);
-			int64_t buflen = _SearchIn.size();
-			if (_endPos > buflen) {
-				_endPos = buflen;
+			int64_t bufferLength = _SearchIn.size();
+			if (_endPos > bufferLength) {
+				_endPos = bufferLength;
 			}
 			if (_startPos > _endPos) {
 				return false;
 			}
 			for (int64_t iii=_startPos; iii<_endPos; iii++) {
 				int64_t findLen=0;
-				int64_t maxlen = _endPos-iii;
+				int64_t maxLen = _endPos-iii;
 				TK_REG_DEBUG("----------------------------------------------");
 				TK_REG_DEBUG("parse element : " << iii << " : '" << _SearchIn[iii] << "'");
 				if (m_notBeginWithChar == true) {
@@ -1641,23 +1641,23 @@ template<class CLASS_TYPE> class RegExp {
 						}
 					}
 				}
-				regexp::FindProperty prop;
+				regex::FindProperty prop;
 				prop.setPositionStart(iii);
 				bool needOneMoreCycle = true;
 				bool oneCycleDone = false;
 				while (needOneMoreCycle == true) {
 					needOneMoreCycle = false;
-					m_exprRootNode.parse(_SearchIn, iii, _endPos, prop);
+					m_expressionRootNode.parse(_SearchIn, iii, _endPos, prop);
 					TK_REG_DEBUG("res=" << prop.getStatus());
-					if (    prop.getStatus() == regexp::parseStatusNone
+					if (    prop.getStatus() == regex::parseStatusNone
 					     && m_maximize == true
 					     && oneCycleDone == false) {
-						// TODO : do it better Patch the case of ".*" seach with maximizing
+						// TODO : do it better Patch the case of ".*" search with maximizing
 						oneCycleDone = true;
 						needOneMoreCycle = true;
 					}
-					if (    prop.getStatus() == regexp::parseStatusFull
-					     || prop.getStatus() == regexp::parseStatusPartial ) {
+					if (    prop.getStatus() == regex::parseStatusFull
+					     || prop.getStatus() == regex::parseStatusPartial ) {
 						findLen = prop.getFindLen();
 						TK_REG_DEBUG_3("main search find : " << findLen << " elements data=" << std::string(_SearchIn, prop.getPositionStart(), prop.getFindLen()));
 						// Check end :
@@ -1679,7 +1679,7 @@ template<class CLASS_TYPE> class RegExp {
 							}
 						}
 						if (    m_maximize == true
-						     && prop.getStatus() == regexp::parseStatusPartial) {
+						     && prop.getStatus() == regex::parseStatusPartial) {
 							needOneMoreCycle = true;
 						}
 						if (needOneMoreCycle == false) {
@@ -1687,8 +1687,8 @@ template<class CLASS_TYPE> class RegExp {
 							m_areaFind.stop  = iii + findLen;
 							return true;
 						}
-						if (prop.getStatus() == regexp::parseStatusFull) {
-							// We really not find the elemnent ==> stop ...
+						if (prop.getStatus() == regex::parseStatusFull) {
+							// We really not find the element ==> stop ...
 							break;
 						}
 					}
@@ -1704,15 +1704,15 @@ template<class CLASS_TYPE> class RegExp {
 			if (m_isOk == false) {
 				return false;
 			}
-			int64_t buflen = _SearchIn.size();
-			if (_endPos > buflen) {
-				_endPos = buflen;
+			int64_t bufferLength = _SearchIn.size();
+			if (_endPos > bufferLength) {
+				_endPos = bufferLength;
 			}
 			if (_startPos > _endPos) {
 				return false;
 			}
 			int64_t findLen=0;
-			int64_t maxlen = _endPos-_startPos;
+			int64_t maxLen = _endPos-_startPos;
 			if (m_notBeginWithChar == true) {
 				if (_startPos>0) {
 					char32_t tmpVal = _SearchIn[_startPos-1];
@@ -1728,14 +1728,14 @@ template<class CLASS_TYPE> class RegExp {
 					}
 				}
 			}
-			regexp::FindProperty prop;
+			regex::FindProperty prop;
 			prop.setPositionStart(_startPos);
 			bool needOneMoreCycle = true;
 			while (needOneMoreCycle == true) {
 				needOneMoreCycle = false;
-				m_exprRootNode.parse(_SearchIn, _startPos, _endPos, prop);
-				if (    prop.getStatus() == regexp::parseStatusFull
-				     || prop.getStatus() == regexp::parseStatusPartial ) {
+				m_expressionRootNode.parse(_SearchIn, _startPos, _endPos, prop);
+				if (    prop.getStatus() == regex::parseStatusFull
+				     || prop.getStatus() == regex::parseStatusPartial ) {
 					findLen = prop.getFindLen();
 					TK_REG_DEBUG_3("main search find : " << findLen << " elements");
 					// Check end :
@@ -1755,7 +1755,7 @@ template<class CLASS_TYPE> class RegExp {
 						}
 					}
 					if (    m_maximize == true
-					     && prop.getStatus() == regexp::parseStatusPartial) {
+					     && prop.getStatus() == regex::parseStatusPartial) {
 						needOneMoreCycle = true;
 					}
 					if (needOneMoreCycle == false) {
@@ -1763,8 +1763,8 @@ template<class CLASS_TYPE> class RegExp {
 						m_areaFind.stop  = _startPos + findLen;
 						return true;
 					}
-					if (prop.getStatus() == regexp::parseStatusFull) {
-						// We really not find the elemnent ==> stop ...
+					if (prop.getStatus() == regex::parseStatusFull) {
+						// We really not find the element ==> stop ...
 						return false;
 					}
 				}
@@ -1775,7 +1775,7 @@ template<class CLASS_TYPE> class RegExp {
 		
 		/**
 		 * @brief Get the expression start position detected
-		 * @return position of the start regExp
+		 * @return position of the start regEx
 		 */
 		int64_t	start() {
 			return m_areaFind.start;
@@ -1783,100 +1783,100 @@ template<class CLASS_TYPE> class RegExp {
 		
 		/**
 		 * @brief Get the expression stop position detected
-		 * @return position of the stop regExp
+		 * @return position of the stop regEx
 		 */
 		int64_t	stop() {
 			return m_areaFind.stop;
 		};
 		
 		/**
-		 * @brief Display the reg Exp
+		 * @brief Display the regEx
 		 */
 		void display() {
-			m_exprRootNode.display();
+			m_expressionRootNode.display();
 		};
 		/**
-		 * @brief Just display the regExp in color ...
+		 * @brief Just display the regEx in color ...
 		 */
 		void drawColoredRegEx() {
-			m_exprRootNode.drawColoredRegEx();
+			m_expressionRootNode.drawColoredRegEx();
 		}
 		/**
 		 * @brief Get decorated regular expression. This generate a [class[ewol::compositing::Text]] decoration text. Note that can be use in [class[ewol::widget::Label]].
 		 * @return The decorated string
 		 */
 		std::string getRegExDecorated() {
-			return m_exprRootNode.getColoredRegEx();
+			return m_expressionRootNode.getColoredRegEx();
 		}
 	private:
 		/**
 		 * @brief Check forbidden element in a regular expression element.
-		 * @param[in] _tmpExp The regular expression to check.
+		 * @param[in] _tmpExpression The regular expression to check.
 		 * @param[in] _pos Position to start the check.
 		 * @return true The current node is correct.
 		 * @return false An error in parsing has appeared.
 		 */
-		bool checkGoodPosition(const std::vector<char32_t>& _tmpExp, int64_t& _pos) {
-			char32_t curentCode = _tmpExp[_pos];
-			char32_t endCode = regexpOpcodePTheseOut;
+		bool checkGoodPosition(const std::vector<char32_t>& _tmpExpression, int64_t& _pos) {
+			char32_t currentCode = _tmpExpression[_pos];
+			char32_t endCode = regexOpcodePTheseOut;
 			const char *input = "(...)";
-			if (curentCode == regexpOpcodeBracketIn) {
-				endCode = regexpOpcodeBracketOut;
+			if (currentCode == regexOpcodeBracketIn) {
+				endCode = regexOpcodeBracketOut;
 				input = "[...]";
-			} else if (curentCode == regexpOpcodeBracetIn){
-				endCode = regexpOpcodeBracetOut;
+			} else if (currentCode == regexOpcodeBraceIn){
+				endCode = regexOpcodeBraceOut;
 				input = "{x,x}";
 			}
 			_pos++;
-			if (_pos >= (int64_t)_tmpExp.size()) {
-				TK_ERROR("ended with: ( or { or [ ... not permited");
+			if (_pos >= (int64_t)_tmpExpression.size()) {
+				TK_ERROR("ended with: ( or { or [ ... not permitted");
 				return false;
 			}
 			//TK_DEBUG(" ==> Find ELEMENT : ([{");
 			// case dependent:
 			int32_t localOffset = 0;
-			if (    curentCode == regexpOpcodeBracketIn
-			     || curentCode == regexpOpcodeBracetIn) {
-				while(_pos<(int64_t)_tmpExp.size()) {
-					//TK_DEBUG("check : " << tmpExp[pos]);
+			if (    currentCode == regexOpcodeBracketIn
+			     || currentCode == regexOpcodeBraceIn) {
+				while(_pos<(int64_t)_tmpExpression.size()) {
+					//TK_DEBUG("check : " << tmpExpression[pos]);
 					// if we find the end : 
-					if (endCode == _tmpExp[_pos]) {
+					if (endCode == _tmpExpression[_pos]) {
 						return true;
 					} else {
 						// otherwise, we check the error in the element ...
 						char *find = nullptr;
-						switch (_tmpExp[_pos]) {
-							case regexpOpcodePTheseIn:		find = (char*)"(";			break;
-							case regexpOpcodeBracketIn:		find = (char*)"[";			break;
-							case regexpOpcodeBracetIn:		find = (char*)"{";			break;
-							case regexpOpcodePTheseOut:		find = (char*)")";			break;
-							case regexpOpcodeBracketOut:	find = (char*)"]";			break;
-							case regexpOpcodeBracetOut:		find = (char*)"}";			break;
-							case regexpOpcodeStar:			find = (char*)"*";			break;
-							case regexpOpcodeDot:			find = (char*)".";			break;
-							case regexpOpcodeQuestion:		find = (char*)"?";			break;
-							case regexpOpcodePlus:			find = (char*)"+";			break;
-							case regexpOpcodePipe:			find = (char*)"|";			break;
-							case regexpOpcodeEndOfLine:		find = (char*)"$";			break;
-							case regexpOpcodeDigitNot:		find = (char*)"\\D";		break;
-							case regexpOpcodeLetterNot:		find = (char*)"\\L";		break;
-							case regexpOpcodeSpaceNot:		find = (char*)"\\S";		break;
-							case regexpOpcodeWordNot:		find = (char*)"\\W";		break;
-							case regexpOpcodeNoChar:		find = (char*)"\\@";		break;
-							case regexpOpcodeStartOfLine:
-								if (    endCode == regexpOpcodeBracetOut
+						switch (_tmpExpression[_pos]) {
+							case regexOpcodePTheseIn:		find = (char*)"(";			break;
+							case regexOpcodeBracketIn:		find = (char*)"[";			break;
+							case regexOpcodeBraceIn:		find = (char*)"{";			break;
+							case regexOpcodePTheseOut:		find = (char*)")";			break;
+							case regexOpcodeBracketOut:		find = (char*)"]";			break;
+							case regexOpcodeBraceOut:		find = (char*)"}";			break;
+							case regexOpcodeStar:			find = (char*)"*";			break;
+							case regexOpcodeDot:			find = (char*)".";			break;
+							case regexOpcodeQuestion:		find = (char*)"?";			break;
+							case regexOpcodePlus:			find = (char*)"+";			break;
+							case regexOpcodePipe:			find = (char*)"|";			break;
+							case regexOpcodeEndOfLine:		find = (char*)"$";			break;
+							case regexOpcodeDigitNot:		find = (char*)"\\D";		break;
+							case regexOpcodeLetterNot:		find = (char*)"\\L";		break;
+							case regexOpcodeSpaceNot:		find = (char*)"\\S";		break;
+							case regexOpcodeWordNot:		find = (char*)"\\W";		break;
+							case regexOpcodeNoChar:		find = (char*)"\\@";		break;
+							case regexOpcodeStartOfLine:
+								if (    endCode == regexOpcodeBracketOut
 								     || localOffset != 0) {
 									find = (char*)"^";			break;
 								}
 							default:													break;
 						}
-						// Specific element forbiden for (...) but not for [...]
-						if (endCode == regexpOpcodeBracetOut) {
-							switch (_tmpExp[_pos]) {
-								case regexpOpcodeDigit:			find = (char*)"\\d";		break;
-								case regexpOpcodeLetter:		find = (char*)"\\l";		break;
-								case regexpOpcodeSpace:			find = (char*)"\\s";		break;
-								case regexpOpcodeWord:			find = (char*)"\\w";		break;
+						// Specific element forbidden for (...) but not for [...]
+						if (endCode == regexOpcodeBracketOut) {
+							switch (_tmpExpression[_pos]) {
+								case regexOpcodeDigit:			find = (char*)"\\d";		break;
+								case regexOpcodeLetter:		find = (char*)"\\l";		break;
+								case regexOpcodeSpace:			find = (char*)"\\s";		break;
+								case regexOpcodeWord:			find = (char*)"\\w";		break;
 								default:													break;
 							}
 						}
@@ -1890,21 +1890,21 @@ template<class CLASS_TYPE> class RegExp {
 					localOffset++;
 				}
 			} else {
-				while(_pos< (int64_t)_tmpExp.size()) {
-					if (endCode == _tmpExp[_pos]) {
+				while(_pos< (int64_t)_tmpExpression.size()) {
+					if (endCode == _tmpExpression[_pos]) {
 						// find the last element
 						return true;
-					} else if (	_tmpExp[_pos] == regexpOpcodeBracetOut) {
+					} else if (	_tmpExpression[_pos] == regexOpcodeBraceOut) {
 						TK_ERROR("find } inside a (...) without start {");
 						return false;
-					} else if (	_tmpExp[_pos] == regexpOpcodeBracketOut) {
+					} else if (	_tmpExpression[_pos] == regexOpcodeBracketOut) {
 						TK_ERROR("find ] inside a (...) without start [");
 						return false;
 					} else {
-						if(    _tmpExp[_pos] == regexpOpcodePTheseIn
-						    || _tmpExp[_pos] == regexpOpcodeBracketIn
-						    || _tmpExp[_pos] == regexpOpcodeBracetIn ) {
-							if (checkGoodPosition(_tmpExp, _pos) == false ) {
+						if(    _tmpExpression[_pos] == regexOpcodePTheseIn
+						    || _tmpExpression[_pos] == regexOpcodeBracketIn
+						    || _tmpExpression[_pos] == regexOpcodeBraceIn ) {
+							if (checkGoodPosition(_tmpExpression, _pos) == false ) {
 								return false;
 							}
 						}
@@ -1913,14 +1913,14 @@ template<class CLASS_TYPE> class RegExp {
 				}
 			}
 			
-			// we did not find the cloder . ...
-			if (endCode == regexpOpcodeBracketOut) {
+			// we did not find the closer...
+			if (endCode == regexOpcodeBracketOut) {
 				TK_ERROR("Missing ']' at the end");
 			}
-			if (endCode == regexpOpcodeBracetOut) {
+			if (endCode == regexOpcodeBraceOut) {
 				TK_ERROR("Missing '}' at the end");
 			}
-			if (endCode == regexpOpcodePTheseOut) {
+			if (endCode == regexOpcodePTheseOut) {
 				TK_ERROR("Missing ')' at the end");
 			}
 			return false;
@@ -1928,32 +1928,32 @@ template<class CLASS_TYPE> class RegExp {
 		
 		/**
 		 * @brief Check all the element in a regular expression ( count [],{},(),...)
-		 * @param[in] _tmpExp Regular expression to check.
+		 * @param[in] _tmpExpression Regular expression to check.
 		 * @return true The regular expression is correct.
-		 * @return false an error occured in the regular expression.
+		 * @return false an error occurred in the regular expression.
 		 */
-		bool checkGoodPosition(const std::vector<char32_t>& _tmpExp) {
+		bool checkGoodPosition(const std::vector<char32_t>& _tmpExpression) {
 			int64_t pos = 0;
-			while (pos < (int64_t)_tmpExp.size()) {
-				//TK_DEBUG("check : " << tmpExp[pos]);
-				if(    _tmpExp[pos] == regexpOpcodePTheseIn
-				    || _tmpExp[pos] == regexpOpcodeBracketIn
-				    || _tmpExp[pos] == regexpOpcodeBracetIn)
+			while (pos < (int64_t)_tmpExpression.size()) {
+				//TK_DEBUG("check : " << tmpExpression[pos]);
+				if(    _tmpExpression[pos] == regexOpcodePTheseIn
+				    || _tmpExpression[pos] == regexOpcodeBracketIn
+				    || _tmpExpression[pos] == regexOpcodeBraceIn)
 				{
-					// attention the i position change inside the finction...
-					if (checkGoodPosition(_tmpExp, pos) == false) {
+					// attention the i position change inside the function...
+					if (checkGoodPosition(_tmpExpression, pos) == false) {
 						TK_ERROR("Error at position : " << pos+1 );
 						return false;
 					} else {
 						//TK_DEBUG(" <== Find ELEMENT : ]})");
 					}
-				} else if(_tmpExp[pos] == regexpOpcodePTheseOut) {
+				} else if(_tmpExpression[pos] == regexOpcodePTheseOut) {
 					TK_ERROR("can find ')' with no start : ')'");
 					return false;
-				} else if(_tmpExp[pos] == regexpOpcodeBracketOut) {
+				} else if(_tmpExpression[pos] == regexOpcodeBracketOut) {
 					TK_ERROR("can find ']' with no start : '['");
 					return false;
-				} else if(_tmpExp[pos] == regexpOpcodeBracetOut) {
+				} else if(_tmpExpression[pos] == regexOpcodeBraceOut) {
 					TK_ERROR("can find '}' with no start : '{'");
 					return false;
 				}
@@ -1965,10 +1965,10 @@ template<class CLASS_TYPE> class RegExp {
 		/* ****************************************************
 		 *    == operator
 		 *****************************************************/
-		bool operator== (const RegExp<CLASS_TYPE>& _obj) const {
+		bool operator== (const RegEx<CLASS_TYPE>& _obj) const {
 			return _obj.m_expressionRequested == m_expressionRequested;
 		}
-		bool operator!= (const RegExp<CLASS_TYPE>& _obj) const {
+		bool operator!= (const RegEx<CLASS_TYPE>& _obj) const {
 			return _obj.m_expressionRequested != m_expressionRequested;
 		}
 

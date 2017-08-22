@@ -12,7 +12,7 @@ namespace etk {
 	/**
 	 * @brief Vector class ...
 	 *
-	 * @tparam[in] ETK_VECTOR_TYPE class type of the current element.
+	 * @param[in] ETK_VECTOR_TYPE class type of the current element.
 	 *
 	 *              m_data
 	 *               <------------ m_dataSize ------------>
@@ -44,11 +44,11 @@ namespace etk {
 		public:
 			class Iterator {
 				private:
-					size_t m_current; //!< curent Id on the vector
-					Vector<ETK_VECTOR_TYPE>* m_vector; //!< Pointer on the curent element of the vectorBin
+					size_t m_current; //!< current Id on the vector
+					Vector<ETK_VECTOR_TYPE>* m_vector; //!< Pointer on the current element of the vectorBin
 				public:
 					/**
-					 * @brief Basic itarator constructor with no link with an etkVector
+					 * @brief Basic iterator constructor with no link with an etk::Vector
 					 */
 					Iterator():
 					  m_current(0),
@@ -65,9 +65,9 @@ namespace etk {
 						// nothing to do ...
 					}
 					/**
-					 * @brief Asignation operator.
+					 * @brief Assignation operator.
 					 * @param[in] _otherIterator The Iterator that might be copy
-					 * @return reference on the curent Iterator
+					 * @return reference on the current Iterator
 					 */
 					Iterator& operator=(const Iterator & _otherIterator) {
 						m_current = _otherIterator.m_current;
@@ -90,7 +90,7 @@ namespace etk {
 					}
 					/**
 					 * @brief Incremental operator
-					 * @return Reference on the current iterator incremented
+					 * @return Reference on the current iterator increment
 					 */
 					Iterator& operator++ () {
 						if (    m_vector != nullptr
@@ -102,7 +102,7 @@ namespace etk {
 					}
 					/**
 					 * @brief Decremental operator
-					 * @return Reference on the current iterator decremented
+					 * @return Reference on the current iterator decrement
 					 */
 					Iterator& operator-- () {
 						if (    m_vector != nullptr
@@ -154,8 +154,8 @@ namespace etk {
 					friend class Vector;
 			};
 		private:
-			ETK_VECTOR_TYPE* m_data; //!< pointer on the curetn table of Data
-			size_t m_size; //!< nb Element in the buffer
+			ETK_VECTOR_TYPE* m_data; //!< pointer on the current table of Data
+			size_t m_size; //!< Number of element in the buffer
 			size_t m_allocated; //!< Current allocated size
 		public:
 			/**
@@ -180,7 +180,7 @@ namespace etk {
 				// allocate all same data
 				m_data = new ETK_VECTOR_TYPE[m_allocated];
 				if (m_data == nullptr) {
-					TK_CRITICAL("Vector : Error in data allocation ... might nor work corectly anymore");
+					TK_CRITICAL("Vector : Error in data allocation ... might nor work correctly anymore");
 					return;
 				}
 				// Copy all data ...
@@ -221,7 +221,7 @@ namespace etk {
 			/**
 			 * @brief Re-copy operator
 			 * @param[in] _obj Vector that might be copy
-			 * @return reference on the curent re-copy vector
+			 * @return reference on the current re-copy vector
 			 */
 			Vector& operator=(const etk::Vector<ETK_VECTOR_TYPE> & _obj) {
 				//TK_DEBUG("USE RECOPY vector ... Evb.m_size=" << Evb.m_size << " Evb.m_increment=" << Evb.m_increment);
@@ -236,7 +236,7 @@ namespace etk {
 					// allocate all same data
 					m_data = new ETK_VECTOR_TYPE[m_allocated];
 					if (m_data == nullptr) {
-						TK_CRITICAL("Vector : Error in data allocation ... might nor work corectly anymore");
+						TK_CRITICAL("Vector : Error in data allocation ... might nor work correctly anymore");
 						return *this;
 					}
 					for(size_t iii=0; iii<m_allocated; iii++) {
@@ -253,18 +253,18 @@ namespace etk {
 			 * @param[in] _obj Element to add at the end of vector
 			 */
 			Vector& operator+= (const etk::Vector<ETK_VECTOR_TYPE>& _obj) {
-				size_t nbElememt = _obj.size();
-				size_t idx = m_size;
-				resize(m_size+nbElememt);
-				if (m_size<=idx) {
+				size_t numberElement = _obj.size();
+				size_t idElement = m_size;
+				resize(m_size+numberElement);
+				if (m_size<=idElement) {
 					TK_CRITICAL("allocation error");
 					return *this;
 				}
-				for(size_t iii=0; iii<nbElememt; iii++) {
+				for(size_t iii=0; iii<numberElement; iii++) {
 					// copy operator ...
-					m_data[idx+iii] = _obj.m_data[iii];
+					m_data[idElement+iii] = _obj.m_data[iii];
 				}
-				// Return the curent pointer
+				// Return the current pointer
 				return *this;
 			}
 			/**
@@ -279,15 +279,15 @@ namespace etk {
 			 * @param[in] _newSize New size of the vector
 			 */
 			void resize(size_t _newSize, const ETK_VECTOR_TYPE& _basicElement) {
-				size_t idx = m_size;
+				size_t idElement = m_size;
 				resize(_newSize);
 				if (m_size != _newSize) {
 					TK_CRITICAL("error to resize vector");
 					return;
 				}
-				if (_newSize > idx) {
+				if (_newSize > idElement) {
 					// initialize data ...
-					for(size_t iii=idx; iii<_newSize; iii++) {
+					for(size_t iii=idElement; iii<_newSize; iii++) {
 						m_data[iii] = _basicElement;
 					}
 				}
@@ -308,7 +308,7 @@ namespace etk {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
 					if(_pos>m_size){
-						TK_CRITICAL("[CRITICAL] Access to an unexistant data in vector : " << _pos << "/ " << m_size);
+						TK_CRITICAL("[CRITICAL] Access to an inexistent data in vector : " << _pos << "/ " << m_size);
 					}
 				#endif
 				return m_data[_pos];
@@ -330,7 +330,7 @@ namespace etk {
 				// NOTE :Do not change log level, this generate error only in debug mode
 				#if DEBUG_LEVEL > 2
 					if(_pos>m_size){
-						TK_CRITICAL("[CRITICAL] Access to an unexistant data in vector : " << _pos << "/ " << m_size);
+						TK_CRITICAL("[CRITICAL] Access to an inexistent data in vector : " << _pos << "/ " << m_size);
 					}
 				#endif
 				return m_data[_pos];
@@ -355,12 +355,12 @@ namespace etk {
 			 * @param[in] _item Element to add at the end of vector
 			 */
 			void pushBack(const ETK_VECTOR_TYPE& _item) {
-				size_t idx = m_size;
+				size_t idElement = m_size;
 				resize(m_size+1);
-				if (idx < m_size) {
-					m_data[idx] = _item;
+				if (idElement < m_size) {
+					m_data[idElement] = _item;
 				} else {
-					TK_ERROR("Resize does not work corectly ... not added item");
+					TK_ERROR("Resize does not work correctly ... not added item");
 				}
 			}
 			/**
@@ -372,14 +372,14 @@ namespace etk {
 				if (_item == nullptr) {
 					return;
 				}
-				size_t idx = m_size;
+				size_t idElement = m_size;
 				resize(m_size+_nbElement);
-				if (idx > m_size) {
-					TK_ERROR("Resize does not work corectly ... not added item");
+				if (idElement > m_size) {
+					TK_ERROR("Resize does not work correctly ... not added item");
 					return;
 				}
 				for (size_t iii=0; iii<_nbElement; iii++) {
-					m_data[idx+iii] = _item[iii];
+					m_data[idElement+iii] = _item[iii];
 				}
 			}
 			/**
@@ -391,7 +391,7 @@ namespace etk {
 				}
 			}
 			/**
-			 * @brief Remove all alement in the current vector
+			 * @brief Remove all element in the current vector
 			 */
 			void clear() {
 				if(m_size>0) {
@@ -410,18 +410,18 @@ namespace etk {
 					pushBack(_item, _nbElement);
 					return;
 				}
-				size_t idx = m_size;
+				size_t idElement = m_size;
 				// Request resize of the current buffer
 				resize(m_size+_nbElement);
-				if (idx>=m_size) {
-					TK_ERROR("Resize does not work corectly ... not added item");
+				if (idElement>=m_size) {
+					TK_ERROR("Resize does not work correctly ... not added item");
 					return;
 				}
-				// move curent data (after the position)
-				size_t sizeToMove = (idx - _pos);
+				// move current data (after the position)
+				size_t sizeToMove = (idElement - _pos);
 				if ( 0 < sizeToMove) {
 					for (size_t iii=1; iii<=sizeToMove; iii++) {
-						m_data[m_size-iii] = m_data[idx-iii];
+						m_data[m_size-iii] = m_data[idElement-iii];
 					}
 				}
 				// affectation of all input element
@@ -450,9 +450,9 @@ namespace etk {
 				if (_pos+_nbElement>m_size) {
 					_nbElement = m_size - _pos;
 				}
-				size_t idx = m_size;
-				// move curent data
-				size_t sizeToMove = (idx - (_pos+_nbElement));
+				size_t idElement = m_size;
+				// move current data
+				size_t sizeToMove = (idElement - (_pos+_nbElement));
 				if ( 0 < sizeToMove) {
 					for (size_t iii=0; iii<sizeToMove; iii++) {
 						m_data[_pos+iii] = m_data[_pos+_nbElement+iii];
@@ -490,7 +490,7 @@ namespace etk {
 				}
 				size_t nbElement = m_size - _pos;
 				size_t tmpSize = m_size;
-				// move curent data
+				// move current data
 				size_t sizeToMove = (tmpSize - (_pos+nbElement));
 				if ( 0 < sizeToMove) {
 					for (size_t iii=0; iii<sizeToMove; iii++) {
@@ -518,7 +518,7 @@ namespace etk {
 				return out;
 			}
 			/**
-			 * @brief Get the pointer on the sata
+			 * @brief Get the pointer on the data
 			 * @return the type pointer on data
 			 */
 			ETK_VECTOR_TYPE* dataPointer() {
@@ -559,7 +559,7 @@ namespace etk {
 				m_size = _newSize;
 			}
 			/**
-			 * @brief Change the current allocation to the corect one (depend on the current size)
+			 * @brief Change the current allocation to the correct one (depend on the current size)
 			 * @param[in] _newSize Minimum number of element needed
 			 */
 			void changeAllocation(size_t _newSize) {
@@ -568,7 +568,7 @@ namespace etk {
 					_newSize = 1;
 				}
 				size_t requestSize = m_allocated;
-				// set the size with the corect chose type : 
+				// set the size with the correct chose type : 
 				if (_newSize == requestSize) {
 					return;
 				} else if (_newSize < requestSize) {
@@ -629,7 +629,7 @@ namespace etk {
 				if( this == &_obj ) {
 					return true;
 				}
-				// fiist step : check the size ...
+				// first step : check the size ...
 				if (m_size != _obj.m_size) {
 					return false;
 				}
@@ -652,7 +652,7 @@ namespace etk {
 				if( this == &_obj ) {
 					return false;
 				}
-				// fiist step : check the size ...
+				// first step : check the size ...
 				if (m_size!=_obj.m_size) {
 					return true;
 				}

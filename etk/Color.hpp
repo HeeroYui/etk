@@ -14,15 +14,15 @@ namespace etk {
 	/**
 	 * @brief The color class is a template to abstract the color implementation choice.
 	 * 
-	 * It is important to note that the color choice denpznd on the level of developent.
+	 * It is important to note that the color choice depend on the level of development.
 	 * For example :
 	 * - Graphic application use:
 	 *   - Image in 3/4 bytes for rgb(a)
 	 *   - Color description in char : '\#F6780FFF' or the equivalent number:0xF6780FFF
-	 * - middleware will mainely use a the 4 separate value with 1 byte for each.
+	 * - middle-ware will mainly use a the 4 separate value with 1 byte for each.
 	 * - graphic interface (openGL) store image in 1/2/3/4 bytes color and interpolate it in 'n' float. And note that the user color is sored in float.
 	 * 
-	 * Then with this class we abstract the transformation format and set an easy same way to use the color independing of the developpement level.
+	 * Then with this class we abstract the transformation format and set an easy same way to use the color independent of the development level.
 	 * 
 	 * Some of the basic color is defined in the namespace: @ref etk::color.
 	 * 
@@ -37,11 +37,11 @@ namespace etk {
 			MY_TYPE m_element[MY_TYPE_SIZE]; //!< all the color.
 		public:
 			/**
-			 * @brief Constructor. It does not initialise element of class.
+			 * @brief Constructor. It does not initialize element of class.
 			 */
 			Color() { };
 			/**
-			 * @brief Contructor with request initialisation.
+			 * @brief Constructor with request initialization.
 			 * @param[in] _r Red color.
 			 * @param[in] _g Green color.
 			 * @param[in] _b Blue color.
@@ -51,7 +51,7 @@ namespace etk {
 				set(_r, _g, _b, _a);
 			};
 			/**
-			 * @brief Contructor with request initialisation.
+			 * @brief Constructor with request initialization.
 			 * @param[in] _r Red color.
 			 * @param[in] _g Green color.
 			 * @param[in] _b Blue color.
@@ -60,7 +60,7 @@ namespace etk {
 				set(_r, _g, _b);
 			};
 			/**
-			 * @brief Contructor with request initialisation.
+			 * @brief Constructor with request initialization.
 			 * @param[in] _r Red color.
 			 * @param[in] _g Green color.
 			 */
@@ -68,25 +68,25 @@ namespace etk {
 				set(_r, _g);
 			};
 			/**
-			 * @brief Contructor with request initialisation.
+			 * @brief Constructor with request initialization.
 			 * @param[in] _r Red color.
 			 */
 			Color(MY_TYPE _r) {
 				set(_r);
 			};
 			/**
-			 * @brief Copy contructor or convert contructor
+			 * @brief Copy constructor or convert constructor
 			 * @param[in] _obj Element to copy in this new color class.
 			 */
 			template<typename MY_TYPE_2, int MY_TYPE_SIZE_2>
 			Color(const etk::Color<MY_TYPE_2, MY_TYPE_SIZE_2>& _obj);
 			/**
 			 * @brief String extractor constructor.
-			 * @param[in] _input Color string to parse. it can be : "#rrggbb", "rgb", "rrggbbaa", "rgba", "blueviolet" ...
+			 * @param[in] _input Color string to parse. it can be : "#rrggbb", "rgb", "rrggbbaa", "rgba", "yellow" ...
 			 */
 			Color(const std::string& _input);
 			/**
-			 * @brief Asignemement operator
+			 * @brief Assignment operator
 			 * @param[in] _input Color object to set in this class.
 			 * @return reference on this element.
 			 */
@@ -97,7 +97,7 @@ namespace etk {
 				return *this;
 			};
 			/**
-			 * @brief Different comparaison operator.
+			 * @brief Different comparison operator.
 			 * @param[in] _obj Color object to compare.
 			 * @return true This is not the same color
 			 * @return false This is the same color.
@@ -111,7 +111,7 @@ namespace etk {
 				return false;
 			}
 			/**
-			 * @brief Equality comparaison operator.
+			 * @brief Equality comparison operator.
 			 * @param[in] _obj Color object to compare.
 			 * @return true This is the same color.
 			 * @return false The color are different.
@@ -208,22 +208,22 @@ namespace etk {
 				}
 			};
 			/**
-			 * @brief Convert the color in an hexedecimal string ("0xFEDCBA98")
-			 * @return The formated string
+			 * @brief Convert the color in an hexadecimal string ("0xFEDCBA98")
+			 * @return The formatted string
 			 */
 			std::string getHexString() const {
-				std::ostringstream oss;
-				oss << "0x" << std::setw(8) << std::setfill('0') << std::hex << get();
-				return oss.str();
+				std::ostringstream os;
+				os << "0x" << std::setw(8) << std::setfill('0') << std::hex << get();
+				return os.str();
 			};
 			/**
 			 * @brief Convert the color in an generic string value ("#FEDCBA98")
-			 * @return The formated string
+			 * @return The formatted string
 			 */
 			std::string getString() const {
-				std::ostringstream oss;
-				oss << "#" << std::setw(8) << std::setfill('0') << std::hex << get();
-				return oss.str();
+				std::ostringstream os;
+				os << "#" << std::setw(8) << std::setfill('0') << std::hex << get();
+				return os.str();
 			};
 			/**
 			 * @brief Get red color.
@@ -308,7 +308,7 @@ namespace etk {
 			/**
 			 * @brief Operator+= Addition an other etk::color with this one
 			 * @param[in] _obj Reference on the external object
-			 * @return Local reference of the vector additionned
+			 * @return Local reference of the vector addition
 			 */
 			const etk::Color<MY_TYPE,MY_TYPE_SIZE>& operator+= (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) {
 				if (MY_TYPE_SIZE >= 1) {
@@ -331,9 +331,9 @@ namespace etk {
 			 * @return New vector containing the value
 			 */
 			etk::Color<MY_TYPE,MY_TYPE_SIZE> operator+ (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) const {
-				etk::Color<MY_TYPE,MY_TYPE_SIZE> tmpp(*this);
-				tmpp += _obj;
-				return tmpp;
+				etk::Color<MY_TYPE,MY_TYPE_SIZE> tmp(*this);
+				tmp += _obj;
+				return tmp;
 			}
 			/**
 			 * @brief Operator*= Multiply 2 color together
@@ -381,9 +381,9 @@ namespace etk {
 			 * @return New vector containing the value
 			 */
 			etk::Color<MY_TYPE,MY_TYPE_SIZE> operator* (const etk::Color<MY_TYPE,MY_TYPE_SIZE>& _obj) const {
-				etk::Color<MY_TYPE,MY_TYPE_SIZE> tmpp(*this);
-				tmpp *= _obj;
-				return tmpp;
+				etk::Color<MY_TYPE,MY_TYPE_SIZE> tmp(*this);
+				tmp *= _obj;
+				return tmp;
 			}
 			/**
 			 * @brief Operator*= Multiply the color With a specific value
@@ -391,9 +391,9 @@ namespace etk {
 			 * @return New vector containing the value
 			 */
 			etk::Color<MY_TYPE,MY_TYPE_SIZE> operator* (const MY_TYPE _val) const {
-				etk::Color<MY_TYPE,MY_TYPE_SIZE> tmpp(*this);
-				tmpp *= _val;
-				return tmpp;
+				etk::Color<MY_TYPE,MY_TYPE_SIZE> tmp(*this);
+				tmp *= _val;
+				return tmp;
 			}
 	};
 	
@@ -404,7 +404,7 @@ namespace etk {
 	 */
 	etk::Color<uint8_t, 4> parseStringStartWithSharp(const std::string& _input);
 	/**
-	 * @brief Get a color value started with a "rgb()" converted in uint8
+	 * @brief Get a color value started with a "rgb()" converted in unsigned 8 bits integer
 	 * @param[in] _input String to parse
 	 * @return Value parsed
 	 */
@@ -416,33 +416,33 @@ namespace etk {
 	 */
 	etk::Color<double, 4> parseStringStartWithRGB(const std::string& _input);
 	/**
-	 * @brief Get a color value started with a "rgb()" converted in uint32
+	 * @brief Get a color value started with a "rgb()" converted in unsigned 32 bits integer
 	 * @param[in] _input String to parse
 	 * @return Value parsed
 	 */
 	etk::Color<uint32_t, 4> parseStringStartWithRGBUnsigned32(const std::string& _input);
 	/**
-	 * @brief Get a color value started with a "rgb()" converted in uint16
+	 * @brief Get a color value started with a "rgb()" converted in unsigned 16 bits integer
 	 * @param[in] _input String to parse
 	 * @return Value parsed
 	 */
 	etk::Color<uint16_t, 4> parseStringStartWithRGBUnsigned16(const std::string& _input);
 	/**
-	 * @brief Get a color value started with a "rgb()" converted in uint6
+	 * @brief Get a color value started with a "rgb()" converted in unsigned 8 bits integer
 	 * @param[in] _input String to parse
 	 * @return Value parsed
 	 */
 	etk::Color<uint8_t, 4> parseStringStartWithRGBUnsigned8(const std::string& _input);
 	/**
-	 * @brief Get a color value started with a "named" converted in uint8 like red, geen ...
+	 * @brief Get a color value started with a "named" converted in unsigned 8 bits integer like red, green ...
 	 * @param[in] _input String to parse
 	 * @return Value parsed
 	 */
 	etk::Color<uint8_t, 4> parseStringColorNamed(const std::string& _input);
 	
 	/**
-	 * @brief Specify that the Get intance is specialized for uint8_t/4 template
-	 * @return unsignad iterger containing the color value in RGBA
+	 * @brief Specify that the Get instance is specialized for unsigned 8 bits integer on RGBA template
+	 * @return unsigned integer containing the color value in RGBA
 	 * @internal
 	 */
 	template<> uint32_t Color<uint8_t, 4>::get() const;
@@ -506,20 +506,20 @@ namespace etk {
 	
 	//! @not_in_doc
 	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint8_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
-		std::ostringstream oss;
+		std::ostringstream os;
 		if (MY_TYPE_SIZE >= 3) {
 			_os << "#";
-			oss << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.r());
+			os << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.r());
 			if (MY_TYPE_SIZE >= 2) {
-				oss << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.g());
+				os << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.g());
 			}
 			if (MY_TYPE_SIZE >= 3) {
-				oss << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.b());
+				os << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.b());
 			}
 			if (MY_TYPE_SIZE >= 4) {
-				oss << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.a());
+				os << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.a());
 			}
-			_os << oss.str();
+			_os << os.str();
 		} else {
 			if (MY_TYPE_SIZE >= 2) {
 				_os << "be";
@@ -527,19 +527,19 @@ namespace etk {
 				_os << "Mono";
 			}
 			_os << "[U8](";
-			oss << "0x" << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.r());
+			os << "0x" << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.r());
 			if (MY_TYPE_SIZE >= 2) {
 				_os << ",";
-				oss << "0x" << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.g());
+				os << "0x" << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.g());
 			}
-			_os << oss.str();
+			_os << os.str();
 			_os << ")";
 		}
 		return _os;
 	}
 	//! @not_in_doc
 	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint16_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
-		std::ostringstream oss;
+		std::ostringstream os;
 		if (MY_TYPE_SIZE >= 4) {
 			_os << "rgba";
 		} else if (MY_TYPE_SIZE >= 3) {
@@ -550,22 +550,22 @@ namespace etk {
 			_os << "Mono";
 		}
 		_os << "[U16](";
-		oss << "0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.r();
+		os << "0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.r();
 		if (MY_TYPE_SIZE >= 2) {
-			oss << ",0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.g();
+			os << ",0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.g();
 		}
 		if (MY_TYPE_SIZE >= 3) {
-			oss << ",0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.b();
+			os << ",0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.b();
 		}
 		if (MY_TYPE_SIZE >= 4) {
-			oss << ",0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.a();
+			os << ",0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.a();
 		}
-		_os << oss.str() << ")";
+		_os << os.str() << ")";
 		return _os;
 	}
 	//! @not_in_doc
 	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint32_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
-		std::ostringstream oss;
+		std::ostringstream os;
 		if (MY_TYPE_SIZE >= 4) {
 			_os << "rgba";
 		} else if (MY_TYPE_SIZE >= 3) {
@@ -576,17 +576,17 @@ namespace etk {
 			_os << "Mono";
 		}
 		_os << "[U32](";
-		oss << "0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.r();
+		os << "0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.r();
 		if (MY_TYPE_SIZE >= 2) {
-			oss << ",0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.g();
+			os << ",0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.g();
 		}
 		if (MY_TYPE_SIZE >= 3) {
-			oss << ",0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.b();
+			os << ",0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.b();
 		}
 		if (MY_TYPE_SIZE >= 4) {
-			oss << ",0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.a();
+			os << ",0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.a();
 		}
-		_os << oss.str() << ")";
+		_os << os.str() << ")";
 		return _os;
 	}
 	//! @not_in_doc
