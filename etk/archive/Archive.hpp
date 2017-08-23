@@ -12,6 +12,7 @@
 #include <map>
 #include <mutex>
 #include <ememory/memory.hpp>
+#include <etk/String.hpp>
 
 namespace etk {
 	/**
@@ -95,7 +96,7 @@ namespace etk {
 			 * @brief Contructor of the archive element
 			 * @param[in] _fileName Zip file name (or .apk for android)
 			 */
-			Archive(const std::string& _fileName) :
+			Archive(const etk::String& _fileName) :
 			  m_fileName(_fileName) {
 				
 			};
@@ -104,17 +105,17 @@ namespace etk {
 			 */
 			virtual ~Archive() = default;
 		protected:
-			std::string m_fileName; //!< File name when it came from an file
+			etk::String m_fileName; //!< File name when it came from an file
 		public:
 			/**
 			 * @brief Get the current file name.
 			 * @return the requested file name.
 			 */
-			const std::string& getFileName() {
+			const etk::String& getFileName() {
 				return m_fileName;
 			};
 		protected:
-			std::map<std::string, ArchiveContent> m_content; //!< list of element of the zip file
+			std::map<etk::String, ArchiveContent> m_content; //!< list of element of the zip file
 		public:
 			/**
 			 * @brief Get the number of elements
@@ -128,7 +129,7 @@ namespace etk {
 			 * @param[in] _id id of the element (must be < Size())
 			 * @return FileName of the requested id
 			 */
-			const std::string& getName(size_t _id) const;
+			const etk::String& getName(size_t _id) const;
 			/**
 			 * @brief Get the File name of the ID
 			 * @param[in] _id id of the element (must be < Size())
@@ -140,23 +141,23 @@ namespace etk {
 			 * @param[in] _key name of the file
 			 * @return FileName of the requested id
 			 */
-			const ArchiveContent& getContent(const std::string& _key) const;
+			const ArchiveContent& getContent(const etk::String& _key) const;
 			/**
 			 * @brief Check if a file exist
 			 * @param[in] _key Name of the file
 			 * @return true if the file is present
 			 */
-			bool exist(const std::string& _key) const;
+			bool exist(const etk::String& _key) const;
 			/**
 			 * @brief Load the specific file in the memory
 			 * @param[in] _key Name of the file
 			 */
-			void open(const std::string& _key);
+			void open(const etk::String& _key);
 			/**
 			 * @brief Un-Load the specific file from the memory
 			 * @param[in] _key Name of the file
 			 */
-			void close(const std::string& _key);
+			void close(const etk::String& _key);
 			/**
 			 * @brief Display all Element in the archive
 			 */
@@ -166,20 +167,20 @@ namespace etk {
 			 * @brief Request the load in memory of the concerned file.
 			 * @param[in] _it Iterator on the element.
 			 */
-			virtual void loadFile(const std::map<std::string, ArchiveContent>::iterator& _it) { };
+			virtual void loadFile(const std::map<etk::String, ArchiveContent>::iterator& _it) { };
 		public:
 			/**
 			 * @brief Load an Achive with a specific name.
 			 * @param[in] _fileName File name of the specific archive.
 			 * @return A pointer an the specified archive, the user might delete it.
 			 */
-			static Archive* load(const std::string& _fileName);
+			static Archive* load(const etk::String& _fileName);
 			/**
 			 * @brief Load an Achive with a specific name in package mode ==> this mean the data is associated with the basic binary.
 			 * @param[in] _fileName File name of the specific archive.
 			 * @return A pointer an the specified archive, the user might delete it.
 			 */
-			static Archive* loadPackage(const std::string& _fileName);
+			static Archive* loadPackage(const etk::String& _fileName);
 	};
 }
 #endif

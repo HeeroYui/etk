@@ -10,7 +10,7 @@
 #include <etk/types.hpp>
 #include <etk/debug.hpp>
 
-etk::archive::Zip::Zip(const std::string& _fileName, uint64_t _offset) :
+etk::archive::Zip::Zip(const etk::String& _fileName, uint64_t _offset) :
   etk::Archive(_fileName),
   m_ctx(nullptr) {
 	/* Open the zip file */
@@ -38,7 +38,7 @@ etk::archive::Zip::Zip(const std::string& _fileName, uint64_t _offset) :
 			// find directory ...
 		} else {
 			TK_INFO("find file : " << tmpFileName);
-			m_content.insert(std::pair<std::string, etk::ArchiveContent>(tmpFileName, etk::ArchiveContent(tmpFileInfo.uncompressed_size)));
+			m_content.insert(std::pair<etk::String, etk::ArchiveContent>(tmpFileName, etk::ArchiveContent(tmpFileInfo.uncompressed_size)));
 		}
 		/* Go the the next entry listed in the zip file. */
 		if((iii+1) < m_info.number_entry) {
@@ -57,7 +57,7 @@ etk::archive::Zip::~Zip() {
 	};
 }
 
-void etk::archive::Zip::loadFile(const std::map<std::string, ArchiveContent>::iterator& it) {
+void etk::archive::Zip::loadFile(const std::map<etk::String, ArchiveContent>::iterator& it) {
 	TK_VERBOSE("Real load file : '" << it->first << "'");
 	
 	unzGoToFirstFile(m_ctx);

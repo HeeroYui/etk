@@ -40,8 +40,8 @@ extern "C" {
 
 
 #ifdef __TARGET_OS__Windows
-	static std::vector<std::string> getListDrive() {
-		std::vector<std::string> out;
+	static std::vector<etk::String> getListDrive() {
+		std::vector<etk::String> out;
 		int dr_type=99;
 		char dr_avail[4096];
 		char *temp=dr_avail;
@@ -49,7 +49,7 @@ extern "C" {
 		GetLogicalDriveStrings(4096,dr_avail);
 		while(*temp != 0) {
 			dr_type=GetDriveType(temp);
-			std::string driveName = etk::replace(std::string(temp), '\\', '/');
+			etk::String driveName = etk::replace(etk::String(temp), '\\', '/');
 			switch(dr_type) {
 				case 0: // Unknown
 					TK_WARNING("'" << driveName << "' : Unknown Drive type");
@@ -83,13 +83,13 @@ extern "C" {
 		return out;
 	}
 #else
-	static std::vector<std::string> getListDrive() {
-		std::vector<std::string> out;
+	static std::vector<etk::String> getListDrive() {
+		std::vector<etk::String> out;
 		return out;
 	}
 #endif
 
-std::string etk::simplifyPath(std::string _input) {
+etk::String etk::simplifyPath(etk::String _input) {
 	// step 1 : for windows change \ in /:
 	TK_DEBUG("Simplify(1) : '" << _input << "'");
 	size_t currentPos = 0;
@@ -138,7 +138,7 @@ std::string etk::simplifyPath(std::string _input) {
 	}
 	// step 4 remove xxx/..
 	TK_DBG_MODE("Simplify(4) : '" << _input << "'");
-	size_t lastSlashPos = std::string::npos;
+	size_t lastSlashPos = etk::String::npos;
 	currentPos = 0;
 	while(    currentPos < _input.size()-2
 	       && _input.size() > 2) {
@@ -151,13 +151,13 @@ std::string etk::simplifyPath(std::string _input) {
 			currentPos++;
 			continue;
 		}
-		if (lastSlashPos == std::string::npos) {
+		if (lastSlashPos == etk::String::npos) {
 			currentPos++;
 			continue;
 		}
 		_input.erase(lastSlashPos, currentPos+2-lastSlashPos+1);
 		TK_DEBUG("update : '" << _input << "'");
-		lastSlashPos = std::string::npos;
+		lastSlashPos = etk::String::npos;
 		currentPos = 0;
 	}
 	TK_DBG_MODE("Simplify(5) : '" << _input << "'");
@@ -165,7 +165,7 @@ std::string etk::simplifyPath(std::string _input) {
 		_input = "/";
 	}
 	#ifdef __TARGET_OS__Windows
-		std::string base;
+		etk::String base;
 		base += _input[0];
 		base += ":";
 		if (    _input == base + "/../"
@@ -234,7 +234,7 @@ static int32_t FSNODE_LOCAL_mkPath(const char* _path, mode_t _mode) {
 	return (status);
 }
 
-static bool FSNODE_LOCAL_exist(const std::string& _path) {
+static bool FSNODE_LOCAL_exist(const etk::String& _path) {
 	struct stat st;
 	int32_t status = 0;
 	if (stat(_path.c_str(), &st) != 0) {
@@ -242,7 +242,7 @@ static bool FSNODE_LOCAL_exist(const std::string& _path) {
 	}
 	return true;
 }
-static bool FSNODE_LOCAL_isDirectory(const std::string& _path) {
+static bool FSNODE_LOCAL_isDirectory(const etk::String& _path) {
 	struct stat st;
 	int32_t status = 0;
 	if (stat(_path.c_str(), &st) != 0) {
@@ -252,7 +252,7 @@ static bool FSNODE_LOCAL_isDirectory(const std::string& _path) {
 	}
 	return true;
 }
-static bool FSNODE_LOCAL_isFile(const std::string& _path) {
+static bool FSNODE_LOCAL_isFile(const etk::String& _path) {
 	struct stat st;
 	int32_t status = 0;
 	if (stat(_path.c_str(), &st) != 0) {
@@ -262,8 +262,8 @@ static bool FSNODE_LOCAL_isFile(const std::string& _path) {
 	}
 	return true;
 }
-static std::string FSNODE_LOCAL_join(const std::string& _path1, const std::string& _path2) {
-	std::string out = etk::replace(_path1, '\\', '/');
+static etk::String FSNODE_LOCAL_join(const etk::String& _path1, const etk::String& _path2) {
+	etk::String out = etk::replace(_path1, '\\', '/');
 	if (out.size() == 0) {
 		out = etk::replace(_path2, '\\', '/');;
 		return out;
@@ -285,43 +285,43 @@ static std::mutex& getNodeMutex() {
 }
 
 // zip file of the apk file for Android ==> set to zip file apk access
-static std::string s_fileAPK = "";
-static std::string baseApplName = "ewolNoName";
-static std::string baseApplPath = "ewolNoName";
-static std::string baseRunPath = "/";
-static std::string baseRunPathInHome = "/";
+static etk::String s_fileAPK = "";
+static etk::String baseApplName = "ewolNoName";
+static etk::String baseApplPath = "ewolNoName";
+static etk::String baseRunPath = "/";
+static etk::String baseRunPathInHome = "/";
 #if defined(__TARGET_OS__Android)
-	static std::string baseFolderHome     = "/sdcard/";                 // home folder
-	static std::string baseFolderData     = "assets/";                  // program Data
-	static std::string baseFolderDataUser = "/sdcard/.tmp/userData/";   // Data specific user (local modification)
-	static std::string baseFolderCache    = "/sdcard/.tmp/cache/";      // Temporary data (can be removed the next time)
+	static etk::String baseFolderHome     = "/sdcard/";                 // home folder
+	static etk::String baseFolderData     = "assets/";                  // program Data
+	static etk::String baseFolderDataUser = "/sdcard/.tmp/userData/";   // Data specific user (local modification)
+	static etk::String baseFolderCache    = "/sdcard/.tmp/cache/";      // Temporary data (can be removed the next time)
 #elif defined(__TARGET_OS__Windows)
-	static std::string baseFolderHome     = "c:/test";                  // home folder
-	static std::string baseFolderData     = "c:/test/share/";           // program Data
-	static std::string baseFolderDataUser = "c:/test/userData/";        // Data specific user (local modification)
-	static std::string baseFolderCache    = "c:/Windows/Temp/ewol/";    // Temporary data (can be removed the next time)
+	static etk::String baseFolderHome     = "c:/test";                  // home folder
+	static etk::String baseFolderData     = "c:/test/share/";           // program Data
+	static etk::String baseFolderDataUser = "c:/test/userData/";        // Data specific user (local modification)
+	static etk::String baseFolderCache    = "c:/Windows/Temp/ewol/";    // Temporary data (can be removed the next time)
 #else
-	static std::string baseFolderHome     = "~";                  // home folder
-	static std::string baseFolderData     = "share/";             // program Data
-	static std::string baseFolderDataUser = "~/.tmp/userData/";   // Data specific user (local modification)
-	static std::string baseFolderCache    = "~/.tmp/cache/";      // Temporary data (can be removed the next time)
+	static etk::String baseFolderHome     = "~";                  // home folder
+	static etk::String baseFolderData     = "share/";             // program Data
+	static etk::String baseFolderDataUser = "~/.tmp/userData/";   // Data specific user (local modification)
+	static etk::String baseFolderCache    = "~/.tmp/cache/";      // Temporary data (can be removed the next time)
 #endif
 
-std::string etk::FSNodeGetApplicationName() {
+etk::String etk::FSNodeGetApplicationName() {
 	return baseApplName;
 }
 
-std::string etk::FSNodeGetApplicationPath() {
+etk::String etk::FSNodeGetApplicationPath() {
 	return baseApplPath;
 }
 
-std::string etk::FSNodeGetHomePath() {
+etk::String etk::FSNodeGetHomePath() {
 	return baseFolderHome;
 }
 
 #ifdef HAVE_ZIP_DATA
 	static etk::Archive* s_APKArchive = nullptr;
-	static void loadAPK(const std::string& _apkPath) {
+	static void loadAPK(const etk::String& _apkPath) {
 		#ifdef __TARGET_OS__Android
 			std::unique_lock<std::mutex> lock(getNodeMutex());
 			TK_INFO("Loading APK '" << _apkPath << "'");
@@ -347,7 +347,7 @@ std::string etk::FSNodeGetHomePath() {
 		#endif
 	}
 	#ifdef __TARGET_OS__Windows
-		static void loadAPKBin(const std::string& _apkPath) {
+		static void loadAPKBin(const etk::String& _apkPath) {
 			TK_ERROR("Loading Intarnal data '" << _apkPath << "'");
 			s_APKArchive = etk::Archive::loadPackage(_apkPath);
 			TK_ASSERT(s_APKArchive != nullptr, "Error loading PKG ...  '" << _apkPath << "'");
@@ -398,12 +398,12 @@ void etk::setBaseFolderCache(const char* _folder) {
 	#endif
 }
 
-std::string l_argZero = "";
-void etk::setArgZero(const std::string& _val) {
+etk::String l_argZero = "";
+void etk::setArgZero(const etk::String& _val) {
 	std::unique_lock<std::mutex> lock(getNodeMutex());
 	l_argZero = _val;
 	// set defaiult application name ...
-	std::vector<std::string> elems = etk::split(_val, '/');
+	std::vector<etk::String> elems = etk::split(_val, '/');
 	etk::initDefaultFolder(elems[elems.size()-1].c_str());
 }
 /*
@@ -420,8 +420,8 @@ void etk::setArgZero(const std::string& _val) {
 	Note that it is up to the calling process to set argv[0] correctly. It is right most of the times however there are occasions when the calling process cannot be trusted (ex. setuid executable).
 	On Windows: use GetModuleFileName(nullptr, buf, bufsize)
 */
-std::string getApplicationPath() {
-	std::string binaryName = "no-name";
+etk::String getApplicationPath() {
+	etk::String binaryName = "no-name";
 	char binaryCompleatePath[FILENAME_MAX];
 	memset(binaryCompleatePath, 0, FILENAME_MAX);
 	#ifdef __TARGET_OS__Windows
@@ -466,7 +466,7 @@ std::string getApplicationPath() {
 		TK_VERBOSE("Parse arg0 = '" << l_argZero << "' try add PWD");
 		char * basicPathPWD = getenv("PWD");
 		if (nullptr != basicPathPWD) {
-			std::string testCompleatePath = basicPathPWD;
+			etk::String testCompleatePath = basicPathPWD;
 			testCompleatePath += "/";
 			testCompleatePath += l_argZero;
 			// check if the element existed : 
@@ -519,10 +519,10 @@ void etk::initDefaultFolder(const char* _applName) {
 		if (cCurrentPath[0] == '/') {
 			baseRunPath = cCurrentPath;
 		} else {
-			baseRunPath = std::string("/") + cCurrentPath;
+			baseRunPath = etk::String("/") + cCurrentPath;
 		}
 		if (start_with(baseRunPath, baseFolderHome) == true) {
-			baseRunPathInHome = std::string(baseRunPath, baseFolderHome.size());
+			baseRunPathInHome = etk::String(baseRunPath, baseFolderHome.size());
 		} else {
 			baseRunPathInHome = baseRunPath;
 		}
@@ -534,13 +534,13 @@ void etk::initDefaultFolder(const char* _applName) {
 	#endif
 	#if    !defined(__TARGET_OS__Android) \
 	    && !defined(__TARGET_OS__Web)
-		std::string binaryPath = getApplicationPath();
+		etk::String binaryPath = getApplicationPath();
 		binaryPath = etk::replace(binaryPath, '\\', '/');
 		size_t pos = binaryPath.rfind('/');
-		std::string binaryName(binaryPath, pos);
+		etk::String binaryName(binaryPath, pos);
 		while(    binaryName.size() >= 2
 		       && binaryName[1] == '/') {
-			binaryName = std::string(binaryName.begin()+1, binaryName.end());
+			binaryName = etk::String(binaryName.begin()+1, binaryName.end());
 		}
 		binaryPath.erase(binaryPath.begin() + pos, binaryPath.end());
 		baseApplPath = binaryPath;
@@ -568,7 +568,7 @@ void etk::initDefaultFolder(const char* _applName) {
 					baseFolderData = "";
 				}
 			#endif
-			baseFolderData += std::string(binaryName.begin()+1, binaryName.end()-4);
+			baseFolderData += etk::String(binaryName.begin()+1, binaryName.end()-4);
 			baseFolderData += "/";
 			
 			baseFolderDataUser  = binaryPath;
@@ -582,12 +582,12 @@ void etk::initDefaultFolder(const char* _applName) {
 			baseFolderData += binaryName;
 			baseFolderData += "/";
 			
-			std::string theoricInstalledName = "/usr/bin";
+			etk::String theoricInstalledName = "/usr/bin";
 			theoricInstalledName += binaryName;
 			TK_DEBUG(" position : '" << binaryPath << "' installed position : '" << theoricInstalledName << "'");
 			if (binaryPath != theoricInstalledName) {
 				// can also be in application package:
-				std::string endWith = binaryName + ".app/bin";
+				etk::String endWith = binaryName + ".app/bin";
 				if (etk::end_with(binaryPath, endWith) == true) {
 					TK_INFO("Application istall in user standalone mode: '" << binaryPath << "'");
 				} else {
@@ -649,7 +649,7 @@ void etk::initDefaultFolder(const char* _applName) {
 	TK_INFO("baseFolderCache    : '" << baseFolderCache << "'");
 }
 
-std::string etk::getUserHomeFolder() {
+etk::String etk::getUserHomeFolder() {
 	return baseFolderHome;
 }
 #if __CPP_VERSION__ >= 2011
@@ -658,7 +658,7 @@ std::string etk::getUserHomeFolder() {
 	}
 #endif
 
-std::string etk::getUserRunFolder() {
+etk::String etk::getUserRunFolder() {
 	return baseRunPath;
 }
 #if __CPP_VERSION__ >= 2011
@@ -689,7 +689,7 @@ bool etk::FSNode::loadDataZip() {
 #endif
 
 
-etk::FSNode::FSNode(const std::string& _nodeName) :
+etk::FSNode::FSNode(const etk::String& _nodeName) :
   m_userFileName(""),
   m_type(etk::FSNType_unknow),
   m_typeNode(etk::typeNode_unknow),
@@ -756,7 +756,7 @@ void etk::FSNode::sortElementList(std::vector<etk::FSNode *>& _list) {
 	}
 }
 
-void etk::FSNode::privateSetName(std::string _newName) {
+void etk::FSNode::privateSetName(etk::String _newName) {
 	if(    nullptr != m_PointerFile
 	#ifdef HAVE_ZIP_DATA
 	    || nullptr != m_zipContent
@@ -773,14 +773,14 @@ void etk::FSNode::privateSetName(std::string _newName) {
 	     && _newName[0] == '{') {
 		// special case: Reference of searching in subLib folder ==> library use-case
 		size_t firstPos = _newName.find('}');
-		if (firstPos != std::string::npos) {
+		if (firstPos != etk::String::npos) {
 			// we find a theme name : We extracted it :
-			m_libSearch = std::string(_newName, 1, firstPos-1);
-			_newName = std::string(_newName, firstPos+1);
+			m_libSearch = etk::String(_newName, 1, firstPos-1);
+			_newName = etk::String(_newName, firstPos+1);
 		} else {
 			TK_ERROR("start a path name with '{' without '}' : " << _newName);
 			// remove in case the {
-			_newName = std::string(_newName, 1);
+			_newName = etk::String(_newName, 1);
 		}
 	}
 	
@@ -794,7 +794,7 @@ void etk::FSNode::privateSetName(std::string _newName) {
 	TK_DBG_MODE("1 : Set Name :              \"" << _newName << "\"");
 	
 	// generate destination name in case of the input error
-	std::string destFilename;
+	etk::String destFilename;
 	if (_newName.size() == 0) {
 		// if no name ==> go to the root Folder
 		destFilename = "ROOT:";
@@ -945,7 +945,7 @@ void etk::FSNode::privateSetName(std::string _newName) {
 	}
 #endif
 
-bool directCheckFile(std::string _tmpFileNameDirect, bool _checkInAPKIfNeeded = false) {
+bool directCheckFile(etk::String _tmpFileNameDirect, bool _checkInAPKIfNeeded = false) {
 	#ifdef HAVE_ZIP_DATA
 	if (true == _checkInAPKIfNeeded) {
 		if(    nullptr != s_APKArchive
@@ -1027,17 +1027,17 @@ void etk::FSNode::generateFileSystemPath() {
 		case etk::FSNType_themeData:
 			{
 				//std::u32string myCompleateName=baseFolderData + "/theme/";
-				std::string themeName("");
-				std::string basicName(m_userFileName);
+				etk::String themeName("");
+				etk::String basicName(m_userFileName);
 				size_t firstPos = m_userFileName.find(':');
-				if (firstPos != std::string::npos) {
+				if (firstPos != etk::String::npos) {
 					// we find a theme name : We extracted it :
-					themeName = std::string(m_userFileName, 0, firstPos);
-					basicName = std::string(m_userFileName, firstPos+1);
+					themeName = etk::String(m_userFileName, 0, firstPos);
+					basicName = etk::String(m_userFileName, firstPos+1);
 				}
 				TK_DBG_MODE(" THEME party : \"" << themeName << "\" => \"" << basicName << "\"");
 				themeName = etk::theme::getName(themeName);
-				std::string themeNameDefault = etk::theme::getNameDefault(themeName);
+				etk::String themeNameDefault = etk::theme::getNameDefault(themeName);
 				TK_DBG_MODE("      ==> theme Folder \"" << themeName << "\"");
 				// search the correct folder : 
 				if (themeName == "") {
@@ -1134,7 +1134,7 @@ void etk::FSNode::updateFileSystemProperty() {
 		// ----------------------------------------
 		// = Check if it was a folder :           =
 		// ----------------------------------------
-		std::string folderName = "/";
+		etk::String folderName = "/";
 		if (etk::end_with(m_systemFileName, folderName) == true) {
 			folderName = m_systemFileName;
 		} else {
@@ -1156,7 +1156,7 @@ void etk::FSNode::updateFileSystemProperty() {
 		if (m_systemFileName[m_systemFileName.size()-1] == '/') {
 			//Might be a folder ==> check if it existed in the start files ...
 			for (int iii=0; iii<s_APKArchive->size(); iii++) {
-				std::string filename = s_APKArchive->getName(iii);
+				etk::String filename = s_APKArchive->getName(iii);
 				if (start_with(filename, m_systemFileName) == true) {
 					m_typeNode=etk::typeNode_folder;
 					m_rights.setUserReadable(true);
@@ -1168,10 +1168,10 @@ void etk::FSNode::updateFileSystemProperty() {
 		}
 		// special case of the user does not set tyhe / at the end of the path ...
 		if (m_systemFileName[m_systemFileName.size()-1] != '/') {
-			std::string tmpName = m_systemFileName + '/';
+			etk::String tmpName = m_systemFileName + '/';
 			//Might be a folder ==> check if it existed in the start files ...
 			for (int iii=0; iii<s_APKArchive->size(); iii++) {
-				std::string filename = s_APKArchive->getName(iii);
+				etk::String filename = s_APKArchive->getName(iii);
 				if (start_with(filename, tmpName) == true) {
 					m_typeNode = etk::typeNode_folder;
 					m_rights.setUserReadable(true);
@@ -1227,7 +1227,7 @@ bool etk::FSNode::setRight(etk::FSNodeRight _newRight) {
 	return false;
 }
 
-void etk::FSNode::setName(const std::string& _newName) {
+void etk::FSNode::setName(const etk::String& _newName) {
 	privateSetName(_newName);
 }
 #if __CPP_VERSION__ >= 2011
@@ -1236,10 +1236,10 @@ void etk::FSNode::setName(const std::string& _newName) {
 	}
 #endif
 
-std::string etk::FSNode::getNameFolder() const {
+etk::String etk::FSNode::getNameFolder() const {
 	size_t lastPos = m_systemFileName.rfind('/');
-	if (lastPos != std::string::npos) {
-		return std::string(m_systemFileName, 0, lastPos);
+	if (lastPos != etk::String::npos) {
+		return etk::String(m_systemFileName, 0, lastPos);
 	}
 	return "";
 }
@@ -1249,7 +1249,7 @@ std::string etk::FSNode::getNameFolder() const {
 	}
 #endif
 
-std::string etk::FSNode::getFileSystemName() const {
+etk::String etk::FSNode::getFileSystemName() const {
 	return m_systemFileName;
 }
 #if __CPP_VERSION__ >= 2011
@@ -1258,8 +1258,8 @@ std::string etk::FSNode::getFileSystemName() const {
 	}
 #endif
 
-std::string etk::FSNode::getName() const {
-	std::string output("");
+etk::String etk::FSNode::getName() const {
+	etk::String output("");
 	if (m_libSearch.size() > 0) {
 		output += "{";
 		output += m_libSearch;
@@ -1302,10 +1302,10 @@ std::string etk::FSNode::getName() const {
 	}
 #endif
 
-std::string etk::FSNode::getNameFile() const {
+etk::String etk::FSNode::getNameFile() const {
 	size_t lastPos = m_systemFileName.rfind('/');
-	if (lastPos != std::string::npos) {
-		return std::string(m_systemFileName, lastPos+1);
+	if (lastPos != etk::String::npos) {
+		return etk::String(m_systemFileName, lastPos+1);
 	}
 	return "";
 }
@@ -1315,8 +1315,8 @@ std::string etk::FSNode::getNameFile() const {
 	}
 #endif
 
-std::string etk::FSNode::getRelativeFolder() const {
-	std::string tmppp = getName();
+etk::String etk::FSNode::getRelativeFolder() const {
+	etk::String tmppp = getName();
 	TK_DBG_MODE("get REF folder : " << tmppp );
 	switch (m_typeNode) {
 		case etk::typeNode_unknow:
@@ -1326,7 +1326,7 @@ std::string etk::FSNode::getRelativeFolder() const {
 				TK_DBG_MODE("     ==> : " << tmppp );
 				return tmppp;
 			} else {
-				std::string tmpVal = tmppp;
+				etk::String tmpVal = tmppp;
 				tmpVal += "/";
 				TK_DBG_MODE("     ==> : " << tmppp );
 				return tmpVal;
@@ -1341,14 +1341,14 @@ std::string etk::FSNode::getRelativeFolder() const {
 			break;
 	}
 	size_t lastPos = tmppp.rfind('/');
-	if (lastPos != std::string::npos) {
-		TK_DBG_MODE("     ==> : " << std::string(tmppp, 0, lastPos+1) );
-		return std::string(tmppp, 0, lastPos+1);
+	if (lastPos != etk::String::npos) {
+		TK_DBG_MODE("     ==> : " << etk::String(tmppp, 0, lastPos+1) );
+		return etk::String(tmppp, 0, lastPos+1);
 	}
 	lastPos = tmppp.rfind(':');
-	if (lastPos != std::string::npos) {
-		TK_DBG_MODE("     ==> : " << std::string(tmppp, 0, lastPos+1) );
-		return std::string(tmppp, 0, lastPos+1);
+	if (lastPos != etk::String::npos) {
+		TK_DBG_MODE("     ==> : " << etk::String(tmppp, 0, lastPos+1) );
+		return etk::String(tmppp, 0, lastPos+1);
 	}
 	TK_DBG_MODE("     ==> : ''" );
 	return "";
@@ -1372,7 +1372,7 @@ bool etk::FSNode::touch() {
 	return ret;
 }
 
-bool etk::FSNode::move(const std::string& _path) {
+bool etk::FSNode::move(const etk::String& _path) {
 	etk::FSNode tmpDst(_path);
 	if (tmpDst.exist() == true) {
 		tmpDst.remove();
@@ -1418,9 +1418,9 @@ uint64_t etk::FSNode::timeCreated() const {
 	return m_timeCreate;
 }
 
-std::string etk::FSNode::timeCreatedString() const {
+etk::String etk::FSNode::timeCreatedString() const {
 	time_t tmpVal = (int32_t)m_timeCreate;
-	std::string tmpTime = ctime(&tmpVal);
+	etk::String tmpTime = ctime(&tmpVal);
 	if (tmpTime[tmpTime.size()-1] == '\n') {
 		tmpTime.erase(tmpTime.end()-1);
 	}
@@ -1436,9 +1436,9 @@ uint64_t etk::FSNode::timeModified() const {
 	return m_timeModify;
 }
 
-std::string etk::FSNode::timeModifiedString() const {
+etk::String etk::FSNode::timeModifiedString() const {
 	time_t tmpVal = (int32_t)m_timeModify;
-	std::string tmpTime = ctime(&tmpVal);
+	etk::String tmpTime = ctime(&tmpVal);
 	if (tmpTime[tmpTime.size()-1] == '\n') {
 		tmpTime.erase(tmpTime.end()-1);
 	}
@@ -1454,9 +1454,9 @@ uint64_t etk::FSNode::timeAccessed() const {
 	return m_timeAccess;
 }
 
-std::string etk::FSNode::timeAccessedString() const {
+etk::String etk::FSNode::timeAccessedString() const {
 	time_t tmpVal = (int32_t)m_timeAccess;
-	std::string tmpTime = ctime(&tmpVal);
+	etk::String tmpTime = ctime(&tmpVal);
 	if (tmpTime[tmpTime.size()-1] == '\n') {
 		tmpTime.erase(tmpTime.end()-1);
 	}
@@ -1488,7 +1488,7 @@ const etk::FSNode& etk::FSNode::operator=  (const etk::FSNode &_obj ) {
 		m_zipContent = nullptr;
 		m_zipReadingOffset = 0;
 	#endif
-	std::string tmppp = _obj.getName();
+	etk::String tmppp = _obj.getName();
 	privateSetName(tmppp);
 	return *this;
 }
@@ -1606,7 +1606,7 @@ int64_t etk::FSNode::folderCount() {
 	if (dir != nullptr) {
 		// for each element in the drectory...
 		while ((ent = readdir(dir)) != nullptr) {
-			std::string tmpName(ent->d_name);
+			etk::String tmpName(ent->d_name);
 			if(    tmpName == "." 
 			    || tmpName == ".." ) {
 				// do nothing ...
@@ -1623,20 +1623,20 @@ int64_t etk::FSNode::folderCount() {
 }
 
 std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bool _getFolderAndOther, bool _getFile, bool _temporaryFile) {
-	std::string filter=".*";
+	etk::String filter=".*";
 	if (_temporaryFile == true) {
 		filter = ".*(~|\\.bck|\\.tmp)";
 	}
 	return etk::FSNode::folderGetSubList(_showHidenFile, _getFolderAndOther, _getFile, filter);
 }
 
-std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bool _getFolderAndOther, bool _getFile, const std::string& _filter) {
+std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bool _getFolderAndOther, bool _getFile, const etk::String& _filter) {
 	TK_TODO("implement filter ... ");
 	std::vector<etk::FSNode*> tmpp;
 	#ifdef __TARGET_OS__Windows
 		/*
 		if (m_systemFileName.size() == 0) {
-			std::vector<std::string> listDrive = getListDrive();
+			std::vector<etk::String> listDrive = getListDrive();
 			for (auto &it : listDrive) {
 				tmpp.push_back(new etk::FSNode(it));
 			}
@@ -1652,9 +1652,9 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 	#ifdef HAVE_ZIP_DATA
 	if(    m_type == etk::FSNType_data
 	    || m_type == etk::FSNType_themeData) {
-		std::vector<std::string> listAdded;
-		std::string assetsName = baseFolderData;
-		std::string FolderName = getNameFolder();
+		std::vector<etk::String> listAdded;
+		etk::String assetsName = baseFolderData;
+		etk::String FolderName = getNameFolder();
 		if (s_APKArchive==nullptr) {
 			return tmpp;
 		}
@@ -1662,15 +1662,15 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 			FolderName += "/";
 		}
 		for (int iii=0; iii<s_APKArchive->size(); iii++) {
-			std::string filename = s_APKArchive->getName(iii);
+			etk::String filename = s_APKArchive->getName(iii);
 			if (start_with(filename, FolderName) == true) {
 				//TK_INFO("pppppp '" << filename  << "'");
 				//TK_INFO("       '" << FolderName << "'");
-				std::string tmpString(filename, FolderName.size());
+				etk::String tmpString(filename, FolderName.size());
 				size_t pos = tmpString.find('/');
-				if (pos != std::string::npos) {
+				if (pos != etk::String::npos) {
 					// a simple folder :
-					tmpString = std::string(tmpString, 0, pos);
+					tmpString = etk::String(tmpString, 0, pos);
 				}
 				//TK_INFO("plop '" << getName()  << "' '" << tmpString << "'");
 				tmpString = getName() + tmpString;
@@ -1703,7 +1703,7 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 	if (dir != nullptr) {
 		// for each element in the drectory...
 		while ((ent = readdir(dir)) != nullptr) {
-			std::string tmpName(ent->d_name);
+			etk::String tmpName(ent->d_name);
 			TK_VERBOSE(" search in folder\"" << tmpName << "\"");
 			if(    tmpName == "." 
 			    || tmpName == ".." ) {
@@ -1743,7 +1743,7 @@ std::vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 	return tmpp;
 }
 
-std::vector<std::string> etk::FSNode::folderGetSub(bool _getFolder, bool _getFile, const std::string& _filter) {
+std::vector<etk::String> etk::FSNode::folderGetSub(bool _getFolder, bool _getFile, const etk::String& _filter) {
 	TK_TODO("implement filter ... ");
 	#ifdef __TARGET_OS__Windows
 		/*
@@ -1752,7 +1752,7 @@ std::vector<std::string> etk::FSNode::folderGetSub(bool _getFolder, bool _getFil
 		}
 		*/
 	#endif
-	std::vector<std::string> out;
+	std::vector<etk::String> out;
 	// regenerate the next list :
 	etk::FSNode * tmpEmement = nullptr;
 	if (m_typeNode != etk::typeNode_folder ) {
@@ -1761,9 +1761,9 @@ std::vector<std::string> etk::FSNode::folderGetSub(bool _getFolder, bool _getFil
 	#ifdef HAVE_ZIP_DATA
 	if(    m_type == etk::FSNType_data
 	    || m_type == etk::FSNType_themeData) {
-		std::vector<std::string> listAdded;
-		std::string assetsName = baseFolderData;
-		std::string FolderName = getNameFolder();
+		std::vector<etk::String> listAdded;
+		etk::String assetsName = baseFolderData;
+		etk::String FolderName = getNameFolder();
 		if (s_APKArchive == nullptr) {
 			return out;
 		}
@@ -1771,13 +1771,13 @@ std::vector<std::string> etk::FSNode::folderGetSub(bool _getFolder, bool _getFil
 			FolderName += "/";
 		}
 		for (int32_t iii=0; iii<s_APKArchive->size(); iii++) {
-			std::string filename = s_APKArchive->getName(iii);
+			etk::String filename = s_APKArchive->getName(iii);
 			if (start_with(filename, FolderName) == true) {
-				std::string tmpString(filename, FolderName.size());
+				etk::String tmpString(filename, FolderName.size());
 				size_t pos = tmpString.find('/');
-				if (pos != std::string::npos) {
+				if (pos != etk::String::npos) {
 					// a simple folder :
-					tmpString = std::string(tmpString, 0, pos+1);
+					tmpString = etk::String(tmpString, 0, pos+1);
 				}
 				tmpString = getName() + tmpString;
 				bool findIt = false;
@@ -1805,7 +1805,7 @@ std::vector<std::string> etk::FSNode::folderGetSub(bool _getFolder, bool _getFil
 	if (dir != nullptr) {
 		// for each element in the drectory...
 		while ((ent = readdir(dir)) != nullptr) {
-			std::string tmpName(ent->d_name);
+			etk::String tmpName(ent->d_name);
 			TK_VERBOSE(" search in folder\"" << tmpName << "\"");
 			if(    tmpName == "." 
 			    || tmpName == ".." ) {
@@ -1835,19 +1835,19 @@ etk::FSNode etk::FSNode::folderGetParent() {
 	return tmpp;
 }
 
-void etk::FSNode::folderGetRecursiveFiles(std::vector<std::string>& _output, bool _recursiveEnable) {
+void etk::FSNode::folderGetRecursiveFiles(std::vector<etk::String>& _output, bool _recursiveEnable) {
 	#ifdef HAVE_ZIP_DATA
 	if(    m_type == etk::FSNType_data
 	    || m_type == etk::FSNType_themeData) {
-		std::string assetsName = baseFolderData;
-		std::string FolderName = getNameFolder();
+		etk::String assetsName = baseFolderData;
+		etk::String FolderName = getNameFolder();
 		if (s_APKArchive==nullptr) {
 			return;
 		}
 		for (int iii=0; iii<s_APKArchive->size(); iii++) {
-			std::string filename = s_APKArchive->getName(iii);
+			etk::String filename = s_APKArchive->getName(iii);
 			if (start_with(filename, FolderName) == true) {
-				std::string tmpString;
+				etk::String tmpString;
 				if(m_type == etk::FSNType_data) {
 					tmpString = "DATA:";
 				} else {
@@ -1872,7 +1872,7 @@ void etk::FSNode::folderGetRecursiveFiles(std::vector<std::string>& _output, boo
 	if (dir != nullptr) {
 		// for each element in the drectory...
 		while ((ent = readdir(dir)) != nullptr) {
-			std::string tmpName(ent->d_name);
+			etk::String tmpName(ent->d_name);
 			if(    tmpName == "." 
 			    || tmpName == ".." ) {
 				// do nothing ...
@@ -1882,7 +1882,7 @@ void etk::FSNode::folderGetRecursiveFiles(std::vector<std::string>& _output, boo
 			tmpEmement = new etk::FSNode(getRelativeFolder()+tmpName);
 			if (nullptr != tmpEmement) {
 				if(tmpEmement->getNodeType() == etk::typeNode_file) {
-					std::string tmpVal = tmpEmement->getName();
+					etk::String tmpVal = tmpEmement->getName();
 					_output.push_back(tmpVal);
 				}
 				if(tmpEmement->getNodeType() == etk::typeNode_folder) {
@@ -1906,7 +1906,7 @@ void etk::FSNode::folderGetRecursiveFiles(std::vector<std::string>& _output, boo
 #if __CPP_VERSION__ >= 2011
 	void etk::FSNode::folderGetRecursiveFiles(std::vector<std::u32string>& _output, bool _recursiveEnable) {
 		_output.clear();
-		std::vector<std::string> tmpVal;
+		std::vector<etk::String> tmpVal;
 		folderGetRecursiveFiles(tmpVal, _recursiveEnable);
 		for (size_t iii=0; iii<tmpVal.size(); ++iii) {
 			_output.push_back(to_u32string(tmpVal[iii]));
@@ -1919,7 +1919,7 @@ void etk::FSNode::folderGetRecursiveFiles(std::vector<std::string>& _output, boo
 */
 bool etk::FSNode::fileHasExtention() {
 	size_t lastPos = m_userFileName.rfind('.');
-	if(    lastPos != std::string::npos // Find a . at the fist position .jdlskjdfklj ==> hiden file
+	if(    lastPos != etk::String::npos // Find a . at the fist position .jdlskjdfklj ==> hiden file
 	    && m_userFileName.size() != lastPos ) { // Remove file ended with .
 		return true;
 	} else {
@@ -1927,12 +1927,12 @@ bool etk::FSNode::fileHasExtention() {
 	}
 }
 
-std::string etk::FSNode::fileGetExtention() {
+etk::String etk::FSNode::fileGetExtention() {
 	size_t lastPos = m_userFileName.rfind('.');
-	if(    lastPos != std::string::npos // Find a . at the fist position .jdlskjdfklj ==> hiden file
+	if(    lastPos != etk::String::npos // Find a . at the fist position .jdlskjdfklj ==> hiden file
 	    && m_userFileName.size() != lastPos ) { // Remove file ended with .
 		// Get the FileName
-		return std::string(m_userFileName, lastPos+1);
+		return etk::String(m_userFileName, lastPos+1);
 	}
 	return "";
 }
@@ -2135,7 +2135,7 @@ char etk::FSNode::fileGet() {
 	return data;
 }
 
-bool etk::FSNode::fileGets(std::string& _output) {
+bool etk::FSNode::fileGets(etk::String& _output) {
 	_output.clear();
 	char tmp = fileGet();
 	while (    tmp != '\0'
@@ -2181,7 +2181,7 @@ bool etk::FSNode::filePut(char _input) {
 	return false;
 }
 
-bool etk::FSNode::filePuts(const std::string& _input) {
+bool etk::FSNode::filePuts(const etk::String& _input) {
 	if (fileWrite((void*)_input.c_str(), 1, _input.size()) == (int64_t)_input.size()) {
 		return true;
 	}
@@ -2209,11 +2209,11 @@ etk::FSNode& etk::FSNode::operator<< (const std::ostream& _data) {
 }
 */
 etk::FSNode& etk::FSNode::operator<< (const std::stringstream& _data) {
-	std::string sss = _data.str();
+	etk::String sss = _data.str();
 	fileWrite(sss.c_str(), 1, sss.size());
 	return *this;
 }
-etk::FSNode& etk::FSNode::operator<< (const std::string& _data) {
+etk::FSNode& etk::FSNode::operator<< (const etk::String& _data) {
 	fileWrite(_data.c_str(), 1, _data.size());
 	return *this;
 }
@@ -2224,21 +2224,21 @@ etk::FSNode& etk::FSNode::operator<< (const char* _data) {
 etk::FSNode& etk::FSNode::operator<< (const int32_t _data) {
 	std::stringstream tmp;
 	tmp << _data;
-	std::string sss = tmp.str();
+	etk::String sss = tmp.str();
 	fileWrite(sss.c_str(), 1, sss.size());
 	return *this;
 }
 etk::FSNode& etk::FSNode::operator<< (const uint32_t _data) {
 	std::stringstream tmp;
 	tmp << _data;
-	std::string sss = tmp.str();
+	etk::String sss = tmp.str();
 	fileWrite(sss.c_str(), 1, sss.size());
 	return *this;
 }
 etk::FSNode& etk::FSNode::operator<< (const float _data) {
 	std::stringstream tmp;
 	tmp << _data;
-	std::string sss = tmp.str();
+	etk::String sss = tmp.str();
 	fileWrite(sss.c_str(), 1, sss.size());
 	return *this;
 }
@@ -2320,20 +2320,20 @@ void etk::FSNode::fileFlush() {
 
 
 // TODO : Add an INIT to reset all allocated parameter :
-static std::map<std::string, std::string> g_listTheme;
+static std::map<etk::String, etk::String> g_listTheme;
 
-void etk::theme::setName(const std::string& _refName, const std::string& _folderName) {
+void etk::theme::setName(const etk::String& _refName, const etk::String& _folderName) {
 	TK_WARNING("Change theme : '" << _refName << "' : '" << _folderName << "'");
 	#if __CPP_VERSION__ >= 2011
 		auto it = g_listTheme.find(_refName);
 	#else
-		std::map<std::string, std::string>::iterator it = g_listTheme.find(_refName);
+		std::map<etk::String, etk::String>::iterator it = g_listTheme.find(_refName);
 	#endif
 	if (it != g_listTheme.end()) {
 		it->second = _folderName;
 		return;
 	}
-	g_listTheme.insert(std::pair<std::string,std::string>(_refName, _folderName));
+	g_listTheme.insert(std::pair<etk::String,etk::String>(_refName, _folderName));
 }
 #if __CPP_VERSION__ >= 2011
 	void etk::theme::setName(const std::u32string& _refName, const std::u32string& _folderName) {
@@ -2341,11 +2341,11 @@ void etk::theme::setName(const std::string& _refName, const std::string& _folder
 	}
 #endif
 
-std::string etk::theme::getName(const std::string& _refName) {
+etk::String etk::theme::getName(const etk::String& _refName) {
 	#if __CPP_VERSION__ >= 2011
 		auto it = g_listTheme.find(_refName);
 	#else
-		std::map<std::string, std::string>::iterator it = g_listTheme.find(_refName);
+		std::map<etk::String, etk::String>::iterator it = g_listTheme.find(_refName);
 	#endif
 	if (it != g_listTheme.end()) {
 		return it->second;
@@ -2359,14 +2359,14 @@ std::string etk::theme::getName(const std::string& _refName) {
 #endif
 
 // get the list of all the theme folder availlable in the user Home/appl
-std::vector<std::string> etk::theme::list() {
-	std::vector<std::string> keys;
+std::vector<etk::String> etk::theme::list() {
+	std::vector<etk::String> keys;
 	#if __CPP_VERSION__ >= 2011
 		for (auto &it : g_listTheme) {
 			keys.push_back(it.first);
 		}
 	#else
-		for (std::map<std::string, std::string>::iterator it(g_listTheme.begin()); it != g_listTheme.end(); ++it) {
+		for (std::map<etk::String, etk::String>::iterator it(g_listTheme.begin()); it != g_listTheme.end(); ++it) {
 			keys.push_back(it->first);
 		}
 	#endif
@@ -2382,18 +2382,18 @@ std::vector<std::string> etk::theme::list() {
 	}
 #endif
 
-static std::map<std::string, std::string> g_listThemeDefault;
-void etk::theme::setNameDefault(const std::string& _refName, const std::string& _folderName) {
+static std::map<etk::String, etk::String> g_listThemeDefault;
+void etk::theme::setNameDefault(const etk::String& _refName, const etk::String& _folderName) {
 	#if __CPP_VERSION__ >= 2011
 		auto it = g_listThemeDefault.find(_refName);
 	#else
-		std::map<std::string, std::string>::iterator it = g_listThemeDefault.find(_refName);
+		std::map<etk::String, etk::String>::iterator it = g_listThemeDefault.find(_refName);
 	#endif
 	if (it != g_listThemeDefault.end()) {
 		it->second = _folderName;
 		return;
 	}
-	g_listThemeDefault.insert(std::pair<std::string,std::string>(_refName, _folderName));
+	g_listThemeDefault.insert(std::pair<etk::String,etk::String>(_refName, _folderName));
 }
 #if __CPP_VERSION__ >= 2011
 	void etk::theme::setNameDefault(const std::u32string& _refName, const std::u32string& _folderName) {
@@ -2401,11 +2401,11 @@ void etk::theme::setNameDefault(const std::string& _refName, const std::string& 
 	}
 #endif
 
-std::string etk::theme::getNameDefault(const std::string& _refName) {
+etk::String etk::theme::getNameDefault(const etk::String& _refName) {
 	#if __CPP_VERSION__ >= 2011
 		auto it=g_listThemeDefault.find(_refName);
 	#else
-		std::map<std::string, std::string>::iterator it = g_listThemeDefault.find(_refName);
+		std::map<etk::String, etk::String>::iterator it = g_listThemeDefault.find(_refName);
 	#endif
 	if (it != g_listThemeDefault.end()) {
 		return it->second;
@@ -2425,7 +2425,7 @@ std::string etk::theme::getNameDefault(const std::string& _refName) {
  *  Simple direct wrapper on the FileSystem node access :
  * 
  * -------------------------------------------------------------------------- */
-uint64_t etk::FSNodeGetSize(const std::string& _path) {
+uint64_t etk::FSNodeGetSize(const etk::String& _path) {
 	etk::FSNode tmpNode(_path);
 	if (false==tmpNode.exist()) {
 		return 0;
@@ -2438,7 +2438,7 @@ uint64_t etk::FSNodeGetSize(const std::string& _path) {
 	}
 #endif
 
-bool etk::FSNodeRemove(const std::string& _path) {
+bool etk::FSNodeRemove(const etk::String& _path) {
 	etk::FSNode tmpNode(_path);
 	if (false==tmpNode.exist()) {
 		return false;
@@ -2451,7 +2451,7 @@ bool etk::FSNodeRemove(const std::string& _path) {
 	}
 #endif
 
-int64_t etk::FSNodeGetCount(const std::string& _path) {
+int64_t etk::FSNodeGetCount(const etk::String& _path) {
 	etk::FSNode tmpNode(_path);
 	if (false==tmpNode.exist()) {
 		return -1;
@@ -2464,7 +2464,7 @@ int64_t etk::FSNodeGetCount(const std::string& _path) {
 	}
 #endif
 
-bool etk::FSNodeCreate(const std::string& _path, etk::FSNodeRight _right, enum etk::typeNode _type) {
+bool etk::FSNodeCreate(const etk::String& _path, etk::FSNodeRight _right, enum etk::typeNode _type) {
 	// TODO :
 	return false;
 }
@@ -2474,7 +2474,7 @@ bool etk::FSNodeCreate(const std::string& _path, etk::FSNodeRight _right, enum e
 	}
 #endif
 
-bool etk::FSNodeExist(const std::string& _path) {
+bool etk::FSNodeExist(const etk::String& _path) {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.exist();
 }
@@ -2484,7 +2484,7 @@ bool etk::FSNodeExist(const std::string& _path) {
 	}
 #endif
 
-bool etk::FSNodeMove(const std::string& _path1, const std::string& _path2) {
+bool etk::FSNodeMove(const etk::String& _path1, const etk::String& _path2) {
 	etk::FSNode tmpNode(_path1);
 	if (tmpNode.exist() == false) {
 		TK_WARNING("try to move an un-existant file '" << _path1 << "'");
@@ -2501,7 +2501,7 @@ bool etk::FSNodeMove(const std::string& _path1, const std::string& _path2) {
 	}
 #endif
 
-etk::FSNodeRight etk::FSNodeGetRight(const std::string& _path) {
+etk::FSNodeRight etk::FSNodeGetRight(const etk::String& _path) {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.getRight();
 }
@@ -2511,7 +2511,7 @@ etk::FSNodeRight etk::FSNodeGetRight(const std::string& _path) {
 	}
 #endif
 
-enum etk::typeNode etk::FSNodeGetType(const std::string& _path) {
+enum etk::typeNode etk::FSNodeGetType(const etk::String& _path) {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.getNodeType();
 }
@@ -2521,7 +2521,7 @@ enum etk::typeNode etk::FSNodeGetType(const std::string& _path) {
 	}
 #endif
 
-uint64_t etk::FSNodeGetTimeCreated(const std::string& _path) {
+uint64_t etk::FSNodeGetTimeCreated(const etk::String& _path) {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.timeCreated();
 }
@@ -2531,7 +2531,7 @@ uint64_t etk::FSNodeGetTimeCreated(const std::string& _path) {
 	}
 #endif
 
-uint64_t etk::FSNodeGetTimeModified(const std::string& _path) {
+uint64_t etk::FSNodeGetTimeModified(const etk::String& _path) {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.timeModified();
 }
@@ -2541,7 +2541,7 @@ uint64_t etk::FSNodeGetTimeModified(const std::string& _path) {
 	}
 #endif
 
-uint64_t etk::FSNodeGetTimeAccessed(const std::string& _path) {
+uint64_t etk::FSNodeGetTimeAccessed(const etk::String& _path) {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.timeAccessed();
 }
@@ -2551,7 +2551,7 @@ uint64_t etk::FSNodeGetTimeAccessed(const std::string& _path) {
 	}
 #endif
 
-bool etk::FSNodeTouch(const std::string& _path) {
+bool etk::FSNodeTouch(const etk::String& _path) {
 	etk::FSNode tmpNode(_path);
 	return tmpNode.touch();
 }
@@ -2561,7 +2561,7 @@ bool etk::FSNodeTouch(const std::string& _path) {
 	}
 #endif
 
-bool etk::FSNodeEcho(const std::string& _path, const std::string& _dataTowrite) {
+bool etk::FSNodeEcho(const etk::String& _path, const etk::String& _dataTowrite) {
 	etk::FSNode tmpNode(_path);
 	if (tmpNode.exist() == false) {
 		return false;
@@ -2585,7 +2585,7 @@ bool etk::FSNodeEcho(const std::string& _path, const std::string& _dataTowrite) 
 	}
 #endif
 
-bool etk::FSNodeEchoAdd(const std::string& _path, const std::string& _dataTowrite) {
+bool etk::FSNodeEchoAdd(const etk::String& _path, const etk::String& _dataTowrite) {
 	etk::FSNode tmpNode(_path);
 	if (tmpNode.exist() == false) {
 		return false;
@@ -2609,7 +2609,7 @@ bool etk::FSNodeEchoAdd(const std::string& _path, const std::string& _dataTowrit
 	}
 #endif
 
-void etk::FSNodeHistory(const std::string& _path, int32_t _historyCount) {
+void etk::FSNodeHistory(const etk::String& _path, int32_t _historyCount) {
 	// step 1 : Move the file to prevent writing error
 	//Get the first oldest save :
 	for (int32_t iii=_historyCount-1; iii>0 ; iii--) {
@@ -2627,14 +2627,14 @@ void etk::FSNodeHistory(const std::string& _path, int32_t _historyCount) {
 	}
 #endif
 
-std::string etk::FSNodeReadAllData(const std::string& _path) {
-	std::string output;
+etk::String etk::FSNodeReadAllData(const etk::String& _path) {
+	etk::String output;
 	etk::FSNode node(_path);
 	if (node.fileOpenRead() == false) {
 		TK_ERROR("can not open file : '" << node << "'");
 		return "";
 	}
-	std::string tmp;
+	etk::String tmp;
 	while (node.fileGets(tmp) == true) {
 		output += tmp;
 		output += "\n";
@@ -2644,7 +2644,7 @@ std::string etk::FSNodeReadAllData(const std::string& _path) {
 	return output;
 }
 
-void etk::FSNodeWriteAllData(const std::string& _path, const std::string& _data) {
+void etk::FSNodeWriteAllData(const etk::String& _path, const etk::String& _data) {
 	etk::FSNode node(_path);
 	if (node.fileOpenWrite() == false) {
 		TK_ERROR("can not open file : '" << node << "'");
@@ -2654,37 +2654,37 @@ void etk::FSNodeWriteAllData(const std::string& _path, const std::string& _data)
 	node.fileClose();
 }
 
-std::string etk::FSNodeGetRealName(const std::string& _path) {
+etk::String etk::FSNodeGetRealName(const etk::String& _path) {
 	etk::FSNode node(_path);
 	return node.getFileSystemName();
 }
 
-std::vector<std::string> etk::FSNodeExplodeMultiplePath(const std::string& _path) {
-	std::vector<std::string> out;
+std::vector<etk::String> etk::FSNodeExplodeMultiplePath(const etk::String& _path) {
+	std::vector<etk::String> out;
 	
-	std::string libSearch = "";
-	std::string newName = _path;
+	etk::String libSearch = "";
+	etk::String newName = _path;
 	if (    _path.size() > 0
 	     && _path[0] == '{') {
 		// special case: Reference of searching in subLib folder ==> library use-case
 		size_t firstPos = _path.find('}');
-		if (firstPos != std::string::npos) {
+		if (firstPos != etk::String::npos) {
 			// we find a theme name : We extracted it :
-			libSearch = std::string(_path, 1, firstPos-1);
-			newName = std::string(_path, firstPos+1);
+			libSearch = etk::String(_path, 1, firstPos-1);
+			newName = etk::String(_path, firstPos+1);
 		} else {
 			TK_ERROR("start a path name with '{' without '}' : " << _path);
 			// remove in case the {
-			newName = std::string(_path, 1);
+			newName = etk::String(_path, 1);
 		}
 	}
 	if (libSearch.size() != 0) {
 		if (libSearch[0] != '@') {
 			out.push_back(newName);
-			out.push_back(std::string("{@") + libSearch + "}" + newName);
+			out.push_back(etk::String("{@") + libSearch + "}" + newName);
 			return out;
 		}
-		out.push_back(std::string("{") + libSearch + "}" + newName);
+		out.push_back(etk::String("{") + libSearch + "}" + newName);
 		return out;
 	}
 	out.push_back(newName);

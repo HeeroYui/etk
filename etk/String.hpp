@@ -112,6 +112,43 @@ namespace etk {
 						--(*this);
 						return it;
 					}
+					
+					Iterator& operator-= (size_t _offset) {
+						m_current -= _offset;
+						return *this;
+					}
+					Iterator operator- (size_t _offset) const {
+						Iterator tmp(*this);
+						tmp -= _offset;
+						return tmp;
+					}
+					Iterator& operator-= (int64_t _offset) {
+						m_current -= _offset;
+						return *this;
+					}
+					Iterator operator- (int64_t _offset) const {
+						Iterator tmp(*this);
+						tmp -= _offset;
+						return tmp;
+					}
+					Iterator& operator+= (size_t _offset) {
+						m_current += _offset;
+						return *this;
+					}
+					Iterator operator+ (size_t _offset) const {
+						Iterator tmp(*this);
+						tmp += _offset;
+						return tmp;
+					}
+					Iterator& operator+= (int64_t _offset) {
+						m_current += _offset;
+						return *this;
+					}
+					Iterator operator+ (int64_t _offset) const {
+						Iterator tmp(*this);
+						tmp += _offset;
+						return tmp;
+					}
 					/**
 					 * @brief Get reference on the current Element
 					 * @return the reference on the current Element 
@@ -161,9 +198,9 @@ namespace etk {
 						return false;
 					}
 				private:
-					Iterator(String* _obj, int32_t _pos):
+					Iterator(const String* _obj, int32_t _pos):
 					  m_current(_pos),
-					  m_string(_obj) {
+					  m_string(const_cast<String*>(_obj)) {
 						// nothing to do ...
 					}
 					friend class String;
@@ -220,6 +257,13 @@ namespace etk {
 				uint32_t size = strlen(_obj);
 				resize(size);
 				for (size_t iii=0; iii<size; ++iii) {
+					m_data[iii] = _obj[iii];
+				}
+			}
+			// TODO : remove this when ready
+			String(const std::string _obj) {
+				resize(_obj.size());
+				for (size_t iii=0; iii<_obj.size(); ++iii) {
 					m_data[iii] = _obj[iii];
 				}
 			}
@@ -409,7 +453,7 @@ namespace etk {
 			 * @param[in] _pos Position in the string that might be get [0..Size()]
 			 * @return An reference on the selected element
 			 */
-			const char operator[] (size_t _pos) const {
+			const char& operator[] (size_t _pos) const {
 				return m_data[_pos];
 			}
 			/**
@@ -517,7 +561,7 @@ namespace etk {
 			 * @param[in] _pos Position to add the elements.
 			 * @param[in] _item Element to add.
 			 */
-			void insert(size_t _pos, const etk:::String& _value) {
+			void insert(size_t _pos, const String& _value) {
 				insert(_pos, &_value[0], _value.size());
 			}
 			/**
@@ -601,6 +645,9 @@ namespace etk {
 			Iterator position(size_t _pos) {
 				return Iterator(this, _pos);
 			}
+			const Iterator position(size_t _pos) const {
+				return Iterator(this, _pos);
+			}
 			/**
 			 * @brief Get an Iterator on the start position of the String
 			 * @return The Iterator
@@ -608,11 +655,17 @@ namespace etk {
 			Iterator begin() {
 				return position(0);
 			}
+			const Iterator begin() const {
+				return position(0);
+			}
 			/**
 			 * @brief Get an Iterator on the end position of the String
 			 * @return The Iterator
 			 */
 			Iterator end() {
+				return position( size()-1 );
+			}
+			const Iterator end() const {
 				return position( size()-1 );
 			}
 			/**
@@ -688,8 +741,64 @@ namespace etk {
 			 * @param[in] ETK_STRING_TYPE Template type of the convertion output
 			 */
 			template <class ETK_STRING_TYPE>
-			ETK_STRING_TYPE to();
+			ETK_STRING_TYPE to() const;
 	};
+	bool operator> (const String& _left, const String& _right) {
+		for (size_t iii=0; iii<_left.size() && iii<_right.size(); ++iii) {
+			if (_left[iii] > _right[iii]) {
+				return true;
+			}
+			if (_left[iii] < _right[iii]) {
+				return false;
+			}
+		}
+		if (_left.size() > _right.size()) {
+			return true;
+		}
+		return false;
+	}
+	bool operator>= (const String& _left, const String& _right) {
+		for (size_t iii=0; iii<_left.size() && iii<_right.size(); ++iii) {
+			if (_left[iii] > _right[iii]) {
+				return true;
+			}
+			if (_left[iii] < _right[iii]) {
+				return false;
+			}
+		}
+		if (_left.size() >= _right.size()) {
+			return true;
+		}
+		return false;
+	}
+	bool operator< (const String& _left, const String& _right) {
+		for (size_t iii=0; iii<_left.size() && iii<_right.size(); ++iii) {
+			if (_left[iii] < _right[iii]) {
+				return true;
+			}
+			if (_left[iii] > _right[iii]) {
+				return false;
+			}
+		}
+		if (_left.size() < _right.size()) {
+			return true;
+		}
+		return false;
+	}
+	bool operator<= (const String& _left, const String& _right) {
+		for (size_t iii=0; iii<_left.size() && iii<_right.size(); ++iii) {
+			if (_left[iii] < _right[iii]) {
+				return true;
+			}
+			if (_left[iii] > _right[iii]) {
+				return false;
+			}
+		}
+		if (_left.size() <= _right.size()) {
+			return true;
+		}
+		return false;
+	}
 	String operator+ (const String& _left, const String& _right) {
 		String tmp = _left;
 		tmp += _right;

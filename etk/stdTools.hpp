@@ -6,6 +6,8 @@
 #pragma once
 
 #include <etk/types.hpp>
+#include <etk/String.hpp>
+#include <etk/Vector.hpp>
 #include <vector>
 #include <sstream>
 #include <iostream>
@@ -94,7 +96,7 @@ namespace utf8 {
 	 */
 	char32_t convertChar32(const char* _input);
 	#if __CPP_VERSION__ >= 2011
-		std::u32string convertUnicode(const std::string& _input);
+		std::u32string convertUnicode(const etk::String& _input);
 	#endif
 	/**
 	 * @brief Iterator on a simple std::string that contain utf8 value
@@ -475,24 +477,7 @@ namespace etk {
 	}
 };
 
-namespace etk {
-	template <class TYPE> const TYPE& min(const TYPE& _val1, const TYPE& _val2) {
-		return (_val1 > _val2) ? _val2 : _val1;
-	}
-	template <class TYPE> const TYPE& max(const TYPE& _val1, const TYPE& _val2) {
-		return (_val1 > _val2) ? _val1 : _val2;
-	}
-	/**
-	 * @brief in std, we have min, max but not avg ==> it is missing... the Define of avg template.
-	 * @param[in] _min Minimum value of the range
-	 * @param[in] _val The value that we want a min/max
-	 * @param[in] _max Maximum value of the range
-	 * @return Value that min/max applied
-	 */
-	template <class TYPE> const TYPE& avg(const TYPE& _min, const TYPE& _val, const TYPE& _max) {
-		return std::min(std::max(_min,_val),_max);
-	}
-};
+
 
 namespace std {
 	#if __CPP_VERSION__ >= 2011

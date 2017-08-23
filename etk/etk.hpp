@@ -5,7 +5,7 @@
  */
 #pragma once
 
-#include <string>
+#include <etk/String.hpp>
 /**
  * @brief basic namespace of the etk library. (it might contain all the etk functions/class/structures without macro)
  */

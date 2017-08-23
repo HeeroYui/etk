@@ -383,7 +383,7 @@ template<> template<> Color<float,4>::Color(const Color<double, 4>& _obj) {
 }
 
 
-template<> etk::String to_string<Color<float, 1> >(const Color<float, 1>& _val) {
+template<> etk::String toString<Color<float, 1> >(const Color<float, 1>& _val) {
 	return _val.getString();
 }
 #if __cplusplus >= 201103L
@@ -391,7 +391,7 @@ template<> etk::String to_string<Color<float, 1> >(const Color<float, 1>& _val) 
 		return to_u32string(_val.getString());
 	}
 	template<> bool from_string<Color<float, 1>>(Color<float, 1>& _variableRet, const std::u32string& _value) {
-		_variableRet = Color<float, 1>(to_string(_value));
+		_variableRet = Color<float, 1>(toString(_value));
 		return true;
 	}
 #endif
@@ -401,7 +401,7 @@ template<> bool from_string<Color<float, 1> >(Color<float, 1>& _variableRet, con
 }
 
 
-template<> etk::String to_string<Color<float, 2> >(const Color<float, 2>& _val) {
+template<> etk::String toString<Color<float, 2> >(const Color<float, 2>& _val) {
 	return _val.getString();
 }
 #if __cplusplus >= 201103L
@@ -409,7 +409,7 @@ template<> etk::String to_string<Color<float, 2> >(const Color<float, 2>& _val) 
 		return to_u32string(_val.getString());
 	}
 	template<> bool from_string<Color<float, 2>>(Color<float, 2>& _variableRet, const std::u32string& _value) {
-		_variableRet = Color<float, 2>(to_string(_value));
+		_variableRet = Color<float, 2>(toString(_value));
 		return true;
 	}
 #endif
@@ -419,7 +419,7 @@ template<> bool from_string<Color<float, 2> >(Color<float, 2>& _variableRet, con
 }
 
 
-template<> etk::String to_string<Color<float, 3> >(const Color<float, 3>& _val) {
+template<> etk::String toString<Color<float, 3> >(const Color<float, 3>& _val) {
 	return _val.getString();
 }
 #if __cplusplus >= 201103L
@@ -427,7 +427,7 @@ template<> etk::String to_string<Color<float, 3> >(const Color<float, 3>& _val) 
 		return to_u32string(_val.getString());
 	}
 	template<> bool from_string<Color<float, 3>>(Color<float, 3>& _variableRet, const std::u32string& _value) {
-		_variableRet = Color<float, 3>(to_string(_value));
+		_variableRet = Color<float, 3>(toString(_value));
 		return true;
 	}
 #endif
@@ -437,7 +437,7 @@ template<> bool from_string<Color<float, 3> >(Color<float, 3>& _variableRet, con
 }
 
 
-template<> etk::String to_string<Color<float, 4> >(const Color<float, 4>& _val) {
+template<> etk::String toString<Color<float, 4> >(const Color<float, 4>& _val) {
 	return _val.getString();
 }
 #if __cplusplus >= 201103L
@@ -445,7 +445,7 @@ template<> etk::String to_string<Color<float, 4> >(const Color<float, 4>& _val) 
 		return to_u32string(_val.getString());
 	}
 	template<> bool from_string<Color<float, 4>>(Color<float, 4>& _variableRet, const std::u32string& _value) {
-		_variableRet = Color<float, 4>(to_string(_value));
+		_variableRet = Color<float, 4>(toString(_value));
 		return true;
 	}
 #endif

@@ -10,6 +10,7 @@
 #include <etk/types.hpp>
 #include <etk/debug.hpp>
 #include <etk/stdTools.hpp>
+#include <etk/String.hpp>
 #include <vector>
 #include <memory>
 
@@ -1581,7 +1582,7 @@ template<class CLASS_TYPE> class RegEx {
 		 * @return the string representing the RegEx
 		 */
 		etk::String getRegEx() const {
-			return etk::to_string(m_expressionRequested);
+			return etk::toString(m_expressionRequested);
 		};
 		/**
 		 * @previous

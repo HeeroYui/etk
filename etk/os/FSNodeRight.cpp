@@ -152,8 +152,8 @@ void etk::FSNodeRight::setOtherRunable(bool _newStatus) {
 	}
 #endif
 
-std::string etk::FSNodeRight::getRight() const {
-	std::string tmp;
+etk::String etk::FSNodeRight::getRight() const {
+	etk::String tmp;
 	if (isUserReadable() == true) {
 		tmp += "r";
 	} else {

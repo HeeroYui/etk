@@ -414,7 +414,7 @@ etk::String etk::regex::autoStr(const etk::String& _data) {
 		} else if (it == ' ') {
 			out += " ";
 		} else if (it <= 0x20) {
-			out += std::to_string((int32_t)it);
+			out += etk::toString((int32_t)it);
 		} else {
 			out += it;
 		}
@@ -436,7 +436,7 @@ etk::String etk::regex::autoStr(char _data) {
 	} else if (_data == ' ') {
 		out += " ";
 	} else if (_data <= 0x20) {
-		out += std::to_string((int32_t)_data);
+		out += etk::toString((int32_t)_data);
 	} else {
 		out += _data;
 	}
@@ -455,10 +455,10 @@ etk::String etk::regex::strTick(int32_t _pos) {
 
 
 namespace etk {
-	template<> etk::String to_string<etk::RegEx<etk::String>>(const etk::RegEx<etk::String>& _val) {
+	template<> etk::String toString<etk::RegEx<etk::String>>(const etk::RegEx<etk::String>& _val) {
 		return _val.getRegEx();
 	}
-	template<> etk::String to_string<etk::RegEx<std::u32string>>(const etk::RegEx<std::u32string>& _val) {
+	template<> etk::String toString<etk::RegEx<std::u32string>>(const etk::RegEx<std::u32string>& _val) {
 		return _val.getRegEx();
 	}
 	template<> std::u32string to_u32string<etk::RegEx<etk::String>>(const etk::RegEx<etk::String>& _val) {

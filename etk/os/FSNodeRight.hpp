@@ -147,7 +147,7 @@ namespace etk {
 			 * @brief Get the write written in a string mode (like in linux rw-r-----)
 			 * @return String with the right in string
 			 */
-			std::string getRight() const;
+			etk::String getRight() const;
 	};
 	//! @not_in_doc
 	std::ostream& operator <<(std::ostream &_os, const etk::FSNodeRight &_obj);

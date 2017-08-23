@@ -224,9 +224,9 @@ bool utf8::first(const char _input) {
 	return false;
 }
 #if __CPP_VERSION__ >= 2011
-	std::u32string utf8::convertUnicode(const std::string& _input) {
+	std::u32string utf8::convertUnicode(const etk::String& _input) {
 		TK_TODO("implement this function ...");
-		return U"TODO ... std::u32string utf8::convertUnicode(const std::string& _input)";
+		return U"TODO ... std::u32string utf8::convertUnicode(const etk::String& _input)";
 	}
 #endif
 

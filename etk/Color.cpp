@@ -9,13 +9,13 @@
 #include <etk/Color.hpp>
 #include <etk/debug.hpp>
 #include <etk/stdTools.hpp>
-#include <string>
+#include <etk/String.hpp>
 #include <sstream>
 #include <stdexcept>
 
 class ColorList {
 	public:
-		const char * colorName;
+		const etk::String colorName;
 		etk::Color<> color;
 };
 
@@ -97,18 +97,18 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithRGBGen(const etk::String& _input
 		outputValue.setG(std::min(0xFF, green));
 		outputValue.setB(std::min(0xFF, blue));
 	} else if (sscanf(_input.c_str(), "%f,%f,%f,%f", &float_red, &float_green, &float_blue, &float_alpha) == 4) {
-		float_red   = std::avg(0.0f, float_red, 1.0f);
-		float_green = std::avg(0.0f, float_green, 1.0f);
-		float_blue  = std::avg(0.0f, float_blue, 1.0f);
-		float_alpha = std::avg(0.0f, float_alpha, 1.0f);
+		float_red   = etk::avg(0.0f, float_red, 1.0f);
+		float_green = etk::avg(0.0f, float_green, 1.0f);
+		float_blue  = etk::avg(0.0f, float_blue, 1.0f);
+		float_alpha = etk::avg(0.0f, float_alpha, 1.0f);
 		outputValue.setR((uint8_t)(float_red * 255.f));
 		outputValue.setG((uint8_t)(float_green * 255.f));
 		outputValue.setB((uint8_t)(float_blue * 255.f));
 		outputValue.setR((uint8_t)(float_alpha * 255.f));
 	} else if (sscanf(_input.c_str(), "%f,%f,%f", &float_red, &float_green, &float_blue) == 3) {
-		float_red  = std::avg(0.0f, float_red, 1.0f);
-		float_green= std::avg(0.0f, float_green, 1.0f);
-		float_blue = std::avg(0.0f, float_blue, 1.0f);
+		float_red  = etk::avg(0.0f, float_red, 1.0f);
+		float_green= etk::avg(0.0f, float_green, 1.0f);
+		float_blue = etk::avg(0.0f, float_blue, 1.0f);
 		outputValue.setR((uint8_t)(float_red * 255.f));
 		outputValue.setG((uint8_t)(float_green * 255.f));
 		outputValue.setB((uint8_t)(float_blue * 255.f));
@@ -269,7 +269,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithRGBUnsigned8(const etk::String& 
 etk::Color<uint8_t, 4> etk::parseStringColorNamed(const etk::String& _input) {
 	// direct named color ...
 	for (int32_t iii=0; iii<getColorSize(); iii++) {
-		if (etk::compare_no_case(getColorList()[iii].colorName, _input) == true) {
+		if (getColorList()[iii].colorName.compare(_input, false) == true) {
 			return getColorList()[iii].color;
 		}
 	}

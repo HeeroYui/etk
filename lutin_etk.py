@@ -29,6 +29,7 @@ def configure(target, my_module):
 	# add the file to compile:
 	my_module.add_src_file([
 	    'etk/debug.cpp',
+	    'etk/String.cpp',
 	    'etk/etk.cpp',
 	    'etk/stdTools.cpp',
 	    'etk/tool.cpp',
@@ -81,7 +82,7 @@ def configure(target, my_module):
 	my_module.compile_version("c++", 2011)
 	# add dependency of the generic C++ library:
 	my_module.add_depend([
-	    'cxx',
+	    'c',
 	    'm',
 	    'elog',
 	    'ememory'

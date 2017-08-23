@@ -4,49 +4,49 @@
 
 
 template <>
-long double etk::String::to<long double>() {
+long double etk::String::to<long double>() const {
 	long double ret = 0;
 	sscanf(c_str(), "%Lf", &ret);
 	return ret;
 }
 
 template <>
-double etk::String::to<double>() {
+double etk::String::to<double>() const {
 	double ret = 0;
 	sscanf(c_str(), "%lf", &ret);
 	return ret;
 }
 
 template <>
-float etk::String::to<float>() {
+float etk::String::to<float>() const {
 	float ret = 0;
 	sscanf(c_str(), "%f", &ret);
 	return ret;
 }
 
 template <>
-int8_t etk::String::to<int8_t>() {
+int8_t etk::String::to<int8_t>() const {
 	int ret = 0;
 	sscanf(c_str(), "%d", &ret);
 	return ret;
 }
 
 template <>
-int16_t etk::String::to<int16_t>() {
+int16_t etk::String::to<int16_t>() const {
 	int ret = 0;
 	sscanf(c_str(), "%d", &ret);
 	return ret;
 }
 
 template <>
-int32_t etk::String::to<int32_t>() {
+int32_t etk::String::to<int32_t>() const {
 	int ret = 0;
 	sscanf(c_str(), "%d", &ret);
 	return ret;
 }
 
 template <>
-int64_t etk::String::to<int64_t>() {
+int64_t etk::String::to<int64_t>() const {
 	int64_t ret = 0;
 	#if (    defined(__TARGET_OS__Android) \
 	      || defined(__TARGET_OS__Windows) \
@@ -60,28 +60,28 @@ int64_t etk::String::to<int64_t>() {
 }
 
 template <>
-uint8_t etk::String::to<uint8_t>() {
+uint8_t etk::String::to<uint8_t>() const {
 	int ret = 0;
 	sscanf(c_str(), "%d", &ret);
 	return ret;
 }
 
 template <>
-uint16_t etk::String::to<uint16_t>() {
+uint16_t etk::String::to<uint16_t>() const {
 	int ret = 0;
 	sscanf(c_str(), "%d", &ret);
 	return ret;
 }
 
 template <>
-uint32_t etk::String::to<uint32_t>() {
+uint32_t etk::String::to<uint32_t>() const {
 	int ret = 0;
 	sscanf(c_str(), "%d", &ret);
 	return ret;
 }
 
 template <>
-uint64_t etk::String::to<uint64_t>() {
+uint64_t etk::String::to<uint64_t>() const {
 	uint64_t ret = 0;
 	#if (    defined(__TARGET_OS__Android) \
 	      || defined(__TARGET_OS__Windows) \
@@ -99,19 +99,6 @@ std::ostream& etk::operator <<(std::ostream& _os, const etk::String& _obj) {
 	_os << _obj.c_str();
 	return _os;
 }
-
-std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector<etk::String>& _obj) {
-	_os << "{";
-	for (size_t iii=0; iii< _obj.size(); iii++) {
-		if (iii>0) {
-			_os << " ~ ";
-		}
-		_os << _obj[iii];
-	}
-	_os << "}";
-	return _os;
-}
-
 
 void etk::sort(etk::Vector<etk::String *> &_list) {
 	etk::Vector<etk::String *> tmpList(_list);
@@ -137,103 +124,112 @@ namespace etk {
 		return true;
 	}
 	template<> bool from_string<int8_t>(int8_t& _variableRet, const etk::String& _value) {
-		_variableRet = string_to_int8_t(_value);
+		_variableRet = _value.to<int8_t>();
 		return true;
 	}
 	template<> bool from_string<int16_t>(int16_t& _variableRet, const etk::String& _value) {
-		_variableRet = string_to_int16_t(_value);
+		_variableRet = _value.to<int16_t>();
 		return true;
 	}
 	template<> bool from_string<int32_t>(int32_t& _variableRet, const etk::String& _value) {
-		_variableRet = string_to_int32_t(_value);
+		_variableRet = _value.to<int32_t>();
 		return true;
 	}
 	template<> bool from_string<int64_t>(int64_t& _variableRet, const etk::String& _value) {
-		_variableRet = string_to_int64_t(_value);
+		_variableRet = _value.to<int64_t>();
 		return true;
 	}
 	template<> bool from_string<uint8_t>(uint8_t& _variableRet, const etk::String& _value) {
-		_variableRet = string_to_uint8_t(_value);
+		_variableRet = _value.to<uint8_t>();
 		return true;
 	}
 	template<> bool from_string<uint16_t>(uint16_t& _variableRet, const etk::String& _value) {
-		_variableRet = string_to_uint16_t(_value);
+		_variableRet = _value.to<uint16_t>();
 		return true;
 	}
 	template<> bool from_string<uint32_t>(uint32_t& _variableRet, const etk::String& _value) {
-		_variableRet = string_to_uint32_t(_value);
+		_variableRet = _value.to<uint32_t>();
 		return true;
 	}
 	template<> bool from_string<uint64_t>(uint64_t& _variableRet, const etk::String& _value) {
-		_variableRet = string_to_uint64_t(_value);
+		_variableRet = _value.to<uint64_t>();
 		return true;
 	}
 	template<> bool from_string<float>(float& _variableRet, const etk::String& _value) {
-		_variableRet = string_to_float(_value);
+		_variableRet = _value.to<float>();
 		return true;
 	}
 	template<> bool from_string<double>(double& _variableRet, const etk::String& _value) {
-		_variableRet = string_to_double(_value);
+		_variableRet = _value.to<double>();
 		return true;
 	}
 	template<> bool from_string<long double>(long double& _variableRet, const etk::String& _value) {
-		_variableRet = string_to_long_double(_value);
+		_variableRet = _value.to<long double>();
 		return true;
 	}
 	template<> bool from_string<bool>(bool& _variableRet, const etk::String& _value) {
-		_variableRet = string_to_bool(_value);
+		_variableRet = _value.to<bool>();
 		return true;
 	}
 }
 
-
-etk::String etk::toString(bool _val) {
+template<>
+etk::String etk::toString(const bool& _val) {
 	if (_val == true) {
 		return "true";
 	}
 	return "false";
 }
-etk::String etk::toString(int _val) {
+template<>
+etk::String etk::toString(const int& _val) {
 	char tmpVal[256];
 	sprintf(tmpVal, "%d", _val);
 	return tmpVal;
 }
-etk::String etk::toString(long _val) {
+template<>
+etk::String etk::toString(const long& _val) {
 	char tmpVal[256];
 	sprintf(tmpVal, "%ld", _val);
 	return tmpVal;
 }
-etk::String etk::toString(long long _val) {
+template<>
+etk::String etk::toString(const long long& _val) {
 	char tmpVal[256];
 	sprintf(tmpVal, "%lld", _val);
 	return tmpVal;
 }
-etk::String etk::toString(unsigned _val) {
+template<>
+etk::String etk::toString(const unsigned& _val) {
 	char tmpVal[256];
 	sprintf(tmpVal, "%u", _val);
 	return tmpVal;
 }
-etk::String etk::toString(unsigned long _val) {
+template<>
+etk::String etk::toString(const unsigned long& _val) {
 	char tmpVal[256];
 	sprintf(tmpVal, "%lu", _val);
 	return tmpVal;
 }
-etk::String etk::toString(unsigned long long _val) {
+template<>
+etk::String etk::toString(const unsigned long long& _val) {
 	char tmpVal[256];
 	sprintf(tmpVal, "%llu", _val);
 	return tmpVal;
 }
-etk::String etk::toString(float _val) {
+template<>
+etk::String etk::toString(const float& _val) {
 	char tmpVal[256];
 	sprintf(tmpVal, "%f", _val);
 	return tmpVal;
 }
-etk::String etk::toString(double _val) {
+template<>
+etk::String etk::toString(const double& _val) {
 	char tmpVal[256];
 	sprintf(tmpVal, "%f", _val);
 	return tmpVal;
 }
-etk::String etk::toString(long double _val) {
+template<>
+etk::String etk::toString(const long double& _val) {
 	char tmpVal[256];
 	sprintf(tmpVal, "%Lf", _val);
 	return tmpVal;
@@ -302,23 +298,23 @@ size_t etk::String::rfind(const etk::String& _value, size_t _pos) const {
 	return etk::String::npos;
 }
 
-etk::String& etk::replace(size_t _pos, size_t _len, char _replace) {
+etk::String& etk::String::replace(size_t _pos, size_t _len, char _replace) {
 	erase(_pos, _len);
 	insert(_pos, _replace);
 	return *this;
 }
 
-etk::String& etk::replace(size_t _pos, size_t _len, const etk::String& _replace) {
+etk::String& etk::String::replace(size_t _pos, size_t _len, const etk::String& _replace) {
 	erase(_pos, _len);
 	insert(_pos, _replace);
 	return *this;
 }
 
-etk::String& etk::replace(char _val, char _replace) {
+etk::String& etk::String::replace(char _val, char _replace) {
 	size_t pos = 0;
 	while ((pos = find(_val, pos)) != etk::String::npos) {
-		replace(pos, _val.size(), _replace);
-		pos += _replace.size();
+		replace(pos, 1, _replace);
+		pos += 1;
 	}
 	return *this;
 }
@@ -367,12 +363,12 @@ etk::Vector<etk::String> etk::String::split(char _val) const {
 	size_t lastStartPos = 0;
 	for(size_t iii=0; iii<size(); iii++) {
 		if (m_data[iii] == _val) {
-			list.push_back(etk::String(*this, lastStartPos, iii - lastStartPos));
+			list.pushBack(etk::String(*this, lastStartPos, iii - lastStartPos));
 			lastStartPos = iii+1;
 		}
 	}
 	if (lastStartPos < size()) {
-		list.push_back(etk::String(*this, lastStartPos));
+		list.pushBack(etk::String(*this, lastStartPos));
 	}
 	return list;
 }
@@ -382,13 +378,13 @@ etk::Vector<etk::String> etk::String::split(etk::String _val) const {
 	size_t lastStartPos = 0;
 	for(size_t iii=0; iii<size()-_val.size(); iii++) {
 		if (etk::String(begin()+iii, begin()+iii+_val.size()) ==_val) {
-			list.push_back(etk::String(*this, lastStartPos, iii - lastStartPos));
+			list.pushBack(etk::String(*this, lastStartPos, iii - lastStartPos));
 			lastStartPos = iii+_val.size();
 			iii += _val.size()-1;
 		}
 	}
 	if (lastStartPos < size()) {
-		list.push_back(etk::String(*this, lastStartPos));
+		list.pushBack(etk::String(*this, lastStartPos));
 	}
 	return list;
 }

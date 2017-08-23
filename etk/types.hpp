@@ -39,8 +39,6 @@
 	#endif
 #endif
 
-#include <etk/stdTools.hpp>
-
 #ifndef ETK_BUILD_LINEARMATH
 	//! @brief If not using linear math from bullet lib, we need to define the basic element of a btScalar (float)
 	using btScalar = float;
@@ -67,3 +65,21 @@
 	#define ETK_EXPORT_VISIBILITY __attribute__ ((visibility ("default")))
 #endif
 
+namespace etk {
+	template <class TYPE> const TYPE& min(const TYPE& _val1, const TYPE& _val2) {
+		return (_val1 > _val2) ? _val2 : _val1;
+	}
+	template <class TYPE> const TYPE& max(const TYPE& _val1, const TYPE& _val2) {
+		return (_val1 > _val2) ? _val1 : _val2;
+	}
+	/**
+	 * @brief in std, we have min, max but not avg ==> it is missing... the Define of avg template.
+	 * @param[in] _min Minimum value of the range
+	 * @param[in] _val The value that we want a min/max
+	 * @param[in] _max Maximum value of the range
+	 * @return Value that min/max applied
+	 */
+	template <class TYPE> const TYPE& avg(const TYPE& _min, const TYPE& _val, const TYPE& _max) {
+		return std::min(std::max(_min,_val),_max);
+	}
+};

@@ -63,7 +63,7 @@ void etk::init(int _argc, const char** _argv) {
 			TK_PRINT("            X     Log level to set [0..6]");
 			*/
 			TK_PRINT("        -h/--help: this help");
-		} else if (etk::start_with(data, "--etk")) {
+		} else if (data.startWith("--etk")) {
 			TK_ERROR("Can not parse the argument : '" << data << "'");
 		}
 	}

@@ -6,7 +6,6 @@
 #pragma once
 
 #include <etk/types.hpp>
-#include <etk/stdTools.hpp>
 #include <etk/debug.hpp>
 
 namespace etk {
@@ -130,6 +129,42 @@ namespace etk {
 						--(*this);
 						return it;
 					}
+					Iterator& operator-= (size_t _offset) {
+						m_current -= _offset;
+						return *this;
+					}
+					Iterator operator- (size_t _offset) const {
+						Iterator tmp(*this);
+						tmp -= _offset;
+						return tmp;
+					}
+					Iterator& operator-= (int64_t _offset) {
+						m_current -= _offset;
+						return *this;
+					}
+					Iterator operator- (int64_t _offset) const {
+						Iterator tmp(*this);
+						tmp -= _offset;
+						return tmp;
+					}
+					Iterator& operator+= (size_t _offset) {
+						m_current += _offset;
+						return *this;
+					}
+					Iterator operator+ (size_t _offset) const {
+						Iterator tmp(*this);
+						tmp += _offset;
+						return tmp;
+					}
+					Iterator& operator+= (int64_t _offset) {
+						m_current += _offset;
+						return *this;
+					}
+					Iterator operator+ (int64_t _offset) const {
+						Iterator tmp(*this);
+						tmp += _offset;
+						return tmp;
+					}
 					/**
 					 * @brief Get reference on the current Element
 					 * @return the reference on the current Element 
@@ -147,9 +182,9 @@ namespace etk {
 						return m_vector->get(m_current);
 					}
 				private:
-					Iterator(Vector<ETK_VECTOR_TYPE> * _obj, int32_t _pos):
+					Iterator(const Vector<ETK_VECTOR_TYPE> * _obj, int32_t _pos):
 					  m_current(_pos),
-					  m_vector(_obj) {
+					  m_vector(const_cast<Vector<ETK_VECTOR_TYPE> *>(_obj)) {
 						// nothing to do ...
 					}
 					friend class Vector;
@@ -531,7 +566,10 @@ namespace etk {
 			 * @return The Iterator
 			 */
 			Iterator position(size_t _pos) {
-				return iterator(this, _pos);
+				return Iterator(this, _pos);
+			}
+			const Iterator position(size_t _pos) const {
+				return Iterator(this, _pos);
 			}
 			/**
 			 * @brief Get an Iterator on the start position of the Vector
@@ -540,11 +578,17 @@ namespace etk {
 			Iterator begin() {
 				return position(0);
 			}
+			const Iterator begin() const {
+				return position(0);
+			}
 			/**
 			 * @brief Get an Iterator on the end position of the Vector
 			 * @return The Iterator
 			 */
 			Iterator end() {
+				return position( size()-1 );
+			}
+			const Iterator end() const {
 				return position( size()-1 );
 			}
 		private:

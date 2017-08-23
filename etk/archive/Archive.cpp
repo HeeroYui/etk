@@ -12,7 +12,7 @@
 static const etk::ArchiveContent g_error;
 
 
-const std::string& etk::Archive::getName(size_t _id) const {
+const etk::String& etk::Archive::getName(size_t _id) const {
 	std::unique_lock<std::mutex> lock(m_mutex);
 	size_t id = 0;
 	for (auto &it : m_content) {
@@ -21,7 +21,7 @@ const std::string& etk::Archive::getName(size_t _id) const {
 		}
 		++id;
 	}
-	static const std::string error("");
+	static const etk::String error("");
 	return error;
 }
 
@@ -37,7 +37,7 @@ const etk::ArchiveContent& etk::Archive::getContent(size_t _id) const {
 	return g_error;
 }
 
-const etk::ArchiveContent& etk::Archive::getContent(const std::string& _key) const {
+const etk::ArchiveContent& etk::Archive::getContent(const etk::String& _key) const {
 	std::unique_lock<std::mutex> lock(m_mutex);
 	auto it = m_content.find(_key);
 	if (it == m_content.end()) {
@@ -47,7 +47,7 @@ const etk::ArchiveContent& etk::Archive::getContent(const std::string& _key) con
 }
 
 
-bool etk::Archive::exist(const std::string& _key) const {
+bool etk::Archive::exist(const etk::String& _key) const {
 	std::unique_lock<std::mutex> lock(m_mutex);
 	return m_content.find(_key) != m_content.end();
 }
@@ -61,12 +61,12 @@ void etk::Archive::display() {
 	}
 }
 
-etk::Archive* etk::Archive::load(const std::string& _fileName) {
+etk::Archive* etk::Archive::load(const etk::String& _fileName) {
 	etk::Archive* output=nullptr;
-	std::string tmpName = etk::tolower(_fileName);
+	etk::String tmpName = _fileName.toLower();
 	// select the corect Loader :
-	if(    end_with(tmpName, ".zip") == true
-	    || end_with(tmpName, ".apk") == true ) {
+	if(    tmpName.endWith(".zip") == true
+	    || tmpName.endWith(".apk") == true ) {
 		output = new etk::archive::Zip(_fileName);
 		if (output == nullptr) {
 			TK_ERROR("An error occured when load archive : " << _fileName);
@@ -77,7 +77,7 @@ etk::Archive* etk::Archive::load(const std::string& _fileName) {
 	return output;
 }
 
-etk::Archive* etk::Archive::loadPackage(const std::string& _fileName) {
+etk::Archive* etk::Archive::loadPackage(const etk::String& _fileName) {
 	etk::Archive* output=nullptr;
 	FILE* file = fopen(_fileName.c_str(), "rb");
 	if (file == nullptr) {
@@ -96,7 +96,7 @@ etk::Archive* etk::Archive::loadPackage(const std::string& _fileName) {
 	fread(plop, 1, 16, file);
 	plop[16] = '\0';
 	// check if we have the mark: "***START DATA***" ==> if not ==> error
-	if (std::string(plop) != "***START DATA***") {
+	if (etk::String(plop) != "***START DATA***") {
 		TK_ERROR("Error in the tag file : '" << plop << "'");
 		fclose(file);
 		return nullptr;
@@ -111,7 +111,7 @@ etk::Archive* etk::Archive::loadPackage(const std::string& _fileName) {
 }
 
 
-void etk::Archive::open(const std::string& _key) {
+void etk::Archive::open(const etk::String& _key) {
 	std::unique_lock<std::mutex> lock(m_mutex);
 	auto it = m_content.find(_key);
 	if (it == m_content.end()) {
@@ -125,7 +125,7 @@ void etk::Archive::open(const std::string& _key) {
 	it->second.increaseRef();
 }
 
-void etk::Archive::close(const std::string& _key) {
+void etk::Archive::close(const etk::String& _key) {
 	std::unique_lock<std::mutex> lock(m_mutex);
 	auto it = m_content.find(_key);
 	if (it == m_content.end()) {

@@ -6,6 +6,7 @@
 
 #include <etk/math/Vector3D.hpp>
 #include <etk/types.hpp>
+#include <etk/String.hpp>
 
 #pragma once
 
@@ -68,7 +69,7 @@ namespace etk {
 			 * @brief Constructor with string data
 			 * @param[in] _str Sting containing the value to parse
 			 */
-			Vector2D(const std::string& _str);
+			Vector2D(const etk::String& _str);
 			#if __CPP_VERSION__ >= 2011
 				Vector2D(const std::u32string& _str);
 			#endif
@@ -545,7 +546,7 @@ namespace etk {
 			 * @brief String caster of the object.
 			 * @return the Object cated in string (x.x,y.y)
 			 */
-			operator std::string() const;
+			operator etk::String() const;
 			#if __CPP_VERSION__ >= 2011
 				/**
 				 * @brief String caster of the object.

@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include <etk/String.hpp>
 #include <iomanip>
 
 namespace etk {
