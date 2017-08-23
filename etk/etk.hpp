@@ -25,6 +25,6 @@ namespace etk {
 	 * @brief Get application name.
 	 * @return The application name
 	 */
-	std::string getApplicationName();
+	etk::String getApplicationName();
 }
 

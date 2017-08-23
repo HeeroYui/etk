@@ -22,7 +22,7 @@ class ColorList {
 static int32_t getColorSize();
 static const ColorList* getColorList();
 
-etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input) {
+etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const etk::String& _input) {
 	TK_VERBOSE("parseStringStartWithSharp('" << _input << "'");
 	size_t len = _input.size();
 	etk::Color<uint8_t, 4> outputValue(0,0,0,0);
@@ -73,7 +73,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const std::string& _input)
 	return outputValue;
 }
 
-etk::Color<uint8_t, 4> etk::parseStringStartWithRGBGen(const std::string& _input) {
+etk::Color<uint8_t, 4> etk::parseStringStartWithRGBGen(const etk::String& _input) {
 	TK_VERBOSE("parseStringStartWithRGB('" << _input << "'");
 	etk::Color<uint8_t, 4> outputValue(0,0,0,0);
 	int32_t red=0, green=0, blue=0, alpha=0;
@@ -118,7 +118,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithRGBGen(const std::string& _input
 	return outputValue;
 }
 
-etk::Color<double, 4> etk::parseStringStartWithRGB(const std::string& _input) {
+etk::Color<double, 4> etk::parseStringStartWithRGB(const etk::String& _input) {
 	TK_VERBOSE("parseStringStartWithRGB('" << _input << "')");
 	etk::Color<double, 4> outputValue(0,0,0,0);
 	double float_red=0, float_green=0, float_blue=0, float_alpha=0;
@@ -155,7 +155,7 @@ etk::Color<double, 4> etk::parseStringStartWithRGB(const std::string& _input) {
 	}
 	return outputValue;
 }
-etk::Color<uint32_t, 4> etk::parseStringStartWithRGBUnsigned32(const std::string& _input) {
+etk::Color<uint32_t, 4> etk::parseStringStartWithRGBUnsigned32(const etk::String& _input) {
 	etk::Color<uint32_t, 4> outputValue(0,0,0,0);
 	int32_t red=0, green=0, blue=0, alpha=0;
 	double float_red=0, float_green=0, float_blue=0, float_alpha=0;
@@ -192,7 +192,7 @@ etk::Color<uint32_t, 4> etk::parseStringStartWithRGBUnsigned32(const std::string
 	return outputValue;
 }
 
-etk::Color<uint16_t, 4> etk::parseStringStartWithRGBUnsigned16(const std::string& _input) {
+etk::Color<uint16_t, 4> etk::parseStringStartWithRGBUnsigned16(const etk::String& _input) {
 	etk::Color<uint16_t, 4> outputValue(0,0,0,0);
 	int32_t red=0, green=0, blue=0, alpha=0;
 	double float_red=0, float_green=0, float_blue=0, float_alpha=0;
@@ -229,7 +229,7 @@ etk::Color<uint16_t, 4> etk::parseStringStartWithRGBUnsigned16(const std::string
 	return outputValue;
 }
 
-etk::Color<uint8_t, 4> etk::parseStringStartWithRGBUnsigned8(const std::string& _input) {
+etk::Color<uint8_t, 4> etk::parseStringStartWithRGBUnsigned8(const etk::String& _input) {
 	etk::Color<uint8_t, 4> outputValue(0,0,0,0);
 	int32_t red=0, green=0, blue=0, alpha=0;
 	double float_red=0, float_green=0, float_blue=0, float_alpha=0;
@@ -266,7 +266,7 @@ etk::Color<uint8_t, 4> etk::parseStringStartWithRGBUnsigned8(const std::string& 
 	return outputValue;
 }
 
-etk::Color<uint8_t, 4> etk::parseStringColorNamed(const std::string& _input) {
+etk::Color<uint8_t, 4> etk::parseStringColorNamed(const etk::String& _input) {
 	// direct named color ...
 	for (int32_t iii=0; iii<getColorSize(); iii++) {
 		if (etk::compare_no_case(getColorList()[iii].colorName, _input) == true) {

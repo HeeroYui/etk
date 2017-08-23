@@ -385,7 +385,7 @@ template<> template<> Color<uint16_t,4>::Color(const Color<double, 4>& _obj) {
 // ===========================================================================================================
 
 
-template<> std::string to_string<Color<uint16_t, 1> >(const Color<uint16_t, 1>& _val) {
+template<> etk::String to_string<Color<uint16_t, 1> >(const Color<uint16_t, 1>& _val) {
 	return _val.getString();
 }
 #if __cplusplus >= 201103L
@@ -398,14 +398,14 @@ template<> std::string to_string<Color<uint16_t, 1> >(const Color<uint16_t, 1>& 
 		return true;
 	}
 #endif
-template<> bool from_string<Color<uint16_t, 1> >(Color<uint16_t, 1>& _variableRet, const std::string& _value) {
+template<> bool from_string<Color<uint16_t, 1> >(Color<uint16_t, 1>& _variableRet, const etk::String& _value) {
 	_variableRet = Color<uint16_t, 1>(_value);
 	return true;
 }
 
 
 
-template<> std::string to_string<Color<uint16_t, 2> >(const Color<uint16_t, 2>& _val) {
+template<> etk::String to_string<Color<uint16_t, 2> >(const Color<uint16_t, 2>& _val) {
 	return _val.getString();
 }
 #if __cplusplus >= 201103L
@@ -418,14 +418,14 @@ template<> std::string to_string<Color<uint16_t, 2> >(const Color<uint16_t, 2>& 
 		return true;
 	}
 #endif
-template<> bool from_string<Color<uint16_t, 2> >(Color<uint16_t, 2>& _variableRet, const std::string& _value) {
+template<> bool from_string<Color<uint16_t, 2> >(Color<uint16_t, 2>& _variableRet, const etk::String& _value) {
 	_variableRet = Color<uint16_t, 2>(_value);
 	return true;
 }
 
 
 
-template<> std::string to_string<Color<uint16_t, 3> >(const Color<uint16_t, 3>& _val) {
+template<> etk::String to_string<Color<uint16_t, 3> >(const Color<uint16_t, 3>& _val) {
 	return _val.getString();
 }
 #if __cplusplus >= 201103L
@@ -438,14 +438,14 @@ template<> std::string to_string<Color<uint16_t, 3> >(const Color<uint16_t, 3>& 
 		return true;
 	}
 #endif
-template<> bool from_string<Color<uint16_t, 3> >(Color<uint16_t, 3>& _variableRet, const std::string& _value) {
+template<> bool from_string<Color<uint16_t, 3> >(Color<uint16_t, 3>& _variableRet, const etk::String& _value) {
 	_variableRet = Color<uint16_t, 3>(_value);
 	return true;
 }
 
 
 
-template<> std::string to_string<Color<uint16_t, 4> >(const Color<uint16_t, 4>& _val) {
+template<> etk::String to_string<Color<uint16_t, 4> >(const Color<uint16_t, 4>& _val) {
 	return _val.getString();
 }
 #if __cplusplus >= 201103L
@@ -458,7 +458,7 @@ template<> std::string to_string<Color<uint16_t, 4> >(const Color<uint16_t, 4>& 
 		return true;
 	}
 #endif
-template<> bool from_string<Color<uint16_t, 4> >(Color<uint16_t, 4>& _variableRet, const std::string& _value) {
+template<> bool from_string<Color<uint16_t, 4> >(Color<uint16_t, 4>& _variableRet, const etk::String& _value) {
 	_variableRet = Color<uint16_t, 4>(_value);
 	return true;
 }

@@ -187,48 +187,209 @@ namespace etk {
 }
 
 
-	etk::String etk::toString(int _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%d", _val);
-		return tmpVal;
+etk::String etk::toString(bool _val) {
+	if (_val == true) {
+		return "true";
 	}
-	etk::String etk::toString(long _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%ld", _val);
-		return tmpVal;
+	return "false";
+}
+etk::String etk::toString(int _val) {
+	char tmpVal[256];
+	sprintf(tmpVal, "%d", _val);
+	return tmpVal;
+}
+etk::String etk::toString(long _val) {
+	char tmpVal[256];
+	sprintf(tmpVal, "%ld", _val);
+	return tmpVal;
+}
+etk::String etk::toString(long long _val) {
+	char tmpVal[256];
+	sprintf(tmpVal, "%lld", _val);
+	return tmpVal;
+}
+etk::String etk::toString(unsigned _val) {
+	char tmpVal[256];
+	sprintf(tmpVal, "%u", _val);
+	return tmpVal;
+}
+etk::String etk::toString(unsigned long _val) {
+	char tmpVal[256];
+	sprintf(tmpVal, "%lu", _val);
+	return tmpVal;
+}
+etk::String etk::toString(unsigned long long _val) {
+	char tmpVal[256];
+	sprintf(tmpVal, "%llu", _val);
+	return tmpVal;
+}
+etk::String etk::toString(float _val) {
+	char tmpVal[256];
+	sprintf(tmpVal, "%f", _val);
+	return tmpVal;
+}
+etk::String etk::toString(double _val) {
+	char tmpVal[256];
+	sprintf(tmpVal, "%f", _val);
+	return tmpVal;
+}
+etk::String etk::toString(long double _val) {
+	char tmpVal[256];
+	sprintf(tmpVal, "%Lf", _val);
+	return tmpVal;
+}
+
+size_t etk::String::find(char _value, size_t _pos) const {
+	for (size_t iii=_pos; iii<m_data.size(); ++iii) {
+		if (_value == m_data[iii]) {
+			return iii;
+		}
 	}
-	etk::String etk::toString(long long _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%lld", _val);
-		return tmpVal;
+	return etk::String::npos;
+}
+
+size_t etk::String::find(const etk::String& _value, size_t _pos) const {
+	for (size_t iii=_pos; iii<m_data.size(); ++iii) {
+		bool check = true;
+		for (size_t jjj=0; jjj<_value.size(); ++jjj) {
+			if (iii+jjj >= m_data.size()) {
+				return etk::String::npos;
+			}
+			if (_value[jjj] != m_data[iii+jjj]) {
+				check = false;
+				break;
+			}
+		}
+		if (check == true) {
+			return iii;
+		}
 	}
-	etk::String etk::toString(unsigned _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%u", _val);
-		return tmpVal;
+	return etk::String::npos;
+}
+
+size_t etk::String::rfind(char _value, size_t _pos) const {
+	if (_pos >= m_data.size()) {
+		_pos = m_data.size()-1;
 	}
-	etk::String etk::toString(unsigned long _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%lu", _val);
-		return tmpVal;
+	for (int64_t iii=_pos; iii>=0; --iii) {
+		if (_value == m_data[iii]) {
+			return iii;
+		}
 	}
-	etk::String etk::toString(unsigned long long _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%llu", _val);
-		return tmpVal;
+	return etk::String::npos;
+}
+
+size_t etk::String::rfind(const etk::String& _value, size_t _pos) const {
+	if (_pos >= m_data.size()) {
+		_pos = m_data.size()-1;
 	}
-	etk::String etk::toString(float _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%f", _val);
-		return tmpVal;
+	for (int64_t iii=_pos; iii>=0; --iii) {
+		bool check = true;
+		for (size_t jjj=0; jjj<_value.size(); ++jjj) {
+			if (iii+jjj >= m_data.size()) {
+				check = false;
+				break;
+			}
+			if (_value[jjj] != m_data[iii+jjj]) {
+				check = false;
+				break;
+			}
+		}
+		if (check == true) {
+			return iii;
+		}
 	}
-	etk::String etk::toString(double _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%f", _val);
-		return tmpVal;
+	return etk::String::npos;
+}
+
+etk::String& etk::replace(size_t _pos, size_t _len, char _replace) {
+	erase(_pos, _len);
+	insert(_pos, _replace);
+	return *this;
+}
+
+etk::String& etk::replace(size_t _pos, size_t _len, const etk::String& _replace) {
+	erase(_pos, _len);
+	insert(_pos, _replace);
+	return *this;
+}
+
+etk::String& etk::replace(char _val, char _replace) {
+	size_t pos = 0;
+	while ((pos = find(_val, pos)) != etk::String::npos) {
+		replace(pos, _val.size(), _replace);
+		pos += _replace.size();
 	}
-	etk::String etk::toString(long double _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%Lf", _val);
-		return tmpVal;
+	return *this;
+}
+
+etk::String& etk::String::replace(const etk::String& _val, const etk::String& _replace) {
+	size_t pos = 0;
+	while ((pos = find(_val, pos)) != etk::String::npos) {
+		replace(pos, _val.size(), _replace);
+		pos += _replace.size();
 	}
+	return *this;
+}
+
+etk::String etk::String::getLine(int32_t _pos) const {
+	// search back : '\n'
+	size_t startPos = rfind('\n', _pos);
+	if ((int64_t)startPos == (int64_t)_pos) {
+		startPos = 0;
+	} else {
+		startPos++;
+	}
+	// search forward : '\n'
+	size_t stopPos = _pos;
+	if (m_data[_pos] != '\n') {
+		stopPos = find('\n', _pos);
+		if ((int64_t)stopPos == _pos) {
+			stopPos = size();
+		}
+	}
+	if (startPos == etk::String::npos) {
+		startPos = 0;
+	} else if (startPos >= size() ) {
+		return "";
+	}
+	if (stopPos == etk::String::npos) {
+		return "";
+	} else if (stopPos >= size() ) {
+		stopPos = size();
+	}
+	return etk::String(*this, startPos, stopPos - startPos);
+}
+
+
+etk::Vector<etk::String> etk::String::split(char _val) const {
+	etk::Vector<etk::String> list;
+	size_t lastStartPos = 0;
+	for(size_t iii=0; iii<size(); iii++) {
+		if (m_data[iii] == _val) {
+			list.push_back(etk::String(*this, lastStartPos, iii - lastStartPos));
+			lastStartPos = iii+1;
+		}
+	}
+	if (lastStartPos < size()) {
+		list.push_back(etk::String(*this, lastStartPos));
+	}
+	return list;
+}
+
+etk::Vector<etk::String> etk::String::split(etk::String _val) const {
+	etk::Vector<etk::String> list;
+	size_t lastStartPos = 0;
+	for(size_t iii=0; iii<size()-_val.size(); iii++) {
+		if (etk::String(begin()+iii, begin()+iii+_val.size()) ==_val) {
+			list.push_back(etk::String(*this, lastStartPos, iii - lastStartPos));
+			lastStartPos = iii+_val.size();
+			iii += _val.size()-1;
+		}
+	}
+	if (lastStartPos < size()) {
+		list.push_back(etk::String(*this, lastStartPos));
+	}
+	return list;
+}
+

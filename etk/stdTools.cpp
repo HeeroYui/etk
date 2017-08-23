@@ -733,52 +733,6 @@ bool etk::start_with(const std::string& _obj, const std::string& _val, bool _cas
 	}
 #endif
 
-std::string etk::replace(const std::string& _obj, char _val, char _replace) {
-	std::string copy(_obj);
-	std::replace(copy.begin(), copy.end(), _val, _replace);
-	return copy;
-
-}
-
-//! @not_in_doc
-std::string etk::replace(const std::string& _obj, const std::string& _val, const std::string& _replace) {
-	std::string copy(_obj);
-	size_t pos = 0;
-	while ((pos = copy.find(_val, pos)) != std::string::npos) {
-		copy.replace(pos, _val.length(), _replace);
-		pos += _replace.length();
-	}
-	return copy;
-}
-
-std::string etk::extract_line(const std::string& _obj, int32_t _pos) {
-	// search back : '\n'
-	size_t startPos = _obj.rfind('\n', _pos);
-	if ((int64_t)startPos == (int64_t)_pos) {
-		startPos = 0;
-	} else {
-		startPos++;
-	}
-	// search forward : '\n'
-	size_t stopPos = _pos;
-	if (_obj[_pos] != '\n') {
-		stopPos = _obj.find('\n', _pos);
-		if ((int64_t)stopPos == _pos) {
-			stopPos = _obj.size();
-		}
-	}
-	if (startPos == std::string::npos) {
-		startPos = 0;
-	} else if (startPos >= _obj.size() ) {
-		return "";
-	}
-	if (stopPos == std::string::npos) {
-		return "";
-	} else if (stopPos >= _obj.size() ) {
-		stopPos = _obj.size();
-	}
-	return std::string(_obj, startPos, stopPos - startPos);
-}
 #if __CPP_VERSION__ >= 2011
 	std::u32string etk::extract_line(const std::u32string& _obj, int32_t _pos) {
 		// search back : '\n'
@@ -810,21 +764,6 @@ std::string etk::extract_line(const std::string& _obj, int32_t _pos) {
 	}
 #endif
 
-std::vector<std::string> etk::split(const std::string& _input, char _val) {
-	std::vector<std::string> list;
-	size_t lastStartPos = 0;
-	for(size_t iii=0; iii<_input.size(); iii++) {
-		if (_input[iii]==_val) {
-			list.push_back(std::string(_input, lastStartPos, iii - lastStartPos));
-			lastStartPos = iii+1;
-		}
-	}
-	if (lastStartPos<_input.size()) {
-		list.push_back(std::string(_input, lastStartPos));
-	}
-	return list;
-}
-
 #if __CPP_VERSION__ >= 2011
 	std::vector<std::u32string> etk::split(const std::u32string& _input, char32_t _val) {
 		std::vector<std::u32string> list;
@@ -842,21 +781,6 @@ std::vector<std::string> etk::split(const std::string& _input, char _val) {
 	}
 #endif
 
-std::vector<std::string> etk::split(const std::string& _input, std::string _val) {
-	std::vector<std::string> list;
-	size_t lastStartPos = 0;
-	for(size_t iii=0; iii<_input.size()-_val.size(); iii++) {
-		if (std::string(_input.begin()+iii, _input.begin()+iii+_val.size()) ==_val) {
-			list.push_back(std::string(_input, lastStartPos, iii - lastStartPos));
-			lastStartPos = iii+_val.size();
-			iii += _val.size()-1;
-		}
-	}
-	if (lastStartPos<_input.size()) {
-		list.push_back(std::string(_input, lastStartPos));
-	}
-	return list;
-}
 
 
 #if __CPP_VERSION__ >= 2011

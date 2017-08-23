@@ -84,7 +84,7 @@ namespace etk {
 			 * @brief String extractor constructor.
 			 * @param[in] _input Color string to parse. it can be : "#rrggbb", "rgb", "rrggbbaa", "rgba", "yellow" ...
 			 */
-			Color(const std::string& _input);
+			Color(const etk::String& _input);
 			/**
 			 * @brief Assignment operator
 			 * @param[in] _input Color object to set in this class.
@@ -211,7 +211,7 @@ namespace etk {
 			 * @brief Convert the color in an hexadecimal string ("0xFEDCBA98")
 			 * @return The formatted string
 			 */
-			std::string getHexString() const {
+			etk::String getHexString() const {
 				std::ostringstream os;
 				os << "0x" << std::setw(8) << std::setfill('0') << std::hex << get();
 				return os.str();
@@ -220,7 +220,7 @@ namespace etk {
 			 * @brief Convert the color in an generic string value ("#FEDCBA98")
 			 * @return The formatted string
 			 */
-			std::string getString() const {
+			etk::String getString() const {
 				std::ostringstream os;
 				os << "#" << std::setw(8) << std::setfill('0') << std::hex << get();
 				return os.str();
@@ -402,43 +402,43 @@ namespace etk {
 	 * @param[in] _input String to parse
 	 * @return Value parsed
 	 */
-	etk::Color<uint8_t, 4> parseStringStartWithSharp(const std::string& _input);
+	etk::Color<uint8_t, 4> parseStringStartWithSharp(const etk::String& _input);
 	/**
 	 * @brief Get a color value started with a "rgb()" converted in unsigned 8 bits integer
 	 * @param[in] _input String to parse
 	 * @return Value parsed
 	 */
-	etk::Color<uint8_t, 4> parseStringStartWithRGBGen(const std::string& _input);
+	etk::Color<uint8_t, 4> parseStringStartWithRGBGen(const etk::String& _input);
 	/**
 	 * @brief Get a color value started with a "rgb()" keep in double
 	 * @param[in] _input String to parse
 	 * @return Value parsed
 	 */
-	etk::Color<double, 4> parseStringStartWithRGB(const std::string& _input);
+	etk::Color<double, 4> parseStringStartWithRGB(const etk::String& _input);
 	/**
 	 * @brief Get a color value started with a "rgb()" converted in unsigned 32 bits integer
 	 * @param[in] _input String to parse
 	 * @return Value parsed
 	 */
-	etk::Color<uint32_t, 4> parseStringStartWithRGBUnsigned32(const std::string& _input);
+	etk::Color<uint32_t, 4> parseStringStartWithRGBUnsigned32(const etk::String& _input);
 	/**
 	 * @brief Get a color value started with a "rgb()" converted in unsigned 16 bits integer
 	 * @param[in] _input String to parse
 	 * @return Value parsed
 	 */
-	etk::Color<uint16_t, 4> parseStringStartWithRGBUnsigned16(const std::string& _input);
+	etk::Color<uint16_t, 4> parseStringStartWithRGBUnsigned16(const etk::String& _input);
 	/**
 	 * @brief Get a color value started with a "rgb()" converted in unsigned 8 bits integer
 	 * @param[in] _input String to parse
 	 * @return Value parsed
 	 */
-	etk::Color<uint8_t, 4> parseStringStartWithRGBUnsigned8(const std::string& _input);
+	etk::Color<uint8_t, 4> parseStringStartWithRGBUnsigned8(const etk::String& _input);
 	/**
 	 * @brief Get a color value started with a "named" converted in unsigned 8 bits integer like red, green ...
 	 * @param[in] _input String to parse
 	 * @return Value parsed
 	 */
-	etk::Color<uint8_t, 4> parseStringColorNamed(const std::string& _input);
+	etk::Color<uint8_t, 4> parseStringColorNamed(const etk::String& _input);
 	
 	/**
 	 * @brief Specify that the Get instance is specialized for unsigned 8 bits integer on RGBA template
@@ -452,49 +452,49 @@ namespace etk {
 		return tmp.get();
 	}
 	
-	template<typename MY_TYPE, int MY_TYPE_SIZE> Color<MY_TYPE, MY_TYPE_SIZE>::Color(const std::string& _input) {
+	template<typename MY_TYPE, int MY_TYPE_SIZE> Color<MY_TYPE, MY_TYPE_SIZE>::Color(const etk::String& _input) {
 		//TK_VERBOSE("convert color string : '" << _input << "'");
 		const char* inputData = _input.c_str();
 		size_t len = _input.size();
 		if(    len >=1
 		    && inputData[0] == '#') {
-			Color<uint8_t, 4> value = etk::parseStringStartWithSharp(std::string(_input, 1));
+			Color<uint8_t, 4> value = etk::parseStringStartWithSharp(etk::String(_input, 1));
 			*this = value;
-		} else if(etk::start_with(_input, "rgb(", false) == true) {
-			Color<uint8_t, 4> value = etk::parseStringStartWithRGBGen(std::string(_input, 4, _input.size()-5));
+		} else if(_input.startWith("rgb(", false) == true) {
+			Color<uint8_t, 4> value = etk::parseStringStartWithRGBGen(etk::String(_input, 4, _input.size()-5));
 			*this = value;
-		} else if(etk::start_with(_input, "rgba(", false) == true) {
-			Color<uint8_t, 4> value = etk::parseStringStartWithRGBGen(std::string(_input, 5, _input.size()-6));
+		} else if(_input.startWith("rgba(", false) == true) {
+			Color<uint8_t, 4> value = etk::parseStringStartWithRGBGen(etk::String(_input, 5, _input.size()-6));
 			*this = value;
-		} else if(etk::start_with(_input, "rgb[FLOAT](", false) == true) {
-			Color<double, 4> value = etk::parseStringStartWithRGB(std::string(_input, 11, _input.size()-12));
+		} else if(_input.startWith("rgb[FLOAT](", false) == true) {
+			Color<double, 4> value = etk::parseStringStartWithRGB(etk::String(_input, 11, _input.size()-12));
 			*this = value;
-		} else if(etk::start_with(_input, "rgba[FLOAT](", false) == true) {
-			Color<double, 4> value = etk::parseStringStartWithRGB(std::string(_input, 12, _input.size()-13));
+		} else if(_input.startWith("rgba[FLOAT](", false) == true) {
+			Color<double, 4> value = etk::parseStringStartWithRGB(etk::String(_input, 12, _input.size()-13));
 			*this = value;
-		} else if(etk::start_with(_input, "rgb[DOUBLE](", false) == true) {
-			Color<double, 4> value = etk::parseStringStartWithRGB(std::string(_input, 12, _input.size()-13));
+		} else if(_input.startWith("rgb[DOUBLE](", false) == true) {
+			Color<double, 4> value = etk::parseStringStartWithRGB(etk::String(_input, 12, _input.size()-13));
 			*this = value;
-		} else if(etk::start_with(_input, "rgba[DOUBLE](", false) == true) {
-			Color<double, 4> value = etk::parseStringStartWithRGB(std::string(_input, 13, _input.size()-14));
+		} else if(_input.startWith("rgba[DOUBLE](", false) == true) {
+			Color<double, 4> value = etk::parseStringStartWithRGB(etk::String(_input, 13, _input.size()-14));
 			*this = value;
-		} else if(etk::start_with(_input, "rgb[U32](", false) == true) {
-			Color<uint32_t, 4> value = etk::parseStringStartWithRGBUnsigned32(std::string(_input, 9, _input.size()-10));
+		} else if(_input.startWith("rgb[U32](", false) == true) {
+			Color<uint32_t, 4> value = etk::parseStringStartWithRGBUnsigned32(etk::String(_input, 9, _input.size()-10));
 			*this = value;
-		} else if(etk::start_with(_input, "rgba[U32](", false) == true) {
-			Color<uint32_t, 4> value = etk::parseStringStartWithRGBUnsigned32(std::string(_input, 10, _input.size()-11));
+		} else if(_input.startWith("rgba[U32](", false) == true) {
+			Color<uint32_t, 4> value = etk::parseStringStartWithRGBUnsigned32(etk::String(_input, 10, _input.size()-11));
 			*this = value;
-		} else if(etk::start_with(_input, "rgb[U16](", false) == true) {
-			Color<uint16_t, 4> value = etk::parseStringStartWithRGBUnsigned16(std::string(_input, 9, _input.size()-10));
+		} else if(_input.startWith("rgb[U16](", false) == true) {
+			Color<uint16_t, 4> value = etk::parseStringStartWithRGBUnsigned16(etk::String(_input, 9, _input.size()-10));
 			*this = value;
-		} else if(etk::start_with(_input, "rgba[U16](", false) == true) {
-			Color<uint16_t, 4> value = etk::parseStringStartWithRGBUnsigned16(std::string(_input, 10, _input.size()-11));
+		} else if(_input.startWith("rgba[U16](", false) == true) {
+			Color<uint16_t, 4> value = etk::parseStringStartWithRGBUnsigned16(etk::String(_input, 10, _input.size()-11));
 			*this = value;
-		} else if(etk::start_with(_input, "rgb[U8](", false) == true) {
-			Color<uint8_t, 4> value = etk::parseStringStartWithRGBUnsigned8(std::string(_input, 8, _input.size()-9));
+		} else if(_input.startWith("rgb[U8](", false) == true) {
+			Color<uint8_t, 4> value = etk::parseStringStartWithRGBUnsigned8(etk::String(_input, 8, _input.size()-9));
 			*this = value;
-		} else if(etk::start_with(_input, "rgba[U8](", false) == true) {
-			Color<uint8_t, 4> value = etk::parseStringStartWithRGBUnsigned8(std::string(_input, 9, _input.size()-10));
+		} else if(_input.startWith("rgba[U8](", false) == true) {
+			Color<uint8_t, 4> value = etk::parseStringStartWithRGBUnsigned8(etk::String(_input, 9, _input.size()-10));
 			*this = value;
 		} else {
 			Color<uint8_t, 4> value = etk::parseStringColorNamed(_input);

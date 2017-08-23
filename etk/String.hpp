@@ -513,6 +513,14 @@ namespace etk {
 				insert(_pos, &_item, 1);
 			}
 			/**
+			 * @brief Insert one element in the String at a specific position
+			 * @param[in] _pos Position to add the elements.
+			 * @param[in] _item Element to add.
+			 */
+			void insert(size_t _pos, const etk:::String& _value) {
+				insert(_pos, &_value[0], _value.size());
+			}
+			/**
 			 * @brief Remove N element
 			 * @param[in] _pos Position to remove the data
 			 * @param[in] _nbElement number of element to remove
@@ -657,6 +665,24 @@ namespace etk {
 				}
 				return false;
 			}
+			size_t find(char _value, size_t _pos) const;
+			size_t find(const etk::String& _value, size_t _pos) const;
+			size_t rfind(char _value, size_t _pos) const;
+			size_t rfind(const etk::String& _value, size_t _pos) const;
+			etk::String& replace(size_t _pos, size_t _len, char _replace);
+			etk::String& replace(size_t _pos, size_t _len, const etk::String& _replace);
+			etk::String& replace(char _val, char _replace);
+			etk::String& replace(const etk::String& _val, const etk::String& _replace);
+			etk::String getLine(int32_t _pos) const;
+			etk::String toLower() const;
+			etk::String& lower();
+			etk::String toUpper() const;
+			etk::String& upper();
+			bool compare(const etk::String& _val, bool _caseSensitive = true) const;
+			bool endWith(const etk::String& _val, bool _caseSensitive = true) const;
+			bool startWith(const etk::String& _val, bool _caseSensitive = true) const;
+			etk::Vector<etk::String> split(char _val) const;
+			etk::Vector<etk::String> split(etk::String _val) const;
 			/**
 			 * @brief Template that permit to convert string in everythings you want
 			 * @param[in] ETK_STRING_TYPE Template type of the convertion output
@@ -718,8 +744,7 @@ namespace etk {
 	//! @not_in_doc
 	std::ostream& operator <<(std::ostream& _os, const etk::String& _obj);
 	
-	
-		/**
+	/**
 	 * @brief Template to declare conversion from string to anything
 	 * @param[out] _variableRet Output value
 	 * @param[in] _value input property
@@ -728,15 +753,5 @@ namespace etk {
 	template <class TYPE>
 	bool from_string(TYPE& _variableRet, const etk::String& _value);
 	
-	etk::String tolower(etk::String _obj);
-	etk::String toupper(etk::String _obj);
-	bool compare_no_case(const etk::String& _obj, const etk::String& _val);
-	bool end_with(const etk::String& _obj, const etk::String& _val, bool _caseSensitive = true);
-	bool start_with(const etk::String& _obj, const etk::String& _val, bool _caseSensitive = true);
-	etk::String replace(const etk::String& _obj, char _val, char _replace);
-	etk::String replace(const etk::String& _obj, const etk::String& _val, const etk::String& _replace);
-	etk::String extract_line(const etk::String& _obj, int32_t _pos);
-	etk::Vector<etk::String> split(const etk::String& _input, char _val);
-	etk::Vector<etk::String> split(const etk::String& _input, etk::String _val);
 	void sort(etk::Vector<etk::String *>& _list);
 }

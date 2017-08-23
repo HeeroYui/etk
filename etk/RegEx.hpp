@@ -152,7 +152,7 @@ extern const struct conversionTable constConversionTable[];
 //! @not-in-doc
 extern const int64_t constConversionTableSize;
 //! @not-in-doc
-std::string createString(const std::vector<char32_t>& _data, int64_t _start=0, int64_t _stop=0x7FFFFFFF);
+etk::String createString(const std::vector<char32_t>& _data, int64_t _start=0, int64_t _stop=0x7FFFFFFF);
 //! @not-in-doc
 char * levelSpace(uint32_t _level);
 //! @not-in-doc
@@ -168,9 +168,9 @@ int64_t getLenOfNormal(const std::vector<char32_t>& _data, int64_t _startPos);
 //! @not-in-doc
 bool parseBrace(const std::vector<char32_t>& _data, uint32_t& _min, uint32_t& _max);
 //! @not-in-doc
-std::string autoStr(const std::string& _data);
-std::string autoStr(char _data);
-std::string strTick(int32_t _pos);
+etk::String autoStr(const etk::String& _data);
+etk::String autoStr(char _data);
+etk::String strTick(int32_t _pos);
 
 /**
  * @brief Node Elements for every-one
@@ -251,7 +251,7 @@ class FindProperty {
 		}
 		template<class CLASS_TYPE>
 		static void display(const FindProperty& _element, const CLASS_TYPE& _data, int32_t _level = 0) {
-			std::string tmp;
+			etk::String tmp;
 			for (int32_t iii=_element.m_positionStart; iii<_element.m_positionStop; ++iii) {
 				tmp += _data[iii];
 			}
@@ -996,7 +996,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 			return _data.size();
 		};
 		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
-			//TK_REG_DEBUG_2("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element) data to parse : '" << autoStr(std::string(_data, _currentPos, _lenMax-_currentPos)) << "'");
+			//TK_REG_DEBUG_2("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element) data to parse : '" << autoStr(etk::String(_data, _currentPos, _lenMax-_currentPos)) << "'");
 			//TK_REG_DEBUG_2("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element) m_data='" << autoStr(Node<CLASS_TYPE>::m_data) << "'");
 			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element) " << _property);
 			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       work on: " << createString(Node<CLASS_TYPE>::m_regExData));
@@ -1033,7 +1033,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 				prop.setPositionStart(tmpCurrentPos);
 			}
 			while (iii < m_subNode.size()) {
-				//TK_REG_DEBUG_2("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element=" << iii << "/" << m_subNode.size() << ") data='" << autoStr(std::string(_data, tmpCurrentPos, _lenMax-tmpCurrentPos)) << "'");
+				//TK_REG_DEBUG_2("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element=" << iii << "/" << m_subNode.size() << ") data='" << autoStr(etk::String(_data, tmpCurrentPos, _lenMax-tmpCurrentPos)) << "'");
 				m_subNode[iii]->parse(_data, tmpCurrentPos, _lenMax, prop);
 				if (prop.getStatus() == parseStatusNone) {
 					TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element=" << iii << "/" << m_subNode.size() << ") ===None===      : " << prop);
@@ -1177,7 +1177,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) {" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       work on: " << createString(Node<CLASS_TYPE>::m_regExData));
 			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       pos=" << _currentPos << " ==> " << _lenMax);
-			TK_REG_DEBUG_2("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) data='" << autoStr(std::string(_data, _currentPos, _lenMax-_currentPos)) << "'");
+			TK_REG_DEBUG_2("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) data='" << autoStr(etk::String(_data, _currentPos, _lenMax-_currentPos)) << "'");
 			TK_REG_DEBUG_3("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) input property=" << _property);
 			if (m_subNode.size() == 0) {
 				_property.setStatus(parseStatusNone);
@@ -1335,7 +1335,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 		 * @brief get the string represented the regex (colored)
 		 * @return Regex string
 		 */
-		std::string getColoredRegEx() {
+		etk::String getColoredRegEx() {
 			return createString(Node<CLASS_TYPE>::m_regExData);
 		}
 };
@@ -1405,7 +1405,7 @@ template<class CLASS_TYPE> class RegEx {
 		/**
 		 * @previous
 		 */
-		RegEx(const std::string &_expression) :
+		RegEx(const etk::String &_expression) :
 		  m_expressionRequested(U""),
 		  m_isOk(false),
 		  m_notBeginWithChar(false),
@@ -1436,7 +1436,7 @@ template<class CLASS_TYPE> class RegEx {
 		 * @param[in] _expression the new expression to search
 		 */
 		// TODO : Add an error ...
-		void compile(const std::string &_expression) {
+		void compile(const etk::String &_expression) {
 			if (_expression.size() != 0) {
 				TK_REG_DEBUG("normal string parse : '" << _expression << "'");
 				compile(etk::to_u32string(_expression));
@@ -1580,7 +1580,7 @@ template<class CLASS_TYPE> class RegEx {
 		 * @brief Get the regular expression string
 		 * @return the string representing the RegEx
 		 */
-		std::string getRegEx() const {
+		etk::String getRegEx() const {
 			return etk::to_string(m_expressionRequested);
 		};
 		/**
@@ -1659,7 +1659,7 @@ template<class CLASS_TYPE> class RegEx {
 					if (    prop.getStatus() == regex::parseStatusFull
 					     || prop.getStatus() == regex::parseStatusPartial ) {
 						findLen = prop.getFindLen();
-						TK_REG_DEBUG_3("main search find : " << findLen << " elements data=" << std::string(_SearchIn, prop.getPositionStart(), prop.getFindLen()));
+						TK_REG_DEBUG_3("main search find : " << findLen << " elements data=" << etk::String(_SearchIn, prop.getPositionStart(), prop.getFindLen()));
 						// Check end :
 						if (m_notEndWithChar == true) {
 							TK_REG_DEBUG("Check end is not a char: '" << (char)_SearchIn[iii+findLen] << "'");
@@ -1805,7 +1805,7 @@ template<class CLASS_TYPE> class RegEx {
 		 * @brief Get decorated regular expression. This generate a [class[ewol::compositing::Text]] decoration text. Note that can be use in [class[ewol::widget::Label]].
 		 * @return The decorated string
 		 */
-		std::string getRegExDecorated() {
+		etk::String getRegExDecorated() {
 			return m_expressionRootNode.getColoredRegEx();
 		}
 	private:

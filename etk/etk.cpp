@@ -50,7 +50,7 @@ void etk::init(int _argc, const char** _argv) {
 	#endif
 	
 	for (int32_t iii=0; iii<_argc ; ++iii) {
-		std::string data = _argv[iii];
+		etk::String data = _argv[iii];
 		if (    data == "-h"
 		     || data == "--help") {
 			TK_PRINT("etk - help : ");
@@ -70,6 +70,6 @@ void etk::init(int _argc, const char** _argv) {
 	TK_INFO("ETK system init (END)");
 }
 
-std::string etk::getApplicationName() {
+etk::String etk::getApplicationName() {
 	return etk::FSNodeGetApplicationName();
 }

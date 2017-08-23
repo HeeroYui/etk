@@ -79,36 +79,36 @@ std::ostream& etk::regex::operator <<(std::ostream& _os, const etk::regex::FindP
 	return _os;
 }
 
-std::string etk::regex::createString(const std::vector<char32_t>& _data, int64_t _start, int64_t _stop) {
-	std::string output(ETK_BASH_COLOR_NORMAL);
+etk::String etk::regex::createString(const std::vector<char32_t>& _data, int64_t _start, int64_t _stop) {
+	etk::String output(ETK_BASH_COLOR_NORMAL);
 	for (int64_t iii=_start; iii<(int64_t)_data.size() && iii<_stop ; iii++) {
 		switch(_data[iii]) {
-			case regexOpcodePTheseIn:          output += std::string(ETK_BASH_COLOR_RED)		+ (char*)"(" + ETK_BASH_COLOR_NORMAL;		break;
-			case regexOpcodePTheseOut:         output += std::string(ETK_BASH_COLOR_RED)		+ (char*)")" + ETK_BASH_COLOR_NORMAL;		break;
-			case regexOpcodeBracketIn:         output += std::string(ETK_BASH_COLOR_YELLOW)	+ (char*)"[" + ETK_BASH_COLOR_NORMAL;		break;
-			case regexOpcodeBracketOut:        output += std::string(ETK_BASH_COLOR_YELLOW)	+ (char*)"]" + ETK_BASH_COLOR_NORMAL;		break;
-			case regexOpcodeTo:                output += std::string(ETK_BASH_COLOR_YELLOW)	+ (char*)"-" + ETK_BASH_COLOR_NORMAL;		break;
-			case regexOpcodeBraceIn:           output += std::string(ETK_BASH_COLOR_GREEN)		+ (char*)"{" + ETK_BASH_COLOR_NORMAL;		break;
-			case regexOpcodeBraceOut:          output += std::string(ETK_BASH_COLOR_GREEN)		+ (char*)"}" + ETK_BASH_COLOR_NORMAL;		break;
-			case regexOpcodeStar:              output += std::string(ETK_BASH_COLOR_BLUE)		+ (char*)"*" + ETK_BASH_COLOR_NORMAL;		break;
-			case regexOpcodeDot:               output += std::string(ETK_BASH_COLOR_BLUE)		+ (char*)"." + ETK_BASH_COLOR_NORMAL;		break;
-			case regexOpcodeQuestion:          output += std::string(ETK_BASH_COLOR_BLUE)		+ (char*)"?" + ETK_BASH_COLOR_NORMAL;		break;
-			case regexOpcodePlus:              output += std::string(ETK_BASH_COLOR_BLUE)		+ (char*)"+" + ETK_BASH_COLOR_NORMAL;		break;
-			case regexOpcodePipe:              output += std::string(ETK_BASH_COLOR_BLUE)		+ (char*)"|" + ETK_BASH_COLOR_NORMAL;		break;
-			case regexOpcodeNoChar:            output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"@" + ETK_BASH_COLOR_NORMAL;		break;
-			case regexOpcodeStartOfLine:       output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"^" + ETK_BASH_COLOR_NORMAL;		break;
-			case regexOpcodeEndOfLine:         output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"$" + ETK_BASH_COLOR_NORMAL;		break;
-			case regexOpcodeDigit:             output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\d" + ETK_BASH_COLOR_NORMAL;	break;
-			case regexOpcodeDigitNot:          output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\D" + ETK_BASH_COLOR_NORMAL;	break;
-			case regexOpcodeLetter:            output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\l" + ETK_BASH_COLOR_NORMAL;	break;
-			case regexOpcodeLetterNot:         output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\L" + ETK_BASH_COLOR_NORMAL;	break;
-			case regexOpcodeSpace:             output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\s" + ETK_BASH_COLOR_NORMAL;	break;
-			case regexOpcodeSpaceNot:          output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\S" + ETK_BASH_COLOR_NORMAL;	break;
-			case regexOpcodeWord:              output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\w" + ETK_BASH_COLOR_NORMAL;	break;
-			case regexOpcodeWordNot:           output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\W" + ETK_BASH_COLOR_NORMAL;	break;
-			case regexOpcodeEOF:               output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\e" + ETK_BASH_COLOR_NORMAL;	break;
-			case '\n':                          output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\n" + ETK_BASH_COLOR_NORMAL;	break;
-			case '\t':                          output += std::string(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\t" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexOpcodePTheseIn:          output += etk::String(ETK_BASH_COLOR_RED)		+ (char*)"(" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexOpcodePTheseOut:         output += etk::String(ETK_BASH_COLOR_RED)		+ (char*)")" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexOpcodeBracketIn:         output += etk::String(ETK_BASH_COLOR_YELLOW)	+ (char*)"[" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexOpcodeBracketOut:        output += etk::String(ETK_BASH_COLOR_YELLOW)	+ (char*)"]" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexOpcodeTo:                output += etk::String(ETK_BASH_COLOR_YELLOW)	+ (char*)"-" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexOpcodeBraceIn:           output += etk::String(ETK_BASH_COLOR_GREEN)		+ (char*)"{" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexOpcodeBraceOut:          output += etk::String(ETK_BASH_COLOR_GREEN)		+ (char*)"}" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexOpcodeStar:              output += etk::String(ETK_BASH_COLOR_BLUE)		+ (char*)"*" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexOpcodeDot:               output += etk::String(ETK_BASH_COLOR_BLUE)		+ (char*)"." + ETK_BASH_COLOR_NORMAL;		break;
+			case regexOpcodeQuestion:          output += etk::String(ETK_BASH_COLOR_BLUE)		+ (char*)"?" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexOpcodePlus:              output += etk::String(ETK_BASH_COLOR_BLUE)		+ (char*)"+" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexOpcodePipe:              output += etk::String(ETK_BASH_COLOR_BLUE)		+ (char*)"|" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexOpcodeNoChar:            output += etk::String(ETK_BASH_COLOR_MAGENTA)	+ (char*)"@" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexOpcodeStartOfLine:       output += etk::String(ETK_BASH_COLOR_MAGENTA)	+ (char*)"^" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexOpcodeEndOfLine:         output += etk::String(ETK_BASH_COLOR_MAGENTA)	+ (char*)"$" + ETK_BASH_COLOR_NORMAL;		break;
+			case regexOpcodeDigit:             output += etk::String(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\d" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexOpcodeDigitNot:          output += etk::String(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\D" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexOpcodeLetter:            output += etk::String(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\l" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexOpcodeLetterNot:         output += etk::String(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\L" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexOpcodeSpace:             output += etk::String(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\s" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexOpcodeSpaceNot:          output += etk::String(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\S" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexOpcodeWord:              output += etk::String(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\w" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexOpcodeWordNot:           output += etk::String(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\W" + ETK_BASH_COLOR_NORMAL;	break;
+			case regexOpcodeEOF:               output += etk::String(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\e" + ETK_BASH_COLOR_NORMAL;	break;
+			case '\n':                          output += etk::String(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\n" + ETK_BASH_COLOR_NORMAL;	break;
+			case '\t':                          output += etk::String(ETK_BASH_COLOR_MAGENTA)	+ (char*)"\\t" + ETK_BASH_COLOR_NORMAL;	break;
 			default:
 				char plop[10];
 				int8_t nb = u32char::convertUtf8(_data[iii], plop);
@@ -240,7 +240,7 @@ int64_t etk::regex::getLenOfBracket(const std::vector<char32_t>& _data, int64_t 
 		            || _data[pos] == regexOpcodeTo) {
 			// nothing to do ... it is permitted
 		} else if(_data[pos] > 0xFF ) {
-			std::string displayElement;
+			etk::String displayElement;
 			if (_data[pos] == regexOpcodeStartOfLine) {
 				displayElement = "^";
 			} else if (_data[pos] == regexOpcodeDigitNot) {
@@ -400,8 +400,8 @@ allIsSet:
 	return true;
 }
 
-std::string etk::regex::autoStr(const std::string& _data) {
-	std::string out;
+etk::String etk::regex::autoStr(const etk::String& _data) {
+	etk::String out;
 	for (auto &it : _data) {
 		if (it == '\n') {
 			out += "\\n";
@@ -423,8 +423,8 @@ std::string etk::regex::autoStr(const std::string& _data) {
 }
 
 
-std::string etk::regex::autoStr(char _data) {
-	std::string out;
+etk::String etk::regex::autoStr(char _data) {
+	etk::String out;
 	if (_data == '\n') {
 		out += "\\n";
 	} else if (_data == '\t') {
@@ -443,8 +443,8 @@ std::string etk::regex::autoStr(char _data) {
 	return out;
 }
 
-std::string etk::regex::strTick(int32_t _pos) {
-	std::string out;
+etk::String etk::regex::strTick(int32_t _pos) {
+	etk::String out;
 	for (int32_t iii=0; iii<_pos; ++iii) {
 		out += " ";
 	}
@@ -455,20 +455,20 @@ std::string etk::regex::strTick(int32_t _pos) {
 
 
 namespace etk {
-	template<> std::string to_string<etk::RegEx<std::string>>(const etk::RegEx<std::string>& _val) {
+	template<> etk::String to_string<etk::RegEx<etk::String>>(const etk::RegEx<etk::String>& _val) {
 		return _val.getRegEx();
 	}
-	template<> std::string to_string<etk::RegEx<std::u32string>>(const etk::RegEx<std::u32string>& _val) {
+	template<> etk::String to_string<etk::RegEx<std::u32string>>(const etk::RegEx<std::u32string>& _val) {
 		return _val.getRegEx();
 	}
-	template<> std::u32string to_u32string<etk::RegEx<std::string>>(const etk::RegEx<std::string>& _val) {
+	template<> std::u32string to_u32string<etk::RegEx<etk::String>>(const etk::RegEx<etk::String>& _val) {
 		return _val.getURegEx();
 	}
 	template<> std::u32string to_u32string<etk::RegEx<std::u32string>>(const etk::RegEx<std::u32string>& _val) {
 		return _val.getURegEx();
 	}
 	
-	template<> bool from_string<etk::RegEx<std::string>>(etk::RegEx<std::string>& _variableRet, const std::u32string& _value) {
+	template<> bool from_string<etk::RegEx<etk::String>>(etk::RegEx<etk::String>& _variableRet, const std::u32string& _value) {
 		_variableRet.compile(_value);
 		return true;
 	}
@@ -476,11 +476,11 @@ namespace etk {
 		_variableRet.compile(_value);
 		return true;
 	}
-	template<> bool from_string<etk::RegEx<std::string>>(etk::RegEx<std::string>& _variableRet, const std::string& _value) {
+	template<> bool from_string<etk::RegEx<etk::String>>(etk::RegEx<etk::String>& _variableRet, const etk::String& _value) {
 		_variableRet.compile(_value);
 		return true;
 	}
-	template<> bool from_string<etk::RegEx<std::u32string>>(etk::RegEx<std::u32string>& _variableRet, const std::string& _value) {
+	template<> bool from_string<etk::RegEx<std::u32string>>(etk::RegEx<std::u32string>& _variableRet, const etk::String& _value) {
 		_variableRet.compile(_value);
 		return true;
 	}
