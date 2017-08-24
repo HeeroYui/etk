@@ -6,6 +6,7 @@
 
 
 #include <etk/os/FSNodeRight.hpp>
+#include <etk/stdTools.hpp>
 
 // Right Flags :
 enum {
@@ -147,8 +148,8 @@ void etk::FSNodeRight::setOtherRunable(bool _newStatus) {
 	}
 }
 #if __CPP_VERSION__ >= 2011
-	std::u32string etk::FSNodeRight::getURight() const {
-		return etk::to_u32string(getRight());
+	etk::UString etk::FSNodeRight::getURight() const {
+		return etk::toUString(getRight());
 	}
 #endif
 

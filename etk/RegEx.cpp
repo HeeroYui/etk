@@ -375,7 +375,7 @@ bool etk::regex::parseBrace(const std::vector<char32_t>& _data, uint32_t& _min, 
 			return false;
 		} if (_data[k] == '}') {
 			goto allIsSet;
-		} else if (true == u32char::isInteger(_data[k])) {
+		} else if (u32char::isInteger(_data[k]) == true) {
 			SecondElement *= 10;
 			SecondElement += u32char::toInt(_data[k]);
 		} else {
@@ -458,21 +458,21 @@ namespace etk {
 	template<> etk::String toString<etk::RegEx<etk::String>>(const etk::RegEx<etk::String>& _val) {
 		return _val.getRegEx();
 	}
-	template<> etk::String toString<etk::RegEx<std::u32string>>(const etk::RegEx<std::u32string>& _val) {
+	template<> etk::String toString<etk::RegEx<etk::UString>>(const etk::RegEx<etk::UString>& _val) {
 		return _val.getRegEx();
 	}
-	template<> std::u32string to_u32string<etk::RegEx<etk::String>>(const etk::RegEx<etk::String>& _val) {
+	template<> etk::UString toUString<etk::RegEx<etk::String>>(const etk::RegEx<etk::String>& _val) {
 		return _val.getURegEx();
 	}
-	template<> std::u32string to_u32string<etk::RegEx<std::u32string>>(const etk::RegEx<std::u32string>& _val) {
+	template<> etk::UString toUString<etk::RegEx<etk::UString>>(const etk::RegEx<etk::UString>& _val) {
 		return _val.getURegEx();
 	}
 	
-	template<> bool from_string<etk::RegEx<etk::String>>(etk::RegEx<etk::String>& _variableRet, const std::u32string& _value) {
+	template<> bool from_string<etk::RegEx<etk::String>>(etk::RegEx<etk::String>& _variableRet, const etk::UString& _value) {
 		_variableRet.compile(_value);
 		return true;
 	}
-	template<> bool from_string<etk::RegEx<std::u32string>>(etk::RegEx<std::u32string>& _variableRet, const std::u32string& _value) {
+	template<> bool from_string<etk::RegEx<etk::UString>>(etk::RegEx<etk::UString>& _variableRet, const etk::UString& _value) {
 		_variableRet.compile(_value);
 		return true;
 	}
@@ -480,7 +480,7 @@ namespace etk {
 		_variableRet.compile(_value);
 		return true;
 	}
-	template<> bool from_string<etk::RegEx<std::u32string>>(etk::RegEx<std::u32string>& _variableRet, const etk::String& _value) {
+	template<> bool from_string<etk::RegEx<etk::UString>>(etk::RegEx<etk::UString>& _variableRet, const etk::String& _value) {
 		_variableRet.compile(_value);
 		return true;
 	}

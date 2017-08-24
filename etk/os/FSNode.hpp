@@ -197,7 +197,7 @@ namespace etk {
 			 */
 			FSNode(const etk::String& _path = "~");
 			#if __CPP_VERSION__ >= 2011
-				FSNode(const std::u32string& _path);
+				FSNode(const etk::UString& _path);
 			#endif
 			/**
 			 * @brief Destructor
@@ -219,7 +219,7 @@ namespace etk {
 			 */
 			void privateSetName(etk::String _newName);
 			#if __CPP_VERSION__ >= 2011
-				void privateSetName(const std::u32string& _newName);
+				void privateSetName(const etk::UString& _newName);
 			#endif
 		private:
 			#ifdef HAVE_ZIP_DATA
@@ -270,7 +270,7 @@ namespace etk {
 			 */
 			void setName(const etk::String& _newName);
 			#if __CPP_VERSION__ >= 2011
-				void setName(const std::u32string& _newName);
+				void setName(const etk::UString& _newName);
 			#endif
 			/**
 			 * @brief Get the Generate FileSystem name
@@ -278,7 +278,7 @@ namespace etk {
 			 */
 			etk::String getFileSystemName() const;
 			#if __CPP_VERSION__ >= 2011
-				std::u32string getUFileSystemName() const;
+				etk::UString getUFileSystemName() const;
 			#endif
 			/**
 			 * @brief Get the current folder of the Node. (file system name)
@@ -287,7 +287,7 @@ namespace etk {
 			 */
 			etk::String getNameFolder() const;
 			#if __CPP_VERSION__ >= 2011
-				std::u32string getUNameFolder() const;
+				etk::UString getUNameFolder() const;
 			#endif
 			/**
 			 * @brief Get the current compleate node name (file system name)
@@ -296,7 +296,7 @@ namespace etk {
 			 */
 			etk::String getName() const;
 			#if __CPP_VERSION__ >= 2011
-				std::u32string getUName() const;
+				etk::UString getUName() const;
 			#endif
 			/**
 			 * @brief Get the file or current file name (if it was a file)
@@ -304,7 +304,7 @@ namespace etk {
 			 */
 			etk::String getNameFile() const;
 			#if __CPP_VERSION__ >= 2011
-				std::u32string getUNameFile() const;
+				etk::UString getUNameFile() const;
 			#endif
 			/**
 			 * @brief Get the current folder of the Node.
@@ -313,7 +313,7 @@ namespace etk {
 			 */
 			etk::String getRelativeFolder() const;
 			#if __CPP_VERSION__ >= 2011
-				std::u32string getURelativeFolder() const;
+				etk::UString getURelativeFolder() const;
 			#endif
 			/**
 			 * @brief update the Time of the file with the current time
@@ -329,7 +329,7 @@ namespace etk {
 			 */
 			bool move(const etk::String& _path);
 			#if __CPP_VERSION__ >= 2011
-				bool move(const std::u32string& _path);
+				bool move(const etk::UString& _path);
 			#endif
 			/**
 			 * @brief Get the node type (DATA/DIRECT...)
@@ -355,7 +355,7 @@ namespace etk {
 			 */
 			etk::String timeCreatedString() const;
 			#if __CPP_VERSION__ >= 2011
-				std::u32string timeUCreatedString() const;
+				etk::UString timeUCreatedString() const;
 			#endif
 			/**
 			 * @brief Get the modifying time of the File
@@ -368,7 +368,7 @@ namespace etk {
 			 */
 			etk::String timeModifiedString() const;
 			#if __CPP_VERSION__ >= 2011
-				std::u32string timeUModifiedString() const;
+				etk::UString timeUModifiedString() const;
 			#endif
 			/**
 			 * @brief Get the Accessed time of the File
@@ -381,7 +381,7 @@ namespace etk {
 			 */
 			etk::String timeAccessedString() const;
 			#if __CPP_VERSION__ >= 2011
-				std::u32string timeUAccessedString() const;
+				etk::UString timeUAccessedString() const;
 			#endif
 			/**
 			 * @brief copy the other FSnode ==> for vector
@@ -423,7 +423,7 @@ namespace etk {
 			 * @param[in] _temporaryFile add Tmp file like .bck or ~
 			 * @return The requested list
 			 */
-			std::vector<etk::FSNode*> folderGetSubList(bool _showHidenFile = true,
+			etk::Vector<etk::FSNode*> folderGetSubList(bool _showHidenFile = true,
 			                                           bool _getFolderAndOther = true,
 			                                           bool _getFile = true,
 			                                           bool _temporaryFile = true);
@@ -435,7 +435,7 @@ namespace etk {
 			 * @param[in] _filter Generic regex string to filter file names
 			 * @return The requested list
 			 */
-			std::vector<etk::FSNode*> folderGetSubList(bool _showHidenFile = true,
+			etk::Vector<etk::FSNode*> folderGetSubList(bool _showHidenFile = true,
 			                                           bool _getFolderAndOther = true,
 			                                           bool _getFile = true,
 			                                           const etk::String& _filter = ".*");
@@ -446,7 +446,7 @@ namespace etk {
 			 * @param[in] _filter Generic regex string to filter file names
 			 * @return The requested list
 			 */
-			std::vector<etk::String> folderGetSub(bool _getFolder, bool _getFile, const etk::String& _filter);
+			etk::Vector<etk::String> folderGetSub(bool _getFolder, bool _getFile, const etk::String& _filter);
 			/**
 			 * @brief Get the father node of this node
 			 * @return The requested node
@@ -457,9 +457,9 @@ namespace etk {
 			 * @param[out] _output List of all the File names (You must clear it before set it in)
 			 * @param[in] _recursiveEnable Activate the recursive mode (enable by default)
 			 */
-			void folderGetRecursiveFiles(std::vector<etk::String>& _output, bool _recursiveEnable=true);
+			void folderGetRecursiveFiles(etk::Vector<etk::String>& _output, bool _recursiveEnable=true);
 			#if __CPP_VERSION__ >= 2011
-				void folderGetRecursiveFiles(std::vector<std::u32string>& _output, bool _recursiveEnable=true);
+				void folderGetRecursiveFiles(etk::Vector<etk::UString>& _output, bool _recursiveEnable=true);
 			#endif
 			/**
 			 * @brief Check if the file have an extention ( ***.ccc)
@@ -473,7 +473,7 @@ namespace etk {
 			 */
 			etk::String fileGetExtention();
 			#if __CPP_VERSION__ >= 2011
-				std::u32string fileUGetExtention();
+				etk::UString fileUGetExtention();
 			#endif
 			/**
 			 * @brief Get the File size
@@ -600,8 +600,8 @@ namespace etk {
 			 * @brief Read all element in a file and set it in a generic vector
 			 * @return the read vector
 			 */
-			template<typename T> std::vector<T> fileReadAll() {
-				std::vector<T> value;
+			template<typename T> etk::Vector<T> fileReadAll() {
+				etk::Vector<T> value;
 				value.resize(fileSize());
 				fileRead(&value[0], sizeof(T), fileSize()/sizeof(T));
 				return value;
@@ -617,7 +617,7 @@ namespace etk {
 				return value;
 			}
 			#if __CPP_VERSION__ >= 2011
-			std::u32string fileReadAllU32String() {
+			etk::UString fileReadAllU32String() {
 				return utf8::convertUnicode(fileReadAllString());
 			}
 			#endif
@@ -626,7 +626,7 @@ namespace etk {
 			 * @param[in] _value Data to write in the File
 			 */
 			template<typename T>
-			void fileWriteAll(const std::vector<T>& _value) {
+			void fileWriteAll(const etk::Vector<T>& _value) {
 				fileWrite(static_cast<const void*>(&(_value[0])), sizeof(T), _value.size()/sizeof(T));
 			}
 			/**
@@ -637,7 +637,7 @@ namespace etk {
 				fileWrite(static_cast<const void*>(&(_value[0])), sizeof(char), _value.size()/sizeof(char));
 			}
 			#if __CPP_VERSION__ >= 2011
-				void fileWriteAll(const std::u32string& _value) {
+				void fileWriteAll(const etk::UString& _value) {
 					fileWriteAll(u32char::convertToUtf8(_value));
 				}
 			#endif
@@ -646,7 +646,7 @@ namespace etk {
 			 * @brief Order the list of subnode the folder first and the alphabetical order
 			 * @param[in,out] _list The list to order
 			 */
-			void sortElementList(std::vector<etk::FSNode *>& _list);
+			void sortElementList(etk::Vector<etk::FSNode *>& _list);
 	};
 	//! @not_in_doc
 	std::ostream& operator <<(std::ostream &_os, const etk::FSNode &_obj);
@@ -678,7 +678,7 @@ namespace etk {
 	 */
 	etk::String getUserHomeFolder();
 	#if __CPP_VERSION__ >= 2011
-		std::u32string getUUserHomeFolder();
+		etk::UString getUUserHomeFolder();
 	#endif
 	/**
 	 * @brief Get the folder of the Program is running
@@ -686,7 +686,7 @@ namespace etk {
 	 */
 	etk::String getUserRunFolder();
 	#if __CPP_VERSION__ >= 2011
-		std::u32string getUUserRunFolder();
+		etk::UString getUUserRunFolder();
 	#endif
 	
 	namespace theme {
@@ -699,7 +699,7 @@ namespace etk {
 		void setName(const etk::String& _refName, const etk::String& _folderName);
 		#if __CPP_VERSION__ >= 2011
 			//! @previous
-			void setName(const std::u32string& _refName, const std::u32string& _folderName);
+			void setName(const etk::UString& _refName, const etk::UString& _folderName);
 		#endif
 		/**
 		 * @brief get the folder from a Reference theme
@@ -709,7 +709,7 @@ namespace etk {
 		etk::String getName(const etk::String& _refName);
 		#if __CPP_VERSION__ >= 2011
 			//! @previous
-			std::u32string getName(const std::u32string& _refName);
+			etk::UString getName(const etk::UString& _refName);
 		#endif
 		/**
 		 * @brief Set the default folder of a subset of a theme ...
@@ -719,7 +719,7 @@ namespace etk {
 		void setNameDefault(const etk::String& _refName, const etk::String& _folderName);
 		#if __CPP_VERSION__ >= 2011
 			//! @previous
-			void setNameDefault(const std::u32string& _refName, const std::u32string& _folderName);
+			void setNameDefault(const etk::UString& _refName, const etk::UString& _folderName);
 		#endif
 		/**
 		 * @brief get the default folder from a Reference theme 
@@ -729,16 +729,16 @@ namespace etk {
 		etk::String getNameDefault(const etk::String& _refName);
 		#if __CPP_VERSION__ >= 2011
 			//! @previous
-			std::u32string getNameDefault(const std::u32string& _refName);
+			etk::UString getNameDefault(const etk::UString& _refName);
 		#endif
 		/**
 		 * @brief Get the list of all the theme folder availlable in the user Home/appl
 		 * @return The list of elements
 		 */
-		std::vector<etk::String> list();
+		etk::Vector<etk::String> list();
 		#if __CPP_VERSION__ >= 2011
 			//! @previous
-			std::vector<std::u32string> listU();
+			etk::Vector<etk::UString> listU();
 		#endif
 	};
 	/**
@@ -748,7 +748,7 @@ namespace etk {
 	 */
 	uint64_t FSNodeGetSize(const etk::String& _path);
 	#if __CPP_VERSION__ >= 2011
-		uint64_t FSNodeGetSize(const std::u32string& _path);
+		uint64_t FSNodeGetSize(const etk::UString& _path);
 	#endif
 	
 	/**
@@ -759,7 +759,7 @@ namespace etk {
 	 */
 	bool FSNodeRemove(const etk::String& _path);
 	#if __CPP_VERSION__ >= 2011
-		bool FSNodeRemove(const std::u32string& _path);
+		bool FSNodeRemove(const etk::UString& _path);
 	#endif
 	/**
 	 * @brief Simple access for : count the number of element in a path (if it is not a path ==> return -1)
@@ -769,7 +769,7 @@ namespace etk {
 	 */
 	int64_t FSNodeGetCount(const etk::String& _path);
 	#if __CPP_VERSION__ >= 2011
-		int64_t FSNodeGetCount(const std::u32string& _path);
+		int64_t FSNodeGetCount(const etk::UString& _path);
 	#endif
 	/**
 	 * @brief Simple access for : Create a file or a folder depending of the request
@@ -781,7 +781,7 @@ namespace etk {
 	 */
 	bool FSNodeCreate(const etk::String& _path, etk::FSNodeRight _right, enum etk::typeNode _type=etk::typeNode_folder);
 	#if __CPP_VERSION__ >= 2011
-		bool FSNodeCreate(const std::u32string& _path, etk::FSNodeRight _right, enum etk::typeNode _type=etk::typeNode_folder);
+		bool FSNodeCreate(const etk::UString& _path, etk::FSNodeRight _right, enum etk::typeNode _type=etk::typeNode_folder);
 	#endif
 	/**
 	 * @brief Simple access for : chexk the exestance of an element
@@ -791,7 +791,7 @@ namespace etk {
 	 */
 	bool FSNodeExist(const etk::String& _path);
 	#if __CPP_VERSION__ >= 2011
-		bool FSNodeExist(const std::u32string& _path);
+		bool FSNodeExist(const etk::UString& _path);
 	#endif
 	/**
 	 * @brief Simple access for : chexk the exestance of an element
@@ -802,7 +802,7 @@ namespace etk {
 	 */
 	bool FSNodeMove(const etk::String& _path1, const etk::String& _path2);
 	#if __CPP_VERSION__ >= 2011
-		bool FSNodeMove(const std::u32string& _path1, const std::u32string& _path2);
+		bool FSNodeMove(const etk::UString& _path1, const etk::UString& _path2);
 	#endif
 	/**
 	 * @brief Simple access for : Get right of the current Node
@@ -812,7 +812,7 @@ namespace etk {
 	 */
 	etk::FSNodeRight FSNodeGetRight(const etk::String& _path);
 	#if __CPP_VERSION__ >= 2011
-		etk::FSNodeRight FSNodeGetRight(const std::u32string& _path);
+		etk::FSNodeRight FSNodeGetRight(const etk::UString& _path);
 	#endif
 	/**
 	 * @brief Simple access for : Get type of the current node
@@ -822,7 +822,7 @@ namespace etk {
 	 */
 	enum etk::typeNode FSNodeGetType(const etk::String& _path);
 	#if __CPP_VERSION__ >= 2011
-		enum etk::typeNode FSNodeGetType(const std::u32string& _path);
+		enum etk::typeNode FSNodeGetType(const etk::UString& _path);
 	#endif
 	/**
 	 * @brief Simple access for : Getting creation time of the current node
@@ -832,7 +832,7 @@ namespace etk {
 	 */
 	uint64_t FSNodeGetTimeCreated(const etk::String& _path);
 	#if __CPP_VERSION__ >= 2011
-		uint64_t FSNodeGetTimeCreated(const std::u32string& _path);
+		uint64_t FSNodeGetTimeCreated(const etk::UString& _path);
 	#endif
 	/**
 	 * @brief Simple access for : Getting Modification time of the current node
@@ -842,7 +842,7 @@ namespace etk {
 	 */
 	uint64_t FSNodeGetTimeModified(const etk::String& _path);
 	#if __CPP_VERSION__ >= 2011
-		uint64_t FSNodeGetTimeModified(const std::u32string& _path);
+		uint64_t FSNodeGetTimeModified(const etk::UString& _path);
 	#endif
 	/**
 	 * @brief Simple access for : Getting Accessing time of the current node
@@ -852,7 +852,7 @@ namespace etk {
 	 */
 	uint64_t FSNodeGetTimeAccessed(const etk::String& _path);
 	#if __CPP_VERSION__ >= 2011
-		uint64_t FSNodeGetTimeAccessed(const std::u32string& _path);
+		uint64_t FSNodeGetTimeAccessed(const etk::UString& _path);
 	#endif
 	/**
 	 * @brief Simple access for : Update Modification time with the current time of the node (>)
@@ -862,7 +862,7 @@ namespace etk {
 	 */
 	bool FSNodeTouch(const etk::String& _path);
 	#if __CPP_VERSION__ >= 2011
-		bool FSNodeTouch(const std::u32string& _path);
+		bool FSNodeTouch(const etk::UString& _path);
 	#endif
 	/**
 	 * @brief Simple access for : Basic write on the node (like console echo)
@@ -873,7 +873,7 @@ namespace etk {
 	 */
 	bool FSNodeEcho(const etk::String& _path, const etk::String& _dataTowrite);
 	#if __CPP_VERSION__ >= 2011
-		bool FSNodeEcho(const std::u32string& _path, const std::u32string& _dataTowrite);
+		bool FSNodeEcho(const etk::UString& _path, const etk::UString& _dataTowrite);
 	#endif
 	/**
 	 * @brief Simple access for : Basic write on the node (like console echo) in adding mode (>>)
@@ -884,7 +884,7 @@ namespace etk {
 	 */
 	bool FSNodeEchoAdd(const etk::String& _path, const etk::String& _dataTowrite);
 	#if __CPP_VERSION__ >= 2011
-		bool FSNodeEchoAdd(const std::u32string& _path, const std::u32string& _dataTowrite);
+		bool FSNodeEchoAdd(const etk::UString& _path, const etk::UString& _dataTowrite);
 	#endif
 	/**
 	 * @brief move file to generate an history of the current file
@@ -893,7 +893,7 @@ namespace etk {
 	 */
 	void FSNodeHistory(const etk::String& _path, int32_t _historyCount);
 	#if __CPP_VERSION__ >= 2011
-		void FSNodeHistory(const std::u32string& _path, int32_t _historyCount);
+		void FSNodeHistory(const etk::UString& _path, int32_t _historyCount);
 	#endif
 	/**
 	 * @brief Read all the data from a file
@@ -912,8 +912,8 @@ namespace etk {
 	 * @param[in] _path Folder/File/Pipe path of the node
 	 * @return all the data of the file in a typed vector
 	 */
-	template<typename TTT> std::vector<TTT> FSNodeReadAllDataType(const etk::String& _path) {
-		std::vector<TTT> out;
+	template<typename TTT> etk::Vector<TTT> FSNodeReadAllDataType(const etk::String& _path) {
+		etk::Vector<TTT> out;
 		etk::FSNode node(_path);
 		if (node.fileOpenRead() == false) {
 			//TK_ERROR("can not open file : '" << node << "'");
@@ -933,7 +933,7 @@ namespace etk {
 	 * @param[in] _path Folder/File/Pipe path of the node
 	 * @param[in] _data All the data of the file in a vector Typed bits ...
 	 */
-	template<typename TTT> void FSNodeWriteAllDataType(const etk::String& _path, const std::vector<TTT>& _data) {
+	template<typename TTT> void FSNodeWriteAllDataType(const etk::String& _path, const etk::Vector<TTT>& _data) {
 		etk::FSNode node(_path);
 		if (node.fileOpenWrite() == false) {
 			//TK_ERROR("can not open file : '" << node << "'");
@@ -962,7 +962,7 @@ namespace etk {
 	 *     // out contain: {"{@ewol}DATA:font"}
 	 * @endcode
 	 */
-	std::vector<etk::String> FSNodeExplodeMultiplePath(const etk::String& _path);
+	etk::Vector<etk::String> FSNodeExplodeMultiplePath(const etk::String& _path);
 };
 
 

@@ -1,240 +1,9 @@
-/** @file
- * @author Edouard DUPIN
- * @copyright 2011, Edouard DUPIN, all right reserved
- * @license MPL v2.0 (see license file)
- */
-
-#include <etk/stdTools.hpp>
-#include <etk/debug.hpp>
-
-
-const char32_t u32char::Null('\0');
-const char32_t u32char::Return('\n');
-const char32_t u32char::CarrierReturn('\r');
-const char32_t u32char::Tabulation('\t');
-const char32_t u32char::Suppress((const char)127);
-const char32_t u32char::Delete((const char)8);
-const char32_t u32char::Space(' ');
-const char32_t u32char::Escape((const char)27);
-
-bool u32char::isWhiteChar(char32_t _val) {
-	if(    _val == ' '
-	    || _val == '\t'
-	    || _val == '\n'
-	    || _val == '\r') {
-		return true;
-	}
-	return false;
-}
-
-bool u32char::isSpecialChar(char32_t _val) {
-	if(    _val < '0'
-	    || (_val > '9' && _val < 'A')
-	    || (_val > 'Z' && _val < 'a')
-	    || (_val > 'z' && _val < 0xFF) ) {
-		return true;
-	}
-	return false;
-}
-
-bool u32char::isInteger(char32_t _val) {
-	if(    _val >= (uint32_t)'0'
-	    && _val <= (uint32_t)'9') {
-		return true;
-	}
-	return false;
-}
-
-int32_t u32char::toInt(char32_t _val) {
-	return _val - (uint32_t)'0';
-}
-
-
-char32_t u32char::changeOrder(char32_t _val) {
-	if (_val >= 'A' && _val <= 'Z') {
-		return (_val - (uint32_t)'A')*2 + 'A';
-	}
-	if (_val >= 'a' && _val <= 'z') {
-		return (_val - (uint32_t)'a')*2 + 'A' + 1;
-	}
-	if (_val >= ':' && _val <= '@') {
-		return _val + 52;
-	}
-	if (_val >= '[' && _val <= '`') {
-		return _val +26;
-	}
-	return _val;
-}
-
-static uint32_t getUtf8Val(char32_t _val) {
-	uint32_t output = 0;
-	if (_val <= 127) {
-		output = _val;
-	} else if (_val <= 2047) {
-		// output ==> 00000000 00000000 110xxxxx 10xxxxxx
-		// input ==>  -------- -------- -----222 22111111
-		output = 0x0000C080;
-		output+= (_val & 0x000007C0)<<2;
-		output+=  _val & 0x0000003F;
-	} else if (_val <= 65535) {
-		// output ==> 00000000 1110xxxx 10xxxxxx 10xxxxxx
-		// input ==>  -------- -------- 33332222 22111111
-		output = 0x00E08080;
-		output+= (_val & 0x0000F000)<<4;
-		output+= (_val & 0x00000FC0)<<2;
-		output+=  _val & 0x0000003F;
-	} else if (_val <= 1114111) {
-		// output ==> 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
-		// input ==>  -------- ---44433 33332222 22111111
-		output = 0xF0808080;
-		output+= (_val & 0x001C0000)<<6;
-		output+= (_val & 0x0003F000)<<4;
-		output+= (_val & 0x00000FC0)<<2;
-		output+=  _val & 0x0000003F;
-	} else {
-		//TK_ERROR("NOT UTF8 character input...");
-		printf("not an utf8 char : %#08x\n", _val);
-		return 0;
-	}
-	//printf("utf-8 conversion : %d=%08x ==> %08x\n",value, value, output);
-	return output;
-}
-
-int8_t u32char::convertUtf8(char32_t _val, char _output[5]) {
-	uint32_t value = getUtf8Val(_val);
-	if (0xFF >= value) {
-		_output[0] = (char)value;
-		_output[1] = '\0';
-		return 1;
-	} else if (0xFFFF >= value) {
-		_output[0] = (char)((value>>8)  & 0x000000FF);
-		_output[1] = (char)value;
-		_output[2] = '\0';
-		return 2;
-	} else if (0xFFFFFF >= value) {
-		_output[0] = (char)((value>>16) & 0x000000FF);
-		_output[1] = (char)((value>>8)  & 0x000000FF);
-		_output[2] = (char)value;
-		_output[3] = '\0';
-		return 3;
-	} else {
-		_output[0] = (char)((value>>24) & 0x000000FF);
-		_output[1] = (char)((value>>16) & 0x000000FF);
-		_output[2] = (char)((value>>8)  & 0x000000FF);
-		_output[3] = (char)value;
-		_output[4] = '\0';
-		return 4;
-	}
-}
-#if __CPP_VERSION__ >= 2011
-	std::string u32char::convertToUtf8(const std::u32string& _input) {
-		TK_TODO("implement this function ...");
-		return "TODO ... std::string u32char::convertToUtf8(const std::u32string& _input)";
-	}
-#endif
-
-static uint8_t sizeElement(const char* _data, int32_t _lenMax) {
-	uint8_t size = 0;
-	TK_ASSERT(0 <= _lenMax, "size can not be < 0 ...");
-	if (0 > _lenMax) {
-		return 0;
-	}
-	//4 case
-	if(    _lenMax >= 1
-	    && (_data[0] & 0x80) == 0x00 ) {
-		// One Char Element
-		size = 1;
-	} else if(    _lenMax >= 2
-	           && (_data[0] & 0xE0) == 0xC0
-	           && (_data[1] & 0xC0) == 0x80) {
-		size = 2;
-	} else if(    _lenMax >= 3
-	           && (_data[0] & 0xF0) == 0xE0
-	           && (_data[1] & 0xC0) == 0x80
-	           && (_data[2] & 0xC0) == 0x80) {
-		size = 3;
-	} else if(    _lenMax >= 4
-	           && (_data[0] & 0xF8) == 0xF0
-	           && (_data[1] & 0xC0) == 0x80
-	           && (_data[2] & 0xC0) == 0x80
-	           && (_data[3] & 0xC0) == 0x80) {
-		size = 4;
-	}
-	return size;
-}
-
-char32_t utf8::convertChar32(const char* _input) {
-	char32_t value = 0;
-	if (nullptr == _input) {
-		return value;
-	}
-	int32_t len = strlen(_input);
-	len = sizeElement(_input, len);
-	switch (len) {
-		default:
-			// case 0 : An error occurred...
-			value = _input[0];
-			return value;
-		case 1:
-			value = (uint8_t)(_input[0]) & 0x7F;
-			return value;
-		case 2:
-			value  = (((uint8_t)_input[0]) & 0x1F)<< 6;
-			value +=  ((uint8_t)_input[1]) & 0x3F;
-			return value;
-		case 3:
-			value  = (((uint8_t)_input[0]) & 0x0F)<< 12;
-			value += (((uint8_t)_input[1]) & 0x3F)<< 6;
-			value +=  ((uint8_t)_input[2]) & 0x3F;
-			return value;
-		case 4:
-			value  = (((uint8_t)_input[0]) & 0x07)<< 18;
-			value += (((uint8_t)_input[1]) & 0x3F)<< 12;
-			value += (((uint8_t)_input[2]) & 0x3F)<< 6;
-			value +=  ((uint8_t)_input[3]) & 0x3F;
-			return value;
-	}
-}
-
-int8_t utf8::length(const char _input) {
-	if((_input&0x80) == 0x00 ) {
-		return 1;
-	}
-	if((_input&0xE0) == 0xC0) {
-		return 2;
-	}
-	if((_input&0xF0) == 0xE0) {
-		return 3;
-	}
-	if((_input&0xF8) == 0xF0) {
-		return 4;
-	}
-	return 1;
-}
-
-bool utf8::first(const char _input) {
-	// When started with the bit 0 then the size is single element.
-	if((_input&0x80) == 0x00 ) {
-		return true;
-	}
-	// for multiple element size, we just need to check the second element (might be != 1)
-	if((_input&0x40) == 0x40 ) {
-		return true;
-	}
-	return false;
-}
-#if __CPP_VERSION__ >= 2011
-	std::u32string utf8::convertUnicode(const etk::String& _input) {
-		TK_TODO("implement this function ...");
-		return U"TODO ... std::u32string utf8::convertUnicode(const etk::String& _input)";
-	}
-#endif
 
 
 namespace etk {
 	#if __CPP_VERSION__ >= 2011
-		template<> std::string to_string<std::u32string>(const std::u32string& _input) {
-			std::string out;
+		template<> etk::String toString<etk::UString>(const etk::UString& _input) {
+			etk::String out;
 			for (size_t iii=0; iii<_input.size(); ++iii) {
 				char output[10];
 				u32char::convertUtf8(_input[iii], output);
@@ -242,108 +11,22 @@ namespace etk {
 			}
 			return out;
 		}
-		template<> std::string to_string<char32_t>(const char32_t& _input) {
-			std::string out;
+		template<> etk::String toString<char32_t>(const char32_t& _input) {
+			etk::String out;
 			char output[10];
 			u32char::convertUtf8(_input, output);
 			out += output;
 			return out;
 		}
 	#endif
-	
-	template<> std::string to_string<std::string>(const std::string& _val) {
-		return _val;
-	}
-	template<> std::string to_string<bool>(const bool& _val) {
-		if (_val == true) {
-			return "true";
-		}
-		return "false";
-	}
-	template<> std::string to_string<int8_t>(const int8_t& _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%d", _val);
-		return tmpVal;
-	}
-	template<> std::string to_string<int16_t>(const int16_t& _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%d", _val);
-		return tmpVal;
-	}
-	template<> std::string to_string<int32_t>(const int32_t& _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%d", _val);
-		return tmpVal;
-	}
-	template<> std::string to_string<int64_t>(const int64_t& _val) {
-		char tmpVal[256];
-		#if (    defined(__TARGET_OS__Android) \
-		      || defined(__TARGET_OS__Windows) \
-		      || defined(__TARGET_OS__MacOs) \
-		      || defined(__TARGET_OS__IOs))
-			sprintf(tmpVal, "%lld", _val);
-		#else
-			sprintf(tmpVal, "%ld", _val);
-		#endif
-		return tmpVal;
-	}
-	template<> std::string to_string<uint8_t>(const uint8_t& _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%u", _val);
-		return tmpVal;
-	}
-	template<> std::string to_string<uint16_t>(const uint16_t& _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%u", _val);
-		return tmpVal;
-	}
-	template<> std::string to_string<uint32_t>(const uint32_t& _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%u", _val);
-		return tmpVal;
-	}
-	template<> std::string to_string<uint64_t>(const uint64_t& _val) {
-		char tmpVal[256];
-		#if (    defined(__TARGET_OS__Android) \
-		      || defined(__TARGET_OS__Windows) \
-		      || defined(__TARGET_OS__MacOs) \
-		      || defined(__TARGET_OS__IOs))
-			sprintf(tmpVal, "%llu", _val);
-		#else
-			sprintf(tmpVal, "%lu", _val);
-		#endif
-		return tmpVal;
-	}
-	#if (defined(__TARGET_OS__IOs) || defined(__TARGET_OS__MacOs))
-	template<> std::string to_string<size_t>(const size_t& _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%lu", _val);
-		return tmpVal;
-	}
-	#endif
-	template<> std::string to_string<float>(const float& _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%f", _val);
-		return tmpVal;
-	}
-	template<> std::string to_string<double>(const double& _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%f", _val);
-		return tmpVal;
-	}
-	template<> std::string to_string<long double>(const long double& _val) {
-		char tmpVal[256];
-		sprintf(tmpVal, "%Lf", _val);
-		return tmpVal;
-	}
 };
 
 #if __CPP_VERSION__ >= 2011
-	static std::u32string transform_to_u32string(const char* _input) {
-		if (_input == NULL) {
+	static etk::UString transform_toUString(const char* _input) {
+		if (_input == nullptr) {
 			return U"";
 		}
-		std::u32string out;
+		etk::UString out;
 		char tmpData[20];
 		int64_t pos = 0;
 		int64_t inputLen = strlen(_input);
@@ -393,46 +76,46 @@ namespace etk {
 #endif
 #if __CPP_VERSION__ >= 2011
 	namespace etk {
-		template<> std::u32string to_u32string<char*>(char* const & _input) {
-			return transform_to_u32string(_input);
+		template<> etk::UString toUString<char*>(char* const & _input) {
+			return transform_toUString(_input);
 		}
-		template<> std::u32string to_u32string<std::string>(const std::string& _input) {
-			return transform_to_u32string(_input.c_str());
+		template<> etk::UString toUString<etk::String>(const etk::String& _input) {
+			return transform_toUString(_input.c_str());
 		}
-		template<> std::u32string to_u32string<int8_t>(const int8_t& _val) {
-			return etk::to_u32string(etk::to_string(_val));
+		template<> etk::UString toUString<int8_t>(const int8_t& _val) {
+			return etk::toUString(etk::toString(_val));
 		};
-		template<> std::u32string to_u32string<int16_t>(const int16_t& _val) {
-			return etk::to_u32string(etk::to_string(_val));
+		template<> etk::UString toUString<int16_t>(const int16_t& _val) {
+			return etk::toUString(etk::toString(_val));
 		};
-		template<> std::u32string to_u32string<int32_t>(const int32_t& _val) {
-			return etk::to_u32string(etk::to_string(_val));
+		template<> etk::UString toUString<int32_t>(const int32_t& _val) {
+			return etk::toUString(etk::toString(_val));
 		};
-		template<> std::u32string to_u32string<int64_t>(const int64_t& _val) {
-			return etk::to_u32string(etk::to_string(_val));
+		template<> etk::UString toUString<int64_t>(const int64_t& _val) {
+			return etk::toUString(etk::toString(_val));
 		};
-		template<> std::u32string to_u32string<uint8_t>(const uint8_t& _val) {
-			return etk::to_u32string(etk::to_string(_val));
+		template<> etk::UString toUString<uint8_t>(const uint8_t& _val) {
+			return etk::toUString(etk::toString(_val));
 		};
-		template<> std::u32string to_u32string<uint16_t>(const uint16_t& _val) {
-			return etk::to_u32string(etk::to_string(_val));
+		template<> etk::UString toUString<uint16_t>(const uint16_t& _val) {
+			return etk::toUString(etk::toString(_val));
 		};
-		template<> std::u32string to_u32string<uint32_t>(const uint32_t& _val) {
-			return etk::to_u32string(etk::to_string(_val));
+		template<> etk::UString toUString<uint32_t>(const uint32_t& _val) {
+			return etk::toUString(etk::toString(_val));
 		};
-		template<> std::u32string to_u32string<uint64_t>(const uint64_t& _val) {
-			return etk::to_u32string(etk::to_string(_val));
+		template<> etk::UString toUString<uint64_t>(const uint64_t& _val) {
+			return etk::toUString(etk::toString(_val));
 		};
-		template<> std::u32string to_u32string<float>(const float& _val) {
-			return etk::to_u32string(etk::to_string(_val));
+		template<> etk::UString toUString<float>(const float& _val) {
+			return etk::toUString(etk::toString(_val));
 		};
-		template<> std::u32string to_u32string<double>(const double& _val) {
-			return etk::to_u32string(etk::to_string(_val));
+		template<> etk::UString toUString<double>(const double& _val) {
+			return etk::toUString(etk::toString(_val));
 		};
-		template<> std::u32string to_u32string<long double>(const long double& _val) {
-			return etk::to_u32string(etk::to_string(_val));
+		template<> etk::UString toUString<long double>(const long double& _val) {
+			return etk::toUString(etk::toString(_val));
 		};
-		template<> std::u32string to_u32string<bool>(const bool& _val) {
+		template<> etk::UString toUString<bool>(const bool& _val) {
 			if (_val == true) {
 				return U"true";
 			}
@@ -440,7 +123,7 @@ namespace etk {
 		}
 	};
 	
-	bool etk::string_to_bool(const std::u32string& _str) {
+	bool etk::string_to_bool(const etk::UString& _str) {
 		if(    true == compare_no_case(_str, U"true")
 		    || true == compare_no_case(_str, U"enable")
 		    || true == compare_no_case(_str, U"yes")
@@ -450,57 +133,43 @@ namespace etk {
 		return false;
 	}
 	
-	double etk::string_to_double(const std::u32string& _str) {
-		return std::stod(etk::to_string(_str));
+	double etk::string_to_double(const etk::UString& _str) {
+		return etk::string_to_double(etk::toString(_str));
 	}
-	long double etk::string_to_long_double(const std::u32string& _str) {
-		return std::stold(etk::to_string(_str));
+	long double etk::string_to_long_double(const etk::UString& _str) {
+		return etk::string_to_long_double(etk::toString(_str));
 	}
-	float etk::string_to_float(const std::u32string& _str) {
-		return std::stof(etk::to_string(_str));
+	float etk::string_to_float(const etk::UString& _str) {
+		return etk::string_to_float(etk::toString(_str));
 	}
-	int8_t etk::string_to_int8_t(const std::u32string& _str, int _base) {
-		return std::stoi(etk::to_string(_str), 0, _base);
+	int8_t etk::string_to_int8_t(const etk::UString& _str) {
+		return etk::string_to_int8_t(etk::toString(_str));
 	}
-	int16_t etk::string_to_int16_t(const std::u32string& _str, int _base) {
-		return std::stoi(etk::to_string(_str), 0, _base);
+	int16_t etk::string_to_int16_t(const etk::UString& _str) {
+		return etk::string_to_int16_t(etk::toString(_str));
 	}
-	int32_t etk::string_to_int32_t(const std::u32string& _str, int _base) {
-		return std::stoi(etk::to_string(_str), 0, _base);
+	int32_t etk::string_to_int32_t(const etk::UString& _str) {
+		return etk::string_to_int32_t(etk::toString(_str));
 	}
-	int64_t etk::string_to_int64_t(const std::u32string& _str, int _base) {
-		return std::stoll(etk::to_string(_str), 0, _base);
+	int64_t etk::string_to_int64_t(const etk::UString& _str) {
+		return etk::string_to_int64_t(etk::toString(_str));
 	}
-	uint8_t etk::string_to_uint8_t(const std::u32string& _str, int _base) {
-		return std::stoul(etk::to_string(_str), 0, _base);
+	uint8_t etk::string_to_uint8_t(const etk::UString& _str) {
+		return etk::string_to_uint8_t(etk::toString(_str));
 	}
-	uint16_t etk::string_to_uint16_t(const std::u32string& _str, int _base) {
-		return std::stoul(etk::to_string(_str), 0, _base);
+	uint16_t etk::string_to_uint16_t(const etk::UString& _str) {
+		return etk::string_to_uint16_t(etk::toString(_str));
 	}
-	uint32_t etk::string_to_uint32_t(const std::u32string& _str, int _base) {
-		return std::stoul(etk::to_string(_str), 0, _base);
+	uint32_t etk::string_to_uint32_t(const etk::UString& _str) {
+		return etk::string_to_uint32_t(etk::toString(_str));
 	}
-	uint64_t etk::string_to_uint64_t(const std::u32string& _str, int _base) {
-		return std::stoull(etk::to_string(_str), 0, _base);
+	uint64_t etk::string_to_uint64_t(const etk::UString& _str) {
+		return etk::string_to_uint64_t(etk::toString(_str));
 	}
 #endif
 
-bool etk::string_to_bool(const std::string& _str) {
-	if(    true == compare_no_case(_str, "true")
-	    || true == compare_no_case(_str, "enable")
-	    || true == compare_no_case(_str, "yes")
-	#if __CPP_VERSION__ >= 2011
-	    || _str == u8"1"
-	#else
-	    || _str == "1"
-	#endif
-	  ) {
-		return true;
-	}
-	return false;
-}
 #if __CPP_VERSION__ >= 2011
-	bool etk::compare_no_case(const std::u32string& _obj, const std::u32string& _val) {
+	bool etk::compare_no_case(const etk::UString& _obj, const etk::UString& _val) {
 		if (_val.size() != _obj.size()) {
 			return false;
 		}
@@ -513,17 +182,6 @@ bool etk::string_to_bool(const std::string& _str) {
 	}
 #endif
 
-bool etk::compare_no_case(const std::string& _obj, const std::string& _val) {
-	if (_val.size() != _obj.size()) {
-		return false;
-	}
-	for(size_t iii=0; iii<_val.size(); ++iii) {
-		if (std::tolower(_val[iii]) != std::tolower(_obj[iii])) {
-			return false;
-		}
-	}
-	return true;
-}
 
 class DoubleChar {
 	public:
@@ -581,14 +239,8 @@ static char32_t localToLower(char32_t _input) {
 }
 
 
-std::string etk::tolower(std::string _obj) {
-	for(size_t iii=0 ; iii<_obj.size() ; iii++) {
-		_obj[iii] = std::tolower(_obj[iii]);
-	}
-	return _obj;
-}
 #if __CPP_VERSION__ >= 2011
-	std::u32string etk::tolower(std::u32string _obj) {
+	etk::UString etk::tolower(etk::UString _obj) {
 		for(size_t iii=0 ; iii<_obj.size() ; iii++) {
 			_obj[iii] = localToLower(_obj[iii]);
 		}
@@ -596,14 +248,8 @@ std::string etk::tolower(std::string _obj) {
 	}
 #endif
 
-std::string etk::toupper(std::string _obj) {
-	for(size_t iii=0 ; iii<_obj.size() ; iii++) {
-		_obj[iii] = std::toupper(_obj[iii]);
-	}
-	return _obj;
-}
 #if __CPP_VERSION__ >= 2011
-	std::u32string etk::toupper(std::u32string _obj) {
+	etk::UString etk::toupper(etk::UString _obj) {
 		for(size_t iii=0 ; iii<_obj.size() ; iii++) {
 			_obj[iii] = localToUpper(_obj[iii]);
 		}
@@ -611,34 +257,9 @@ std::string etk::toupper(std::string _obj) {
 	}
 #endif
 
-bool etk::end_with(const std::string& _obj, const std::string& _val, bool _caseSensitive) {
-	if (_val.size() == 0) {
-		return false;
-	}
-	if (_val.size() > _obj.size()) {
-		return false;
-	}
-	if (true == _caseSensitive) {
-		for( int64_t iii=_val.size()-1, jjj=_obj.size()-1;
-		     iii>=0 && jjj>=0;
-		     iii--, jjj--) {
-			if (_obj[jjj] != _val[iii]) {
-				return false;
-			}
-		}
-		return true;
-	}
-	for( int64_t iii=_val.size()-1, jjj=_obj.size()-1;
-	     iii>=0 && jjj>=0;
-	     iii--, jjj--) {
-		if (std::tolower(_val[iii]) != std::tolower(_obj[jjj])) {
-			return false;
-		}
-	}
-	return true;
-}
+
 #if __CPP_VERSION__ >= 2011
-	bool etk::end_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive) {
+	bool etk::end_with(const etk::UString& _obj, const etk::UString& _val, bool _caseSensitive) {
 		if (_val.size() == 0) {
 			return false;
 		}
@@ -666,34 +287,8 @@ bool etk::end_with(const std::string& _obj, const std::string& _val, bool _caseS
 	}
 #endif
 
-bool etk::start_with(const std::string& _obj, const std::string& _val, bool _caseSensitive) {
-	if (_val.size() == 0) {
-		return false;
-	}
-	if (_val.size() > _obj.size()) {
-		return false;
-	}
-	if (_caseSensitive == true) {
-		for( size_t iii = 0;
-		     iii < _val.size();
-		     iii++) {
-			if (_obj[iii] != _val[iii]) {
-				return false;
-			}
-		}
-		return true;
-	}
-	for( size_t iii = 0;
-	     iii < _val.size();
-	     iii++) {
-		if (std::tolower(_val[iii]) != std::tolower(_obj[iii])) {
-			return false;
-		}
-	}
-	return true;
-}
 #if __CPP_VERSION__ >= 2011
-	bool etk::start_with(const std::u32string& _obj, const std::u32string& _val, bool _caseSensitive) {
+	bool etk::start_with(const etk::UString& _obj, const etk::UString& _val, bool _caseSensitive) {
 		if (_val.size() == 0) {
 			return false;
 		}
@@ -720,8 +315,8 @@ bool etk::start_with(const std::string& _obj, const std::string& _val, bool _cas
 		return true;
 	}
 	
-	std::u32string etk::replace(const std::u32string& _obj, char32_t _val, char32_t _replace) {
-		std::u32string copy(_obj);
+	etk::UString etk::replace(const etk::UString& _obj, char32_t _val, char32_t _replace) {
+		etk::UString copy(_obj);
 		for( size_t iii = 0;
 		     iii < copy.size();
 		     iii++) {
@@ -734,7 +329,7 @@ bool etk::start_with(const std::string& _obj, const std::string& _val, bool _cas
 #endif
 
 #if __CPP_VERSION__ >= 2011
-	std::u32string etk::extract_line(const std::u32string& _obj, int32_t _pos) {
+	etk::UString etk::extract_line(const etk::UString& _obj, int32_t _pos) {
 		// search back : '\n'
 		size_t startPos = _obj.rfind('\n', _pos);
 		if ((int64_t)startPos == _pos) {
@@ -750,32 +345,32 @@ bool etk::start_with(const std::string& _obj, const std::string& _val, bool _cas
 				stopPos = _obj.size();
 			}
 		}
-		if (startPos == std::string::npos) {
+		if (startPos == etk::String::npos) {
 			startPos = 0;
 		} else if (startPos >= _obj.size() ) {
 			return U"";
 		}
-		if (stopPos == std::string::npos) {
+		if (stopPos == etk::String::npos) {
 			return U"";
 		} else if (stopPos >= _obj.size() ) {
 			stopPos = _obj.size();
 		}
-		return std::u32string(_obj, startPos, stopPos - startPos);
+		return etk::UString(_obj, startPos, stopPos - startPos);
 	}
 #endif
 
 #if __CPP_VERSION__ >= 2011
-	std::vector<std::u32string> etk::split(const std::u32string& _input, char32_t _val) {
-		std::vector<std::u32string> list;
+	etk::Vector<etk::UString> etk::split(const etk::UString& _input, char32_t _val) {
+		etk::Vector<etk::UString> list;
 		size_t lastStartPos = 0;
 		for(size_t iii=0; iii<_input.size(); iii++) {
 			if (_input[iii]==_val) {
-				list.push_back(std::u32string(_input, lastStartPos, iii - lastStartPos));
+				list.pushBack(etk::UString(_input, lastStartPos, iii - lastStartPos));
 				lastStartPos = iii+1;
 			}
 		}
 		if (lastStartPos<_input.size()) {
-			list.push_back(std::u32string(_input, lastStartPos));
+			list.pushBack(etk::UString(_input, lastStartPos));
 		}
 		return list;
 	}
@@ -784,8 +379,8 @@ bool etk::start_with(const std::string& _obj, const std::string& _val, bool _cas
 
 
 #if __CPP_VERSION__ >= 2011
-	void etk::sort(std::vector<std::u32string *> &_list) {
-		std::vector<std::u32string *> tmpList(_list);
+	void etk::sort(etk::Vector<etk::UString *> &_list) {
+		etk::Vector<etk::UString *> tmpList(_list);
 		_list.clear();
 		for(size_t iii=0; iii<tmpList.size(); iii++) {
 			size_t findPos = 0;
@@ -803,55 +398,55 @@ bool etk::start_with(const std::string& _obj, const std::string& _val, bool _cas
 
 namespace etk {
 	#if __CPP_VERSION__ >= 2011
-		template<> bool from_string<std::u32string>(std::u32string& _variableRet, const std::string& _value) {
-			_variableRet = etk::to_u32string(_value);
+		template<> bool from_string<etk::UString>(etk::UString& _variableRet, const etk::String& _value) {
+			_variableRet = etk::toUString(_value);
 			return true;
 		}
-		template<> bool from_string<int8_t>(int8_t& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<int8_t>(int8_t& _variableRet, const etk::UString& _value) {
 			_variableRet = string_to_int8_t(_value);
 			return true;
 		}
-		template<> bool from_string<int16_t>(int16_t& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<int16_t>(int16_t& _variableRet, const etk::UString& _value) {
 			_variableRet = string_to_int16_t(_value);
 			return true;
 		}
-		template<> bool from_string<int32_t>(int32_t& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<int32_t>(int32_t& _variableRet, const etk::UString& _value) {
 			_variableRet = string_to_int32_t(_value);
 			return true;
 		}
-		template<> bool from_string<int64_t>(int64_t& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<int64_t>(int64_t& _variableRet, const etk::UString& _value) {
 			_variableRet = string_to_int64_t(_value);
 			return true;
 		}
-		template<> bool from_string<uint8_t>(uint8_t& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<uint8_t>(uint8_t& _variableRet, const etk::UString& _value) {
 			_variableRet = string_to_uint8_t(_value);
 			return true;
 		}
-		template<> bool from_string<uint16_t>(uint16_t& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<uint16_t>(uint16_t& _variableRet, const etk::UString& _value) {
 			_variableRet = string_to_uint16_t(_value);
 			return true;
 		}
-		template<> bool from_string<uint32_t>(uint32_t& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<uint32_t>(uint32_t& _variableRet, const etk::UString& _value) {
 			_variableRet = string_to_uint32_t(_value);
 			return true;
 		}
-		template<> bool from_string<uint64_t>(uint64_t& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<uint64_t>(uint64_t& _variableRet, const etk::UString& _value) {
 			_variableRet = string_to_uint64_t(_value);
 			return true;
 		}
-		template<> bool from_string<float>(float& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<float>(float& _variableRet, const etk::UString& _value) {
 			_variableRet = string_to_float(_value);
 			return true;
 		}
-		template<> bool from_string<double>(double& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<double>(double& _variableRet, const etk::UString& _value) {
 			_variableRet = string_to_double(_value);
 			return true;
 		}
-		template<> bool from_string<long double>(long double& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<long double>(long double& _variableRet, const etk::UString& _value) {
 			_variableRet = string_to_long_double(_value);
 			return true;
 		}
-		template<> bool from_string<bool>(bool& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<bool>(bool& _variableRet, const etk::UString& _value) {
 			_variableRet = string_to_bool(_value);
 			return true;
 		}
@@ -860,12 +455,12 @@ namespace etk {
 
 
 #if __CPP_VERSION__ >= 2011
-	std::ostream& std::operator <<(std::ostream& _os, const std::u32string& _obj) {
-		_os << etk::to_string(_obj).c_str();
+	std::ostream& std::operator <<(std::ostream& _os, const etk::UString& _obj) {
+		_os << etk::toString(_obj).c_str();
 		return _os;
 	}
 	
-	std::ostream& std::operator <<(std::ostream& _os, const std::vector<std::u32string>& _obj) {
+	std::ostream& std::operator <<(std::ostream& _os, const etk::Vector<etk::UString>& _obj) {
 		_os << "{";
 		for (size_t iii=0; iii< _obj.size(); iii++) {
 			if (iii>0) {
@@ -877,52 +472,6 @@ namespace etk {
 		return _os;
 	}
 #endif
-
-#if (defined(__TARGET_OS__Android))
-	
-	double std::stod(const std::string& _str, size_t* _id) {
-		double ret = 0;
-		sscanf(_str.c_str(), "%lf", &ret);
-		return ret;
-	}
-	float std::stof(const std::string& _str, size_t* _id) {
-		float ret = 0;
-		sscanf(_str.c_str(), "%f", &ret);
-		return ret;
-	}
-	int std::stoi(const std::string& _str, size_t* _id, int _base) {
-		int ret = 0;
-		sscanf(_str.c_str(), "%d", &ret);
-		return ret;
-	}
-	long std::stol(const std::string& _str, size_t* _id, int _base) {
-		long ret = 0;
-		sscanf(_str.c_str(), "%ld", &ret);
-		return ret;
-	}
-	long double std::stold(const std::string& _str, size_t* _id) {
-		long double ret = 0;
-		sscanf(_str.c_str(), "%Lf", &ret);
-		return ret;
-	}
-	long long std::stoll(const std::string& _str, size_t* _id, int _base) {
-		long long ret = 0;
-		sscanf(_str.c_str(), "%lld", &ret);
-		return ret;
-	}
-	unsigned long std::stoul(const std::string& _str, size_t* _id, int _base) {
-		unsigned long ret = 0;
-		sscanf(_str.c_str(), "%lu", &ret);
-		return ret;
-	}
-	unsigned long long std::stoull(const std::string& _str, size_t* _id, int _base) {
-		unsigned long long ret = 0;
-		sscanf(_str.c_str(), "%llu", &ret);
-		return ret;
-	}
-#endif
-
-
 
 namespace std {
 	std::ostream& operator <<(std::ostream& _os, const std::chrono::system_clock::time_point& _obj) {

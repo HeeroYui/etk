@@ -34,6 +34,17 @@ namespace etk {
 
 #define TK_HIDDEN(data)          do { } while(false)
 
+#ifdef DEBUG
+	#define TK_CHECK_INOUT(condition) \
+		do { \
+			if (!(condition)) { \
+				TK_ERROR("Wrong condition : " #condition); \
+			} \
+		} while (0)
+#else
+	#define TK_CHECK_INOUT(condition)          do { } while(false)
+#endif
+
 #define TK_ASSERT(condition,data) \
 	do { \
 		if (!(condition)) { \

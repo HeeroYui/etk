@@ -13,12 +13,12 @@
 #define NAME "Hash"
 
 TEST(TestEtkHash, Creation) {
-	etk::Hash<std::string> testData;
+	etk::Hash<etk::String> testData;
 	EXPECT_EQ(testData.size(), 0);
 }
 
 TEST(TestEtkHash, AddElement) {
-	etk::Hash<std::string> testData;
+	etk::Hash<etk::String> testData;
 	testData.add("TEST", "testData");
 	testData.add("TEST2", "22222222222222222");
 	testData.add("TEST4", "4444444444444444444");
@@ -31,7 +31,7 @@ TEST(TestEtkHash, AddElement) {
 }
 
 TEST(TestEtkHash, OverWriteElement) {
-	etk::Hash<std::string> testData;
+	etk::Hash<etk::String> testData;
 	testData.add("TEST", "testData");
 	testData.add("TEST2", "22222222222222222");
 	testData.add("TEST4", "4444444444444444444");
@@ -45,7 +45,7 @@ TEST(TestEtkHash, OverWriteElement) {
 }
 
 TEST(TestEtkHash, RemoveElement) {
-	etk::Hash<std::string> testData;
+	etk::Hash<etk::String> testData;
 	testData.add("TEST", "testData");
 	testData.add("TEST2", "22222222222222222");
 	testData.add("TEST4", "4444444444444444444");
@@ -58,7 +58,7 @@ TEST(TestEtkHash, RemoveElement) {
 }
 
 TEST(TestEtkHash, ExistElement) {
-	etk::Hash<std::string> testData;
+	etk::Hash<etk::String> testData;
 	testData.add("TEST", "testData");
 	testData.add("TEST2", "22222222222222222");
 	EXPECT_EQ(testData.exist("TEST"), true);
@@ -66,7 +66,7 @@ TEST(TestEtkHash, ExistElement) {
 }
 
 TEST(TestEtkHash, clear) {
-	etk::Hash<std::string> testData;
+	etk::Hash<etk::String> testData;
 	testData.add("TEST", "1");
 	testData.add("TEST2", "2");
 	EXPECT_EQ(testData.size(), 2);
@@ -75,7 +75,7 @@ TEST(TestEtkHash, clear) {
 }
 
 TEST(TestEtkHash, getKey) {
-	etk::Hash<std::string> testData;
+	etk::Hash<etk::String> testData;
 	testData.add("TEST", "1");
 	testData.add("TEST2", "2");
 	testData.add("TEST3", "3");
@@ -83,11 +83,11 @@ TEST(TestEtkHash, getKey) {
 }
 
 TEST(TestEtkHash, getKeys) {
-	etk::Hash<std::string> testData;
+	etk::Hash<etk::String> testData;
 	testData.add("TEST", "1");
 	testData.add("TEST2", "2");
 	testData.add("TEST3", "3");
-	std::vector<std::string> list = testData.getKeys();
+	etk::Vector<etk::String> list = testData.getKeys();
 	EXPECT_EQ(list.size(), 3);
 	EXPECT_EQ(list[0], "TEST");
 	EXPECT_EQ(list[1], "TEST2");

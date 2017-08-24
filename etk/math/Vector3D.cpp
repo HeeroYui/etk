@@ -138,7 +138,7 @@ vec3 quaternionToEulerXYZ(const btQuaternion& _quat) {
 #endif
 
 namespace etk {
-	template<> etk::String to_string<vec3>(const vec3& _obj) {
+	template<> etk::String toString<vec3>(const vec3& _obj) {
 		etk::String str;
 		str = "(";
 		str += etk::toString(_obj.x());
@@ -150,12 +150,12 @@ namespace etk {
 		return str;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> std::u32string to_u32string<vec3>(const vec3& _obj) {
-			return etk::to_u32string(etk::toString(_obj));
+		template<> etk::UString toUString<vec3>(const vec3& _obj) {
+			return etk::toUString(etk::toString(_obj));
 		}
 	#endif
 	
-	template<> etk::String to_string<ivec3>(const ivec3& _obj) {
+	template<> etk::String toString<ivec3>(const ivec3& _obj) {
 		etk::String str;
 		str = "(";
 		str += etk::toString(_obj.x());
@@ -167,12 +167,12 @@ namespace etk {
 		return str;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> std::u32string to_u32string<ivec3>(const ivec3& _obj) {
-			return etk::to_u32string(etk::toString(_obj));
+		template<> etk::UString toUString<ivec3>(const ivec3& _obj) {
+			return etk::toUString(etk::toString(_obj));
 		}
 	#endif
 	
-	template<> etk::String to_string<uivec3>(const uivec3& _obj) {
+	template<> etk::String toString<uivec3>(const uivec3& _obj) {
 		etk::String str;
 		str = "(";
 		str += etk::toString(_obj.x());
@@ -184,12 +184,12 @@ namespace etk {
 		return str;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> std::u32string to_u32string<uivec3>(const uivec3& _obj) {
-			return etk::to_u32string(etk::toString(_obj));
+		template<> etk::UString toUString<uivec3>(const uivec3& _obj) {
+			return etk::toUString(etk::toString(_obj));
 		}
 	#endif
 	
-	template<> etk::String to_string<bvec3>(const bvec3& _obj) {
+	template<> etk::String toString<bvec3>(const bvec3& _obj) {
 		etk::String str;
 		str = "(";
 		str += etk::toString(_obj.x());
@@ -201,8 +201,8 @@ namespace etk {
 		return str;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> std::u32string to_u32string<bvec3>(const bvec3& _obj) {
-			return etk::to_u32string(etk::toString(_obj));
+		template<> etk::UString toUString<bvec3>(const bvec3& _obj) {
+			return etk::toUString(etk::toString(_obj));
 		}
 	#endif
 	
@@ -246,7 +246,7 @@ namespace etk {
 		return true;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> bool from_string<vec3>(vec3& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<vec3>(vec3& _variableRet, const etk::UString& _value) {
 			return from_string(_variableRet, etk::toString(_value));
 		}
 	#endif
@@ -291,7 +291,7 @@ namespace etk {
 		return true;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> bool from_string<ivec3>(ivec3& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<ivec3>(ivec3& _variableRet, const etk::UString& _value) {
 			return from_string(_variableRet, etk::toString(_value));
 		}
 	#endif
@@ -336,7 +336,7 @@ namespace etk {
 		return true;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> bool from_string<uivec3>(uivec3& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<uivec3>(uivec3& _variableRet, const etk::UString& _value) {
 			return from_string(_variableRet, etk::toString(_value));
 		}
 	#endif
@@ -381,7 +381,7 @@ namespace etk {
 		return true;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> bool from_string<bvec3>(bvec3& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<bvec3>(bvec3& _variableRet, const etk::UString& _value) {
 			return from_string(_variableRet, etk::toString(_value));
 		}
 	#endif

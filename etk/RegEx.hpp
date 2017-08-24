@@ -11,7 +11,7 @@
 #include <etk/debug.hpp>
 #include <etk/stdTools.hpp>
 #include <etk/String.hpp>
-#include <vector>
+#include <etk/UString.hpp>
 #include <memory>
 
 #define TK_REG_DEBUG TK_HIDDEN
@@ -1378,7 +1378,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
  */
 template<class CLASS_TYPE> class RegEx {
 	private:
-		std::u32string m_expressionRequested; //!< Regular expression parsed ...
+		etk::UString m_expressionRequested; //!< Regular expression parsed ...
 		regex::ElementPos m_areaFind; //!< position around selection
 		regex::NodePThese<CLASS_TYPE> m_expressionRootNode; //!< The tree where data is set
 		bool m_isOk; //!< Known if we can process with this regEx
@@ -1391,7 +1391,7 @@ template<class CLASS_TYPE> class RegEx {
 		 * @brief Constructor
 		 * @param[in,out] _expression Regular expression to parse
 		 */
-		RegEx(const std::u32string &_expression=U"") :
+		RegEx(const etk::UString &_expression=U"") :
 		  m_expressionRequested(U""),
 		  m_isOk(false),
 		  m_notBeginWithChar(false),
@@ -1415,7 +1415,7 @@ template<class CLASS_TYPE> class RegEx {
 			m_areaFind.start=0;
 			m_areaFind.stop=0;
 			if (_expression.size() != 0) {
-				compile(etk::to_u32string(_expression));
+				compile(etk::toUString(_expression));
 			}
 		};
 		/**
@@ -1440,13 +1440,13 @@ template<class CLASS_TYPE> class RegEx {
 		void compile(const etk::String &_expression) {
 			if (_expression.size() != 0) {
 				TK_REG_DEBUG("normal string parse : '" << _expression << "'");
-				compile(etk::to_u32string(_expression));
+				compile(etk::toUString(_expression));
 			}
 		}
 		/**
 		 * @previous
 		 */
-		void compile(const std::u32string &_expression) {
+		void compile(const etk::UString &_expression) {
 			m_expressionRequested = _expression;
 			std::vector<char32_t> tmpExpression;
 			
@@ -1587,7 +1587,7 @@ template<class CLASS_TYPE> class RegEx {
 		/**
 		 * @previous
 		 */
-		const std::u32string& getURegEx() const {
+		const etk::UString& getURegEx() const {
 			return m_expressionRequested;
 		};
 		

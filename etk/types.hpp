@@ -65,6 +65,10 @@
 	#define ETK_EXPORT_VISIBILITY __attribute__ ((visibility ("default")))
 #endif
 
+#if (defined(__TARGET_OS__Windows))
+	#define M_PI 3.14159265358979323846
+#endif
+
 namespace etk {
 	template <class TYPE> const TYPE& min(const TYPE& _val1, const TYPE& _val2) {
 		return (_val1 > _val2) ? _val2 : _val1;

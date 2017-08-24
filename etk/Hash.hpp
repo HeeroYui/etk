@@ -7,6 +7,7 @@
 #include <etk/types.hpp>
 
 #pragma once
+#include <etk/String.hpp>
 
 namespace etk {
 	/**
@@ -61,7 +62,7 @@ namespace etk {
 	 */
 	template<class MY_TYPE> class Hash {
 		private:
-			std::vector<HashData<MY_TYPE>* > m_data; //!< Data of the hash ==> the Hash table is composed of pointer, this permit to have high speed when resize the vector ...
+			etk::Vector<HashData<MY_TYPE>* > m_data; //!< Data of the hash ==> the Hash table is composed of pointer, this permit to have high speed when resize the vector ...
 		public:
 			/**
 			 * @brief Constructor of the Hash table.
@@ -166,7 +167,7 @@ namespace etk {
 						//TK_ERROR("allocation error in Hash table : '" << _key << "'");
 						return;
 					}
-					m_data.push_back(tmp);
+					m_data.pushBack(tmp);
 					return;
 				}
 				m_data[elementId]->m_value = _value;
@@ -237,11 +238,11 @@ namespace etk {
 			 * @brief Get all the element name (keys).
 			 * @return a vector of all name (key).
 			 */
-			std::vector<etk::String> getKeys() const {
-				std::vector<etk::String> keys;
+			etk::Vector<etk::String> getKeys() const {
+				etk::Vector<etk::String> keys;
 				for (auto &it : m_data) {
 					if (it != nullptr) {
-						keys.push_back(it->m_key);
+						keys.pushBack(it->m_key);
 					}
 				}
 				return keys;

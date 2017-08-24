@@ -713,6 +713,7 @@ namespace etk {
 				return false;
 			}
 	};
+	//! @not_in_doc
 	template<class ETK_VECTOR_TYPE>
 	std::ostream& operator <<(std::ostream& _os, const etk::Vector<ETK_VECTOR_TYPE>& _obj) {
 		_os << "{";
@@ -724,5 +725,15 @@ namespace etk {
 		}
 		_os << "}";
 		return _os;
+	}
+	//! @not_in_doc
+	template<typename T, typename T2>
+	bool isIn(const T& _val, const etk::Vector<T2>& _list) {
+		for (size_t iii=0; iii<_list.size(); ++iii) {
+			if (_list[iii] == _val) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

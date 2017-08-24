@@ -118,12 +118,12 @@ namespace etk {
 		return str;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> Vector2D<bool>::operator std::u32string() const {
-			std::u32string str;
+		template<> Vector2D<bool>::operator etk::UString() const {
+			etk::UString str;
 			str = U"(";
-			str += etk::to_u32string(x());
+			str += etk::toUString(x());
 			str += U",";
-			str += etk::to_u32string(y());
+			str += etk::toUString(y());
 			str += U")";
 			return str;
 		}
@@ -154,11 +154,11 @@ namespace etk {
 		TK_VERBOSE("Parse : '" << _str << "' ==> " << *this);
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> Vector2D<bool>::Vector2D(const std::u32string& _str) {
+		template<> Vector2D<bool>::Vector2D(const etk::UString& _str) {
 			m_floats[0] = false;
 			m_floats[1] = false;
 			// copy to permit to modify it :
-			std::u32string tmpStr = _str;
+			etk::UString tmpStr = _str;
 			if (tmpStr[0] == '(') {
 				tmpStr.erase(tmpStr.begin());
 			}
@@ -172,7 +172,7 @@ namespace etk {
 				m_floats[0] = etk::string_to_bool(tmpStr);
 				m_floats[1] = m_floats[0];
 			} else {
-				m_floats[0] = etk::string_to_bool(std::u32string(tmpStr, 0, posComa));
+				m_floats[0] = etk::string_to_bool(etk::UString(tmpStr, 0, posComa));
 				tmpStr.erase(0, posComa+1);
 				m_floats[1] = etk::string_to_bool(tmpStr);
 			}
@@ -190,12 +190,12 @@ namespace etk {
 		return str;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> Vector2D<int32_t>::operator std::u32string() const {
-			std::u32string str;
+		template<> Vector2D<int32_t>::operator etk::UString() const {
+			etk::UString str;
 			str = U"(";
-			str += etk::to_u32string(x());
+			str += etk::toUString(x());
 			str += U",";
-			str += etk::to_u32string(y());
+			str += etk::toUString(y());
 			str += U")";
 			return str;
 		}
@@ -227,11 +227,11 @@ namespace etk {
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> Vector2D<int32_t>::Vector2D(const std::u32string& _str) {
+		template<> Vector2D<int32_t>::Vector2D(const etk::UString& _str) {
 			m_floats[0] = 0;
 			m_floats[1] = 0;
 			// copy to permit to modify it :
-			std::u32string tmpStr = _str;
+			etk::UString tmpStr = _str;
 			if (tmpStr[0] == '(') {
 				tmpStr.erase(tmpStr.begin());
 			}
@@ -246,7 +246,7 @@ namespace etk {
 				m_floats[0] = etk::string_to_int32_t(tmpStr);
 				m_floats[1] = m_floats[0];
 			} else {
-				m_floats[0] = etk::string_to_int32_t(std::u32string(tmpStr, 0, posComa));
+				m_floats[0] = etk::string_to_int32_t(etk::UString(tmpStr, 0, posComa));
 				tmpStr.erase(0,posComa+1);
 				m_floats[1] = etk::string_to_int32_t(tmpStr);
 			}
@@ -264,12 +264,12 @@ namespace etk {
 		return str;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> Vector2D<uint32_t>::operator std::u32string() const {
-			std::u32string str;
+		template<> Vector2D<uint32_t>::operator etk::UString() const {
+			etk::UString str;
 			str = U"(";
-			str += etk::to_u32string(x());
+			str += etk::toUString(x());
 			str += U",";
-			str += etk::to_u32string(y());
+			str += etk::toUString(y());
 			str += U")";
 			return str;
 		}
@@ -300,11 +300,11 @@ namespace etk {
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> Vector2D<uint32_t>::Vector2D(const std::u32string& _str) {
+		template<> Vector2D<uint32_t>::Vector2D(const etk::UString& _str) {
 			m_floats[0] = 0;
 			m_floats[1] = 0;
 			// copy to permit to modify it :
-			std::u32string tmpStr = _str;
+			etk::UString tmpStr = _str;
 			if (tmpStr[0] == '(') {
 				tmpStr.erase(tmpStr.begin());
 			}
@@ -318,7 +318,7 @@ namespace etk {
 				m_floats[0] = etk::string_to_int32_t(tmpStr);
 				m_floats[1] = m_floats[0];
 			} else {
-				m_floats[0] = etk::string_to_int32_t(std::u32string(tmpStr, 0, posComa));
+				m_floats[0] = etk::string_to_int32_t(etk::UString(tmpStr, 0, posComa));
 				tmpStr.erase(0,posComa+1);
 				m_floats[1] = etk::string_to_int32_t(tmpStr);
 			}
@@ -336,12 +336,12 @@ namespace etk {
 		return str;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> Vector2D<float>::operator std::u32string() const {
-			std::u32string str;
+		template<> Vector2D<float>::operator etk::UString() const {
+			etk::UString str;
 			str = U"(";
-			str += etk::to_u32string(x());
+			str += etk::toUString(x());
 			str += U",";
-			str += etk::to_u32string(y());
+			str += etk::toUString(y());
 			str += U")";
 			return str;
 		}
@@ -372,11 +372,11 @@ namespace etk {
 		TK_VERBOSE("Parse : \"" << _str << "\" ==> " << *this);
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> Vector2D<float>::Vector2D(const std::u32string& _str) {
+		template<> Vector2D<float>::Vector2D(const etk::UString& _str) {
 			m_floats[0] = 0;
 			m_floats[1] = 0;
 			// copy to permit to modify it :
-			std::u32string tmpStr = _str;
+			etk::UString tmpStr = _str;
 			if (tmpStr[0] == '(') {
 				tmpStr.erase(tmpStr.begin());
 			}
@@ -390,7 +390,7 @@ namespace etk {
 				m_floats[0] = etk::string_to_float(tmpStr);
 				m_floats[1] = m_floats[0];
 			} else {
-				m_floats[0] = etk::string_to_float(std::u32string(tmpStr, 0, posComa));
+				m_floats[0] = etk::string_to_float(etk::UString(tmpStr, 0, posComa));
 				tmpStr.erase(0,posComa+1);
 				m_floats[1] = etk::string_to_float(tmpStr);
 			}
@@ -398,7 +398,7 @@ namespace etk {
 		}
 	#endif
 
-	template<> etk::String to_string<vec2>(const vec2& _obj) {
+	template<> etk::String toString<vec2>(const vec2& _obj) {
 		etk::String str;
 		str = "(";
 		str += etk::toString(_obj.x());
@@ -408,12 +408,12 @@ namespace etk {
 		return str;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> std::u32string to_u32string<vec2>(const vec2& _obj) {
-			return etk::to_u32string(etk::toString(_obj));
+		template<> etk::UString toUString<vec2>(const vec2& _obj) {
+			return etk::toUString(etk::toString(_obj));
 		}
 	#endif
 	
-	template<> etk::String to_string<ivec2>(const ivec2& _obj) {
+	template<> etk::String toString<ivec2>(const ivec2& _obj) {
 		etk::String str;
 		str = "(";
 		str += etk::toString(_obj.x());
@@ -423,12 +423,12 @@ namespace etk {
 		return str;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> std::u32string to_u32string<ivec2>(const ivec2& _obj) {
-			return etk::to_u32string(etk::toString(_obj));
+		template<> etk::UString toUString<ivec2>(const ivec2& _obj) {
+			return etk::toUString(etk::toString(_obj));
 		}
 	#endif
 	
-	template<> etk::String to_string<uivec2>(const uivec2& _obj) {
+	template<> etk::String toString<uivec2>(const uivec2& _obj) {
 		etk::String str;
 		str = "(";
 		str += etk::toString(_obj.x());
@@ -438,12 +438,12 @@ namespace etk {
 		return str;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> std::u32string to_u32string<uivec2>(const uivec2& _obj) {
-			return etk::to_u32string(etk::toString(_obj));
+		template<> etk::UString toUString<uivec2>(const uivec2& _obj) {
+			return etk::toUString(etk::toString(_obj));
 		}
 	#endif
 	
-	template<> etk::String to_string<bvec2>(const bvec2& _obj) {
+	template<> etk::String toString<bvec2>(const bvec2& _obj) {
 		etk::String str;
 		str = "(";
 		str += etk::toString(_obj.x());
@@ -453,8 +453,8 @@ namespace etk {
 		return str;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> std::u32string to_u32string<bvec2>(const bvec2& _obj) {
-			return etk::to_u32string(etk::toString(_obj));
+		template<> etk::UString toUString<bvec2>(const bvec2& _obj) {
+			return etk::toUString(etk::toString(_obj));
 		}
 	#endif
 	
@@ -463,7 +463,7 @@ namespace etk {
 		return true;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> bool from_string<vec2>(vec2& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<vec2>(vec2& _variableRet, const etk::UString& _value) {
 			return from_string(_variableRet, etk::toString(_value));
 		}
 	#endif
@@ -473,7 +473,7 @@ namespace etk {
 		return true;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> bool from_string<ivec2>(ivec2& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<ivec2>(ivec2& _variableRet, const etk::UString& _value) {
 			return from_string(_variableRet, etk::toString(_value));
 		}
 	#endif
@@ -483,7 +483,7 @@ namespace etk {
 		return true;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> bool from_string<uivec2>(uivec2& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<uivec2>(uivec2& _variableRet, const etk::UString& _value) {
 			return from_string(_variableRet, etk::toString(_value));
 		}
 	#endif
@@ -493,7 +493,7 @@ namespace etk {
 		return true;
 	}
 	#if __CPP_VERSION__ >= 2011
-		template<> bool from_string<bvec2>(bvec2& _variableRet, const std::u32string& _value) {
+		template<> bool from_string<bvec2>(bvec2& _variableRet, const etk::UString& _value) {
 			return from_string(_variableRet, etk::toString(_value));
 		}
 	#endif

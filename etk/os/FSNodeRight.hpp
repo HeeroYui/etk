@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <etk/String.hpp>
+
 namespace etk {
 	/**
 	 * @brief File System Right management
@@ -141,7 +143,7 @@ namespace etk {
 				 * @brief Get the write written in a string mode (like in linux rw-r-----)
 				 * @return String with the right in string
 				 */
-				std::u32string getURight() const;
+				etk::UString getURight() const;
 			#endif
 			/**
 			 * @brief Get the write written in a string mode (like in linux rw-r-----)
