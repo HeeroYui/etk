@@ -6,6 +6,8 @@
 
 #include <etk/types.hpp>
 #include <etk/debug.hpp>
+#include <etk/UString.hpp>
+#include <etk/String.hpp>
 
 #pragma once
 

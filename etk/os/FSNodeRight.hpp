@@ -9,6 +9,7 @@
 #pragma once
 
 #include <etk/String.hpp>
+#include <etk/UString.hpp>
 
 namespace etk {
 	/**

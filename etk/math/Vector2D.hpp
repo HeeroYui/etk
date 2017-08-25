@@ -7,6 +7,7 @@
 #include <etk/math/Vector3D.hpp>
 #include <etk/types.hpp>
 #include <etk/String.hpp>
+#include <etk/UString.hpp>
 
 #pragma once
 
@@ -71,7 +72,7 @@ namespace etk {
 			 */
 			Vector2D(const etk::String& _str);
 			#if __CPP_VERSION__ >= 2011
-				Vector2D(const std::u32string& _str);
+				Vector2D(const etk::UString& _str);
 			#endif
 			/**
 			 * @brief Operator= Asign the current object with an other object
@@ -552,7 +553,7 @@ namespace etk {
 				 * @brief String caster of the object.
 				 * @return the Object cated in string (x.x,y.y)
 				 */
-				operator std::u32string() const;
+				operator etk::UString() const;
 			#endif
 	};
 	//! @not_in_doc

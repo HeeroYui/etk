@@ -1,6 +1,7 @@
 
 
 #include <etk/UString.hpp>
+#include <etk/Number.hpp>
 
 etk::UString::UString():
   m_data() {
@@ -456,182 +457,70 @@ bool etk::UString::startWith(const etk::UString& _val, bool _caseSensitive) cons
 	return true;
 }
 
-struct Number {
-	public:
-		bool m_negative;
-		uint64_t m_unit;
-		uint64_t m_lessZero;
-		uint32_t m_exponent;
-		Number() :
-		  m_negative(false),
-		  m_unit(0),
-		  m_lessZero(0),
-		  m_exponent(0) {
-			
-		}
-		void clear() {
-			m_negative = false;
-			m_unit = 0;
-			m_lessZero = 0;
-			m_exponent = 0;
-		}
-		bool isDigit(char32_t _value) {
-			if (_value < '0') {
-				return false;
-			}
-			if (_value > '9') {
-				return false;
-			}
-			return true;
-		}
-		// Format:
-		//   51651
-		//   -455465
-		//   +54654
-		//   51651.545
-		//   -455465.4845
-		//   +54654.485424
-		//   51651e12
-		//   -455465e12
-		//   +54654e12
-		//   51651.545e12
-		//   -455465.4845e12
-		//   +54654.485424e12
-		//   0x123456789ABCDEF
-		bool parse(const etk::UString& _value) {
-			int8_t section = 0;
-			for (size_t iii=0; iii<_value.size(); ++iii) {
-				if (    iii == 0
-				     && _value[iii] == "+") {
-					// noting to do ==> already positive value
-					continue;
-				}
-				if (    iii == 0
-				     && _value[iii] == "-") {
-					m_negative = true;
-					continue;
-				}
-				if (_value[iii] == ".") {
-					if (section == 0) {
-						section = 1;
-						continue;
-					}
-					TK_ERROR("Can not parse the Number '" << _value << "':" << iii << " '.' can not parse");
-					return false;
-				}
-				if (_value[iii] == "e") {
-					if (    section == 0
-					     || section == 1) {
-						section = 2;
-						continue;
-					}
-					TK_ERROR("Can not parse the Number '" << _value << "':" << iii << " 'e' ==> can not parse ...");
-					return false;
-				}
-				if (isDigit(_value[iii]) == true) {
-					// TODO: Check too big number
-					if (section == 0) {
-						m_unit = m_unit*10 + (_value[iii]-'0');
-					} else if (section == 0) {
-						m_lessZero = m_lessZero*10 + (_value[iii]-'0');
-					} else {
-						m_exponent = m_exponent*10 + (_value[iii]-'0');
-					}
-				}
-			}
-			return false;
-		}
-};
-
 template <>
 long double etk::UString::to<long double>() const {
-	long double ret = 0;
-	sscanf(c_str(), "%Lf", &ret);
-	return ret;
+	etk::Number value(*this);
+	return value.getDouble();
 }
 
 template <>
 double etk::UString::to<double>() const {
-	double ret = 0;
-	sscanf(c_str(), "%lf", &ret);
-	return ret;
+	etk::Number value(*this);
+	return value.getDouble();
 }
 
 template <>
 float etk::UString::to<float>() const {
-	float ret = 0;
-	sscanf(c_str(), "%f", &ret);
-	return ret;
+	etk::Number value(*this);
+	return value.getDouble();
 }
 
 template <>
 int8_t etk::UString::to<int8_t>() const {
-	int ret = 0;
-	sscanf(c_str(), "%d", &ret);
-	return ret;
+	etk::Number value(*this);
+	return value.getI64();
 }
 
 template <>
 int16_t etk::UString::to<int16_t>() const {
-	int ret = 0;
-	sscanf(c_str(), "%d", &ret);
-	return ret;
+	etk::Number value(*this);
+	return value.getI64();
 }
 
 template <>
 int32_t etk::UString::to<int32_t>() const {
-	int ret = 0;
-	sscanf(c_str(), "%d", &ret);
-	return ret;
+	etk::Number value(*this);
+	return value.getI64();
 }
 
 template <>
 int64_t etk::UString::to<int64_t>() const {
-	int64_t ret = 0;
-	#if (    defined(__TARGET_OS__Android) \
-	      || defined(__TARGET_OS__Windows) \
-	      || defined(__TARGET_OS__MacOs) \
-	      || defined(__TARGET_OS__IOs))
-		sscanf(c_str(), "%lld", &ret);
-	#else
-		sscanf(c_str(), "%ld", &ret);
-	#endif
-	return ret;
+	etk::Number value(*this);
+	return value.getI64();
 }
 
 template <>
 uint8_t etk::UString::to<uint8_t>() const {
-	int ret = 0;
-	sscanf(c_str(), "%d", &ret);
-	return ret;
+	etk::Number value(*this);
+	return value.getU64();
 }
 
 template <>
 uint16_t etk::UString::to<uint16_t>() const {
-	int ret = 0;
-	sscanf(c_str(), "%d", &ret);
-	return ret;
+	etk::Number value(*this);
+	return value.getU64();
 }
 
 template <>
 uint32_t etk::UString::to<uint32_t>() const {
-	int ret = 0;
-	sscanf(c_str(), "%d", &ret);
-	return ret;
+	etk::Number value(*this);
+	return value.getU64();
 }
 
 template <>
 uint64_t etk::UString::to<uint64_t>() const {
-	uint64_t ret = 0;
-	#if (    defined(__TARGET_OS__Android) \
-	      || defined(__TARGET_OS__Windows) \
-	      || defined(__TARGET_OS__MacOs) \
-	      || defined(__TARGET_OS__IOs))
-		sscanf(c_str(), "%llu", &ret);
-	#else
-		sscanf(c_str(), "%lu", &ret);
-	#endif
-	return ret;
+	etk::Number value(*this);
+	return value.getU64();
 }
 
 template <>
@@ -740,84 +629,57 @@ namespace etk {
 }
 
 template<>
-etk::UString etk::toString(const bool& _val) {
-	if (_val == true) {
-		return "true";
-	}
-	return "false";
+etk::UString etk::toUString(const bool& _val) {
+	return utf8::convertUnicode(etk::toString(_val));
 }
 template<>
-etk::UString etk::toString(const int8_t& _val) {
-	char32_t tmpVal[256];
-	sprintf(tmpVal, "%d", _val);
-	return tmpVal;
+etk::UString etk::toUString(const int8_t& _val) {
+	return utf8::convertUnicode(etk::toString(_val));
 }
 template<>
-etk::UString etk::toString(const int16_t& _val) {
-	char32_t tmpVal[256];
-	sprintf(tmpVal, "%d", _val);
-	return tmpVal;
+etk::UString etk::toUString(const int16_t& _val) {
+	return utf8::convertUnicode(etk::toString(_val));
 }
 template<>
-etk::UString etk::toString(const int32_t& _val) {
-	char32_t tmpVal[256];
-	sprintf(tmpVal, "%d", _val);
-	return tmpVal;
+etk::UString etk::toUString(const int32_t& _val) {
+	return utf8::convertUnicode(etk::toString(_val));
 }
 template<>
-etk::UString etk::toString(const int64_t& _val) {
-	char32_t tmpVal[256];
-	sprintf(tmpVal, "%lld", _val);
-	return tmpVal;
+etk::UString etk::toUString(const int64_t& _val) {
+	return utf8::convertUnicode(etk::toString(_val));
 }
 template<>
-etk::UString etk::toString(const uint8_t& _val) {
-	char32_t tmpVal[256];
-	sprintf(tmpVal, "%u", _val);
-	return tmpVal;
+etk::UString etk::toUString(const uint8_t& _val) {
+	return utf8::convertUnicode(etk::toString(_val));
 }
 template<>
-etk::UString etk::toString(const uint16_t& _val) {
-	char32_t tmpVal[256];
-	sprintf(tmpVal, "%u", _val);
-	return tmpVal;
+etk::UString etk::toUString(const uint16_t& _val) {
+	return utf8::convertUnicode(etk::toString(_val));
 }
 template<>
-etk::UString etk::toString(const uint32_t& _val) {
-	char32_t tmpVal[256];
-	sprintf(tmpVal, "%u", _val);
-	return tmpVal;
+etk::UString etk::toUString(const uint32_t& _val) {
+	return utf8::convertUnicode(etk::toString(_val));
 }
 template<>
-etk::UString etk::toString(const uint64_t& _val) {
-	char32_t tmpVal[256];
-	sprintf(tmpVal, "%llu", _val);
-	return tmpVal;
+etk::UString etk::toUString(const uint64_t& _val) {
+	return utf8::convertUnicode(etk::toString(_val));
 }
 template<>
-etk::UString etk::toString(const size_t& _val) {
-	char32_t tmpVal[256];
-	sprintf(tmpVal, "%zu", _val);
-	return tmpVal;
+etk::UString etk::toUString(const size_t& _val) {
+	return utf8::convertUnicode(etk::toString(_val));
 }
 
 template<>
-etk::UString etk::toString(const float& _val) {
-	char32_t tmpVal[256];
-	sprintf(tmpVal, "%f", _val);
-	return tmpVal;
+etk::UString etk::toUString(const float& _val) {
+	return utf8::convertUnicode(etk::toString(_val));
 }
 template<>
-etk::UString etk::toString(const double& _val) {
-	char32_t tmpVal[256];
-	sprintf(tmpVal, "%f", _val);
-	return tmpVal;
+etk::UString etk::toUString(const double& _val) {
+	return utf8::convertUnicode(etk::toString(_val));
 }
 template<>
-etk::UString etk::toString(const long double& _val) {
-	char32_t tmpVal[256];
-	sprintf(tmpVal, "%Lf", _val);
-	return tmpVal;
+etk::UString etk::toUString(const long double& _val) {
+	return utf8::convertUnicode(etk::toString(_val));
 }
 
 size_t etk::UString::find(char32_t _value, size_t _pos) const {
@@ -932,10 +794,10 @@ etk::UString etk::UString::getLine(int32_t _pos) const {
 	if (startPos == etk::UString::npos) {
 		startPos = 0;
 	} else if (startPos >= size() ) {
-		return "";
+		return U"";
 	}
 	if (stopPos == etk::UString::npos) {
-		return "";
+		return U"";
 	} else if (stopPos >= size() ) {
 		stopPos = size();
 	}
