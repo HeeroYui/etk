@@ -421,13 +421,13 @@ namespace etk {
 			}
 	};
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Vector4D<int32_t>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector4D<int32_t>& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Vector4D<float>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector4D<float>& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Vector4D<uint32_t>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector4D<uint32_t>& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Vector4D<bool>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector4D<bool>& _obj);
 }
 
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...

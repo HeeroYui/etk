@@ -7,7 +7,7 @@
 
 #include <etk/types.hpp>
 #include <etk/math/Vector2D.hpp>
-#include <vector>
+#include <etk/Vector.hpp>
 
 namespace etk {
 	/**
@@ -17,7 +17,7 @@ namespace etk {
 	template <typename T> class Matrix {
 		private:
 			uivec2 m_size; //!< Size of the Matrix
-			std::vector<T> m_data; //!< Data of the matrix
+			etk::Vector<T> m_data; //!< Data of the matrix
 		public:
 			/**
 			 * @brief Contructor that create a Vector with a specific size and specific raw data
@@ -141,7 +141,7 @@ namespace etk {
 			const Matrix<T>& operator+= (const Matrix<T>& _obj) {
 				if (m_size != _obj.m_size) {
 					//TK_CRITICAL("add 2 Matrix with différent size ... ==> generate the max size of all the 2 matrix");
-					etk::Matrix<T> tmpMatrix(std::max(m_size.x(),_obj.m_size.x()), std::max(m_size.y(),_obj.m_size.y()));
+					etk::Matrix<T> tmpMatrix(etk::max(m_size.x(),_obj.m_size.x()), etk::max(m_size.y(),_obj.m_size.y()));
 					for (int32_t jjj=0; jjj< m_size.y(); jjj++) {
 						T* tmpPointer = tmpMatrix[jjj];
 						T* tmpPointerIn = (*this)[jjj];
@@ -195,7 +195,7 @@ namespace etk {
 			const Matrix<T>& operator-= (const Matrix<T>& _obj) {
 				if (m_size != _obj.m_size) {
 					//TK_CRITICAL("less 2 Matrix with different size ... ==> generate the max size of all the 2 matrix");
-					etk::Matrix<T> tmpMatrix(std::max(m_size.x(),_obj.m_size.x()), std::max(m_size.y(),_obj.m_size.y()));
+					etk::Matrix<T> tmpMatrix(etk::max(m_size.x(),_obj.m_size.x()), etk::max(m_size.y(),_obj.m_size.y()));
 					for (int32_t jjj=0; jjj< m_size.y; jjj++) {
 						T* tmpPointer = tmpMatrix[jjj];
 						T* tmpPointerIn = (*this)[jjj];

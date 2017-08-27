@@ -221,7 +221,7 @@ namespace etk {
 	 */
 	Matrix2x2 mat2x2Skew(const vec2& _skew);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Matrix2x2& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Matrix2x2& _obj);
 }
 
 etk::Matrix2x2 operator-(const etk::Matrix2x2& _matrix);

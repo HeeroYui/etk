@@ -34,7 +34,7 @@ etk::UString::UString(const char32_t* _obj) {
 		resize(0);
 		return;
 	}
-	uint32_t size = strlen(_obj);
+	uint32_t size = u32char::strlen(_obj);
 	resize(size);
 	for (size_t iii=0; iii<size; ++iii) {
 		m_data[iii] = _obj[iii];
@@ -47,7 +47,7 @@ etk::UString::UString(const char32_t* _obj, size_t _size) {
 		resize(0);
 		return;
 	}
-	uint32_t size = strlen(_obj);
+	uint32_t size = u32char::strlen(_obj);
 	if (_size < size) {
 		size = _size;
 	}
@@ -74,7 +74,7 @@ etk::UString::UString(Iterator _start, Iterator _stop) {
 }
 
 etk::UString::UString(etk::UString&& _obj) noexcept {
-	m_data = std::move(_obj.m_data);
+	m_data = etk::move(_obj.m_data);
 }
 
 etk::UString::UString(char32_t _value) {
@@ -106,7 +106,7 @@ etk::UString& etk::UString::operator=(const char32_t* _obj) {
 	if (_obj == nullptr) {
 		return *this;
 	}
-	size_t numberElement = strlen(_obj);
+	size_t numberElement = u32char::strlen(_obj);
 	resize(numberElement);
 	for (size_t iii=0; iii<numberElement; ++iii) {
 		m_data[iii] = _obj[iii];
@@ -137,7 +137,7 @@ etk::UString& etk::UString::operator+= (const char32_t* _obj) {
 	if (_obj == nullptr) {
 		return *this;
 	}
-	size_t numberElement = strlen(_obj);
+	size_t numberElement = u32char::strlen(_obj);
 	size_t idElement = size();
 	resize(size() + numberElement);
 	for (size_t iii=0; iii<numberElement; ++iii) {
@@ -170,7 +170,7 @@ void etk::UString::pushBack(const char32_t _item) {
 	if (idElement < size()) {
 		m_data[idElement] = _item;
 	} else {
-		TK_ERROR("Resize does not work correctly ... not added item");
+		//TK_ERROR("Resize does not work correctly ... not added item");
 	}
 }
 
@@ -181,7 +181,7 @@ void etk::UString::pushBack(const char32_t* _item, size_t _nbElement) {
 	size_t idElement = size();
 	resize(size()+_nbElement);
 	if (idElement > size()) {
-		TK_ERROR("Resize does not work correctly ... not added item");
+		//TK_ERROR("Resize does not work correctly ... not added item");
 		return;
 	}
 	for (size_t iii=0; iii<_nbElement; iii++) {
@@ -201,7 +201,7 @@ void etk::UString::clear() {
 
 void etk::UString::insert(size_t _pos, const char32_t* _item, size_t _nbElement) {
 	if (_pos>size()) {
-		TK_WARNING(" can not insert Element at this position : " << _pos << " > " << size() << " add it at the end ... ");
+		//TK_WARNING(" can not insert Element at this position : " << _pos << " > " << size() << " add it at the end ... ");
 		pushBack(_item, _nbElement);
 		return;
 	}
@@ -209,7 +209,7 @@ void etk::UString::insert(size_t _pos, const char32_t* _item, size_t _nbElement)
 	// Request resize of the current buffer
 	resize(size()+_nbElement);
 	if (idElement>=size()) {
-		TK_ERROR("Resize does not work correctly ... not added item");
+		//TK_ERROR("Resize does not work correctly ... not added item");
 		return;
 	}
 	// move current data (after the position)
@@ -235,7 +235,7 @@ void etk::UString::insert(size_t _pos, const etk::UString& _value) {
 
 void etk::UString::erase(size_t _pos, size_t _nbElement) {
 	if (_pos>size()) {
-		TK_ERROR(" can not Erase Len Element at this position : " << _pos << " > " << size());
+		//TK_ERROR(" can not Erase Len Element at this position : " << _pos << " > " << size());
 		return;
 	}
 	if (_pos+_nbElement>size()) {
@@ -255,7 +255,7 @@ void etk::UString::erase(size_t _pos, size_t _nbElement) {
 
 void etk::UString::eraseRange(size_t _pos, size_t _posEnd) {
 	if (_pos>size()) {
-		TK_ERROR(" can not Erase Element at this position : " << _pos << " > " << size());
+		//TK_ERROR(" can not Erase Element at this position : " << _pos << " > " << size());
 		return;
 	}
 	if (_posEnd > size()) {
@@ -357,33 +357,17 @@ bool etk::UString::operator!= (const etk::UString& _obj) const {
 }
 
 
-char32_t etk::toLower(char32_t _value) {
-	if (    _value >= 'A'
-	     && _value <= 'Z') {
-		return _value + ('a' - 'A');
-	}
-	return _value;
-}
-
-char32_t etk::toUpper(char32_t _value) {
-	if (    _value >= 'a'
-	     && _value <= 'z') {
-		return _value + ('A' - 'z');
-	}
-	return _value;
-}
-
 etk::UString etk::UString::toLower() const {
 	etk::UString tmp(*this);
 	for (auto &it: tmp) {
-		it = etk::toLower(it);
+		it = u32char::toLower(it);
 	}
 	return tmp;
 }
 
 etk::UString& etk::UString::lower() {
 	for (auto &it: m_data) {
-		it = etk::toLower(it);
+		it = u32char::toLower(it);
 	}
 	return *this;
 }
@@ -391,14 +375,14 @@ etk::UString& etk::UString::lower() {
 etk::UString etk::UString::toUpper() const {
 	etk::UString tmp(*this);
 	for (auto &it: tmp) {
-		it = etk::toUpper(it);
+		it = u32char::toUpper(it);
 	}
 	return tmp;
 }
 
 etk::UString& etk::UString::upper() {
 	for (auto &it: m_data) {
-		it = etk::toUpper(it);
+		it = u32char::toUpper(it);
 	}
 	return *this;
 }
@@ -423,7 +407,7 @@ bool etk::UString::endWith(const etk::UString& _val, bool _caseSensitive) const 
 	for( int64_t iii=_val.size()-1, jjj=size()-1;
 	     iii>=0 && jjj>=0;
 	     iii--, jjj--) {
-		if (etk::toLower(_val[iii]) != etk::toLower(m_data[jjj])) {
+		if (u32char::toLower(_val[iii]) != u32char::toLower(m_data[jjj])) {
 			return false;
 		}
 	}
@@ -450,7 +434,7 @@ bool etk::UString::startWith(const etk::UString& _val, bool _caseSensitive) cons
 	for( size_t iii = 0;
 	     iii < _val.size();
 	     iii++) {
-		if (etk::toLower(_val[iii]) != etk::toLower(m_data[iii])) {
+		if (u32char::toLower(_val[iii]) != u32char::toLower(m_data[iii])) {
 			return false;
 		}
 	}
@@ -459,68 +443,57 @@ bool etk::UString::startWith(const etk::UString& _val, bool _caseSensitive) cons
 
 template <>
 long double etk::UString::to<long double>() const {
-	etk::Number value(*this);
-	return value.getDouble();
+	return etk::toString(*this).to<long double>();
 }
 
 template <>
 double etk::UString::to<double>() const {
-	etk::Number value(*this);
-	return value.getDouble();
+	return etk::toString(*this).to<double>();
 }
 
 template <>
 float etk::UString::to<float>() const {
-	etk::Number value(*this);
-	return value.getDouble();
+	return etk::toString(*this).to<float>();
 }
 
 template <>
 int8_t etk::UString::to<int8_t>() const {
-	etk::Number value(*this);
-	return value.getI64();
+	return etk::toString(*this).to<int8_t>();
 }
 
 template <>
 int16_t etk::UString::to<int16_t>() const {
-	etk::Number value(*this);
-	return value.getI64();
+	return etk::toString(*this).to<int16_t>();
 }
 
 template <>
 int32_t etk::UString::to<int32_t>() const {
-	etk::Number value(*this);
-	return value.getI64();
+	return etk::toString(*this).to<int32_t>();
 }
 
 template <>
 int64_t etk::UString::to<int64_t>() const {
-	etk::Number value(*this);
-	return value.getI64();
+	return etk::toString(*this).to<int64_t>();
 }
 
 template <>
 uint8_t etk::UString::to<uint8_t>() const {
-	etk::Number value(*this);
-	return value.getU64();
+	return etk::toString(*this).to<uint8_t>();
 }
 
 template <>
 uint16_t etk::UString::to<uint16_t>() const {
-	etk::Number value(*this);
-	return value.getU64();
+	return etk::toString(*this).to<uint16_t>();
 }
 
 template <>
 uint32_t etk::UString::to<uint32_t>() const {
-	etk::Number value(*this);
-	return value.getU64();
+	return etk::toString(*this).to<uint32_t>();
 }
 
 template <>
 uint64_t etk::UString::to<uint64_t>() const {
-	etk::Number value(*this);
-	return value.getU64();
+	return etk::toString(*this).to<uint64_t>();
 }
 
 template <>
@@ -534,7 +507,7 @@ bool etk::UString::to<bool>() const {
 	return false;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const etk::UString& _obj) {
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::UString& _obj) {
 	_os << _obj.c_str();
 	return _os;
 }
@@ -629,6 +602,14 @@ namespace etk {
 }
 
 template<>
+etk::UString etk::toUString<char*>(char* const & _input) {
+	return utf8::convertUnicode(_input);
+}
+template<>
+etk::UString etk::toUString<etk::String>(const etk::String& _input) {
+	return utf8::convertUnicode(_input);
+}
+template<>
 etk::UString etk::toUString(const bool& _val) {
 	return utf8::convertUnicode(etk::toString(_val));
 }
@@ -664,11 +645,12 @@ template<>
 etk::UString etk::toUString(const uint64_t& _val) {
 	return utf8::convertUnicode(etk::toString(_val));
 }
+/*
 template<>
 etk::UString etk::toUString(const size_t& _val) {
 	return utf8::convertUnicode(etk::toString(_val));
 }
-
+*/
 template<>
 etk::UString etk::toUString(const float& _val) {
 	return utf8::convertUnicode(etk::toString(_val));
@@ -817,7 +799,7 @@ bool etk::UString::compare(const etk::UString& _val, bool _caseSensitive) const 
 		return true;
 	}
 	for(size_t iii=0; iii<_val.size(); ++iii) {
-		if (etk::toLower(_val[iii]) != etk::toLower(m_data[iii])) {
+		if (u32char::toLower(_val[iii]) != u32char::toLower(m_data[iii])) {
 			return false;
 		}
 	}

@@ -1,6 +1,7 @@
 
 
 #include <etk/String.hpp>
+#include <etk/UString.hpp>
 
 etk::String::String():
   m_data() {
@@ -39,13 +40,14 @@ etk::String::String(const char* _obj) {
 		m_data[iii] = _obj[iii];
 	}
 }
-
+/*
 etk::String::String(const std::string _obj) {
 	resize(_obj.size());
 	for (size_t iii=0; iii<_obj.size(); ++iii) {
 		m_data[iii] = _obj[iii];
 	}
 }
+*/
 
 etk::String::String(const char* _obj, size_t _size) {
 	if (    _obj == nullptr
@@ -80,7 +82,7 @@ etk::String::String(Iterator _start, Iterator _stop) {
 }
 
 etk::String::String(etk::String&& _obj) noexcept {
-	m_data = std::move(_obj.m_data);
+	m_data = etk::move(_obj.m_data);
 }
 
 etk::String::String(char _value) {
@@ -176,7 +178,7 @@ void etk::String::pushBack(const char _item) {
 	if (idElement < size()) {
 		m_data[idElement] = _item;
 	} else {
-		TK_ERROR("Resize does not work correctly ... not added item");
+		//TK_ERROR("Resize does not work correctly ... not added item");
 	}
 }
 
@@ -187,7 +189,7 @@ void etk::String::pushBack(const char* _item, size_t _nbElement) {
 	size_t idElement = size();
 	resize(size()+_nbElement);
 	if (idElement > size()) {
-		TK_ERROR("Resize does not work correctly ... not added item");
+		//TK_ERROR("Resize does not work correctly ... not added item");
 		return;
 	}
 	for (size_t iii=0; iii<_nbElement; iii++) {
@@ -207,7 +209,7 @@ void etk::String::clear() {
 
 void etk::String::insert(size_t _pos, const char* _item, size_t _nbElement) {
 	if (_pos>size()) {
-		TK_WARNING(" can not insert Element at this position : " << _pos << " > " << size() << " add it at the end ... ");
+		//TK_WARNING(" can not insert Element at this position : " << _pos << " > " << size() << " add it at the end ... ");
 		pushBack(_item, _nbElement);
 		return;
 	}
@@ -215,7 +217,7 @@ void etk::String::insert(size_t _pos, const char* _item, size_t _nbElement) {
 	// Request resize of the current buffer
 	resize(size()+_nbElement);
 	if (idElement>=size()) {
-		TK_ERROR("Resize does not work correctly ... not added item");
+		//TK_ERROR("Resize does not work correctly ... not added item");
 		return;
 	}
 	// move current data (after the position)
@@ -241,7 +243,7 @@ void etk::String::insert(size_t _pos, const etk::String& _value) {
 
 void etk::String::erase(size_t _pos, size_t _nbElement) {
 	if (_pos>size()) {
-		TK_ERROR(" can not Erase Len Element at this position : " << _pos << " > " << size());
+		//TK_ERROR(" can not Erase Len Element at this position : " << _pos << " > " << size());
 		return;
 	}
 	if (_pos+_nbElement>size()) {
@@ -261,7 +263,7 @@ void etk::String::erase(size_t _pos, size_t _nbElement) {
 
 void etk::String::eraseRange(size_t _pos, size_t _posEnd) {
 	if (_pos>size()) {
-		TK_ERROR(" can not Erase Element at this position : " << _pos << " > " << size());
+		//TK_ERROR(" can not Erase Element at this position : " << _pos << " > " << size());
 		return;
 	}
 	if (_posEnd > size()) {
@@ -564,7 +566,7 @@ bool etk::String::to<bool>() const {
 	return false;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const etk::String& _obj) {
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::String& _obj) {
 	_os << _obj.c_str();
 	return _os;
 }
@@ -686,7 +688,7 @@ etk::String etk::toString(const int32_t& _val) {
 template<>
 etk::String etk::toString(const int64_t& _val) {
 	char tmpVal[256];
-	sprintf(tmpVal, "%lld", _val);
+	sprintf(tmpVal, "%ld", _val);
 	return tmpVal;
 }
 template<>
@@ -710,15 +712,17 @@ etk::String etk::toString(const uint32_t& _val) {
 template<>
 etk::String etk::toString(const uint64_t& _val) {
 	char tmpVal[256];
-	sprintf(tmpVal, "%llu", _val);
+	sprintf(tmpVal, "%lu", _val);
 	return tmpVal;
 }
+/*
 template<>
 etk::String etk::toString(const size_t& _val) {
 	char tmpVal[256];
 	sprintf(tmpVal, "%zu", _val);
 	return tmpVal;
 }
+*/
 
 template<>
 etk::String etk::toString(const float& _val) {
@@ -737,6 +741,23 @@ etk::String etk::toString(const long double& _val) {
 	char tmpVal[256];
 	sprintf(tmpVal, "%Lf", _val);
 	return tmpVal;
+}
+
+template<> etk::String etk::toString(const etk::UString& _input) {
+	etk::String out;
+	for (size_t iii=0; iii<_input.size(); ++iii) {
+		char output[10];
+		u32char::convertUtf8(_input[iii], output);
+		out += output;
+	}
+	return out;
+}
+template<> etk::String etk::toString(const char32_t& _input) {
+	etk::String out;
+	char output[10];
+	u32char::convertUtf8(_input, output);
+	out += output;
+	return out;
 }
 
 size_t etk::String::find(char _value, size_t _pos) const {

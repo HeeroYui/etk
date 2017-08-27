@@ -481,32 +481,32 @@ namespace etk {
 			 * @param _obj The other Vector3D<T> to compare with 
 			 */
 			void setMax(const Vector3D<T>& _obj) {
-				m_floats[0] = std::max(m_floats[0], _obj.m_floats[0]);
-				m_floats[1] = std::max(m_floats[1], _obj.m_floats[1]);
-				m_floats[2] = std::max(m_floats[2], _obj.m_floats[2]);
+				m_floats[0] = etk::max(m_floats[0], _obj.m_floats[0]);
+				m_floats[1] = etk::max(m_floats[1], _obj.m_floats[1]);
+				m_floats[2] = etk::max(m_floats[2], _obj.m_floats[2]);
 			}
 			/**
 			 * @brief Set each element to the min of the current values and the values of another Vector3D<T>
 			 * @param _obj The other Vector3D<T> to compare with 
 			 */
 			void setMin(const Vector3D<T>& _obj) {
-				m_floats[0] = std::min(m_floats[0], _obj.m_floats[0]);
-				m_floats[1] = std::min(m_floats[1], _obj.m_floats[1]);
-				m_floats[2] = std::min(m_floats[2], _obj.m_floats[2]);
+				m_floats[0] = etk::min(m_floats[0], _obj.m_floats[0]);
+				m_floats[1] = etk::min(m_floats[1], _obj.m_floats[1]);
+				m_floats[2] = etk::min(m_floats[2], _obj.m_floats[2]);
 			}
 			/**
 			 * @brief Get the minimum value of the vector (x, y, z)
 			 * @return The min value
 			 */
 			T getMin() const {
-				return std::min(std::min(m_floats[0], m_floats[1]), m_floats[2]);
+				return etk::min(etk::min(m_floats[0], m_floats[1]), m_floats[2]);
 			}
 			/**
 			 * @brief Get the maximum value of the vector (x, y, z)
 			 * @return The max value
 			 */
 			T getMax() const {
-				return std::max(std::max(m_floats[0], m_floats[1]), m_floats[2]);
+				return etk::max(etk::max(m_floats[0], m_floats[1]), m_floats[2]);
 			}
 			/**
 			 * @brief Set Value on the vector
@@ -581,21 +581,21 @@ namespace etk {
 
 	};
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Vector3D<float>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector3D<float>& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Vector3D<int32_t>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector3D<int32_t>& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Vector3D<uint32_t>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector3D<uint32_t>& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Vector3D<bool>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector3D<bool>& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const std::vector<etk::Vector3D<float>>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector<etk::Vector3D<float>>& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const std::vector<etk::Vector3D<int32_t>>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector<etk::Vector3D<int32_t>>& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const std::vector<etk::Vector3D<uint32_t>>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector<etk::Vector3D<uint32_t>>& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const std::vector<etk::Vector3D<bool>>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector<etk::Vector3D<bool>>& _obj);
 }
 
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
@@ -611,8 +611,8 @@ using uivec3 = etk::Vector3D<uint32_t>; //!< wrapper on etk::Vector3D<uint32_t> 
 using bvec3 = etk::Vector3D<bool>; //!< wrapper on etk::Vector3D<bool> to have the same naming has OpenGL shader
 
 #ifdef ETK_BUILD_LINEARMATH
-	std::ostream& operator <<(std::ostream& _os, const btVector3& _obj);
-	std::ostream& operator <<(std::ostream& _os, const std::vector<btVector3>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const btVector3& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector<btVector3>& _obj);
 	vec3 quaternionToEulerXYZ(const btQuaternion& quat);
 #endif
 
@@ -635,21 +635,21 @@ inline vec3 vec3ClipInt64(const vec3& _val) {
 #ifdef ETK_BUILD_LINEARMATH
 namespace etk {
 	inline btVector3 min(const btVector3& _val1, const btVector3& _val2) {
-		return btVector3(std::min(_val1.x(), _val2.x()), std::min(_val1.y(), _val2.y()), std::min(_val1.z(), _val2.z()));
+		return btVector3(etk::min(_val1.x(), _val2.x()), etk::min(_val1.y(), _val2.y()), etk::min(_val1.z(), _val2.z()));
 	}
 	inline btVector3 max(const btVector3& _val1, const btVector3& _val2) {
-		return btVector3(std::max(_val1.x(), _val2.x()), std::max(_val1.y(), _val2.y()), std::max(_val1.z(), _val2.z()));
+		return btVector3(etk::max(_val1.x(), _val2.x()), etk::max(_val1.y(), _val2.y()), etk::max(_val1.z(), _val2.z()));
 	}
 }
 #endif
 namespace etk {
 	template<class ETK_TYPE>
 	inline etk::Vector3D<ETK_TYPE> min(const etk::Vector3D<ETK_TYPE>& _val1, const etk::Vector3D<ETK_TYPE>& _val2) {
-		return etk::Vector3D<ETK_TYPE>(std::min(_val1.x(), _val2.x()), std::min(_val1.y(), _val2.y()), std::min(_val1.z(), _val2.z()));
+		return etk::Vector3D<ETK_TYPE>(etk::min(_val1.x(), _val2.x()), etk::min(_val1.y(), _val2.y()), etk::min(_val1.z(), _val2.z()));
 	}
 	template<class ETK_TYPE>
 	inline etk::Vector3D<ETK_TYPE> max(const etk::Vector3D<ETK_TYPE>& _val1, const etk::Vector3D<ETK_TYPE>& _val2) {
-		return etk::Vector3D<ETK_TYPE>(std::max(_val1.x(), _val2.x()), std::max(_val1.y(), _val2.y()), std::max(_val1.z(), _val2.z()));
+		return etk::Vector3D<ETK_TYPE>(etk::max(_val1.x(), _val2.x()), etk::max(_val1.y(), _val2.y()), etk::max(_val1.z(), _val2.z()));
 	}
 }
 

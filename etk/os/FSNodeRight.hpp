@@ -153,7 +153,7 @@ namespace etk {
 			etk::String getRight() const;
 	};
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream &_os, const etk::FSNodeRight &_obj);
+	etk::Stream& operator <<(etk::Stream &_os, const etk::FSNodeRight &_obj);
 }
 
 

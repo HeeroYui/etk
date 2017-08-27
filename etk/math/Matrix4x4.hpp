@@ -250,7 +250,7 @@ namespace etk {
 	                  const vec3& _target,
 	                  const vec3& _up);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Matrix4x4& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Matrix4x4& _obj);
 };
 
 

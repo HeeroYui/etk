@@ -12,7 +12,7 @@
 #define NAME "FSNode"
 
 TEST(TestEtkFSNode, checkType) {
-	std::string fileName("USERDATA:myFileTest.txt");
+	etk::String fileName("USERDATA:myFileTest.txt");
 	etk::FSNode myNodeTest1(fileName);
 	EXPECT_EQ(myNodeTest1.getNameFile(), "myFileTest.txt");
 	EXPECT_EQ(myNodeTest1.exist(), false);
@@ -28,7 +28,7 @@ TEST(TestEtkFSNode, checkType) {
 
 void testFSNode() {
 	TEST_INFO("==> Start test of FSNode");
-	std::string fileName("USERDATA:myFileTest.txt");
+	etk::String fileName("USERDATA:myFileTest.txt");
 	etk::FSNode myNodeTest1(fileName);
 	TEST_INFO("********************************************");
 	TEST_INFO("** Filename=\"" << fileName << "\"");

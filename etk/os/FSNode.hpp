@@ -77,7 +77,7 @@ namespace etk {
 		typeNode_socket, //!< The node is a socket
 	};
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream &_os, const enum etk::typeNode &_obj);
+	etk::Stream& operator <<(etk::Stream &_os, const enum etk::typeNode &_obj);
 	/**
 	 * @brief Seek mode availlable (just to wrap it ...)
 	 */
@@ -129,7 +129,7 @@ namespace etk {
 		FSNType_themeData //!< Theme data area
 	};
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream &_os, const enum etk::FSNType &_obj);
+	etk::Stream& operator <<(etk::Stream &_os, const enum etk::FSNType &_obj);
 	
 	/*
 	note : The filename can be
@@ -407,7 +407,7 @@ namespace etk {
 			 * @param[in] _obj Node to display
 			 * @return std debug IO
 			 */
-			friend std::ostream& operator <<( std::ostream &_os,const etk::FSNode &_obj);
+			friend etk::Stream& operator <<( etk::Stream &_os,const etk::FSNode &_obj);
 			
 			/**
 			 * @brief Count the number of subFolder in the curent Folder
@@ -561,14 +561,14 @@ namespace etk {
 			 * @return Number of element written (in block number)
 			 */
 			int64_t fileWrite(const void* _data, int64_t _blockSize, int64_t _nbBlock);
-			// TODO: etk::FSNode& operator<< (const std::ostream& _data);
+			// TODO: etk::FSNode& operator<< (const etk::Stream& _data);
 			/**
 			 * @brief Stream write mode
 			 * @param[in] _data Stream to write
 			 * @return The current FSNode reference to add other stream.
 			 * @note not stable API ...
 			 */
-			etk::FSNode& operator<< (const std::stringstream& _data);
+			etk::FSNode& operator<< (const etk::Stream& _data);
 			//! @copydoc etk::FSNode::operator<<(const etk::Stringstream&)
 			etk::FSNode& operator<< (const etk::String& _data);
 			//! @copydoc etk::FSNode::operator<<(const etk::Stringstream&)
@@ -649,7 +649,7 @@ namespace etk {
 			void sortElementList(etk::Vector<etk::FSNode *>& _list);
 	};
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream &_os, const etk::FSNode &_obj);
+	etk::Stream& operator <<(etk::Stream &_os, const etk::FSNode &_obj);
 	
 	/**
 	 * @brief Set manualy the folder of the Data.(like /usr/shared/applName/ for linux)

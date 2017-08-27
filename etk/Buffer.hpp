@@ -93,7 +93,7 @@ namespace etk {
 			 * @return true if the data correctly stored
 			 * @return false if an error occurred
 			 */
-			bool dumpIn(const std::string& _file) {
+			bool dumpIn(const etk::String& _file) {
 				etk::FSNode file(_file);
 				if (false == file.fileOpenWrite()) {
 					return false;
@@ -111,7 +111,7 @@ namespace etk {
 			 * @return true if the data correctly stored
 			 * @return false if an error occurred
 			 */
-			bool dumpFrom(const std::string& _file) {
+			bool dumpFrom(const etk::String& _file) {
 				etk::FSNode file(_file);
 				if (false == file.fileOpenRead()) {
 					return false;
@@ -195,27 +195,27 @@ namespace etk {
 			 * @param[in] _nbElement Number of element needed.
 			 * @return The data requested
 			 */
-			std::vector<int8_t> get(int32_t _pos, int32_t _nbElement) {
-				std::vector<int8_t> tmpBuffer;
+			etk::Vector<int8_t> get(int32_t _pos, int32_t _nbElement) {
+				etk::Vector<int8_t> tmpBuffer;
 				tmpBuffer.clear();
 				if (_pos < m_gapStart) {
 					if (_pos + _nbElement < m_gapStart) {
 						for (int32_t iii = _pos; iii<_pos+_nbElement; ++iii) {
-							tmpBuffer.push_back(m_data[iii]);
+							tmpBuffer.pushBack(m_data[iii]);
 						}
 					} else {
 						for (int32_t iii = _pos; iii<m_gapStart; ++iii) {
-							tmpBuffer.push_back(m_data[iii]);
+							tmpBuffer.pushBack(m_data[iii]);
 						}
 						for (int32_t iii = m_gapEnd; iii<m_gapEnd - (_nbElement - (m_gapStart - _pos)); ++iii) {
-							tmpBuffer.push_back(m_data[iii]);
+							tmpBuffer.pushBack(m_data[iii]);
 						}
 					}
 				} else {
 					for (int32_t iii = _pos+(m_gapEnd-m_gapStart);
 					     iii<_pos+(m_gapEnd-m_gapStart)+_nbElement;
 					     ++iii) {
-						tmpBuffer.push_back(m_data[iii]);
+						tmpBuffer.pushBack(m_data[iii]);
 					}
 				}
 				return tmpBuffer;
@@ -224,7 +224,7 @@ namespace etk {
 			 * @brief Add at the Last position of the Buffer.
 			 * @param[in] _item Element to add.
 			 */
-			void push_back(const int8_t& _item) {
+			void pushBack(const int8_t& _item) {
 				insert(size(), _item);
 			}
 			/**
@@ -264,7 +264,7 @@ namespace etk {
 			 * @param[in] _pos Position where data might be inserted
 			 * @param[in] _items Data that might be inserted.
 			 */
-			void insert(int32_t _pos, const std::vector<int8_t>& _items) {
+			void insert(int32_t _pos, const etk::Vector<int8_t>& _items) {
 				insert(_pos, &_items[0], _items.size());
 			}
 			/**
@@ -317,7 +317,7 @@ namespace etk {
 			 * @param[in] _nbRemoveElement number of element to remove.
 			 * @param[in] _items Data that will be inserted.
 			 */
-			void replace(int32_t _pos, int32_t _nbRemoveElement, const std::vector<int8_t>& _items) {
+			void replace(int32_t _pos, int32_t _nbRemoveElement, const etk::Vector<int8_t>& _items) {
 				replace(_pos, _nbRemoveElement, &_items[0], _items.size());
 			}
 			/**
@@ -380,7 +380,7 @@ namespace etk {
 			/**
 			 * @brief Remove the last element of the Buffer.
 			 */
-			void pop_back() {
+			void popBack() {
 				if (size() > 0) {
 					remove( size() );
 				}

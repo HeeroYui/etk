@@ -29,11 +29,7 @@ def configure(target, my_module):
 	# add the file to compile:
 	my_module.add_src_file([
 	    'etk/debug.cpp',
-	    'etk/String.cpp',
-	    'etk/UString.cpp',
-	    'etk/utf8.cpp',
 	    'etk/etk.cpp',
-	    'etk/stdTools.cpp',
 	    'etk/tool.cpp',
 	    'etk/Noise.cpp',
 	    'etk/Color.cpp',
@@ -55,18 +51,11 @@ def configure(target, my_module):
 	my_module.add_header_file([
 	    'etk/etk.hpp',
 	    'etk/debug.hpp',
-	    'etk/types.hpp',
 	    'etk/stdTools.hpp',
 	    'etk/tool.hpp',
 	    'etk/Noise.hpp',
 	    'etk/Color.hpp',
 	    'etk/RegEx.hpp',
-	    'etk/Buffer.hpp',
-	    'etk/Hash.hpp',
-	    'etk/String.hpp',
-	    'etk/UString.hpp',
-	    'etk/utf8.hpp',
-	    'etk/Vector.hpp',
 	    'etk/math/Matrix2x2.hpp',
 	    'etk/math/Matrix2x3.hpp',
 	    'etk/math/Matrix3x3.hpp',
@@ -89,7 +78,8 @@ def configure(target, my_module):
 	    'c',
 	    'm',
 	    'elog',
-	    'ememory'
+	    'ememory',
+	    'etk-base',
 	    ])
 	# add some optionnal libraries
 	my_module.add_optionnal_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])

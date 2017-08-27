@@ -214,18 +214,34 @@ namespace etk {
 			 * @return The formatted string
 			 */
 			etk::String getHexString() const {
-				std::ostringstream os;
-				os << "0x" << std::setw(8) << std::setfill('0') << std::hex << get();
-				return os.str();
+				etk::String out = "0x";
+				uint32_t value = get();
+				for (size_t iii=0; iii<8; ++iii) {
+					uint32_t tmp = (value >> (4*(7-iii))) & 0x0F;
+					if (tmp < 10) {
+						out += ('0'+tmp);
+					} else {
+						out += ('A'+tmp);
+					}
+				}
+				return out;
 			};
 			/**
 			 * @brief Convert the color in an generic string value ("#FEDCBA98")
 			 * @return The formatted string
 			 */
 			etk::String getString() const {
-				std::ostringstream os;
-				os << "#" << std::setw(8) << std::setfill('0') << std::hex << get();
-				return os.str();
+				etk::String out = "#";
+				uint32_t value = get();
+				for (size_t iii=0; iii<8; ++iii) {
+					uint32_t tmp = (value >> (4*(7-iii))) & 0x0F;
+					if (tmp < 10) {
+						out += ('0'+tmp);
+					} else {
+						out += ('A'+tmp);
+					}
+				}
+				return out;
 			};
 			/**
 			 * @brief Get red color.
@@ -507,7 +523,9 @@ namespace etk {
 	
 	
 	//! @not_in_doc
-	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint8_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
+	template<int MY_TYPE_SIZE> etk::Stream& operator <<(etk::Stream& _os, const Color<uint8_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
+		// TODO: set it back !!!!
+		/*
 		std::ostringstream os;
 		if (MY_TYPE_SIZE >= 3) {
 			_os << "#";
@@ -536,12 +554,11 @@ namespace etk {
 			}
 			_os << os.str();
 			_os << ")";
-		}
+		}*/
 		return _os;
 	}
 	//! @not_in_doc
-	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint16_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
-		std::ostringstream os;
+	template<int MY_TYPE_SIZE> etk::Stream& operator <<(etk::Stream& _os, const Color<uint16_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
 		if (MY_TYPE_SIZE >= 4) {
 			_os << "rgba";
 		} else if (MY_TYPE_SIZE >= 3) {
@@ -552,6 +569,8 @@ namespace etk {
 			_os << "Mono";
 		}
 		_os << "[U16](";
+		// TODO: set it back !!!!
+		/*
 		os << "0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.r();
 		if (MY_TYPE_SIZE >= 2) {
 			os << ",0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.g();
@@ -563,11 +582,12 @@ namespace etk {
 			os << ",0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.a();
 		}
 		_os << os.str() << ")";
+		*/
 		return _os;
 	}
 	//! @not_in_doc
-	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<uint32_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
-		std::ostringstream os;
+	template<int MY_TYPE_SIZE> etk::Stream& operator <<(etk::Stream& _os, const Color<uint32_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
+		//std::ostringstream os;
 		if (MY_TYPE_SIZE >= 4) {
 			_os << "rgba";
 		} else if (MY_TYPE_SIZE >= 3) {
@@ -578,6 +598,8 @@ namespace etk {
 			_os << "Mono";
 		}
 		_os << "[U32](";
+		// TODO: set it back !!!!
+		/*
 		os << "0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.r();
 		if (MY_TYPE_SIZE >= 2) {
 			os << ",0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.g();
@@ -589,10 +611,11 @@ namespace etk {
 			os << ",0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.a();
 		}
 		_os << os.str() << ")";
+		*/
 		return _os;
 	}
 	//! @not_in_doc
-	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<float, MY_TYPE_SIZE>& _obj) { // RGB float & RGBA float
+	template<int MY_TYPE_SIZE> etk::Stream& operator <<(etk::Stream& _os, const Color<float, MY_TYPE_SIZE>& _obj) { // RGB float & RGBA float
 		if (MY_TYPE_SIZE >= 4) {
 			_os << "rgba";
 		} else if (MY_TYPE_SIZE >= 3) {
@@ -620,7 +643,7 @@ namespace etk {
 		return _os;
 	}
 	//! @not_in_doc
-	template<int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const Color<double, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits 
+	template<int MY_TYPE_SIZE> etk::Stream& operator <<(etk::Stream& _os, const Color<double, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits 
 		if (MY_TYPE_SIZE >= 4) {
 			_os << "rgba";
 		} else if (MY_TYPE_SIZE >= 3) {
@@ -648,7 +671,7 @@ namespace etk {
 		return _os;
 	}
 	//! @not_in_doc
-	template<typename MY_TYPE, int MY_TYPE_SIZE> std::ostream& operator <<(std::ostream& _os, const std::vector<Color<MY_TYPE, MY_TYPE_SIZE> >& _obj) {
+	template<typename MY_TYPE, int MY_TYPE_SIZE> etk::Stream& operator <<(etk::Stream& _os, const etk::Vector<Color<MY_TYPE, MY_TYPE_SIZE> >& _obj) {
 		for (size_t iii = 0; iii < _obj.size(); ++iii) {
 			if (iii != 0) {
 				_os << " ";

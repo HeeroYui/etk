@@ -114,6 +114,22 @@ namespace etk {
 				return (    (ETK_TYPE)_obj.m_floats[0] != m_floats[0]
 				         || (ETK_TYPE)_obj.m_floats[1] != m_floats[1]);
 			}
+			bool operator<= (const Vector2D<ETK_TYPE>& _obj) const {
+				return (    m_floats[0] <= _obj.m_floats[0]
+				         && m_floats[1] <= _obj.m_floats[1]);
+			}
+			bool operator< (const Vector2D<ETK_TYPE>& _obj) const {
+				return (    m_floats[0] < _obj.m_floats[0]
+				         && m_floats[1] < _obj.m_floats[1]);
+			}
+			bool operator>= (const Vector2D<ETK_TYPE>& _obj) const {
+				return (    m_floats[0] >= _obj.m_floats[0]
+				         && m_floats[1] >= _obj.m_floats[1]);
+			}
+			bool operator> (const Vector2D<ETK_TYPE>& _obj) const {
+				return (    m_floats[0] > _obj.m_floats[0]
+				         && m_floats[1] > _obj.m_floats[1]);
+			}
 			/**
 			 * @brief Operator+= Addition an other vertor with this one
 			 * @param[in] _obj Reference on the external object
@@ -497,16 +513,16 @@ namespace etk {
 			 * @param _other The other vector to compare with
 			 */
 			void setMax(const Vector2D<ETK_TYPE>& _other) {
-				m_floats[0] = std::max(m_floats[0], _other.m_floats[0]);
-				m_floats[1] = std::max(m_floats[1], _other.m_floats[1]);
+				m_floats[0] = etk::max(m_floats[0], _other.m_floats[0]);
+				m_floats[1] = etk::max(m_floats[1], _other.m_floats[1]);
 			}
 			/**
 			 * @brief Set each element to the min of the current values and the values of another vector
 			 * @param _other The other vector to compare with
 			 */
 			void setMin(const Vector2D<ETK_TYPE>& _other) {
-				m_floats[0] = std::min(m_floats[0], _other.m_floats[0]);
-				m_floats[1] = std::min(m_floats[1], _other.m_floats[1]);
+				m_floats[0] = etk::min(m_floats[0], _other.m_floats[0]);
+				m_floats[1] = etk::min(m_floats[1], _other.m_floats[1]);
 			}
 			/**
 			 * @brief Set Value on the vector
@@ -557,13 +573,13 @@ namespace etk {
 			#endif
 	};
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Vector2D<int32_t>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector2D<int32_t>& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Vector2D<float>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector2D<float>& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Vector2D<uint32_t>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector2D<uint32_t>& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Vector2D<bool>& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector2D<bool>& _obj);
 };
 // To siplify the writing of the code ==> this permit to have the same name with the glsl language...
 using   vec2 = etk::Vector2D<float>;//!< wrapper on etk::Vector2D<float> to have the same naming has OpenGL shader
@@ -600,13 +616,13 @@ vec2 vec2rotate(const vec2& _obj, const vec2& _point, float _angle);
 
 namespace etk {
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const std::vector<vec2 >& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector<vec2 >& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const std::vector<ivec2 >& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector<ivec2 >& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const std::vector<uivec2 >& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector<uivec2 >& _obj);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const std::vector<bvec2 >& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector<bvec2 >& _obj);
 }
 
 template<class ETK_TYPE>

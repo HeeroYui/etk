@@ -74,6 +74,9 @@ namespace u32char {
 	#if __CPP_VERSION__ >= 2011
 		etk::String convertToUtf8(const etk::UString& _input);
 	#endif
+	char32_t toUpper(char32_t _input);
+	char32_t toLower(char32_t _input);
+	size_t strlen(const char32_t* _input);
 };
 
 /**
@@ -98,9 +101,8 @@ namespace utf8 {
 	 * @return Converted Value
 	 */
 	char32_t convertChar32(const char* _input);
-	#if __CPP_VERSION__ >= 2011
-		etk::UString convertUnicode(const etk::String& _input);
-	#endif
+	etk::UString convertUnicode(const char* _input);
+	etk::UString convertUnicode(const etk::String& _input);
 	/**
 	 * @brief Iterator on a simple etk::String that contain utf8 value
 	 */

@@ -6,7 +6,7 @@
 #pragma once
 
 #include <etk/types.hpp>
-#include <etk/debug.hpp>
+//#include <etk/debug.hpp>
 #include <etk/Vector.hpp>
 #include <etk/utf8.hpp>
 #include <etk/stdTools.hpp>
@@ -146,7 +146,7 @@ namespace etk {
 					 * @return the reference on the current Element 
 					 */
 					char32_t operator* () const {
-						TK_ASSERT(m_current < m_string->size(), "out of range");
+						//TK_ASSERT(m_current < m_string->size(), "out of range");
 						return m_string->get(m_current);
 					}
 					/**
@@ -154,7 +154,7 @@ namespace etk {
 					 * @return the reference on the current Element 
 					 */
 					char32_t& operator* () {
-						TK_ASSERT(m_current < m_string->size(), "out of range");
+						//TK_ASSERT(m_current < m_string->size(), "out of range");
 						return m_string->get(m_current);
 					}
 					/*****************************************************
@@ -471,7 +471,7 @@ namespace etk {
 	template <class TYPE>
 	etk::UString toUString(const TYPE& _variable);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::UString& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::UString& _obj);
 	/**
 	 * @brief Template to declare conversion from string to anything
 	 * @param[out] _variableRet Output value

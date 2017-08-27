@@ -6,9 +6,10 @@
 #pragma once
 
 #include <etk/types.hpp>
-#include <etk/debug.hpp>
+//#include <etk/debug.hpp>
 
 namespace etk {
+	class Stream;
 	/**
 	 * @brief Vector class ...
 	 *
@@ -42,6 +43,7 @@ namespace etk {
 	 */
 	template<class ETK_VECTOR_TYPE> class Vector {
 		public:
+			static const size_t npos = size_t(-1);
 			class Iterator {
 				private:
 					size_t m_current; //!< current Id on the vector
@@ -138,6 +140,15 @@ namespace etk {
 						tmp -= _offset;
 						return tmp;
 					}
+					Iterator& operator-= (int _offset) {
+						m_current -= _offset;
+						return *this;
+					}
+					Iterator operator- (int _offset) const {
+						Iterator tmp(*this);
+						tmp -= _offset;
+						return tmp;
+					}
 					Iterator& operator-= (int64_t _offset) {
 						m_current -= _offset;
 						return *this;
@@ -156,6 +167,15 @@ namespace etk {
 						tmp += _offset;
 						return tmp;
 					}
+					Iterator& operator+= (int _offset) {
+						m_current += _offset;
+						return *this;
+					}
+					Iterator operator+ (int _offset) const {
+						Iterator tmp(*this);
+						tmp += _offset;
+						return tmp;
+					}
 					Iterator& operator+= (int64_t _offset) {
 						m_current += _offset;
 						return *this;
@@ -170,7 +190,7 @@ namespace etk {
 					 * @return the reference on the current Element 
 					 */
 					ETK_VECTOR_TYPE & operator-> () const {
-						TK_CHECK_INOUT(m_current < m_vector->size());
+						//TK_CHECK_INOUT(m_current < m_vector->size());
 						return &m_vector->get(m_current);
 					}
 					/**
@@ -178,7 +198,7 @@ namespace etk {
 					 * @return the reference on the current Element 
 					 */
 					ETK_VECTOR_TYPE & operator* () const {
-						TK_CHECK_INOUT(m_current < m_vector->size());
+						//TK_CHECK_INOUT(m_current < m_vector->size());
 						return m_vector->get(m_current);
 					}
 				private:
@@ -216,7 +236,7 @@ namespace etk {
 				// allocate all same data
 				m_data = new ETK_VECTOR_TYPE[m_allocated];
 				if (m_data == nullptr) {
-					TK_CRITICAL("Vector : Error in data allocation ... might nor work correctly anymore");
+					//TK_CRITICAL("Vector : Error in data allocation ... might nor work correctly anymore");
 					return;
 				}
 				// Copy all data ...
@@ -272,7 +292,7 @@ namespace etk {
 					// allocate all same data
 					m_data = new ETK_VECTOR_TYPE[m_allocated];
 					if (m_data == nullptr) {
-						TK_CRITICAL("Vector : Error in data allocation ... might nor work correctly anymore");
+						//TK_CRITICAL("Vector : Error in data allocation ... might nor work correctly anymore");
 						return *this;
 					}
 					for(size_t iii=0; iii<m_allocated; iii++) {
@@ -293,12 +313,12 @@ namespace etk {
 				size_t idElement = m_size;
 				resize(m_size+numberElement);
 				if (m_size<=idElement) {
-					TK_CRITICAL("allocation error");
+					//TK_CRITICAL("allocation error");
 					return *this;
 				}
 				for(size_t iii=0; iii<numberElement; iii++) {
 					// copy operator ...
-					m_data[idElement+iii] = _obj.m_data[iii];
+					m_data[idElement+iii] = etk::move(_obj.m_data[iii]);
 				}
 				// Return the current pointer
 				return *this;
@@ -310,6 +330,9 @@ namespace etk {
 			size_t size() const {
 				return m_size;
 			}
+			size_t empty() const {
+				return m_size == 0;
+			}
 			/**
 			 * @brief Resize the vector with a basic element
 			 * @param[in] _newSize New size of the vector
@@ -318,7 +341,7 @@ namespace etk {
 				size_t idElement = m_size;
 				resize(_newSize);
 				if (m_size != _newSize) {
-					TK_CRITICAL("error to resize vector");
+					//TK_CRITICAL("error to resize vector");
 					return;
 				}
 				if (_newSize > idElement) {
@@ -372,6 +395,26 @@ namespace etk {
 				return m_data[_pos];
 			}
 			/**
+			 * @brief Get the last element of the vector
+			 * @return An reference on the element
+			 */
+			ETK_VECTOR_TYPE& back() {
+				return m_data[m_size-1];
+			}
+			const ETK_VECTOR_TYPE& back() const {
+				return m_data[m_size-1];
+			}
+			/**
+			 * @brief Get the first element of the vector
+			 * @return An reference on the element
+			 */
+			ETK_VECTOR_TYPE& front() {
+				return m_data[0];
+			}
+			const ETK_VECTOR_TYPE& front() const {
+				return m_data[0];
+			}
+			/**
 			 * @brief Add at the First position of the Vector
 			 * @param[in] _item Element to add at the end of vector
 			 */
@@ -394,9 +437,9 @@ namespace etk {
 				size_t idElement = m_size;
 				resize(m_size+1);
 				if (idElement < m_size) {
-					m_data[idElement] = _item;
+					m_data[idElement] = etk::move(_item);
 				} else {
-					TK_ERROR("Resize does not work correctly ... not added item");
+					//TK_ERROR("Resize does not work correctly ... not added item");
 				}
 			}
 			/**
@@ -411,7 +454,7 @@ namespace etk {
 				size_t idElement = m_size;
 				resize(m_size+_nbElement);
 				if (idElement > m_size) {
-					TK_ERROR("Resize does not work correctly ... not added item");
+					//TK_ERROR("Resize does not work correctly ... not added item");
 					return;
 				}
 				for (size_t iii=0; iii<_nbElement; iii++) {
@@ -442,7 +485,7 @@ namespace etk {
 			 */
 			void insert(size_t _pos, const ETK_VECTOR_TYPE * _item, size_t _nbElement) {
 				if (_pos>m_size) {
-					TK_WARNING(" can not insert Element at this position : " << _pos << " > " << m_size << " add it at the end ... ");
+					//TK_WARNING(" can not insert Element at this position : " << _pos << " > " << m_size << " add it at the end ... ");
 					pushBack(_item, _nbElement);
 					return;
 				}
@@ -450,19 +493,19 @@ namespace etk {
 				// Request resize of the current buffer
 				resize(m_size+_nbElement);
 				if (idElement>=m_size) {
-					TK_ERROR("Resize does not work correctly ... not added item");
+					//TK_ERROR("Resize does not work correctly ... not added item");
 					return;
 				}
 				// move current data (after the position)
 				size_t sizeToMove = (idElement - _pos);
 				if ( 0 < sizeToMove) {
 					for (size_t iii=1; iii<=sizeToMove; iii++) {
-						m_data[m_size-iii] = m_data[idElement-iii];
+						m_data[m_size-iii] = etk::move(m_data[idElement-iii]);
 					}
 				}
 				// affectation of all input element
 				for (size_t iii=0; iii<_nbElement; iii++) {
-					m_data[_pos+iii] = _item[iii];
+					m_data[_pos+iii] = etk::move(_item[iii]);
 				}
 			}
 			/**
@@ -480,7 +523,7 @@ namespace etk {
 			 */
 			void eraseLen(size_t _pos, size_t _nbElement) {
 				if (_pos>m_size) {
-					TK_ERROR(" can not Erase Len Element at this position : " << _pos << " > " << m_size);
+					//TK_ERROR(" can not Erase Len Element at this position : " << _pos << " > " << m_size);
 					return;
 				}
 				if (_pos+_nbElement>m_size) {
@@ -491,7 +534,7 @@ namespace etk {
 				size_t sizeToMove = (idElement - (_pos+_nbElement));
 				if ( 0 < sizeToMove) {
 					for (size_t iii=0; iii<sizeToMove; iii++) {
-						m_data[_pos+iii] = m_data[_pos+_nbElement+iii];
+						m_data[_pos+iii] = etk::move(m_data[_pos+_nbElement+iii]);
 					}
 				}
 				// Request resize of the current buffer
@@ -503,6 +546,15 @@ namespace etk {
 			 */
 			inline void erase(size_t _pos) {
 				eraseLen(_pos, 1);
+			}
+			/**
+			 * @brief Remove one element
+			 * @param[in] _it Iterator on the element to remove
+			 * @return An iterator on the new element at this position.
+			 */
+			Iterator erase(const Iterator& _it) {
+				eraseLen(_it.m_current, 1);
+				return position(_it.m_current);
 			}
 			/**
 			 * @brief Remove one element
@@ -518,7 +570,7 @@ namespace etk {
 			 */
 			void erase(size_t _pos, size_t _posEnd) {
 				if (_pos>m_size) {
-					TK_ERROR(" can not Erase Element at this position : " << _pos << " > " << m_size);
+					//TK_ERROR(" can not Erase Element at this position : " << _pos << " > " << m_size);
 					return;
 				}
 				if (_posEnd>m_size) {
@@ -530,7 +582,7 @@ namespace etk {
 				size_t sizeToMove = (tmpSize - (_pos+nbElement));
 				if ( 0 < sizeToMove) {
 					for (size_t iii=0; iii<sizeToMove; iii++) {
-						m_data[_pos+iii] = m_data[_pos+nbElement+iii];
+						m_data[_pos+iii] = etk::move(m_data[_pos+nbElement+iii]);
 					}
 				}
 				// Request resize of the current buffer
@@ -591,7 +643,7 @@ namespace etk {
 			const Iterator end() const {
 				return position( size()-1 );
 			}
-		private:
+			
 			/**
 			 * @brief Change the current size of the vector
 			 * @param[in] _newSize New requested size of element in the vector
@@ -603,6 +655,7 @@ namespace etk {
 				}
 				m_size = _newSize;
 			}
+		private:
 			/**
 			 * @brief Change the current allocation to the correct one (depend on the current size)
 			 * @param[in] _newSize Minimum number of element needed
@@ -637,7 +690,7 @@ namespace etk {
 					// no data allocated ==> request an allocation (might be the first)
 					m_data = new ETK_VECTOR_TYPE[requestSize];
 					if (m_data == nullptr) {
-						TK_CRITICAL("Vector : Error in data allocation request allocation:" << requestSize << "*" << (int32_t)(sizeof(ETK_VECTOR_TYPE)) << "bytes" );
+						//TK_CRITICAL("Vector : Error in data allocation request allocation:" << requestSize << "*" << (int32_t)(sizeof(ETK_VECTOR_TYPE)) << "bytes" );
 						m_allocated = 0;
 						return;
 					}
@@ -645,14 +698,14 @@ namespace etk {
 					// allocate a new pool of data:
 					ETK_VECTOR_TYPE* m_dataTmp = new ETK_VECTOR_TYPE[requestSize];
 					if (m_dataTmp == nullptr) {
-						TK_CRITICAL("Vector : Error in data allocation request allocation:" << requestSize << "*" << (int32_t)(sizeof(ETK_VECTOR_TYPE)) << "bytes" );
+						//TK_CRITICAL("Vector : Error in data allocation request allocation:" << requestSize << "*" << (int32_t)(sizeof(ETK_VECTOR_TYPE)) << "bytes" );
 						m_allocated = 0;
 						return;
 					}
 					// copy data in the new pool
 					size_t nbElements = etk::min(requestSize, m_allocated);
 					for(size_t iii=0; iii<nbElements; iii++) {
-						m_dataTmp[iii] = std::move(m_data[iii]);
+						m_dataTmp[iii] = etk::move(m_data[iii]);
 					}
 					// switch pointer:
 					ETK_VECTOR_TYPE* m_dataTmp2 = m_data;
@@ -712,20 +765,62 @@ namespace etk {
 				}
 				return false;
 			}
-	};
-	//! @not_in_doc
-	template<class ETK_VECTOR_TYPE>
-	std::ostream& operator <<(std::ostream& _os, const etk::Vector<ETK_VECTOR_TYPE>& _obj) {
-		_os << "{";
-		for (size_t iii=0; iii< _obj.size(); iii++) {
-			if (iii>0) {
-				_os << ";";
+			/*****************************************************
+			 *    >= operator
+			 *****************************************************/
+			bool operator>= (const Vector<ETK_VECTOR_TYPE>& _obj) const {
+				// TODO : Later
+				return false;
 			}
-			_os << _obj[iii];
-		}
-		_os << "}";
-		return _os;
-	}
+			/*****************************************************
+			 *    > operator
+			 *****************************************************/
+			bool operator> (const Vector<ETK_VECTOR_TYPE>& _obj) const {
+				// TODO : Later
+				return false;
+			}
+			/*****************************************************
+			 *    <= operator
+			 *****************************************************/
+			bool operator<= (const Vector<ETK_VECTOR_TYPE>& _obj) const {
+				// TODO : Later
+				return false;
+			}
+			/*****************************************************
+			 *    > operator
+			 *****************************************************/
+			bool operator< (const Vector<ETK_VECTOR_TYPE>& _obj) const {
+				// TODO : Later
+				return false;
+			}
+			void sort(size_t _start, size_t _stop, bool (*_comparator)(const ETK_VECTOR_TYPE&, const ETK_VECTOR_TYPE&)) {
+				if (_stop > m_size) {
+					_stop = m_size;
+				}
+				if (_start > m_size) {
+					_start = m_size;
+				}
+				if (_start > _stop) {
+					size_t start = _start;
+					_start = _stop;
+					_stop = _start;
+				}
+				for (size_t iii=_start; iii<_stop; ++iii) {
+					bool swapped = false;
+					for (size_t jjj=_start; jjj<_stop - (iii+1); ++jjj) {
+						if (_comparator(m_data[jjj], m_data[jjj+1]) == true) {
+							ETK_VECTOR_TYPE tmp = etk::move(m_data[jjj]);
+							m_data[jjj+1] = etk::move(m_data[jjj]);
+							m_data[jjj+1] = etk::move(tmp);
+							swapped = true;
+						}
+					}
+					if (swapped == false) {
+						break;
+					}
+				}
+			}
+	};
 	//! @not_in_doc
 	template<typename T, typename T2>
 	bool isIn(const T& _val, const etk::Vector<T2>& _list) {

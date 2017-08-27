@@ -4,9 +4,6 @@
  * @license MPL v2.0 (see license file)
  */
 #pragma once
-
-#include <iostream>
-
 #include <cstdlib>
 #include <cstdio>
 #include <stdarg.h>
@@ -84,6 +81,54 @@ namespace etk {
 	 * @return Value that min/max applied
 	 */
 	template <class TYPE> const TYPE& avg(const TYPE& _min, const TYPE& _val, const TYPE& _max) {
-		return std::min(std::max(_min,_val),_max);
+		return etk::min(etk::max(_min,_val),_max);
 	}
 };
+
+
+namespace etk {
+	template<class ETK_ITERATOR_TYPE>
+	size_t distance(const ETK_ITERATOR_TYPE& _start, const ETK_ITERATOR_TYPE& _stop) {
+		size_t out = 0;
+		ETK_ITERATOR_TYPE tmp = _start;
+		while (tmp != _stop) {
+			out++;
+			++tmp;
+		}
+		return out;
+	}
+
+	template<class ETK_MOVE_TYPE>
+	struct _Remove_reference {
+		// remove reference
+		typedef ETK_MOVE_TYPE m_type;
+	};
+	template<class ETK_MOVE_TYPE>
+	struct _Remove_reference<ETK_MOVE_TYPE&> {
+		// remove reference
+		typedef ETK_MOVE_TYPE m_type;
+	};
+	template<class ETK_MOVE_TYPE>
+	struct _Remove_reference<ETK_MOVE_TYPE&&> {
+		// remove rvalue reference
+		typedef ETK_MOVE_TYPE m_type;
+	};
+	
+	template<class ETK_MOVE_TYPE> inline
+	typename etk::_Remove_reference<ETK_MOVE_TYPE>::m_type&& move(ETK_MOVE_TYPE&& _obj) {
+		// forward _Arg as movable
+		return ((typename etk::_Remove_reference<ETK_MOVE_TYPE>::m_type&&)_obj);
+	}
+	/*
+	
+	template<class ETK_MOVE_TYPE>
+	eETK_MOVE_TYPE&& move(ETK_MOVE_TYPE&& _obj) {
+		// forward _Arg as movable
+		return ((ETK_MOVE_TYPE&&)_obj);
+	}
+	*/
+
+}
+
+#include <etk/Stream.hpp>
+

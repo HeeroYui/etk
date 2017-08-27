@@ -6,7 +6,7 @@
 
 #include <etk/math/Quaternion.hpp>
 
-std::ostream& etk::operator <<(std::ostream &_os, const etk::Quaternion& _obj) {
+etk::Stream& etk::operator <<(etk::Stream &_os, const etk::Quaternion& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";

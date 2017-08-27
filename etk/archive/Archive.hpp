@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include <map>
+#include <etk/Map.hpp>
 #include <mutex>
 #include <ememory/memory.hpp>
 #include <etk/String.hpp>
@@ -52,7 +52,7 @@ namespace etk {
 				return m_theoricSize;
 			}
 		private:
-			std::vector<char> m_data; //!< Data read from the zip file (if m_data.size() != m_theoricSize the data is not read)
+			etk::Vector<char> m_data; //!< Data read from the zip file (if m_data.size() != m_theoricSize the data is not read)
 		public:
 			/**
 			 * @brief Basic constructor of an element
@@ -81,7 +81,7 @@ namespace etk {
 			 * @brief Get the Data Vector on the file.
 			 * @return Vector on the data.
 			 */
-			std::vector<char>& getDataVector() {
+			etk::Vector<char>& getDataVector() {
 				return m_data;
 			}
 	};
@@ -115,7 +115,7 @@ namespace etk {
 				return m_fileName;
 			};
 		protected:
-			std::map<etk::String, ArchiveContent> m_content; //!< list of element of the zip file
+			etk::Map<etk::String, ArchiveContent> m_content; //!< list of element of the zip file
 		public:
 			/**
 			 * @brief Get the number of elements
@@ -167,7 +167,7 @@ namespace etk {
 			 * @brief Request the load in memory of the concerned file.
 			 * @param[in] _it Iterator on the element.
 			 */
-			virtual void loadFile(const std::map<etk::String, ArchiveContent>::iterator& _it) { };
+			virtual void loadFile(const etk::Map<etk::String, ArchiveContent>::iterator& _it) { };
 		public:
 			/**
 			 * @brief Load an Achive with a specific name.

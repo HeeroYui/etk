@@ -203,7 +203,7 @@ namespace etk {
 	 */
 	Matrix2x3 mat2x3Skew(const vec2& _skew);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Matrix2x3& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Matrix2x3& _obj);
 }
 // simplify using of matrix ...
 using mat2x3 = etk::Matrix2x3; //!< Use simplification in upper application to use matrix like openGL shader

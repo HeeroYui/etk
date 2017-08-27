@@ -204,7 +204,7 @@ etk::String etk::FSNodeRight::getRight() const {
 }
 
 
-std::ostream& etk::operator <<(std::ostream &_os, const etk::FSNodeRight &_obj) {
+etk::Stream& etk::operator <<(etk::Stream &_os, const etk::FSNodeRight &_obj) {
 	_os << _obj.getRight();
 	return _os;
 };

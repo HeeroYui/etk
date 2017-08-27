@@ -6,7 +6,7 @@
 
 #include <etk/math/Matrix2x2.hpp>
 
-std::ostream& etk::operator <<(std::ostream& _os, const etk::Matrix2x2& _obj) {
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Matrix2x2& _obj) {
 	_os << "{";
 	_os << _obj.m_mat[0] << ",";
 	_os << _obj.m_mat[1] << ";";

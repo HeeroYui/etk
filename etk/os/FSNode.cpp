@@ -11,7 +11,7 @@
 #include <cstdlib>
 #include <etk/tool.hpp>
 #include <etk/debug.hpp>
-#include <map>
+#include <etk/Map.hpp>
 #include <mutex>
 #ifdef __TARGET_OS__Windows
 	#include <tchar.h>
@@ -1510,7 +1510,7 @@ bool etk::FSNode::operator!= (const etk::FSNode& _obj ) const {
 	return !(*this == _obj);
 }
 
-std::ostream& etk::operator <<(std::ostream &_os, const etk::FSNode &_obj) {
+etk::Stream& etk::operator <<(etk::Stream &_os, const etk::FSNode &_obj) {
 	if (_obj.m_libSearch.size() != 0) {
 		_os << "{" << _obj.m_libSearch << "}";
 	}
@@ -1518,7 +1518,7 @@ std::ostream& etk::operator <<(std::ostream &_os, const etk::FSNode &_obj) {
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream &_os, const enum etk::FSNType &_obj) {
+etk::Stream& etk::operator <<(etk::Stream &_os, const enum etk::FSNType &_obj) {
 	switch (_obj)
 	{
 		case etk::FSNType_unknow:
@@ -1555,7 +1555,7 @@ std::ostream& etk::operator <<(std::ostream &_os, const enum etk::FSNType &_obj)
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream &_os, const enum etk::typeNode &_obj) {
+etk::Stream& etk::operator <<(etk::Stream &_os, const enum etk::typeNode &_obj) {
 	switch (_obj) {
 		case etk::typeNode_unknow:
 			_os << "typeNode_unknow";
@@ -2203,14 +2203,13 @@ int64_t etk::FSNode::fileWrite(const void * _data, int64_t _blockSize, int64_t _
 	return fwrite(_data, _blockSize, _nbBlock, m_PointerFile);
 }
 /*
-etk::FSNode& etk::FSNode::operator<< (const std::ostream& _data) {
+etk::FSNode& etk::FSNode::operator<< (const etk::Stream& _data) {
 	fileWrite(_data.str().c_str(), 1, _data.str().size());
 	return *this;
 }
 */
-etk::FSNode& etk::FSNode::operator<< (const std::stringstream& _data) {
-	etk::String sss = _data.str();
-	fileWrite(sss.c_str(), 1, sss.size());
+etk::FSNode& etk::FSNode::operator<< (const etk::Stream& _data) {
+	fileWrite(_data.c_str(), 1, _data.size());
 	return *this;
 }
 etk::FSNode& etk::FSNode::operator<< (const etk::String& _data) {
@@ -2222,23 +2221,17 @@ etk::FSNode& etk::FSNode::operator<< (const char* _data) {
 	return *this;
 }
 etk::FSNode& etk::FSNode::operator<< (const int32_t _data) {
-	std::stringstream tmp;
-	tmp << _data;
-	etk::String sss = tmp.str();
+	etk::String sss = etk::toString(_data);
 	fileWrite(sss.c_str(), 1, sss.size());
 	return *this;
 }
 etk::FSNode& etk::FSNode::operator<< (const uint32_t _data) {
-	std::stringstream tmp;
-	tmp << _data;
-	etk::String sss = tmp.str();
+	etk::String sss = etk::toString(_data);
 	fileWrite(sss.c_str(), 1, sss.size());
 	return *this;
 }
 etk::FSNode& etk::FSNode::operator<< (const float _data) {
-	std::stringstream tmp;
-	tmp << _data;
-	etk::String sss = tmp.str();
+	etk::String sss = etk::toString(_data);
 	fileWrite(sss.c_str(), 1, sss.size());
 	return *this;
 }
@@ -2320,20 +2313,20 @@ void etk::FSNode::fileFlush() {
 
 
 // TODO : Add an INIT to reset all allocated parameter :
-static std::map<etk::String, etk::String> g_listTheme;
+static etk::Map<etk::String, etk::String> g_listTheme;
 
 void etk::theme::setName(const etk::String& _refName, const etk::String& _folderName) {
 	TK_WARNING("Change theme : '" << _refName << "' : '" << _folderName << "'");
 	#if __CPP_VERSION__ >= 2011
 		auto it = g_listTheme.find(_refName);
 	#else
-		std::map<etk::String, etk::String>::iterator it = g_listTheme.find(_refName);
+		etk::Map<etk::String, etk::String>::iterator it = g_listTheme.find(_refName);
 	#endif
 	if (it != g_listTheme.end()) {
 		it->second = _folderName;
 		return;
 	}
-	g_listTheme.insert(std::pair<etk::String,etk::String>(_refName, _folderName));
+	g_listTheme.insert(etk::Pair<etk::String,etk::String>(_refName, _folderName));
 }
 #if __CPP_VERSION__ >= 2011
 	void etk::theme::setName(const etk::UString& _refName, const etk::UString& _folderName) {
@@ -2345,7 +2338,7 @@ etk::String etk::theme::getName(const etk::String& _refName) {
 	#if __CPP_VERSION__ >= 2011
 		auto it = g_listTheme.find(_refName);
 	#else
-		std::map<etk::String, etk::String>::iterator it = g_listTheme.find(_refName);
+		etk::Map<etk::String, etk::String>::iterator it = g_listTheme.find(_refName);
 	#endif
 	if (it != g_listTheme.end()) {
 		return it->second;
@@ -2366,7 +2359,7 @@ etk::Vector<etk::String> etk::theme::list() {
 			keys.pushBack(it.first);
 		}
 	#else
-		for (std::map<etk::String, etk::String>::iterator it(g_listTheme.begin()); it != g_listTheme.end(); ++it) {
+		for (etk::Map<etk::String, etk::String>::iterator it(g_listTheme.begin()); it != g_listTheme.end(); ++it) {
 			keys.pushBack(it->first);
 		}
 	#endif
@@ -2382,18 +2375,18 @@ etk::Vector<etk::String> etk::theme::list() {
 	}
 #endif
 
-static std::map<etk::String, etk::String> g_listThemeDefault;
+static etk::Map<etk::String, etk::String> g_listThemeDefault;
 void etk::theme::setNameDefault(const etk::String& _refName, const etk::String& _folderName) {
 	#if __CPP_VERSION__ >= 2011
 		auto it = g_listThemeDefault.find(_refName);
 	#else
-		std::map<etk::String, etk::String>::iterator it = g_listThemeDefault.find(_refName);
+		etk::Map<etk::String, etk::String>::iterator it = g_listThemeDefault.find(_refName);
 	#endif
 	if (it != g_listThemeDefault.end()) {
 		it->second = _folderName;
 		return;
 	}
-	g_listThemeDefault.insert(std::pair<etk::String,etk::String>(_refName, _folderName));
+	g_listThemeDefault.insert(etk::Pair<etk::String,etk::String>(_refName, _folderName));
 }
 #if __CPP_VERSION__ >= 2011
 	void etk::theme::setNameDefault(const etk::UString& _refName, const etk::UString& _folderName) {
@@ -2405,7 +2398,7 @@ etk::String etk::theme::getNameDefault(const etk::String& _refName) {
 	#if __CPP_VERSION__ >= 2011
 		auto it=g_listThemeDefault.find(_refName);
 	#else
-		std::map<etk::String, etk::String>::iterator it = g_listThemeDefault.find(_refName);
+		etk::Map<etk::String, etk::String>::iterator it = g_listThemeDefault.find(_refName);
 	#endif
 	if (it != g_listThemeDefault.end()) {
 		return it->second;

@@ -6,9 +6,9 @@
 #pragma once
 
 #include <etk/types.hpp>
-#include <etk/debug.hpp>
+//#include <etk/debug.hpp>
 #include <etk/Vector.hpp>
-#include <etk/stdTools.hpp>
+
 
 namespace etk {
 	/**
@@ -145,7 +145,7 @@ namespace etk {
 					 * @return the reference on the current Element 
 					 */
 					char operator* () const {
-						TK_ASSERT(m_current < m_string->size(), "out of range");
+						//TK_ASSERT(m_current < m_string->size(), "out of range");
 						return m_string->get(m_current);
 					}
 					/**
@@ -153,7 +153,7 @@ namespace etk {
 					 * @return the reference on the current Element 
 					 */
 					char& operator* () {
-						TK_ASSERT(m_current < m_string->size(), "out of range");
+						//TK_ASSERT(m_current < m_string->size(), "out of range");
 						return m_string->get(m_current);
 					}
 					/*****************************************************
@@ -222,7 +222,7 @@ namespace etk {
 			 */
 			String(const char* _obj);
 			// TODO : remove this when ready
-			String(const std::string _obj);
+			//////// String(const std::string _obj);
 			/**
 			 * @brief Partial copy of the null-terminated C string.
 			 * @param[in] _obj String that might be copyC string that might be copy (end by '\0')
@@ -472,7 +472,7 @@ namespace etk {
 	template <class TYPE>
 	etk::String toString(const TYPE& _variable);
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::String& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::String& _obj);
 	/**
 	 * @brief Template to declare conversion from string to anything
 	 * @param[out] _variableRet Output value

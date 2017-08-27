@@ -7,7 +7,7 @@
 #include <etk/math/Matrix3x3.hpp>
 
 
-std::ostream& etk::operator <<(std::ostream& _os, const etk::Matrix3x3& _obj) {
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Matrix3x3& _obj) {
 	_os << "{";
 	_os << _obj.m_mat[0] << ",";
 	_os << _obj.m_mat[1] << ",";

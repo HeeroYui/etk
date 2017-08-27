@@ -70,16 +70,16 @@ static const char* parseStatusTable[] = {
 	"parseStatusPartial",
 	"parseStatusFull"
 };
-std::ostream& etk::regex::operator <<(std::ostream& _os, enum etk::regex::parseStatus _obj) {
+etk::Stream& etk::regex::operator <<(etk::Stream& _os, enum etk::regex::parseStatus _obj) {
 	_os << parseStatusTable[_obj];
 	return _os;
 }
-std::ostream& etk::regex::operator <<(std::ostream& _os, const etk::regex::FindProperty& _obj) {
+etk::Stream& etk::regex::operator <<(etk::Stream& _os, const etk::regex::FindProperty& _obj) {
 	_os << "property([" << _obj.getPositionStart() << "," << _obj.getPositionStop() << "]*" << _obj.getMultiplicity() << " " << _obj.getStatus() << ")";
 	return _os;
 }
 
-etk::String etk::regex::createString(const std::vector<char32_t>& _data, int64_t _start, int64_t _stop) {
+etk::String etk::regex::createString(const etk::Vector<char32_t>& _data, int64_t _start, int64_t _stop) {
 	etk::String output(ETK_BASH_COLOR_NORMAL);
 	for (int64_t iii=_start; iii<(int64_t)_data.size() && iii<_stop ; iii++) {
 		switch(_data[iii]) {
@@ -129,7 +129,7 @@ char* etk::regex::levelSpace(uint32_t _level) {
 }
 
 
-int64_t etk::regex::getLenOfPTheseElement(const std::vector<char32_t>& _data, int64_t _startPos) {
+int64_t etk::regex::getLenOfPTheseElement(const etk::Vector<char32_t>& _data, int64_t _startPos) {
 	if (_startPos>=(int64_t)_data.size()){
 		return 0;
 	}
@@ -169,7 +169,7 @@ int64_t etk::regex::getLenOfPTheseElement(const std::vector<char32_t>& _data, in
 	return pos - _startPos;
 }
 
-int64_t etk::regex::getLenOfPThese(const std::vector<char32_t>& _data, int64_t _startPos) {
+int64_t etk::regex::getLenOfPThese(const etk::Vector<char32_t>& _data, int64_t _startPos) {
 	int64_t pos = _startPos;
 	int32_t nbOpen = 0;
 	// special case of the (...) or | ==> we search '|' or ')'
@@ -210,7 +210,7 @@ int64_t etk::regex::getLenOfPThese(const std::vector<char32_t>& _data, int64_t _
 }
 
 
-int64_t etk::regex::getLenOfBracket(const std::vector<char32_t>& _data, int64_t _startPos) {
+int64_t etk::regex::getLenOfBracket(const etk::Vector<char32_t>& _data, int64_t _startPos) {
 	int64_t pos = _startPos;
 	// special case of the (...) or | ==> we search '|' or ')'
 	if(_data[pos]==regexOpcodeBracketOut) {
@@ -263,7 +263,7 @@ int64_t etk::regex::getLenOfBracket(const std::vector<char32_t>& _data, int64_t 
 }
 
 
-int64_t etk::regex::getLenOfBrace(const std::vector<char32_t>& _data, int64_t _startPos) {
+int64_t etk::regex::getLenOfBrace(const etk::Vector<char32_t>& _data, int64_t _startPos) {
 	int32_t pos = _startPos;
 	// special case of the (...) or | ==> we search '|' or ')'
 	if(_data[pos]==regexOpcodeBraceOut) {
@@ -297,7 +297,7 @@ int64_t etk::regex::getLenOfBrace(const std::vector<char32_t>& _data, int64_t _s
 }
 
 
-int64_t etk::regex::getLenOfNormal(const std::vector<char32_t>& _data, int64_t _startPos) {
+int64_t etk::regex::getLenOfNormal(const etk::Vector<char32_t>& _data, int64_t _startPos) {
 	int64_t pos = _startPos;
 	// find size ...
 	while (pos < (int64_t)_data.size() ) {
@@ -346,7 +346,7 @@ int64_t etk::regex::getLenOfNormal(const std::vector<char32_t>& _data, int64_t _
 }
 
 
-bool etk::regex::parseBrace(const std::vector<char32_t>& _data, uint32_t& _min, uint32_t& _max) {
+bool etk::regex::parseBrace(const etk::Vector<char32_t>& _data, uint32_t& _min, uint32_t& _max) {
 	int64_t k=0;
 	int32_t firstElement = 0;
 	int32_t SecondElement = 0;

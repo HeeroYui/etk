@@ -6,7 +6,7 @@
 
 #include <etk/math/Vector4D.hpp>
 
-std::ostream& etk::operator <<(std::ostream &_os, const etk::Vector4D<int32_t>& _obj) {
+etk::Stream& etk::operator <<(etk::Stream &_os, const etk::Vector4D<int32_t>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -19,7 +19,7 @@ std::ostream& etk::operator <<(std::ostream &_os, const etk::Vector4D<int32_t>& 
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream &_os, const etk::Vector4D<float>& _obj) {
+etk::Stream& etk::operator <<(etk::Stream &_os, const etk::Vector4D<float>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -32,7 +32,7 @@ std::ostream& etk::operator <<(std::ostream &_os, const etk::Vector4D<float>& _o
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream &_os, const etk::Vector4D<uint32_t>& _obj) {
+etk::Stream& etk::operator <<(etk::Stream &_os, const etk::Vector4D<uint32_t>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -45,7 +45,7 @@ std::ostream& etk::operator <<(std::ostream &_os, const etk::Vector4D<uint32_t>&
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream &_os, const etk::Vector4D<bool>& _obj) {
+etk::Stream& etk::operator <<(etk::Stream &_os, const etk::Vector4D<bool>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";

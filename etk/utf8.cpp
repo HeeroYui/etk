@@ -4,9 +4,10 @@
  * @license MPL v2.0 (see license file)
  */
 
-#include <etk/stdTools.hpp>
-#include <etk/debug.hpp>
+#include <etk/utf8.hpp>
+//#include <etk/debug.hpp>
 #include <etk/String.hpp>
+#include <etk/UString.hpp>
 
 
 
@@ -128,16 +129,77 @@ int8_t u32char::convertUtf8(char32_t _val, char _output[5]) {
 		return 4;
 	}
 }
-#if __CPP_VERSION__ >= 2011
-	etk::String u32char::convertToUtf8(const etk::UString& _input) {
-		TK_TODO("implement this function ...");
-		return "TODO ... etk::String u32char::convertToUtf8(const etk::UString& _input)";
+
+etk::String u32char::convertToUtf8(const etk::UString& _input) {
+	return etk::toString(_input);
+}
+
+size_t u32char::strlen(const char32_t* _input) {
+	uint32_t out = 0;
+	while (_input != 0) {
+		out++;
+		_input++;
 	}
-#endif
+	return out;
+}
+class DoubleChar {
+	public:
+		char32_t lower;
+		char32_t upper;
+};
+DoubleChar conversionTable[] = {
+	{U'ç', U'Ç'},
+
+	{U'á', U'Á'}, {U'à', U'À'}, {U'ä', U'Ä'}, {U'â', U'Â'}, {U'å', U'Å'}, {U'ã', U'Ã'},
+	{U'é', U'É'}, {U'è', U'È'}, {U'ë', U'Ë'}, {U'ê', U'Ê'}, 
+	{U'ú', U'Ú'}, {U'ù', U'Ù'}, {U'ü', U'Ü'}, {U'û', U'Û'},
+	{U'í', U'Í'}, {U'ì', U'Ì'}, {U'ï', U'Ï'}, {U'î', U'Î'},
+	{U'ó', U'Ó'}, {U'ò', U'Ò'}, {U'ö', U'Ö'}, {U'ô', U'Ô'}, {U'õ', U'Õ'},
+	{U'ý', U'Ý'}, {U'ỳ', U'Ỳ'}, {U'ÿ', U'Ÿ'}, {U'ŷ', U'Ŷ'},
+
+	{U'ñ', U'Ñ'}, {U'ǹ', U'Ǹ'},
+
+	{U'ḧ', U'Ḧ'}, {U'ĥ', U'Ĥ'},
+
+	{U'ẅ', U'Ẅ'}, {U'ŵ', U'Ŵ'}, {U'ẁ', U'Ẁ'},
+
+	{U'ẍ', U'Ẍ'},
+
+	{U'æ', U'Æ'},
+	{U'ð', U'Ð'},
+	{U'ø', U'Ø'}
+};
+size_t conversionTableSize = sizeof(conversionTable)/sizeof(DoubleChar);
+
+char32_t u32char::toUpper(char32_t _input) {
+	if (_input >= 'a' && _input <= 'z') {
+		return _input + ((int)'A'-(int)'a');
+	}
+	for (size_t iii = 0; iii < conversionTableSize; ++iii) {
+		if (conversionTable[iii].lower == _input) {
+			return conversionTable[iii].upper;
+		}
+	}
+	return _input;
+}
+
+char32_t u32char::toLower(char32_t _input) {
+	if (_input >= 'A' && _input <= 'Z') {
+		return _input + ((int)'a'-(int)'A');
+	}
+	for (size_t iii = 0; iii < conversionTableSize; ++iii) {
+		if (conversionTable[iii].upper == _input) {
+			return conversionTable[iii].lower;
+		}
+	}
+	return _input;
+}
+
+
 
 static uint8_t sizeElement(const char* _data, int32_t _lenMax) {
 	uint8_t size = 0;
-	TK_ASSERT(0 <= _lenMax, "size can not be < 0 ...");
+	//TK_ASSERT(0 <= _lenMax, "size can not be < 0 ...");
 	if (0 > _lenMax) {
 		return 0;
 	}
@@ -225,9 +287,59 @@ bool utf8::first(const char _input) {
 	}
 	return false;
 }
-#if __CPP_VERSION__ >= 2011
-	etk::UString utf8::convertUnicode(const etk::String& _input) {
-		TK_TODO("implement this function ...");
-		return U"TODO ... etk::UString utf8::convertUnicode(const etk::String& _input)";
+
+etk::UString utf8::convertUnicode(const char* _input) {
+	if (_input == nullptr) {
+		return U"";
 	}
-#endif
+	etk::UString out;
+	char tmpData[20];
+	int64_t pos = 0;
+	int64_t inputLen = strlen(_input);
+	while (pos < inputLen) {
+		int32_t lenMax = inputLen - pos;
+		//4 case
+		if (    1<=lenMax
+		     && 0x00 == (_input[pos+0] & 0x80) ) {
+			tmpData[0] = _input[pos+0];
+			tmpData[1] = '\0';
+			pos += 1;
+		} else if (    2<=lenMax
+		            && 0xC0 == (_input[pos+0] & 0xE0)
+		            && 0x80 == (_input[pos+1] & 0xC0) ) {
+			tmpData[0] = _input[pos+0];
+			tmpData[1] = _input[pos+1];
+			tmpData[2] = '\0';
+			pos += 2;
+		} else if (    3<=lenMax
+		            && 0xE0 == (_input[pos+0] & 0xF0)
+		            && 0x80 == (_input[pos+1] & 0xC0)
+		            && 0x80 == (_input[pos+2] & 0xC0)) {
+			tmpData[0] = _input[pos+0];
+			tmpData[1] = _input[pos+1];
+			tmpData[2] = _input[pos+2];
+			tmpData[3] = '\0';
+			pos += 3;
+		} else if (    4<=lenMax
+		            && 0xF0 == (_input[pos+0] & 0xF8)
+		            && 0x80 == (_input[pos+1] & 0xC0)
+		            && 0x80 == (_input[pos+2] & 0xC0)
+		            && 0x80 == (_input[pos+3] & 0xC0)) {
+			tmpData[0] = _input[pos+0];
+			tmpData[1] = _input[pos+1];
+			tmpData[2] = _input[pos+2];
+			tmpData[3] = _input[pos+3];
+			tmpData[4] = '\0';
+			pos += 4;
+		} else {
+			tmpData[0] = '\0';
+			pos += 1;
+		}
+		out += utf8::convertChar32(tmpData);
+	}
+	return out;
+}
+
+etk::UString utf8::convertUnicode(const etk::String& _input) {
+	return utf8::convertUnicode(_input.c_str());
+}

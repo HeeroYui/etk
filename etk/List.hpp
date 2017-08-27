@@ -57,7 +57,7 @@ namespace etk {
 			
 			void pushBack(ETK_LIST_TYPE _element);
 			
-			void pop_back();
+			void popBack();
 			
 			void push_front(ETK_LIST_TYPE _element);
 			void pop_front();

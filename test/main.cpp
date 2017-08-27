@@ -6,11 +6,11 @@
 
 #include <etk/types.hpp>
 #include <test-debug/debug.hpp>
-#include <vector>
-#include <string>
+#include <etk/Vector.hpp>
+#include <etk/String.hpp>
 #include <etk/etk.hpp>
 #include <etk/stdTools.hpp>
-#include <string>
+#include <etk/String.hpp>
 
 #include <etk/os/FSNode.hpp>
 #include <gtest/gtest.h>

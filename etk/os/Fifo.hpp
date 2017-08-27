@@ -9,7 +9,7 @@
 #pragma once
 
 #include <mutex>
-#include <vector>
+#include <etk/Vector.hpp>
 #include <condition_variable>
 
 namespace etk {
@@ -22,7 +22,7 @@ namespace etk {
 		private :
 			std::mutex m_mutex; //!< protection of the internal data.
 			std::condition_variable m_condition; //!< Message system to send event on an other thread.
-			std::vector<MY_TYPE> m_data; //!< List of all message to send
+			etk::Vector<MY_TYPE> m_data; //!< List of all message to send
 		public :
 			/**
 			 * @brief Create a fifo with no message.
@@ -98,7 +98,7 @@ namespace etk {
 			 */
 			void post(MY_TYPE &_data) {
 				std::unique_lock<std::mutex> lock(m_mutex);
-				m_data.push_back(_data);
+				m_data.pushBack(_data);
 				m_condition.notify_all();
 			};
 			/**
@@ -107,7 +107,7 @@ namespace etk {
 			 */
 			void post(const MY_TYPE &_data) {
 				std::unique_lock<std::mutex> lock(m_mutex);
-				m_data.push_back(_data);
+				m_data.pushBack(_data);
 				m_condition.notify_all();
 			};
 			/**

@@ -18,7 +18,7 @@ namespace etk {
 	 */
 	class BaseNoise {
 		private:
-			std::vector<float> m_data; //!< basic interface date
+			etk::Vector<float> m_data; //!< basic interface date
 			ivec2 m_size; //!< Size of the noise data
 		public:
 			/**
@@ -56,7 +56,7 @@ namespace etk {
 	 */
 	class Noise {
 		private:
-			std::vector<float> m_data; //!< Internal data generated
+			etk::Vector<float> m_data; //!< Internal data generated
 			ivec2 m_size; //!< Size of the noise
 			enum noiseType m_type; //!< Type of the noise
 			/**

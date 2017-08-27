@@ -434,20 +434,20 @@ namespace etk {
 			 * @param _obj The other Vector to compare with
 			 */
 			void setMax(const Quaternion& _obj) {
-				std::max(m_floats[0], _obj.m_floats[0]);
-				std::max(m_floats[1], _obj.m_floats[1]);
-				std::max(m_floats[2], _obj.m_floats[2]);
-				std::max(m_floats[3], _obj.m_floats[3]);
+				etk::max(m_floats[0], _obj.m_floats[0]);
+				etk::max(m_floats[1], _obj.m_floats[1]);
+				etk::max(m_floats[2], _obj.m_floats[2]);
+				etk::max(m_floats[3], _obj.m_floats[3]);
 			}
 			/**
 			 * @brief Set each element to the min of the current values and the values of another Vector
 			 * @param _obj The other Vector to compare with
 			 */
 			void setMin(const Quaternion& _obj) {
-				std::min(m_floats[0], _obj.m_floats[0]);
-				std::min(m_floats[1], _obj.m_floats[1]);
-				std::min(m_floats[2], _obj.m_floats[2]);
-				std::min(m_floats[3], _obj.m_floats[3]);
+				etk::min(m_floats[0], _obj.m_floats[0]);
+				etk::min(m_floats[1], _obj.m_floats[1]);
+				etk::min(m_floats[2], _obj.m_floats[2]);
+				etk::min(m_floats[3], _obj.m_floats[3]);
 			}
 			/**
 			 * @brief Set Value on the quaternion
@@ -571,6 +571,6 @@ namespace etk {
 			void setEulerAngles(const vec3& _angles);
 	};
 	//! @not_in_doc
-	std::ostream& operator <<(std::ostream& _os, const etk::Quaternion& _obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Quaternion& _obj);
 }
 

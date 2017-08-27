@@ -372,7 +372,7 @@ etk::Matrix4x4 etk::Matrix4x4::invert() {
 }
 
 
-std::ostream& etk::operator <<(std::ostream& _os, const etk::Matrix4x4& _obj) {
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Matrix4x4& _obj) {
 	_os << "matrix4 : (";
 	for (int32_t iii=0; iii<16; iii++) {
 		_os << _obj.m_mat[iii];

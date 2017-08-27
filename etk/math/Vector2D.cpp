@@ -8,7 +8,7 @@
 #include <etk/stdTools.hpp>
 #include <etk/debug.hpp>
 
-std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector2D<int32_t>& _obj) {
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Vector2D<int32_t>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -17,7 +17,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector2D<int32_t>& 
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector2D<float>& _obj) {
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Vector2D<float>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -26,7 +26,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector2D<float>& _o
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector2D<uint32_t>& _obj) {
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Vector2D<uint32_t>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -35,7 +35,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector2D<uint32_t>&
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector2D<bool>& _obj) {
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Vector2D<bool>& _obj) {
 	_os << "(";
 	_os << _obj.x();
 	_os << ",";
@@ -44,7 +44,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const etk::Vector2D<bool>& _ob
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const std::vector<vec2 >& _obj) {
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Vector<vec2 >& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -54,7 +54,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const std::vector<vec2 >& _obj
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const std::vector<ivec2 >& _obj) {
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Vector<ivec2 >& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -64,7 +64,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const std::vector<ivec2 >& _ob
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const std::vector<uivec2 >& _obj) {
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Vector<uivec2 >& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";
@@ -74,7 +74,7 @@ std::ostream& etk::operator <<(std::ostream& _os, const std::vector<uivec2 >& _o
 	return _os;
 }
 
-std::ostream& etk::operator <<(std::ostream& _os, const std::vector<bvec2 >& _obj) {
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Vector<bvec2 >& _obj) {
 	for (size_t iii = 0; iii < _obj.size(); ++iii) {
 		if (iii != 0) {
 			_os << " ";

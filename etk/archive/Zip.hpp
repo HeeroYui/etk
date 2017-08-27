@@ -34,7 +34,7 @@
 					 */
 					virtual ~Zip();
 				protected:
-					void loadFile(const std::map<etk::String, ArchiveContent>::iterator& _it) override;
+					void loadFile(const etk::Map<etk::String, ArchiveContent>::iterator& _it) override;
 			};
 		}
 	}
