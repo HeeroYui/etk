@@ -57,7 +57,7 @@ etk::archive::Zip::~Zip() {
 	};
 }
 
-void etk::archive::Zip::loadFile(const etk::Map<etk::String, ArchiveContent>::iterator& it) {
+void etk::archive::Zip::loadFile(const etk::Map<etk::String, ArchiveContent>::Iterator& it) {
 	TK_VERBOSE("Real load file : '" << it->first << "'");
 	
 	unzGoToFirstFile(m_ctx);

@@ -13,7 +13,7 @@ namespace etk {
 	class Pair {
 		public:
 			ETK_PAIR_TYPE_1 first;
-			ETK_PAIR_TYPE_1 second;
+			ETK_PAIR_TYPE_2 second;
 			Pair():
 			  first(),
 			  second() {

@@ -12,6 +12,7 @@
 #include <etk/stdTools.hpp>
 #include <etk/String.hpp>
 #include <etk/UString.hpp>
+#include <etk/pair.hpp>
 #include <memory>
 
 #define TK_REG_DEBUG TK_HIDDEN
@@ -173,6 +174,9 @@ etk::String autoStr(const etk::String& _data);
 etk::String autoStr(char _data);
 etk::String strTick(int32_t _pos);
 
+class FindProperty;
+etk::Stream& operator <<(etk::Stream& _os, const FindProperty& _obj);
+
 /**
  * @brief Node Elements for every-one
  * @not-in-doc
@@ -217,7 +221,7 @@ class FindProperty {
 		void setPositionStop(int64_t _newPos) {
 			m_positionStop = _newPos;
 			if (m_positionStop < m_positionStart) {
-				TK_CRITICAL("set voluntary a stop position before end : " << this << " start=" << m_positionStart << " stop=" << m_positionStop);
+				TK_CRITICAL("set voluntary a stop position before end : " << *this << " start=" << m_positionStart << " stop=" << m_positionStop);
 			}
 		}
 		uint32_t getMultiplicity() const {
@@ -275,8 +279,6 @@ class FindProperty {
 			}
 		}
 };
-
-etk::Stream& operator <<(etk::Stream& _os, const FindProperty& _obj);
 
 /**
  * @brief Node Elements for every-one

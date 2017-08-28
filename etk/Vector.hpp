@@ -363,13 +363,7 @@ namespace etk {
 			 * @param[in] _pos Desired position read
 			 * @return Reference on the Element
 			 */
-			ETK_VECTOR_TYPE& get(size_t _pos) {
-				// NOTE :Do not change log level, this generate error only in debug mode
-				#if DEBUG_LEVEL > 2
-					if(_pos>m_size){
-						TK_CRITICAL("[CRITICAL] Access to an inexistent data in vector : " << _pos << "/ " << m_size);
-					}
-				#endif
+			ETK_VECTOR_TYPE& get(const size_t _pos) {
 				return m_data[_pos];
 			}
 			/**
@@ -377,21 +371,15 @@ namespace etk {
 			 * @param[in] _pos Position in the vector that might be get [0..Size()]
 			 * @return An reference on the copy of selected element
 			 */
-			ETK_VECTOR_TYPE& operator[] (size_t _pos) {
-				return get(_pos);
+			ETK_VECTOR_TYPE& operator[] (const size_t _pos) {
+				return m_data[_pos];
 			}
 			/**
 			 * @brief Get an Element an a special position
 			 * @param[in] _pos Position in the vector that might be get [0..Size()]
 			 * @return An reference on the selected element
 			 */
-			const ETK_VECTOR_TYPE& operator[] (size_t _pos) const {
-				// NOTE :Do not change log level, this generate error only in debug mode
-				#if DEBUG_LEVEL > 2
-					if(_pos>m_size){
-						TK_CRITICAL("[CRITICAL] Access to an inexistent data in vector : " << _pos << "/ " << m_size);
-					}
-				#endif
+			const ETK_VECTOR_TYPE& operator[] (const size_t _pos) const {
 				return m_data[_pos];
 			}
 			/**

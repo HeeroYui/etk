@@ -54,6 +54,9 @@ def configure(target, my_module):
 	# add dependency of the generic C++ library:
 	my_module.add_depend([
 	    'c',
+	    'm',
+	    "pthread",
+	    "cxx",
 	    ])
 	
 	if "Android" in target.get_type():

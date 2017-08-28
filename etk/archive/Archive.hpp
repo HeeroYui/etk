@@ -167,7 +167,7 @@ namespace etk {
 			 * @brief Request the load in memory of the concerned file.
 			 * @param[in] _it Iterator on the element.
 			 */
-			virtual void loadFile(const etk::Map<etk::String, ArchiveContent>::iterator& _it) { };
+			virtual void loadFile(const etk::Map<etk::String, ArchiveContent>::Iterator& _it) { };
 		public:
 			/**
 			 * @brief Load an Achive with a specific name.

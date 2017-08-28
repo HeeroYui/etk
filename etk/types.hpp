@@ -119,14 +119,6 @@ namespace etk {
 		// forward _Arg as movable
 		return ((typename etk::_Remove_reference<ETK_MOVE_TYPE>::m_type&&)_obj);
 	}
-	/*
-	
-	template<class ETK_MOVE_TYPE>
-	eETK_MOVE_TYPE&& move(ETK_MOVE_TYPE&& _obj) {
-		// forward _Arg as movable
-		return ((ETK_MOVE_TYPE&&)_obj);
-	}
-	*/
 
 }
 

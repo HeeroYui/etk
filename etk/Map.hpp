@@ -3,11 +3,11 @@
  * @copyright 2011, Edouard DUPIN, all right reserved
  * @license MPL v2.0 (see license file)
  */
+#pragma once
 
 #include <etk/types.hpp>
-
-#pragma once
-#include <etk/String.hpp>
+#include <etk/Pair.hpp>
+#include <etk/Vector.hpp>
 
 namespace etk {
 	/**
@@ -189,22 +189,20 @@ namespace etk {
 					 */
 					ETK_MAP_TYPE_DATA& operator-> () const {
 						//TK_CHECK_INOUT(m_current < m_map->size());
-						return &m_map->get(m_current);
+						return &m_map->getValue(m_current);
 					}
 					/**
 					 * @brief Get reference on the current Element
 					 * @return the reference on the current Element 
 					 */
 					ETK_MAP_TYPE_DATA& operator* () const {
-						//TK_CHECK_INOUT(m_current < m_map->size());
-						return m_map->get(m_current);
+						return m_map->getValue(m_current);
 					}
 					/**
 					 * @brief Get Key on the current Element
 					 * @return the Key on the current Element 
 					 */
 					const ETK_MAP_TYPE_KEY& getKey () const {
-						//TK_CHECK_INOUT(m_current < m_map->size());
 						return m_map->getKey(m_current);
 					}
 					/**
@@ -212,7 +210,6 @@ namespace etk {
 					 * @return the Key on the current Element 
 					 */
 					const ETK_MAP_TYPE_DATA& getValue () const {
-						//TK_CHECK_INOUT(m_current < m_map->size());
 						return m_map->getValue(m_current);
 					}
 					/**
@@ -220,7 +217,6 @@ namespace etk {
 					 * @return the Key on the current Element 
 					 */
 					ETK_MAP_TYPE_DATA& getValue () {
-						//TK_CHECK_INOUT(m_current < m_map->size());
 						return m_map->getValue(m_current);
 					}
 					
@@ -232,16 +228,28 @@ namespace etk {
 					}
 					friend class Map;
 			};
+			static bool defaultSort(etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key1,
+			                        etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key2) {
+				return _key1->first < _key2->first;
+			}
 		private:
 			etk::Vector<etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>*> m_data; //!< Data of the Map ==> the Map table is composed of pointer, this permit to have high speed when resize the vector ...
+			bool m_ordered;
 		public:
 			/**
 			 * @brief Constructor of the Map table.
 			 * @param[in] _count Number of basic element in the table.
 			 */
-			Map(int32_t _count = 0) :
-			  m_data(_count) {
+			Map(int32_t _count = 0, bool _ordered=true) :
+			  m_data(_count),
+			  m_ordered(_ordered) {
 				// nothing to do
+			}
+			void setOrdered(bool _ordered) {
+				m_ordered = _ordered;
+				if (m_ordered == true) {
+					m_data.sort(0, m_data.size(), etk::Map<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>::defaultSort);
+				}
 			}
 			/**
 			 * @brief Destructor of the Map table (clear all element in the table)
@@ -268,15 +276,16 @@ namespace etk {
 			 * @return Id of the element in the table or -1 of it does not existed
 			 */
 			int64_t getId(const ETK_MAP_TYPE_KEY& _key) const {
+				if (m_ordered == true) {
+					// TODO: search in a dichotomic way.
+				}
 				for (size_t iii=0; iii<m_data.size(); iii++) {
 					if (m_data[iii] != nullptr) {
-						//TK_INFO("Compare key : '" << m_data[iii]->m_key << "' with '" << _key << "'" );
 						if (m_data[iii]->first == _key) {
 							return iii;
 						}
 					}
 				}
-				//TK_ERROR(" ==> not fund key '" << _key << "'" );
 				return -1;
 			}
 			/**
@@ -286,12 +295,9 @@ namespace etk {
 			 */
 			bool exist(const ETK_MAP_TYPE_KEY& _name) const {
 				int64_t elementId = getId(_name);
-				//TK_INFO(" Exist ? '" << _name << "' id=" << elementId );
 				if (elementId<0) {
-					//TK_INFO("     ==> return false" );
 					return false;
 				}
-				//TK_INFO("     ==> return true" );
 				return true;
 			}
 			/**
@@ -335,10 +341,13 @@ namespace etk {
 				if (elementId <0) {
 					etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* tmp = new etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>(etk::move(_key), etk::move(_value));
 					if (tmp == nullptr) {
-						//TK_ERROR("allocation error in Map table : '" << _key << "'");
 						return;
 					}
 					m_data.pushBack(tmp);
+					// Order data if needed.
+					if (m_ordered == true) {
+						m_data.sort(0, m_data.size(), etk::Map<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>::defaultSort);
+					}
 					return;
 				}
 				m_data[elementId]->second = _value;
@@ -356,7 +365,7 @@ namespace etk {
 			 * @brief Remove an element in the Map table.
 			 * @param[in] _key Name of the element to remove.
 			 */
-			void remove(const ETK_MAP_TYPE_KEY& _key) {
+			void erase(const ETK_MAP_TYPE_KEY& _key) {
 				int64_t elementId = getId(_key);
 				if (elementId <0) {
 					//nothing to do ==> not existed
@@ -367,6 +376,17 @@ namespace etk {
 				m_data.erase(m_data.begin()+elementId);
 			}
 			/**
+			 * @brief Remove an element in the Map table.
+			 * @param[in] _it Iterator on the element.
+			 */
+			Iterator erase(const Iterator& _it) {
+				int64_t elementId = _it.m_current;
+				delete(m_data[elementId]);
+				m_data[elementId] = nullptr;
+				m_data.erase(m_data.begin()+elementId);
+				return position(elementId);
+			}
+			/**
 			 * @brief Get the number of element in the Map table
 			 * @return number of elements
 			 */
@@ -374,35 +394,11 @@ namespace etk {
 				return m_data.size();
 			}
 			/**
-			 * @brief get an element with his id.
-			 * @param[in] _pos Position on the element in the Map table.
-			 * @return requested element at this position.
-			 * @note this is a dangerous use of the Map table. Maybe you will use a simple vector.
-			 */
-			ETK_MAP_TYPE_DATA& operator[] (size_t _pos) {
-				return getValue(_pos);
-			}
-			/**
-			 * @brief get an element with his id.
-			 * @param[in] _pos Position on the element in the Map table.
-			 * @return requested element at this position.
-			 * @note this is a dangerous use of the Map table. Maybe you will use a simple vector.
-			 */
-			const ETK_MAP_TYPE_DATA& operator[] (size_t _pos) const {
-				return getValue(_pos);
-			}
-			/**
 			 * @brief Get the name of the element at a specific position.
 			 * @param[in] _pos Position of the element in the Map table.
 			 * @return name of the element (key).
 			 */
 			const ETK_MAP_TYPE_KEY& getKey(size_t _pos) const {
-				// NOTE :Do not change log level, this generate error only in debug mode
-				#if DEBUG_LEVEL > 2
-					if(_pos>m_data.size()){
-						//TK_CRITICAL("Access to an inexistent data in Map : " << _pos << "/ " << m_data.size());
-					}
-				#endif
 				return m_data[_pos]->m_key;
 			}
 			/**
@@ -424,24 +420,12 @@ namespace etk {
 			 * @return Value available at this position.
 			 */
 			const ETK_MAP_TYPE_DATA& getValue(size_t _pos) const {
-				// NOTE :Do not change log level, this generate error only in debug mode
-				#if DEBUG_LEVEL > 2
-					if(_pos>m_data.size()){
-						//TK_CRITICAL("Access to an inexistent data in Map : " << _pos << "/ " << m_data.size());
-					}
-				#endif
 				return m_data[_pos]->second;
 			}
 			/**
 			 * @copydoc getValue (size_t)
 			 */
 			ETK_MAP_TYPE_DATA& getValue(size_t _pos) {
-				// NOTE :Do not change log level, this generate error only in debug mode
-				#if DEBUG_LEVEL > 2
-					if(_pos>m_data.size()){
-						//TK_CRITICAL("Access to an inexistent data in Map : " << _pos << "/ " << m_data.size());
-					}
-				#endif
 				return m_data[_pos]->second;
 			}
 			
@@ -482,14 +466,14 @@ namespace etk {
 				if (elementId <0) {
 					return end();
 				}
-				position(elementId);
+				return position(elementId);
 			}
 			const Iterator find(const ETK_MAP_TYPE_KEY& _key) const {
 				int64_t elementId = getId(_key);
 				if (elementId <0) {
 					return end();
 				}
-				position(elementId);
+				return position(elementId);
 			}
 			
 			
