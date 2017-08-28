@@ -9,7 +9,6 @@
 #pragma once
 
 #include <etk/String.hpp>
-#include <etk/UString.hpp>
 
 namespace etk {
 	/**
@@ -139,13 +138,6 @@ namespace etk {
 			 * @param[in] _newStatus New value to set on the file/folder/...
 			 */
 			void setOtherRunable(bool _newStatus);
-			#if __CPP_VERSION__ >= 2011
-				/**
-				 * @brief Get the write written in a string mode (like in linux rw-r-----)
-				 * @return String with the right in string
-				 */
-				etk::UString getURight() const;
-			#endif
 			/**
 			 * @brief Get the write written in a string mode (like in linux rw-r-----)
 			 * @return String with the right in string

@@ -136,7 +136,7 @@ etk::String u32char::convertToUtf8(const etk::UString& _input) {
 
 size_t u32char::strlen(const char32_t* _input) {
 	uint32_t out = 0;
-	while (_input != 0) {
+	while (*_input != 0) {
 		out++;
 		_input++;
 	}

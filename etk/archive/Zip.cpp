@@ -38,7 +38,7 @@ etk::archive::Zip::Zip(const etk::String& _fileName, uint64_t _offset) :
 			// find directory ...
 		} else {
 			TK_INFO("find file : " << tmpFileName);
-			m_content.insert(etk::Pair<etk::String, etk::ArchiveContent>(tmpFileName, etk::ArchiveContent(tmpFileInfo.uncompressed_size)));
+			m_content.set(tmpFileName, etk::ArchiveContent(tmpFileInfo.uncompressed_size));
 		}
 		/* Go the the next entry listed in the zip file. */
 		if((iii+1) < m_info.number_entry) {

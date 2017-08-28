@@ -17,7 +17,7 @@ const etk::String& etk::Archive::getName(size_t _id) const {
 	size_t id = 0;
 	for (auto &it : m_content) {
 		if (id == _id) {
-			return it.getKey();
+			return it.first;
 		}
 		++id;
 	}
@@ -30,7 +30,7 @@ const etk::ArchiveContent& etk::Archive::getContent(size_t _id) const {
 	size_t id = 0;
 	for (auto &it : m_content) {
 		if (id == _id) {
-			return it.getValue();
+			return it.second;
 		}
 		++id;
 	}
@@ -43,7 +43,7 @@ const etk::ArchiveContent& etk::Archive::getContent(const etk::String& _key) con
 	if (it == m_content.end()) {
 		return g_error;
 	}
-	return it->getValue();
+	return it->second;
 }
 
 
@@ -55,9 +55,9 @@ bool etk::Archive::exist(const etk::String& _key) const {
 void etk::Archive::display() {
 	std::unique_lock<std::mutex> lock(m_mutex);
 	for (auto &it : m_content) {
-		int32_t size = it.getValue().getTheoricSize();
-		int32_t sizeR = it.getValue().size();
-		TK_INFO(" element : " << it.getKey() << " size=" << size << " allocated=" << sizeR);
+		int32_t size = it.second.getTheoricSize();
+		int32_t sizeR = it.second.size();
+		TK_INFO(" element : " << it.first << " size=" << size << " allocated=" << sizeR);
 	}
 }
 
@@ -118,11 +118,11 @@ void etk::Archive::open(const etk::String& _key) {
 		TK_ERROR("Try open an unexistant file : '" << _key << "'");
 		return;
 	}
-	if (it->getValue().getNumberOfRef()==-1) {
+	if (it->second.getNumberOfRef()==-1) {
 		loadFile(it);
-		it->getValue().increaseRef();
+		it->second.increaseRef();
 	}
-	it->getValue().increaseRef();
+	it->second.increaseRef();
 }
 
 void etk::Archive::close(const etk::String& _key) {
@@ -132,10 +132,10 @@ void etk::Archive::close(const etk::String& _key) {
 		TK_ERROR("Try close an unexistant file : '" << _key << "'");
 		return;
 	}
-	if (it->getValue().getNumberOfRef()==0){
+	if (it->second.getNumberOfRef()==0){
 		TK_ERROR("Try close one more time the file : '" << _key << "'");
 	} else {
-		it->getValue().decreaseRef();
+		it->second.decreaseRef();
 	}
 }
 

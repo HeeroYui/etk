@@ -189,7 +189,7 @@ namespace etk {
 					 * @brief Get reference on the current Element
 					 * @return the reference on the current Element 
 					 */
-					ETK_VECTOR_TYPE & operator-> () const {
+					ETK_VECTOR_TYPE* operator-> () const {
 						//TK_CHECK_INOUT(m_current < m_vector->size());
 						return &m_vector->get(m_current);
 					}
@@ -197,7 +197,7 @@ namespace etk {
 					 * @brief Get reference on the current Element
 					 * @return the reference on the current Element 
 					 */
-					ETK_VECTOR_TYPE & operator* () const {
+					ETK_VECTOR_TYPE& operator* () const {
 						//TK_CHECK_INOUT(m_current < m_vector->size());
 						return m_vector->get(m_current);
 					}
@@ -626,10 +626,10 @@ namespace etk {
 			 * @return The Iterator
 			 */
 			Iterator end() {
-				return position( size()-1 );
+				return position(size());
 			}
 			const Iterator end() const {
-				return position( size()-1 );
+				return position(size());
 			}
 			
 			/**

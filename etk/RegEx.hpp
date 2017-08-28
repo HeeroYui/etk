@@ -12,7 +12,7 @@
 #include <etk/stdTools.hpp>
 #include <etk/String.hpp>
 #include <etk/UString.hpp>
-#include <etk/pair.hpp>
+#include <etk/Pair.hpp>
 #include <memory>
 
 #define TK_REG_DEBUG TK_HIDDEN

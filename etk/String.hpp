@@ -420,6 +420,7 @@ namespace etk {
 			 * @param[in] _value Value to set at the new element
 			 */
 			void resize(size_t _newSize, char _value = '\0');
+			void append(Iterator _start, Iterator _stop);
 			/*****************************************************
 			 *    == operator
 			 *****************************************************/

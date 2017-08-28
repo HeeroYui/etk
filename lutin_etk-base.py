@@ -39,7 +39,6 @@ def configure(target, my_module):
 	    'etk/types.hpp',
 	    'etk/stdTools.hpp',
 	    'etk/Buffer.hpp',
-	    'etk/Hash.hpp',
 	    'etk/String.hpp',
 	    'etk/UString.hpp',
 	    'etk/utf8.hpp',
@@ -47,6 +46,7 @@ def configure(target, my_module):
 	    'etk/Stream.hpp',
 	    'etk/Pair.hpp',
 	    'etk/Map.hpp',
+	    'etk/move.hpp',
 	    ])
 	
 	# build in C++ mode

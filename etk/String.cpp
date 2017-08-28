@@ -933,6 +933,13 @@ etk::Vector<etk::String> etk::String::split(etk::String _val) const {
 	return list;
 }
 
+void etk::String::append(Iterator _start, Iterator _stop) {
+	while (_stop != _start) {
+		pushBack(*_start);
+		++_start;
+	}
+}
+
 namespace etk {
 	long double string_to_long_double(const etk::String& _obj) {
 		return _obj.to<long double>();

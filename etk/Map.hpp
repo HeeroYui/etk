@@ -187,16 +187,16 @@ namespace etk {
 					 * @brief Get reference on the current Element
 					 * @return the reference on the current Element 
 					 */
-					ETK_MAP_TYPE_DATA& operator-> () const {
+					etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* operator-> () const {
 						//TK_CHECK_INOUT(m_current < m_map->size());
-						return &m_map->getValue(m_current);
+						return &m_map->getContent(m_current);
 					}
 					/**
 					 * @brief Get reference on the current Element
 					 * @return the reference on the current Element 
 					 */
-					ETK_MAP_TYPE_DATA& operator* () const {
-						return m_map->getValue(m_current);
+					etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>& operator* () const {
+						return m_map->getContent(m_current);
 					}
 					/**
 					 * @brief Get Key on the current Element
@@ -219,7 +219,14 @@ namespace etk {
 					ETK_MAP_TYPE_DATA& getValue () {
 						return m_map->getValue(m_current);
 					}
-					
+					bool operator== (const Iterator& _obj) const{
+						return    m_map == _obj.m_map
+						       && m_current == _obj.m_current;
+					}
+					bool operator!= (const Iterator& _obj) const {
+						return    m_map != _obj.m_map
+						       || m_current != _obj.m_current;
+					}
 				private:
 					Iterator(const etk::Map<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA> * _obj, int32_t _pos):
 					  m_current(_pos),
@@ -312,7 +319,7 @@ namespace etk {
 					//TK_ERROR("try to access at an inexistent Map element : " << _key);
 					return g_error;
 				}
-				return m_data[elementId]->m_value;
+				return m_data[elementId]->second;
 			}
 			/**
 			 * @brief Get an copy Element an a special position
@@ -393,13 +400,19 @@ namespace etk {
 			size_t size() const {
 				return m_data.size();
 			}
+			const etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>& getContent(size_t _pos) const {
+				return *m_data[_pos];
+			}
+			etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>& getContent(size_t _pos) {
+				return *m_data[_pos];
+			}
 			/**
 			 * @brief Get the name of the element at a specific position.
 			 * @param[in] _pos Position of the element in the Map table.
 			 * @return name of the element (key).
 			 */
 			const ETK_MAP_TYPE_KEY& getKey(size_t _pos) const {
-				return m_data[_pos]->m_key;
+				return m_data[_pos]->first;
 			}
 			/**
 			 * @brief Get all the element name (keys).
@@ -409,7 +422,7 @@ namespace etk {
 				etk::Vector<ETK_MAP_TYPE_KEY> keys;
 				for (auto &it : m_data) {
 					if (it != nullptr) {
-						keys.pushBack(it->m_key);
+						keys.pushBack(it->first);
 					}
 				}
 				return etk::move(keys);
@@ -455,10 +468,10 @@ namespace etk {
 			 * @return The Iterator
 			 */
 			Iterator end() {
-				return position(size()-1);
+				return position(size());
 			}
 			const Iterator end() const {
-				return position(size()-1);
+				return position(size());
 			}
 			
 			Iterator find(const ETK_MAP_TYPE_KEY& _key) {

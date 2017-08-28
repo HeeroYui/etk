@@ -147,11 +147,6 @@ void etk::FSNodeRight::setOtherRunable(bool _newStatus) {
 		m_rights |= right_other_execute;
 	}
 }
-#if __CPP_VERSION__ >= 2011
-	etk::UString etk::FSNodeRight::getURight() const {
-		return etk::toUString(getRight());
-	}
-#endif
 
 etk::String etk::FSNodeRight::getRight() const {
 	etk::String tmp;

@@ -12,6 +12,7 @@ namespace etk {
 	template<class ETK_PAIR_TYPE_1, class ETK_PAIR_TYPE_2>
 	class Pair {
 		public:
+			// this is bad for coding rules, but an idiom of c++ pair imposed by the STL
 			ETK_PAIR_TYPE_1 first;
 			ETK_PAIR_TYPE_2 second;
 			Pair():
@@ -29,6 +30,14 @@ namespace etk {
 			  first(_pair.first),
 			  second(_pair.second) {
 				
+			}
+			bool operator== (const Pair<ETK_PAIR_TYPE_1, ETK_PAIR_TYPE_2>& _obj) const{
+				return    first == _obj.first
+				       && second == _obj.second;
+			}
+			bool operator!= (const Pair<ETK_PAIR_TYPE_1, ETK_PAIR_TYPE_2>& _obj) const{
+				return    first != _obj.first
+				       || second != _obj.second;
 			}
 	};
 	template<class ETK_PAIR_TYPE_1, class ETK_PAIR_TYPE_2>
