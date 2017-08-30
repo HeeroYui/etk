@@ -791,7 +791,7 @@ namespace etk {
 				if (_start > _stop) {
 					size_t start = _start;
 					_start = _stop;
-					_stop = _start;
+					_stop = start;
 				}
 				for (size_t iii=_start; iii<_stop; ++iii) {
 					bool swapped = false;

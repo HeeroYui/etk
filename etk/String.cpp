@@ -554,7 +554,15 @@ uint64_t etk::String::to<uint64_t>() const {
 	#endif
 	return ret;
 }
-
+#if    defined(__TARGET_OS__MacOs) \
+    || defined(__TARGET_OS__IOs)
+	template <>
+	size_t etk::String::to<size_t>() const {
+		int ret = 0;
+		sscanf(c_str(), "%u", &ret);
+		return ret;
+	}
+#endif
 template <>
 bool etk::String::to<bool>() const {
 	if(    compare("true", false) == true
@@ -642,6 +650,13 @@ namespace etk {
 		_variableRet = _value.to<uint64_t>();
 		return true;
 	}
+	#if    defined(__TARGET_OS__MacOs) \
+	    || defined(__TARGET_OS__IOs)
+		template<> bool from_string<size_t>(size_t& _variableRet, const etk::String& _value) {
+			_variableRet = _value.to<size_t>();
+			return true;
+		}
+	#endif
 	template<> bool from_string<float>(float& _variableRet, const etk::String& _value) {
 		_variableRet = _value.to<float>();
 		return true;
@@ -688,7 +703,14 @@ etk::String etk::toString(const int32_t& _val) {
 template<>
 etk::String etk::toString(const int64_t& _val) {
 	char tmpVal[256];
-	sprintf(tmpVal, "%ld", _val);
+	#if (    defined(__TARGET_OS__Android) \
+	      || defined(__TARGET_OS__Windows) \
+	      || defined(__TARGET_OS__MacOs) \
+	      || defined(__TARGET_OS__IOs))
+		sprintf(tmpVal, "%lld", _val);
+	#else
+		sprintf(tmpVal, "%ld", _val);
+	#endif
 	return tmpVal;
 }
 template<>
@@ -712,17 +734,25 @@ etk::String etk::toString(const uint32_t& _val) {
 template<>
 etk::String etk::toString(const uint64_t& _val) {
 	char tmpVal[256];
-	sprintf(tmpVal, "%lu", _val);
+	#if (    defined(__TARGET_OS__Android) \
+	      || defined(__TARGET_OS__Windows) \
+	      || defined(__TARGET_OS__MacOs) \
+	      || defined(__TARGET_OS__IOs))
+		sprintf(tmpVal, "%llu", _val);
+	#else
+		sprintf(tmpVal, "%lu", _val);
+	#endif
 	return tmpVal;
 }
-/*
+#if    defined(__TARGET_OS__MacOs) \
+    || defined(__TARGET_OS__IOs)
 template<>
 etk::String etk::toString(const size_t& _val) {
 	char tmpVal[256];
 	sprintf(tmpVal, "%zu", _val);
 	return tmpVal;
 }
-*/
+#endif
 
 template<>
 etk::String etk::toString(const float& _val) {

@@ -57,6 +57,13 @@ etk::Stream& etk::Stream::operator<< (const uint64_t _data) {
 	*m_data += etk::toString(_data);
 	return *this;
 }
+#if    defined(__TARGET_OS__MacOs) \
+    || defined(__TARGET_OS__IOs)
+	etk::Stream& etk::Stream::operator<< (const size_t _data) {
+		*m_data += etk::toString(_data);
+		return *this;
+	}
+#endif
 etk::Stream& etk::Stream::operator<< (const float _data) {
 	*m_data += etk::toString(_data);
 	return *this;

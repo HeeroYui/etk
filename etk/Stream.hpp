@@ -29,6 +29,10 @@ namespace etk {
 			Stream& operator<< (uint16_t _data);
 			Stream& operator<< (uint32_t _data);
 			Stream& operator<< (uint64_t _data);
+			#if    defined(__TARGET_OS__MacOs) \
+			    || defined(__TARGET_OS__IOs)
+				Stream& operator<< (size_t _data);
+			#endif
 			Stream& operator<< (float _data);
 			Stream& operator<< (double _data);
 			const char* c_str() const;
