@@ -324,7 +324,9 @@ const etk::String::Iterator etk::String::end() const {
 
 void etk::String::resize(size_t _newSize, char _value) {
 	size_t oldSize = m_data.size();
-	m_data[m_data.size()-1] = _value;
+	if (oldSize != 0) {
+		m_data[m_data.size()-1] = _value;
+	}
 	m_data.resize(_newSize + 1, _value);
 	// in all case ==> we have the last element that is '\0'
 	m_data[_newSize] = '\0';

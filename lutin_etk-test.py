@@ -28,7 +28,8 @@ def configure(target, my_module):
 	my_module.add_src_file([
 	    'test/main.cpp',
 	    'test/testColor.cpp',
-	    'test/testHash.cpp',
+	    'test/testMapUnordered.cpp',
+	    'test/testMap.cpp',
 	    'test/testMatrix3x3.cpp',
 	    'test/testRegExp.cpp',
 	    'test/testTransform.cpp',
@@ -37,7 +38,6 @@ def configure(target, my_module):
 	    'test/testFSNode.cpp',
 	    'test/testMatrix2x2.cpp',
 	    'test/testQuaternion.cpp',
-	    'test/testStdShared.cpp',
 	    'test/testVector2_f.cpp',
 	    'test/testString.cpp',
 	    ])

@@ -190,7 +190,6 @@ namespace etk {
 					 * @return the reference on the current Element 
 					 */
 					ETK_VECTOR_TYPE* operator-> () const {
-						//TK_CHECK_INOUT(m_current < m_vector->size());
 						return &m_vector->get(m_current);
 					}
 					/**
@@ -198,7 +197,6 @@ namespace etk {
 					 * @return the reference on the current Element 
 					 */
 					ETK_VECTOR_TYPE& operator* () const {
-						//TK_CHECK_INOUT(m_current < m_vector->size());
 						return m_vector->get(m_current);
 					}
 				private:
@@ -228,15 +226,13 @@ namespace etk {
 			 * @brief Re-copy constructor (copy all needed data)
 			 * @param[in] _obj Vector that might be copy
 			 */
-			Vector(const etk::Vector<ETK_VECTOR_TYPE>& _obj) {
-				m_allocated = _obj.m_allocated;
-				m_size = _obj.m_size;
-				m_data = nullptr;
-				//TK_DEBUG("USE Specific vector allocator ... Evb.m_size=" << Evb.m_size << " Evb.m_increment=" << Evb.m_increment);
+			Vector(const etk::Vector<ETK_VECTOR_TYPE>& _obj):
+			  m_data(nullptr),
+			  m_size(_obj.m_size),
+			  m_allocated(_obj.m_allocated) {
 				// allocate all same data
 				m_data = new ETK_VECTOR_TYPE[m_allocated];
 				if (m_data == nullptr) {
-					//TK_CRITICAL("Vector : Error in data allocation ... might nor work correctly anymore");
 					return;
 				}
 				// Copy all data ...
@@ -244,6 +240,12 @@ namespace etk {
 					// copy operator ...
 					m_data[iii] = _obj.m_data[iii];
 				}
+			}
+			Vector(const etk::Vector<ETK_VECTOR_TYPE>&& _obj):
+			  m_data(etk::move(_obj.m_data)),
+			  m_size(etk::move(_obj.m_size)),
+			  m_allocated(etk::move(_obj.m_allocated)) {
+				
 			}
 			/**
 			 * @brief Destructor of the current Class
@@ -280,7 +282,6 @@ namespace etk {
 			 * @return reference on the current re-copy vector
 			 */
 			Vector& operator=(const etk::Vector<ETK_VECTOR_TYPE> & _obj) {
-				//TK_DEBUG("USE RECOPY vector ... Evb.m_size=" << Evb.m_size << " Evb.m_increment=" << Evb.m_increment);
 				if (this != &_obj) {
 					if (m_data != nullptr) {
 						delete[] m_data;
@@ -292,12 +293,11 @@ namespace etk {
 					// allocate all same data
 					m_data = new ETK_VECTOR_TYPE[m_allocated];
 					if (m_data == nullptr) {
-						//TK_CRITICAL("Vector : Error in data allocation ... might nor work correctly anymore");
 						return *this;
 					}
 					for(size_t iii=0; iii<m_allocated; iii++) {
 						// copy operator ...
-						m_data[iii] = _obj.m_data[iii];
+						m_data[iii] = etk::move(_obj.m_data[iii]);
 					}
 				}
 				// Return the current pointer
