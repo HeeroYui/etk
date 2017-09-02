@@ -4,15 +4,18 @@
  * @license MPL v2.0 (see license file)
  */
 #pragma once
-#include <cstdlib>
-#include <cstdio>
-#include <stdarg.h>
-#include <cstring>
-#include <cassert>
-// defien type : uintXX_t and intXX_t
-#define __STDC_LIMIT_MACROS
-// note in android include the macro of min max are overwitten
-#include <cstdint>
+extern "C" {
+	#include <stdlib.h>
+	#include <stdio.h>
+	#include <stdarg.h>
+	#include <string.h>
+	#include <assert.h>
+	// defien type : uintXX_t and intXX_t
+	#define __STDC_LIMIT_MACROS
+	// note in android include the macro of min max are overwitten
+	#include <stdint.h>
+	#include <stddef.h>
+}
 // in case of android error ...
 #ifdef __TARGET_OS__Android
 	#if __ANDROID_BOARD_ID__ <= 20
@@ -42,7 +45,9 @@
 #endif
 
 #ifndef _WIN32
-	#include <cmath>
+	extern "C" {
+		#include <math.h>
+	}
 	#ifndef _MATH_H_MATHDEF
 		//! @brief Generate a basic type for floating point unit selection (not finished)
 		using float_t = float;

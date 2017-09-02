@@ -33,6 +33,7 @@ def configure(target, my_module):
 	    'etk/utf8.cpp',
 	    'etk/stdTools.cpp',
 	    'etk/Stream.cpp',
+	    'etk/Function.cpp',
 	    ])
 	
 	my_module.add_header_file([
@@ -47,6 +48,7 @@ def configure(target, my_module):
 	    'etk/Pair.hpp',
 	    'etk/Map.hpp',
 	    'etk/move.hpp',
+	    'etk/Function.hpp',
 	    ])
 	
 	# build in C++ mode
@@ -56,7 +58,6 @@ def configure(target, my_module):
 	    'c',
 	    'm',
 	    "pthread",
-	    "cxx",
 	    ])
 	
 	if "Android" in target.get_type():

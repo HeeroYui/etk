@@ -8,11 +8,6 @@
 #include <etk/types.hpp>
 #include <etk/String.hpp>
 #include <etk/Vector.hpp>
-#include <sstream>
-#include <iostream>
-#include <iomanip>
-#include <algorithm>
-#include <chrono>
 #include <etk/stdTools.hpp>
 
 namespace etk {
