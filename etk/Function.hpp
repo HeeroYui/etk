@@ -25,8 +25,8 @@ namespace etk {
 		//   the above function pointer types, so we need some cast
 		template <typename ETK_TYPE_FUNCTION_FUNCTOR>
 		static ETK_TYPE_FUNCTION_RETURN invoke_fn(ETK_TYPE_FUNCTION_FUNCTOR* _functor,
-		                                          ETK_TYPE_FUNCTION_ARGS&&... _args) {
-			return (*_functor)(etk::forward<ETK_TYPE_FUNCTION_ARGS>(_args)...);
+		                                          ETK_TYPE_FUNCTION_ARGS... _args) {
+			return (*_functor)(etk::move<ETK_TYPE_FUNCTION_ARGS>(_args)...);
 		}
 		template <typename ETK_TYPE_FUNCTION_FUNCTOR>
 		static void construct_fn(ETK_TYPE_FUNCTION_FUNCTOR* _constructDestination,
@@ -87,9 +87,9 @@ namespace etk {
 			}
 		}
 		// other constructors, from nullptr, from function pointers
-		ETK_TYPE_FUNCTION_RETURN operator()(ETK_TYPE_FUNCTION_ARGS&&... _args) {
+		ETK_TYPE_FUNCTION_RETURN operator()(ETK_TYPE_FUNCTION_ARGS... _args) {
 			return invoke_f(m_dataPointer,
-			                etk::forward<ETK_TYPE_FUNCTION_ARGS>(_args)...);
+			                etk::move<ETK_TYPE_FUNCTION_ARGS>(_args)...);
 		}
 		bool operator!= (nullptr_t) const {
 			return m_dataPointer != nullptr;
