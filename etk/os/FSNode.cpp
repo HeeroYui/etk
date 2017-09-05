@@ -12,7 +12,7 @@
 #include <etk/tool.hpp>
 #include <etk/debug.hpp>
 #include <etk/Map.hpp>
-#include <mutex>
+#include <ethread/Mutex.hpp>
 #ifdef __TARGET_OS__Windows
 	#include <tchar.h>
 	#include <iostream>
@@ -279,8 +279,8 @@ static etk::String FSNODE_LOCAL_join(const etk::String& _path1, const etk::Strin
 }
 
 
-static std::mutex& getNodeMutex() {
-	static std::mutex g_nodeMutex;
+static ethread::Mutex& getNodeMutex() {
+	static ethread::Mutex g_nodeMutex;
 	return g_nodeMutex;
 }
 
@@ -323,7 +323,7 @@ etk::String etk::FSNodeGetHomePath() {
 	static etk::Archive* s_APKArchive = nullptr;
 	static void loadAPK(const etk::String& _apkPath) {
 		#ifdef __TARGET_OS__Android
-			std::unique_lock<std::mutex> lock(getNodeMutex());
+			ethread::UniqueLock lock(getNodeMutex());
 			TK_INFO("Loading APK '" << _apkPath << "'");
 			s_APKArchive = etk::Archive::load(_apkPath);
 			TK_ASSERT(s_APKArchive != nullptr, "Error loading APK ...  '" << _apkPath << "'");
@@ -363,7 +363,7 @@ etk::String etk::FSNodeGetHomePath() {
 void etk::setBaseFolderData(const char* _folder, const char* _applName) {
 	#ifdef __TARGET_OS__Android
 		{
-			std::unique_lock<std::mutex> lock(getNodeMutex());
+			ethread::UniqueLock lock(getNodeMutex());
 			baseFolderData = "assets/";
 			if (_applName != nullptr) {
 				baseFolderData += _applName;
@@ -379,7 +379,7 @@ void etk::setBaseFolderData(const char* _folder, const char* _applName) {
 }
 
 void etk::setBaseFolderDataUser(const char* _folder) {
-	std::unique_lock<std::mutex> lock(getNodeMutex());
+	ethread::UniqueLock lock(getNodeMutex());
 	#ifdef __TARGET_OS__Android
 		baseFolderDataUser = _folder;
 		TK_INFO("baseFolderDataUser : '" << baseFolderDataUser << "'");
@@ -389,7 +389,7 @@ void etk::setBaseFolderDataUser(const char* _folder) {
 }
 
 void etk::setBaseFolderCache(const char* _folder) {
-	std::unique_lock<std::mutex> lock(getNodeMutex());
+	ethread::UniqueLock lock(getNodeMutex());
 	#ifdef __TARGET_OS__Android
 		baseFolderCache = _folder;
 		TK_INFO("baseFolderCache    : '" << baseFolderCache << "'");
@@ -400,7 +400,7 @@ void etk::setBaseFolderCache(const char* _folder) {
 
 etk::String l_argZero = "";
 void etk::setArgZero(const etk::String& _val) {
-	std::unique_lock<std::mutex> lock(getNodeMutex());
+	ethread::UniqueLock lock(getNodeMutex());
 	l_argZero = _val;
 	// set defaiult application name ...
 	etk::Vector<etk::String> elems = etk::split(_val, '/');
@@ -655,7 +655,7 @@ etk::String etk::getUserRunFolder() {
 
 #ifdef HAVE_ZIP_DATA
 bool etk::FSNode::loadDataZip() {
-	std::unique_lock<std::mutex> lock(getNodeMutex());
+	ethread::UniqueLock lock(getNodeMutex());
 	if (s_APKArchive == nullptr) {
 		return false;
 	}
@@ -1871,7 +1871,7 @@ bool etk::FSNode::fileOpenRead() {
 		if (loadDataZip() == false) {
 			return false;
 		}
-		std::unique_lock<std::mutex> lock(getNodeMutex());
+		ethread::UniqueLock lock(getNodeMutex());
 		s_APKArchive->open(m_systemFileName);
 		return m_zipContent->getTheoricSize() == m_zipContent->size();
 	}

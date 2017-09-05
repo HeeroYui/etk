@@ -6,7 +6,10 @@
 #pragma once
 #include <etk/types.hpp>
 #include <etk/math/Vector2D.hpp>
-#include <cmath>
+
+extern "C" {
+	#include <math.h>
+}
 
 namespace etk {
 	/**

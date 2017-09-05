@@ -10,7 +10,9 @@
 
 #include <etk/math/Vector3D.hpp>
 
-#include <cmath>
+extern "C" {
+	#include <math.h>
+}
 
 namespace etk {
 	/**

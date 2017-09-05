@@ -16,27 +16,44 @@ extern "C" {
 	#include <stdint.h>
 	#include <stddef.h>
 }
-// in case of android error ...
-#ifdef __TARGET_OS__Android
-	#if __ANDROID_BOARD_ID__ <= 20
-		#ifndef __STDINT_LIMITS
-			#define INT8_MIN  (-128)
-			#define INT8_MAX  (127)
-			#define UINT8_MAX (255U)
-			
-			#define INT16_MIN  (-32768)
-			#define INT16_MAX  (32767)
-			#define UINT16_MAX (65535U)
-			
-			#define INT32_MIN  (-2147483647-1)
-			#define INT32_MAX  (2147483647)
-			#define UINT32_MAX (4294967295U)
-			
-			#define INT64_MIN  (__INT64_C(-9223372036854775807)-1)
-			#define INT64_MAX  (__INT64_C(9223372036854775807))
-			#define UINT64_MAX (__UINT64_C(18446744073709551615))
-		#endif
-	#endif
+#ifndef size_t
+	using size_t=uint64_t;
+#endif
+#ifndef INT8_MIN
+	#define INT8_MIN  (-128)
+#endif
+#ifndef INT8_MAX
+	#define INT8_MAX  (127)
+#endif
+#ifndef UINT8_MAX
+	#define UINT8_MAX (255U)
+#endif
+#ifndef INT16_MIN
+	#define INT16_MIN  (-32768)
+#endif
+#ifndef INT16_MAX
+	#define INT16_MAX  (32767)
+#endif
+#ifndef UINT16_MAX
+	#define UINT16_MAX (65535U)
+#endif
+#ifndef INT32_MIN
+	#define INT32_MIN  (-2147483647-1)
+#endif
+#ifndef INT32_MAX
+	#define INT32_MAX  (2147483647)
+#endif
+#ifndef UINT32_MAX
+	#define UINT32_MAX (4294967295U)
+#endif
+#ifndef INT64_MIN
+	#define INT64_MIN  (__INT64_C(-9223372036854775807)-1)
+#endif
+#ifndef INT64_MAX
+	#define INT64_MAX  (__INT64_C(9223372036854775807))
+#endif
+#ifndef UINT64_MAX
+	#define UINT64_MAX (__UINT64_C(18446744073709551615))
 #endif
 
 #ifndef ETK_BUILD_LINEARMATH
@@ -71,6 +88,94 @@ extern "C" {
 	#define M_PI 3.14159265358979323846
 #endif
 
+#if 0
+typedef decltype(nullptr) etk::NullPtr;
+#else
+namespace etk {
+	class NullPtr {
+		public:
+			// When tested a pointer, acts as 0.
+			template<class T>
+			operator T*() const {
+				return 0;
+			}
+			template<class C, class T>      // When tested as a member pointer, acts as 0.
+			operator T C::*() const {
+				return 0;
+			}
+			typedef void* (etk::NullPtr::*bool_)() const;
+			// An rvalue of type etk::NullPtr can be converted to an rvalue of type bool; the resulting value is false.
+			/*
+			operator bool_() const {
+				// We can't use operator bool(){ return false; } because bool is convertable to int which breaks other required functionality.
+				return false;
+			}
+			*/
+			// We can't enable this without generating warnings about nullptr being uninitialized after being used when created without "= {}".
+			//void* mSizeofVoidPtr;         // sizeof(etk::NullPtr) == sizeof(void*). Needs to be public if etk::NullPtr is to be a POD.
+			template <typename ETK_TYPE_FUNCTION_RETURN, typename... ETK_TYPE_FUNCTION_ARGS>
+			ETK_TYPE_FUNCTION_RETURN operator()(ETK_TYPE_FUNCTION_ARGS... _args) {
+				throw;
+				//return ETK_TYPE_FUNCTION_RETURN();
+			}
+		private:
+			//void operator&() const;         // Address cannot be taken. ==> TODO: this is really bad, because this create an error in many code
+	};
+	
+	inline NullPtr nullptrGet() {
+		// etk::nullptr exists.
+		NullPtr n = { };
+		return n;
+	}
+}
+
+// If somebody hasn't already defined nullptr in a custom way...
+#if !defined(nullptr)
+	#define nullptr etk::nullptrGet()
+#endif
+
+#endif
+
+template<class T>
+inline bool operator==(T* p, const etk::NullPtr) {
+	return p == 0;
+}
+
+template<class T>
+inline bool operator==(const etk::NullPtr, T* p)
+{ return p == 0; }
+
+template<class T, class U>
+inline bool operator==(T U::* p, const etk::NullPtr)
+{ return p == 0; }
+
+template<class T, class U>
+inline bool operator==(const etk::NullPtr, T U::* p)
+{ return p == 0; }
+
+inline bool operator==(const etk::NullPtr, const etk::NullPtr)
+{ return true; }
+
+inline bool operator!=(const etk::NullPtr, const etk::NullPtr)
+{ return false; }
+
+inline bool operator<(const etk::NullPtr, const etk::NullPtr)
+{ return false; }
+
+inline bool operator>(const etk::NullPtr, const etk::NullPtr)
+{ return false; }
+
+inline bool operator<=(const etk::NullPtr, const etk::NullPtr)
+{ return true; }
+
+inline bool operator>=(const etk::NullPtr, const etk::NullPtr)
+{ return true; }
+
+// TODO: remove ...
+// exported to global namespace.
+//using etk::NullPtr;
+
+
 namespace etk {
 	template <class TYPE> const TYPE& min(const TYPE& _val1, const TYPE& _val2) {
 		return (_val1 > _val2) ? _val2 : _val1;
@@ -88,10 +193,6 @@ namespace etk {
 	template <class TYPE> const TYPE& avg(const TYPE& _min, const TYPE& _val, const TYPE& _max) {
 		return etk::min(etk::max(_min,_val),_max);
 	}
-};
-
-
-namespace etk {
 	template<class ETK_ITERATOR_TYPE>
 	size_t distance(const ETK_ITERATOR_TYPE& _start, const ETK_ITERATOR_TYPE& _stop) {
 		size_t out = 0;
@@ -105,4 +206,3 @@ namespace etk {
 }
 #include <etk/move.hpp>
 #include <etk/Stream.hpp>
-

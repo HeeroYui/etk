@@ -7,7 +7,9 @@
 
 #include <etk/types.hpp>
 
-#include <cmath>
+extern "C" {
+	#include <math.h>
+}
 #ifdef ETK_BUILD_LINEARMATH
 	#include <LinearMath/btScalar.h>
 	#include <LinearMath/btMinMax.h>

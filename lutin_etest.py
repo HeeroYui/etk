@@ -7,7 +7,7 @@ def get_type():
 	return "LIBRARY"
 
 def get_desc():
-	return "Ewol tool kit (base: container)"
+	return "Ewol tool kit (test: test framework)"
 
 def get_licence():
 	return "MPL-2"
@@ -28,42 +28,23 @@ def configure(target, my_module):
 	my_module.add_extra_flags()
 	# add the file to compile:
 	my_module.add_src_file([
-	    'etk/String.cpp',
-	    'etk/UString.cpp',
-	    'etk/utf8.cpp',
-	    'etk/stdTools.cpp',
-	    'etk/Stream.cpp',
-	    'etk/Function.cpp',
-	    'etk/Allocator.cpp',
+	    'etest/etest.cpp',
+	    'etest/debug.cpp',
 	    ])
 	
 	my_module.add_header_file([
-	    'etk/types.hpp',
-	    'etk/stdTools.hpp',
-	    'etk/Buffer.hpp',
-	    'etk/String.hpp',
-	    'etk/UString.hpp',
-	    'etk/utf8.hpp',
-	    'etk/Vector.hpp',
-	    'etk/Stream.hpp',
-	    'etk/Pair.hpp',
-	    'etk/Map.hpp',
-	    'etk/move.hpp',
-	    'etk/typeTrait.hpp',
-	    'etk/Function.hpp',
+	    'etest/etest.hpp',
 	    ])
 	
 	# build in C++ mode
 	my_module.compile_version("c++", 2011)
 	# add dependency of the generic C++ library:
 	my_module.add_depend([
-	    'c',
-	    'm',
-	    "pthread",
+	    'etk-base',
+	    'echrono',
+	    'elog',
+	    'cxx'
 	    ])
-	
-	if "Android" in target.get_type():
-		my_module.add_depend("SDK")
 	
 	my_module.add_path(".")
 	return True

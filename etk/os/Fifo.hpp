@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <mutex>
+#include <ethread/Mutex.hpp>
 #include <etk/Vector.hpp>
 #include <condition_variable>
 
@@ -20,7 +20,7 @@ namespace etk {
 	 */
 	template<class MY_TYPE=int32_t> class Fifo {
 		private :
-			std::mutex m_mutex; //!< protection of the internal data.
+			ethread::Mutex m_mutex; //!< protection of the internal data.
 			std::condition_variable m_condition; //!< Message system to send event on an other thread.
 			etk::Vector<MY_TYPE> m_data; //!< List of all message to send
 		public :
@@ -43,7 +43,7 @@ namespace etk {
 			 * @return false No data found or closed fifo
 			 */
 			bool wait(MY_TYPE &_data) {
-				std::unique_lock<std::mutex> lock(m_mutex);
+				std::unique_lock<ethread::Mutex> lock(m_mutex);
 				// Check if data is not previously here
 				while(m_data.size() == 0) {
 					m_condition.wait(lock);
@@ -66,7 +66,7 @@ namespace etk {
 			 * @return false No message found while time-out appear.
 			 */
 			bool wait(MY_TYPE &_data, uint32_t _timeOutInUs) {
-				std::unique_lock<std::mutex> lock(m_mutex);
+				std::unique_lock<ethread::Mutex> lock(m_mutex);
 				// Check if data is not previously here
 				while(m_data.size() == 0) {
 					if (m_condition.wait_for(lock, std::chrono::microseconds(_timeOutInUs)) == std::cv_status::timeout) {
@@ -88,7 +88,7 @@ namespace etk {
 			 * @return Number of message in the fifo.
 			 */
 			int32_t count() {
-				std::unique_lock<std::mutex> lock(m_mutex);
+				std::unique_lock<ethread::Mutex> lock(m_mutex);
 				int32_t nbElement = m_data.size();
 				return nbElement;
 			};
@@ -97,7 +97,7 @@ namespace etk {
 			 * @param[in] _data New data to add at the fifo.
 			 */
 			void post(MY_TYPE &_data) {
-				std::unique_lock<std::mutex> lock(m_mutex);
+				std::unique_lock<ethread::Mutex> lock(m_mutex);
 				m_data.pushBack(_data);
 				m_condition.notify_all();
 			};
@@ -106,7 +106,7 @@ namespace etk {
 			 * @param[in] _data New data to add at the fifo.
 			 */
 			void post(const MY_TYPE &_data) {
-				std::unique_lock<std::mutex> lock(m_mutex);
+				std::unique_lock<ethread::Mutex> lock(m_mutex);
 				m_data.pushBack(_data);
 				m_condition.notify_all();
 			};
@@ -114,7 +114,7 @@ namespace etk {
 			 * @brief Remove all the message in the fifo.
 			 */
 			void clean() {
-				std::unique_lock<std::mutex> lock(m_mutex);
+				std::unique_lock<ethread::Mutex> lock(m_mutex);
 				// remove data
 				m_data.clear();
 				m_condition.wait_for(lock, std::chrono::microseconds(0));

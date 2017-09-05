@@ -7,7 +7,9 @@
 
 #include <etk/types.hpp>
 
-#include <cmath>
+extern "C" {
+	#include <math.h>
+}
 #include <etk/math/Matrix3x3.hpp>
 #include <etk/math/Vector3D.hpp>
 

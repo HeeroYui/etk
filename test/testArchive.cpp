@@ -6,7 +6,7 @@
  * @license MPL v2.0 (see license file)
  */
 
-#include <gtest/gtest.h>
+#include <etest/etest.hpp>
 #define NAME "Archive"
 #include <etk/archive/Archive.hpp>
 #include <test-debug/debug.hpp>

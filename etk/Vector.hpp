@@ -797,9 +797,7 @@ namespace etk {
 					bool swapped = false;
 					for (size_t jjj=_start; jjj<_stop - (iii+1); ++jjj) {
 						if (_comparator(m_data[jjj], m_data[jjj+1]) == true) {
-							ETK_VECTOR_TYPE tmp = etk::move(m_data[jjj]);
-							m_data[jjj+1] = etk::move(m_data[jjj]);
-							m_data[jjj+1] = etk::move(tmp);
+							etk::swap(m_data[jjj], m_data[jjj+1]);
 							swapped = true;
 						}
 					}

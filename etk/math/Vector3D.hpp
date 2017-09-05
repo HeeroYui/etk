@@ -4,14 +4,15 @@
  * @license MPL v2.0 (see license file)
  */
 
+#pragma once
 #include <etk/types.hpp>
 #include <etk/debug.hpp>
 #include <etk/UString.hpp>
 #include <etk/String.hpp>
 
-#pragma once
-
-#include <cmath>
+extern "C" {
+	#include <math.h>
+}
 
 #ifdef ETK_BUILD_LINEARMATH
 	#include <LinearMath/btScalar.h>

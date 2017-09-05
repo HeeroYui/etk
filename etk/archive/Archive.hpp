@@ -10,7 +10,7 @@
 #pragma once
 
 #include <etk/Map.hpp>
-#include <mutex>
+#include <ethread/Mutex.hpp>
 #include <ememory/memory.hpp>
 #include <etk/String.hpp>
 
@@ -90,7 +90,7 @@ namespace etk {
 	 */
 	class Archive {
 		private:
-			mutable std::mutex m_mutex; //!< access mutex (mini-zip does not support multiple access)
+			mutable ethread::Mutex m_mutex; //!< access mutex (mini-zip does not support multiple access)
 		public:
 			/**
 			 * @brief Contructor of the archive element

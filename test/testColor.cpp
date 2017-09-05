@@ -1,12 +1,10 @@
 /**
  * @author Edouard DUPIN
- * 
  * @copyright 2011, Edouard DUPIN, all right reserved
- * 
  * @license MPL v2.0 (see license file)
  */
 
-#include <gtest/gtest.h>
+#include <etest/etest.hpp>
 #include <etk/Color.hpp>
 #include <test-debug/debug.hpp>
 #define NAME "Color"

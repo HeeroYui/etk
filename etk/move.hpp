@@ -5,6 +5,7 @@
  */
 #pragma once
 
+#include <etk/typeTrait.hpp>
 
 namespace etk {
 	template<class ETK_MOVE_TYPE>
@@ -35,35 +36,15 @@ namespace etk {
 		_obj2 = etk::move(tmp);
 	}
 	
-	template<class ETK_TYPE, ETK_TYPE v>
-	struct integralConstant {
-		static constexpr ETK_TYPE value = v;
-		typedef ETK_TYPE typeValue;
-		// using injected-class-name
-		typedef integralConstant type;
-		constexpr operator typeValue() const noexcept {
-			return value;
-		}
-		constexpr typeValue operator()() const noexcept {
-			return value;
-		}
-	};
-	
-	typedef	etk::integralConstant<bool, true> typeTrue;
-	typedef	etk::integralConstant<bool, false> typeFalse;
-	
-	template<class ETK_TYPE>
-	struct isLeftValueReference : etk::typeFalse {};
-	template<class ETK_TYPE>
-	struct isLeftValueReference<ETK_TYPE&> : etk::typeTrue {};
-	
 	template <class ETK_FORWARD_TYPE>
 	inline ETK_FORWARD_TYPE&& forward(typename etk::RemoveReference<ETK_FORWARD_TYPE>::m_type& _obj) noexcept {
 		return static_cast<ETK_FORWARD_TYPE&&>(_obj);
 	}
+	
 	template <class ETK_FORWARD_TYPE>
 	inline ETK_FORWARD_TYPE&& forward(typename etk::RemoveReference<ETK_FORWARD_TYPE>::m_type&& _obj) noexcept {
-		static_assert(!etk::isLeftValueReference<ETK_FORWARD_TYPE>::type, "Can not forward an rvalue as an lvalue.");
+		static_assert(!etk::IsLeftValueReference<ETK_FORWARD_TYPE>::type, "Can not forward a right value as a left value.");
 		return static_cast<ETK_FORWARD_TYPE&&>(_obj);
 	}
+	
 }
