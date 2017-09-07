@@ -221,6 +221,7 @@ namespace etk {
 			  m_size(0),
 			  m_allocated(0) {
 				changeAllocation(_count);
+				m_size = _count;
 			}
 			/**
 			 * @brief Re-copy constructor (copy all needed data)
@@ -241,11 +242,13 @@ namespace etk {
 					m_data[iii] = _obj.m_data[iii];
 				}
 			}
-			Vector(const etk::Vector<ETK_VECTOR_TYPE>&& _obj):
-			  m_data(etk::move(_obj.m_data)),
-			  m_size(etk::move(_obj.m_size)),
-			  m_allocated(etk::move(_obj.m_allocated)) {
-				
+			Vector(etk::Vector<ETK_VECTOR_TYPE>&& _obj):
+			  m_data(_obj.m_data),
+			  m_size(_obj.m_size),
+			  m_allocated(_obj.m_allocated) {
+				_obj.m_data = nullptr;
+				_obj.m_size = 0;
+				_obj.m_allocated = 0;
 			}
 			/**
 			 * @brief Destructor of the current Class
@@ -265,15 +268,9 @@ namespace etk {
 			void swap(etk::Vector<ETK_VECTOR_TYPE>& _obj) {
 				// avoid Swap of itself
 				if(this != &_obj) {
-					ETK_VECTOR_TYPE* tmpData = m_data;
-					size_t tmpAllocated = m_allocated;
-					size_t tmpSize = m_size;
-					m_data = _obj.m_data;
-					m_allocated = _obj.m_allocated;
-					m_size = _obj.m_size;
-					_obj.m_data = tmpData;
-					_obj.m_allocated = tmpAllocated;
-					_obj.m_size = tmpSize;
+					etk::swap(m_data, _obj.m_data);
+					etk::swap(m_allocated, _obj.m_allocated);
+					etk::swap(m_size, _obj.m_size);
 				}
 			}
 			/**
@@ -297,7 +294,7 @@ namespace etk {
 					}
 					for(size_t iii=0; iii<m_allocated; iii++) {
 						// copy operator ...
-						m_data[iii] = etk::move(_obj.m_data[iii]);
+						m_data[iii] = _obj.m_data[iii];
 					}
 				}
 				// Return the current pointer
@@ -447,6 +444,14 @@ namespace etk {
 				}
 				for (size_t iii=0; iii<_nbElement; iii++) {
 					m_data[idElement+iii] = _item[iii];
+				}
+			}
+			/**
+			 * @brief Remove the first element of the vector
+			 */
+			void popFront() {
+				if(m_size>0) {
+					eraseLen(0, 1);
 				}
 			}
 			/**
@@ -649,10 +654,6 @@ namespace etk {
 			 * @param[in] _newSize Minimum number of element needed
 			 */
 			void changeAllocation(size_t _newSize) {
-				// set the minimal size to 1
-				if(_newSize == 0) {
-					_newSize = 1;
-				}
 				size_t requestSize = m_allocated;
 				// set the size with the correct chose type : 
 				if (_newSize == requestSize) {
@@ -796,7 +797,7 @@ namespace etk {
 				for (size_t iii=_start; iii<_stop; ++iii) {
 					bool swapped = false;
 					for (size_t jjj=_start; jjj<_stop - (iii+1); ++jjj) {
-						if (_comparator(m_data[jjj], m_data[jjj+1]) == true) {
+						if (_comparator(m_data[jjj], m_data[jjj+1]) == false) {
 							etk::swap(m_data[jjj], m_data[jjj+1]);
 							swapped = true;
 						}

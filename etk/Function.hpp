@@ -160,8 +160,8 @@ namespace etk {
 			}
 			// copy constructor
 			Function(Function&& _obj):
-			  m_pointerPrivate(etk::move(_obj.m_pointerPrivate)) {
-				
+			  m_pointerPrivate(_obj.m_pointerPrivate) {
+				_obj.m_pointerPrivate = nullptr;
 			}
 			~Function() {
 				delete m_pointerPrivate;

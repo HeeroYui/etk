@@ -35,7 +35,9 @@ namespace etk {
 			#endif
 			Stream& operator<< (float _data);
 			Stream& operator<< (double _data);
+			Stream& operator<< (etk::NullPtr _data);
 			const char* c_str() const;
+			const etk::String& str() const;
 			const size_t size() const;
 	};
 	// TODO: This is not a good place ...

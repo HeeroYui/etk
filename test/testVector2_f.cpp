@@ -4,11 +4,11 @@
  * @license MPL v2.0 (see license file)
  */
 
-#include <etest/etest.hpp>
+
+#include <etk/Pair.hpp>
 #include <etk/math/Vector2D.hpp>
 #include <test-debug/debug.hpp>
-
-#define NAME "etk:Vector2D<float>"
+#include <etest/etest.hpp>
 
 TEST(TestVector2D_f, constructor) {
 	// Test contructor value
@@ -31,7 +31,8 @@ TEST(TestVector2D_f, constructor) {
 
 TEST(TestVector2D_f, constructorString) {
 	etk::Vector2D<float> vect1("(4,-8.5)");
-	EXPECT_FLOAT_EQ(vect1.x(), 4.0);
+	EXPECT_EQ(vect1, etk::Vector2D<float>(4.0,-8.5));
+	EXPECT_FLOAT_EQ(vect1.y(), -8.5);
 	EXPECT_FLOAT_EQ(vect1.y(), -8.5);
 	etk::Vector2D<float> vect2("-6,5.5");
 	EXPECT_FLOAT_EQ(vect2.x(), -6.0);
@@ -65,6 +66,7 @@ TEST(TestVector2D_f, set) {
 TEST(TestVector2D_f, setSetZero) {
 	// Test contructor value
 	etk::Vector2D<float> test1(4,5);
+	EXPECT_EQ(test1, etk::Vector2D<float>(4,5));
 	EXPECT_FLOAT_EQ(test1.x(), 4.0);
 	EXPECT_FLOAT_EQ(test1.y(), 5.0);
 	test1.setZero();

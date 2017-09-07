@@ -34,6 +34,7 @@ def configure(target, my_module):
 	
 	my_module.add_header_file([
 	    'etest/etest.hpp',
+	    'etest/debug.hpp',
 	    ])
 	
 	# build in C++ mode

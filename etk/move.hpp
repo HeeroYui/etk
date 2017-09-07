@@ -6,7 +6,7 @@
 #pragma once
 
 #include <etk/typeTrait.hpp>
-
+#include <utility>
 namespace etk {
 	template<class ETK_MOVE_TYPE>
 	struct RemoveReference {
@@ -23,12 +23,21 @@ namespace etk {
 		// remove rvalue reference
 		typedef ETK_MOVE_TYPE m_type;
 	};
+	#if 0
+		template<class ETK_MOVE_TYPE> inline
+		typename etk::RemoveReference<ETK_MOVE_TYPE>::m_type&& move(ETK_MOVE_TYPE&& _obj) {
+			// forward _Arg as movable
+			return ((typename etk::RemoveReference<ETK_MOVE_TYPE>::m_type&&)_obj);
+		}
+	#else
+		template<class ETK_MOVE_TYPE> inline
+		ETK_MOVE_TYPE move(const ETK_MOVE_TYPE& _obj) {
+			// forward _Arg as movable
+			return _obj;
+		}
+	#endif
 	
-	template<class ETK_MOVE_TYPE> inline
-	typename etk::RemoveReference<ETK_MOVE_TYPE>::m_type&& move(ETK_MOVE_TYPE&& _obj) {
-		// forward _Arg as movable
-		return ((typename etk::RemoveReference<ETK_MOVE_TYPE>::m_type&&)_obj);
-	}
+	
 	template<typename ETK_SWAP_TYPE>
 	inline void swap(ETK_SWAP_TYPE& _obj1, ETK_SWAP_TYPE& _obj2) {
 		ETK_SWAP_TYPE tmp = etk::move(_obj1);

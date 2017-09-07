@@ -117,17 +117,6 @@ TEST(typeTrait, IsClass_4) {
 
 
 
-
-
-
-
-
-
-
-
-#include <iostream>
-#include <type_traits>
-
 struct J_A {};
 
 typedef union {
@@ -153,3 +142,11 @@ TEST(typeTrait, IsUnion_4) {
 }
 
 
+/*
+	TEST_ERROR("plop1: " << (has_insertion_operator<etk::Vector2D<float>>::value));
+	bool val = has_insertion_operator<etk::Pair<float,float>>::value;
+	TEST_ERROR("plop2: " << val);
+	TEST_ERROR("plop3: " << (has_insertion_operator<int32_t>::value));
+	//etk::EnableIf<has_insertion_operator<etk::Pair<float,float>>::value, uint32_t>::type plop = 55;
+	etk::EnableIf<has_insertion_operator<int32_t>::value, uint32_t>::type plop = 55;
+*/

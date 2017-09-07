@@ -28,11 +28,13 @@ def configure(target, my_module):
 	my_module.add_src_file([
 	    'test/main.cpp',
 	    'test/testColor.cpp',
+	    'test/testFunction.cpp',
 	    'test/testMapUnordered.cpp',
 	    'test/testMap.cpp',
 	    'test/testMatrix3x3.cpp',
 	    'test/testRegExp.cpp',
 	    'test/testTransform.cpp',
+	    'test/testVector.cpp',
 	    'test/testVector3_f.cpp',
 	    'test/testArchive.cpp',
 	    'test/testFSNode.cpp',

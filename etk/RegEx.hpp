@@ -1042,7 +1042,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 					TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element=" << iii << "/" << m_subNode.size() << ") ===None===      : " << prop);
 					// rewind the list:
 					bool findPartialNode = false;
-					for (int64_t jjj=_property.m_subProperty.size()-1; jjj>=0; --jjj) {
+					for (int64_t jjj=_property.m_subProperty.size()-1; jjj>=int64_t(iii); --jjj) {
 						if (_property.m_subProperty[jjj].getStatus() == parseStatusPartial) {
 							findPartialNode = true;
 							prop = _property.m_subProperty[jjj];

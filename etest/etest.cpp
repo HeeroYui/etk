@@ -159,15 +159,32 @@ const etk::String& etest::GenericTest::getTestName() const {
 	return m_testName;
 }
 
-void etest::GenericTest::testEqual(bool _result, const char* _test1, const char* _test2) {
-	
+bool etest::GenericTest::getError() const {
+	return m_haveError;
 }
 
-void etest::GenericTest::testNotEqual(bool _result, const char* _test1, const char* _test2) {
-	
+void etest::GenericTest::testResult(bool _result,
+                                    const etk::String& _test1Value,
+                                    const etk::String& _test1,
+                                    const etk::String& _test2Value,
+                                    const etk::String& _test2,
+                                    uint32_t _line) {
+	if (_result == true) {
+		return;
+	}
+	ETEST_ERROR("Detect an error: " << m_file << ":" << _line << ":");
+	ETEST_ERROR("    have: " << _test1 << " = " << _test1Value);
+	ETEST_ERROR("    expect: " << _test2 << " = " << _test2Value);
+	m_haveError = true;
 }
+
+void etest::GenericTest::clearLocal() {
+	m_haveError = false;
+}
+etest::GenericTest* etest::g_currentTest = nullptr;
 
 int32_t etest::runAllTest() {
+	int32_t errorCount = 0;
 	etk::Vector<etest::GenericTest*> runList = getListFiltered();
 	etk::Vector<etk::String> listGroup = getListGroupSpecific(runList);
 	ETEST_PRINT("[==========] Running " << runList.size() << " tests from " << listGroup.size() << " test group.");
@@ -187,17 +204,27 @@ int32_t etest::runAllTest() {
 			}
 			ETEST_PRINT("[ RUN      ] " << itGroup << "." << it->getTestName());
 			it->clearLocal();
+			g_currentTest = it;
 			echrono::Steady ticTest = echrono::Steady::now();
 			it->run();
 			echrono::Steady tocTest = echrono::Steady::now();
-			ETEST_PRINT("[       OK ] " << itGroup << "." << it->getTestName() << " (" << (tocTest - ticTest) << ")");
+			g_currentTest = nullptr;
+			if (it->getError() == true) {
+				ETEST_PRINT("[     FAIL ] " << itGroup << "." << it->getTestName() << " (" << (tocTest - ticTest) << ")");
+				errorCount++;
+			} else {
+				ETEST_PRINT("[       OK ] " << itGroup << "." << it->getTestName() << " (" << (tocTest - ticTest) << ")");
+			}
 		}
 		echrono::Steady tocGroup = echrono::Steady::now();
 		ETEST_PRINT("[++++++++++] " << count << " test from " << itGroup << " (" << (tocGroup - ticGroup) << ")");
 	}
 	echrono::Steady toc = echrono::Steady::now();
 	ETEST_PRINT("[==========] All done in " << (toc - tic));
-	return -getListOfTest().size();
+	if (errorCount != 0) {
+		ETEST_PRINT("[== FAIL ==] Have " << errorCount << " test fail");
+	}
+	return -errorCount;
 }
 
 uint32_t etest::registerTest(etest::GenericTest* _element) {

@@ -44,4 +44,13 @@ namespace etk {
 	Pair<ETK_PAIR_TYPE_1, ETK_PAIR_TYPE_2> makePair(ETK_PAIR_TYPE_1 _obj1, ETK_PAIR_TYPE_2 _obj2) {
 		return etk::Pair<ETK_PAIR_TYPE_1, ETK_PAIR_TYPE_2>(_obj1, _obj2);
 	}
+	template<class ETK_PAIR_TYPE_1, class ETK_PAIR_TYPE_2>
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Pair<ETK_PAIR_TYPE_1, ETK_PAIR_TYPE_2>& _obj) {
+		_os << "(";
+		_os << _obj.first;
+		_os << ";";
+		_os << _obj.second;
+		_os << ")";
+		return _os;
+	}
 };

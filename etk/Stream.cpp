@@ -72,6 +72,10 @@ etk::Stream& etk::Stream::operator<< (const double _data) {
 	*m_data += etk::toString(_data);
 	return *this;
 }
+etk::Stream& etk::Stream::operator<< (etk::NullPtr _data) {
+	*m_data += "nullptr";
+	return *this;
+}
 
 const char* etk::Stream::c_str() const {
 	return m_data->c_str();
@@ -79,4 +83,8 @@ const char* etk::Stream::c_str() const {
 
 const size_t etk::Stream::size() const {
 	return m_data->size();
+}
+
+const etk::String& etk::Stream::str() const {
+	return *m_data;
 }

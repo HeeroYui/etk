@@ -82,7 +82,8 @@ etk::String::String(Iterator _start, Iterator _stop) {
 }
 
 etk::String::String(etk::String&& _obj) noexcept {
-	m_data = etk::move(_obj.m_data);
+	resize(0);
+	m_data.swap(_obj.m_data);
 }
 
 etk::String::String(char _value) {
