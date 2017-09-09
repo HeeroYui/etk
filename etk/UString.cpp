@@ -426,7 +426,7 @@ bool etk::UString::startWith(const etk::UString& _val, bool _caseSensitive) cons
 	}
 	if (_caseSensitive == true) {
 		for( size_t iii = 0;
-		     iii < size();
+		     iii < _val.size();
 		     iii++) {
 			if (m_data[iii] != _val[iii]) {
 				return false;

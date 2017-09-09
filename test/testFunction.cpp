@@ -30,21 +30,21 @@ TEST(TestFunction, NullFunction) {
 	etk::Function<void(int)> f_display = nullptr;
 	EXPECT_EQ(f_display, nullptr);
 }
-/*
+
 TEST(TestFunction, setAFreeFunction) {
 	globalValue = 0;
 	// Test contructor value
-	etk::Function<void(int)> f_display = print_num;
+	etk::Function<void(int32_t)> f_display = print_num;
 	EXPECT_NE(f_display, nullptr);
 }
 TEST(TestFunction, callAFreeFunction) {
 	globalValue = 0;
 	// Test contructor value
-	etk::Function<void(int)> f_display = print_num;
+	etk::Function<void(int32_t)> f_display = print_num;
 	f_display(235);
 	EXPECT_EQ(globalValue, 235 + 1000);
-
 }
+
 TEST(TestFunction, setALambda) {
 	globalValue = 0;
 	// Test contructor value
@@ -74,4 +74,4 @@ TEST(TestFunction, callAMemberFunction) {
 	f_display(foo, 16);
 	EXPECT_EQ(globalValue, 16 + 70000);
 }
-*/
+

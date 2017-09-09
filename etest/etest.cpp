@@ -98,7 +98,6 @@ void etest::init(int32_t _argc, const char** _argv) {
 	ETEST_INFO("ETEST system init (BEGIN) ");
 	for (int32_t iii=0; iii<_argc ; ++iii) {
 		etk::String data = _argv[iii];
-		ETEST_PRINT("Parameter : " << data << "  " << data.startWith("--etest-filter="));
 		if (    data == "-h"
 		     || data == "--help") {
 			ETEST_PRINT("etest - help : ");
@@ -119,9 +118,11 @@ void etest::init(int32_t _argc, const char** _argv) {
 			if (tmp.size() == 1) {
 				// Filter only the groups
 				filterGroup = filter;
+				ETEST_VERBOSE("filter group:" << filterGroup);
 			} else if (tmp.size() == 2) {
 				filterGroup = tmp[0];
 				filterTest = tmp[1];
+				ETEST_VERBOSE("filter group:" << filterGroup << "  & test:" << filterTest);
 			} else {
 				ETEST_CRITICAL("Can not parse the argument : '" << data << "' ==> more than 1 '.'");
 			}

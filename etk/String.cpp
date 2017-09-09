@@ -450,7 +450,7 @@ bool etk::String::startWith(const etk::String& _val, bool _caseSensitive) const 
 	}
 	if (_caseSensitive == true) {
 		for( size_t iii = 0;
-		     iii < size()-1;
+		     iii < _val.size();
 		     iii++) {
 			if (m_data[iii] != _val[iii]) {
 				return false;
@@ -459,7 +459,7 @@ bool etk::String::startWith(const etk::String& _val, bool _caseSensitive) const 
 		return true;
 	}
 	for( size_t iii = 0;
-	     iii < _val.size()-1;
+	     iii < _val.size();
 	     iii++) {
 		if (etk::toLower(_val[iii]) != etk::toLower(m_data[iii])) {
 			return false;
