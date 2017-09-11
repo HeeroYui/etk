@@ -10,7 +10,6 @@
 
 #include <etk/String.hpp>
 #include <etk/UString.hpp>
-#include <iomanip>
 
 namespace etk {
 	/**

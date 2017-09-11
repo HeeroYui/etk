@@ -10,8 +10,6 @@
 #include <etk/debug.hpp>
 #include <etk/stdTools.hpp>
 #include <etk/String.hpp>
-#include <sstream>
-#include <stdexcept>
 
 class ColorList {
 	public:

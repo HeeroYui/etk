@@ -110,6 +110,9 @@ void etest::init(int32_t _argc, const char** _argv) {
 		} else if (data == "--etest-list") {
 			listAllTest();
 			exit(0);
+		} else if (data == "--etest-filter=") {
+			ETEST_PRINT("Missing data in the filter list...");
+			exit(0);
 		} else if (data.startWith("--etest-filter=") == true) {
 			etk::String filter = &data[15];
 			ETEST_PRINT("        Filter: " << filter);
@@ -199,7 +202,7 @@ int32_t etest::runAllTest() {
 		}
 		ETEST_PRINT("[++++++++++] " << count << " test from " << itGroup << ":");
 		echrono::Steady ticGroup = echrono::Steady::now();
-		for (auto &it: getListOfTest()) {
+		for (auto &it: runList) {
 			if (it->getTestGroup() != itGroup) {
 				continue;
 			}

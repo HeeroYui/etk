@@ -51,6 +51,7 @@ TEST(TestFunction, setALambda) {
 	etk::Function<void()> f_display = []() { print_num(642); };;
 	EXPECT_NE(f_display, nullptr);
 }
+
 TEST(TestFunction, callAlLambda) {
 	globalValue = 0;
 	// Test contructor value
@@ -59,6 +60,58 @@ TEST(TestFunction, callAlLambda) {
 	EXPECT_EQ(globalValue, 42 + 1000);
 }
 
+class testObject {
+	private:
+		uint32_t m_id;
+	public:
+		testObject(int32_t iii) {
+			m_id = iii;
+			TEST_DEBUG("Call testObject Contructor " << m_id);
+		}
+		~testObject() {
+			TEST_DEBUG("Call testObject Destructor " << m_id);
+		}
+		void operator() (int32_t iii) {
+			globalValue = m_id + iii;
+		}
+};
+
+/*
+TEST(TestFunction, setCallableObject) {
+	globalValue = 0;
+	// Test contructor value
+	testObject tmp(100000);
+	etk::Function<void(int32_t)> f_display = tmp;
+	EXPECT_NE(f_display, nullptr);
+}
+
+TEST(TestFunction, callCallableObject) {
+	globalValue = 0;
+	// Test contructor value
+	testObject tmp(550000);
+	etk::Function<void(int32_t)> f_display = tmp;
+	f_display(43);
+	EXPECT_EQ(globalValue, 43 + 550000);
+}
+*/
+etk::Function<void(int32_t)> createTmpFunction(uint32_t _value) {
+	return [=](int32_t _data) { globalValue = _value + _data;};
+}
+
+TEST(TestFunction, setLambdaOnStack) {
+	globalValue = 0;
+	etk::Function<void(int32_t)> f_display = createTmpFunction(87000);
+	EXPECT_NE(f_display, nullptr);
+}
+
+TEST(TestFunction, callLambdaOnStack) {
+	globalValue = 0;
+	etk::Function<void(int32_t)> f_display = createTmpFunction(88000);
+	f_display(44);
+	EXPECT_EQ(globalValue, 44 + 88000);
+}
+
+/*
 TEST(TestFunction, setAMemberFunction) {
 	globalValue = 0;
 	// Test contructor value
@@ -74,4 +127,5 @@ TEST(TestFunction, callAMemberFunction) {
 	f_display(foo, 16);
 	EXPECT_EQ(globalValue, 16 + 70000);
 }
+*/
 

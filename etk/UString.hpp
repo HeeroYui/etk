@@ -195,6 +195,9 @@ namespace etk {
 					  m_string(const_cast<UString*>(_obj)) {
 						// nothing to do ...
 					}
+					size_t getCurrent() const {
+						return m_current;
+					}
 					friend class UString;
 			};
 		private:
@@ -358,30 +361,50 @@ namespace etk {
 			 * @param[in] _nbElement Number of element to add in the String
 			 */
 			void insert(size_t _pos, const char32_t* _item, size_t _nbElement);
+			//! @previous
+			void insert(const Iterator& _pos, const char32_t* _item, size_t _nbElement) {
+				insert(_pos.getCurrent(), _item, _nbElement);
+			};
 			/**
 			 * @brief Insert one element in the String at a specific position
 			 * @param[in] _pos Position to add the elements.
 			 * @param[in] _item Element to add.
 			 */
 			void insert(size_t _pos, const char32_t _item);
+			//! @previous
+			void insert(const Iterator& _pos, const char32_t _item) {
+				insert(_pos.getCurrent(), _item);
+			}
 			/**
 			 * @brief Insert one element in the String at a specific position
 			 * @param[in] _pos Position to add the elements.
 			 * @param[in] _item Element to add.
 			 */
 			void insert(size_t _pos, const etk::UString& _value);
+			//! @previous
+			void insert(const Iterator& _pos, const UString& _value) {
+				insert(_pos.getCurrent(), _value);
+			}
 			/**
 			 * @brief Remove N element
 			 * @param[in] _pos Position to remove the data
 			 * @param[in] _nbElement number of element to remove
 			 */
 			void erase(size_t _pos, size_t _nbElement=1);
+			//! @previous
+			void erase(const Iterator& _pos) {
+				erase(_pos.getCurrent(), 1);
+			}
 			/**
 			 * @brief Remove N elements
-			 * @param[in] _pos Position to remove the data
-			 * @param[in] _posEnd Last position number
+			 * @param[in] _start Position to remove the data
+			 * @param[in] _stop Last position number
 			 */
-			void eraseRange(size_t _pos, size_t _posEnd);
+			void eraseRange(size_t _start, size_t _stop);
+			//! @previous
+			void erase(const Iterator& _start, const Iterator& _stop) {
+				eraseRange(_start.getCurrent(), _stop.getCurrent());
+			}
 			/**
 			 * @brief extract data between two point : 
 			 * @param[in] _posStart start position to extract data
@@ -389,6 +412,10 @@ namespace etk {
 			 * @return the extracted string
 			 */
 			etk::UString extract(size_t _posStart = 0, size_t _posEnd=etk::UString::npos) const;
+			//! @previous
+			etk::UString extract(const Iterator& _start, const Iterator& _stop) const {
+				return extract(_start.getCurrent(), _stop.getCurrent());
+			}
 			/**
 			 * @brief Get the pointer on the data
 			 * @return pointer on the "C" string

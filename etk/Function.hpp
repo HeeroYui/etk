@@ -1,18 +1,22 @@
 /** @file
  * @author Edouard DUPIN
- * @copyright 2011, Edouard DUPIN, all right reserved
+ * @copyright 2017, Edouard DUPIN, all right reserved
  * @license MPL v2.0 (see license file)
  */
 
 #pragma once
 #include <etk/types.hpp>
-//#include <ememory/UniquePtr.hpp>
+#include <etk/String.hpp>
 
-//#define ETK_FUNCTION_ENABLE_NEW
+// TO facilitate debug when have a problem ...
+#define ETK_FUNCTION_DEBUG(...) do {} while(false)
+//#define ETK_FUNCTION_DEBUG      printf
 
 namespace etk {
+	template <typename ETK_TYPE_FUNCTOR, typename ETK_TYPE_FUNCTION>
+	class FunctionPrivateLambda;
 	template <typename ETK_TYPE_FUNCTION>
-	class FunctionPrivateSpecific;
+	class FunctionPrivateFunction;
 	template <typename ETK_TYPE_FUNCTION>
 	class FunctionPrivate;
 	
@@ -22,241 +26,170 @@ namespace etk {
 			virtual ~FunctionPrivate() {
 				
 			}
-			// other constructors, from nullptr, from function pointers
 			virtual ETK_TYPE_FUNCTION_RETURN operator()(ETK_TYPE_FUNCTION_ARGS... _args) const = 0;
-			FunctionPrivate<ETK_TYPE_FUNCTION_RETURN(ETK_TYPE_FUNCTION_ARGS...)>* copy() {
+			virtual FunctionPrivate<ETK_TYPE_FUNCTION_RETURN(ETK_TYPE_FUNCTION_ARGS...)>* copy() {
+				ETK_FUNCTION_DEBUG("    COPY NULLPTR \n");
 				return nullptr;
 			}
 	};
-	template <typename ETK_TYPE_FUNCTION_RETURN, typename... ETK_TYPE_FUNCTION_ARGS>
-	class FunctionPrivateSpecific<ETK_TYPE_FUNCTION_RETURN(ETK_TYPE_FUNCTION_ARGS...)>:
+	template <typename ETK_TYPE_FUNCTION_FUNCTOR, typename ETK_TYPE_FUNCTION_RETURN, typename... ETK_TYPE_FUNCTION_ARGS>
+	class FunctionPrivateLambda<ETK_TYPE_FUNCTION_FUNCTOR, ETK_TYPE_FUNCTION_RETURN(ETK_TYPE_FUNCTION_ARGS...)>:
 	  public FunctionPrivate<ETK_TYPE_FUNCTION_RETURN(ETK_TYPE_FUNCTION_ARGS...)> {
 		private:
-			// function pointer types for the type-erasure behaviors
-			// all these char* parameters are actually casted from some functor type
-			typedef ETK_TYPE_FUNCTION_RETURN (*invoke_fn_t)(void*, ETK_TYPE_FUNCTION_ARGS&&...);
-			#ifdef ETK_FUNCTION_ENABLE_NEW
-				typedef void* (*construct_fn_t)();
-			#endif
-			typedef void (*destroy_fn_t)(void*);
-			// type-aware generic functions for invoking
-			// the specialization of these functions won't be capable with
-			//   the above function pointer types, so we need some cast
-			template <typename ETK_TYPE_FUNCTION_FUNCTOR>
-			static ETK_TYPE_FUNCTION_RETURN invoke_fn(ETK_TYPE_FUNCTION_FUNCTOR* _functor,
-			                                          ETK_TYPE_FUNCTION_ARGS&&... _args) {
-				return (*_functor)(etk::forward<ETK_TYPE_FUNCTION_ARGS>(_args)...);
-			}
-			#ifdef ETK_FUNCTION_ENABLE_NEW
-				template <typename ETK_TYPE_FUNCTION_FUNCTOR>
-				static void* construct_fn() {
-					// the functor type must be copy-constructible
-					return new ETK_TYPE_FUNCTION_FUNCTOR();
-				}
-			#endif
-			template <typename ETK_TYPE_FUNCTION_FUNCTOR>
-			static void destroy_fn(ETK_TYPE_FUNCTION_FUNCTOR* _functor) {
-				_functor->~ETK_TYPE_FUNCTION_FUNCTOR();
-			}
-			// These pointers are storing behaviors.
-			invoke_fn_t invoke_f;
-			#ifdef ETK_FUNCTION_ENABLE_NEW
-				construct_fn_t construct_f;
-			#endif
-			destroy_fn_t destroy_f;
-			// Erase the type of any functor and store it into a char*
-			// so the storage size should be obtained as well
-			void* m_dataPointer;
+			ETK_TYPE_FUNCTION_FUNCTOR m_dataPointer;
 		public:
-			FunctionPrivateSpecific():
-			  invoke_f(nullptr),
-			  #ifdef ETK_FUNCTION_ENABLE_NEW
-			    construct_f(nullptr),
-			  #endif
-			  destroy_f(nullptr),
-			  m_dataPointer(nullptr) {
-				
+			FunctionPrivateLambda(ETK_TYPE_FUNCTION_FUNCTOR _functor):
+			  m_dataPointer(_functor) {
+				ETK_FUNCTION_DEBUG("    NEW FunctionPrivateLambda \n");
 			}
-			FunctionPrivateSpecific(etk::NullPtr):
-			  invoke_f(nullptr),
-			  #ifdef ETK_FUNCTION_ENABLE_NEW
-			    construct_f(nullptr),
-			  #endif
-			  destroy_f(nullptr),
-			  m_dataPointer(nullptr) {
-				
-			}
-			#ifdef ETK_FUNCTION_ENABLE_NEW
-			// construct from any functor type
-			template <typename ETK_TYPE_FUNCTION_FUNCTOR>
-			FunctionPrivateSpecific(ETK_TYPE_FUNCTION_FUNCTOR _functor):
-			  // specialize functions and erase their type info by casting
-			  invoke_f(reinterpret_cast<invoke_fn_t>(invoke_fn<ETK_TYPE_FUNCTION_FUNCTOR>)),
-			  construct_f(reinterpret_cast<construct_fn_t>(construct_fn<ETK_TYPE_FUNCTION_FUNCTOR>)),
-			  destroy_f(reinterpret_cast<destroy_fn_t>(destroy_fn<ETK_TYPE_FUNCTION_FUNCTOR>)),
-			  m_dataPointer(nullptr) {
-				m_dataPointer = construct_f();
-			}
-			// copy constructor
 			/*
-			FunctionPrivateSpecific(const FunctionPrivateSpecific& _obj):
-			  invoke_f(_obj.invoke_f),
-			  construct_f(_obj.construct_f),
-			  destroy_f(_obj.destroy_f),
-			  m_dataSize(_obj.m_dataSize) {
-				if (invoke_f) {
-					// when the source is not a null function, copy its internal functor
-					delete(m_dataPointer);
-					m_dataPointer = new char[m_dataSize];
-					construct_f(m_dataPointer, _obj.m_dataPointer);
-				}
+			FunctionPrivateLambda(const ETK_TYPE_FUNCTION_FUNCTOR& _functor):
+			  m_dataPointer(_functor) {
+				ETK_FUNCTION_DEBUG("    NEW FunctionPrivateLambda \n");
 			}
 			*/
-			#else
-			// move from any functor type
-			template <typename ETK_TYPE_FUNCTION_FUNCTOR>
-			FunctionPrivateSpecific(ETK_TYPE_FUNCTION_FUNCTOR&& _functor):
-			  // specialize functions and erase their type info by casting
-			  invoke_f(reinterpret_cast<invoke_fn_t>(invoke_fn<ETK_TYPE_FUNCTION_FUNCTOR>)),
-			  #ifdef ETK_FUNCTION_ENABLE_NEW
-			    construct_f(reinterpret_cast<construct_fn_t>(construct_fn<ETK_TYPE_FUNCTION_FUNCTOR>)),
-			  #endif
-			  destroy_f(reinterpret_cast<destroy_fn_t>(destroy_fn<ETK_TYPE_FUNCTION_FUNCTOR>)),
-			  m_dataPointer(nullptr) {
-				m_dataPointer = etk::move(_functor);
+			~FunctionPrivateLambda() {
+				
 			}
-			
-			#endif
-			~FunctionPrivateSpecific() {
-				if (m_dataPointer != nullptr) {
-					destroy_f(m_dataPointer);
-					m_dataPointer = nullptr;
-				}
-			}
-			// other constructors, from nullptr, from function pointers
 			ETK_TYPE_FUNCTION_RETURN operator()(ETK_TYPE_FUNCTION_ARGS... _args) const {
-				return invoke_f(m_dataPointer,
-				                etk::forward<ETK_TYPE_FUNCTION_ARGS>(_args)...);
+				return m_dataPointer(etk::forward<ETK_TYPE_FUNCTION_ARGS>(_args)...);
 			}
-			
-			bool operator!= (etk::NullPtr) const {
-				return m_dataPointer != nullptr;
-			}
-			bool operator== (etk::NullPtr) const {
-				return m_dataPointer == nullptr;
+			FunctionPrivate<ETK_TYPE_FUNCTION_RETURN(ETK_TYPE_FUNCTION_ARGS...)>* copy() {
+				ETK_FUNCTION_DEBUG("    COPY FunctionPrivateLambda \n");
+				return new FunctionPrivateLambda(m_dataPointer);
 			}
 	};
+	
 	template <typename ETK_TYPE_FUNCTION>
 	class Function;
 	
+	extern uint32_t MM___pppppp;
 	template <typename ETK_TYPE_FUNCTION_RETURN, typename... ETK_TYPE_FUNCTION_ARGS>
 	class Function<ETK_TYPE_FUNCTION_RETURN(ETK_TYPE_FUNCTION_ARGS...)> {
 		private:
 			FunctionPrivate<ETK_TYPE_FUNCTION_RETURN(ETK_TYPE_FUNCTION_ARGS...)>* m_pointerPrivate;
-			
+			uint32_t m_pppppp;
 		public:
 			Function():
 			  m_pointerPrivate(nullptr) {
-				
+				m_pppppp = MM___pppppp++;
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] new Function 1 \n", m_pppppp, (uint64_t)this);
 			}
-			Function(etk::NullPtr):
+			Function(const etk::NullPtr&):
 			  m_pointerPrivate(nullptr) {
-				
+				m_pppppp = MM___pppppp++;
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] new Function 2\n", m_pppppp, (uint64_t)this);
 			}
-			#ifdef ETK_FUNCTION_ENABLE_NEW
-				// construct from any functor type
-				template <typename ETK_TYPE_FUNCTION_FUNCTOR>
-				Function(ETK_TYPE_FUNCTION_FUNCTOR _functor):
-				  m_pointerPrivate(new FunctionPrivateSpecific<ETK_TYPE_FUNCTION_RETURN(ETK_TYPE_FUNCTION_ARGS...)>(_functor)) {
-					
-				}
-				// copy constructor
-				Function(const Function& _obj):
-				  m_pointerPrivate(nullptr) {
-					if (_obj.m_pointerPrivate != nullptr) {
-						m_pointerPrivate = _obj.m_pointerPrivate->copy();
-					}
-				}
-			#else
-				// construct from any functor type
-				template <typename ETK_TYPE_FUNCTION_FUNCTOR>
-				Function(ETK_TYPE_FUNCTION_FUNCTOR&& _functor):
-				  m_pointerPrivate(new FunctionPrivateSpecific<ETK_TYPE_FUNCTION_RETURN(ETK_TYPE_FUNCTION_ARGS...)>(_functor)) {
-					
-				}
-			#endif
-			// copy constructor
-			Function(Function&& _obj):
-			  m_pointerPrivate(_obj.m_pointerPrivate) {
-				_obj.m_pointerPrivate = nullptr;
-			}
-			~Function() {
-				delete m_pointerPrivate;
-				m_pointerPrivate = nullptr;
-			}
-			// other constructors, from nullptr, from function pointers
-			ETK_TYPE_FUNCTION_RETURN operator()(ETK_TYPE_FUNCTION_ARGS... _args) const {
-				if (m_pointerPrivate == nullptr) {
-					throw;
-				}
-				return (*m_pointerPrivate)(etk::forward<ETK_TYPE_FUNCTION_ARGS>(_args)...);
-			}
-			
-			bool operator!= (etk::NullPtr) const {
-				return m_pointerPrivate != nullptr;
-			}
-			bool operator== (etk::NullPtr) const {
-				return m_pointerPrivate == nullptr;
-			}
-			#ifdef ETK_FUNCTION_ENABLE_NEW
-			Function& operator= (const Function& _obj) {
-				delete m_pointerPrivate;
-				m_pointerPrivate = nullptr;
+			Function(const Function& _obj):
+			  m_pointerPrivate(nullptr) {
+				m_pppppp = MM___pppppp++;
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] new Function (copy constructor) ---------------------- [%d=0X%lx]\n", m_pppppp, (uint64_t)this, _obj.m_pppppp, (uint64_t)&_obj);
 				if (_obj.m_pointerPrivate != nullptr) {
 					m_pointerPrivate = _obj.m_pointerPrivate->copy();
 				}
-				return *this;
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] new Function (copy constructor) ------- (done) ------- [%d=0X%lx]\n", m_pppppp, (uint64_t)this, _obj.m_pppppp, (uint64_t)&_obj);
 			}
-			#endif
-			Function& operator= (Function&& _obj) {
+			Function(Function&& _obj):
+			  m_pointerPrivate(nullptr) {
+				m_pppppp = MM___pppppp++;
+				ETK_FUNCTION_DEBUG("[%d] new Function 2\n", m_pppppp);
+				_obj.swap(*this);
+				ETK_FUNCTION_DEBUG("[%d] new Function 2 (done)\n", m_pppppp);
+			}
+			template <typename ETK_TYPE_FUNCTION_FUNCTOR,
+			          typename etk::EnableIf<    !etk::IsSame<ETK_TYPE_FUNCTION_FUNCTOR,Function>::value
+			                                  && !etk::IsSame<ETK_TYPE_FUNCTION_FUNCTOR,etk::NullPtr>::value, int
+			                                >::type = 0
+			         >
+			Function(ETK_TYPE_FUNCTION_FUNCTOR _functor):
+			  m_pointerPrivate(nullptr) {
+				m_pppppp = MM___pppppp++;
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] new Function 4 \n", m_pppppp, (uint64_t)this);
+				m_pointerPrivate = new FunctionPrivateLambda<ETK_TYPE_FUNCTION_FUNCTOR, ETK_TYPE_FUNCTION_RETURN(ETK_TYPE_FUNCTION_ARGS...)>(_functor);
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] new Function 4 (done)\n", m_pppppp, (uint64_t)this);
+			}
+			~Function() {
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] DELETE Function \n", m_pppppp, (uint64_t)this);
 				delete m_pointerPrivate;
-				m_pointerPrivate = _obj.m_pointerPrivate;
-				_obj.m_pointerPrivate = nullptr;
+				m_pointerPrivate = nullptr;
+			}
+			ETK_TYPE_FUNCTION_RETURN operator()(ETK_TYPE_FUNCTION_ARGS... _args) const {
+				if (m_pointerPrivate == nullptr) {
+					ETK_FUNCTION_DEBUG("[%d=0X%lx] call Function (With nullptr !!! ==> must assert ...)\n", m_pppppp, (uint64_t)this);
+					throw;
+				}
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] call Function \n", m_pppppp, (uint64_t)this);
+				return (*m_pointerPrivate)(etk::forward<ETK_TYPE_FUNCTION_ARGS>(_args)...);
+			}
+			Function& operator= (const Function& _obj){
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator=(set) Function [%d=0X%lx]\n", m_pppppp, (uint64_t)this, _obj.m_pppppp, (uint64_t)&_obj);
+				Function(_obj).swap(*this);
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator=(set) Function [%d=0X%lx] (done)\n", m_pppppp, (uint64_t)this, _obj.m_pppppp, (uint64_t)&_obj);
 				return *this;
 			}
+			Function& operator= (Function&& _obj){
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator=(move) Function [%d=0X%lx]\n", m_pppppp, (uint64_t)this, _obj.m_pppppp, (uint64_t)&_obj);
+				Function(etk::move(_obj)).swap(*this);
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator=(move) Function [%d=0X%lx] (done)\n", m_pppppp, (uint64_t)this, _obj.m_pppppp, (uint64_t)&_obj);
+				return *this;
+			}
+			Function& operator= (etk::NullPtr _obj) {
+				delete m_pointerPrivate;
+				m_pointerPrivate = nullptr;
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator = nullptr 0X%lx\n", m_pppppp, (uint64_t)this, (uint64_t)m_pointerPrivate);
+				return *this;
+			}
+			
+			void swap(Function& _obj) {
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] swap [%d=0X%lx]\n", m_pppppp, (uint64_t)this, _obj.m_pppppp, (uint64_t)_obj);
+				etk::swap(m_pointerPrivate, _obj.m_pointerPrivate);
+				etk::swap(m_pppppp, _obj.m_pppppp);
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] swap [%d=0X%lx] (done)\n", m_pppppp, (uint64_t)this, _obj.m_pppppp, (uint64_t)_obj);
+			}
+			template <typename ETK_TYPE_FUNCTION_FUNCTOR,
+			          typename etk::EnableIf<    !etk::IsSame<ETK_TYPE_FUNCTION_FUNCTOR,Function>::value
+			                                  && !etk::IsSame<ETK_TYPE_FUNCTION_FUNCTOR,etk::NullPtr>::value, int
+			                                >::type = 0
+			         >
+			Function& operator= (ETK_TYPE_FUNCTION_FUNCTOR&& _functor){
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator = FUNCTOR \n", m_pppppp, (uint64_t)this);
+				Function(etk::forward<ETK_TYPE_FUNCTION_FUNCTOR>(_functor)).swap(*this);
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator = FUNCTOR (done)\n", m_pppppp, (uint64_t)this);
+				return *this;
+			}
+			template <typename ETK_TYPE_FUNCTION_FUNCTOR,
+			          typename etk::EnableIf<    !etk::IsSame<ETK_TYPE_FUNCTION_FUNCTOR,Function>::value
+			                                  && !etk::IsSame<ETK_TYPE_FUNCTION_FUNCTOR,etk::NullPtr>::value, int
+			                                >::type = 0
+			         >
+			Function& operator= (const ETK_TYPE_FUNCTION_FUNCTOR& _functor){
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator = const FUNCTOR& \n", m_pppppp, (uint64_t)this);
+				Function(_functor).swap(*this);
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator = const FUNCTOR& (done)\n", m_pppppp, (uint64_t)this);
+				return *this;
+			}
+			operator bool() const {
+				return m_pointerPrivate != nullptr;
+			}
+			bool operator!= (etk::NullPtr) const {
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator != nullptr ==> 0X%lx %s\n", m_pppppp, (uint64_t)this, (uint64_t)m_pointerPrivate, (m_pointerPrivate != nullptr)?"true":"false");
+				return m_pointerPrivate != nullptr;
+			}
+			bool operator== (etk::NullPtr) const {
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator == nullptr ==> 0X%lx %s\n", m_pppppp, (uint64_t)this, (uint64_t)m_pointerPrivate, (m_pointerPrivate == nullptr)?"true":"false");
+				return m_pointerPrivate == nullptr;
+			}
+			etk::String toString() const {
+				etk::String out = "etk::Function<..(...)>(@";
+				out += etk::toString((uint64_t)m_pointerPrivate);
+				out += ")";
+				return out;
+			}
 	};
-
-
+	//! @not_in_doc
+	template <typename ETK_TYPE_FUNCTION_RETURN, typename... ETK_TYPE_FUNCTION_ARGS>
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Function<ETK_TYPE_FUNCTION_RETURN(ETK_TYPE_FUNCTION_ARGS...)>& _obj) {
+		_os << _obj.toString();
+		return _os;
+	}
 }
-
-/*
-// examples
-int main()
-{
-	int i = 0;
-	auto fn = [i](etk::String const& s) mutable
-	{
-		std::cout << ++i << ". " << s << std::endl;
-	};
-	fn("first"); // 1. first
-	fn("second"); // 2. second
-
-	// construct from lambda
-	::function<void(std::string const&)> f(fn);
-	f("third"); // 3. third
-
-	// copy from another function
-	::function<void(std::string const&)> g(f);
-	f("forth - f"); // 4. forth - f
-	g("forth - g"); // 4. forth - g
-
-	// capture and copy non-trivial types like std::string
-	std::string x("xxxx");
-	::function<void()> h([x]() { std::cout << x << std::endl; });
-	h();
-
-	::function<void()> k(h);
-	k();
-	return 0;
-}
-*/

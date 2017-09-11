@@ -109,4 +109,49 @@ namespace etk {
 	  public etk::IntegralConstant<bool, __is_base_of(ETK_TYPE, ETK_TYPE_DERIVED)> {
 		
 	};
+	
+	template<typename>
+	struct IsFunction;
+	
+	template<typename>
+	struct IsFunction :
+	  public etk::typeFalse {
+		
+	};
+	
+	template<typename ETK_TYPE_RETURN, typename... ETK_TYPE_ARGS>
+	struct IsFunction<ETK_TYPE_RETURN(ETK_TYPE_ARGS...)>:
+	  public etk::typeTrue {
+		
+	};
+	
+	template<typename ETK_TYPE_RETURN, typename... ETK_TYPE_ARGS>
+	struct IsFunction<ETK_TYPE_RETURN(ETK_TYPE_ARGS...)&>:
+	  public etk::typeTrue {
+		
+	};
+	
+	template<typename ETK_TYPE_RETURN, typename... ETK_TYPE_ARGS>
+	struct IsFunction<ETK_TYPE_RETURN(ETK_TYPE_ARGS...)&&>:
+	  public etk::typeTrue {
+		
+	};
+	
+	template<typename ETK_TYPE_RETURN, typename... ETK_TYPE_ARGS>
+	struct IsFunction<ETK_TYPE_RETURN(ETK_TYPE_ARGS...) const>:
+	  public etk::typeTrue {
+		
+	};
+	
+	template<typename ETK_TYPE_RETURN, typename... ETK_TYPE_ARGS>
+	struct IsFunction<ETK_TYPE_RETURN(ETK_TYPE_ARGS...) const &>:
+	  public etk::typeTrue {
+		
+	};
+	
+	template<typename ETK_TYPE_RETURN, typename... ETK_TYPE_ARGS>
+	struct IsFunction<ETK_TYPE_RETURN(ETK_TYPE_ARGS...) const &&>:
+	  public etk::typeTrue {
+		
+	};
 }

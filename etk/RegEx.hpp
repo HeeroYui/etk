@@ -13,7 +13,6 @@
 #include <etk/String.hpp>
 #include <etk/UString.hpp>
 #include <etk/Pair.hpp>
-#include <memory>
 
 #define TK_REG_DEBUG TK_HIDDEN
 //#define TK_REG_DEBUG TK_VERBOSE

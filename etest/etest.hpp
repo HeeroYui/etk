@@ -151,7 +151,7 @@ namespace etest {
 
 #define EXPECT_EQ(element, result) \
 	do { \
-		bool ETEST_VARIABLE_TMP_res = (element == result); \
+		bool ETEST_VARIABLE_TMP_res = ((element) == (result)); \
 		if (etest::g_currentTest == nullptr) { \
 			ETEST_CRITICAL("Not in a test"); \
 		} else { \
@@ -166,7 +166,7 @@ namespace etest {
 
 #define EXPECT_NE(element, result) \
 	do { \
-		bool ETEST_VARIABLE_TMP_res = (element != result); \
+		bool ETEST_VARIABLE_TMP_res = ((element) != (result)); \
 		if (etest::g_currentTest == nullptr) { \
 			ETEST_CRITICAL("Not in a test"); \
 		} else { \

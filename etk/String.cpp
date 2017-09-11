@@ -316,11 +316,11 @@ const etk::String::Iterator etk::String::begin() const {
 }
 
 etk::String::Iterator etk::String::end() {
-	return position( size()-1 );
+	return position( size() );
 }
 
 const etk::String::Iterator etk::String::end() const {
-	return position( size()-1 );
+	return position( size() );
 }
 
 void etk::String::resize(size_t _newSize, char _value) {

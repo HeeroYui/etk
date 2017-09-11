@@ -194,6 +194,9 @@ namespace etk {
 					  m_string(const_cast<String*>(_obj)) {
 						// nothing to do ...
 					}
+					size_t getCurrent() const {
+						return m_current;
+					}
 					friend class String;
 			};
 		private:
@@ -359,30 +362,50 @@ namespace etk {
 			 * @param[in] _nbElement Number of element to add in the String
 			 */
 			void insert(size_t _pos, const char* _item, size_t _nbElement);
+			//! @previous
+			void insert(const Iterator& _pos, const char* _item, size_t _nbElement) {
+				insert(_pos.getCurrent(), _item, _nbElement);
+			};
 			/**
 			 * @brief Insert one element in the String at a specific position
 			 * @param[in] _pos Position to add the elements.
 			 * @param[in] _item Element to add.
 			 */
 			void insert(size_t _pos, const char _item);
+			//! @previous
+			void insert(const Iterator& _pos, const char _item) {
+				insert(_pos.getCurrent(), _item);
+			}
 			/**
 			 * @brief Insert one element in the String at a specific position
 			 * @param[in] _pos Position to add the elements.
 			 * @param[in] _item Element to add.
 			 */
 			void insert(size_t _pos, const String& _value);
+			//! @previous
+			void insert(const Iterator& _pos, const String& _value) {
+				insert(_pos.getCurrent(), _value);
+			}
 			/**
 			 * @brief Remove N element
 			 * @param[in] _pos Position to remove the data
 			 * @param[in] _nbElement number of element to remove
 			 */
 			void erase(size_t _pos, size_t _nbElement=1);
+			//! @previous
+			void erase(const Iterator& _pos) {
+				erase(_pos.getCurrent(), 1);
+			}
 			/**
 			 * @brief Remove N elements
-			 * @param[in] _pos Position to remove the data
-			 * @param[in] _posEnd Last position number
+			 * @param[in] _start Position to remove the data
+			 * @param[in] _stop Last position number
 			 */
-			void eraseRange(size_t _pos, size_t _posEnd);
+			void eraseRange(size_t _start, size_t _stop);
+			//! @previous
+			void erase(const Iterator& _start, const Iterator& _stop) {
+				eraseRange(_start.getCurrent(), _stop.getCurrent());
+			}
 			/**
 			 * @brief extract data between two point : 
 			 * @param[in] _posStart start position to extract data
@@ -390,6 +413,10 @@ namespace etk {
 			 * @return the extracted string
 			 */
 			etk::String extract(size_t _posStart = 0, size_t _posEnd=etk::String::npos) const;
+			//! @previous
+			etk::String extract(const Iterator& _start, const Iterator& _stop) const {
+				return extract(_start.getCurrent(), _stop.getCurrent());
+			}
 			/**
 			 * @brief Get the pointer on the data
 			 * @return pointer on the "C" string
@@ -401,18 +428,21 @@ namespace etk {
 			 * @return The Iterator
 			 */
 			Iterator position(size_t _pos);
+			//! @previous
 			const Iterator position(size_t _pos) const;
 			/**
 			 * @brief Get an Iterator on the start position of the String
 			 * @return The Iterator
 			 */
 			Iterator begin();
+			//! @previous
 			const Iterator begin() const;
 			/**
 			 * @brief Get an Iterator on the end position of the String
 			 * @return The Iterator
 			 */
 			Iterator end();
+			//! @previous
 			const Iterator end() const;
 			/**
 			 * @brief Change the current size of the string
@@ -465,6 +495,25 @@ namespace etk {
 	String operator+ (const char* _left, const String& _right);
 	String operator+ (const String& _left, char _right);
 	String operator+ (char _left, const String& _right);
+	
+	inline bool operator== (const char* _left, const String& _right) {
+		return _right == _left;
+	}
+	inline bool operator!= (const char* _left, const String& _right) {
+		return _right != _left;
+	}
+	inline bool operator> (const char* _left, const String& _right) {
+		return _right > _left;
+	}
+	inline bool operator>= (const char* _left, const String& _right) {
+		return _right >= _left;
+	}
+	inline bool operator< (const char* _left, const String& _right) {
+		return _right < _left;
+	}
+	inline bool operator<= (const char* _left, const String& _right) {
+		return _right <= _left;
+	}
 	/**
 	 * @brief Template to declare conversion from anything in etk::String
 	 * @param[in] _variable Variable to convert

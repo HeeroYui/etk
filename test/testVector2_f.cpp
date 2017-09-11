@@ -32,8 +32,6 @@ TEST(TestVector2D_f, constructor) {
 TEST(TestVector2D_f, constructorString) {
 	etk::Vector2D<float> vect1("(4,-8.5)");
 	EXPECT_EQ(vect1, etk::Vector2D<float>(4.0,-8.5));
-	EXPECT_FLOAT_EQ(vect1.y(), -8.5);
-	EXPECT_FLOAT_EQ(vect1.y(), -8.5);
 	etk::Vector2D<float> vect2("-6,5.5");
 	EXPECT_FLOAT_EQ(vect2.x(), -6.0);
 	EXPECT_FLOAT_EQ(vect2.y(), 5.5);

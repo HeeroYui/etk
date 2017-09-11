@@ -42,6 +42,7 @@ def configure(target, my_module):
 	    'test/testQuaternion.cpp',
 	    'test/testVector2_f.cpp',
 	    'test/testString.cpp',
+	    'test/testTrait.cpp',
 	    ])
 	my_module.add_depend([
 	    'etk',

@@ -51,6 +51,7 @@ def configure(target, my_module):
 	    'etk/move.hpp',
 	    'etk/typeTrait.hpp',
 	    'etk/Function.hpp',
+	    'etk/NullPtr.hpp',
 	    ])
 	
 	# build in C++ mode
