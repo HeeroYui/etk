@@ -151,6 +151,7 @@ namespace etest {
 
 #define EXPECT_EQ(element, result) \
 	do { \
+		ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_EQ(" << #element << ", " << #result << ");"); \
 		bool ETEST_VARIABLE_TMP_res = ((element) == (result)); \
 		if (etest::g_currentTest == nullptr) { \
 			ETEST_CRITICAL("Not in a test"); \
@@ -162,10 +163,12 @@ namespace etest {
 			                                 #result, \
 			                                 __LINE__); \
 		} \
+		ETEST_DEBUG("    [ SUB-DONE ]"); \
 	} while (false)
 
 #define EXPECT_NE(element, result) \
 	do { \
+		ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_NE(" << #element << ", " << #result << ");"); \
 		bool ETEST_VARIABLE_TMP_res = ((element) != (result)); \
 		if (etest::g_currentTest == nullptr) { \
 			ETEST_CRITICAL("Not in a test"); \
@@ -177,10 +180,12 @@ namespace etest {
 			                                 #result, \
 			                                 __LINE__); \
 		} \
+		ETEST_DEBUG("    [ SUB-DONE ]"); \
 	} while (false)
 
 #define EXPECT_FLOAT_EQ(element, result) \
 	do { \
+		ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_FLOAT_EQ(" << #element << ", " << #result << ");"); \
 		float ETEST_VARIABLE_TMP_res2 = (element) - (result); \
 		bool ETEST_VARIABLE_TMP_res = false; \
 		if (ETEST_VARIABLE_TMP_res2 < 0.00001f && ETEST_VARIABLE_TMP_res2 > -0.00001f) { \
@@ -196,6 +201,7 @@ namespace etest {
 			                                 #result, \
 			                                 __LINE__); \
 		} \
+		ETEST_DEBUG("    [ SUB-DONE ]"); \
 	} while (false)
 
 

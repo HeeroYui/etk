@@ -10,6 +10,7 @@
 #include <elog/elog.hpp>
 #include <echrono/Steady.hpp>
 #include <echrono/Duration.hpp>
+#include <etk/os/FSNode.hpp>
 
 static int32_t nbTimeInit = 0;
 
@@ -75,7 +76,7 @@ static etk::Vector<etest::GenericTest*> getListFiltered() {
 }
 
 static void listAllTest() {
-	ETEST_ERROR("We have " << getListOfTest().size() << " tests:");
+	ETEST_PRINT("We have " << getListOfTest().size() << " tests:");
 	etk::Vector<etk::String> listGroup = getListGroup();
 	for (auto &itGroup: listGroup) {
 		ETEST_PRINT("Group: " << itGroup);
@@ -95,6 +96,7 @@ void etest::init(int32_t _argc, const char** _argv) {
 	}
 	nbTimeInit++;
 	elog::init(_argc, _argv);
+	etk::initDefaultFolder("ewolApplNoName");
 	ETEST_INFO("ETEST system init (BEGIN) ");
 	for (int32_t iii=0; iii<_argc ; ++iii) {
 		etk::String data = _argv[iii];
@@ -116,7 +118,6 @@ void etest::init(int32_t _argc, const char** _argv) {
 		} else if (data.startWith("--etest-filter=") == true) {
 			etk::String filter = &data[15];
 			ETEST_PRINT("        Filter: " << filter);
-			ETEST_ERROR("plop:" << filter);
 			etk::Vector<etk::String> tmp = filter.split(".");
 			if (tmp.size() == 1) {
 				// Filter only the groups

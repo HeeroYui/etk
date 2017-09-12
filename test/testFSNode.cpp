@@ -11,6 +11,44 @@
 #include <etk/os/FSNode.hpp>
 #define NAME "FSNode"
 
+TEST(TestEtkFSNode, checkDATAFilePresent) {
+	etk::String fileName("DATA:filePresent.txt");
+	etk::FSNode myNodeTest1(fileName);
+	EXPECT_EQ(myNodeTest1.getNameFile(), "filePresent.txt");
+	EXPECT_EQ(myNodeTest1.exist(), true);
+	bool ret = myNodeTest1.fileOpenRead();
+	EXPECT_EQ(ret, true);
+	etk::String data;
+	ret = myNodeTest1.fileGets(data);
+	EXPECT_EQ(ret, true);
+	EXPECT_EQ(data, "plop");
+	ret = myNodeTest1.fileClose();
+	EXPECT_EQ(ret, true);
+}
+
+TEST(TestEtkFSNode, checkDATAFileEmpty) {
+	etk::String fileName("DATA:fileEmpty.txt");
+	etk::FSNode myNodeTest1(fileName);
+	EXPECT_EQ(myNodeTest1.getNameFile(), "fileEmpty.txt");
+	EXPECT_EQ(myNodeTest1.exist(), true);
+	bool ret = myNodeTest1.fileOpenRead();
+	EXPECT_EQ(ret, true);
+	etk::String data;
+	ret = myNodeTest1.fileGets(data);
+	EXPECT_EQ(ret, false);
+	EXPECT_EQ(data, "");
+	ret = myNodeTest1.fileClose();
+	EXPECT_EQ(ret, true);
+}
+
+TEST(TestEtkFSNode, checkDATAFileNotPresent) {
+	etk::String fileName("DATA:fileNotPresent.txt");
+	etk::FSNode myNodeTest1(fileName);
+	EXPECT_EQ(myNodeTest1.getNameFile(), "fileNotPresent.txt");
+	EXPECT_EQ(myNodeTest1.exist(), false);
+}
+
+
 TEST(TestEtkFSNode, checkType) {
 	etk::String fileName("USERDATA:myFileTest.txt");
 	etk::FSNode myNodeTest1(fileName);

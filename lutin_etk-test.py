@@ -49,5 +49,6 @@ def configure(target, my_module):
 	    'etest',
 	    'test-debug'
 	    ])
+	my_module.copy_path('data/*')
 	return True
 
