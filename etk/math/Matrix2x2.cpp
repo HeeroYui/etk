@@ -192,14 +192,14 @@ etk::Matrix2x2 etk::Matrix2x2::zero() {
 }
 
 etk::Matrix2x2 etk::Matrix2x2::getAbsolute() const {
-	return Matrix2x2(std::abs(m_mat[0]), std::abs(m_mat[1]),
-	               std::abs(m_mat[2]), std::abs(m_mat[3]));
+	return Matrix2x2(etk::abs(m_mat[0]), etk::abs(m_mat[1]),
+	               etk::abs(m_mat[2]), etk::abs(m_mat[3]));
 }
 void etk::Matrix2x2::absolute() {
-	m_mat[0] = std::abs(m_mat[0]);
-	m_mat[1] = std::abs(m_mat[1]);
-	m_mat[2] = std::abs(m_mat[2]);
-	m_mat[3] = std::abs(m_mat[3]);
+	m_mat[0] = etk::abs(m_mat[0]);
+	m_mat[1] = etk::abs(m_mat[1]);
+	m_mat[2] = etk::abs(m_mat[2]);
+	m_mat[3] = etk::abs(m_mat[3]);
 }
 
 void etk::Matrix2x2::inverse() {
@@ -208,7 +208,7 @@ void etk::Matrix2x2::inverse() {
 
 etk::Matrix2x2 etk::Matrix2x2::getInverse() const {
 	float det = determinant();
-	//assert(std::abs(det) > MACHINE_EPSILON);
+	//assert(etk::abs(det) > MACHINE_EPSILON);
 	float invDet = 1.0f / det;
 	return etk::Matrix2x2(m_mat[3], -m_mat[1], -m_mat[2], m_mat[0]) * invDet;
 }

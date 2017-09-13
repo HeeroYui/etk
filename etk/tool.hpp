@@ -27,7 +27,8 @@ namespace etk {
 		 * @param[in] _b Bigger value of the random.
 		 * @return Random Value between [_a and _b]
 		 */
-		int32_t irand(int32_t _a, int32_t _b);
+		int32_t irand(int32_t _a=0x80000000, int32_t _b=0x7FFFFFFF);
+		uint32_t urand(uint32_t _a=0, uint32_t _b=0xFFFFFFFF);
 		/**
 		 * @brief Reset the random system with a random value (time).
 		 */

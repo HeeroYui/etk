@@ -523,22 +523,18 @@ namespace etk {
 	
 	//! @not_in_doc
 	template<int MY_TYPE_SIZE> etk::Stream& operator <<(etk::Stream& _os, const Color<uint8_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
-		// TODO: set it back !!!!
-		/*
-		std::ostringstream os;
 		if (MY_TYPE_SIZE >= 3) {
 			_os << "#";
-			os << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.r());
+			_os << etk::toHex(_obj.r());
 			if (MY_TYPE_SIZE >= 2) {
-				os << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.g());
+				_os << etk::toHex(_obj.g());
 			}
 			if (MY_TYPE_SIZE >= 3) {
-				os << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.b());
+				_os << etk::toHex(_obj.b());
 			}
 			if (MY_TYPE_SIZE >= 4) {
-				os << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.a());
+				_os << etk::toHex(_obj.a());
 			}
-			_os << os.str();
 		} else {
 			if (MY_TYPE_SIZE >= 2) {
 				_os << "be";
@@ -546,14 +542,13 @@ namespace etk {
 				_os << "Mono";
 			}
 			_os << "[U8](";
-			os << "0x" << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.r());
+			_os << "0x" << etk::toHex(_obj.r());
 			if (MY_TYPE_SIZE >= 2) {
 				_os << ",";
-				os << "0x" << std::setw(2) << std::setfill('0') << std::hex << uint32_t(_obj.g());
+				_os << "0x" << etk::toHex(_obj.g());
 			}
-			_os << os.str();
 			_os << ")";
-		}*/
+		}
 		return _os;
 	}
 	//! @not_in_doc
@@ -568,25 +563,20 @@ namespace etk {
 			_os << "Mono";
 		}
 		_os << "[U16](";
-		// TODO: set it back !!!!
-		/*
-		os << "0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.r();
+		_os << "0x" << etk::toHex(_obj.r(), 4);
 		if (MY_TYPE_SIZE >= 2) {
-			os << ",0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.g();
+			_os << ",0x" << etk::toHex(_obj.g(), 4);
 		}
 		if (MY_TYPE_SIZE >= 3) {
-			os << ",0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.b();
+			_os << ",0x" << etk::toHex(_obj.b(), 4);
 		}
 		if (MY_TYPE_SIZE >= 4) {
-			os << ",0x" << std::setw(4) << std::setfill('0') << std::hex << _obj.a();
+			_os << ",0x" << etk::toHex(_obj.a(), 4);
 		}
-		_os << os.str() << ")";
-		*/
 		return _os;
 	}
 	//! @not_in_doc
 	template<int MY_TYPE_SIZE> etk::Stream& operator <<(etk::Stream& _os, const Color<uint32_t, MY_TYPE_SIZE>& _obj) { // RGB & RGBA 8 bits
-		//std::ostringstream os;
 		if (MY_TYPE_SIZE >= 4) {
 			_os << "rgba";
 		} else if (MY_TYPE_SIZE >= 3) {
@@ -597,20 +587,16 @@ namespace etk {
 			_os << "Mono";
 		}
 		_os << "[U32](";
-		// TODO: set it back !!!!
-		/*
-		os << "0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.r();
+		_os << "0x" << etk::toHex(_obj.r(), 8);
 		if (MY_TYPE_SIZE >= 2) {
-			os << ",0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.g();
+			_os << ",0x" << etk::toHex(_obj.g(), 8);
 		}
 		if (MY_TYPE_SIZE >= 3) {
-			os << ",0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.b();
+			_os << ",0x" << etk::toHex(_obj.b(), 8);
 		}
 		if (MY_TYPE_SIZE >= 4) {
-			os << ",0x" << std::setw(8) << std::setfill('0') << std::hex << _obj.a();
+			_os << ",0x" << etk::toHex(_obj.a(), 8);
 		}
-		_os << os.str() << ")";
-		*/
 		return _os;
 	}
 	//! @not_in_doc

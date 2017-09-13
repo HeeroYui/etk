@@ -185,7 +185,7 @@ namespace etk {
 			 */
 			float length() const {
 				#if __CPP_VERSION__ >= 2011 && !defined(__STDCPP_LLVM__)
-					return std::sqrt(length2());
+					return etk::sqrt(length2());
 				#else
 					return sqrt(length2());
 				#endif
@@ -274,9 +274,9 @@ namespace etk {
 			 * @return New vector containing the value
 			 */
 			Vector3D<T> absolute() const {
-				return Vector3D<T>( std::abs(m_floats[0]),
-				                    std::abs(m_floats[1]),
-				                    std::abs(m_floats[2]));
+				return Vector3D<T>( etk::abs(m_floats[0]),
+				                    etk::abs(m_floats[1]),
+				                    etk::abs(m_floats[2]));
 			}
 			/**
 			 * @brief Return the cross product between this and another vector
@@ -567,16 +567,16 @@ namespace etk {
 			 * @return The ortho vector
 			 */
 			Vector3D<T> getOrthoVector() const {
-				Vector3D<T> vectorAbs(std::abs(m_floats[0]), std::abs(m_floats[1]), std::abs(m_floats[2]));
+				Vector3D<T> vectorAbs(etk::abs(m_floats[0]), etk::abs(m_floats[1]), etk::abs(m_floats[2]));
 				int32_t minElement = vectorAbs.getMinAxis();
 				if (minElement == 0) {
-					float devider = 1.0f / std::sqrt(m_floats[1]*m_floats[1] + m_floats[2]*m_floats[2]);
+					float devider = 1.0f / etk::sqrt(m_floats[1]*m_floats[1] + m_floats[2]*m_floats[2]);
 					return Vector3D<T>(0.0f, -m_floats[2]*devider, m_floats[1]*devider);
 				} else if (minElement == 1) {
-					float devider = 1.0f / std::sqrt(m_floats[0]*m_floats[0] + m_floats[2]*m_floats[2]);
+					float devider = 1.0f / etk::sqrt(m_floats[0]*m_floats[0] + m_floats[2]*m_floats[2]);
 					return Vector3D<T>(-m_floats[2]*devider, 0.0f, m_floats[0]*devider);
 				}
-					float devider = 1.0f / std::sqrt(m_floats[0]*m_floats[0] + m_floats[1]*m_floats[1]);
+					float devider = 1.0f / etk::sqrt(m_floats[0]*m_floats[0] + m_floats[1]*m_floats[1]);
 				return Vector3D<T>(-m_floats[1]*devider, m_floats[0]*devider, 0.0f);
 			}
 

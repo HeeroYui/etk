@@ -6,11 +6,11 @@
 
 #include <etk/tool.hpp>
 #include <etk/os/FSNode.hpp>
-// for the rand ...
-#include <time.h>
-#include <cmath>
-
-#include <cstdlib>
+extern "C" {
+	#include <time.h>
+	#include <math.h>
+	#include <stdlib.h>
+}
 
 double etk::tool::frand(double _a, double _b) {
 	return (float)(( (double)rand()/(double)RAND_MAX ) * ((double)_b-(double)_a) + (double)_a);
@@ -18,6 +18,9 @@ double etk::tool::frand(double _a, double _b) {
 
 int32_t etk::tool::irand(int32_t _a, int32_t _b) {
 	return (int32_t)(( rand()/(double)RAND_MAX ) * ((double)_b-(double)_a) + (double)_a);
+}
+uint32_t etk::tool::urand(uint32_t _a, uint32_t _b) {
+	return (uint32_t)(( rand()/(double)RAND_MAX ) * ((double)_b-(double)_a) + (double)_a);
 }
 
 void etk::tool::resetRandom() {

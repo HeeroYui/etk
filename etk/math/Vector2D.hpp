@@ -365,7 +365,7 @@ namespace etk {
 			 */
 			float length() const {
 				#if __CPP_VERSION__ >= 2011 && !defined(__STDCPP_LLVM__)
-					return std::sqrt(length2());
+					return etk::sqrt(length2());
 				#else
 					return sqrt(length2());
 				#endif
@@ -421,8 +421,8 @@ namespace etk {
 			 * @return New vector containing the value
 			 */
 			Vector2D<ETK_TYPE> absolute() const {
-				return Vector2D<ETK_TYPE>( std::abs(m_floats[0]),
-				                    std::abs(m_floats[1]));
+				return Vector2D<ETK_TYPE>( etk::abs(m_floats[0]),
+				                    etk::abs(m_floats[1]));
 			}
 			/**
 			 * @brief Return the axis with the smallest value 

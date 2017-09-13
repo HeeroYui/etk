@@ -10,27 +10,27 @@
 #define NAME "Color"
 
 TEST(typeTrait, RemoveConstVolatile_1) {
-	typedef std::remove_cv<const int>::type type1;
+	typedef etk::RemoveConstVolatile<const int>::type type1;
 	auto ret = etk::IsSame<int, type1>::value;
 	EXPECT_EQ(ret, true);
 }
 TEST(typeTrait, RemoveConstVolatile_2) {
-	typedef std::remove_cv<volatile int>::type type1;
+	typedef etk::RemoveConstVolatile<volatile int>::type type1;
 	auto ret = etk::IsSame<int, type1>::value;
 	EXPECT_EQ(ret, true);
 }
 TEST(typeTrait, RemoveConstVolatile_3) {
-	typedef std::remove_cv<const volatile int>::type type1;
+	typedef etk::RemoveConstVolatile<const volatile int>::type type1;
 	auto ret = etk::IsSame<int, type1>::value;
 	EXPECT_EQ(ret, true);
 }
 TEST(typeTrait, RemoveConstVolatile_4) {
-	typedef std::remove_cv<const volatile int*>::type type1;
+	typedef etk::RemoveConstVolatile<const volatile int*>::type type1;
 	auto ret = etk::IsSame<const volatile int*, type1>::value;
 	EXPECT_EQ(ret, true);
 }
 TEST(typeTrait, RemoveConstVolatile_5) {
-	typedef std::remove_cv<int* const volatile>::type type1;
+	typedef etk::RemoveConstVolatile<int* const volatile>::type type1;
 	auto ret = etk::IsSame<int*, type1>::value;
 	EXPECT_EQ(ret, true);
 }
@@ -192,3 +192,26 @@ TEST(typeTrait, IsUnion_4) {
 	//etk::EnableIf<has_insertion_operator<etk::Pair<float,float>>::value, uint32_t>::type plop = 55;
 	etk::EnableIf<has_insertion_operator<int32_t>::value, uint32_t>::type plop = 55;
 */
+
+static uint32_t contructCount = 0;
+
+class PlopMove {
+	public:
+		PlopMove() {
+			contructCount ++;
+		}
+};
+
+void hello(PlopMove _val) {
+	contructCount += 1000;
+}
+
+TEST(typeMove, move_1) {
+	contructCount = 0;
+	PlopMove value;
+	EXPECT_EQ(contructCount, 1);
+	hello(etk::move(value));
+	EXPECT_EQ(contructCount, 1001);
+}
+
+

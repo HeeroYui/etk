@@ -10,10 +10,9 @@
 #include <etk/debug.hpp>
 #include <elog/elog.hpp>
 #include <etk/os/FSNode.hpp>
-#include <etk/Function.hpp>
 
 static int32_t nbTimeInit = 0;
-uint32_t etk::MM___pppppp = 0;
+
 void etk::unInit() {
 	if (nbTimeInit > 1) {
 		nbTimeInit--;

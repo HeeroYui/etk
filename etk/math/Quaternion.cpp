@@ -125,14 +125,14 @@ etk::Quaternion etk::Quaternion::slerp(const Quaternion& _obj1,
 
 void etk::Quaternion::setEulerAngles(const vec3& _angles) {
 	float angle = _angles.x() * 0.5f;
-	float sinX = std::sin(angle);
-	float cosX = std::cos(angle);
+	float sinX = etk::sin(angle);
+	float cosX = etk::cos(angle);
 	angle = _angles.y() * 0.5f;
-	float sinY = std::sin(angle);
-	float cosY = std::cos(angle);
+	float sinY = etk::sin(angle);
+	float cosY = etk::cos(angle);
 	angle = _angles.z() * 0.5f;
-	float sinZ = std::sin(angle);
-	float cosZ = std::cos(angle);
+	float sinZ = etk::sin(angle);
+	float cosZ = etk::cos(angle);
 	float cosYcosZ = cosY * cosZ;
 	float sinYcosZ = sinY * cosZ;
 	float cosYsinZ = cosY * sinZ;

@@ -19,8 +19,6 @@ namespace etk {
 	 * 
 	 * @note The name is unique and the value is what you want
 	 * 
-	 * @todo check if something else exist in the generic library. (not the etk::Map and the std::unordered_map
-	 * 
 	 * @note The index are all time available since they are created. The order is the the one created
 	 * 
 	 * A simple example of use:

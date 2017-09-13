@@ -14,7 +14,7 @@ namespace etk {
 	 */
 	class Stream {
 		private:
-			// remove dependency of std::string and vector
+			// remove dependency of etk::String and vector
 			etk::String* m_data;
 		public:
 			Stream(size_t _basicSize=0);
@@ -40,21 +40,6 @@ namespace etk {
 			const etk::String& str() const;
 			const size_t size() const;
 	};
-	// TODO: This is not a good place ...
-	/*
-	//! @not_in_doc
-	template<class ETK_VECTOR_TYPE>
-	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector<ETK_VECTOR_TYPE>& _obj) {
-		_os << "{";
-		for (size_t iii=0; iii< _obj.size(); iii++) {
-			if (iii>0) {
-				_os << ";";
-			}
-			_os << _obj[iii];
-		}
-		_os << "}";
-		return _os;
-	}
-	*/
+	
 }
 

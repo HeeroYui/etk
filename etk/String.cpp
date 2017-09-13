@@ -41,7 +41,7 @@ etk::String::String(const char* _obj) {
 	}
 }
 /*
-etk::String::String(const std::string _obj) {
+etk::String::String(const etk::String _obj) {
 	resize(_obj.size());
 	for (size_t iii=0; iii<_obj.size(); ++iii) {
 		m_data[iii] = _obj[iii];
@@ -1123,4 +1123,48 @@ etk::String etk::operator+ (char _left, const etk::String& _right) {
 	return tmp;
 }
 
+
+
+namespace etk {
+	template<> etk::String toString<etk::String>(const etk::String& _val) {
+		return _val;
+	}
+	template<> bool from_string<etk::String>(etk::String& _variableRet, const etk::UString& _value) {
+		_variableRet = u32char::convertToUtf8(_value);
+		return true;
+	}
+}
+
+
+
+char etk::toHexChar(uint8_t _value) {
+	char out;
+	if (_value < 10) {
+		return _value + '0';
+	}
+	return _value - 10 + 'A';
+}
+
+etk::String etk::toHex(uint64_t _value, uint32_t _size) {
+	etk::String out;
+	for (int32_t iii = 15; iii >=0; --iii) {
+		if (    _size >= iii
+		     || _value >= uint64_t(1)<<iii) {
+			out += etk::toHexChar((_value>>(iii*4)) & 0x0F);
+		}
+	}
+	return out;
+}
+
+
+etk::String etk::toBin(uint64_t _value, uint32_t _size) {
+	etk::String out;
+	for (int32_t iii = 63; iii >=0; --iii) {
+		if (    _size >= iii
+		     || _value >= uint64_t(1)<<iii) {
+			out += etk::toHexChar((_value>>(iii)) & 0x01);
+		}
+	}
+	return out;
+}
 

@@ -188,7 +188,7 @@ namespace etk {
 			 */
 			float length() const {
 				#if __CPP_VERSION__ >= 2011 && !defined(__TARGET_OS__MacOs) && !defined(__TARGET_OS__IOs)
-					return std::sqrt(length2());
+					return etk::sqrt(length2());
 				#else
 					return sqrt(length2());
 				#endif
@@ -270,10 +270,10 @@ namespace etk {
 			 * @return New quaternion with the absolute value
 			 */
 			Quaternion absolute() const {
-				return Quaternion( std::abs(m_floats[0]),
-				                   std::abs(m_floats[1]),
-				                   std::abs(m_floats[2]),
-				                   std::abs(m_floats[3]));
+				return Quaternion( etk::abs(m_floats[0]),
+				                   etk::abs(m_floats[1]),
+				                   etk::abs(m_floats[2]),
+				                   etk::abs(m_floats[3]));
 			}
 			/**
 			 * @brief Get X value

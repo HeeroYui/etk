@@ -9,8 +9,8 @@
 #pragma once
 
 #include <ethread/Mutex.hpp>
+#include <ethread/Semaphore.hpp>
 #include <etk/Vector.hpp>
-#include <condition_variable>
 
 namespace etk {
 	/**
@@ -21,7 +21,7 @@ namespace etk {
 	template<class MY_TYPE=int32_t> class Fifo {
 		private :
 			ethread::Mutex m_mutex; //!< protection of the internal data.
-			std::condition_variable m_condition; //!< Message system to send event on an other thread.
+			ethread::Semaphore m_semaphore; //!< protection of the internal data.
 			etk::Vector<MY_TYPE> m_data; //!< List of all message to send
 		public :
 			/**
@@ -43,15 +43,15 @@ namespace etk {
 			 * @return false No data found or closed fifo
 			 */
 			bool wait(MY_TYPE &_data) {
-				std::unique_lock<ethread::Mutex> lock(m_mutex);
 				// Check if data is not previously here
 				while(m_data.size() == 0) {
-					m_condition.wait(lock);
+					m_semaphore.wait();
 				}
+				ethread::UniqueLock lock(m_mutex);
 				// End Waiting message :
 				if (m_data.size() > 0) {
 					// copy element :
-					std::swap(_data, m_data[0]);
+					etk::swap(_data, m_data[0]);
 					// remove element :
 					m_data.erase(m_data.begin());
 					return true;
@@ -66,17 +66,17 @@ namespace etk {
 			 * @return false No message found while time-out appear.
 			 */
 			bool wait(MY_TYPE &_data, uint32_t _timeOutInUs) {
-				std::unique_lock<ethread::Mutex> lock(m_mutex);
 				// Check if data is not previously here
 				while(m_data.size() == 0) {
-					if (m_condition.wait_for(lock, std::chrono::microseconds(_timeOutInUs)) == std::cv_status::timeout) {
+					if (m_semaphore.wait(_timeOutInUs) == false) {
 						return false;
 					}
 				}
+				ethread::UniqueLock lock(m_mutex);
 				// End Waiting message :
 				if (m_data.size() > 0) {
 					// copy element :
-					std::swap(_data, m_data[0]);
+					etk::swap(_data, m_data[0]);
 					// remove element :
 					m_data.erase(0);
 					return true;
@@ -88,7 +88,7 @@ namespace etk {
 			 * @return Number of message in the fifo.
 			 */
 			int32_t count() {
-				std::unique_lock<ethread::Mutex> lock(m_mutex);
+				ethread::UniqueLock lock(m_mutex);
 				int32_t nbElement = m_data.size();
 				return nbElement;
 			};
@@ -97,27 +97,28 @@ namespace etk {
 			 * @param[in] _data New data to add at the fifo.
 			 */
 			void post(MY_TYPE &_data) {
-				std::unique_lock<ethread::Mutex> lock(m_mutex);
+				ethread::UniqueLock lock(m_mutex);
 				m_data.pushBack(_data);
-				m_condition.notify_all();
+				m_semaphore.post();
 			};
 			/**
 			 * @brief Send a message at the other thread by setting a new message in the fifo.
 			 * @param[in] _data New data to add at the fifo.
 			 */
 			void post(const MY_TYPE &_data) {
-				std::unique_lock<ethread::Mutex> lock(m_mutex);
+				ethread::UniqueLock lock(m_mutex);
 				m_data.pushBack(_data);
-				m_condition.notify_all();
+				m_semaphore.post();
 			};
 			/**
 			 * @brief Remove all the message in the fifo.
 			 */
 			void clean() {
-				std::unique_lock<ethread::Mutex> lock(m_mutex);
+				ethread::UniqueLock lock(m_mutex);
 				// remove data
 				m_data.clear();
-				m_condition.wait_for(lock, std::chrono::microseconds(0));
+				//m_condition.wait_for(lock, echrono::microseconds(0));
+				m_semaphore.post();
 			};
 	};
 }

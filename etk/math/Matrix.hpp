@@ -534,7 +534,7 @@ namespace etk {
 			 */
 			void identity() {
 				// copy data for the same size :
-				for (int32_t iii=0; iii< std::mim(m_size.x(), m_size.y()); iii++) {
+				for (int32_t iii=0; iii< etk::mim(m_size.x(), m_size.y()); iii++) {
 					(*this)(iii,iii) = (T)1;
 				}
 			};

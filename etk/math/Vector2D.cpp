@@ -87,8 +87,8 @@ etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Vector<bvec2 >& _obj)
 vec2 vec2rotate(const vec2& _val, const vec2& _point, float _angle) {
 	vec2 out = _val;
 	#if __CPP_VERSION__ >= 2011 && !defined(__STDCPP_LLVM__)
-		float sinAngle = std::sin(_angle);
-		float cosAngle = std::cos(_angle);
+		float sinAngle = etk::sin(_angle);
+		float cosAngle = etk::cos(_angle);
 	#else
 		float sinAngle = sin(_angle);
 		float cosAngle = cos(_angle);

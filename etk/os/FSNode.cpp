@@ -8,21 +8,20 @@
 #include <etk/types.hpp>
 #include <etk/os/FSNode.hpp>
 #include <unistd.h>
-#include <cstdlib>
+#include <stdlib.h>
 #include <etk/tool.hpp>
 #include <etk/debug.hpp>
 #include <etk/Map.hpp>
 #include <ethread/Mutex.hpp>
 #ifdef __TARGET_OS__Windows
 	#include <tchar.h>
-	#include <iostream>
 	#include <windows.h>
 #endif
 extern "C" {
 	// file browsing ...
 	#include <dirent.h>
 	#include <sys/stat.h>
-	#include <cerrno>
+	#include <errno.h>
 }
 
 #ifdef HAVE_ZIP_DATA
@@ -1702,7 +1701,7 @@ etk::Vector<etk::String> etk::FSNode::folderGetSub(bool _getFolder, bool _getFil
 				}
 			}
 		}
-		std::sort(out.begin(), out.end());
+		out.sort(0, out.size(), [](const etk::String& _left, const etk::String& _right) { return(_left<_right); });
 		return out;
 	}
 	#endif

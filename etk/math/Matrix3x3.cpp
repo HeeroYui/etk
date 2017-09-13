@@ -146,21 +146,21 @@ etk::Matrix3x3 etk::Matrix3x3::zero() {
 }
 
 void etk::Matrix3x3::absolute() {
-	m_mat[0] = std::abs(m_mat[0]);
-	m_mat[1] = std::abs(m_mat[1]);
-	m_mat[2] = std::abs(m_mat[2]);
-	m_mat[3] = std::abs(m_mat[3]);
-	m_mat[4] = std::abs(m_mat[4]);
-	m_mat[5] = std::abs(m_mat[5]);
-	m_mat[6] = std::abs(m_mat[6]);
-	m_mat[7] = std::abs(m_mat[7]);
-	m_mat[8] = std::abs(m_mat[8]);
+	m_mat[0] = etk::abs(m_mat[0]);
+	m_mat[1] = etk::abs(m_mat[1]);
+	m_mat[2] = etk::abs(m_mat[2]);
+	m_mat[3] = etk::abs(m_mat[3]);
+	m_mat[4] = etk::abs(m_mat[4]);
+	m_mat[5] = etk::abs(m_mat[5]);
+	m_mat[6] = etk::abs(m_mat[6]);
+	m_mat[7] = etk::abs(m_mat[7]);
+	m_mat[8] = etk::abs(m_mat[8]);
 }
 
 etk::Matrix3x3 etk::Matrix3x3::getAbsolute() const {
-	return etk::Matrix3x3(std::abs(m_mat[0]), std::abs(m_mat[1]), std::abs(m_mat[2]),
-	                    std::abs(m_mat[3]), std::abs(m_mat[4]), std::abs(m_mat[5]),
-	                    std::abs(m_mat[6]), std::abs(m_mat[7]), std::abs(m_mat[8]));
+	return etk::Matrix3x3(etk::abs(m_mat[0]), etk::abs(m_mat[1]), etk::abs(m_mat[2]),
+	                    etk::abs(m_mat[3]), etk::abs(m_mat[4]), etk::abs(m_mat[5]),
+	                    etk::abs(m_mat[6]), etk::abs(m_mat[7]), etk::abs(m_mat[8]));
 }
 
 
@@ -272,7 +272,7 @@ void etk::Matrix3x3::inverse() {
 
 etk::Matrix3x3 etk::Matrix3x3::getInverse() const {
 	float det = determinant();
-	//assert(std::abs(det) > MACHINE_EPSILON);
+	//assert(etk::abs(det) > MACHINE_EPSILON);
 	float invDet = 1.0f / det;
 	return etk::Matrix3x3( (m_mat[4]*m_mat[8]-m_mat[7]*m_mat[5]),
 	                      -(m_mat[1]*m_mat[8]-m_mat[7]*m_mat[2]),

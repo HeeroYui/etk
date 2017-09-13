@@ -225,7 +225,7 @@ namespace etk {
 			 */
 			String(const char* _obj);
 			// TODO : remove this when ready
-			//////// String(const std::string _obj);
+			//////// String(const etk::String _obj);
 			/**
 			 * @brief Partial copy of the null-terminated C string.
 			 * @param[in] _obj String that might be copyC string that might be copy (end by '\0')
@@ -574,4 +574,8 @@ namespace etk {
 		out += "}";
 		return out;
 	}
+	
+	char toHexChar(uint8_t _value);
+	etk::String toHex(uint64_t _value, uint32_t _size = 2);
+	etk::String toBin(uint64_t _value, uint32_t _size = 1);
 }

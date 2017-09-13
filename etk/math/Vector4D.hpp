@@ -178,7 +178,7 @@ namespace etk {
 					return btSqrt(length2());
 				#else
 					#if __CPP_VERSION__ >= 2011 && !defined(__TARGET_OS__MacOs) && !defined(__TARGET_OS__IOs)
-						return std::sqrt(length2());
+						return etk::sqrt(length2());
 					#else
 						return sqrt(length2());
 					#endif
@@ -221,10 +221,10 @@ namespace etk {
 			 * @return New vector with the absolute value
 			 */
 			Vector4D<T> absolute() const {
-				return Vector4D<T>( std::abs(m_floats[0]),
-				                    std::abs(m_floats[1]),
-				                    std::abs(m_floats[2]),
-				                    std::abs(m_floats[3]));
+				return Vector4D<T>( etk::abs(m_floats[0]),
+				                    etk::abs(m_floats[1]),
+				                    etk::abs(m_floats[2]),
+				                    etk::abs(m_floats[3]));
 			}
 			/**
 			 * @brief Multiply this vector by the other.

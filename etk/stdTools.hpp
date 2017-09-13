@@ -4,13 +4,59 @@
  * @license MPL v2.0 (see license file)
  */
 #pragma once
+//#include <etk/Stream.hpp>
 
 namespace etk {
+	inline float cos(float _value) {
+		return ::cosf(_value);
+	}
+	inline float sin(float _value) {
+		return ::sinf(_value);
+	}
+	inline float tan(float _value) {
+		return ::tanf(_value);
+	}
+	inline float acos(float _value) {
+		return ::acosf(_value);
+	}
+	inline float asin(float _value) {
+		return ::asinf(_value);
+	}
+	inline float atan(float _value) {
+		return ::atanf(_value);
+	}
+	inline float sqrt(float _value) {
+		return ::sqrtf(_value);
+	}
+	inline double cos(double _value) {
+		return ::cos(_value);
+	}
+	inline double sin(double _value) {
+		return ::sin(_value);
+	}
+	inline double tan(double _value) {
+		return ::tan(_value);
+	}
+	inline double acos(double _value) {
+		return ::acos(_value);
+	}
+	inline double asin(double _value) {
+		return ::asin(_value);
+	}
+	inline double atan(double _value) {
+		return ::atan(_value);
+	}
+	inline double sqrt(double _value) {
+		return ::sqrt(_value);
+	}
 	template <class TYPE> const TYPE& min(const TYPE& _val1, const TYPE& _val2) {
 		return (_val1 > _val2) ? _val2 : _val1;
 	}
 	template <class TYPE> const TYPE& max(const TYPE& _val1, const TYPE& _val2) {
 		return (_val1 > _val2) ? _val1 : _val2;
+	}
+	template <class TYPE> TYPE abs(const TYPE& _value) {
+		return (_value >= 0) ? _value : -_value;
 	}
 	/**
 	 * @brief in std, we have min, max but not avg ==> it is missing... the Define of avg template.
@@ -31,5 +77,15 @@ namespace etk {
 			++tmp;
 		}
 		return out;
+	}
+	template<class ETK_ITERATOR_TYPE_1, class ETK_ITERATOR_TYPE_2>
+	ETK_ITERATOR_TYPE_1 find(ETK_ITERATOR_TYPE_1 _start, ETK_ITERATOR_TYPE_1 _stop, const ETK_ITERATOR_TYPE_2& _value) {
+		while (_start != _stop) {
+			if (*_start == _value) {
+				return _start;
+			}
+			++_start;
+		}
+		return _stop;
 	}
 }

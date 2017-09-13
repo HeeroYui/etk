@@ -54,7 +54,7 @@ TEST(TestQuaternion, constructorMatrix) {
 
 TEST(TestQuaternion, constructorEuler) {
 	etk::Quaternion test0(vec3(M_PI*0.5f, 0, 0));
-	etk::Quaternion test01(std::sin(M_PI*0.25f), 0, 0, std::cos(M_PI*0.25f));
+	etk::Quaternion test01(etk::sin(M_PI*0.25f), 0, 0, etk::cos(M_PI*0.25f));
 	test01.normalize();
 	EXPECT_FLOAT_EQ(test0.x(), test01.x());
 	EXPECT_FLOAT_EQ(test0.y(), test01.y());
@@ -62,7 +62,7 @@ TEST(TestQuaternion, constructorEuler) {
 	EXPECT_FLOAT_EQ(test0.w(), test01.w());
 	
 	etk::Quaternion test1(vec3(0, M_PI*0.5f, 0));
-	etk::Quaternion test11(0, std::sin(M_PI*0.25f), 0, std::cos(M_PI*0.25f));
+	etk::Quaternion test11(0, etk::sin(M_PI*0.25f), 0, etk::cos(M_PI*0.25f));
 	test11.normalize();
 	EXPECT_FLOAT_EQ(test1.x(), test11.x());
 	EXPECT_FLOAT_EQ(test1.y(), test11.y());
@@ -70,7 +70,7 @@ TEST(TestQuaternion, constructorEuler) {
 	EXPECT_FLOAT_EQ(test1.w(), test11.w());
 	
 	etk::Quaternion test2(vec3(0, 0, M_PI*0.5f));
-	etk::Quaternion test21(0, 0, std::sin(M_PI*0.25f), std::cos(M_PI*0.25f));
+	etk::Quaternion test21(0, 0, etk::sin(M_PI*0.25f), etk::cos(M_PI*0.25f));
 	test21.normalize();
 	EXPECT_FLOAT_EQ(test2.x(), test21.x());
 	EXPECT_FLOAT_EQ(test2.y(), test21.y());

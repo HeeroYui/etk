@@ -991,3 +991,16 @@ etk::UString etk::operator+ (char32_t _left, const etk::UString& _right) {
 }
 
 
+
+namespace etk {
+/*
+	template<> etk::UString toString<etk::UString>(const etk::UString& _val) {
+		return _val;
+	}
+*/
+	template<> bool from_string<etk::UString>(etk::UString& _variableRet, const etk::String& _value) {
+		_variableRet = utf8::convertUnicode(_value);
+		return true;
+	}
+}
+

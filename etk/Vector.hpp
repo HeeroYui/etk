@@ -224,6 +224,17 @@ namespace etk {
 				m_size = _count;
 			}
 			/**
+			 * @brief List initializer (ex: etk::Vector<etk::String> plop = {"hello", world"}
+			 * @param[in] _element element to add in the vector
+			 */
+			template<typename... ETK_VECTOR_TYPE_2>
+			Vector(const ETK_VECTOR_TYPE_2& ... _args):
+			  m_data(nullptr),
+			  m_size(0),
+			  m_allocated(0) {
+				pushBackN(_args...);
+			}
+			/**
 			 * @brief Re-copy constructor (copy all needed data)
 			 * @param[in] _obj Vector that might be copy
 			 */
@@ -415,6 +426,19 @@ namespace etk {
 				insert(0, _item, _nbElement);
 			}
 			/**
+			 * @brief Add at the Last position of the Vector (move push)
+			 * @param[in] _item Element to add at the end of vector
+			 */
+			void pushBack(ETK_VECTOR_TYPE&& _item) {
+				size_t idElement = m_size;
+				resize(m_size+1);
+				if (idElement < m_size) {
+					m_data[idElement] = etk::move(_item);
+				} else {
+					//TK_ERROR("Resize does not work correctly ... not added item");
+				}
+			}
+			/**
 			 * @brief Add at the Last position of the Vector
 			 * @param[in] _item Element to add at the end of vector
 			 */
@@ -445,6 +469,14 @@ namespace etk {
 				for (size_t iii=0; iii<_nbElement; iii++) {
 					m_data[idElement+iii] = _item[iii];
 				}
+			}
+			void pushBackN(const ETK_VECTOR_TYPE& _value) {
+				pushBack(_value);
+			}
+			template<typename... ETK_VECTOR_TYPE_2>
+			void pushBackN(const ETK_VECTOR_TYPE& _value, const ETK_VECTOR_TYPE_2& ... _args) {
+				pushBack(_value);
+				pushBackN(_args...);
 			}
 			/**
 			 * @brief Remove the first element of the vector
@@ -809,8 +841,8 @@ namespace etk {
 			}
 	};
 	//! @not_in_doc
-	template<typename T, typename T2>
-	bool isIn(const T& _val, const etk::Vector<T2>& _list) {
+	template<typename ETK_VECTOR_TYPE_1, typename ETK_VECTOR_TYPE_2>
+	bool isIn(const ETK_VECTOR_TYPE_1& _val, const etk::Vector<ETK_VECTOR_TYPE_2>& _list) {
 		for (size_t iii=0; iii<_list.size(); ++iii) {
 			if (_list[iii] == _val) {
 				return true;
@@ -818,4 +850,19 @@ namespace etk {
 		}
 		return false;
 	}
+	class Stream;
+	//! @not_in_doc
+	template<class ETK_VECTOR_TYPE>
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector<ETK_VECTOR_TYPE>& _obj) {
+		_os << "{";
+		for (size_t iii=0; iii< _obj.size(); iii++) {
+			if (iii>0) {
+				_os << ";";
+			}
+			_os << _obj[iii];
+		}
+		_os << "}";
+		return _os;
+	}
+
 }
