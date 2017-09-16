@@ -35,6 +35,7 @@ def configure(target, my_module):
 	    'etk/Stream.cpp',
 	    'etk/Function.cpp',
 	    'etk/Allocator.cpp',
+	    'etk/typeInfo.cpp',
 	    ])
 	
 	my_module.add_header_file([
@@ -52,6 +53,7 @@ def configure(target, my_module):
 	    'etk/typeTrait.hpp',
 	    'etk/Function.hpp',
 	    'etk/NullPtr.hpp',
+	    'etk/typeInfo.hpp',
 	    ])
 	
 	# build in C++ mode

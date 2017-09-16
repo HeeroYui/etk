@@ -5,8 +5,9 @@
  */
 #include <etk/types.hpp>
 #include <etk/math/Transform3D.hpp>
+#include <etk/typeInfo.hpp>
 
-
+ETK_DECLARE_TYPE(etk::Transform3D);
 
 etk::Transform3D::Transform3D():
   m_position(vec3(0.0, 0.0, 0.0)),

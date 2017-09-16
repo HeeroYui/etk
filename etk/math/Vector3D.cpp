@@ -7,6 +7,12 @@
 #include <etk/math/Vector3D.hpp>
 #include <etk/stdTools.hpp>
 #include <etk/debug.hpp>
+#include <etk/typeInfo.hpp>
+
+ETK_DECLARE_TYPE(etk::Vector3D<int32_t>);
+ETK_DECLARE_TYPE(etk::Vector3D<float>);
+ETK_DECLARE_TYPE(etk::Vector3D<uint32_t>);
+ETK_DECLARE_TYPE(etk::Vector3D<bool>);
 
 etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Vector3D<int32_t>& _obj) {
 	_os << "(";

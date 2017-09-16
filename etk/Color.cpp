@@ -10,12 +10,24 @@
 #include <etk/debug.hpp>
 #include <etk/stdTools.hpp>
 #include <etk/String.hpp>
+#include <etk/typeInfo.hpp>
+
 
 class ColorList {
 	public:
 		const etk::String colorName;
 		etk::Color<> color;
 };
+
+
+ETK_DECLARE_TYPE(etk::Color<uint8_t,4>);
+ETK_DECLARE_TYPE(etk::Color<double,4>);
+ETK_DECLARE_TYPE(etk::Color<float,4>);
+ETK_DECLARE_TYPE(etk::Color<uint32_t,4>);
+ETK_DECLARE_TYPE(etk::Color<uint8_t,3>);
+ETK_DECLARE_TYPE(etk::Color<double,3>);
+ETK_DECLARE_TYPE(etk::Color<float,3>);
+ETK_DECLARE_TYPE(etk::Color<uint32_t,3>);
 
 static int32_t getColorSize();
 static const ColorList* getColorList();

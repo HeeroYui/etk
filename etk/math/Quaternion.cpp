@@ -5,6 +5,9 @@
  */
 
 #include <etk/math/Quaternion.hpp>
+#include <etk/typeInfo.hpp>
+
+ETK_DECLARE_TYPE(etk::Quaternion);
 
 etk::Stream& etk::operator <<(etk::Stream &_os, const etk::Quaternion& _obj) {
 	_os << "(";

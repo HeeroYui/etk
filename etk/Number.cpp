@@ -7,6 +7,8 @@
  */
 
 #include <etk/Number.hpp>
+#include <etk/typeInfo.hpp>
+ETK_DECLARE_TYPE(etk::Number);
 
 etk::Number::Number() :
   m_negative(false),

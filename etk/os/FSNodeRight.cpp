@@ -7,6 +7,7 @@
 
 #include <etk/os/FSNodeRight.hpp>
 #include <etk/stdTools.hpp>
+#include <etk/typeInfo.hpp>
 
 // Right Flags :
 enum {
@@ -20,6 +21,8 @@ enum {
 	right_user_write    = 1 << 7,
 	right_user_read     = 1 << 8,
 };
+
+ETK_DECLARE_TYPE(etk::FSNodeRight);
 
 etk::FSNodeRight::FSNodeRight(int16_t _newRight) :
  m_rights(_newRight&0x01FF) {

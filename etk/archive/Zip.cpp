@@ -9,6 +9,9 @@
 #include <etk/archive/Zip.hpp>
 #include <etk/types.hpp>
 #include <etk/debug.hpp>
+#include <etk/typeInfo.hpp>
+
+ETK_DECLARE_TYPE(etk::archive::Zip);
 
 etk::archive::Zip::Zip(const etk::String& _fileName, uint64_t _offset) :
   etk::Archive(_fileName),

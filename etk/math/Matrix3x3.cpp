@@ -5,7 +5,8 @@
  */
 
 #include <etk/math/Matrix3x3.hpp>
-
+#include <etk/typeInfo.hpp>
+ETK_DECLARE_TYPE(etk::Matrix3x3);
 
 etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Matrix3x3& _obj) {
 	_os << "{";

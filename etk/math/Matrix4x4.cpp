@@ -8,6 +8,9 @@
 #include <etk/math/Matrix4x4.hpp>
 #include <etk/debug.hpp>
 #include <cmath>
+#include <etk/typeInfo.hpp>
+
+ETK_DECLARE_TYPE(etk::Matrix4x4);
 
 void etk::Matrix4x4::identity() {
 	for(int32_t iii=0; iii<4*4 ; iii++) {

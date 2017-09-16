@@ -8,9 +8,10 @@
 #include <etk/archive/Archive.hpp>
 #include <etk/archive/Zip.hpp>
 #include <etk/debug.hpp>
+#include <etk/typeInfo.hpp>
 
 static const etk::ArchiveContent g_error;
-
+ETK_DECLARE_TYPE(etk::Archive);
 
 const etk::String& etk::Archive::getName(size_t _id) const {
 	ethread::UniqueLock lock(m_mutex);

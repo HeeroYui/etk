@@ -81,6 +81,9 @@ def configure(target, my_module):
 	    'ememory',
 	    'etk-base',
 	    ])
+	# TODO: Remove this ==> when ready to remove dependency with stl:
+	my_module.add_depend(['cxx'])
+	
 	# add some optionnal libraries
 	my_module.add_optionnal_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])
 	my_module.add_optionnal_depend('linearmath', ["c", "-DETK_BUILD_LINEARMATH"], export=True)

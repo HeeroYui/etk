@@ -13,6 +13,7 @@
 #include <etk/debug.hpp>
 #include <etk/Map.hpp>
 #include <ethread/Mutex.hpp>
+#include <etk/typeInfo.hpp>
 #ifdef __TARGET_OS__Windows
 	#include <tchar.h>
 	#include <windows.h>
@@ -37,6 +38,7 @@ extern "C" {
 #define TK_DBG_MODE TK_VERBOSE
 //#define TK_DBG_MODE TK_DEBUG
 
+ETK_DECLARE_TYPE(etk::FSNode);
 
 #ifdef __TARGET_OS__Windows
 	static etk::Vector<etk::String> getListDrive() {

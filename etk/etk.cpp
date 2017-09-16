@@ -10,6 +10,7 @@
 #include <etk/debug.hpp>
 #include <elog/elog.hpp>
 #include <etk/os/FSNode.hpp>
+#include <etk/typeInfo.hpp>
 
 static int32_t nbTimeInit = 0;
 
@@ -66,6 +67,10 @@ void etk::init(int _argc, const char** _argv) {
 		} else if (data.startWith("--etk")) {
 			TK_ERROR("Can not parse the argument : '" << data << "'");
 		}
+	}
+	TK_INFO("ETK List of declared Types:");
+	for (auto &it: etk::getListDeclaredType()) {
+		TK_INFO("    - " << it);
 	}
 	TK_INFO("ETK system init (END)");
 }
