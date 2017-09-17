@@ -479,8 +479,6 @@ namespace etk {
 			template <class ETK_STRING_TYPE>
 			ETK_STRING_TYPE to() const;
 	};
-	char32_t toLower(char32_t _value);
-	char32_t toUpper(char32_t _value);
 	bool operator> (const UString& _left, const UString& _right);
 	bool operator>= (const UString& _left, const UString& _right);
 	bool operator< (const UString& _left, const UString& _right);
