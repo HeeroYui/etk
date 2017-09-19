@@ -28,13 +28,18 @@ namespace etk {
 		return (typename etk::RemoveReference<ETK_MOVE_TYPE>::m_type&&)_obj;
 	}
 	
-	template<typename ETK_SWAP_TYPE>
+	template<typename ETK_SWAP_TYPE,
+	         typename etk::EnableIf<etk::Is_swap_MemberFunctionExists<ETK_SWAP_TYPE>::value,int>::type = 0>
+	inline void swap(ETK_SWAP_TYPE& _obj1, ETK_SWAP_TYPE& _obj2) {
+		_obj1.swap(_obj2);
+	}
+	template<typename ETK_SWAP_TYPE,
+	         typename etk::EnableIf<!etk::Is_swap_MemberFunctionExists<ETK_SWAP_TYPE>::value,int>::type = 0>
 	inline void swap(ETK_SWAP_TYPE& _obj1, ETK_SWAP_TYPE& _obj2) {
 		ETK_SWAP_TYPE tmp = etk::move(_obj1);
 		_obj1 = etk::move(_obj2);
 		_obj2 = etk::move(tmp);
 	}
-	
 	template <class ETK_FORWARD_TYPE>
 	inline ETK_FORWARD_TYPE&& forward(typename etk::RemoveReference<ETK_FORWARD_TYPE>::m_type& _obj) noexcept {
 		return static_cast<ETK_FORWARD_TYPE&&>(_obj);

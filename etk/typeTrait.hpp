@@ -154,4 +154,97 @@ namespace etk {
 	  public etk::typeTrue {
 		
 	};
+	
+	#define DEFINE_METHOD_CHECKER(RETURN_TYPE, METHOD_NAME, PARAMETERS) \
+	template<typename ETK_TYPE> \
+	struct Is_ ## METHOD_NAME ## _MemberFunctionExists { \
+		private: \
+			typedef char True; \
+			typedef char (&False)[2]; \
+			template<typename U, RETURN_TYPE (U::*)PARAMETERS = &U::METHOD_NAME> \
+			struct Checker { \
+			    typedef True Type; \
+			}; \
+			template<typename U> \
+			static typename Checker<U>::Type Tester(const U*); \
+			static False Tester(...); \
+		public: \
+			enum { value = (sizeof(Tester(static_cast<const ETK_TYPE*>(0))) == sizeof(True)) }; \
+	}
+	// Use example:
+	// Is_swap_MemberFunctionExists<T>::value
+	DEFINE_METHOD_CHECKER(void, swap, (ETK_TYPE&));
+	
+	
+	/*
+	#if 0
+	template<typename T>
+	struct hasEtkStreamExporter {
+		typedef char yes[1];
+		typedef char no[2];
+		template<typename U> static yes& test( U& );
+		template<typename U> static no& test(...);
+		
+		static etk::Stream &s;
+		static T const &t;
+		
+		static bool const value = sizeof( test( s << t ) ) == sizeof( yes ); // line 48
+	};
+	#else
+	namespace hasEtkStreamExporterImpl {
+		typedef char no;
+		typedef char yes[2];
+		struct AnyType {
+			template<typename ETK_TYPE> AnyType(const ETK_TYPE&);
+		};
+		no operator<<( etk::Stream&, const AnyType& );
+		yes& test( etk::Stream& );
+		no test( no );
+		template<typename ETK_TYPE>
+		struct hasEtkStreamExporter {
+			static etk::Stream& sss;
+			static const ETK_TYPE& ttt;
+			static bool const value = sizeof( test(sss << ttt) ) == sizeof( yes );
+		};
+	}
+	
+	template<typename ETK_TYPE>
+	struct hasEtkStreamExporter:
+		etk::hasEtkStreamExporterImpl::hasEtkStreamExporter<ETK_TYPE> {
+	};
+	#endif
+	#if 1
+	template <typename T>
+	class hasMemberToString {
+		typedef char one;
+		typedef long two;
+		template <typename C> static one test( decltype(T::toString()) );
+		template <typename C> static two test(...);
+	public:
+		enum { value = sizeof(test<T>(0)) == sizeof(char) };
+	};
+	#else
+	namespace hasMemberToStringImpl {
+		typedef char no;
+		typedef char yes[2];
+		struct AnyType {
+			template<typename ETK_TYPE> AnyType(const ETK_TYPE&);
+		};
+		no operator<<( etk::Stream&, const AnyType& );
+		yes& test( etk::Stream& );
+		no test( no );
+		template<typename ETK_TYPE>
+		struct hasMemberToString {
+			static etk::Stream& sss;
+			static const ETK_TYPE& ttt;
+			static bool const value = sizeof( test(sss << ttt) ) == sizeof( yes );
+		};
+	}
+	
+	template<typename ETK_TYPE>
+	struct hasMemberToString:
+		etk::hasMemberToStringImpl::hasMemberToString<ETK_TYPE> {
+	};
+	#endif
+	*/
 }

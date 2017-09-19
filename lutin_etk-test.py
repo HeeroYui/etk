@@ -31,6 +31,7 @@ def configure(target, my_module):
 	    'test/testFunction.cpp',
 	    'test/testMapUnordered.cpp',
 	    'test/testMap.cpp',
+	    'test/testSet.cpp',
 	    'test/testMatrix3x3.cpp',
 	    'test/testRegExp.cpp',
 	    'test/testTransform.cpp',

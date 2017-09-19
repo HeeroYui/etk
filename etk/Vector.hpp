@@ -205,6 +205,9 @@ namespace etk {
 					  m_vector(const_cast<Vector<ETK_VECTOR_TYPE> *>(_obj)) {
 						// nothing to do ...
 					}
+					size_t getCurrent() const {
+						return m_current;
+					}
 					friend class Vector;
 			};
 		private:
@@ -470,6 +473,7 @@ namespace etk {
 					m_data[idElement+iii] = _item[iii];
 				}
 			}
+		private:
 			void pushBackN(const ETK_VECTOR_TYPE& _value) {
 				pushBack(_value);
 			}
@@ -478,6 +482,7 @@ namespace etk {
 				pushBack(_value);
 				pushBackN(_args...);
 			}
+		public:
 			/**
 			 * @brief Remove the first element of the vector
 			 */
@@ -509,7 +514,7 @@ namespace etk {
 			 * @param[in] _nbElement Number of element to add in the Vector
 			 */
 			void insert(size_t _pos, const ETK_VECTOR_TYPE * _item, size_t _nbElement) {
-				if (_pos>m_size) {
+				if (_pos > m_size) {
 					//TK_WARNING(" can not insert Element at this position : " << _pos << " > " << m_size << " add it at the end ... ");
 					pushBack(_item, _nbElement);
 					return;
@@ -517,14 +522,15 @@ namespace etk {
 				size_t idElement = m_size;
 				// Request resize of the current buffer
 				resize(m_size+_nbElement);
-				if (idElement>=m_size) {
+				if (idElement >= m_size) {
 					//TK_ERROR("Resize does not work correctly ... not added item");
 					return;
 				}
 				// move current data (after the position)
 				size_t sizeToMove = (idElement - _pos);
-				if ( 0 < sizeToMove) {
+				if (sizeToMove > 0) {
 					for (size_t iii=1; iii<=sizeToMove; iii++) {
+						// tODO: better explicite the swap...
 						m_data[m_size-iii] = etk::move(m_data[idElement-iii]);
 					}
 				}
@@ -540,6 +546,14 @@ namespace etk {
 			 */
 			void insert(size_t _pos, const ETK_VECTOR_TYPE& _item) {
 				insert(_pos, &_item, 1);
+			}
+			/**
+			 * @brief Insert one element in the Vector at a specific position
+			 * @param[in] _pos Position to add the elements.
+			 * @param[in] _item Element to add.
+			 */
+			void insert(const Iterator& _pos, const ETK_VECTOR_TYPE& _item) {
+				insert(_pos.getCurrent(), _item);
 			}
 			/**
 			 * @brief Remove N element
@@ -578,8 +592,8 @@ namespace etk {
 			 * @return An iterator on the new element at this position.
 			 */
 			Iterator erase(const Iterator& _it) {
-				eraseLen(_it.m_current, 1);
-				return position(_it.m_current);
+				eraseLen(_it.getCurrent(), 1);
+				return position(_it.getCurrent());
 			}
 			/**
 			 * @brief Remove one element
@@ -612,6 +626,9 @@ namespace etk {
 				}
 				// Request resize of the current buffer
 				resize(m_size-nbElement);
+			}
+			void erase(const Iterator& _pos, const Iterator& _posEnd) {
+				erase(_pos.getCurrent(), _posEnd.getCurrent());
 			}
 			/**
 			 * @brief extract data between two point : 

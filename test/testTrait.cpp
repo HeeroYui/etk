@@ -214,4 +214,48 @@ TEST(typeMove, move_1) {
 	EXPECT_EQ(contructCount, 1001);
 }
 
+static uint32_t swapMode = 0;
+
+class TestSwap1 {
+	private:
+		uint32_t m_value;
+	public:
+		TestSwap1(uint32_t _value) {
+			m_value = _value;
+			swapMode += m_value;
+		}
+		~TestSwap1() {
+			swapMode += m_value;
+		}
+};
+class TestSwap2 {
+	private:
+		uint32_t m_value;
+	public:
+		TestSwap2(uint32_t _value) {
+			m_value = _value;
+			swapMode += m_value;
+		}
+		~TestSwap2() {
+			swapMode += m_value;
+		}
+		
+		void swap(TestSwap2& _obj) {
+			swapMode += 1000000;
+			uint32_t tmp = m_value;
+			m_value = _obj.m_value;
+			_obj.m_value = tmp;
+		}
+};
+
+
+TEST(typeTrait, swap_1) {
+	bool ret = etk::Is_swap_MemberFunctionExists<TestSwap1>::value;
+	EXPECT_EQ(ret, false);
+}
+
+TEST(typeTrait, swap_2) {
+	bool ret = etk::Is_swap_MemberFunctionExists<TestSwap2>::value;
+	EXPECT_EQ(ret, true);
+}
 

@@ -1038,11 +1038,10 @@ namespace etk {
 	}
 }
 
-
-
-
 bool etk::operator> (const etk::String& _left, const etk::String& _right) {
-	for (size_t iii=0; iii<_left.size() && iii<_right.size(); ++iii) {
+	for (size_t iii=0;
+	     iii<_left.size() && iii<_right.size();
+	     ++iii) {
 		if (_left[iii] > _right[iii]) {
 			return true;
 		}
@@ -1056,7 +1055,9 @@ bool etk::operator> (const etk::String& _left, const etk::String& _right) {
 	return false;
 }
 bool etk::operator>= (const etk::String& _left, const etk::String& _right) {
-	for (size_t iii=0; iii<_left.size() && iii<_right.size(); ++iii) {
+	for (size_t iii=0;
+	     iii<_left.size() && iii<_right.size();
+	     ++iii) {
 		if (_left[iii] > _right[iii]) {
 			return true;
 		}
@@ -1070,7 +1071,9 @@ bool etk::operator>= (const etk::String& _left, const etk::String& _right) {
 	return false;
 }
 bool etk::operator< (const etk::String& _left, const etk::String& _right) {
-	for (size_t iii=0; iii<_left.size() && iii<_right.size(); ++iii) {
+	for (size_t iii=0;
+	     iii<_left.size() && iii<_right.size();
+	     ++iii) {
 		if (_left[iii] < _right[iii]) {
 			return true;
 		}
@@ -1084,7 +1087,9 @@ bool etk::operator< (const etk::String& _left, const etk::String& _right) {
 	return false;
 }
 bool etk::operator<= (const etk::String& _left, const etk::String& _right) {
-	for (size_t iii=0; iii<_left.size() && iii<_right.size(); ++iii) {
+	for (size_t iii=0;
+	     iii<_left.size() && iii<_right.size();
+	     ++iii) {
 		if (_left[iii] < _right[iii]) {
 			return true;
 		}

@@ -8,15 +8,6 @@
 #include <etk/Vector.hpp>
 
 #pragma once
-// in header
-template<typename T>
-struct TypeParseTraits
-{ static const char* name; };
-
-// in c-file
-#define REGISTER_PARSE_TYPE(X) \
-    template <> const char* TypeParseTraits<X>::name = #X
-
 
 namespace etk {
 	template<typename ETK_TYPE>

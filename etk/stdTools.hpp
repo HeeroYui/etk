@@ -28,6 +28,19 @@ namespace etk {
 	inline float sqrt(float _value) {
 		return ::sqrtf(_value);
 	}
+	inline float pow(float _xxx, float _yyy) {
+		return ::powf(_xxx, _yyy);
+	}
+	inline float log(float _value) {
+		return ::logf(_value);
+	}
+	inline float log10(float _value) {
+		return ::log10f(_value);
+	}
+	inline float exp(float _value) {
+		return ::expf(_value);
+	}
+	
 	inline double cos(double _value) {
 		return ::cos(_value);
 	}
@@ -48,6 +61,18 @@ namespace etk {
 	}
 	inline double sqrt(double _value) {
 		return ::sqrt(_value);
+	}
+	inline double pow(double _xxx, double _yyy) {
+		return ::pow(_xxx, _yyy);
+	}
+	inline double log(double _value) {
+		return ::log(_value);
+	}
+	inline double log10(double _value) {
+		return ::log10(_value);
+	}
+	inline double exp(double _value) {
+		return ::exp(_value);
 	}
 	template <class TYPE> const TYPE& min(const TYPE& _val1, const TYPE& _val2) {
 		return (_val1 > _val2) ? _val2 : _val1;
@@ -72,7 +97,8 @@ namespace etk {
 	size_t distance(const ETK_ITERATOR_TYPE& _start, const ETK_ITERATOR_TYPE& _stop) {
 		size_t out = 0;
 		ETK_ITERATOR_TYPE tmp = _start;
-		while (tmp != _stop) {
+		ETK_ITERATOR_TYPE tmp2 = _stop;
+		while (tmp != tmp2) {
 			out++;
 			++tmp;
 		}

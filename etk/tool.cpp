@@ -12,21 +12,21 @@ extern "C" {
 	#include <stdlib.h>
 }
 
-double etk::tool::frand(double _a, double _b) {
+double etk::random::frand(double _a, double _b) {
 	return (float)(( (double)rand()/(double)RAND_MAX ) * ((double)_b-(double)_a) + (double)_a);
 }
 
-int32_t etk::tool::irand(int32_t _a, int32_t _b) {
+int32_t etk::random::irand(int32_t _a, int32_t _b) {
 	return (int32_t)(( rand()/(double)RAND_MAX ) * ((double)_b-(double)_a) + (double)_a);
 }
-uint32_t etk::tool::urand(uint32_t _a, uint32_t _b) {
+uint32_t etk::random::urand(uint32_t _a, uint32_t _b) {
 	return (uint32_t)(( rand()/(double)RAND_MAX ) * ((double)_b-(double)_a) + (double)_a);
 }
 
-void etk::tool::resetRandom() {
-	srand(time(NULL));
+void etk::random::reset() {
+	srand(time(0));
 }
 
-void etk::tool::randSeek(int32_t _val) {
+void etk::random::resetSeed(int32_t _val) {
 	srand(_val);
 }

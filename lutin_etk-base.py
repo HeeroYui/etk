@@ -49,6 +49,7 @@ def configure(target, my_module):
 	    'etk/Stream.hpp',
 	    'etk/Pair.hpp',
 	    'etk/Map.hpp',
+	    'etk/Set.hpp',
 	    'etk/move.hpp',
 	    'etk/typeTrait.hpp',
 	    'etk/Function.hpp',

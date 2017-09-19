@@ -51,6 +51,53 @@ TEST(TestVector, pushBack) {
 	EXPECT_EQ(test[1], 4);
 }
 
+TEST(TestVector, pushFront) {
+	// Test contructor value
+	etk::Vector<float> test;
+	EXPECT_EQ(test.size(), 0);
+	test.pushBack(2);
+	EXPECT_EQ(test.size(), 1);
+	EXPECT_EQ(test[0], 2);
+	test.pushBack(4);
+	EXPECT_EQ(test.size(), 2);
+	EXPECT_EQ(test[0], 2);
+	EXPECT_EQ(test[1], 4);
+	test.pushFront(8);
+	EXPECT_EQ(test.size(), 3);
+	EXPECT_EQ(test[0], 8);
+	EXPECT_EQ(test[1], 2);
+	EXPECT_EQ(test[2], 4);
+	test.pushFront(55);
+	EXPECT_EQ(test.size(), 4);
+	EXPECT_EQ(test[0], 55);
+	EXPECT_EQ(test[1], 8);
+	EXPECT_EQ(test[2], 2);
+	EXPECT_EQ(test[3], 4);
+}
+
+TEST(TestVector, insert) {
+	// Test contructor value
+	etk::Vector<float> test;
+	EXPECT_EQ(test.size(), 0);
+	test.pushBack(2);
+	EXPECT_EQ(test.size(), 1);
+	EXPECT_EQ(test[0], 2);
+	test.pushBack(4);
+	EXPECT_EQ(test.size(), 2);
+	EXPECT_EQ(test[0], 2);
+	EXPECT_EQ(test[1], 4);
+	test.pushFront(8);
+	EXPECT_EQ(test.size(), 3);
+	EXPECT_EQ(test[0], 8);
+	EXPECT_EQ(test[1], 2);
+	EXPECT_EQ(test[2], 4);
+	test.pushFront(55);
+	EXPECT_EQ(test.size(), 4);
+	EXPECT_EQ(test[0], 55);
+	EXPECT_EQ(test[1], 8);
+	EXPECT_EQ(test[2], 2);
+	EXPECT_EQ(test[3], 4);
+}
 
 TEST(TestVector, back) {
 	// Test contructor value
