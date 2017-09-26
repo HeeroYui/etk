@@ -204,6 +204,10 @@ void etk::String::popBack() {
 	}
 }
 
+void etk::String::reserve(size_t _size) {
+	m_data.reserve(_size+1);
+}
+
 void etk::String::clear() {
 	resize(0);
 }
@@ -576,12 +580,6 @@ bool etk::String::to<bool>() const {
 	}
 	return false;
 }
-
-etk::Stream& etk::operator <<(etk::Stream& _os, const etk::String& _obj) {
-	_os << _obj.c_str();
-	return _os;
-}
-
 void etk::sort(etk::Vector<etk::String *> &_list) {
 	etk::Vector<etk::String *> tmpList(_list);
 	_list.clear();

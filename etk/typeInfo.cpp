@@ -44,3 +44,17 @@ ETK_DECLARE_TYPE(etk::UString);
 ETK_DECLARE_TYPE(etk::Stream);
 ETK_DECLARE_TYPE(etk::NullPtr);
 
+#include <etk/Exception.hpp>
+
+ETK_DECLARE_TYPE(etk::Exception);
+ETK_DECLARE_TYPE(etk::exception::InvalidArgument);
+ETK_DECLARE_TYPE(etk::exception::DomainError);
+ETK_DECLARE_TYPE(etk::exception::LengthError);
+ETK_DECLARE_TYPE(etk::exception::OutOfRange);
+ETK_DECLARE_TYPE(etk::exception::RangeError);
+ETK_DECLARE_TYPE(etk::exception::OverflowError);
+ETK_DECLARE_TYPE(etk::exception::UnderflowError);
+ETK_DECLARE_TYPE(etk::exception::CastError);
+ETK_DECLARE_TYPE(etk::exception::AllocationError);
+
+

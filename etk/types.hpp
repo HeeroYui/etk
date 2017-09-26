@@ -56,6 +56,26 @@ extern "C" {
 	#define UINT64_MAX (__UINT64_C(18446744073709551615))
 #endif
 
+#ifndef FLT_EPSILON
+	#define FLT_EPSILON (1.192092896e-07f)
+#endif
+#ifndef FLT_MAX
+	#define FLT_MAX (3.402823466e+38f)
+#endif
+#ifndef FLT_MIN
+	#define FLT_MIN (1.175494351e-38f)
+#endif
+
+#ifndef DBL_EPSILON
+	#define DBL_EPSILON (2.2204460492503131e-016)
+#endif
+#ifndef DBL_MAX
+	#define DBL_MAX (1.7976931348623158e+308)
+#endif
+#ifndef DBL_MIN
+	#define DBL_MIN (2.2250738585072014e-308)
+#endif
+
 #ifndef ETK_BUILD_LINEARMATH
 	//! @brief If not using linear math from bullet lib, we need to define the basic element of a btScalar (float)
 	using btScalar = float;
@@ -92,4 +112,4 @@ extern "C" {
 
 #include <etk/stdTools.hpp>
 #include <etk/move.hpp>
-#include <etk/Stream.hpp>
+//#include <etk/Stream.hpp>

@@ -36,6 +36,7 @@ def configure(target, my_module):
 	    'etk/Function.cpp',
 	    'etk/Allocator.cpp',
 	    'etk/typeInfo.cpp',
+	    'etk/Exception.cpp',
 	    ])
 	
 	my_module.add_header_file([
@@ -55,6 +56,7 @@ def configure(target, my_module):
 	    'etk/Function.hpp',
 	    'etk/NullPtr.hpp',
 	    'etk/typeInfo.hpp',
+	    'etk/Exception.hpp',
 	    ])
 	
 	# build in C++ mode

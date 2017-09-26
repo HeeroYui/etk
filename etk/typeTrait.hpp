@@ -156,25 +156,26 @@ namespace etk {
 	};
 	
 	#define DEFINE_METHOD_CHECKER(RETURN_TYPE, METHOD_NAME, PARAMETERS) \
-	template<typename ETK_TYPE> \
-	struct Is_ ## METHOD_NAME ## _MemberFunctionExists { \
-		private: \
-			typedef char True; \
-			typedef char (&False)[2]; \
-			template<typename U, RETURN_TYPE (U::*)PARAMETERS = &U::METHOD_NAME> \
-			struct Checker { \
-			    typedef True Type; \
-			}; \
-			template<typename U> \
-			static typename Checker<U>::Type Tester(const U*); \
-			static False Tester(...); \
-		public: \
-			enum { value = (sizeof(Tester(static_cast<const ETK_TYPE*>(0))) == sizeof(True)) }; \
-	}
+		template<typename ETK_TYPE> \
+		struct Is_ ## METHOD_NAME ## _MemberFunctionExists { \
+			private: \
+				typedef char True; \
+				typedef char (&False)[2]; \
+				template<typename U, RETURN_TYPE (U::*)PARAMETERS = &U::METHOD_NAME> \
+				struct Checker { \
+				    typedef True Type; \
+				}; \
+				template<typename U> \
+				static typename Checker<U>::Type Tester(const U*); \
+				static False Tester(...); \
+			public: \
+				enum { value = (sizeof(Tester(static_cast<const ETK_TYPE*>(0))) == sizeof(True)) }; \
+		} \
 	// Use example:
 	// Is_swap_MemberFunctionExists<T>::value
 	DEFINE_METHOD_CHECKER(void, swap, (ETK_TYPE&));
-	
+	class String;
+	DEFINE_METHOD_CHECKER(etk::String, toString, ());
 	
 	/*
 	#if 0

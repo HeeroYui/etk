@@ -235,6 +235,7 @@ namespace etk {
 			  m_data(nullptr),
 			  m_size(0),
 			  m_allocated(0) {
+				changeAllocation(int32_t(sizeof...(ETK_VECTOR_TYPE_2)));
 				pushBackN(_args...);
 			}
 			/**
@@ -697,6 +698,16 @@ namespace etk {
 				}
 				m_size = _newSize;
 			}
+			/**
+			 * @brief Force the container to have a minimum size in memory allocation
+			 * @param[in] _size Size in byte that is requested.
+			 */
+			void reserve(size_t _size) {
+				if (_size <= m_allocated) {
+					return;
+				}
+				changeAllocation(_size);
+			}
 		private:
 			/**
 			 * @brief Change the current allocation to the correct one (depend on the current size)
@@ -867,19 +878,4 @@ namespace etk {
 		}
 		return false;
 	}
-	class Stream;
-	//! @not_in_doc
-	template<class ETK_VECTOR_TYPE>
-	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector<ETK_VECTOR_TYPE>& _obj) {
-		_os << "{";
-		for (size_t iii=0; iii< _obj.size(); iii++) {
-			if (iii>0) {
-				_os << ";";
-			}
-			_os << _obj[iii];
-		}
-		_os << "}";
-		return _os;
-	}
-
 }

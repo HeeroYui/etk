@@ -161,3 +161,24 @@ TEST(TestVector, popFront) {
 	EXPECT_EQ(test[1], 8);
 }
 
+
+TEST(TestVector, initializationList_1) {
+	// Test contructor value
+	etk::Vector<int> test = {1, 5, 6, 8};
+	EXPECT_EQ(test.size(), 4);
+	EXPECT_EQ(test[0], 1);
+	EXPECT_EQ(test[1], 5);
+	EXPECT_EQ(test[2], 6);
+	EXPECT_EQ(test[3], 8);
+}
+
+TEST(TestVector, initializationList_2) {
+	// Test contructor value
+	etk::Vector<int> test(1, 5, 6, 8);
+	EXPECT_EQ(test.size(), 4);
+	EXPECT_EQ(test[0], 1);
+	EXPECT_EQ(test[1], 5);
+	EXPECT_EQ(test[2], 6);
+	EXPECT_EQ(test[3], 8);
+}
+

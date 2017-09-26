@@ -351,6 +351,11 @@ namespace etk {
 			 */
 			void popBack();
 			/**
+			 * @brief Force the container to have a minimum size in memory allocation
+			 * @param[in] _size Size in byte that is requested.
+			 */
+			void reserve(size_t _size);
+			/**
 			 * @brief Remove all element in the current string
 			 */
 			void clear();

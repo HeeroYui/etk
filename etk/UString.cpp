@@ -196,6 +196,10 @@ void etk::UString::popBack() {
 	}
 }
 
+void etk::UString::reserve(size_t _size) {
+	m_data.reserve(_size+1);
+}
+
 void etk::UString::clear() {
 	resize(0);
 }
