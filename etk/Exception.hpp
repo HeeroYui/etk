@@ -165,5 +165,17 @@ namespace etk {
 					
 				}
 		};
+		class RuntimeError : public etk::Exception {
+			public:
+				/**
+				 * @brief Contructor of an generic Exception.
+				 * @param[in] _what The explanation of the problem.
+				 * @param[in] _function Function name to find faster the source od the problem.
+				 */
+				RuntimeError(const etk::String& _what, const char* _function = nullptr):
+				  etk::Exception("RUNTIME-ERROR", _what, _function) {
+					
+				}
+		};
 	}
 }

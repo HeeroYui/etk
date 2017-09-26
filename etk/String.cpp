@@ -580,6 +580,12 @@ bool etk::String::to<bool>() const {
 	}
 	return false;
 }
+
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::String& _obj) {
+	_os << _obj.c_str();
+	return _os;
+}
+
 void etk::sort(etk::Vector<etk::String *> &_list) {
 	etk::Vector<etk::String *> tmpList(_list);
 	_list.clear();

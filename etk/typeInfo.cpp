@@ -56,5 +56,5 @@ ETK_DECLARE_TYPE(etk::exception::OverflowError);
 ETK_DECLARE_TYPE(etk::exception::UnderflowError);
 ETK_DECLARE_TYPE(etk::exception::CastError);
 ETK_DECLARE_TYPE(etk::exception::AllocationError);
-
+ETK_DECLARE_TYPE(etk::exception::RuntimeError);
 

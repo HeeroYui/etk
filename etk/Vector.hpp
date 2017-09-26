@@ -7,6 +7,7 @@
 
 #include <etk/types.hpp>
 //#include <etk/debug.hpp>
+#include <etk/Stream.hpp>
 
 namespace etk {
 	class Stream;
@@ -877,5 +878,19 @@ namespace etk {
 			}
 		}
 		return false;
+	}
+	class Stream;
+	//! @not_in_doc
+	template<class ETK_VECTOR_TYPE>
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Vector<ETK_VECTOR_TYPE>& _obj) {
+		_os << "{";
+		for (size_t iii=0; iii< _obj.size(); iii++) {
+			if (iii>0) {
+				_os << ";";
+			}
+			_os << _obj[iii];
+		}
+		_os << "}";
+		return _os;
 	}
 }

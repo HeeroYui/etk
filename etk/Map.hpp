@@ -244,11 +244,36 @@ namespace etk {
 			/**
 			 * @brief Constructor of the Map table.
 			 * @param[in] _count Number of basic element in the table.
+			 * @param[in] _ordered select an ordered map or an onordered map.
 			 */
 			Map(int32_t _count = 0, bool _ordered=true) :
 			  m_data(_count),
 			  m_ordered(_ordered) {
 				// nothing to do
+			}
+			/**
+			 * @brief Move constructor
+			 * @param[in] _obj Other Map to move
+			 */
+			Map(Map&& _obj):
+			  m_data(0),
+			  m_ordered(true) {
+				_obj.swap(*this);
+			}
+			/**
+			 * @brief Copy constructor
+			 * @param[in] _obj Other Map to copy
+			 */
+			Map(const Map& _obj) :
+			  m_data(),
+			  m_ordered(_obj.m_ordered) {
+				m_data.reserve(_obj.m_data.size());
+				for (auto &it : _obj.m_data) {
+					if (it == nullptr) {
+						continue;
+					}
+					m_data.pushBack(new etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>(it->first, it->second));
+				}
 			}
 			void setOrdered(bool _ordered) {
 				m_ordered = _ordered;
@@ -261,6 +286,31 @@ namespace etk {
 			 */
 			~Map() {
 				clear();
+			}
+			/**
+			 * @brief Swap two map
+			 * @param[in] _obj Other Map to swap with
+			 */
+			void swap(Map& _obj) {
+				etk::swap(m_data, _obj.m_data);
+				etk::swap(m_ordered, _obj.m_ordered);
+			}
+			/**
+			 * @brief Move operator
+			 * @param[in] _obj Other Map to move
+			 */
+			Map& operator=(Map&& _obj) {
+				_obj.swap(*this);
+				return *this;
+			}
+			/**
+			 * @brief Copy operator
+			 * @param[in] _obj Other Map to copy
+			 */
+			Map& operator=(const Map& _obj) {
+				Map tmp(_obj);
+				tmp.swap(*this);
+				return *this;
 			}
 			/**
 			 * @brief Remove all entry in the Map table.

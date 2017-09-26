@@ -7,6 +7,7 @@
 
 #include <etk/types.hpp>
 #include <etk/move.hpp>
+#include <etk/Stream.hpp>
 
 namespace etk {
 	template<class ETK_PAIR_TYPE_1, class ETK_PAIR_TYPE_2>

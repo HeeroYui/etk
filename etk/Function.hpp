@@ -36,7 +36,7 @@ namespace etk {
 	class FunctionPrivateLambda<ETK_TYPE_FUNCTION_FUNCTOR, ETK_TYPE_FUNCTION_RETURN(ETK_TYPE_FUNCTION_ARGS...)>:
 	  public FunctionPrivate<ETK_TYPE_FUNCTION_RETURN(ETK_TYPE_FUNCTION_ARGS...)> {
 		private:
-			ETK_TYPE_FUNCTION_FUNCTOR m_dataPointer;
+			mutable ETK_TYPE_FUNCTION_FUNCTOR m_dataPointer;
 		public:
 			FunctionPrivateLambda(ETK_TYPE_FUNCTION_FUNCTOR _functor):
 			  m_dataPointer(_functor) {

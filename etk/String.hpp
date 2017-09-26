@@ -519,6 +519,8 @@ namespace etk {
 	inline bool operator<= (const char* _left, const String& _right) {
 		return _right <= _left;
 	}
+	//! @not_in_doc
+	etk::Stream& operator <<(etk::Stream& _os, const etk::String& _obj);
 	/**
 	 * @brief Template to declare conversion from anything in etk::String
 	 * @param[in] _variable Variable to convert

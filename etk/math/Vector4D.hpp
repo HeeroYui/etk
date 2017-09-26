@@ -6,6 +6,7 @@
 #pragma once
 
 #include <etk/types.hpp>
+#include <etk/Stream.hpp>
 
 extern "C" {
 	#include <math.h>
