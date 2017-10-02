@@ -25,6 +25,9 @@ namespace etk {
 	inline float atan(float _value) {
 		return ::atanf(_value);
 	}
+	inline float atan2(float _value, float _value2) {
+		return ::atan2f(_value, _value2);
+	}
 	inline float sqrt(float _value) {
 		return ::sqrtf(_value);
 	}
@@ -58,6 +61,9 @@ namespace etk {
 	}
 	inline double atan(double _value) {
 		return ::atan(_value);
+	}
+	inline double atan2(double _value, double _value2) {
+		return ::atan2(_value, _value2);
 	}
 	inline double sqrt(double _value) {
 		return ::sqrt(_value);
