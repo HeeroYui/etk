@@ -88,4 +88,11 @@ namespace etk {
 		_os << ")";
 		return _os;
 	}
+	template<class ETK_PAIR_TYPE_1, class ETK_PAIR_TYPE_2>
+	bool operator< (const Pair<ETK_PAIR_TYPE_1, ETK_PAIR_TYPE_2>& _obj1, const Pair<ETK_PAIR_TYPE_1, ETK_PAIR_TYPE_2>& _obj2) {
+		if (_obj1.first == _obj2.first) {
+			return _obj1.second < _obj2.second;
+		}
+		return _obj1.first < _obj2.first;
+	}
 };
