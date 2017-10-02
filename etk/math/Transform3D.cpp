@@ -34,4 +34,8 @@ etk::Transform3D etk::Transform3D::identity() {
 	return etk::Transform3D(vec3(0.0, 0.0, 0.0), Quaternion::identity());
 }
 
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Transform3D& _obj) {
+	_os << "transform3D(" << _obj.getPosition() << ";" << _obj.getOrientation() << ")";
+	return _os;
+}
 

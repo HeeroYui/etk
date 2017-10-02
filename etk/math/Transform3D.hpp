@@ -124,6 +124,8 @@ namespace etk {
 				return *this;
 			}
 	};
+	//! @not_in_doc
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Transform3D& _obj);
 }
 
 
