@@ -302,6 +302,14 @@ namespace etk {
 			 */
 			size_t size() const;
 			/**
+			 * @brief Check if the container have some element
+			 * @return true The container is empty
+			 * @return famse The container have some element
+			 */
+			bool empty() const {
+				return size() == 0;
+			}
+			/**
 			 * @brief Get a current element in the string
 			 * @param[in] _pos Desired position read
 			 * @return Reference on the Element

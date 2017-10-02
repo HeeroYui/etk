@@ -343,7 +343,12 @@ namespace etk {
 			size_t size() const {
 				return m_size;
 			}
-			size_t empty() const {
+			/**
+			 * @brief Check if the container have some element
+			 * @return true The container is empty
+			 * @return famse The container have some element
+			 */
+			bool empty() const {
 				return m_size == 0;
 			}
 			/**
