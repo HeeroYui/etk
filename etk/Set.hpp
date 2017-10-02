@@ -35,7 +35,7 @@ namespace etk {
 	 * size_t size = myValue.size();
 	 * @endcode
 	 */
-	template<class ETK_SET_TYPE>
+	template<class ETK_SET_TYPE, int STATIC_ALLOCATION_SIZE = -1>
 	class Set {
 		public:
 		class Iterator {
@@ -265,6 +265,18 @@ namespace etk {
 				clear();
 			}
 			/**
+			 * @brief Remove the first element of the vector
+			 */
+			void popFront() {
+				m_data.popFront();
+			}
+			/**
+			 * @brief Remove the last element of the vector
+			 */
+			void popBack() {
+				m_data.popBack();
+			}
+			/**
 			 * @brief Remove all entry in the Set table.
 			 * @note It does not delete pointer if your value is a pointer type...
 			 */
@@ -355,7 +367,11 @@ namespace etk {
 			 * @param[in] _it Iterator on the element.
 			 */
 			Iterator erase(const Iterator& _it) {
-				return position(*m_data.erase(m_data.begin() + _it.getCurrent()));
+				if (_it != end()) {
+					m_data.erase(m_data.begin() + _it.getCurrent());
+					return position(_it.getCurrent());
+				}
+				return _it;
 			}
 			/**
 			 * @brief Get the number of element in the Set table
@@ -363,6 +379,14 @@ namespace etk {
 			 */
 			size_t size() const {
 				return m_data.size();
+			}
+			/**
+			 * @brief Check if the container have some element
+			 * @return true The container is empty
+			 * @return famse The container have some element
+			 */
+			bool empty() const {
+				return m_data.size() == 0;
 			}
 			/**
 			 * @brief Swap generic function
@@ -426,6 +450,22 @@ namespace etk {
 					}
 				}
 				return end();
+			}
+			
+			/**
+			 * @brief Count the number of occurence of a specific element.
+			 * @param[in] _key Name of the element to count iterence
+			 * @return 0 No element was found
+			 * @return 1 One element was found
+			 */
+			size_t count(const ETK_SET_TYPE& _key) const {
+				// TODO: search in a dichotomic way.
+				for (size_t iii=0; iii<m_data.size(); iii++) {
+					if (m_data[iii] == _key) {
+						return 1;
+					}
+				}
+				return 0;
 			}
 	};
 }
