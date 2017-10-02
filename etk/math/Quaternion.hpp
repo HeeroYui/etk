@@ -131,9 +131,9 @@ namespace etk {
 			 */
 			Quaternion operator*(const float& _val) const {
 				return Quaternion(m_floats[0] * _val,
-				                   m_floats[1] * _val,
-				                   m_floats[2] * _val,
-				                   m_floats[3] * _val);
+				                  m_floats[1] * _val,
+				                  m_floats[2] * _val,
+				                  m_floats[3] * _val);
 			}
 			/**
 			 * @brief Inversely scale the quaternion
@@ -427,9 +427,12 @@ namespace etk {
 			 * @return Point with the updated position
 			 */
 			vec3 operator*(const vec3& _point) const {
-				// TODO :Xheck this ==> if seams a little complicated ...
-				Quaternion p(0.0, _point);
-				return (((*this) * p) * getConjugate()).getVectorV();
+				vec3 qvec = getVectorV();
+				vec3 uv = qvec.cross(_point);
+				vec3 uuv = qvec.cross(uv);
+				uv *= (2.0f * m_floats[3]);
+				uuv *= 2.0f;
+				return _point + uv + uuv;
 			}
 			/**
 			 * @brief Set each element to the max of the current values and the values of another Vector
