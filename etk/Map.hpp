@@ -536,6 +536,24 @@ namespace etk {
 				}
 				return position(elementId);
 			}
+			/**
+			 * @brief Count the number of occurence of a specific element.
+			 * @param[in] _key Name of the element to count iterence
+			 * @return 0 No element was found
+			 * @return 1 One element was found
+			 */
+			size_t count(const ETK_MAP_TYPE_KEY& _key) const {
+				// TODO: search in a dichotomic way.
+				for (size_t iii=0; iii<m_data.size(); iii++) {
+					if (m_data[iii] == nullptr) {
+						continue;
+					}
+					if (m_data[iii]->first == _key) {
+						return 1;
+					}
+				}
+				return 0;
+			}
 			
 			
 	};
