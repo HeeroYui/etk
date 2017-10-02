@@ -183,12 +183,12 @@ namespace etest {
 		ETEST_DEBUG("    [ SUB-DONE ]"); \
 	} while (false)
 
-#define EXPECT_FLOAT_EQ(element, result) \
+#define EXPECT_FLOAT_EQ_DELTA(element, result, delta) \
 	do { \
 		ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_FLOAT_EQ(" << #element << ", " << #result << ");"); \
 		float ETEST_VARIABLE_TMP_res2 = (element) - (result); \
 		bool ETEST_VARIABLE_TMP_res = false; \
-		if (ETEST_VARIABLE_TMP_res2 < 0.00001f && ETEST_VARIABLE_TMP_res2 > -0.00001f) { \
+		if (ETEST_VARIABLE_TMP_res2 < delta && ETEST_VARIABLE_TMP_res2 > -delta) { \
 			ETEST_VARIABLE_TMP_res = true; \
 		} \
 		if (etest::g_currentTest == nullptr) { \
@@ -204,5 +204,6 @@ namespace etest {
 		ETEST_DEBUG("    [ SUB-DONE ]"); \
 	} while (false)
 
-
+#define EXPECT_FLOAT_EQ(element, result) \
+	EXPECT_FLOAT_EQ_DELTA(element, result, 0.00001f)
 
