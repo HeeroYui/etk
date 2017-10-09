@@ -407,6 +407,18 @@ void etk::setArgZero(const etk::String& _val) {
 	etk::Vector<etk::String> elems = etk::split(_val, '/');
 	etk::initDefaultFolder(elems[elems.size()-1].c_str());
 }
+
+etk::String l_forceUSERDATA = "";
+void etk::forcePathUserData(const etk::String& _val) {
+	l_forceUSERDATA = _val;
+	if (l_forceUSERDATA == "") {
+		TK_TODO("Reset the USERDATA: to the default path ...");
+		return;
+	}
+	TK_INFO("Force the USERDATA: to '" << l_forceUSERDATA << "'");
+	baseFolderDataUser = l_forceUSERDATA;
+}
+
 /*
 	On Unixes with /proc really straight and realiable way is to:
 		readlink("/proc/self/exe", buf, bufsize) (Linux)
@@ -567,8 +579,10 @@ void etk::initDefaultFolder(const char* _applName) {
 			baseFolderData += etk::String(binaryName.begin()+1, binaryName.end()-4);
 			baseFolderData += "/";
 			
-			baseFolderDataUser  = binaryPath;
-			baseFolderDataUser += "/user/";
+			if (l_forceUSERDATA == "") {
+				baseFolderDataUser  = binaryPath;
+				baseFolderDataUser += "/user/";
+			}
 			
 			baseFolderCache  = binaryPath;
 			baseFolderCache += "/tmp/";
@@ -616,16 +630,18 @@ void etk::initDefaultFolder(const char* _applName) {
 					}
 				#endif
 			}
-			#if defined(__TARGET_OS__IOs)
-				baseFolderDataUser  = binaryPath;
-				baseFolderDataUser += "/../Documents/";
-				baseFolderDataUser = simplifyPath(baseFolderDataUser);
-			#else
-				baseFolderDataUser  = baseFolderHome;
-				baseFolderDataUser += "/.local/share/";
-				baseFolderDataUser += binaryName;
-				baseFolderDataUser += "/";
-			#endif
+			if (l_forceUSERDATA == "") {
+				#if defined(__TARGET_OS__IOs)
+					baseFolderDataUser  = binaryPath;
+					baseFolderDataUser += "/../Documents/";
+					baseFolderDataUser = simplifyPath(baseFolderDataUser);
+				#else
+					baseFolderDataUser  = baseFolderHome;
+					baseFolderDataUser += "/.local/share/";
+					baseFolderDataUser += binaryName;
+					baseFolderDataUser += "/";
+				#endif
+			}
 			#if defined(__TARGET_OS__IOs)
 				baseFolderCache  = binaryPath;
 				baseFolderCache += "/../tmp/";

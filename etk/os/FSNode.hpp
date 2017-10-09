@@ -43,6 +43,12 @@ namespace etk {
 	 */
 	void setArgZero(const etk::String& _val);
 	/**
+	 * @brief Force the "USERDATA:" to an other path (not the default path).
+	 * @note this is called internaly to change the path with the generic cmd line intruction ... It is dangerous to do it in runtime (after start).
+	 * @param[in] _val user data basic path.
+	 */
+	void forcePathUserData(const etk::String& _val);
+	/**
 	 * @brief Simplify a path with all the complication that mean ".." or "///\//"
 	 * @param[in] _input Parth to simplify
 	 * @return the simplified path.
