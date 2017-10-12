@@ -8,8 +8,6 @@
 #include <etk/types.hpp>
 //#include <etk/debug.hpp>
 #include <etk/Stream.hpp>
-// better mode of vector ==> increate the code complexity
-#define ETK_ENABLE_PLACEMENT_NEW 1
 
 //#define ETK_VECTOR_DEBUG(...) printf(__VA_ARGS__)
 #define ETK_VECTOR_DEBUG(...) do {} while (false)
@@ -275,38 +273,20 @@ namespace etk {
 			 * @brief Re-copy constructor (copy all needed data)
 			 * @param[in] _obj Vector that might be copy
 			 */
-			#ifndef ETK_ENABLE_PLACEMENT_NEW
-				Vector(const etk::Vector<ETK_VECTOR_TYPE>& _obj):
-				  m_data(nullptr),
-				  m_size(_obj.m_size),
-				  m_allocated(_obj.m_allocated) {
-					// allocate all same data
-					m_data = new ETK_VECTOR_TYPE[m_allocated];
-					if (m_data == nullptr) {
-						return;
-					}
-					// Copy all data ...
-					for(size_t iii=0; iii<m_allocated; iii++) {
-						// copy operator ...
-						m_data[iii] = _obj.m_data[iii];
-					}
+			Vector(const etk::Vector<ETK_VECTOR_TYPE>& _obj):
+			  m_data(nullptr),
+			  m_size(0),
+			  m_allocated(0) {
+				reserve(_obj.m_size);
+				for(size_t iii=0; iii<_obj.m_size; iii++) {
+					#if 0
+						pushBack(_obj.m_data[iii]);
+					#else
+						new ((char*)&m_data[iii]) ETK_VECTOR_TYPE(etk::move(_obj.m_data[iii]));
+					#endif
 				}
-			#else
-				Vector(const etk::Vector<ETK_VECTOR_TYPE>& _obj):
-				  m_data(nullptr),
-				  m_size(0),
-				  m_allocated(0) {
-					reserve(_obj.m_size);
-					for(size_t iii=0; iii<_obj.m_size; iii++) {
-						#if 0
-							pushBack(_obj.m_data[iii]);
-						#else
-							new ((char*)&m_data[iii]) ETK_VECTOR_TYPE(etk::move(_obj.m_data[iii]));
-						#endif
-					}
-					m_size = _obj.m_size;
-				}
-			#endif
+				m_size = _obj.m_size;
+			}
 			/**
 			 * @brief Move operator of elements
 			 * @param[in] _obj Object to move
@@ -324,21 +304,17 @@ namespace etk {
 			 */
 			~Vector() {
 				if (m_data != nullptr) {
-					#ifndef ETK_ENABLE_PLACEMENT_NEW
-						delete[] m_data;
-					#else
-						for(size_t iii=0; iii<m_size; iii++) {
-							m_data[iii].~ETK_VECTOR_TYPE();
-							#ifdef DEBUG
-								// we place bad data to permit to detect stipid thing that is done in C++ code when developement is in progress.
-								// Only in debug this is really slow ... and for the real allocation of memory
-								for (size_t kkk=iii*sizeof(ETK_VECTOR_TYPE); kkk<sizeof(ETK_VECTOR_TYPE)*(iii+1); ++kkk) {
-									((char*)m_data)[kkk] = 0xA5;
-								}
-							#endif
-						}
-						delete[] (char*)m_data;
-					#endif
+					for(size_t iii=0; iii<m_size; iii++) {
+						m_data[iii].~ETK_VECTOR_TYPE();
+						#ifdef DEBUG
+							// we place bad data to permit to detect stipid thing that is done in C++ code when developement is in progress.
+							// Only in debug this is really slow ... and for the real allocation of memory
+							for (size_t kkk=iii*sizeof(ETK_VECTOR_TYPE); kkk<sizeof(ETK_VECTOR_TYPE)*(iii+1); ++kkk) {
+								((char*)m_data)[kkk] = 0xA5;
+							}
+						#endif
+					}
+					delete[] (char*)m_data;
 					m_data = nullptr;
 				}
 				m_allocated = 0;
@@ -375,73 +351,33 @@ namespace etk {
 			 * @param[in] _obj Vector that might be copy
 			 * @return reference on the current re-copy vector
 			 */
-			#ifndef ETK_ENABLE_PLACEMENT_NEW
-				Vector& operator=(const etk::Vector<ETK_VECTOR_TYPE>& _obj) {
-					if (this != &_obj) {
-						if (m_data != nullptr) {
-							delete[] m_data;
-							m_data = nullptr;
-						}
-						// Set the new value
-						m_allocated = _obj.m_allocated;
-						m_size      = _obj.m_size;
-						// allocate all same data
-						m_data = new ETK_VECTOR_TYPE[m_allocated];
-						if (m_data == nullptr) {
-							return *this;
-						}
-						for(size_t iii=0; iii<m_allocated; iii++) {
-							// copy operator ...
-							m_data[iii] = _obj.m_data[iii];
-						}
-					}
-					// Return the current pointer
-					return *this;
+			Vector& operator=(const etk::Vector<ETK_VECTOR_TYPE>& _obj) {
+				// remove all previous elements
+				clear();
+				// Force a specicfic size
+				reserve(_obj.m_size);
+				for(size_t iii=0; iii<_obj.m_size; iii++) {
+					#if 0
+						pushBack(_obj.m_data[iii]);
+					#else
+						new ((char*)&m_data[iii]) ETK_VECTOR_TYPE(etk::move(_obj.m_data[iii]));
+					#endif
 				}
-			#else
-				Vector& operator=(const etk::Vector<ETK_VECTOR_TYPE>& _obj) {
-					// remove all previous elements
-					clear();
-					// Force a specicfic size
-					reserve(_obj.m_size);
-					for(size_t iii=0; iii<_obj.m_size; iii++) {
-						#if 0
-							pushBack(_obj.m_data[iii]);
-						#else
-							new ((char*)&m_data[iii]) ETK_VECTOR_TYPE(etk::move(_obj.m_data[iii]));
-						#endif
-					}
-					m_size = _obj.m_size;
-					// Return the current pointer
-					return *this;
-				}
-			#endif
-			
+				m_size = _obj.m_size;
+				// Return the current pointer
+				return *this;
+			}
 			/**
 			 * @brief Add at the Last position of the Vector
 			 * @param[in] _obj Element to add at the end of vector
 			 */
 			Vector& operator+= (const etk::Vector<ETK_VECTOR_TYPE>& _obj) {
-				#ifndef ETK_ENABLE_PLACEMENT_NEW
-					size_t numberElement = _obj.size();
-					size_t idElement = m_size;
-					resize(m_size+numberElement);
-					if (m_size <= idElement) {
-						//TK_CRITICAL("allocation error");
-						return *this;
-					}
-					for(size_t iii=0; iii<numberElement; iii++) {
-						// copy operator ...
-						m_data[idElement+iii] = etk::move(_obj.m_data[iii]);
-					}
-				#else
-					reserve(m_size + _obj.size());
-					for(size_t iii=0; iii<_obj.size(); iii++) {
-						// copy operator ...
-						new ((char*)&m_data[m_size+iii]) ETK_VECTOR_TYPE(etk::move(_obj.m_data[iii]));
-					}
-					m_size += _obj.size();
-				#endif
+				reserve(m_size + _obj.size());
+				for(size_t iii=0; iii<_obj.size(); iii++) {
+					// copy operator ...
+					new ((char*)&m_data[m_size+iii]) ETK_VECTOR_TYPE(etk::move(_obj.m_data[iii]));
+				}
+				m_size += _obj.size();
 				// Return the current pointer
 				return *this;
 			}
@@ -531,38 +467,18 @@ namespace etk {
 			 * @param[in] _item Element to add at the end of vector
 			 */
 			void pushBack(ETK_VECTOR_TYPE&& _item) {
-				#ifndef ETK_ENABLE_PLACEMENT_NEW
-					size_t idElement = m_size;
-					resize(m_size+1);
-					if (idElement < m_size) {
-						m_data[idElement] = etk::move(_item);
-					} else {
-						//TK_ERROR("Resize does not work correctly ... not added item");
-					}
-				#else
-					reserve(m_size+1);
-					new ((char*)&m_data[m_size]) ETK_VECTOR_TYPE(etk::move(_item));
-					m_size += 1;
-				#endif
+				reserve(m_size+1);
+				new ((char*)&m_data[m_size]) ETK_VECTOR_TYPE(etk::move(_item));
+				m_size += 1;
 			}
 			/**
 			 * @brief Add at the Last position of the Vector
 			 * @param[in] _item Element to add at the end of vector
 			 */
 			void pushBack(const ETK_VECTOR_TYPE& _item) {
-				#ifndef ETK_ENABLE_PLACEMENT_NEW
-					size_t idElement = m_size;
-					resize(m_size+1);
-					if (idElement < m_size) {
-						m_data[idElement] = etk::move(_item);
-					} else {
-						//TK_ERROR("Resize does not work correctly ... not added item");
-					}
-				#else
-					reserve(m_size+1);
-					new ((char*)&m_data[m_size]) ETK_VECTOR_TYPE(etk::move(_item));
-					m_size += 1;
-				#endif
+				reserve(m_size+1);
+				new ((char*)&m_data[m_size]) ETK_VECTOR_TYPE(etk::move(_item));
+				m_size += 1;
 			}
 			/**
 			 * @brief Add at the Last position of the Vector
@@ -573,27 +489,15 @@ namespace etk {
 				if (_item == nullptr) {
 					return;
 				}
-				#ifndef ETK_ENABLE_PLACEMENT_NEW
-					size_t idElement = m_size;
-					resize(m_size+_nbElement);
-					if (idElement > m_size) {
-						//TK_ERROR("Resize does not work correctly ... not added item");
-						return;
-					}
-					for (size_t iii=0; iii<_nbElement; iii++) {
-						m_data[idElement+iii] = _item[iii];
-					}
-				#else
-					reserve(m_size+_nbElement);
-					if (m_size > m_allocated) {
-						//TK_ERROR("Resize does not work correctly ... not added item");
-						return;
-					}
-					for (size_t iii=0; iii<_nbElement; iii++) {
-						new ((char*)&m_data[m_size+iii]) ETK_VECTOR_TYPE(_item[iii]);
-						m_size += 1;
-					}
-				#endif
+				reserve(m_size+_nbElement);
+				if (m_size > m_allocated) {
+					//TK_ERROR("Resize does not work correctly ... not added item");
+					return;
+				}
+				for (size_t iii=0; iii<_nbElement; iii++) {
+					new ((char*)&m_data[m_size+iii]) ETK_VECTOR_TYPE(_item[iii]);
+					m_size += 1;
+				}
 			}
 		private:
 			void pushBackN(const ETK_VECTOR_TYPE& _value) {
@@ -641,57 +545,31 @@ namespace etk {
 					pushBack(_item, _nbElement);
 					return;
 				}
-				#ifndef ETK_ENABLE_PLACEMENT_NEW
-					size_t idElement = m_size;
-					// Request resize of the current buffer
-					resize(m_size+_nbElement);
-					if (idElement >= m_size) {
-						//TK_ERROR("Resize does not work correctly ... not added item");
-						return;
+				// move current data (after the position)
+				size_t sizeToMove = (m_size - _pos);
+				// Request resize of the current buffer
+				reserve(m_size+_nbElement);
+				if (sizeToMove > 0) {
+					for (size_t iii=1; iii<=sizeToMove; iii++) {
+						// placement allocate of the element
+						new ((char*)&m_data[m_size+_nbElement-iii]) ETK_VECTOR_TYPE(etk::move(m_data[m_size-iii]));
+						// Remove previous element ==> simplify code.
+						m_data[m_size-iii].~ETK_VECTOR_TYPE();
+						#ifdef DEBUG
+							// we place bad data to permit to detect stipid thing that is done in C++ code when developement is in progress.
+							// Only in debug this is really slow ... and for the real allocation of memory
+							for (size_t kkk=(m_size-iii)*sizeof(ETK_VECTOR_TYPE); kkk<sizeof(ETK_VECTOR_TYPE)*((m_size-iii)+1); ++kkk) {
+								((char*)m_data)[kkk] = 0xA5;
+							}
+						#endif
 					}
-					// move current data (after the position)
-					size_t sizeToMove = (idElement - _pos);
-					if (sizeToMove > 0) {
-						for (size_t iii=1; iii<=sizeToMove; iii++) {
-							// tODO: better explicite the swap...
-							#ifndef ETK_ENABLE_PLACEMENT_NEW
-								m_data[m_size-iii] = etk::move(m_data[idElement-iii]);
-							#else
-								etk::swap(m_data[m_size-iii], m_data[idElement-iii]);
-							#endif
-						}
-					}
-					// affectation of all input element
-					for (size_t iii=0; iii<_nbElement; iii++) {
-						m_data[_pos+iii] = etk::move(_item[iii]);
-					}
-				#else
-					// move current data (after the position)
-					size_t sizeToMove = (m_size - _pos);
-					// Request resize of the current buffer
-					reserve(m_size+_nbElement);
-					if (sizeToMove > 0) {
-						for (size_t iii=1; iii<=sizeToMove; iii++) {
-							// placement allocate of the element
-							new ((char*)&m_data[m_size+_nbElement-iii]) ETK_VECTOR_TYPE(etk::move(m_data[m_size-iii]));
-							// Remove previous element ==> simplify code.
-							m_data[m_size-iii].~ETK_VECTOR_TYPE();
-							#ifdef DEBUG
-								// we place bad data to permit to detect stipid thing that is done in C++ code when developement is in progress.
-								// Only in debug this is really slow ... and for the real allocation of memory
-								for (size_t kkk=(m_size-iii)*sizeof(ETK_VECTOR_TYPE); kkk<sizeof(ETK_VECTOR_TYPE)*((m_size-iii)+1); ++kkk) {
-									((char*)m_data)[kkk] = 0xA5;
-								}
-							#endif
-						}
-						
-					}
-					// affectation of all input element
-					for (size_t iii=0; iii<_nbElement; iii++) {
-						new ((char*)&m_data[_pos-iii]) ETK_VECTOR_TYPE(etk::move(_item[iii]));
-					}
-					m_size += _nbElement;
-				#endif
+					
+				}
+				// affectation of all input element
+				for (size_t iii=0; iii<_nbElement; iii++) {
+					new ((char*)&m_data[_pos-iii]) ETK_VECTOR_TYPE(etk::move(_item[iii]));
+				}
+				m_size += _nbElement;
 			}
 			/**
 			 * @brief Insert one element in the Vector at a specific position
@@ -729,11 +607,7 @@ namespace etk {
 				size_t sizeToMove = (idElement - (_pos+_nbElement));
 				if ( 0 < sizeToMove) {
 					for (size_t iii=0; iii<sizeToMove; iii++) {
-						#ifndef ETK_ENABLE_PLACEMENT_NEW
-							m_data[_pos+iii] = etk::move(m_data[_pos+_nbElement+iii]);
-						#else
-							etk::swap(m_data[_pos+iii], m_data[_pos+_nbElement+iii]);
-						#endif
+						etk::swap(m_data[_pos+iii], m_data[_pos+_nbElement+iii]);
 					}
 				}
 				// Request resize of the current buffer
@@ -782,11 +656,7 @@ namespace etk {
 				size_t sizeToMove = (tmpSize - (_pos+nbElement));
 				if ( 0 < sizeToMove) {
 					for (size_t iii=0; iii<sizeToMove; iii++) {
-						#ifndef ETK_ENABLE_PLACEMENT_NEW
-							m_data[_pos+iii] = etk::move(m_data[_pos+nbElement+iii]);
-						#else
-							etk::swap(m_data[_pos+iii], m_data[_pos+nbElement+iii]);
-						#endif
+						etk::swap(m_data[_pos+iii], m_data[_pos+nbElement+iii]);
 					}
 				}
 				// Request resize of the current buffer
@@ -856,45 +726,30 @@ namespace etk {
 			 * @param[in] _newSize New size of the vector
 			 */
 			void resize(size_t _newSize, const ETK_VECTOR_TYPE& _basicElement) {
-				#ifndef ETK_ENABLE_PLACEMENT_NEW
-					size_t idElement = m_size;
-					resize(_newSize);
-					if (m_size != _newSize) {
-						//TK_CRITICAL("error to resize vector");
-						return;
-					}
-					if (_newSize > idElement) {
-						// initialize data ...
-						for(size_t iii=idElement; iii<_newSize; iii++) {
-							m_data[iii] = _basicElement;
-						}
-					}
-				#else
-					// Reallocate memory
-					if (_newSize > m_size) {
-						if (_newSize > m_allocated) {
-							changeAllocation(_newSize);
-						}
-						for (size_t iii=m_size; iii<_newSize; ++iii) {
-							new ((char*)&m_data[iii]) ETK_VECTOR_TYPE(_basicElement);
-						}
-						m_size = _newSize;
-						return;
-					} else if (_newSize == m_size) {
-						return;
+				// Reallocate memory
+				if (_newSize > m_size) {
+					if (_newSize > m_allocated) {
+						changeAllocation(_newSize);
 					}
 					for (size_t iii=m_size; iii<_newSize; ++iii) {
-						m_data[iii].~ETK_VECTOR_TYPE();
-						#ifdef DEBUG
-							// we place bad data to permit to detect stipid thing that is done in C++ code when developement is in progress.
-							// Only in debug this is really slow ... and for the real allocation of memory
-							for (size_t kkk=iii*sizeof(ETK_VECTOR_TYPE); kkk<sizeof(ETK_VECTOR_TYPE)*(iii+1); ++kkk) {
-								((char*)m_data)[kkk] = 0xA5;
-							}
-						#endif
+						new ((char*)&m_data[iii]) ETK_VECTOR_TYPE(_basicElement);
 					}
 					m_size = _newSize;
-				#endif
+					return;
+				} else if (_newSize == m_size) {
+					return;
+				}
+				for (size_t iii=m_size; iii<_newSize; ++iii) {
+					m_data[iii].~ETK_VECTOR_TYPE();
+					#ifdef DEBUG
+						// we place bad data to permit to detect stipid thing that is done in C++ code when developement is in progress.
+						// Only in debug this is really slow ... and for the real allocation of memory
+						for (size_t kkk=iii*sizeof(ETK_VECTOR_TYPE); kkk<sizeof(ETK_VECTOR_TYPE)*(iii+1); ++kkk) {
+							((char*)m_data)[kkk] = 0xA5;
+						}
+					#endif
+				}
+				m_size = _newSize;
 			}
 			/**
 			 * @brief Change the current size of the vector
@@ -902,43 +757,31 @@ namespace etk {
 			 */
 			void resize(size_t _newSize) {
 				ETK_VECTOR_DEBUG("Resize %zu => %zu\n", m_size, _newSize);
-				#ifndef ETK_ENABLE_PLACEMENT_NEW
-					// Reallocate memory
+				// Reallocate memory
+				if (_newSize > m_size) {
 					if (_newSize > m_allocated) {
 						changeAllocation(_newSize);
-					} else if (_newSize == m_allocated) {
-						return;
 					}
-					for 
-					m_size = _newSize;
-				#else
-					// Reallocate memory
-					if (_newSize > m_size) {
-						if (_newSize > m_allocated) {
-							changeAllocation(_newSize);
+					for (size_t iii=m_size; iii<_newSize; ++iii) {
+						new ((char*)&m_data[iii]) ETK_VECTOR_TYPE();
+					}
+				} else if (_newSize == m_size) {
+					return;
+				}
+				ETK_VECTOR_DEBUG("Reduce %zu => %zu\n", m_size, _newSize);
+				for (size_t iii=_newSize; iii<m_size; ++iii) {
+					m_data[iii].~ETK_VECTOR_TYPE();
+					#ifdef DEBUG
+						// we place bad data to permit to detect stipid thing that is done in C++ code when developement is in progress.
+						// Only in debug this is really slow ... and for the real allocation of memory
+						for (size_t kkk=iii*sizeof(ETK_VECTOR_TYPE); kkk<sizeof(ETK_VECTOR_TYPE)*(iii+1); ++kkk) {
+							((char*)m_data)[kkk] = 0xA5;
 						}
-						for (size_t iii=m_size; iii<_newSize; ++iii) {
-							new ((char*)&m_data[iii]) ETK_VECTOR_TYPE();
-						}
-					} else if (_newSize == m_size) {
-						return;
-					}
-					ETK_VECTOR_DEBUG("Reduce %zu => %zu\n", m_size, _newSize);
-					for (size_t iii=_newSize; iii<m_size; ++iii) {
-						m_data[iii].~ETK_VECTOR_TYPE();
-						#ifdef DEBUG
-							// we place bad data to permit to detect stipid thing that is done in C++ code when developement is in progress.
-							// Only in debug this is really slow ... and for the real allocation of memory
-							for (size_t kkk=iii*sizeof(ETK_VECTOR_TYPE); kkk<sizeof(ETK_VECTOR_TYPE)*(iii+1); ++kkk) {
-								((char*)m_data)[kkk] = 0xA5;
-							}
-						#endif
-					}
-					m_size = _newSize;
-				#endif
+					#endif
+				}
+				m_size = _newSize;
 			}
 		private:
-			#ifdef ETK_ENABLE_PLACEMENT_NEW
 			void resizeDown(size_t _newSize) {
 				ETK_VECTOR_DEBUG("Resize %zu => %zu\n", m_size, _newSize);
 				// Reallocate memory
@@ -961,7 +804,6 @@ namespace etk {
 				}
 				m_size = _newSize;
 			}
-			#endif
 		public:
 			/**
 			 * @brief Force the container to have a minimum size in memory allocation
@@ -1002,11 +844,7 @@ namespace etk {
 				// check if something is allocated : 
 				if (m_data == nullptr) {
 					// no data allocated ==> request an allocation (might be the first)
-					#ifndef ETK_ENABLE_PLACEMENT_NEW
-						m_data = new ETK_VECTOR_TYPE[requestSize];
-					#else
-						m_data = (ETK_VECTOR_TYPE*)(new char[sizeof(ETK_VECTOR_TYPE)*requestSize]);
-					#endif
+					m_data = (ETK_VECTOR_TYPE*)(new char[sizeof(ETK_VECTOR_TYPE)*requestSize]);
 					if (m_data == nullptr) {
 						//TK_CRITICAL("Vector : Error in data allocation request allocation:" << requestSize << "*" << (int32_t)(sizeof(ETK_VECTOR_TYPE)) << "bytes" );
 						m_allocated = 0;
@@ -1021,16 +859,9 @@ namespace etk {
 					#endif
 				} else {
 					// allocate a new pool of data:
-					#ifndef ETK_ENABLE_PLACEMENT_NEW
-						ETK_VECTOR_TYPE* dataTmp = new ETK_VECTOR_TYPE[requestSize];
-					#else
-						ETK_VECTOR_TYPE* dataTmp = (ETK_VECTOR_TYPE*)(new char[sizeof(ETK_VECTOR_TYPE)*requestSize]);
-					#endif
+					ETK_VECTOR_TYPE* dataTmp = (ETK_VECTOR_TYPE*)(new char[sizeof(ETK_VECTOR_TYPE)*requestSize]);
 					if (dataTmp == nullptr) {
 						//TK_CRITICAL("Vector : Error in data allocation request allocation:" << requestSize << "*" << (int32_t)(sizeof(ETK_VECTOR_TYPE)) << "bytes" );
-						#if 0
-							m_allocated = 0;
-						#endif
 						return;
 					}
 					#ifdef DEBUG
@@ -1043,20 +874,16 @@ namespace etk {
 					// copy data in the new pool
 					size_t nbElements = etk::min(requestSize, m_allocated);
 					for(size_t iii=0; iii<nbElements; iii++) {
-						#ifndef ETK_ENABLE_PLACEMENT_NEW
-							dataTmp[iii] = etk::move(m_data[iii]);
-						#else
-							// Move in the new element
-							new ((char*)&dataTmp[iii]) ETK_VECTOR_TYPE(etk::move(m_data[iii]));
-							// Remove the old one.
-							m_data[iii].~ETK_VECTOR_TYPE();
-							#ifdef DEBUG
-								// we place bad data to permit to detect stipid thing that is done in C++ code when developement is in progress.
-								// Only in debug this is really slow ... and for the real allocation of memory
-								for (size_t kkk=iii*sizeof(ETK_VECTOR_TYPE); kkk<sizeof(ETK_VECTOR_TYPE)*(iii+1); ++kkk) {
-									((char*)m_data)[kkk] = 0xA5;
-								}
-							#endif
+						// Move in the new element
+						new ((char*)&dataTmp[iii]) ETK_VECTOR_TYPE(etk::move(m_data[iii]));
+						// Remove the old one.
+						m_data[iii].~ETK_VECTOR_TYPE();
+						#ifdef DEBUG
+							// we place bad data to permit to detect stipid thing that is done in C++ code when developement is in progress.
+							// Only in debug this is really slow ... and for the real allocation of memory
+							for (size_t kkk=iii*sizeof(ETK_VECTOR_TYPE); kkk<sizeof(ETK_VECTOR_TYPE)*(iii+1); ++kkk) {
+								((char*)m_data)[kkk] = 0xA5;
+							}
 						#endif
 					}
 					// switch pointer:
@@ -1064,11 +891,7 @@ namespace etk {
 					m_data = dataTmp;
 					// remove old pool
 					if (dataTmp2 != nullptr) {
-						#ifndef ETK_ENABLE_PLACEMENT_NEW
-							delete[] dataTmp2;
-						#else
-							delete[] (char*)dataTmp2;
-						#endif
+						delete[] (char*)dataTmp2;
 					}
 				}
 				// set the new allocation size
