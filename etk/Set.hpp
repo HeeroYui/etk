@@ -242,8 +242,9 @@ namespace etk {
 			 * @param[in] _count Number of basic element (pre-allocated) in the table.
 			 */
 			Set(int32_t _count = 0) :
-			  m_data(_count),
+			  m_data(),
 			  m_comparator([](const ETK_SET_TYPE& _key1, const ETK_SET_TYPE& _key2) { return _key1 < _key2; }) {
+				m_data.reserve(_count);
 				// nothing to do
 			}
 			
@@ -253,7 +254,7 @@ namespace etk {
 			 */
 			template<typename... ETK_SET_TYPE_2>
 			Set(const ETK_SET_TYPE_2& ... _args):
-			  m_data(0),
+			  m_data(),
 			  m_comparator([](const ETK_SET_TYPE& _key1, const ETK_SET_TYPE& _key2) { return _key1 < _key2; }) {
 				add(_args...);
 			}

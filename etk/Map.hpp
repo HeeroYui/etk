@@ -246,9 +246,10 @@ namespace etk {
 			 * @param[in] _count Number of basic element in the table.
 			 * @param[in] _ordered select an ordered map or an onordered map.
 			 */
-			Map(int32_t _count = 0, bool _ordered=true) :
-			  m_data(_count),
+			Map(size_t _count = 0, bool _ordered=true) :
+			  m_data(),
 			  m_ordered(_ordered) {
+				m_data.reserve(_count);
 				// nothing to do
 			}
 			/**
@@ -256,7 +257,7 @@ namespace etk {
 			 * @param[in] _obj Other Map to move
 			 */
 			Map(Map&& _obj):
-			  m_data(0),
+			  m_data(),
 			  m_ordered(true) {
 				_obj.swap(*this);
 			}
