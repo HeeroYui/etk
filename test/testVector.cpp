@@ -272,3 +272,17 @@ TEST(TestVector, allocateElementAtTheCorectMoment) {
 	}
 	EXPECT_EQ(isDestroy, 0);
 }
+/*
+TEST(TestVector, allocateBench) {
+	while (1) {
+		etk::Vector<uint8_t> list;
+		//list.reserve(1024*1024);
+		for (size_t iii=0; iii < 1024*1024; ++iii) {
+			list.pushBack(66);
+		}
+		EXPECT_EQ(list.size(), 1024*1024);
+	}
+}
+*/
+
+
