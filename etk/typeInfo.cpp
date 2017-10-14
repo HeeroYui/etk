@@ -8,19 +8,26 @@
 #include <etk/String.hpp>
 #include <etk/UString.hpp>
 #include <etk/Stream.hpp>
+#include <etk/Map.hpp>
 
-static etk::Vector<const char*>& getListType() {
-	static etk::Vector<const char*> s_list;
+static etk::Map<const char*, size_t>& getListElement() {
+	static etk::Map<const char*, size_t> s_list(0, true, [](etk::Pair<const char*, size_t>* const & _key1,
+	                                                        etk::Pair<const char*, size_t>* const & _key2) {
+	                                                        	return strcoll(_key1->first, _key2->first) < 0;
+	                                                        });
 	return s_list;
 }
 
-const etk::Vector<const char*>& etk::getListDeclaredType() {
-	return getListType();
+etk::Vector<const char*> etk::getListDeclaredType() {
+	return getListElement().getKeys();
 }
 
 size_t etk::addType(const char* _name) {
-	getListType().pushBack(_name);
-	return getListType().size();
+	size_t id = getListElement().size()+1;
+	getListElement().set(_name, id);
+	return id;
+	// return size_t(_name);
+	// return getListType().size();
 }
 
 

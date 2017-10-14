@@ -13,18 +13,18 @@ namespace etk {
 	template<typename ETK_TYPE>
 	class TypeTraitInfo {
 		public:
-			// Name of the Type
+			// Name of the type
 			static const char* m_name;
 			// Size of the type
 			static const size_t m_size;
-			// Dynamic Usnique ID of the Type
+			// Dynamic unique ID of the Type
 			static const size_t m_id;
 	};
 	/**
 	 * @brief Get list of all type declared in this software.
 	 * @return A static list of all register type in the system.
 	 */
-	const etk::Vector<const char*>& getListDeclaredType();
+	etk::Vector<const char*> getListDeclaredType();
 	/**
 	 * @brief Add an element declared type in the system database.
 	 * @param[in] Name of the type
