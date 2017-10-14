@@ -40,7 +40,7 @@ namespace etk {
 	 */
 	template<class ETK_MAP_TYPE_KEY, class ETK_MAP_TYPE_DATA> class Map {
 		public:
-		class Iterator {
+			class Iterator {
 				private:
 					size_t m_current; //!< current Id on the vector
 					Map<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* m_map; //!< Pointer on the current element of the vectorBin
@@ -233,23 +233,46 @@ namespace etk {
 					}
 					friend class Map;
 			};
+			/*
 			static bool defaultSort(etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key1,
 			                        etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key2) {
 				return _key1->first < _key2->first;
 			}
+			*/
+			typedef bool (*sortFunction)(etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key1,
+			                             etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key2);
 		private:
 			etk::Vector<etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>*> m_data; //!< Data of the Map ==> the Map table is composed of pointer, this permit to have high speed when resize the vector ...
-			bool m_ordered;
+			sortFunction m_comparator;
 		public:
+			/**
+			 * @brief Set the comparator of the set.
+			 * @param[in] _comparator comparing function.
+			 */
+			void setComparator(sortFunction _comparator) {
+				m_comparator = _comparator;
+				if (m_comparator != nullptr) {
+					m_data.sort(0, m_data.size(), m_comparator);
+				}
+			}
 			/**
 			 * @brief Constructor of the Map table.
 			 * @param[in] _count Number of basic element in the table.
 			 * @param[in] _ordered select an ordered map or an onordered map.
+			 * @param[in] _comparator Comparator to use in comparing the elements;
 			 */
-			Map(size_t _count = 0, bool _ordered=true) :
+			Map(size_t _count=0,
+			    bool _ordered=true,
+			    sortFunction _comparator = [](etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key1,
+			                                  etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key2) {
+			                                	return _key1->first < _key2->first;
+			                                }) :
 			  m_data(),
-			  m_ordered(_ordered) {
+			  m_comparator(etk::move(_comparator)) {
 				m_data.reserve(_count);
+				if (_ordered == false) {
+					m_comparator = nullptr;
+				}
 				// nothing to do
 			}
 			/**
@@ -258,7 +281,7 @@ namespace etk {
 			 */
 			Map(Map&& _obj):
 			  m_data(),
-			  m_ordered(true) {
+			  m_comparator(nullptr) {
 				_obj.swap(*this);
 			}
 			/**
@@ -267,7 +290,7 @@ namespace etk {
 			 */
 			Map(const Map& _obj) :
 			  m_data(),
-			  m_ordered(_obj.m_ordered) {
+			  m_comparator(_obj.m_comparator) {
 				m_data.reserve(_obj.m_data.size());
 				for (auto &it : _obj.m_data) {
 					if (it == nullptr) {
@@ -277,9 +300,16 @@ namespace etk {
 				}
 			}
 			void setOrdered(bool _ordered) {
-				m_ordered = _ordered;
-				if (m_ordered == true) {
-					m_data.sort(0, m_data.size(), etk::Map<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>::defaultSort);
+				if (_ordered == false) {
+					m_comparator = nullptr;
+				} else {
+					m_comparator = [](etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key1,
+					                  etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key2) {
+					                	return _key1->first < _key2->first;
+					                };
+				}
+				if (m_comparator != nullptr) {
+					m_data.sort(0, m_data.size(), m_comparator);
 				}
 			}
 			/**
@@ -294,7 +324,7 @@ namespace etk {
 			 */
 			void swap(Map& _obj) {
 				etk::swap(m_data, _obj.m_data);
-				etk::swap(m_ordered, _obj.m_ordered);
+				etk::swap(m_comparator, _obj.m_comparator);
 			}
 			/**
 			 * @brief Move operator
@@ -332,7 +362,7 @@ namespace etk {
 			 * @return Id of the element in the table or -1 of it does not existed
 			 */
 			int64_t getId(const ETK_MAP_TYPE_KEY& _key) const {
-				if (m_ordered == true) {
+				if (m_comparator != nullptr) {
 					// TODO: search in a dichotomic way.
 				}
 				for (size_t iii=0; iii<m_data.size(); iii++) {
@@ -401,8 +431,8 @@ namespace etk {
 					}
 					m_data.pushBack(tmp);
 					// Order data if needed.
-					if (m_ordered == true) {
-						m_data.sort(0, m_data.size(), etk::Map<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>::defaultSort);
+					if (m_comparator != nullptr) {
+						m_data.sort(0, m_data.size(), m_comparator);
 					}
 					return;
 				}
