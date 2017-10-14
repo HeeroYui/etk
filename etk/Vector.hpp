@@ -8,21 +8,10 @@
 #include <etk/types.hpp>
 //#include <etk/debug.hpp>
 #include <etk/Stream.hpp>
+#include <etk/Allocator.hpp>
 
 //#define ETK_VECTOR_DEBUG(...) printf(__VA_ARGS__)
 #define ETK_VECTOR_DEBUG(...) do {} while (false)
-
-// it is define bu generic "include <new>" ==> no double define of placement new
-#ifndef _NEW
-	// Default placement versions of operator new.
-	inline void* operator new(size_t, char* _p) throw() {
-		ETK_VECTOR_DEBUG("plop\n");
-		return _p;
-	}
-	inline void operator delete (void*, char*) throw() {
-		
-	}
-#endif
 
 namespace etk {
 	class Stream;
@@ -252,7 +241,7 @@ namespace etk {
 				changeAllocation(_count);
 				// instanciate all objects
 				for (size_t iii=0; iii<_count; ++iii) {
-					new ((char*)&m_data[iii]) ETK_VECTOR_TYPE();
+					new  ((char*)&m_data[iii]) ETK_VECTOR_TYPE();
 				}
 				m_size = _count;
 			}
@@ -279,11 +268,7 @@ namespace etk {
 			  m_allocated(0) {
 				reserve(_obj.m_size);
 				for(size_t iii=0; iii<_obj.m_size; iii++) {
-					#if 0
-						pushBack(_obj.m_data[iii]);
-					#else
-						new ((char*)&m_data[iii]) ETK_VECTOR_TYPE(etk::move(_obj.m_data[iii]));
-					#endif
+					new ((char*)&m_data[iii]) ETK_VECTOR_TYPE(etk::move(_obj.m_data[iii]));
 				}
 				m_size = _obj.m_size;
 			}
@@ -357,11 +342,7 @@ namespace etk {
 				// Force a specicfic size
 				reserve(_obj.m_size);
 				for(size_t iii=0; iii<_obj.m_size; iii++) {
-					#if 0
-						pushBack(_obj.m_data[iii]);
-					#else
-						new ((char*)&m_data[iii]) ETK_VECTOR_TYPE(etk::move(_obj.m_data[iii]));
-					#endif
+					new ((char*)&m_data[iii]) ETK_VECTOR_TYPE(etk::move(_obj.m_data[iii]));
 				}
 				m_size = _obj.m_size;
 				// Return the current pointer
