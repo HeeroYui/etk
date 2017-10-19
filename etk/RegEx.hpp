@@ -792,7 +792,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 		~NodePTheseElement() {
 			/*
 			for (auto it : m_subNode) {
-				delete *it;
+				ETK_DELETE(Node<CLASS_TYPE>, *it);
 				*it = nullptr;
 			}
 			*/
@@ -813,7 +813,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 								tmpData.pushBack(Node<CLASS_TYPE>::m_regExData[kkk]);
 							}
 							// add to the under-node list :
-							m_subNode.pushBack(new NodePThese<CLASS_TYPE>(tmpData, Node<CLASS_TYPE>::m_nodeLevel+1));
+							m_subNode.pushBack(ETK_NEW(NodePThese<CLASS_TYPE>, tmpData, Node<CLASS_TYPE>::m_nodeLevel+1));
 							// move current position ...
 							pos += elementSize+1;
 						}
@@ -827,7 +827,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 								tmpData.pushBack(Node<CLASS_TYPE>::m_regExData[kkk]);
 							}
 							// add to the under-node list : 
-							m_subNode.pushBack(new NodeBracket<CLASS_TYPE>(tmpData, Node<CLASS_TYPE>::m_nodeLevel+1));
+							m_subNode.pushBack(ETK_NEW(NodeBracket<CLASS_TYPE>, tmpData, Node<CLASS_TYPE>::m_nodeLevel+1));
 							// move current position ...
 							pos += elementSize+1;
 						}
@@ -869,7 +869,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 						return false;
 					case regexOpcodeEOF:
 						{
-							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							NodeRangeValue<CLASS_TYPE>* tmpNode = ETK_NEW(NodeRangeValue<CLASS_TYPE>, Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("EOF");
 							tmpNode->addValue('\0');
 							tmpNode->setCountOutput(false);
@@ -879,7 +879,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 						break;
 					case regexOpcodeDot:
 						{
-							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							NodeRangeValue<CLASS_TYPE>* tmpNode = ETK_NEW(NodeRangeValue<CLASS_TYPE>, Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("dot");
 							tmpNode->addValue('\0');
 							tmpNode->setInvert(true);
@@ -887,11 +887,11 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 						}
 						break;
 					case regexOpcodeStartOfLine:
-						m_subNode.pushBack(new NodeSOL<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1));
+						m_subNode.pushBack(ETK_NEW(NodeSOL<CLASS_TYPE>, Node<CLASS_TYPE>::m_nodeLevel+1));
 						break;
 					case regexOpcodeEndOfLine:
 						{
-							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							NodeRangeValue<CLASS_TYPE>* tmpNode = ETK_NEW(NodeRangeValue<CLASS_TYPE>, Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("EOL");
 							tmpNode->addValue('\n');
 							m_subNode.pushBack(tmpNode);
@@ -899,7 +899,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 						break;
 					case regexOpcodeDigit:
 						{
-							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							NodeRangeValue<CLASS_TYPE>* tmpNode = ETK_NEW(NodeRangeValue<CLASS_TYPE>, Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("digit");
 							tmpNode->addRange('0', '9');
 							m_subNode.pushBack(tmpNode);
@@ -907,7 +907,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 						break;
 					case regexOpcodeDigitNot:
 						{
-							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							NodeRangeValue<CLASS_TYPE>* tmpNode = ETK_NEW(NodeRangeValue<CLASS_TYPE>, Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("digit-not");
 							tmpNode->addRange('0', '9');
 							tmpNode->setInvert(true);
@@ -916,7 +916,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 						break;
 					case regexOpcodeLetter:
 						{
-							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							NodeRangeValue<CLASS_TYPE>* tmpNode = ETK_NEW(NodeRangeValue<CLASS_TYPE>, Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("letter");
 							tmpNode->addRange('a', 'z');
 							tmpNode->addRange('A', 'Z');
@@ -925,7 +925,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 						break;
 					case regexOpcodeLetterNot:
 						{
-							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							NodeRangeValue<CLASS_TYPE>* tmpNode = ETK_NEW(NodeRangeValue<CLASS_TYPE>, Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("letter-not");
 							tmpNode->addRange('a', 'z');
 							tmpNode->addRange('A', 'Z');
@@ -935,7 +935,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 						break;
 					case regexOpcodeSpace:
 						{
-							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							NodeRangeValue<CLASS_TYPE>* tmpNode = ETK_NEW(NodeRangeValue<CLASS_TYPE>, Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("space");
 							tmpNode->addValue(' ');
 							tmpNode->addValue('\t');
@@ -948,7 +948,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 						break;
 					case regexOpcodeSpaceNot:
 						{
-							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							NodeRangeValue<CLASS_TYPE>* tmpNode = ETK_NEW(NodeRangeValue<CLASS_TYPE>, Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("space-not");
 							tmpNode->addValue(' ');
 							tmpNode->addValue('\t');
@@ -962,7 +962,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 						break;
 					case regexOpcodeWord:
 						{
-							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							NodeRangeValue<CLASS_TYPE>* tmpNode = ETK_NEW(NodeRangeValue<CLASS_TYPE>, Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("word");
 							tmpNode->addRange('a', 'z');
 							tmpNode->addRange('A', 'Z');
@@ -972,7 +972,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 						break;
 					case regexOpcodeWordNot:
 						{
-							NodeRangeValue<CLASS_TYPE>* tmpNode = new NodeRangeValue<CLASS_TYPE>(Node<CLASS_TYPE>::m_nodeLevel+1);
+							NodeRangeValue<CLASS_TYPE>* tmpNode = ETK_NEW(NodeRangeValue<CLASS_TYPE>, Node<CLASS_TYPE>::m_nodeLevel+1);
 							tmpNode->setDescriptiveName("word-not");
 							tmpNode->addRange('a', 'z');
 							tmpNode->addRange('A', 'Z');
@@ -987,7 +987,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 								tmpData.pushBack(Node<CLASS_TYPE>::m_regExData[kkk]);
 							}
 							// add to the under-node list : 
-							m_subNode.pushBack(new NodeValue<CLASS_TYPE>(tmpData, Node<CLASS_TYPE>::m_nodeLevel+1));
+							m_subNode.pushBack(ETK_NEW(NodeValue<CLASS_TYPE>, tmpData, Node<CLASS_TYPE>::m_nodeLevel+1));
 							// move current position ...
 							pos += elementSize-1;
 						}
@@ -1142,7 +1142,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 		~NodePThese() {
 			/*
 			for (auto it : m_subNode) {
-				delete *it;
+				ETK_DELETE(Node<CLASS_TYPE>, *it);
 				*it = nullptr;
 			}
 			*/
@@ -1162,7 +1162,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 					tmpData.pushBack(Node<CLASS_TYPE>::m_regExData[kkk]);
 				}
 				// add to the under-node list : 
-				m_subNode.pushBack(new NodePTheseElement<CLASS_TYPE>(tmpData, Node<CLASS_TYPE>::m_nodeLevel+1));
+				m_subNode.pushBack(ETK_NEW(NodePTheseElement<CLASS_TYPE>, tmpData, Node<CLASS_TYPE>::m_nodeLevel+1));
 				pos += elementSize+1;
 				TK_REG_DEBUG("plop=" << createString(Node<CLASS_TYPE>::m_regExData, pos, pos+1) );
 				elementSize = getLenOfPTheseElement(Node<CLASS_TYPE>::m_regExData, pos);
@@ -1434,8 +1434,8 @@ template<class CLASS_TYPE> class RegEx {
 			m_maximize = _value;
 		}
 		/**
-		 * @brief Set a new regular expression matching
-		 * @param[in] _expression the new expression to search
+		 * @brief Set a regular expression matching
+		 * @param[in] _expression the expression to search
 		 */
 		// TODO : Add an error ...
 		void compile(const etk::String &_expression) {

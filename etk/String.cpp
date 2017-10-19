@@ -3,13 +3,41 @@
 #include <etk/String.hpp>
 #include <etk/UString.hpp>
 
+
+
+#if ETK_ENABLE_INTERNAL_DATA_IN_STRING > 0
+	const size_t etk::String::m_sizeLocal = 64-sizeof(etk::Vector<char>);
+#else
+	const char* getStaticEmptyString() {
+		static const char* tmp = "\0\0\0\0\0\0";
+		return tmp;
+	}
+#endif
 etk::String::String():
   m_data() {
-	m_data.resize(1, '\0');
+	#if ETK_ENABLE_INTERNAL_DATA_IN_STRING > 0
+		static_assert(sizeof(etk::String) == ETK_ENABLE_INTERNAL_DATA_IN_STRING, "Wrong basic size of string");
+		//printf("size of string=%ld   %ld   %ld\n", uint64_t(sizeof(etk::String)), m_sizeLocal, uint64_t(sizeof(etk::Vector<char>)));
+		memset(m_localData, 0, sizeof(m_localData));
+	#else
+		//m_data.resize(1, '\0');
+	#endif
 }
 
 etk::String::String(const etk::String& _obj) {
-	m_data = _obj.m_data;
+	#if ETK_ENABLE_INTERNAL_DATA_IN_STRING > 0
+		if (_obj.size() < sizeof(m_localData)) {
+			if (_obj.m_data.size() != 0) {
+				memcpy(m_localData, &_obj.m_data[0], _obj.m_data.size());
+			} else {
+				memcpy(m_localData, _obj.m_localData, sizeof(m_localData));
+			}
+		} else {
+			m_data = _obj.m_data;
+		}
+	#else
+		m_data = _obj.m_data;
+	#endif
 }
 
 etk::String::String(const etk::String& _obj, size_t _pos, size_t _size) {
@@ -17,10 +45,25 @@ etk::String::String(const etk::String& _obj, size_t _pos, size_t _size) {
 		_size = etk::String::npos;
 	}
 	if (_size != etk::String::npos) {
-		resize(_size);
-		for (size_t iii=0; iii<_size; ++iii) {
-			m_data[iii] = _obj.m_data[_pos+iii];
-		}
+		#if ETK_ENABLE_INTERNAL_DATA_IN_STRING > 0
+			if (_size < sizeof(m_localData)) {
+				if (_obj.m_data.size() != 0) {
+					
+				} else {
+					
+				}
+			} else {
+				resize(_size);
+				for (size_t iii=0; iii<_size; ++iii) {
+					m_data[iii] = _obj.m_data[_pos+iii];
+				}
+			}
+		#else
+			resize(_size);
+			for (size_t iii=0; iii<_size; ++iii) {
+				m_data[iii] = _obj.m_data[_pos+iii];
+			}
+		#endif
 		return;
 	}
 	resize(_obj.size()-_pos);
@@ -35,11 +78,16 @@ etk::String::String(const char* _obj) {
 		return;
 	}
 	uint32_t size = strlen(_obj);
+	/*if (size == 0) {
+		return;
+	}*/
 	resize(size);
 	for (size_t iii=0; iii<size; ++iii) {
 		m_data[iii] = _obj[iii];
 	}
+	//printf(" size=%d with='%s' ==> '%s'\n", size, _obj, &m_data[0]);
 }
+
 /*
 etk::String::String(const etk::String _obj) {
 	resize(_obj.size());
@@ -161,7 +209,11 @@ etk::String& etk::String::operator+= (char _value) {
 	// Return the current pointer
 	return *this;
 }
+
 size_t etk::String::size() const {
+	if (m_data.size() == 0) {
+		return 0;
+	}
 	return m_data.size() - 1; // remove '\0'
 }
 
@@ -199,7 +251,7 @@ void etk::String::pushBack(const char* _item, size_t _nbElement) {
 }
 
 void etk::String::popBack() {
-	if(size()>0) {
+	if(size() > 0) {
 		resize(size()-1);
 	}
 }
@@ -209,7 +261,7 @@ void etk::String::reserve(size_t _size) {
 }
 
 void etk::String::clear() {
-	resize(0);
+	m_data.clear();
 }
 
 void etk::String::insert(size_t _pos, const char* _item, size_t _nbElement) {
@@ -267,7 +319,7 @@ void etk::String::erase(size_t _pos, size_t _nbElement) {
 }
 
 void etk::String::eraseRange(size_t _pos, size_t _posEnd) {
-	if (_pos>size()) {
+	if (_pos > size()) {
 		//TK_ERROR(" can not Erase Element at this position : " << _pos << " > " << size());
 		return;
 	}
@@ -278,7 +330,7 @@ void etk::String::eraseRange(size_t _pos, size_t _posEnd) {
 	size_t tmpSize = size();
 	// move current data
 	size_t sizeToMove = (tmpSize - (_pos+nbElement));
-	if ( 0 < sizeToMove) {
+	if (sizeToMove > 0) {
 		for (size_t iii=0; iii<sizeToMove; iii++) {
 			m_data[_pos+iii] = m_data[_pos+nbElement+iii];
 		}
@@ -289,10 +341,10 @@ void etk::String::eraseRange(size_t _pos, size_t _posEnd) {
 
 etk::String etk::String::extract(size_t _posStart, size_t _posEnd) const {
 	etk::String out;
-	if (_posStart >= size() ) {
+	if (_posStart >= size()) {
 		return out;
 	}
-	if (_posEnd >= size() ) {
+	if (_posEnd >= size()) {
 		_posEnd = size();
 	}
 	out.pushBack(&m_data[_posStart], _posEnd-_posStart);
@@ -300,6 +352,9 @@ etk::String etk::String::extract(size_t _posStart, size_t _posEnd) const {
 }
 
 const char* etk::String::c_str() const {
+	if (m_data.size() == 0) {
+		return getStaticEmptyString();
+	}
 	return &m_data[0];
 }
 
@@ -320,14 +375,18 @@ const etk::String::Iterator etk::String::begin() const {
 }
 
 etk::String::Iterator etk::String::end() {
-	return position( size() );
+	return position(size());
 }
 
 const etk::String::Iterator etk::String::end() const {
-	return position( size() );
+	return position(size());
 }
 
 void etk::String::resize(size_t _newSize, char _value) {
+	if (_newSize == 0) {
+		m_data.clear();
+		return;
+	}
 	size_t oldSize = m_data.size();
 	if (oldSize != 0) {
 		m_data[m_data.size()-1] = _value;
@@ -342,7 +401,7 @@ bool etk::String::operator== (const etk::String& _obj) const {
 	if( this == &_obj ) {
 		return true;
 	}
-	// first step : check the size ...
+	// first step: check the size...
 	if (m_data.size() != _obj.m_data.size()) {
 		return false;
 	}
@@ -359,7 +418,7 @@ bool etk::String::operator!= (const etk::String& _obj) const {
 	if( this == &_obj ) {
 		return false;
 	}
-	// first step : check the size ...
+	// first step: check the size...
 	if (m_data.size() != _obj.m_data.size()) {
 		return true;
 	}
@@ -371,6 +430,26 @@ bool etk::String::operator!= (const etk::String& _obj) const {
 	return false;
 }
 
+char& etk::String::get(size_t _pos) {
+	if (m_data.size() == 0) {
+		return (char&)(getStaticEmptyString()[_pos]);
+	}
+	return m_data[_pos];
+}
+
+char& etk::String::operator[] (size_t _pos) {
+	if (m_data.size() == 0) {
+		return (char&)(getStaticEmptyString()[_pos]);
+	}
+	return m_data[_pos];
+}
+
+const char& etk::String::operator[] (size_t _pos) const {
+	if (m_data.size() == 0) {
+		return getStaticEmptyString()[_pos];
+	}
+	return m_data[_pos];
+}
 
 char etk::toLower(char _value) {
 	if (    _value >= 'A'
@@ -1157,7 +1236,7 @@ char etk::toHexChar(uint8_t _value) {
 etk::String etk::toHex(uint64_t _value, uint32_t _size) {
 	etk::String out;
 	for (int32_t iii = 15; iii >=0; --iii) {
-		if (    _size >= iii
+		if (    _size >= uint64_t(iii)
 		     || _value >= uint64_t(1)<<iii) {
 			out += etk::toHexChar((_value>>(iii*4)) & 0x0F);
 		}
@@ -1169,7 +1248,7 @@ etk::String etk::toHex(uint64_t _value, uint32_t _size) {
 etk::String etk::toBin(uint64_t _value, uint32_t _size) {
 	etk::String out;
 	for (int32_t iii = 63; iii >=0; --iii) {
-		if (    _size >= iii
+		if (    _size >= uint64_t(iii)
 		     || _value >= uint64_t(1)<<iii) {
 			out += etk::toHexChar((_value>>(iii)) & 0x01);
 		}

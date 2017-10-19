@@ -8,6 +8,7 @@
 #include <etk/types.hpp>
 #include <etk/Pair.hpp>
 #include <etk/Vector.hpp>
+#include <etk/Allocator.hpp>
 
 namespace etk {
 	/**
@@ -111,7 +112,7 @@ namespace etk {
 					}
 					/**
 					 * @brief Incremental operator
-					 * @return Reference on a new iterator and increment the other one
+					 * @return Reference on an iterator and increment the other one
 					 */
 					Iterator operator++ (int32_t) {
 						Iterator it(*this);
@@ -120,7 +121,7 @@ namespace etk {
 					}
 					/**
 					 * @brief Decremental operator
-					 * @return Reference on a new iterator and decrement the other one
+					 * @return Reference on an iterator and decrement the other one
 					 */
 					Iterator operator-- (int32_t) {
 						Iterator it(*this);
@@ -242,7 +243,8 @@ namespace etk {
 			typedef bool (*sortFunction)(etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key1,
 			                             etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key2);
 		private:
-			etk::Vector<etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>*> m_data; //!< Data of the Map ==> the Map table is composed of pointer, this permit to have high speed when resize the vector ...
+			typedef etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA> pairType;
+			etk::Vector<pairType*> m_data; //!< Data of the Map ==> the Map table is composed of pointer, this permit to have high speed when resize the vector ...
 			sortFunction m_comparator;
 		public:
 			/**
@@ -296,7 +298,7 @@ namespace etk {
 					if (it == nullptr) {
 						continue;
 					}
-					m_data.pushBack(new etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>(it->first, it->second));
+					m_data.pushBack(ETK_NEW(pairType, it->first, it->second));
 				}
 			}
 			void setOrdered(bool _ordered) {
@@ -350,7 +352,7 @@ namespace etk {
 			void clear() {
 				for (auto &it : m_data) {
 					if (it != nullptr) {
-						delete(it);
+						ETK_DELETE(pairType, it);
 						it=nullptr;
 					}
 				}
@@ -425,7 +427,7 @@ namespace etk {
 			void add(const ETK_MAP_TYPE_KEY& _key, const ETK_MAP_TYPE_DATA& _value) {
 				int64_t elementId = getId(_key);
 				if (elementId <0) {
-					etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* tmp = new etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>(etk::move(_key), etk::move(_value));
+					etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* tmp = ETK_NEW(pairType, etk::move(_key), etk::move(_value));
 					if (tmp == nullptr) {
 						return;
 					}
@@ -457,7 +459,7 @@ namespace etk {
 					//nothing to do ==> not existed
 					return;
 				}
-				delete(m_data[elementId]);
+				ETK_DELETE(pairType, m_data[elementId]);
 				m_data[elementId] = nullptr;
 				m_data.erase(m_data.begin()+elementId);
 			}
@@ -467,7 +469,7 @@ namespace etk {
 			 */
 			Iterator erase(const Iterator& _it) {
 				int64_t elementId = _it.m_current;
-				delete(m_data[elementId]);
+				ETK_DELETE(pairType, m_data[elementId]);
 				m_data[elementId] = nullptr;
 				m_data.erase(m_data.begin()+elementId);
 				return position(elementId);

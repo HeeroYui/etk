@@ -68,7 +68,7 @@ etk::Archive* etk::Archive::load(const etk::String& _fileName) {
 	// select the corect Loader :
 	if(    tmpName.endWith(".zip") == true
 	    || tmpName.endWith(".apk") == true ) {
-		output = new etk::archive::Zip(_fileName);
+		output = ETK_NEW(etk::archive::Zip, _fileName);
 		if (output == nullptr) {
 			TK_ERROR("An error occured when load archive : " << _fileName);
 		}
@@ -104,7 +104,7 @@ etk::Archive* etk::Archive::loadPackage(const etk::String& _fileName) {
 	}
 	fclose(file);
 	file = nullptr;
-	output = new etk::archive::Zip(_fileName, position);
+	output = ETK_NEW(etk::archive::Zip, _fileName, position);
 	if (nullptr==output) {
 		TK_ERROR("An error occured when load archive : " << _fileName);
 	}

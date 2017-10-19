@@ -140,7 +140,8 @@ namespace etest {
 			void run() override; \
 	}; \
 	\
-	uint32_t TEST_CLASS_NAME(groupName, localName)::registerElement = etest::registerTest(new TEST_CLASS_NAME(groupName, localName)); \
+	uint32_t TEST_CLASS_NAME(groupName, localName)::registerElement = etest::registerTest(\
+		etk::memory::allocatorNewFull<TEST_CLASS_NAME(groupName, localName)>("etest_test_class", nullptr, __LINE__, __FILE__)); \
 	\
 	void TEST_CLASS_NAME(groupName, localName)::run()
 

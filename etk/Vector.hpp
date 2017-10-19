@@ -48,7 +48,7 @@ namespace etk {
 	 */
 	template<class ETK_VECTOR_TYPE> class Vector {
 		public:
-			static const size_t npos = size_t(-1);
+			//static const size_t npos = size_t(-1);
 			class Iterator {
 				private:
 					size_t m_current; //!< current Id on the vector
@@ -241,7 +241,7 @@ namespace etk {
 				changeAllocation(_count);
 				// instanciate all objects
 				for (size_t iii=0; iii<_count; ++iii) {
-					new  ((char*)&m_data[iii]) ETK_VECTOR_TYPE();
+					new ((char*)&m_data[iii]) ETK_VECTOR_TYPE();
 				}
 				m_size = _count;
 			}
@@ -299,7 +299,7 @@ namespace etk {
 							}
 						#endif
 					}
-					delete[] (char*)m_data;
+					ETK_FREE(char, m_data);
 					m_data = nullptr;
 				}
 				m_allocated = 0;
@@ -825,7 +825,7 @@ namespace etk {
 				// check if something is allocated : 
 				if (m_data == nullptr) {
 					// no data allocated ==> request an allocation (might be the first)
-					m_data = (ETK_VECTOR_TYPE*)(new char[sizeof(ETK_VECTOR_TYPE)*requestSize]);
+					m_data = (ETK_VECTOR_TYPE*)ETK_MALLOC(char, sizeof(ETK_VECTOR_TYPE)*requestSize);
 					if (m_data == nullptr) {
 						//TK_CRITICAL("Vector : Error in data allocation request allocation:" << requestSize << "*" << (int32_t)(sizeof(ETK_VECTOR_TYPE)) << "bytes" );
 						m_allocated = 0;
@@ -840,7 +840,7 @@ namespace etk {
 					#endif
 				} else {
 					// allocate a new pool of data:
-					ETK_VECTOR_TYPE* dataTmp = (ETK_VECTOR_TYPE*)(new char[sizeof(ETK_VECTOR_TYPE)*requestSize]);
+					ETK_VECTOR_TYPE* dataTmp = (ETK_VECTOR_TYPE*)ETK_MALLOC(char, sizeof(ETK_VECTOR_TYPE)*requestSize);;
 					if (dataTmp == nullptr) {
 						//TK_CRITICAL("Vector : Error in data allocation request allocation:" << requestSize << "*" << (int32_t)(sizeof(ETK_VECTOR_TYPE)) << "bytes" );
 						return;
@@ -872,7 +872,7 @@ namespace etk {
 					m_data = dataTmp;
 					// remove old pool
 					if (dataTmp2 != nullptr) {
-						delete[] (char*)dataTmp2;
+						ETK_FREE(char, dataTmp2);
 					}
 				}
 				// set the new allocation size

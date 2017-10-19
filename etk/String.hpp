@@ -9,6 +9,11 @@
 //#include <etk/debug.hpp>
 #include <etk/Vector.hpp>
 
+// This permit to define a minimal size in the string to permit to optimise the unneeded allocation of memory (32 remove allocation of 1 byte and 64 remove multiple allocation of 16 bytes (common)
+#ifndef ETK_ENABLE_INTERNAL_DATA_IN_STRING
+	// TODO: NOTE: This is really not functionnal for now...
+	//#define ETK_ENABLE_INTERNAL_DATA_IN_STRING 64
+#endif
 
 namespace etk {
 	/**
@@ -19,7 +24,7 @@ namespace etk {
 			class Iterator {
 				private:
 					size_t m_current; //!< current Id on the string
-					String* m_string; //!< Pointer on the current element of the stringBin
+					String* m_string; //!< Pointer on the current element of the string
 				public:
 					/**
 					 * @brief Basic iterator constructor with no link with an etk::String
@@ -201,6 +206,10 @@ namespace etk {
 			};
 		private:
 			etk::Vector<char> m_data; //!< pointer on the current data (contain all time 1 element '\0')
+			#if ETK_ENABLE_INTERNAL_DATA_IN_STRING >= 32
+				char m_localData[ETK_ENABLE_INTERNAL_DATA_IN_STRING-sizeof(etk::Vector<char>)]; //!< Reserve the memory to have all time a buffer of N byte to remove un-needed allocation
+				static const size_t m_sizeLocal;
+			#endif
 		public:
 			static const size_t npos = size_t(-1);
 			/**
@@ -314,25 +323,19 @@ namespace etk {
 			 * @param[in] _pos Desired position read
 			 * @return Reference on the Element
 			 */
-			char& get(size_t _pos) {
-				return m_data[_pos];
-			}
+			char& get(size_t _pos);
 			/**
 			 * @brief Get an copy Element an a special position
 			 * @param[in] _pos Position in the string that might be get [0..Size()]
 			 * @return An reference on the copy of selected element
 			 */
-			char& operator[] (size_t _pos) {
-				return m_data[_pos];
-			}
+			char& operator[] (size_t _pos);
 			/**
 			 * @brief Get an Element an a special position
 			 * @param[in] _pos Position in the string that might be get [0..Size()]
 			 * @return An reference on the selected element
 			 */
-			const char& operator[] (size_t _pos) const {
-				return m_data[_pos];
-			}
+			const char& operator[] (size_t _pos) const;
 			/**
 			 * @brief Add at the First position of the String
 			 * @param[in] _item Element to add at the end of string

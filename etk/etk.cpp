@@ -11,6 +11,7 @@
 #include <elog/elog.hpp>
 #include <etk/os/FSNode.hpp>
 #include <etk/typeInfo.hpp>
+#include <etk/Allocator.hpp>
 
 static int32_t nbTimeInit = 0;
 
@@ -27,6 +28,7 @@ void etk::unInit() {
 		return;
 	}
 	TK_INFO("ETK system un-init (BEGIN)");
+	ETK_MEM_SHOW_LOG();
 	TK_INFO("ETK system un-init (END)");
 }
 

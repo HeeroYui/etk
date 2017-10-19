@@ -8,12 +8,12 @@
 #include <etk/String.hpp>
 
 etk::Stream::Stream(size_t _basicSize) :
-  m_data(new etk::String) {
-	
+  m_data(ETK_NEW(etk::String)) {
+	m_data->reserve(_basicSize);
 }
 
 etk::Stream::~Stream() {
-	delete m_data;
+	ETK_DELETE(etk::String, m_data);
 	m_data = nullptr;
 }
 

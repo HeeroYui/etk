@@ -28,7 +28,7 @@ namespace etk {
 	/**
 	 * @brief Add an element declared type in the system database.
 	 * @param[in] Name of the type
-	 * @return The Id of the Object (new unique ID)
+	 * @return The Id of the Object (create a unique ID)
 	 */
 	size_t addType(const char* _name);
 }

@@ -1562,7 +1562,7 @@ etk::Vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 		if (m_systemFileName.size() == 0) {
 			etk::Vector<etk::String> listDrive = getListDrive();
 			for (auto &it : listDrive) {
-				tmpp.pushBack(new etk::FSNode(it));
+				tmpp.pushBack(ETK_NEW(etk::FSNode, it));
 			}
 			return tmpp;
 		}
@@ -1607,8 +1607,8 @@ etk::Vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 				}
 				if (findIt == false) {
 					listAdded.pushBack(tmpString);
-					tmpEmement = new etk::FSNode(tmpString);
-					if (nullptr == tmpEmement) {
+					tmpEmement = ETK_NEW(etk::FSNode, tmpString);
+					if (tmpEmement == nullptr) {
 						TK_ERROR("allocation error ... of ewol::FSNode");
 						continue;
 					}
@@ -1634,24 +1634,24 @@ etk::Vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 				// do nothing ...
 				continue;
 			}
-			if(    false == start_with(tmpName, ".")
-			    || true == _showHidenFile) {
-				tmpEmement = new etk::FSNode(getRelativeFolder()+tmpName);
-				if (nullptr == tmpEmement) {
+			if(    start_with(tmpName, ".") == false
+			    || _showHidenFile == true) {
+				tmpEmement = ETK_NEW(etk::FSNode, getRelativeFolder()+tmpName);
+				if (tmpEmement == nullptr) {
 					TK_ERROR("allocation error ... of ewol::FSNode");
 					continue;
 				}
 				if(tmpEmement->getNodeType() == etk::typeNode_file) {
-					if (true == _getFile) {
+					if (_getFile == true) {
 						tmpp.pushBack(tmpEmement);
 					} else {
-						delete(tmpEmement);
+						ETK_DELETE(etk::FSNode, tmpEmement);
 						tmpEmement = nullptr;
 					}
 				} else if (_getFolderAndOther) {
 					tmpp.pushBack(tmpEmement);
 				} else {
-					delete(tmpEmement);
+					ETK_DELETE(etk::FSNode, tmpEmement);
 					tmpEmement = nullptr;
 				}
 			}
@@ -1803,18 +1803,18 @@ void etk::FSNode::folderGetRecursiveFiles(etk::Vector<etk::String>& _output, boo
 				continue;
 			}
 			//TK_DEBUG(" find : " << ent->d_name << " ==> " << (GetRelativeFolder()+tmpName));
-			tmpEmement = new etk::FSNode(getRelativeFolder()+tmpName);
-			if (nullptr != tmpEmement) {
+			tmpEmement = ETK_NEW(etk::FSNode, getRelativeFolder()+tmpName);
+			if (tmpEmement != nullptr) {
 				if(tmpEmement->getNodeType() == etk::typeNode_file) {
 					etk::String tmpVal = tmpEmement->getName();
 					_output.pushBack(tmpVal);
 				}
 				if(tmpEmement->getNodeType() == etk::typeNode_folder) {
-					if (true==_recursiveEnable) {
+					if (_recursiveEnable == true) {
 						tmpEmement->folderGetRecursiveFiles(_output, _recursiveEnable);
 					}
 				}
-				delete(tmpEmement);
+				ETK_DELETE(etk::FSNode, tmpEmement);
 				tmpEmement = nullptr;
 			} else {
 				TK_ERROR("allocation error ... of ewol::FSNode");

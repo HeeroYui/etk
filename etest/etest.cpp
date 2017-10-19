@@ -11,6 +11,7 @@
 #include <echrono/Steady.hpp>
 #include <echrono/Duration.hpp>
 #include <etk/os/FSNode.hpp>
+#include <etk/Allocator.hpp>
 
 static int32_t nbTimeInit = 0;
 
@@ -207,19 +208,31 @@ int32_t etest::runAllTest() {
 			if (it->getTestGroup() != itGroup) {
 				continue;
 			}
-			ETEST_PRINT("[ RUN      ] " << itGroup << "." << it->getTestName());
-			it->clearLocal();
-			g_currentTest = it;
-			echrono::Steady ticTest = echrono::Steady::now();
-			it->run();
-			echrono::Steady tocTest = echrono::Steady::now();
-			g_currentTest = nullptr;
-			if (it->getError() == true) {
-				ETEST_PRINT("[     FAIL ] " << itGroup << "." << it->getTestName() << " (" << (tocTest - ticTest) << ")");
-				errorCount++;
-			} else {
-				ETEST_PRINT("[       OK ] " << itGroup << "." << it->getTestName() << " (" << (tocTest - ticTest) << ")");
+			#if ETK_MEMORY_CHECKER >= 0
+				uint64_t* memorySnapShoot = etk::memory::createSnapshoot();
+			#endif
+			{
+				ETEST_PRINT("[ RUN      ] " << itGroup << "." << it->getTestName());
+				it->clearLocal();
+				g_currentTest = it;
+				echrono::Steady ticTest = echrono::Steady::now();
+				it->run();
+				echrono::Steady tocTest = echrono::Steady::now();
+				g_currentTest = nullptr;
+				if (it->getError() == true) {
+					ETEST_PRINT("[     FAIL ] " << itGroup << "." << it->getTestName() << " (" << (tocTest - ticTest) << ")");
+					errorCount++;
+				} else {
+					ETEST_PRINT("[       OK ] " << itGroup << "." << it->getTestName() << " (" << (tocTest - ticTest) << ")");
+				}
 			}
+			#if ETK_MEMORY_CHECKER >= 0
+				ETEST_DEBUG("[    MEM   ] CHECK memory properties");
+				bool ret = etk::memory::checkSnapshoot(memorySnapShoot);
+				etk::memory::clearSnapshoot(memorySnapShoot);
+				memorySnapShoot = nullptr;
+				ETEST_DEBUG("[    MEM   ] CHECK memory properties (done)");
+			#endif
 		}
 		echrono::Steady tocGroup = echrono::Steady::now();
 		ETEST_PRINT("[++++++++++] " << count << " test from " << itGroup << " (" << (tocGroup - ticGroup) << ")");
@@ -229,6 +242,7 @@ int32_t etest::runAllTest() {
 	if (errorCount != 0) {
 		ETEST_PRINT("[== FAIL ==] Have " << errorCount << " test fail");
 	}
+	ETK_MEM_SHOW_LOG();
 	return -errorCount;
 }
 
