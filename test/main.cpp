@@ -18,5 +18,6 @@
 int main(int argc, const char *argv[]) {
 	// init test engine:
 	etest::init(argc, argv);
+	TEST_INFO("TEST ETK");
 	return RUN_ALL_TESTS();
 }

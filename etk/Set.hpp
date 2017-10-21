@@ -233,17 +233,27 @@ namespace etk {
 			 */
 			void setComparator(sortFunction _comparator) {
 				m_comparator = _comparator;
+				sort();
+			}
+		private:
+			/**
+			 * @brief Order the Set with the corect functor
+			 */
+			void sort() {
 				if (m_comparator != nullptr) {
 					m_data.sort(0, m_data.size(), m_comparator);
+				} else {
+					m_data.sort(0, m_data.size(), [](const ETK_SET_TYPE& _key1, const ETK_SET_TYPE& _key2) { return _key1 < _key2; });
 				}
 			}
+		public:
 			/**
 			 * @brief Constructor of the Set table.
 			 * @param[in] _count Number of basic element (pre-allocated) in the table.
 			 */
 			Set(int32_t _count = 0) :
 			  m_data(),
-			  m_comparator([](const ETK_SET_TYPE& _key1, const ETK_SET_TYPE& _key2) { return _key1 < _key2; }) {
+			  m_comparator(nullptr) {
 				m_data.reserve(_count);
 				// nothing to do
 			}
@@ -255,7 +265,7 @@ namespace etk {
 			template<typename... ETK_SET_TYPE_2>
 			Set(const ETK_SET_TYPE_2& ... _args):
 			  m_data(),
-			  m_comparator([](const ETK_SET_TYPE& _key1, const ETK_SET_TYPE& _key2) { return _key1 < _key2; }) {
+			  m_comparator(nullptr) {
 				add(_args...);
 			}
 			
@@ -332,6 +342,17 @@ namespace etk {
 							return;
 						}
 						if (m_comparator(_key, m_data[iii]) == true) {
+							// Find a position
+							m_data.insert(iii, etk::move(_key));
+							return;
+						}
+					}
+				} else {
+					for (size_t iii=0; iii<m_data.size(); ++iii) {
+						if (_key == m_data[iii]) {
+							return;
+						}
+						if (_key < m_data[iii]) {
 							// Find a position
 							m_data.insert(iii, etk::move(_key));
 							return;

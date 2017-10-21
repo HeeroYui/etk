@@ -208,7 +208,8 @@ int32_t etest::runAllTest() {
 			if (it->getTestGroup() != itGroup) {
 				continue;
 			}
-			#if ETK_MEMORY_CHECKER >= 0
+			bool localFail = false;
+			#if ETK_MEMORY_CHECKER > 0
 				uint64_t* memorySnapShoot = etk::memory::createSnapshoot();
 			#endif
 			{
@@ -222,16 +223,23 @@ int32_t etest::runAllTest() {
 				if (it->getError() == true) {
 					ETEST_PRINT("[     FAIL ] " << itGroup << "." << it->getTestName() << " (" << (tocTest - ticTest) << ")");
 					errorCount++;
+					localFail = true;
 				} else {
 					ETEST_PRINT("[       OK ] " << itGroup << "." << it->getTestName() << " (" << (tocTest - ticTest) << ")");
 				}
 			}
-			#if ETK_MEMORY_CHECKER >= 0
+			#if ETK_MEMORY_CHECKER > 0
 				ETEST_DEBUG("[    MEM   ] CHECK memory properties");
 				bool ret = etk::memory::checkSnapshoot(memorySnapShoot);
 				etk::memory::clearSnapshoot(memorySnapShoot);
 				memorySnapShoot = nullptr;
 				ETEST_DEBUG("[    MEM   ] CHECK memory properties (done)");
+				if (ret == false) {
+					if (localFail == false) {
+						errorCount++;
+					}
+					ETEST_PRINT("[     FAIL ] " << itGroup << "." << it->getTestName() << " ==> in memory LEAK test");
+				}
 			#endif
 		}
 		echrono::Steady tocGroup = echrono::Steady::now();

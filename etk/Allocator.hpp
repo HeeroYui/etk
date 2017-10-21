@@ -17,13 +17,13 @@
 	}
 #endif
 
-#define ETK_MEMORY_CHECKER 2
+//#define ETK_MEMORY_CHECKER 0
 
 #ifndef ETK_MEMORY_CHECKER
 	#define ETK_MEMORY_CHECKER 0
 #endif
 
-#if ETK_MEMORY_CHECKER >= 0
+#if ETK_MEMORY_CHECKER > 0
 	namespace etk {
 		namespace memory {
 			/**
@@ -80,6 +80,10 @@
 			 * @param[in] _handle Handle on the snapshoot
 			 */
 			void clearSnapshoot(uint64_t* _handle);
+			/**
+			 * @brief When reallocate data and permit to the allocator to not warning when check the the snapshoot
+			 */
+			void flipID(void* _pointer1, void* _pointer2);
 			
 			template<class ETK_TYPE,
 			         class... ETK_MEMORY_ARGS>
@@ -136,16 +140,22 @@
 	
 	#define ETK_MEM_CHECK() \
 		etk::memory::check()
+	
+	#define ETK_MEM_CHECK_POINTER(pointer) \
+		etk::memory::checkPointer(pointer)
+	
+	#define ETK_MEM_FLIP_ID(pointer1, pointer2) \
+		etk::memory::flipID((void*)pointer1, (void*)pointer2)
 #else
 	namespace etk {
 		namespace memory {
 			template<class ETK_TYPE,
-			         class... T_ARGS>
-			ETK_TYPE* allocatorNew(T_ARGS&& ... _args) {
+			         class... ETK_MEMORY_ARGS>
+			ETK_TYPE* allocatorNew(ETK_MEMORY_ARGS&& ... _args) {
 				return new ETK_TYPE(etk::forward<ETK_MEMORY_ARGS>(_args)...);
 			}
 			template<class ETK_TYPE,
-			         class... T_ARGS>
+			         class... ETK_MEMORY_ARGS>
 			ETK_TYPE* allocatorNewFull(const char* _variableName,
 			                           const char* _functionName,
 			                           int32_t _line,
@@ -171,7 +181,7 @@
 		delete ((type*)(pointerData))
 	
 	#define ETK_MALLOC(dataType, nbElements) \
-		((dataType *)new dataType[nbElements]
+		(dataType *)new dataType[nbElements]
 	
 	#define ETK_FREE(type, pointerData) \
 		delete[] (type*)pointerData
@@ -180,6 +190,12 @@
 		do { } while(false)
 	
 	#define ETK_MEM_CHECK() \
+		do {} while(false)
+	
+	#define ETK_MEM_CHECK_POINTER(pointer) \
+		do {} while(false)
+	
+	#define ETK_MEM_FLIP_ID(pointer1, pointer2) \
 		do {} while(false)
 
 #endif

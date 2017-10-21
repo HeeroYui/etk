@@ -845,6 +845,7 @@ namespace etk {
 						//TK_CRITICAL("Vector : Error in data allocation request allocation:" << requestSize << "*" << (int32_t)(sizeof(ETK_VECTOR_TYPE)) << "bytes" );
 						return;
 					}
+					ETK_MEM_FLIP_ID(dataTmp, m_data);
 					#ifdef DEBUG
 						// we place bad data to permit to detect stipid thing that is done in C++ code when developement is in progress.
 						// Only in debug this is really slow ... and for the real allocation of memory

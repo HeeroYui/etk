@@ -190,7 +190,7 @@ class FindProperty {
 	public:
 		etk::Vector<FindProperty> m_subProperty; //!< list of all sub elements
 	public:
-		FindProperty() :
+		FindProperty():
 		  m_positionStart(-1),
 		  m_positionStop(-1),
 		  m_multiplicity(0),
@@ -198,12 +198,53 @@ class FindProperty {
 		  m_subIndex(-1) {
 			// nothing to do ...
 		}
+		// move operator
+		FindProperty(FindProperty&& _obj):
+		  m_positionStart(-1),
+		  m_positionStop(-1),
+		  m_multiplicity(0),
+		  m_status(parseStatusUnknown),
+		  m_subIndex(-1) {
+			swap(_obj);
+		}
+		// copy operator
+		FindProperty(const FindProperty& _obj):
+		  m_positionStart(_obj.m_positionStart),
+		  m_positionStop(_obj.m_positionStop),
+		  m_multiplicity(_obj.m_multiplicity),
+		  m_status(_obj.m_status),
+		  m_subIndex(_obj.m_subIndex),
+		  m_subProperty(_obj.m_subProperty) {
+			
+		}
+		FindProperty& operator=(FindProperty&& _obj) {
+			swap(_obj);
+			return *this;
+		}
+		FindProperty& operator=(const FindProperty& _obj) {
+			m_positionStart = _obj.m_positionStart;
+			m_positionStop = _obj.m_positionStop;
+			m_multiplicity = _obj.m_multiplicity;
+			m_status = _obj.m_status;
+			m_subIndex = _obj.m_subIndex;
+			m_subProperty = _obj.m_subProperty;
+			return *this;
+		}
+		void swap(FindProperty& _obj) {
+			etk::swap(m_positionStart, _obj.m_positionStart);
+			etk::swap(m_positionStop, _obj.m_positionStop);
+			etk::swap(m_multiplicity, _obj.m_multiplicity);
+			etk::swap(m_status, _obj.m_status);
+			etk::swap(m_subIndex, _obj.m_subIndex);
+			etk::swap(m_subProperty, _obj.m_subProperty);
+		}
 		void reset() {
 		  m_positionStart = -1;
 		  m_positionStop = -1;
 		  m_multiplicity = 0;
 		  m_status = parseStatusUnknown;
 		  m_subIndex = -1;
+		  m_subProperty.clear();
 		}
 		int64_t getPositionStart() const {
 			return m_positionStart;
@@ -305,6 +346,58 @@ template<class CLASS_TYPE> class Node {
 		 * @brief Destructor
 		 */
 		virtual ~Node() { };
+		// move operator
+		Node(Node&& _obj) :
+		  m_regExData(),
+		  m_nodeLevel(0),
+		  m_canHaveMultiplicity(true),
+		  m_multipleMin(1),
+		  m_multipleMax(1),
+		  m_countOutput(true) {
+			swapData(&_obj);
+		}
+		// copy operator
+		Node(const Node& _obj) :
+		  m_regExData(_obj.m_regExData),
+		  m_nodeLevel(_obj.m_nodeLevel),
+		  m_canHaveMultiplicity(_obj.m_canHaveMultiplicity),
+		  m_multipleMin(_obj.m_multipleMin),
+		  m_multipleMax(_obj.m_multipleMax),
+		  m_countOutput(_obj.m_countOutput) {
+			
+		}
+		Node& operator=(Node&& _obj) {
+			if(this != &_obj) {
+				swapData(&_obj);
+			}
+			return *this;
+		}
+		Node& operator=(const Node& _obj) {
+			copyData(&_obj);
+			return *this;
+		}
+		void swap(Node& _obj) {
+			swapData(&_obj);
+		}
+		virtual Node* clone() const = 0;
+	protected:
+		void swapData(Node* _obj) {
+			etk::swap(m_regExData, _obj->m_regExData);
+			etk::swap(m_nodeLevel, _obj->m_nodeLevel);
+			etk::swap(m_canHaveMultiplicity, _obj->m_canHaveMultiplicity);
+			etk::swap(m_multipleMin, _obj->m_multipleMin);
+			etk::swap(m_multipleMax, _obj->m_multipleMax);
+			etk::swap(m_countOutput, _obj->m_countOutput);
+		}
+		void copyData(const Node* _obj) {
+			m_regExData = _obj->m_regExData;
+			m_nodeLevel = _obj->m_nodeLevel;
+			m_canHaveMultiplicity = _obj->m_canHaveMultiplicity;
+			m_multipleMin = _obj->m_multipleMin;
+			m_multipleMax = _obj->m_multipleMax;
+			m_countOutput = _obj->m_countOutput;
+		}
+	public:
 		/**
 		 * @brief Generate the regular expression with the current "converted string"
 		 * @param[in] _data Property of the regex
@@ -410,7 +503,6 @@ template<class CLASS_TYPE> class NodeValue : public Node<CLASS_TYPE> {
 		// SubNodes :
 		etk::Vector<char32_t> m_data;
 	public :
-		
 		/**
 		 * @brief Constructor
 		 */
@@ -419,7 +511,39 @@ template<class CLASS_TYPE> class NodeValue : public Node<CLASS_TYPE> {
 			generate(_data);
 		};
 		
-		int32_t generate(const etk::Vector<char32_t>& _data) {
+		// move operator
+		NodeValue(NodeValue&& _obj):
+		  Node<CLASS_TYPE>::Node(_obj.m_nodeLevel) {
+			Node<CLASS_TYPE>::swapData(&_obj);
+			etk::swap(m_data, _obj.m_data);
+		}
+		// copy operator
+		NodeValue(const NodeValue& _obj):
+		  Node<CLASS_TYPE>::Node(_obj.m_nodeLevel),
+		  m_data(_obj.m_data) {
+			Node<CLASS_TYPE>::copyData(&_obj);
+		}
+		NodeValue& operator=(NodeValue&& _obj) {
+			if(this != &_obj) {
+				Node<CLASS_TYPE>::swapData(&_obj);;
+				etk::swap(m_data, _obj.m_data);
+			}
+			// Return the current pointer
+			return *this;
+		}
+		NodeValue& operator=(const NodeValue& _obj) {
+			Node<CLASS_TYPE>::copyData(&_obj);
+			m_data = _obj.m_data;
+			return *this;
+		}
+		void swap(NodeValue& _obj) {
+			Node<CLASS_TYPE>::swapData(&_obj);
+			etk::swap(m_data, _obj.m_data);
+		}
+		Node<CLASS_TYPE>* clone() const override {
+			return ETK_NEW(NodeValue<CLASS_TYPE>, *this);
+		}
+		int32_t generate(const etk::Vector<char32_t>& _data) override {
 			Node<CLASS_TYPE>::m_regExData = _data;
 			TK_REG_DEBUG("Request Parse \"Value\" data=" << createString(Node<CLASS_TYPE>::m_regExData) );
 			m_data.clear();
@@ -428,7 +552,7 @@ template<class CLASS_TYPE> class NodeValue : public Node<CLASS_TYPE> {
 			}
 			return _data.size();
 		};
-		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
+		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) override {
 			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " Value{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "} : " << (char)m_data[0]);
 			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       " << createString(Node<CLASS_TYPE>::m_regExData));
 			TK_REG_DEBUG_3("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " Value " << _property);
@@ -490,7 +614,7 @@ template<class CLASS_TYPE> class NodeValue : public Node<CLASS_TYPE> {
 			return;
 		};
 		
-		void display() {
+		void display() override {
 			TK_INFO("Find NODE : " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "@Value@ {"
 			        << Node<CLASS_TYPE>::m_multipleMin << ","
 			        << Node<CLASS_TYPE>::m_multipleMax << "} under-data="
@@ -522,6 +646,51 @@ template<class CLASS_TYPE> class NodeRangeValue : public Node<CLASS_TYPE> {
 		 * @brief Destructor
 		 */
 		virtual ~NodeRangeValue() { };
+		// move operator
+		NodeRangeValue(NodeRangeValue&& _obj):
+		  Node<CLASS_TYPE>::Node(_obj.m_nodeLevel),
+		  m_invert(false),
+		  m_typeName("auto-range") {
+			swapRange(_obj);
+		}
+		// copy operator
+		NodeRangeValue(const NodeRangeValue& _obj):
+		  Node<CLASS_TYPE>::Node(_obj.m_nodeLevel) {
+			copyRange(&_obj);
+		}
+		NodeRangeValue& operator=(NodeRangeValue&& _obj) {
+			if(this != &_obj) {
+				swapRange(&_obj);
+			}
+			return *this;
+		}
+		NodeRangeValue& operator=(const NodeRangeValue& _obj) {
+			copyRange(_obj);
+			return *this;
+		}
+		void swap(NodeRangeValue& _obj) {
+			swapRange(&_obj);
+		}
+		Node<CLASS_TYPE>* clone() const override {
+			return ETK_NEW(NodeRangeValue<CLASS_TYPE>, *this);
+		}
+	protected:
+		void swapRange(NodeRangeValue* _obj) {
+			Node<CLASS_TYPE>::swapData(_obj);
+			etk::swap(m_rangeList, _obj->m_rangeList);
+			etk::swap(m_dataList, _obj->m_dataList);
+			etk::swap(m_invert, _obj->m_invert);
+			etk::swap(m_typeName, _obj->m_typeName);
+		}
+		void copyRange(const NodeRangeValue* _obj) {
+			Node<CLASS_TYPE>::copyData(_obj);
+			m_rangeList = _obj->m_rangeList;
+			m_dataList = _obj->m_dataList;
+			m_invert = _obj->m_invert;
+			m_typeName = _obj->m_typeName;
+		}
+	public:
+		
 		void addRange(char32_t _start, char32_t _stop) {
 			m_rangeList.pushBack(etk::makePair(_start, _stop));
 		}
@@ -538,7 +707,7 @@ template<class CLASS_TYPE> class NodeRangeValue : public Node<CLASS_TYPE> {
 			m_typeName = _name;
 		}
 		// TODO: multiplicity minimum, return partial, and ...
-		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
+		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) override {
 			int32_t findLen = 0;
 			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " " << getDescriptiveName() << "{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       " << createString(Node<CLASS_TYPE>::m_regExData));
@@ -630,7 +799,7 @@ template<class CLASS_TYPE> class NodeRangeValue : public Node<CLASS_TYPE> {
 			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " " << getDescriptiveName() << " : out=" << _property);
 			return;
 		};
-		virtual void display() {
+		virtual void display() override {
 			TK_INFO("Find NODE : " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " " << getDescriptiveName() << " {"
 			        << Node<CLASS_TYPE>::m_multipleMin << ","
 			        << Node<CLASS_TYPE>::m_multipleMax <<
@@ -652,7 +821,34 @@ template<class CLASS_TYPE> class NodeBracket : public NodeRangeValue<CLASS_TYPE>
 		NodeBracket(const etk::Vector<char32_t>& _data, int32_t _level) : NodeRangeValue<CLASS_TYPE>::NodeRangeValue(_level)  {
 			generate(_data);
 		};
-		int32_t generate(const etk::Vector<char32_t>& _data) {
+		// move operator
+		NodeBracket(NodeBracket&& _obj):
+		  NodeRangeValue<CLASS_TYPE>::NodeRangeValue(_obj.m_nodeLevel) {
+			NodeRangeValue<CLASS_TYPE>::swapRange(&_obj);
+		}
+		// copy operator
+		NodeBracket(const NodeBracket& _obj):
+		  NodeRangeValue<CLASS_TYPE>::NodeRangeValue(_obj.m_nodeLevel) {
+			NodeRangeValue<CLASS_TYPE>::copyRange(&_obj);
+		}
+		NodeBracket& operator=(NodeBracket&& _obj) {
+			if(this != &_obj) {
+				NodeRangeValue<CLASS_TYPE>::swapRange(&_obj);
+			}
+			// Return the current pointer
+			return *this;
+		}
+		NodeBracket& operator=(const NodeBracket& _obj) {
+			NodeRangeValue<CLASS_TYPE>::copyRange(&_obj);
+			return *this;
+		}
+		void swap(NodeBracket& _obj) {
+			NodeRangeValue<CLASS_TYPE>::swapRange(&_obj);
+		}
+		Node<CLASS_TYPE>* clone() const override {
+			return ETK_NEW(NodeBracket<CLASS_TYPE>, *this);
+		}
+		int32_t generate(const etk::Vector<char32_t>& _data) override {
 			Node<CLASS_TYPE>::m_regExData = _data;
 			TK_REG_DEBUG("Request Parse [...] data=" << createString(Node<CLASS_TYPE>::m_regExData) );
 			
@@ -720,7 +916,34 @@ template<class CLASS_TYPE> class NodeSOL : public Node<CLASS_TYPE> {
 		 * @brief Destructor
 		 */
 		~NodeSOL() { };
-		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
+		// move operator
+		NodeSOL(NodeSOL&& _obj):
+		  Node<CLASS_TYPE>::Node(_obj.m_nodeLevel) {
+			Node<CLASS_TYPE>::swapData(&_obj);
+		}
+		// copy operator
+		NodeSOL(const NodeSOL& _obj):
+		  Node<CLASS_TYPE>::Node(_obj.m_nodeLevel) {
+			Node<CLASS_TYPE>::copyData(&_obj);
+		}
+		NodeSOL& operator=(NodeSOL&& _obj) {
+			if(this != &_obj) {
+				Node<CLASS_TYPE>::swapData(&_obj);
+			}
+			// Return the current pointer
+			return *this;
+		}
+		NodeSOL& operator=(const NodeSOL& _obj) {
+			Node<CLASS_TYPE>::copyData(&_obj);
+			return *this;
+		}
+		void swap(NodeSOL& _obj) {
+			Node<CLASS_TYPE>::swapData(&_obj);
+		}
+		Node<CLASS_TYPE>* clone() const override {
+			return ETK_NEW(NodeSOL<CLASS_TYPE>, *this);
+		}
+		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) override {
 			int32_t findLen = 0;
 			bool tmpFind = false;
 			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " SOL{" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
@@ -754,7 +977,7 @@ template<class CLASS_TYPE> class NodeSOL : public Node<CLASS_TYPE> {
 			_property.setStatus(parseStatusNone);
 			return;
 		};
-		void display() {
+		void display() override {
 			TK_INFO("Find NODE : " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "@SOL@ {"
 			        << Node<CLASS_TYPE>::m_multipleMin << ","
 			        << Node<CLASS_TYPE>::m_multipleMax << "}  under-data="
@@ -782,23 +1005,73 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 		/**
 		 * @brief Constructor
 		 */
-		NodePTheseElement(int32_t _level) : Node<CLASS_TYPE>::Node(_level) { };
-		NodePTheseElement(const etk::Vector<char32_t>& _data, int32_t _level) : Node<CLASS_TYPE>::Node(_level) {
+		NodePTheseElement(int32_t _level):
+		  Node<CLASS_TYPE>::Node(_level) {
+			
+		}
+		NodePTheseElement(const etk::Vector<char32_t>& _data, int32_t _level):
+		  Node<CLASS_TYPE>::Node(_level) {
 			generate(_data);
-		};
+		}
+		// move operator
+		NodePTheseElement(NodePTheseElement&& _obj):
+		  Node<CLASS_TYPE>::Node(_obj.m_nodeLevel) {
+			swapData(&_obj);
+			etk::swap(m_subNode, _obj.m_nodeLevel);
+		}
+		// copy operator
+		NodePTheseElement(const NodePTheseElement& _obj):
+		  Node<CLASS_TYPE>::Node(_obj.m_nodeLevel) {
+			Node<CLASS_TYPE>::copyData(&_obj);
+			// Force a specicfic size
+			m_subNode.reserve(_obj.m_subNode.size());
+			for(size_t iii=0; iii<_obj.m_subNode.size(); iii++) {
+				if (_obj.m_subNode[iii] != nullptr) {
+					m_subNode.pushBack(_obj.m_subNode[iii]->clone());
+				}
+			}
+		}
+		NodePTheseElement& operator=(NodePTheseElement&& _obj) {
+			if(this != &_obj) {
+				swapData(&_obj);
+				etk::swap(m_subNode, _obj.m_subNode);
+			}
+			return *this;
+		}
+		NodePTheseElement& operator=(const NodePTheseElement& _obj) {
+			Node<CLASS_TYPE>::copyData(&_obj);
+			for (auto it : m_subNode) {
+				ETK_DELETE(Node<CLASS_TYPE>, it);
+				it = nullptr;
+			}
+			m_subNode.clear();
+			// Force a specicfic size
+			m_subNode.reserve(_obj.m_subNode.size());
+			for(size_t iii=0; iii<_obj.m_subNode.size(); iii++) {
+				if (_obj.m_subNode[iii] != nullptr) {
+					m_subNode.pushBack(_obj.m_subNode[iii]->clone());
+				}
+			}
+			return *this;
+		}
+		void swap(NodePTheseElement& _obj) {
+			swapData(&_obj);
+			etk::swap(m_subNode, _obj.m_subNode);
+		}
+		Node<CLASS_TYPE>* clone() const override {
+			return ETK_NEW(NodePTheseElement<CLASS_TYPE>, *this);
+		}
 		/**
 		 * @brief Destructor
 		 */
 		~NodePTheseElement() {
-			/*
 			for (auto it : m_subNode) {
-				ETK_DELETE(Node<CLASS_TYPE>, *it);
-				*it = nullptr;
+				ETK_DELETE(Node<CLASS_TYPE>, it);
+				it = nullptr;
 			}
-			*/
 			m_subNode.clear();
 		};
-		int32_t generate(const etk::Vector<char32_t>& _data) {
+		int32_t generate(const etk::Vector<char32_t>& _data) override {
 			Node<CLASS_TYPE>::m_regExData = _data;
 			TK_REG_DEBUG("Request Parse (element) data=" << createString(Node<CLASS_TYPE>::m_regExData) );
 			int64_t pos = 0;
@@ -997,7 +1270,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 			}
 			return _data.size();
 		};
-		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
+		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) override {
 			//TK_REG_DEBUG_2("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element) data to parse : '" << autoStr(etk::String(_data, _currentPos, _lenMax-_currentPos)) << "'");
 			//TK_REG_DEBUG_2("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element) m_data='" << autoStr(Node<CLASS_TYPE>::m_data) << "'");
 			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element) " << _property);
@@ -1096,7 +1369,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (element) return=" << _property);
 		}
 		
-		void display() {
+		void display() override {
 			TK_INFO("Find NODE : " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "@(Element)@ {"
 			        << Node<CLASS_TYPE>::m_multipleMin << ","
 			        << Node<CLASS_TYPE>::m_multipleMax << "}  under-data="
@@ -1105,7 +1378,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 				it->display();
 			}
 		};
-	private :
+	private:
 		/**
 		 * @brief Set the number of repeat time on a the last node in the list ...
 		 * @param[in] _min Minimum of the multiplicity
@@ -1140,15 +1413,61 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 		 * @brief Destructor
 		 */
 		~NodePThese() {
-			/*
 			for (auto it : m_subNode) {
-				ETK_DELETE(Node<CLASS_TYPE>, *it);
-				*it = nullptr;
+				ETK_DELETE(Node<CLASS_TYPE>, it);
+				it = nullptr;
 			}
-			*/
 			m_subNode.clear();
 		}
-		int32_t generate(const etk::Vector<char32_t>& _data) {
+		// move operator
+		NodePThese(NodePThese&& _obj):
+		  Node<CLASS_TYPE>::Node(_obj.m_nodeLevel) {
+			Node<CLASS_TYPE>::swapData(&_obj);
+			etk::swap(m_subNode, _obj.m_subNode);
+		}
+		// copy operator
+		NodePThese(const NodePThese& _obj):
+		  Node<CLASS_TYPE>::Node(_obj.m_nodeLevel) {
+			Node<CLASS_TYPE>::copyData(&_obj);
+			// Force a specicfic size
+			m_subNode.reserve(_obj.m_subNode.size());
+			for(size_t iii=0; iii<_obj.m_subNode.size(); iii++) {
+				if (_obj.m_subNode[iii] != nullptr) {
+					m_subNode.pushBack(_obj.m_subNode[iii]->clone());
+				}
+			}
+		}
+		NodePThese& operator=(NodePThese&& _obj) {
+			if(this != &_obj) {
+				Node<CLASS_TYPE>::swapData(&_obj);
+				etk::swap(m_subNode, _obj.m_subNode);
+			}
+			return *this;
+		}
+		NodePThese& operator=(const NodePThese& _obj) {
+			Node<CLASS_TYPE>::copyData(&_obj);
+			for (auto it : m_subNode) {
+				ETK_DELETE(Node<CLASS_TYPE>, it);
+				it = nullptr;
+			}
+			m_subNode.clear();
+			// Force a specicfic size
+			m_subNode.reserve(_obj.m_subNode.size());
+			for(size_t iii=0; iii<_obj.m_subNode.size(); iii++) {
+				if (_obj.m_subNode[iii] != nullptr) {
+					m_subNode.pushBack(_obj.m_subNode[iii]->clone());
+				}
+			}
+			return *this;
+		}
+		void swap(NodePThese& _obj) {
+			Node<CLASS_TYPE>::swapData(&_obj);
+			etk::swap(m_subNode, _obj.m_subNode);
+		}
+		Node<CLASS_TYPE>* clone() const override {
+			return ETK_NEW(NodePThese<CLASS_TYPE>, *this);
+		}
+		int32_t generate(const etk::Vector<char32_t>& _data) override {
 			Node<CLASS_TYPE>::m_regExData = _data;
 			TK_REG_DEBUG("Request Parse (...) data=" << createString(Node<CLASS_TYPE>::m_regExData) );
 			//Find all the '|' in the string (and at the good level ...) 
@@ -1175,7 +1494,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 			}
 			return _data.size();
 		};
-		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) {
+		virtual void parse(const CLASS_TYPE& _data, int64_t _currentPos, int64_t _lenMax, FindProperty& _property) override {
 			TK_REG_DEBUG("Parse " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << " (...) {" << Node<CLASS_TYPE>::m_multipleMin << "," << Node<CLASS_TYPE>::m_multipleMax << "}");
 			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       work on: " << createString(Node<CLASS_TYPE>::m_regExData));
 			TK_REG_DEBUG("      " << levelSpace(Node<CLASS_TYPE>::m_nodeLevel) << "       pos=" << _currentPos << " ==> " << _lenMax);
@@ -1314,7 +1633,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 			return;
 		};
 		
-		void display() {
+		void display() override {
 			if (9999 <= Node<CLASS_TYPE>::m_nodeLevel) {
 				TK_INFO("regEx :" << createString(Node<CLASS_TYPE>::m_regExData) );
 			} else {
@@ -1425,6 +1744,71 @@ template<class CLASS_TYPE> class RegEx {
 		~RegEx() {
 			m_isOk = false;
 		};
+		
+		// move operator
+		RegEx(RegEx&& _obj) :
+		  m_expressionRequested(U""),
+		  m_isOk(false),
+		  m_notBeginWithChar(false),
+		  m_notEndWithChar(false),
+		  m_maximize(false)  {
+			etk::swap(*this, _obj);
+			
+		etk::UString m_expressionRequested; //!< Regular expression parsed ...
+		regex::ElementPos m_areaFind; //!< position around selection
+		regex::NodePThese<CLASS_TYPE> m_expressionRootNode; //!< The tree where data is set
+		bool m_isOk; //!< Known if we can process with this regEx
+		bool m_notBeginWithChar; //!< The regular expression must not have previously a char [a-zA-Z0-9_]
+		bool m_notEndWithChar; //!< The regular expression must not have after the end a char [a-zA-Z0-9_]
+		bool m_maximize; //!< by default the regex find the minimum size of a regex .
+		OptionList m_options; //!< Global option list of the reg-ex.
+		}
+		// copy operator
+		RegEx(const RegEx& _obj) :
+		  m_expressionRequested(_obj.m_expressionRequested),
+		  m_areaFind(_obj.m_areaFind),
+		  m_expressionRootNode(_obj.m_expressionRootNode),
+		  m_isOk(_obj.m_isOk),
+		  m_notBeginWithChar(_obj.m_notBeginWithChar),
+		  m_notEndWithChar(_obj.m_notEndWithChar),
+		  m_maximize(_obj.m_maximize),
+		  m_options(_obj.m_options) {
+			
+		}
+		RegEx& operator=(RegEx&& _obj) {
+			if(this != &_obj) {
+				etk::swap(m_expressionRequested, _obj.m_expressionRequested);
+				etk::swap(m_areaFind, _obj.m_areaFind);
+				etk::swap(m_expressionRootNode, _obj.m_expressionRootNode);
+				etk::swap(m_isOk, _obj.m_isOk);
+				etk::swap(m_notBeginWithChar, _obj.m_notBeginWithChar);
+				etk::swap(m_notEndWithChar, _obj.m_notEndWithChar);
+				etk::swap(m_maximize, _obj.m_maximize);
+				etk::swap(m_options, _obj.m_options);
+			}
+			return *this;
+		}
+		RegEx& operator=(const RegEx& _obj) {
+			m_expressionRequested = _obj.m_expressionRequested;
+			m_areaFind = _obj.m_areaFind;
+			m_expressionRootNode = _obj.m_expressionRootNode;
+			m_isOk = _obj.m_isOk;
+			m_notBeginWithChar = _obj.m_notBeginWithChar;
+			m_notEndWithChar = _obj.m_notEndWithChar;
+			m_maximize = _obj.m_maximize;
+			m_options = _obj.m_options;
+			return *this;
+		}
+		void swap(RegEx& _obj) {
+			etk::swap(m_expressionRequested, _obj.m_expressionRequested);
+			etk::swap(m_areaFind, _obj.m_areaFind);
+			etk::swap(m_expressionRootNode, _obj.m_expressionRootNode);
+			etk::swap(m_isOk, _obj.m_isOk);
+			etk::swap(m_notBeginWithChar, _obj.m_notBeginWithChar);
+			etk::swap(m_notEndWithChar, _obj.m_notEndWithChar);
+			etk::swap(m_maximize, _obj.m_maximize);
+			etk::swap(m_options, _obj.m_options);
+		}
 		
 		/**
 		 * @brief SetMaximizing of the regex
@@ -1977,4 +2361,4 @@ template<class CLASS_TYPE> class RegEx {
 
 };
 
-}; // end of etk namespace
+}
