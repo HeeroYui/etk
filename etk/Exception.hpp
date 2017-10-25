@@ -177,5 +177,17 @@ namespace etk {
 					
 				}
 		};
+		class NullPointerError : public etk::Exception {
+			public:
+				/**
+				 * @brief Contructor of an generic Exception.
+				 * @param[in] _what The explanation of the problem.
+				 * @param[in] _function Function name to find faster the source od the problem.
+				 */
+				NullPointerError(const etk::String& _what, const char* _function = nullptr):
+				  etk::Exception("NULL-POINTER-ERROR", _what, _function) {
+					
+				}
+		};
 	}
 }

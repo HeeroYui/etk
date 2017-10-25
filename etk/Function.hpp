@@ -7,6 +7,7 @@
 #pragma once
 #include <etk/types.hpp>
 #include <etk/String.hpp>
+#include <etk/Exception.hpp>
 
 // TO facilitate debug when have a problem ...
 #define ETK_FUNCTION_DEBUG(...) do {} while(false)
@@ -155,7 +156,7 @@ namespace etk {
 				if (    m_pointerPrivate == nullptr
 				     && m_local == false) {
 					ETK_FUNCTION_DEBUG("[%d=0X%lx] call Function (With nullptr !!! ==> must assert ...)\n", m_pppppp, (uint64_t)this);
-					throw;
+					throw etk::exception::NullPointerError("etk::Function call empty pointer");
 				}
 				ETK_FUNCTION_DEBUG("[%d=0X%lx] call Function \n", m_pppppp, (uint64_t)this);
 				if (m_local == true) {

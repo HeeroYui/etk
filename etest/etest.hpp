@@ -101,6 +101,9 @@ namespace etest {
 			etk::String m_testGroup;
 			etk::String m_testName;
 			bool m_haveError;
+		protected:
+			uint32_t m_numberCheck;
+			uint32_t m_numberCheckFail;
 		public:
 			GenericTest(const char* _file,
 			            uint32_t _line,
@@ -111,7 +114,24 @@ namespace etest {
 			uint32_t getFileLine() const;
 			const etk::String& getTestGroup() const;
 			const etk::String& getTestName() const;
+			/**
+			 * @brief Get if an error occured during the test
+			 * @return true an error occured, false otherwise
+			 */
 			bool getError() const;
+			/**
+			 * @brief Get the number of check done in the test
+			 * @return simple count of test done
+			 */
+			uint32_t getNumberCheck() const;
+			/**
+			 * @brief Get the number of check done in the test
+			 * @return simple count of test done with error
+			 */
+			uint32_t getNumberCheckError() const;
+			void addCheck() {
+				m_numberCheck++;
+			}
 			void testResult(bool _result,
 			                const etk::String& _test1Value,
 			                const etk::String& _test1,
@@ -152,6 +172,7 @@ namespace etest {
 
 #define EXPECT_EQ(element, result) \
 	do { \
+		etest::g_currentTest->addCheck(); \
 		ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_EQ(" << #element << ", " << #result << ");"); \
 		bool ETEST_VARIABLE_TMP_res = ((element) == (result)); \
 		if (etest::g_currentTest == nullptr) { \
@@ -169,6 +190,7 @@ namespace etest {
 
 #define EXPECT_NE(element, result) \
 	do { \
+		etest::g_currentTest->addCheck(); \
 		ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_NE(" << #element << ", " << #result << ");"); \
 		bool ETEST_VARIABLE_TMP_res = ((element) != (result)); \
 		if (etest::g_currentTest == nullptr) { \
@@ -184,8 +206,30 @@ namespace etest {
 		ETEST_DEBUG("    [ SUB-DONE ]"); \
 	} while (false)
 
+#define ASSERT_NE(element, result) \
+	do { \
+		etest::g_currentTest->addCheck(); \
+		ETEST_DEBUG("    [ SUB-RUN  ] ASSERT_NE(" << #element << ", " << #result << ");"); \
+		bool ETEST_VARIABLE_TMP_res = ((element) != (result)); \
+		if (etest::g_currentTest == nullptr) { \
+			ETEST_CRITICAL("Not in a test"); \
+		} else { \
+			etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
+			                                 etest::exportResultToString(element), \
+			                                 #element, \
+			                                 etest::exportResultToString(result), \
+			                                 #result, \
+			                                 __LINE__); \
+		} \
+		ETEST_DEBUG("    [ SUB-DONE ]"); \
+		if (ETEST_VARIABLE_TMP_res == true) { \
+			return; \
+		} \
+	} while (false)
+
 #define EXPECT_FLOAT_EQ_DELTA(element, result, delta) \
 	do { \
+		etest::g_currentTest->addCheck(); \
 		ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_FLOAT_EQ(" << #element << ", " << #result << ");"); \
 		float ETEST_VARIABLE_TMP_res2 = (element) - (result); \
 		bool ETEST_VARIABLE_TMP_res = false; \

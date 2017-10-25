@@ -341,11 +341,14 @@ void etk::String::eraseRange(size_t _pos, size_t _posEnd) {
 
 etk::String etk::String::extract(size_t _posStart, size_t _posEnd) const {
 	etk::String out;
+	if (_posEnd >= size()) {
+		_posEnd = size();
+	}
 	if (_posStart >= size()) {
 		return out;
 	}
-	if (_posEnd >= size()) {
-		_posEnd = size();
+	if (_posStart >= _posEnd) {
+		return out;
 	}
 	out.pushBack(&m_data[_posStart], _posEnd-_posStart);
 	return out;

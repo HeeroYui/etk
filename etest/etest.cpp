@@ -169,6 +169,14 @@ bool etest::GenericTest::getError() const {
 	return m_haveError;
 }
 
+uint32_t etest::GenericTest::getNumberCheck() const {
+	return m_numberCheck;
+}
+
+uint32_t etest::GenericTest::getNumberCheckError() const {
+	return m_numberCheckFail;
+}
+
 void etest::GenericTest::testResult(bool _result,
                                     const etk::String& _test1Value,
                                     const etk::String& _test1,
@@ -179,13 +187,24 @@ void etest::GenericTest::testResult(bool _result,
 		return;
 	}
 	ETEST_ERROR("Detect an error: " << m_file << ":" << _line << ":");
-	ETEST_ERROR("    have: " << _test1 << " = " << _test1Value);
-	ETEST_ERROR("    expect: " << _test2 << " = " << _test2Value);
+	if (_test1 != _test1Value) {
+		ETEST_ERROR("      have: " << _test1 << " = " << _test1Value);
+	} else {
+		ETEST_ERROR("      have: " << _test1);
+	}
+	if (_test2 != _test2Value) {
+		ETEST_ERROR("    expect: " << _test2 << " = " << _test2Value);
+	} else {
+		ETEST_ERROR("    expect: " << _test2);
+	}
 	m_haveError = true;
+	m_numberCheckFail++;
 }
 
 void etest::GenericTest::clearLocal() {
 	m_haveError = false;
+	m_numberCheck = 0;
+	m_numberCheckFail = 0;
 }
 etest::GenericTest* etest::g_currentTest = nullptr;
 
@@ -195,6 +214,8 @@ int32_t etest::runAllTest() {
 	etk::Vector<etk::String> listGroup = getListGroupSpecific(runList);
 	ETEST_PRINT("[==========] Running " << runList.size() << " tests from " << listGroup.size() << " test group.");
 	echrono::Steady tic = echrono::Steady::now();
+	uint32_t nbTotalCheck = 0;
+	uint32_t nbTotalCheckFail = 0;
 	for (auto &itGroup: listGroup) {
 		int32_t count = 0;
 		for (auto &it: getListOfTest()) {
@@ -203,6 +224,8 @@ int32_t etest::runAllTest() {
 			}
 		}
 		ETEST_PRINT("[++++++++++] " << count << " test from " << itGroup << ":");
+		uint32_t nbCheck = 0;
+		uint32_t nbCheckFail = 0;
 		echrono::Steady ticGroup = echrono::Steady::now();
 		for (auto &it: runList) {
 			if (it->getTestGroup() != itGroup) {
@@ -221,12 +244,14 @@ int32_t etest::runAllTest() {
 				echrono::Steady tocTest = echrono::Steady::now();
 				g_currentTest = nullptr;
 				if (it->getError() == true) {
-					ETEST_PRINT("[     FAIL ] " << itGroup << "." << it->getTestName() << " (" << (tocTest - ticTest) << ")");
+					ETEST_PRINT("[     FAIL ] " << itGroup << "." << it->getTestName() << " (" << (tocTest - ticTest) << ") " << it->getNumberCheckError() << " fails");
 					errorCount++;
 					localFail = true;
 				} else {
 					ETEST_PRINT("[       OK ] " << itGroup << "." << it->getTestName() << " (" << (tocTest - ticTest) << ")");
 				}
+				nbCheck += it->getNumberCheck();
+				nbCheckFail += it->getNumberCheckError();
 			}
 			#if ETK_MEMORY_CHECKER > 0
 				ETEST_DEBUG("[    MEM   ] CHECK memory properties");
@@ -234,21 +259,25 @@ int32_t etest::runAllTest() {
 				etk::memory::clearSnapshoot(memorySnapShoot);
 				memorySnapShoot = nullptr;
 				ETEST_DEBUG("[    MEM   ] CHECK memory properties (done)");
+				nbCheck++;
 				if (ret == false) {
 					if (localFail == false) {
 						errorCount++;
 					}
 					ETEST_PRINT("[     FAIL ] " << itGroup << "." << it->getTestName() << " ==> in memory LEAK test");
+					nbCheckFail++;
 				}
 			#endif
 		}
 		echrono::Steady tocGroup = echrono::Steady::now();
-		ETEST_PRINT("[++++++++++] " << count << " test from " << itGroup << " (" << (tocGroup - ticGroup) << ")");
+		ETEST_PRINT("[++++++++++] " << count << " test [" << nbCheck << " check / " << nbCheckFail << " fails] from " << itGroup << " (" << (tocGroup - ticGroup) << ")");
+		nbTotalCheck += nbCheck;
+		nbTotalCheckFail += nbCheckFail;
 	}
 	echrono::Steady toc = echrono::Steady::now();
-	ETEST_PRINT("[==========] All done in " << (toc - tic));
+	ETEST_PRINT("[==========] All done [" << nbTotalCheck << " check / " << nbTotalCheckFail << " fails] in " << (toc - tic));
 	if (errorCount != 0) {
-		ETEST_PRINT("[== FAIL ==] Have " << errorCount << " test fail");
+		ETEST_PRINT("[== FAIL ==] Have " << errorCount << " test fail ");
 	}
 	ETK_MEM_SHOW_LOG();
 	return -errorCount;
