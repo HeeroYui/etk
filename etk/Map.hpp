@@ -542,7 +542,7 @@ namespace etk {
 				return Iterator(this, _pos);
 			}
 			/**
-			 * @brief Get an Iterator on the start position of the Vector
+			 * @brief Get an Iterator on the start position of the Map
 			 * @return The Iterator
 			 */
 			Iterator begin() {
@@ -552,13 +552,29 @@ namespace etk {
 				return position(0);
 			}
 			/**
-			 * @brief Get an Iterator on the end position of the Vector
+			 * @brief Get an Iterator on the end position of the Map
 			 * @return The Iterator
 			 */
 			Iterator end() {
 				return position(size());
 			}
 			const Iterator end() const {
+				return position(size());
+			}
+			/**
+			 * @brief Get the last element in the Map or end()
+			 * @return The Iterator
+			 */
+			Iterator back() {
+				if (size() > 0) {
+					return position(size()-1);
+				}
+				return position(size());
+			}
+			const Iterator back() const {
+				if (size() > 0) {
+					return position(size()-1);
+				}
 				return position(size());
 			}
 			
