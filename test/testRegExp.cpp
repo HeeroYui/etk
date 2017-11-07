@@ -25,6 +25,13 @@ etk::Pair<int32_t, int32_t> testRegExSingle(const etk::String& _expression, cons
 	return etk::makePair(0,0);
 }
 
+TEST(TestEtkRegEx, simpleFull ) {
+	etk::String expression = ".*";
+	etk::Pair<int32_t, int32_t> res;
+	res = testRegExSingle(expression, "hgk");
+	EXPECT_EQ(res, etk::makePair(0,3));
+}
+
 static etk::String data1 = " a /* plop */ \n int eee = 22; // error value \nint main(void) {\n return 0;\n}\n";
 static etk::String data2 = "alpha /* plop */ test";
 static etk::String data3 = "pp \n // qdfqdfsdf \nde";
