@@ -16,8 +16,10 @@ extern "C" {
 	#include <stdint.h>
 	#include <stddef.h>
 }
-#ifndef size_t
-	using size_t=uint64_t;
+#if !defined(__TARGET_OS__MacOs)
+	#ifndef size_t
+		using size_t=uint64_t;
+	#endif
 #endif
 #ifndef INT8_MIN
 	#define INT8_MIN  (-128)

@@ -9,8 +9,12 @@
 #include <etk/debug.hpp>
 #include <etk/typeInfo.hpp>
 
+#ifdef ETK_BUILD_LINEARMATH
+	ETK_DECLARE_TYPE(btVector3);
+#else
+	ETK_DECLARE_TYPE(etk::Vector3D<float>);
+#endif
 ETK_DECLARE_TYPE(etk::Vector3D<int32_t>);
-ETK_DECLARE_TYPE(etk::Vector3D<float>);
 ETK_DECLARE_TYPE(etk::Vector3D<uint32_t>);
 ETK_DECLARE_TYPE(etk::Vector3D<bool>);
 

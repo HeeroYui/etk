@@ -2005,6 +2005,8 @@ template<class CLASS_TYPE> class RegEx {
 			if (m_isOk == false) {
 				return false;
 			}
+			m_areaFind.start=0;
+			m_areaFind.stop=0;
 			TK_REG_DEBUG("Request parse : " << _startPos << " --> " << _endPos);
 			int64_t bufferLength = _SearchIn.size();
 			if (_endPos > bufferLength) {
@@ -2096,6 +2098,8 @@ template<class CLASS_TYPE> class RegEx {
 			if (m_isOk == false) {
 				return false;
 			}
+			m_areaFind.start=0;
+			m_areaFind.stop=0;
 			int64_t bufferLength = _SearchIn.size();
 			if (_endPos > bufferLength) {
 				_endPos = bufferLength;

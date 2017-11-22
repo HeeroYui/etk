@@ -71,7 +71,8 @@ def configure(target, my_module):
 	
 	if "Android" in target.get_type():
 		my_module.add_depend("SDK")
-	
+	if "MacOs" in target.get_type():
+                my_module.add_depend("cxx")
 	my_module.add_path(".")
 	return True
 
