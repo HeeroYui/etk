@@ -447,6 +447,21 @@ namespace etk {
 				}
 				m_data[elementId]->second = _value;
 			}
+			//! @previous
+			void add(const ETK_MAP_TYPE_KEY& _key, ETK_MAP_TYPE_DATA&& _value) {
+				int64_t elementId = getId(_key);
+				if (elementId <0) {
+					etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* tmp = ETK_NEW(pairType, etk::move(_key), etk::move(_value));
+					if (tmp == nullptr) {
+						return;
+					}
+					m_data.pushBack(tmp);
+					// Order data if needed.
+					sort();
+					return;
+				}
+				m_data[elementId]->second = etk::move(_value);
+			}
 			/**
 			 * @brief Set an element value
 			 * @note add and set is the same function.
@@ -454,6 +469,10 @@ namespace etk {
 			 * @param[in] _value Value to set in the Map table.
 			 */
 			void set(const ETK_MAP_TYPE_KEY& _key, const ETK_MAP_TYPE_DATA& _value) {
+				add(etk::move(_key), etk::move(_value));
+			}
+			//! @previous
+			void set(const ETK_MAP_TYPE_KEY& _key, ETK_MAP_TYPE_DATA&& _value) {
 				add(etk::move(_key), etk::move(_value));
 			}
 			/**
