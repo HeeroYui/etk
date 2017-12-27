@@ -1,4 +1,8 @@
-
+/**
+ * @author Edouard DUPIN
+ * @copyright 2011, Edouard DUPIN, all right reserved
+ * @license MPL-2 (see license file)
+ */
 
 #include <etk/String.hpp>
 #include <etk/UString.hpp>
@@ -254,6 +258,14 @@ void etk::String::popBack() {
 	if(size() > 0) {
 		resize(size()-1);
 	}
+}
+
+char& etk::String::back() {
+	return m_data[m_data.size()-2];
+}
+
+const char& etk::String::back() const {
+	return m_data[m_data.size()-2];
 }
 
 void etk::String::reserve(size_t _size) {

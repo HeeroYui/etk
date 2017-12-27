@@ -363,6 +363,12 @@ namespace etk {
 			 */
 			void popBack();
 			/**
+			 * @brief Get the last element of the String
+			 * @return An reference on the last char
+			 */
+			char& back();
+			const char& back() const;
+			/**
 			 * @brief Force the container to have a minimum size in memory allocation
 			 * @param[in] _size Size in byte that is requested.
 			 */
