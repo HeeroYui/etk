@@ -96,6 +96,30 @@ namespace etk {
 						return (m_current < m_vector->size());
 					}
 					/**
+					 * @brief != Comparaison operator
+					 * @param[in] _obj Object to compare
+					 * @return true if the element are different
+					 */
+					bool operator!= (const Iterator& _obj) {
+						if (    m_vector != _obj.m_vector
+						     || m_current != _obj.m_current) {
+							return true;
+						}
+						return false;
+					}
+					/**
+					 * @brief == Comparaison operator.
+					 * @param[in] _obj Object to compare.
+					 * @return true if the element are identical.
+					 */
+					bool operator== (const Iterator& _obj) {
+						if (    m_vector == _obj.m_vector
+						     && m_current == _obj.m_current) {
+							return true;
+						}
+						return false;
+					}
+					/**
 					 * @brief Incremental operator
 					 * @return Reference on the current iterator increment
 					 */
