@@ -22,10 +22,14 @@ namespace etk {
 				
 			}
 			Pair(ETK_PAIR_TYPE_1&& _obj1, ETK_PAIR_TYPE_2&& _obj2):
-			  first(),
-			  second() {
-				etk::swap(first, _obj1);
-				etk::swap(second, _obj2);
+			  first(etk::move(_obj1)),
+			  second(etk::move(_obj2)) {
+				
+			}
+			Pair(const ETK_PAIR_TYPE_1& _obj1, ETK_PAIR_TYPE_2&& _obj2):
+			  first(_obj1),
+			  second(etk::move(_obj2)) {
+				
 			}
 			Pair(const ETK_PAIR_TYPE_1& _obj1, const ETK_PAIR_TYPE_2& _obj2):
 			  first(_obj1),
