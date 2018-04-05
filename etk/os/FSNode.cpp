@@ -730,7 +730,7 @@ void etk::FSNode::sortElementList(etk::Vector<etk::FSNode *>& _list) {
 				//EWOL_DEBUG("compare : \""<<*tmpList[iii] << "\" and \"" << *m_listDirectory[jjj] << "\"");
 				if (_list[jjj]!=nullptr) {
 					// TODO : Do something better : this methode is a litthe hard!!!
-					if (etk::toupper(tmpList[iii]->getNameFile()) > etk::toupper(_list[jjj]->getNameFile())) {
+					if (etk::toUpper(tmpList[iii]->getNameFile()) > etk::toUpper(_list[jjj]->getNameFile())) {
 						findPos = jjj+1;
 					}
 				}

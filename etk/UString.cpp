@@ -881,10 +881,10 @@ namespace etk {
 	bool string_to_bool(const etk::UString& _obj) {
 		return _obj.to<bool>();
 	}
-	etk::UString tolower(etk::UString _obj) {
+	etk::UString toLower(etk::UString _obj) {
 		return _obj.toLower();
 	}
-	etk::UString toupper(etk::UString _obj) {
+	etk::UString toUpper(etk::UString _obj) {
 		return _obj.toUpper();
 	}
 	bool compare_no_case(const etk::UString& _obj, const etk::UString& _val) {

@@ -1108,10 +1108,10 @@ namespace etk {
 	bool string_to_bool(const etk::String& _obj) {
 		return _obj.to<bool>();
 	}
-	etk::String tolower(etk::String _obj) {
+	etk::String toLower(etk::String _obj) {
 		return _obj.toLower();
 	}
-	etk::String toupper(etk::String _obj) {
+	etk::String toUpper(etk::String _obj) {
 		return _obj.toUpper();
 	}
 	bool compare_no_case(const etk::String& _obj, const etk::String& _val) {

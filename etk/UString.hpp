@@ -534,8 +534,8 @@ namespace etk {
 	uint32_t string_to_uint32_t(const etk::UString& _obj);
 	uint64_t string_to_uint64_t(const etk::UString& _obj);
 	bool string_to_bool(const etk::UString& _obj);
-	etk::UString tolower(etk::UString _obj);
-	etk::UString toupper(etk::UString _obj);
+	etk::UString toLower(etk::UString _obj);
+	etk::UString toUpper(etk::UString _obj);
 	bool compare_no_case(const etk::UString& _obj, const etk::UString& _val);
 	bool end_with(const etk::UString& _obj, const etk::UString& _val, bool _caseSensitive = true);
 	bool start_with(const etk::UString& _obj, const etk::UString& _val, bool _caseSensitive = true);
