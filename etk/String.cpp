@@ -469,7 +469,7 @@ const char& etk::String::operator[] (size_t _pos) const {
 char etk::toLower(char _value) {
 	if (    _value >= 'A'
 	     && _value <= 'Z') {
-		return _value + ('a' - 'A');
+		return char(int(_value) + int('a') - int('A'));
 	}
 	return _value;
 }
@@ -477,7 +477,7 @@ char etk::toLower(char _value) {
 char etk::toUpper(char _value) {
 	if (    _value >= 'a'
 	     && _value <= 'z') {
-		return _value + ('A' - 'z');
+		return char(int(_value) + int('A') - int('a'));
 	}
 	return _value;
 }
