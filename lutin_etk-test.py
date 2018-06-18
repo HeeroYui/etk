@@ -35,6 +35,7 @@ def configure(target, my_module):
 	    'test/testMatrix3x3.cpp',
 	    'test/testRegExp.cpp',
 	    'test/testTransform.cpp',
+	    'test/testArray.cpp',
 	    'test/testVector.cpp',
 	    'test/testVector3_f.cpp',
 	    'test/testArchive.cpp',

@@ -9,7 +9,6 @@
 
 
 namespace etk {
-	//class String;
 	/**
 	 * @brief Global exception handle
 	 */

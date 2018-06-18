@@ -47,6 +47,7 @@ def configure(target, my_module):
 	    'etk/String.hpp',
 	    'etk/UString.hpp',
 	    'etk/utf8.hpp',
+	    'etk/Array.hpp',
 	    'etk/Vector.hpp',
 	    'etk/Stream.hpp',
 	    'etk/Pair.hpp',
