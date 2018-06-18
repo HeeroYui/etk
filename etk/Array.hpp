@@ -8,6 +8,7 @@
 #include <etk/types.hpp>
 #include <etk/Stream.hpp>
 #include <etk/Allocator.hpp>
+#include <etk/Exception.hpp>
 
 //#define ETK_ARRAY_DEBUG(...) printf(__VA_ARGS__)
 #define ETK_ARRAY_DEBUG(...) do {} while (false)
@@ -261,7 +262,6 @@ namespace etk {
 					throw etk::exception::InvalidArgument("Size too big ...");
 					return;
 				}
-				changeAllocation(int32_t(sizeof...(ETK_ARRAY_TYPE_2)));
 				pushBackN(_args...);
 			}
 			/**
@@ -269,7 +269,6 @@ namespace etk {
 			 * @param[in] _obj Array that might be copy
 			 */
 			Array(const etk::Array<ETK_ARRAY_TYPE, ETK_ARRAY_SIZE>& _obj) {
-				reserve(_obj.m_size);
 				for(size_t iii=0; iii<_obj.m_size; iii++) {
 					new ((char*)&m_data[iii]) ETK_ARRAY_TYPE(etk::move(_obj.m_data[iii]));
 				}
@@ -280,14 +279,8 @@ namespace etk {
 			 * @param[in] _obj Object to move
 			 */
 			// TODO: This is a little complicated ...
-			Array(etk::Array<ETK_ARRAY_TYPE, ETK_ARRAY_SIZE>&& _obj):
-			  m_size(_obj.m_size) {
-				/*
-				_obj.m_data = nullptr;
-				_obj.m_size = 0;
-				_obj.m_allocated = 0;
-				*/
-				throw etk::exception::InvalidArgument("TODO ...");
+			Array(etk::Array<ETK_ARRAY_TYPE, ETK_ARRAY_SIZE>&& _obj) {
+				swap(_obj);
 			}
 			/**
 			 * @brief Destructor of the current class
@@ -316,7 +309,7 @@ namespace etk {
 						_obj.swap(*this);
 						return;
 					}
-					for (size_t iii=0; iii<size(); ++iii) {
+					for (size_t iii=0; iii<etk::min(size(), _obj.size()); ++iii) {
 						etk::swap(m_data[iii], _obj.m_data[iii]);
 					}
 					for (size_t iii=size(); iii<_obj.size(); ++iii) {
@@ -324,6 +317,12 @@ namespace etk {
 						new ((char*)&m_data[iii]) ETK_ARRAY_TYPE(etk::move(_obj.m_data[iii]));
 						// destruct remote object
 						_obj.m_data[iii].~ETK_ARRAY_TYPE();
+					}
+					for (size_t iii=_obj.size(); iii<size(); ++iii) {
+						// Construc new local object
+						new ((char*)&_obj.m_data[iii]) ETK_ARRAY_TYPE(etk::move(m_data[iii]));
+						// destruct remote object
+						m_data[iii].~ETK_ARRAY_TYPE();
 					}
 					etk::swap(m_size, _obj.m_size);
 				}
@@ -348,26 +347,10 @@ namespace etk {
 			Array& operator=(const etk::Array<ETK_ARRAY_TYPE, ETK_ARRAY_SIZE>& _obj) {
 				// remove all previous elements
 				clear();
-				// Force a specicfic size
-				reserve(_obj.m_size);
 				for(size_t iii=0; iii<_obj.m_size; iii++) {
 					new ((char*)&m_data[iii]) ETK_ARRAY_TYPE(etk::move(_obj.m_data[iii]));
 				}
 				m_size = _obj.m_size;
-				// Return the current pointer
-				return *this;
-			}
-			/**
-			 * @brief Add at the Last position of the Array
-			 * @param[in] _obj Element to add at the end of Array
-			 */
-			Array& operator+= (const etk::Array<ETK_ARRAY_TYPE>& _obj) {
-				reserve(m_size + _obj.size());
-				for(size_t iii=0; iii<_obj.size(); iii++) {
-					// copy operator ...
-					new ((char*)&m_data[m_size+iii]) ETK_ARRAY_TYPE(etk::move(_obj.m_data[iii]));
-				}
-				m_size += _obj.size();
 				// Return the current pointer
 				return *this;
 			}
@@ -457,7 +440,9 @@ namespace etk {
 			 * @param[in] _item Element to add at the end of Array
 			 */
 			void pushBack(ETK_ARRAY_TYPE&& _item) {
-				reserve(m_size+1);
+				if (m_size == ETK_ARRAY_SIZE) {
+					throw etk::exception::OverflowError("try add to much data in array");
+				}
 				new ((char*)&m_data[m_size]) ETK_ARRAY_TYPE(etk::move(_item));
 				m_size += 1;
 			}
@@ -466,7 +451,9 @@ namespace etk {
 			 * @param[in] _item Element to add at the end of Array
 			 */
 			void pushBack(const ETK_ARRAY_TYPE& _item) {
-				reserve(m_size+1);
+				if (m_size == ETK_ARRAY_SIZE) {
+					throw etk::exception::OverflowError("try add to much data in array");
+				}
 				new ((char*)&m_data[m_size]) ETK_ARRAY_TYPE(etk::move(_item));
 				m_size += 1;
 			}
@@ -479,10 +466,8 @@ namespace etk {
 				if (_item == nullptr) {
 					return;
 				}
-				reserve(m_size+_nbElement);
-				if (m_size > m_allocated) {
-					//TK_ERROR("Resize does not work correctly ... not added item");
-					return;
+				if (m_size+_nbElement > ETK_ARRAY_SIZE) {
+					throw etk::exception::OverflowError("try add to much data in array");
 				}
 				for (size_t iii=0; iii<_nbElement; iii++) {
 					new ((char*)&m_data[m_size+iii]) ETK_ARRAY_TYPE(_item[iii]);
@@ -537,8 +522,6 @@ namespace etk {
 				}
 				// move current data (after the position)
 				size_t sizeToMove = (m_size - _pos);
-				// Request resize of the current buffer
-				reserve(m_size+_nbElement);
 				if (sizeToMove > 0) {
 					for (size_t iii=1; iii<=sizeToMove; iii++) {
 						// placement allocate of the element
@@ -587,6 +570,9 @@ namespace etk {
 				if (_pos > m_size) {
 					//TK_ERROR(" can not Erase Len Element at this position : " << _pos << " > " << m_size);
 					return;
+				}
+				if (m_size+_nbElement > ETK_ARRAY_SIZE) {
+					throw etk::exception::OverflowError("try add to much data in array");
 				}
 				if (_pos + _nbElement > m_size) {
 					_nbElement = m_size - _pos;
@@ -699,11 +685,11 @@ namespace etk {
 			 * @param[in] _newSize New size of the Array
 			 */
 			void resize(size_t _newSize, const ETK_ARRAY_TYPE& _basicElement) {
+				if (_newSize > ETK_ARRAY_SIZE) {
+					throw etk::exception::OverflowError("try resize with larger size in array");
+				}
 				// Reallocate memory
 				if (_newSize > m_size) {
-					if (_newSize > m_allocated) {
-						changeAllocation(_newSize);
-					}
 					for (size_t iii=m_size; iii<_newSize; ++iii) {
 						new ((char*)&m_data[iii]) ETK_ARRAY_TYPE(_basicElement);
 					}
@@ -730,11 +716,11 @@ namespace etk {
 			 */
 			void resize(size_t _newSize) {
 				ETK_ARRAY_DEBUG("Resize %zu => %zu\n", m_size, _newSize);
+				if (_newSize > ETK_ARRAY_SIZE) {
+					throw etk::exception::OverflowError("try resize with larger size in array");
+				}
 				// Reallocate memory
 				if (_newSize > m_size) {
-					if (_newSize > m_allocated) {
-						changeAllocation(_newSize);
-					}
 					for (size_t iii=m_size; iii<_newSize; ++iii) {
 						new ((char*)&m_data[iii]) ETK_ARRAY_TYPE();
 					}
@@ -757,14 +743,6 @@ namespace etk {
 		private:
 			void resizeDown(size_t _newSize) {
 				ETK_ARRAY_DEBUG("Resize %zu => %zu\n", m_size, _newSize);
-				// Reallocate memory
-				if (_newSize > m_allocated) {
-					ETK_ARRAY_DEBUG("Resize Down %zu => %zu\n", m_size, _newSize);
-					return;
-				} else if (_newSize == m_allocated) {
-					return;
-				}
-				ETK_ARRAY_DEBUG("Reduce %zu => %zu\n", m_size, _newSize);
 				for (size_t iii=_newSize; iii<m_size; ++iii) {
 					m_data[iii].~ETK_ARRAY_TYPE();
 					#ifdef DEBUG
@@ -778,100 +756,6 @@ namespace etk {
 				m_size = _newSize;
 			}
 		public:
-			/**
-			 * @brief Force the container to have a minimum size in memory allocation
-			 * @param[in] _size Size in byte that is requested.
-			 */
-			void reserve(size_t _size) {
-				if (_size <= m_allocated) {
-					return;
-				}
-				changeAllocation(_size);
-			}
-		private:
-			/**
-			 * @brief Change the current allocation to the correct one (depend on the current size)
-			 * @param[in] _newSize Minimum number of element needed
-			 */
-			void changeAllocation(size_t _newSize) {
-				size_t requestSize = m_allocated;
-				// set the size with the correct chose type:
-				if (_newSize == requestSize) {
-					return;
-				} else if (_newSize < requestSize) {
-					// we did not remove data ???
-				} else {
-					while(_newSize > requestSize) {
-						if (0 == requestSize) {
-							requestSize = 1;
-						} else {
-							requestSize = requestSize * 2;
-						}
-					}
-				}
-				// No reallocation needed :
-				if (requestSize <= m_allocated) {
-					return;
-				}
-				//TK_INFO("Change Array allocation : " << m_allocated << "==>" << requestSize);
-				// check if something is allocated : 
-				if (m_data == nullptr) {
-					// no data allocated ==> request an allocation (might be the first)
-					m_data = (ETK_ARRAY_TYPE*)ETK_MALLOC(char, sizeof(ETK_ARRAY_TYPE)*requestSize);
-					if (m_data == nullptr) {
-						//TK_CRITICAL("Array : Error in data allocation request allocation:" << requestSize << "*" << (int32_t)(sizeof(ETK_ARRAY_TYPE)) << "bytes" );
-						m_allocated = 0;
-						return;
-					}
-					#ifdef DEBUG
-						// we place bad data to permit to detect stipid thing that is done in C++ code when developement is in progress.
-						// Only in debug this is really slow ... and for the real allocation of memory
-						for (size_t kkk=0; kkk<sizeof(ETK_ARRAY_TYPE)*requestSize; ++kkk) {
-							((char*)m_data)[kkk] = 0x5A;
-						}
-					#endif
-				} else {
-					// allocate a new pool of data:
-					ETK_ARRAY_TYPE* dataTmp = (ETK_ARRAY_TYPE*)ETK_MALLOC(char, sizeof(ETK_ARRAY_TYPE)*requestSize);;
-					if (dataTmp == nullptr) {
-						//TK_CRITICAL("Array : Error in data allocation request allocation:" << requestSize << "*" << (int32_t)(sizeof(ETK_ARRAY_TYPE)) << "bytes" );
-						return;
-					}
-					ETK_MEM_FLIP_ID(dataTmp, m_data);
-					#ifdef DEBUG
-						// we place bad data to permit to detect stipid thing that is done in C++ code when developement is in progress.
-						// Only in debug this is really slow ... and for the real allocation of memory
-						for (size_t kkk=0; kkk<sizeof(ETK_ARRAY_TYPE)*requestSize; ++kkk) {
-							((char*)dataTmp)[kkk] = 0x5A;
-						}
-					#endif
-					// copy data in the new pool
-					size_t nbElements = etk::min(requestSize, m_allocated);
-					for(size_t iii=0; iii<nbElements; iii++) {
-						// Move in the new element
-						new ((char*)&dataTmp[iii]) ETK_ARRAY_TYPE(etk::move(m_data[iii]));
-						// Remove the old one.
-						m_data[iii].~ETK_ARRAY_TYPE();
-						#ifdef DEBUG
-							// we place bad data to permit to detect stipid thing that is done in C++ code when developement is in progress.
-							// Only in debug this is really slow ... and for the real allocation of memory
-							for (size_t kkk=iii*sizeof(ETK_ARRAY_TYPE); kkk<sizeof(ETK_ARRAY_TYPE)*(iii+1); ++kkk) {
-								((char*)m_data)[kkk] = 0xA5;
-							}
-						#endif
-					}
-					// switch pointer:
-					ETK_ARRAY_TYPE* dataTmp2 = m_data;
-					m_data = dataTmp;
-					// remove old pool
-					if (dataTmp2 != nullptr) {
-						ETK_FREE(char, dataTmp2);
-					}
-				}
-				// set the new allocation size
-				m_allocated = requestSize;
-			}
-		public :
 			/*****************************************************
 			 *    == operator
 			 *****************************************************/

@@ -266,7 +266,6 @@ TEST(TestArray, allocateElementAtTheCorectMoment) {
 	isDestroy = 0;
 	{
 		etk::Array<testContructDestruct, 20> list;
-		list.reserve(10);
 		EXPECT_EQ(list.size(), 0);
 		EXPECT_EQ(isDestroy, 0);
 	}
