@@ -23,12 +23,12 @@ namespace etk {
 			}
 	};
 	inline NullPtr getNullPointer() {
-		// etk::nullptr exists.
+		// etk::null exists.
 		NullPtr n = { };
 		return n;
 	}
 }
-// We does not use nullptr ==> specific STD, can not be overload, and this permit to have a compatibility with STD
+// We does not use null ==> specific STD, can not be overload, and this permit to have a compatibility with STD
 #if !defined(null)
 	#define null etk::getNullPointer()
 #endif
