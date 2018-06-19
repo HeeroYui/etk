@@ -33,6 +33,10 @@ namespace etk {
 	#define nullptr etk::getNullPointer()
 #endif
 
+#if !defined(nullptr)
+	#define null etk::getNullPointer()
+#endif
+
 template<class T>
 inline bool operator==(T* p, const etk::NullPtr) {
 	return p == 0;
