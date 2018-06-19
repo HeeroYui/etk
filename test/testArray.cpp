@@ -9,6 +9,7 @@
 #include <etk/Array.hpp>
 #include <test-debug/debug.hpp>
 #include <etest/etest.hpp>
+#include "ConstructDestruct.hpp"
 
 TEST(TestArray, constructor) {
 	// Test contructor value
@@ -193,83 +194,49 @@ TEST(TestArray, initializationList_2) {
 }
 
 
-
-static uint32_t isDestroy = 0;
-
-class testContructDestruct {
-	private:
-		uint32_t m_addValue;
-	public:
-		testContructDestruct(uint32_t _addValue):
-		  m_addValue(_addValue) {
-			isDestroy += m_addValue;
-			TEST_DEBUG("Create class " << m_addValue);
-		}
-		testContructDestruct(testContructDestruct&& _obj):
-		  m_addValue(_obj.m_addValue) {
-			_obj.m_addValue = 0;
-			TEST_DEBUG("move contruction " << m_addValue);
-		}
-		virtual ~testContructDestruct() {
-			if (m_addValue == 0) {
-				TEST_DEBUG("Remove class (after move)");
-				return;
-			}
-			TEST_DEBUG("Remove Class " << m_addValue);
-			isDestroy -= m_addValue;
-		}
-		testContructDestruct& operator= (testContructDestruct&& _obj) {
-			TEST_DEBUG("move operator " << m_addValue);
-			if (this != &_obj) {
-				etk::swap(m_addValue, _obj.m_addValue);
-			}
-			return *this;
-		}
-};
-
 TEST(TestArray, destroyElementAtTheCorectMoment) {
-	isDestroy = 0;
+	test::resetIsDestroy();
 	{
-		etk::Array<testContructDestruct, 20> list;
-		list.pushBack(testContructDestruct(55));
+		etk::Array<test::ConstructDestruct, 20> list;
+		list.pushBack(test::ConstructDestruct(55));
 		EXPECT_EQ(list.size(), 1);
-		EXPECT_EQ(isDestroy, 55);
+		EXPECT_EQ(test::getIsDestroy(), 55);
 		auto it = list.erase(list.begin());
-		EXPECT_EQ(isDestroy, 0);
+		EXPECT_EQ(test::getIsDestroy(), 0);
 		EXPECT_EQ(list.size(), 0);
 		EXPECT_EQ(it, list.end());
 	}
-	EXPECT_EQ(isDestroy, 0);
+	EXPECT_EQ(test::getIsDestroy(), 0);
 }
 
 TEST(TestArray, destroyElementAtTheCorectMoment_2) {
-	isDestroy = 0;
+	test::resetIsDestroy();
 	{
-		etk::Array<testContructDestruct, 20> list;
-		list.pushBack(testContructDestruct(4));
-		list.pushBack(testContructDestruct(30));
-		list.pushBack(testContructDestruct(1000));
-		list.pushBack(testContructDestruct(200));
+		etk::Array<test::ConstructDestruct, 20> list;
+		list.pushBack(test::ConstructDestruct(4));
+		list.pushBack(test::ConstructDestruct(30));
+		list.pushBack(test::ConstructDestruct(1000));
+		list.pushBack(test::ConstructDestruct(200));
 		EXPECT_EQ(list.size(), 4);
-		EXPECT_EQ(isDestroy, 1234);
+		EXPECT_EQ(test::getIsDestroy(), 1234);
 		auto it = list.erase(list.begin());
 		EXPECT_EQ(list.size(), 3);
-		EXPECT_EQ(isDestroy, 1230);
+		EXPECT_EQ(test::getIsDestroy(), 1230);
 		it = list.erase(list.begin()+1);
-		EXPECT_EQ(isDestroy, 230);
+		EXPECT_EQ(test::getIsDestroy(), 230);
 		EXPECT_EQ(list.size(), 2);
 	}
-	EXPECT_EQ(isDestroy, 0);
+	EXPECT_EQ(test::getIsDestroy(), 0);
 }
 
 TEST(TestArray, allocateElementAtTheCorectMoment) {
-	isDestroy = 0;
+	test::resetIsDestroy();
 	{
-		etk::Array<testContructDestruct, 20> list;
+		etk::Array<test::ConstructDestruct, 20> list;
 		EXPECT_EQ(list.size(), 0);
-		EXPECT_EQ(isDestroy, 0);
+		EXPECT_EQ(test::getIsDestroy(), 0);
 	}
-	EXPECT_EQ(isDestroy, 0);
+	EXPECT_EQ(test::getIsDestroy(), 0);
 }
 /*
 TEST(TestArray, allocateBench) {

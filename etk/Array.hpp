@@ -230,9 +230,9 @@ namespace etk {
 						return m_array->get(m_current);
 					}
 				private:
-					Iterator(const Array<ETK_ARRAY_TYPE> * _obj, int32_t _pos):
+					Iterator(const Array<ETK_ARRAY_TYPE, ETK_ARRAY_SIZE> * _obj, int32_t _pos):
 					  m_current(_pos),
-					  m_array(const_cast<Array<ETK_ARRAY_TYPE> *>(_obj)) {
+					  m_array(const_cast<Array<ETK_ARRAY_TYPE, ETK_ARRAY_SIZE> *>(_obj)) {
 						// nothing to do ...
 					}
 					size_t getCurrent() const {
@@ -241,7 +241,8 @@ namespace etk {
 					friend class Array;
 			};
 		private:
-			ETK_ARRAY_TYPE m_data[ETK_ARRAY_SIZE]; //!< pointer on the current table of Data (static allocated ==> can not change)
+			uint8_t m_rawData[ETK_ARRAY_SIZE*sizeof(ETK_ARRAY_TYPE)]; //!< pointer on the current table of Data (static allocated ==> can not change)
+			ETK_ARRAY_TYPE* m_data = (ETK_ARRAY_TYPE*)m_rawData; //!< pointer on the current table of Data (static allocated ==> can not change)
 			size_t m_size = 0; //!< Number of element in the buffer
 			const size_t m_allocated = ETK_ARRAY_SIZE; //!< Current allocated size
 		public:

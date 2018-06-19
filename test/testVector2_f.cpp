@@ -9,6 +9,7 @@
 #include <etk/math/Vector2D.hpp>
 #include <test-debug/debug.hpp>
 #include <etest/etest.hpp>
+#include "ConstructDestruct.hpp"
 
 TEST(TestVector2D_f, constructor) {
 	// Test contructor value

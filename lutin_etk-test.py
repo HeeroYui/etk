@@ -27,6 +27,7 @@ def get_maintainer():
 def configure(target, my_module):
 	my_module.add_src_file([
 	    'test/main.cpp',
+	    'test/ConstructDestruct.cpp',
 	    'test/testColor.cpp',
 	    'test/testFunction.cpp',
 	    'test/testMapUnordered.cpp',

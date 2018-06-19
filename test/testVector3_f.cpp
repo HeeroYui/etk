@@ -7,6 +7,7 @@
 #include <etest/etest.hpp>
 #include <etk/math/Vector3D.hpp>
 #include <test-debug/debug.hpp>
+#include "ConstructDestruct.hpp"
 
 #define NAME "etk:Vector3D<float>"
 
