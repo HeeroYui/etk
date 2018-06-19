@@ -113,12 +113,12 @@
 			                     const char* _functionName = "",
 			                     int32_t _line = __LINE__,
 			                     const char* _fileName = __FILE__) {
-				if (_element == nullptr) {
+				if (_element == null) {
 					return;
 				}
 				_element->~ETK_TYPE();
 				etk::memory::remove((void*)_element, _variableName, _functionName, _line, _fileName);
-				_element = nullptr;
+				_element = null;
 			}
 		}
 	}

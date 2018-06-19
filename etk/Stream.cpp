@@ -14,7 +14,7 @@ etk::Stream::Stream(size_t _basicSize) :
 
 etk::Stream::~Stream() {
 	ETK_DELETE(etk::String, m_data);
-	m_data = nullptr;
+	m_data = null;
 }
 
 etk::Stream& etk::Stream::operator<< (const char* _data) {
@@ -73,7 +73,7 @@ etk::Stream& etk::Stream::operator<< (const double& _data) {
 	return *this;
 }
 etk::Stream& etk::Stream::operator<< (const etk::NullPtr& _data) {
-	*m_data += "nullptr";
+	*m_data += "null";
 	return *this;
 }
 

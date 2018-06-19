@@ -48,7 +48,7 @@ namespace etk {
 					 */
 					Iterator():
 					  m_current(0),
-					  m_set(nullptr) {
+					  m_set(null) {
 						// nothing to do ...
 					}
 					/**
@@ -75,7 +75,7 @@ namespace etk {
 					 */
 					~Iterator() {
 						m_current = 0;
-						m_set = nullptr;
+						m_set = null;
 					}
 					/**
 					 * @brief basic boolean cast
@@ -89,7 +89,7 @@ namespace etk {
 					 * @return Reference on the current iterator increment
 					 */
 					Iterator& operator++ () {
-						if (    m_set != nullptr
+						if (    m_set != null
 						     && m_current < m_set->size() )
 						{
 							m_current++;
@@ -101,7 +101,7 @@ namespace etk {
 					 * @return Reference on the current iterator decrement
 					 */
 					Iterator& operator-- () {
-						if (    m_set != nullptr
+						if (    m_set != null
 						     && m_current > 0) {
 							m_current--;
 						}
@@ -240,7 +240,7 @@ namespace etk {
 			 * @brief Order the Set with the corect functor
 			 */
 			void sort() {
-				if (m_comparator != nullptr) {
+				if (m_comparator != null) {
 					m_data.sort(0, m_data.size(), m_comparator);
 				} else {
 					m_data.sort(0, m_data.size(), [](const ETK_SET_TYPE& _key1, const ETK_SET_TYPE& _key2) { return _key1 < _key2; });
@@ -253,7 +253,7 @@ namespace etk {
 			 */
 			Set(int32_t _count = 0) :
 			  m_data(),
-			  m_comparator(nullptr) {
+			  m_comparator(null) {
 				m_data.reserve(_count);
 				// nothing to do
 			}
@@ -265,7 +265,7 @@ namespace etk {
 			template<typename... ETK_SET_TYPE_2>
 			Set(const ETK_SET_TYPE_2& ... _args):
 			  m_data(),
-			  m_comparator(nullptr) {
+			  m_comparator(null) {
 				add(_args...);
 			}
 			
@@ -336,7 +336,7 @@ namespace etk {
 			 * @param[in] _value Value to set in the Set table.
 			 */
 			void add(const ETK_SET_TYPE& _key) {
-				if (m_comparator != nullptr) {
+				if (m_comparator != null) {
 					for (size_t iii=0; iii<m_data.size(); ++iii) {
 						if (_key == m_data[iii]) {
 							return;

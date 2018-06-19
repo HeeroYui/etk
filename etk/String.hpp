@@ -31,7 +31,7 @@ namespace etk {
 					 */
 					Iterator():
 					  m_current(0),
-					  m_string(nullptr) {
+					  m_string(null) {
 						// nothing to do ...
 					}
 					/**
@@ -58,7 +58,7 @@ namespace etk {
 					 */
 					~Iterator() {
 						m_current = 0;
-						m_string = nullptr;
+						m_string = null;
 					}
 					/**
 					 * @brief basic boolean cast
@@ -72,7 +72,7 @@ namespace etk {
 					 * @return Reference on the current iterator increment
 					 */
 					Iterator& operator++ () {
-						if (    m_string != nullptr
+						if (    m_string != null
 						     && m_current < m_string->size() )
 						{
 							m_current++;
@@ -84,7 +84,7 @@ namespace etk {
 					 * @return Reference on the current iterator decrement
 					 */
 					Iterator& operator-- () {
-						if (    m_string != nullptr
+						if (    m_string != null
 						     && m_current > 0) {
 							m_current--;
 						}

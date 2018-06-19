@@ -54,7 +54,7 @@ etk::Matrix2x3::Matrix2x3(float _sx,
 }
 
 etk::Matrix2x3::Matrix2x3(const float* _values) {
-	if (_values == nullptr) {
+	if (_values == null) {
 		identity();
 		return;
 	}
@@ -67,7 +67,7 @@ etk::Matrix2x3::Matrix2x3(const float* _values) {
 }
 
 etk::Matrix2x3::Matrix2x3(const double* _values) {
-	if (_values == nullptr) {
+	if (_values == null) {
 		identity();
 		return;
 	}

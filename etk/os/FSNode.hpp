@@ -610,7 +610,7 @@ namespace etk {
 	 * @param[in] _folder folder path of the cathegorie
 	 * @param[in] _applName Base name of the application
 	 */
-	void setBaseFolderData(const char* _folder, const char* _applName=nullptr);
+	void setBaseFolderData(const char* _folder, const char* _applName=null);
 	/**
 	 * @brief Set the user data folder (like /home/machin/.local/applName/ for linux)
 	 * @param[in] _folder folder path of the cathegorie

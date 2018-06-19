@@ -60,7 +60,7 @@ namespace etk {
 					 */
 					Iterator():
 					  m_current(0),
-					  m_array(nullptr) {
+					  m_array(null) {
 						// nothing to do ...
 					}
 					/**
@@ -87,7 +87,7 @@ namespace etk {
 					 */
 					~Iterator() {
 						m_current = 0;
-						m_array = nullptr;
+						m_array = null;
 					}
 					/**
 					 * @brief basic boolean cast
@@ -125,7 +125,7 @@ namespace etk {
 					 * @return Reference on the current iterator increment
 					 */
 					Iterator& operator++ () {
-						if (    m_array != nullptr
+						if (    m_array != null
 						     && m_current < m_array->size() )
 						{
 							m_current++;
@@ -137,7 +137,7 @@ namespace etk {
 					 * @return Reference on the current iterator decrement
 					 */
 					Iterator& operator-- () {
-						if (    m_array != nullptr
+						if (    m_array != null
 						     && m_current > 0) {
 							m_current--;
 						}
@@ -464,7 +464,7 @@ namespace etk {
 			 * @param[in] _nbElement Number of element to add.
 			 */
 			void pushBack(const ETK_ARRAY_TYPE * _item, size_t _nbElement) {
-				if (_item == nullptr) {
+				if (_item == null) {
 					return;
 				}
 				if (m_size+_nbElement > ETK_ARRAY_SIZE) {
@@ -769,8 +769,8 @@ namespace etk {
 				if (m_size != _obj.m_size) {
 					return false;
 				}
-				if(    m_data == nullptr
-				    || _obj.m_data == nullptr) {
+				if(    m_data == null
+				    || _obj.m_data == null) {
 					return false;
 				}
 				for (size_t iii=0; iii<m_size; iii++) {
@@ -792,8 +792,8 @@ namespace etk {
 				if (m_size != _obj.m_size) {
 					return true;
 				}
-				if(    m_data == nullptr
-				    || _obj.m_data == nullptr) {
+				if(    m_data == null
+				    || _obj.m_data == null) {
 					return false;
 				}
 				for (size_t iii=0; iii<m_size; iii++) {

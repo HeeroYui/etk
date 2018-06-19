@@ -78,7 +78,7 @@ namespace etest {
 	template<class ETEST_TYPE,
 	         typename etk::EnableIf<etk::IsSame<ETEST_TYPE,etk::NullPtr>::value, int>::type = 0 >
 	etk::String exportResultToString(const ETEST_TYPE& _element) {
-		return "nullptr";
+		return "null";
 	}
 	template<class ETEST_TYPE,
 	         typename etk::EnableIf<    !etk::IsSame<ETEST_TYPE,etk::NullPtr>::value
@@ -161,7 +161,7 @@ namespace etest {
 	}; \
 	\
 	uint32_t TEST_CLASS_NAME(groupName, localName)::registerElement = etest::registerTest(\
-		etk::memory::allocatorNewFull<TEST_CLASS_NAME(groupName, localName)>("etest_test_class", nullptr, __LINE__, __FILE__)); \
+		etk::memory::allocatorNewFull<TEST_CLASS_NAME(groupName, localName)>("etest_test_class", null, __LINE__, __FILE__)); \
 	\
 	void TEST_CLASS_NAME(groupName, localName)::run()
 
@@ -175,7 +175,7 @@ namespace etest {
 		etest::g_currentTest->addCheck(); \
 		ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_EQ(" << #element << ", " << #result << ");"); \
 		bool ETEST_VARIABLE_TMP_res = ((element) == (result)); \
-		if (etest::g_currentTest == nullptr) { \
+		if (etest::g_currentTest == null) { \
 			ETEST_CRITICAL("Not in a test"); \
 		} else { \
 			etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
@@ -193,7 +193,7 @@ namespace etest {
 		etest::g_currentTest->addCheck(); \
 		ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_NE(" << #element << ", " << #result << ");"); \
 		bool ETEST_VARIABLE_TMP_res = ((element) != (result)); \
-		if (etest::g_currentTest == nullptr) { \
+		if (etest::g_currentTest == null) { \
 			ETEST_CRITICAL("Not in a test"); \
 		} else { \
 			etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
@@ -211,7 +211,7 @@ namespace etest {
 		etest::g_currentTest->addCheck(); \
 		ETEST_DEBUG("    [ SUB-RUN  ] ASSERT_NE(" << #element << ", " << #result << ");"); \
 		bool ETEST_VARIABLE_TMP_res = ((element) != (result)); \
-		if (etest::g_currentTest == nullptr) { \
+		if (etest::g_currentTest == null) { \
 			ETEST_CRITICAL("Not in a test"); \
 		} else { \
 			etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
@@ -236,7 +236,7 @@ namespace etest {
 		if (ETEST_VARIABLE_TMP_res2 < delta && ETEST_VARIABLE_TMP_res2 > -delta) { \
 			ETEST_VARIABLE_TMP_res = true; \
 		} \
-		if (etest::g_currentTest == nullptr) { \
+		if (etest::g_currentTest == null) { \
 			ETEST_CRITICAL("Not in a test"); \
 		} else { \
 			etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \

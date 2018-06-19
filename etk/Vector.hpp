@@ -59,7 +59,7 @@ namespace etk {
 					 */
 					Iterator():
 					  m_current(0),
-					  m_vector(nullptr) {
+					  m_vector(null) {
 						// nothing to do ...
 					}
 					/**
@@ -86,7 +86,7 @@ namespace etk {
 					 */
 					~Iterator() {
 						m_current = 0;
-						m_vector = nullptr;
+						m_vector = null;
 					}
 					/**
 					 * @brief basic boolean cast
@@ -124,7 +124,7 @@ namespace etk {
 					 * @return Reference on the current iterator increment
 					 */
 					Iterator& operator++ () {
-						if (    m_vector != nullptr
+						if (    m_vector != null
 						     && m_current < m_vector->size() )
 						{
 							m_current++;
@@ -136,7 +136,7 @@ namespace etk {
 					 * @return Reference on the current iterator decrement
 					 */
 					Iterator& operator-- () {
-						if (    m_vector != nullptr
+						if (    m_vector != null
 						     && m_current > 0) {
 							m_current--;
 						}
@@ -248,7 +248,7 @@ namespace etk {
 			 * @brief Create an empty vector
 			 */
 			Vector():
-			  m_data(nullptr),
+			  m_data(null),
 			  m_size(0),
 			  m_allocated(0) {
 				
@@ -259,7 +259,7 @@ namespace etk {
 			 * @param[in] _count Minimum request size of the Buffer
 			 */
 			Vector(size_t _count):
-			  m_data(nullptr),
+			  m_data(null),
 			  m_size(0),
 			  m_allocated(0) {
 				changeAllocation(_count);
@@ -276,7 +276,7 @@ namespace etk {
 			 */
 			template<typename... ETK_VECTOR_TYPE_2>
 			Vector(const ETK_VECTOR_TYPE_2& ... _args):
-			  m_data(nullptr),
+			  m_data(null),
 			  m_size(0),
 			  m_allocated(0) {
 				changeAllocation(int32_t(sizeof...(ETK_VECTOR_TYPE_2)));
@@ -287,7 +287,7 @@ namespace etk {
 			 * @param[in] _obj Vector that might be copy
 			 */
 			Vector(const etk::Vector<ETK_VECTOR_TYPE>& _obj):
-			  m_data(nullptr),
+			  m_data(null),
 			  m_size(0),
 			  m_allocated(0) {
 				reserve(_obj.m_size);
@@ -304,7 +304,7 @@ namespace etk {
 			  m_data(_obj.m_data),
 			  m_size(_obj.m_size),
 			  m_allocated(_obj.m_allocated) {
-				_obj.m_data = nullptr;
+				_obj.m_data = null;
 				_obj.m_size = 0;
 				_obj.m_allocated = 0;
 			}
@@ -312,7 +312,7 @@ namespace etk {
 			 * @brief Destructor of the current class
 			 */
 			~Vector() {
-				if (m_data != nullptr) {
+				if (m_data != null) {
 					for(size_t iii=0; iii<m_size; iii++) {
 						m_data[iii].~ETK_VECTOR_TYPE();
 						#ifdef DEBUG
@@ -324,7 +324,7 @@ namespace etk {
 						#endif
 					}
 					ETK_FREE(char, m_data);
-					m_data = nullptr;
+					m_data = null;
 				}
 				m_allocated = 0;
 				m_size = 0;
@@ -491,7 +491,7 @@ namespace etk {
 			 * @param[in] _nbElement Number of element to add.
 			 */
 			void pushBack(const ETK_VECTOR_TYPE * _item, size_t _nbElement) {
-				if (_item == nullptr) {
+				if (_item == null) {
 					return;
 				}
 				reserve(m_size+_nbElement);
@@ -847,10 +847,10 @@ namespace etk {
 				}
 				//TK_INFO("Change vector allocation : " << m_allocated << "==>" << requestSize);
 				// check if something is allocated : 
-				if (m_data == nullptr) {
+				if (m_data == null) {
 					// no data allocated ==> request an allocation (might be the first)
 					m_data = (ETK_VECTOR_TYPE*)ETK_MALLOC(char, sizeof(ETK_VECTOR_TYPE)*requestSize);
-					if (m_data == nullptr) {
+					if (m_data == null) {
 						//TK_CRITICAL("Vector : Error in data allocation request allocation:" << requestSize << "*" << (int32_t)(sizeof(ETK_VECTOR_TYPE)) << "bytes" );
 						m_allocated = 0;
 						return;
@@ -865,7 +865,7 @@ namespace etk {
 				} else {
 					// allocate a new pool of data:
 					ETK_VECTOR_TYPE* dataTmp = (ETK_VECTOR_TYPE*)ETK_MALLOC(char, sizeof(ETK_VECTOR_TYPE)*requestSize);;
-					if (dataTmp == nullptr) {
+					if (dataTmp == null) {
 						//TK_CRITICAL("Vector : Error in data allocation request allocation:" << requestSize << "*" << (int32_t)(sizeof(ETK_VECTOR_TYPE)) << "bytes" );
 						return;
 					}
@@ -896,7 +896,7 @@ namespace etk {
 					ETK_VECTOR_TYPE* dataTmp2 = m_data;
 					m_data = dataTmp;
 					// remove old pool
-					if (dataTmp2 != nullptr) {
+					if (dataTmp2 != null) {
 						ETK_FREE(char, dataTmp2);
 					}
 				}
@@ -916,8 +916,8 @@ namespace etk {
 				if (m_size != _obj.m_size) {
 					return false;
 				}
-				if(    m_data == nullptr
-				    || _obj.m_data == nullptr) {
+				if(    m_data == null
+				    || _obj.m_data == null) {
 					return false;
 				}
 				for (size_t iii=0; iii<m_size; iii++) {
@@ -939,8 +939,8 @@ namespace etk {
 				if (m_size != _obj.m_size) {
 					return true;
 				}
-				if(    m_data == nullptr
-				    || _obj.m_data == nullptr) {
+				if(    m_data == null
+				    || _obj.m_data == null) {
 					return false;
 				}
 				for (size_t iii=0; iii<m_size; iii++) {

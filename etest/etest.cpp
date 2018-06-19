@@ -206,7 +206,7 @@ void etest::GenericTest::clearLocal() {
 	m_numberCheck = 0;
 	m_numberCheckFail = 0;
 }
-etest::GenericTest* etest::g_currentTest = nullptr;
+etest::GenericTest* etest::g_currentTest = null;
 
 int32_t etest::runAllTest() {
 	int32_t errorCount = 0;
@@ -242,7 +242,7 @@ int32_t etest::runAllTest() {
 				echrono::Steady ticTest = echrono::Steady::now();
 				it->run();
 				echrono::Steady tocTest = echrono::Steady::now();
-				g_currentTest = nullptr;
+				g_currentTest = null;
 				if (it->getError() == true) {
 					ETEST_PRINT("[     FAIL ] " << itGroup << "." << it->getTestName() << " (" << (tocTest - ticTest) << ") " << it->getNumberCheckError() << " fails");
 					errorCount++;
@@ -257,7 +257,7 @@ int32_t etest::runAllTest() {
 				ETEST_DEBUG("[    MEM   ] CHECK memory properties");
 				bool ret = etk::memory::checkSnapshoot(memorySnapShoot);
 				etk::memory::clearSnapshoot(memorySnapShoot);
-				memorySnapShoot = nullptr;
+				memorySnapShoot = null;
 				ETEST_DEBUG("[    MEM   ] CHECK memory properties (done)");
 				nbCheck++;
 				if (ret == false) {
@@ -284,7 +284,7 @@ int32_t etest::runAllTest() {
 }
 
 uint32_t etest::registerTest(etest::GenericTest* _element) {
-	if (_element == nullptr) {
+	if (_element == null) {
 		return -1;
 	}
 	getListOfTest().pushBack(_element);

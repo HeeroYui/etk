@@ -28,12 +28,8 @@ namespace etk {
 		return n;
 	}
 }
-// If somebody hasn't already defined nullptr in a custom way...
-#if !defined(nullptr)
-	#define nullptr etk::getNullPointer()
-#endif
-
-#if !defined(nullptr)
+// We does not use nullptr ==> specific STD, can not be overload, and this permit to have a compatibility with STD
+#if !defined(null)
 	#define null etk::getNullPointer()
 #endif
 

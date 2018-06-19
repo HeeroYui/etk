@@ -27,15 +27,15 @@ void print_num(int32_t iii) {
 TEST(TestFunction, NullFunction) {
 	globalValue = 0;
 	// Test contructor value
-	etk::Function<void(int)> f_display = nullptr;
-	EXPECT_EQ(f_display, nullptr);
+	etk::Function<void(int)> f_display = null;
+	EXPECT_EQ(f_display, null);
 }
 
 TEST(TestFunction, setAFreeFunction) {
 	globalValue = 0;
 	// Test contructor value
 	etk::Function<void(int32_t)> f_display = print_num;
-	EXPECT_NE(f_display, nullptr);
+	EXPECT_NE(f_display, null);
 }
 TEST(TestFunction, callAFreeFunction) {
 	globalValue = 0;
@@ -49,7 +49,7 @@ TEST(TestFunction, setALambda) {
 	globalValue = 0;
 	// Test contructor value
 	etk::Function<void()> f_display = []() { print_num(642); };;
-	EXPECT_NE(f_display, nullptr);
+	EXPECT_NE(f_display, null);
 }
 
 TEST(TestFunction, callAlLambda) {
@@ -82,7 +82,7 @@ TEST(TestFunction, setCallableObject) {
 	// Test contructor value
 	testObject tmp(100000);
 	etk::Function<void(int32_t)> f_display = tmp;
-	EXPECT_NE(f_display, nullptr);
+	EXPECT_NE(f_display, null);
 }
 
 TEST(TestFunction, callCallableObject) {
@@ -101,7 +101,7 @@ etk::Function<void(int32_t)> createTmpFunction(uint32_t _value) {
 TEST(TestFunction, setLambdaOnStack) {
 	globalValue = 0;
 	etk::Function<void(int32_t)> f_display = createTmpFunction(87000);
-	EXPECT_NE(f_display, nullptr);
+	EXPECT_NE(f_display, null);
 }
 
 TEST(TestFunction, callLambdaOnStack) {
@@ -116,13 +116,13 @@ TEST(TestFunction, setAMemberFunction) {
 	globalValue = 0;
 	// Test contructor value
 	etk::Function<void(const Foo&, int)> f_display = &Foo::print_add;
-	EXPECT_NE(f_display, nullptr);
+	EXPECT_NE(f_display, null);
 }
 TEST(TestFunction, callAMemberFunction) {
 	globalValue = 0;
 	// Test contructor value
 	etk::Function<void(const Foo&, int)> f_display = &Foo::print_add;
-	EXPECT_NE(f_display, nullptr);
+	EXPECT_NE(f_display, null);
 	Foo foo(70000);
 	f_display(foo, 16);
 	EXPECT_EQ(globalValue, 16 + 70000);

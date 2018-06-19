@@ -229,7 +229,7 @@ static uint8_t sizeElement(const char* _data, int32_t _lenMax) {
 
 char32_t utf8::convertChar32(const char* _input) {
 	char32_t value = 0;
-	if (nullptr == _input) {
+	if (null == _input) {
 		return value;
 	}
 	int32_t len = strlen(_input);
@@ -289,7 +289,7 @@ bool utf8::first(const char _input) {
 }
 
 etk::UString utf8::convertUnicode(const char* _input) {
-	if (_input == nullptr) {
+	if (_input == null) {
 		return U"";
 	}
 	etk::UString out;

@@ -15,7 +15,7 @@ ETK_DECLARE_TYPE(etk::archive::Zip);
 
 etk::archive::Zip::Zip(const etk::String& _fileName, uint64_t _offset) :
   etk::Archive(_fileName),
-  m_ctx(nullptr) {
+  m_ctx(null) {
 	/* Open the zip file */
 	m_ctx = unzOpenOffset(m_fileName.c_str(), _offset);
 	if(!m_ctx) {
@@ -33,7 +33,7 @@ etk::archive::Zip::Zip(const etk::String& _fileName, uint64_t _offset) :
 		char tmpFileName[FILENAME_MAX];
 		unz_file_info tmpFileInfo;
 		/* Get info about current file. */
-		if(unzGetCurrentFileInfo(m_ctx, &tmpFileInfo, tmpFileName, FILENAME_MAX, nullptr, 0, nullptr, 0) != UNZ_OK) {
+		if(unzGetCurrentFileInfo(m_ctx, &tmpFileInfo, tmpFileName, FILENAME_MAX, null, 0, null, 0) != UNZ_OK) {
 			TK_ERROR("Could not read file info from the zip file '" << m_fileName << "'");
 			return;
 		}
@@ -54,9 +54,9 @@ etk::archive::Zip::Zip(const etk::String& _fileName, uint64_t _offset) :
 }
 
 etk::archive::Zip::~Zip() {
-	if (m_ctx!= nullptr) {
+	if (m_ctx!= null) {
 		unzClose(m_ctx);
-		m_ctx = nullptr;
+		m_ctx = null;
 	};
 }
 
@@ -70,7 +70,7 @@ void etk::archive::Zip::loadFile(const etk::Map<etk::String, ArchiveContent>::It
 		char tmpFileName[FILENAME_MAX];
 		unz_file_info tmpFileInfo;
 		/* Get info about current file. */
-		if(unzGetCurrentFileInfo(m_ctx, &tmpFileInfo, tmpFileName, FILENAME_MAX, nullptr, 0, nullptr, 0) != UNZ_OK) {
+		if(unzGetCurrentFileInfo(m_ctx, &tmpFileInfo, tmpFileName, FILENAME_MAX, null, 0, null, 0) != UNZ_OK) {
 			TK_ERROR("Could not read file info from the zip file '" << m_fileName << "'");
 			return;
 		}
@@ -84,7 +84,7 @@ void etk::archive::Zip::loadFile(const etk::Map<etk::String, ArchiveContent>::It
 			// request the resize of the data :
 			it->second.getDataVector().resize(it->second.getTheoricSize(), 0);
 			void* data = it->second.data();
-			if(data == nullptr) {
+			if(data == null) {
 				TK_ERROR("Allocation error...");
 				return;
 			}

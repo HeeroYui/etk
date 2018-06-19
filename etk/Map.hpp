@@ -51,7 +51,7 @@ namespace etk {
 					 */
 					Iterator():
 					  m_current(0),
-					  m_map(nullptr) {
+					  m_map(null) {
 						// nothing to do ...
 					}
 					/**
@@ -78,7 +78,7 @@ namespace etk {
 					 */
 					~Iterator() {
 						m_current = 0;
-						m_map = nullptr;
+						m_map = null;
 					}
 					/**
 					 * @brief basic boolean cast
@@ -92,7 +92,7 @@ namespace etk {
 					 * @return Reference on the current iterator increment
 					 */
 					Iterator& operator++ () {
-						if (    m_map != nullptr
+						if (    m_map != null
 						     && m_current < m_map->size() )
 						{
 							m_current++;
@@ -104,7 +104,7 @@ namespace etk {
 					 * @return Reference on the current iterator decrement
 					 */
 					Iterator& operator-- () {
-						if (    m_map != nullptr
+						if (    m_map != null
 						     && m_current > 0) {
 							m_current--;
 						}
@@ -272,7 +272,7 @@ namespace etk {
 				if (m_ordered == false) {
 					return;
 				}
-				if (m_comparator != nullptr) {
+				if (m_comparator != null) {
 					m_data.sort(0, m_data.size(), m_comparator);
 				} else {
 					m_data.sort(0, m_data.size(), [](etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key1,
@@ -290,7 +290,7 @@ namespace etk {
 			 */
 			Map(size_t _count = 0,
 			    bool _ordered = true,
-			    sortFunction _comparator = nullptr) :
+			    sortFunction _comparator = null) :
 			  m_data(),
 			  m_comparator(etk::move(_comparator)),
 			  m_ordered(_ordered) {
@@ -302,7 +302,7 @@ namespace etk {
 			 */
 			Map(Map&& _obj):
 			  m_data(),
-			  m_comparator(nullptr),
+			  m_comparator(null),
 			  m_ordered(true) {
 				_obj.swap(*this);
 			}
@@ -316,7 +316,7 @@ namespace etk {
 			  m_ordered(_obj.m_ordered) {
 				m_data.reserve(_obj.m_data.size());
 				for (auto &it : _obj.m_data) {
-					if (it == nullptr) {
+					if (it == null) {
 						continue;
 					}
 					m_data.pushBack(ETK_NEW(pairType, it->first, it->second));
@@ -360,9 +360,9 @@ namespace etk {
 			 */
 			void clear() {
 				for (auto &it : m_data) {
-					if (it != nullptr) {
+					if (it != null) {
 						ETK_DELETE(pairType, it);
-						it=nullptr;
+						it=null;
 					}
 				}
 				m_data.clear();
@@ -377,7 +377,7 @@ namespace etk {
 					// TODO: search in a dichotomic way.
 				}
 				for (size_t iii=0; iii<m_data.size(); iii++) {
-					if (m_data[iii] != nullptr) {
+					if (m_data[iii] != null) {
 						if (m_data[iii]->first == _key) {
 							return iii;
 						}
@@ -437,7 +437,7 @@ namespace etk {
 				int64_t elementId = getId(_key);
 				if (elementId <0) {
 					etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* tmp = ETK_NEW(pairType, etk::move(_key), etk::move(_value));
-					if (tmp == nullptr) {
+					if (tmp == null) {
 						return;
 					}
 					m_data.pushBack(tmp);
@@ -452,7 +452,7 @@ namespace etk {
 				int64_t elementId = getId(_key);
 				if (elementId <0) {
 					etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* tmp = ETK_NEW(pairType, etk::move(_key), etk::move(_value));
-					if (tmp == nullptr) {
+					if (tmp == null) {
 						return;
 					}
 					m_data.pushBack(tmp);
@@ -486,7 +486,7 @@ namespace etk {
 					return;
 				}
 				ETK_DELETE(pairType, m_data[elementId]);
-				m_data[elementId] = nullptr;
+				m_data[elementId] = null;
 				m_data.erase(m_data.begin()+elementId);
 			}
 			/**
@@ -496,7 +496,7 @@ namespace etk {
 			Iterator erase(const Iterator& _it) {
 				int64_t elementId = _it.m_current;
 				ETK_DELETE(pairType, m_data[elementId]);
-				m_data[elementId] = nullptr;
+				m_data[elementId] = null;
 				m_data.erase(m_data.begin()+elementId);
 				return position(elementId);
 			}
@@ -528,7 +528,7 @@ namespace etk {
 			etk::Vector<ETK_MAP_TYPE_KEY> getKeys() const {
 				etk::Vector<ETK_MAP_TYPE_KEY> keys;
 				for (auto &it : m_data) {
-					if (it != nullptr) {
+					if (it != null) {
 						keys.pushBack(it->first);
 					}
 				}
@@ -620,7 +620,7 @@ namespace etk {
 			size_t count(const ETK_MAP_TYPE_KEY& _key) const {
 				// TODO: search in a dichotomic way.
 				for (size_t iii=0; iii<m_data.size(); iii++) {
-					if (m_data[iii] == nullptr) {
+					if (m_data[iii] == null) {
 						continue;
 					}
 					if (m_data[iii]->first == _key) {

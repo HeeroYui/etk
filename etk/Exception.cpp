@@ -9,7 +9,7 @@
 etk::Exception::Exception():
   m_type("UNKNOW"),
   m_what("? ? ?"),
-  m_function(nullptr) {
+  m_function(null) {
 	
 }
 etk::Exception::Exception(const char* _type, const etk::String& _what, const char* _function):
@@ -36,7 +36,7 @@ etk::String etk::Exception::toString() const {
 	out += m_type;
 	out += ":";
 	out += m_what;
-	if (m_function != nullptr) {
+	if (m_function != null) {
 		out += " in ";
 		out += m_function;
 	}

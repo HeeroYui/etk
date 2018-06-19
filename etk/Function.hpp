@@ -30,7 +30,7 @@ namespace etk {
 			virtual ETK_TYPE_FUNCTION_RETURN operator()(ETK_TYPE_FUNCTION_ARGS... _args) const = 0;
 			virtual FunctionPrivate<ETK_TYPE_FUNCTION_RETURN(ETK_TYPE_FUNCTION_ARGS...)>* copy() {
 				ETK_FUNCTION_DEBUG("    COPY NULLPTR \n");
-				return nullptr;
+				return null;
 			}
 			virtual void copyIn(char* _buffer) {
 				ETK_FUNCTION_DEBUG("    COPY NULLPTR \n");
@@ -84,21 +84,21 @@ namespace etk {
 			uint32_t m_pppppp;
 		public:
 			Function():
-			  m_pointerPrivate(nullptr),
+			  m_pointerPrivate(null),
 			  m_local(false) {
 				memset(m_buffer, 0, sizeof(m_buffer));
 				m_pppppp = MM___pppppp++;
 				ETK_FUNCTION_DEBUG("[%d=0X%lx] create Function 1 \n", m_pppppp, (uint64_t)this);
 			}
 			Function(const etk::NullPtr&):
-			  m_pointerPrivate(nullptr),
+			  m_pointerPrivate(null),
 			  m_local(false) {
 				memset(m_buffer, 0, sizeof(m_buffer));
 				m_pppppp = MM___pppppp++;
 				ETK_FUNCTION_DEBUG("[%d=0X%lx] create Function 2\n", m_pppppp, (uint64_t)this);
 			}
 			Function(const Function& _obj):
-			  m_pointerPrivate(nullptr),
+			  m_pointerPrivate(null),
 			  m_local(false) {
 				memset(m_buffer, 0, sizeof(m_buffer));
 				m_pppppp = MM___pppppp++;
@@ -106,13 +106,13 @@ namespace etk {
 				if (_obj.m_local == true) {
 					((FunctionPrivateTypedef*)_obj.m_buffer)->copyIn(m_buffer);
 					m_local = true;
-				} else if (_obj.m_pointerPrivate != nullptr) {
+				} else if (_obj.m_pointerPrivate != null) {
 					m_pointerPrivate = _obj.m_pointerPrivate->copy();
 				}
 				ETK_FUNCTION_DEBUG("[%d=0X%lx] create Function (copy constructor) ------- (done) ------- [%d=0X%lx]\n", m_pppppp, (uint64_t)this, _obj.m_pppppp, (uint64_t)&_obj);
 			}
 			Function(Function&& _obj):
-			  m_pointerPrivate(nullptr),
+			  m_pointerPrivate(null),
 			  m_local(false) {
 				memset(m_buffer, 0, sizeof(m_buffer));
 				m_pppppp = MM___pppppp++;
@@ -126,7 +126,7 @@ namespace etk {
 			                                >::type = 0
 			         >
 			Function(ETK_TYPE_FUNCTION_FUNCTOR _functor):
-			  m_pointerPrivate(nullptr),
+			  m_pointerPrivate(null),
 			  m_local(false) {
 				memset(m_buffer, 0, sizeof(m_buffer));
 				m_pppppp = MM___pppppp++;
@@ -143,7 +143,7 @@ namespace etk {
 			~Function() {
 				ETK_FUNCTION_DEBUG("[%d=0X%lx] DELETE Function \n", m_pppppp, (uint64_t)this);
 				ETK_DELETE(FunctionPrivateTypedef, m_pointerPrivate);
-				m_pointerPrivate = nullptr;
+				m_pointerPrivate = null;
 				if (m_local == true) {
 					// force the cast:
 					FunctionPrivateTypedef* tmp = (FunctionPrivateTypedef*)m_buffer;
@@ -153,9 +153,9 @@ namespace etk {
 				}
 			}
 			ETK_TYPE_FUNCTION_RETURN operator()(ETK_TYPE_FUNCTION_ARGS... _args) const {
-				if (    m_pointerPrivate == nullptr
+				if (    m_pointerPrivate == null
 				     && m_local == false) {
-					ETK_FUNCTION_DEBUG("[%d=0X%lx] call Function (With nullptr !!! ==> must assert ...)\n", m_pppppp, (uint64_t)this);
+					ETK_FUNCTION_DEBUG("[%d=0X%lx] call Function (With null !!! ==> must assert ...)\n", m_pppppp, (uint64_t)this);
 					throw etk::exception::NullPointerError("etk::Function call empty pointer");
 				}
 				ETK_FUNCTION_DEBUG("[%d=0X%lx] call Function \n", m_pppppp, (uint64_t)this);
@@ -178,7 +178,7 @@ namespace etk {
 			}
 			Function& operator= (etk::NullPtr _obj) {
 				ETK_DELETE(FunctionPrivateTypedef, m_pointerPrivate);
-				m_pointerPrivate = nullptr;
+				m_pointerPrivate = null;
 				if (m_local == true) {
 					// force the cast:
 					FunctionPrivateTypedef* tmp = (FunctionPrivateTypedef*)m_buffer;
@@ -186,7 +186,7 @@ namespace etk {
 					m_local = false;
 					memset(m_buffer, 0, sizeof(m_buffer));
 				}
-				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator = nullptr 0X%lx\n", m_pppppp, (uint64_t)this, (uint64_t)m_pointerPrivate);
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator = null 0X%lx\n", m_pppppp, (uint64_t)this, (uint64_t)m_pointerPrivate);
 				return *this;
 			}
 			
@@ -226,17 +226,17 @@ namespace etk {
 				return *this;
 			}
 			operator bool() const {
-				return    m_pointerPrivate != nullptr
+				return    m_pointerPrivate != null
 				       || m_local == true ;
 			}
 			bool operator!= (etk::NullPtr) const {
-				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator != nullptr ==> 0X%lx %s\n", m_pppppp, (uint64_t)this, (uint64_t)m_pointerPrivate, (m_pointerPrivate != nullptr)?"true":"false");
-				return    m_pointerPrivate != nullptr
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator != null ==> 0X%lx %s\n", m_pppppp, (uint64_t)this, (uint64_t)m_pointerPrivate, (m_pointerPrivate != null)?"true":"false");
+				return    m_pointerPrivate != null
 				       || m_local == true;
 			}
 			bool operator== (etk::NullPtr) const {
-				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator == nullptr ==> 0X%lx %s\n", m_pppppp, (uint64_t)this, (uint64_t)m_pointerPrivate, (m_pointerPrivate == nullptr)?"true":"false");
-				return    m_pointerPrivate == nullptr
+				ETK_FUNCTION_DEBUG("[%d=0X%lx] operator == null ==> 0X%lx %s\n", m_pppppp, (uint64_t)this, (uint64_t)m_pointerPrivate, (m_pointerPrivate == null)?"true":"false");
+				return    m_pointerPrivate == null
 				       && m_local == false;
 			}
 			etk::String toString() const {

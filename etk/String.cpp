@@ -77,7 +77,7 @@ etk::String::String(const etk::String& _obj, size_t _pos, size_t _size) {
 }
 
 etk::String::String(const char* _obj) {
-	if (_obj == nullptr) {
+	if (_obj == null) {
 		resize(0);
 		return;
 	}
@@ -102,7 +102,7 @@ etk::String::String(const etk::String _obj) {
 */
 
 etk::String::String(const char* _obj, size_t _size) {
-	if (    _obj == nullptr
+	if (    _obj == null
 	     || _size == 0) {
 		resize(0);
 		return;
@@ -164,7 +164,7 @@ etk::String& etk::String::operator=(const etk::String& _obj) {
 
 etk::String& etk::String::operator=(const char* _obj) {
 	clear();
-	if (_obj == nullptr) {
+	if (_obj == null) {
 		return *this;
 	}
 	size_t numberElement = strlen(_obj);
@@ -195,7 +195,7 @@ etk::String& etk::String::operator+= (const etk::String& _obj) {
 }
 
 etk::String& etk::String::operator+= (const char* _obj) {
-	if (_obj == nullptr) {
+	if (_obj == null) {
 		return *this;
 	}
 	size_t numberElement = strlen(_obj);
@@ -240,7 +240,7 @@ void etk::String::pushBack(const char _item) {
 }
 
 void etk::String::pushBack(const char* _item, size_t _nbElement) {
-	if (_item == nullptr) {
+	if (_item == null) {
 		return;
 	}
 	size_t idElement = size();

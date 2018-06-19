@@ -63,13 +63,13 @@ void etk::Archive::display() {
 }
 
 etk::Archive* etk::Archive::load(const etk::String& _fileName) {
-	etk::Archive* output=nullptr;
+	etk::Archive* output=null;
 	etk::String tmpName = _fileName.toLower();
 	// select the corect Loader :
 	if(    tmpName.endWith(".zip") == true
 	    || tmpName.endWith(".apk") == true ) {
 		output = ETK_NEW(etk::archive::Zip, _fileName);
-		if (output == nullptr) {
+		if (output == null) {
 			TK_ERROR("An error occured when load archive : " << _fileName);
 		}
 	} else {
@@ -79,11 +79,11 @@ etk::Archive* etk::Archive::load(const etk::String& _fileName) {
 }
 
 etk::Archive* etk::Archive::loadPackage(const etk::String& _fileName) {
-	etk::Archive* output=nullptr;
+	etk::Archive* output=null;
 	FILE* file = fopen(_fileName.c_str(), "rb");
-	if (file == nullptr) {
+	if (file == null) {
 		TK_ERROR("Can not open file : '" << _fileName);
-		return nullptr;
+		return null;
 	}
 	// move to end - 16 bytes:
 	fseek(file, -8, SEEK_END);
@@ -100,12 +100,12 @@ etk::Archive* etk::Archive::loadPackage(const etk::String& _fileName) {
 	if (etk::String(plop) != "***START DATA***") {
 		TK_ERROR("Error in the tag file : '" << plop << "'");
 		fclose(file);
-		return nullptr;
+		return null;
 	}
 	fclose(file);
-	file = nullptr;
+	file = null;
 	output = ETK_NEW(etk::archive::Zip, _fileName, position);
-	if (nullptr==output) {
+	if (null==output) {
 		TK_ERROR("An error occured when load archive : " << _fileName);
 	}
 	return output;

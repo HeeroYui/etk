@@ -110,7 +110,7 @@ namespace utf8 {
 			 */
 			Iterator():
 			  m_value(u32char::Null),
-			  m_data(nullptr),
+			  m_data(null),
 			  m_current(0) {
 				// nothing to do ...
 			};
@@ -133,7 +133,7 @@ namespace utf8 {
 			  m_value(u32char::Null),
 			  m_data(&_str),
 			  m_current(0) {
-				if (m_data != nullptr) {
+				if (m_data != null) {
 					m_current = etk::distance(m_data->begin(), _pos);
 				}
 			};
@@ -146,7 +146,7 @@ namespace utf8 {
 			  m_value(u32char::Null),
 			  m_data(&_str),
 			  m_current(0) {
-				if (m_data != nullptr) {
+				if (m_data != null) {
 					if (_pos > m_data->size()) {
 						m_current = m_data->size();
 					} else {
@@ -163,7 +163,7 @@ namespace utf8 {
 			  m_value(u32char::Null),
 			  m_data(_str),
 			  m_current(0) {
-				if (m_data != nullptr) {
+				if (m_data != null) {
 					m_current = etk::distance(m_data->begin(), _pos);
 				}
 			};
@@ -176,7 +176,7 @@ namespace utf8 {
 			  m_value(u32char::Null),
 			  m_data(_str),
 			  m_current(0) {
-				if (m_data != nullptr) {
+				if (m_data != null) {
 					if (_pos > m_data->size()) {
 						m_current = m_data->size();
 					} else {
@@ -210,7 +210,7 @@ namespace utf8 {
 			 */
 			virtual ~Iterator() {
 				m_current = 0;
-				m_data = nullptr;
+				m_data = null;
 				m_value = u32char::Null;
 			};
 			/**
@@ -218,7 +218,7 @@ namespace utf8 {
 			 * @return true if the element is present in buffer
 			 */
 			operator size_t () const {
-				if (m_data == nullptr) {
+				if (m_data == null) {
 					return 0;
 				}
 				if (m_current < 0) {
@@ -347,7 +347,7 @@ namespace utf8 {
 			 * @return The requested position.
 			 */
 			size_t getPos() const {
-				if (m_data == nullptr) {
+				if (m_data == null) {
 					return 0;
 				}
 				if (m_current < 0) {

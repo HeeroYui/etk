@@ -1027,7 +1027,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 			// Force a specicfic size
 			m_subNode.reserve(_obj.m_subNode.size());
 			for(size_t iii=0; iii<_obj.m_subNode.size(); iii++) {
-				if (_obj.m_subNode[iii] != nullptr) {
+				if (_obj.m_subNode[iii] != null) {
 					m_subNode.pushBack(_obj.m_subNode[iii]->clone());
 				}
 			}
@@ -1043,13 +1043,13 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 			Node<CLASS_TYPE>::copyData(&_obj);
 			for (auto it : m_subNode) {
 				ETK_DELETE(Node<CLASS_TYPE>, it);
-				it = nullptr;
+				it = null;
 			}
 			m_subNode.clear();
 			// Force a specicfic size
 			m_subNode.reserve(_obj.m_subNode.size());
 			for(size_t iii=0; iii<_obj.m_subNode.size(); iii++) {
-				if (_obj.m_subNode[iii] != nullptr) {
+				if (_obj.m_subNode[iii] != null) {
 					m_subNode.pushBack(_obj.m_subNode[iii]->clone());
 				}
 			}
@@ -1068,7 +1068,7 @@ template<class CLASS_TYPE> class NodePTheseElement : public Node<CLASS_TYPE> {
 		~NodePTheseElement() {
 			for (auto it : m_subNode) {
 				ETK_DELETE(Node<CLASS_TYPE>, it);
-				it = nullptr;
+				it = null;
 			}
 			m_subNode.clear();
 		};
@@ -1419,7 +1419,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 		~NodePThese() {
 			for (auto it : m_subNode) {
 				ETK_DELETE(Node<CLASS_TYPE>, it);
-				it = nullptr;
+				it = null;
 			}
 			m_subNode.clear();
 		}
@@ -1436,7 +1436,7 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 			// Force a specicfic size
 			m_subNode.reserve(_obj.m_subNode.size());
 			for(size_t iii=0; iii<_obj.m_subNode.size(); iii++) {
-				if (_obj.m_subNode[iii] != nullptr) {
+				if (_obj.m_subNode[iii] != null) {
 					m_subNode.pushBack(_obj.m_subNode[iii]->clone());
 				}
 			}
@@ -1452,13 +1452,13 @@ template<class CLASS_TYPE> class NodePThese : public Node<CLASS_TYPE> {
 			Node<CLASS_TYPE>::copyData(&_obj);
 			for (auto it : m_subNode) {
 				ETK_DELETE(Node<CLASS_TYPE>, it);
-				it = nullptr;
+				it = null;
 			}
 			m_subNode.clear();
 			// Force a specicfic size
 			m_subNode.reserve(_obj.m_subNode.size());
 			for(size_t iii=0; iii<_obj.m_subNode.size(); iii++) {
-				if (_obj.m_subNode[iii] != nullptr) {
+				if (_obj.m_subNode[iii] != null) {
 					m_subNode.pushBack(_obj.m_subNode[iii]->clone());
 				}
 			}
@@ -2240,7 +2240,7 @@ template<class CLASS_TYPE> class RegEx {
 						return true;
 					} else {
 						// otherwise, we check the error in the element ...
-						char *find = nullptr;
+						char *find = null;
 						switch (_tmpExpression[_pos]) {
 							case regexOpcodePTheseIn:		find = (char*)"(";			break;
 							case regexOpcodeBracketIn:		find = (char*)"[";			break;
@@ -2276,7 +2276,7 @@ template<class CLASS_TYPE> class RegEx {
 								default:													break;
 							}
 						}
-						if (find != nullptr) {
+						if (find != null) {
 							(void)input;
 							TK_ERROR("can not have : '" << find << "' inside " << input << " element");
 							return false;

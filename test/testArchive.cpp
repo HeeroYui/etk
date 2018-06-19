@@ -15,13 +15,13 @@
 
 TEST(TestEtkArchive, CreationWrong) {
 	etk::Archive* tmpArchive = etk::Archive::load("nonExistantFile.zip");
-	EXPECT_NE(tmpArchive, nullptr);
+	EXPECT_NE(tmpArchive, null);
 }
 
 /*
 TEST(TestEtkArchive, Display) {
 	etk::Archive* tmpArchive = etk::Archive::load("nonExistantFile.zip");
-	ASSERT_NEQ(tmpArchive, nullptr);
+	ASSERT_NEQ(tmpArchive, null);
 	tmpArchive->display();
 }
 */

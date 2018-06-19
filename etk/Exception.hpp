@@ -28,7 +28,7 @@ namespace etk {
 			 * @param[in] _what The explanation of the problem.
 			 * @param[in] _function Function name to find faster the source od the problem.
 			 */
-			Exception(const char* _type, const etk::String& _what, const char* _function = nullptr);
+			Exception(const char* _type, const etk::String& _what, const char* _function = null);
 			/**
 			 * @brief virtualize destructor.
 			 */
@@ -45,7 +45,7 @@ namespace etk {
 			const etk::String what() const;
 			/**
 			 * @brief Get the Name of the fuction where the exception is generated.
-			 * @return Function string or nullptr
+			 * @return Function string or null
 			 */
 			const char* where() const;
 			/**
@@ -63,7 +63,7 @@ namespace etk {
 				 * @param[in] _what The explanation of the problem.
 				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				InvalidArgument(const etk::String& _what, const char* _function = nullptr):
+				InvalidArgument(const etk::String& _what, const char* _function = null):
 				  etk::Exception("INVALID-ARGUMENT", _what, _function) {
 					
 				}
@@ -75,7 +75,7 @@ namespace etk {
 				 * @param[in] _what The explanation of the problem.
 				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				DomainError(const etk::String& _what, const char* _function = nullptr):
+				DomainError(const etk::String& _what, const char* _function = null):
 				  etk::Exception("DOMAIN-ERROR", _what, _function) {
 					
 				}
@@ -87,7 +87,7 @@ namespace etk {
 				 * @param[in] _what The explanation of the problem.
 				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				LengthError(const etk::String& _what, const char* _function = nullptr):
+				LengthError(const etk::String& _what, const char* _function = null):
 				  etk::Exception("LENGTH-ERROR", _what, _function) {
 					
 				}
@@ -99,7 +99,7 @@ namespace etk {
 				 * @param[in] _what The explanation of the problem.
 				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				OutOfRange(const etk::String& _what, const char* _function = nullptr):
+				OutOfRange(const etk::String& _what, const char* _function = null):
 				  etk::Exception("OUT-OF-RANGE", _what, _function) {
 					
 				}
@@ -111,7 +111,7 @@ namespace etk {
 				 * @param[in] _what The explanation of the problem.
 				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				RangeError(const etk::String& _what, const char* _function = nullptr):
+				RangeError(const etk::String& _what, const char* _function = null):
 				  etk::Exception("RANGE-ERROR", _what, _function) {
 					
 				}
@@ -123,7 +123,7 @@ namespace etk {
 				 * @param[in] _what The explanation of the problem.
 				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				OverflowError(const etk::String& _what, const char* _function = nullptr):
+				OverflowError(const etk::String& _what, const char* _function = null):
 				  etk::Exception("OVERFLOW-ERROR", _what, _function) {
 					
 				}
@@ -135,7 +135,7 @@ namespace etk {
 				 * @param[in] _what The explanation of the problem.
 				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				UnderflowError(const etk::String& _what, const char* _function = nullptr):
+				UnderflowError(const etk::String& _what, const char* _function = null):
 				  etk::Exception("UNDERFLOW-ERROR", _what, _function) {
 					
 				}
@@ -147,7 +147,7 @@ namespace etk {
 				 * @param[in] _what The explanation of the problem.
 				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				CastError(const etk::String& _what, const char* _function = nullptr):
+				CastError(const etk::String& _what, const char* _function = null):
 				  etk::Exception("CAST-ERROR", _what, _function) {
 					
 				}
@@ -159,7 +159,7 @@ namespace etk {
 				 * @param[in] _what The explanation of the problem.
 				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				AllocationError(const etk::String& _what, const char* _function = nullptr):
+				AllocationError(const etk::String& _what, const char* _function = null):
 				  etk::Exception("ALLOCATION-ERROR", _what, _function) {
 					
 				}
@@ -171,7 +171,7 @@ namespace etk {
 				 * @param[in] _what The explanation of the problem.
 				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				RuntimeError(const etk::String& _what, const char* _function = nullptr):
+				RuntimeError(const etk::String& _what, const char* _function = null):
 				  etk::Exception("RUNTIME-ERROR", _what, _function) {
 					
 				}
@@ -183,7 +183,7 @@ namespace etk {
 				 * @param[in] _what The explanation of the problem.
 				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				NullPointerError(const etk::String& _what, const char* _function = nullptr):
+				NullPointerError(const etk::String& _what, const char* _function = null):
 				  etk::Exception("NULL-POINTER-ERROR", _what, _function) {
 					
 				}

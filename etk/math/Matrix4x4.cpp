@@ -55,7 +55,7 @@ etk::Matrix4x4::Matrix4x4(float _a1, float _b1, float _c1, float _d1,
 }
 
 etk::Matrix4x4::Matrix4x4(float* _obj) {
-	if (_obj == nullptr) {
+	if (_obj == null) {
 		identity();
 		return;
 	}

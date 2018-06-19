@@ -24,10 +24,10 @@ namespace etk {
 			 * @param[in] _size Dimention of the matrix
 			 * @param[in] _defaultVal Default list of element that might be set in the matrix
 			 */
-			Matrix(const ivec2& _size, T* _defaultVal=nullptr) :
+			Matrix(const ivec2& _size, T* _defaultVal=null) :
 			  m_size(_size),
 			  etk::Vector2D<T>(_size.x()* _size.y()) {
-				if (defaultVal == nullptr) {
+				if (defaultVal == null) {
 					clear();
 					return;
 				}
@@ -45,10 +45,10 @@ namespace etk {
 			 * @param[in] _heigh Dimention heigh of the matrix
 			 * @param[in] _defaultVal Default list of element that might be set in the matrix
 			 */
-			Matrix(int32_t _width=0, int32_t _heigh=0, T* _defaultVal=nullptr) :
+			Matrix(int32_t _width=0, int32_t _heigh=0, T* _defaultVal=null) :
 			  m_size(_width, _heigh),
 			  etk::Vector2D<T>(_width*_heigh) {
-				if (_defaultVal == nullptr) {
+				if (_defaultVal == null) {
 					clear();
 					return;
 				}

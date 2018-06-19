@@ -150,7 +150,7 @@ class memoryAllocatorHandle {
 		  m_mutex(PTHREAD_MUTEX_INITIALIZER),
 		  #if ETK_MEMORY_CHECKER > 1
 		  	// Basic header to check the memory everflow (abstract element)
-		  	m_blockCheckMemory(nullptr),
+		  	m_blockCheckMemory(null),
 		  	m_checkBorneSize(10*8),
 		  #endif
 		  m_totalMemAllocated(0),
@@ -160,7 +160,7 @@ class memoryAllocatorHandle {
 		  m_dynamicID(0),
 		  m_memSystemInitialize(false),
 		  m_memListElementSize(1024),
-		  m_memListElements(nullptr) {
+		  m_memListElements(null) {
 			#if ETK_MEMORY_CHECKER > 1
 				static const uint8_t blockCheckMemory[] = {
 					0xFF, 0xEE, 0xDD, 0xCC, 0xBB, 0xAA, 0x99, 0x88,
@@ -183,7 +183,7 @@ class memoryAllocatorHandle {
 				return;
 			}
 			int systemRet;
-			if (m_memListElements == nullptr) {
+			if (m_memListElements == null) {
 				m_memListElements = new MemoryElementSystem[m_memListElementSize];
 			}
 			for (size_t iii=0; iii<m_memListElementSize; ++iii) {
@@ -239,7 +239,7 @@ class memoryAllocatorHandle {
 		
 		/**
 		 * @brief Get a current free element of the structure
-		 * @return the free Element find or nullptr
+		 * @return the free Element find or null
 		 */
 		MemoryElementSystem* getFreeElement() {
 			for (size_t iii=0; iii<m_memListElementSize; ++iii) {
@@ -251,9 +251,9 @@ class memoryAllocatorHandle {
 			m_memListElementSize *= 2;
 			ETK_MEMORY_DEBUG("Realloate the allocator memory system: %ld", uint64_t(m_memListElementSize));
 			MemoryElementSystem* tmp = new MemoryElementSystem[m_memListElementSize];
-			if (tmp == nullptr) {
+			if (tmp == null) {
 				m_memListElementSize /= 2;
-				return nullptr;
+				return null;
 			}
 			for (size_t iii=0; iii<m_memListElementSize; ++iii) {
 				tmp[iii].used = false;
@@ -268,7 +268,7 @@ class memoryAllocatorHandle {
 					return &(m_memListElements[iii]);
 				}
 			}
-			return nullptr;
+			return null;
 		}
 		/**
 		 * @brief Get the element structure reference if it existed
@@ -283,7 +283,7 @@ class memoryAllocatorHandle {
 					}
 				}
 			}
-			return nullptr;
+			return null;
 		}
 		
 		#if ETK_MEMORY_CHECKER > 1
@@ -340,9 +340,9 @@ class memoryAllocatorHandle {
 				const char *element_2 = _fileLink;
 				const char *element_1 = _fileLink;
 				const char *element_0 = _fileLink;
-				const char * pch = nullptr;
+				const char * pch = null;
 				pch = _fileLink;
-				while (pch != nullptr) {
+				while (pch != null) {
 					element_2 = element_1;
 					element_1 = element_0;
 					element_0 = pch;
@@ -358,16 +358,16 @@ class memoryAllocatorHandle {
 				                   _element.pointerAllocated,
 				                   _element.pointerGiveToUser,
 				                   _element.sizeUser,
-				                   (_element.variableName==nullptr?"---":_element.variableName),
+				                   (_element.variableName==null?"---":_element.variableName),
 				                   _element.id);
 				ETK_MEMORY_WARNING("%8d : %s() line=%ld file=%s",
 				                   (uint32_t)_element.id,
-				                   (_element.functionName==nullptr?"---":_element.functionName),
+				                   (_element.functionName==null?"---":_element.functionName),
 				                   _element.functionLine,
-				                   (_element.fileName==nullptr?"---":_element.fileName));
+				                   (_element.fileName==null?"---":_element.fileName));
 				if (checkMem(_element.pointerAllocated) == true) {
 					ETK_MEMORY_ERROR("MEM LOG   (L): %s : %ld Bytes @ %p ==> user @ %p (depassement pre)",
-					                 (_element.variableName==nullptr?"---":_element.variableName),
+					                 (_element.variableName==null?"---":_element.variableName),
 					                 _element.sizeUser,
 					                 _element.pointerAllocated,
 					                 _element.pointerGiveToUser);
@@ -375,7 +375,7 @@ class memoryAllocatorHandle {
 				}
 				if (checkMem(_element.pointerAllocated + _element.sizeUser + m_checkBorneSize) == true) {
 					ETK_MEMORY_ERROR("MEM LOG   (L): %s : %ld Bytes @ %p ==> user @ %p (depassement post)",
-					                 (_element.variableName==nullptr?"---":_element.variableName),
+					                 (_element.variableName==null?"---":_element.variableName),
 					                 _element.sizeUser,
 					                 _element.pointerAllocated,
 					                 _element.pointerGiveToUser);
@@ -404,7 +404,7 @@ class memoryAllocatorHandle {
 			}
 			if (countElement == 0) {
 				unLock();
-				return nullptr;
+				return null;
 			}
 			ETK_MEMORY_VERBOSE("find %ld element in memory", (uint64_t)countElement);
 			uint64_t* out = new uint64_t[countElement+10];
@@ -420,7 +420,7 @@ class memoryAllocatorHandle {
 		}
 		
 		bool checkSnapshoot(uint64_t* _handle) {
-			if (_handle == nullptr) {
+			if (_handle == null) {
 				return false;
 			}
 			lock();
@@ -451,8 +451,8 @@ class memoryAllocatorHandle {
 		void flipID(void* _pointer1, void* _pointer2) {
 			MemoryElementSystem* handle1 = getAdressedElement((char*)_pointer1);
 			MemoryElementSystem* handle2 = getAdressedElement((char*)_pointer2);
-			if (    handle1 == nullptr
-			     || handle2 == nullptr) {
+			if (    handle1 == null
+			     || handle2 == null) {
 				ETK_MEMORY_WARNING("MEM flip error %p %p", _pointer1, _pointer2);
 				return;
 			}
@@ -460,7 +460,7 @@ class memoryAllocatorHandle {
 		}
 		
 		void clearSnapshoot(uint64_t* _handle) {
-			if (_handle == nullptr) {
+			if (_handle == null) {
 				return;
 			}
 			delete[] (uint64_t*)_handle;
@@ -477,9 +477,9 @@ class memoryAllocatorHandle {
 			m_dynamicID++;
 			myElement = getFreeElement();
 			// check free handle
-			if (myElement != nullptr) {
+			if (myElement != null) {
 				#if ETK_MEMORY_CHECKER > 1
-					const char *fileNameShort = nullptr;
+					const char *fileNameShort = null;
 				#endif
 				myElement->id = m_dynamicID;
 				// if an element is free : 
@@ -495,11 +495,11 @@ class memoryAllocatorHandle {
 				#else
 					myElement->sizeAllocate = myElement->sizeUser;
 				#endif
-				myElement->pointerAllocated = nullptr;
-				myElement->pointerGiveToUser = nullptr;
+				myElement->pointerAllocated = null;
+				myElement->pointerGiveToUser = null;
 				// real allocation :
 				myElement->pointerAllocated = new char[myElement->sizeAllocate];
-				if (myElement->pointerAllocated != nullptr) {
+				if (myElement->pointerAllocated != null) {
 					// set edded memory
 					addMemory(myElement->sizeUser);
 					// save curent pointer
@@ -526,10 +526,10 @@ class memoryAllocatorHandle {
 				return myElement->pointerGiveToUser;
 			} else {
 				// if no free handle:
-				void * localPointer = nullptr;
+				void * localPointer = null;
 				localPointer = new char[_num * _size];
-				if (localPointer != nullptr) {
-					if (_variableName == nullptr) {
+				if (localPointer != null) {
+					if (_variableName == null) {
 						ETK_MEMORY_VERBOSE("MEM allocate (-): --- : %lu Bytes @ %p (No log...)", _num*_size, localPointer);
 					} else {
 						ETK_MEMORY_VERBOSE("MEM allocate (-): %s : %lu Bytes @ %p (No log...)", _variableName, _num*_size, localPointer);
@@ -538,7 +538,7 @@ class memoryAllocatorHandle {
 					//addMemory(_num * _size); // not availlable can not un add memory
 					m_totalMemAllocated += _num * _size;
 				} else {
-					if (_variableName == nullptr) {
+					if (_variableName == null) {
 						ETK_MEMORY_VERBOSE("MEM allocate (-): --- : %lu Bytes @ (ERROR)", _num*_size);
 					} else {
 						ETK_MEMORY_VERBOSE("MEM allocate (-): %s : %lu Bytes @ (ERROR)", _variableName, _num*_size);
@@ -552,16 +552,16 @@ class memoryAllocatorHandle {
 		void remove(void* _pointerData, const char* _variableName, const char* _functionName, int32_t _line, const char* _fileName) {
 			MemoryElementSystem * myElement;
 			lock();
-			char* asyncFree = nullptr;
+			char* asyncFree = null;
 			myElement = getAdressedElement((char*)_pointerData);
 			// check free handle
-			if (myElement != nullptr) {
+			if (myElement != null) {
 				bool errorOccured = false;
 				// We know this element :
 				#if ETK_MEMORY_CHECKER > 1
 					// check end and Start :
 					if (checkMem(myElement->pointerAllocated) == true) {
-						if (_variableName == nullptr) {
+						if (_variableName == null) {
 							ETK_MEMORY_ERROR("MEM free   (L): --- : %ld Bytes @ %p ==> user @ %p (depassement pre)", uint64_t(myElement->sizeUser), myElement->pointerAllocated, myElement->pointerGiveToUser);
 						} else {
 							ETK_MEMORY_ERROR("MEM free   (L): %s : %ld Bytes @ %p ==> user @ %p (depassement pre)", _variableName, uint64_t(myElement->sizeUser), myElement->pointerAllocated, myElement->pointerGiveToUser);
@@ -569,7 +569,7 @@ class memoryAllocatorHandle {
 						errorOccured = true;
 					}
 					if (checkMem(myElement->pointerAllocated + myElement->sizeUser + m_checkBorneSize) == true) {
-						if (_variableName == nullptr) {
+						if (_variableName == null) {
 							ETK_MEMORY_ERROR("MEM free   (L): --- : %ld Bytes @ %p ==> user @ %p (depassement post)", uint64_t(myElement->sizeUser), myElement->pointerAllocated, myElement->pointerGiveToUser);
 						} else {
 							ETK_MEMORY_ERROR("MEM free   (L): %s : %ld Bytes @ %p ==> user @ %p (depassement post)", _variableName, uint64_t(myElement->sizeUser), myElement->pointerAllocated, myElement->pointerGiveToUser);
@@ -577,7 +577,7 @@ class memoryAllocatorHandle {
 						errorOccured = true;
 					}
 					if (errorOccured == false) {
-						if (_variableName == nullptr) {
+						if (_variableName == null) {
 							ETK_MEMORY_VERBOSE("MEM free   (L): --- : %ld Bytes @ %p ==> user @ %p", uint64_t(myElement->sizeUser), myElement->pointerAllocated, myElement->pointerGiveToUser);
 						} else {
 							ETK_MEMORY_VERBOSE("MEM free   (L): %s : %ld Bytes @ %p ==> user @ %p", _variableName, uint64_t(myElement->sizeUser), myElement->pointerAllocated, myElement->pointerGiveToUser);
@@ -587,25 +587,25 @@ class memoryAllocatorHandle {
 						//ETK_ASSERT(1 == 0, "Memory error detected");
 					}
 				#else
-					if (_variableName == nullptr) {
+					if (_variableName == null) {
 						ETK_MEMORY_VERBOSE("MEM free   (L): --- : %ld Bytes @ %p ==> user @ %p", uint64_t(myElement->sizeUser), myElement->pointerAllocated, myElement->pointerGiveToUser);
 					} else {
 						ETK_MEMORY_VERBOSE("MEM free   (L): %s : %ld Bytes @ %p ==> user @ %p", _variableName, uint64_t(myElement->sizeUser), myElement->pointerAllocated, myElement->pointerGiveToUser);
 					}
 				#endif
 				asyncFree = myElement->pointerAllocated;
-				myElement->pointerAllocated = nullptr;
+				myElement->pointerAllocated = null;
 				removeMemory(myElement->sizeUser);
 				myElement->used = false;
 			}
 			unLock();
-			if (asyncFree != nullptr) {
+			if (asyncFree != null) {
 				// free Buffer:
 				delete[] asyncFree;
 				return;
 			}
 			//Unknown element
-			if (_variableName == nullptr) {
+			if (_variableName == null) {
 				ETK_MEMORY_WARNING("MEM free   (-): --- : ?? Bytes @ %p ==> unsaved element", _pointerData);
 			} else {
 				ETK_MEMORY_WARNING("MEM free   (-): %s : ?? Bytes @ %p ==> unsaved element", _variableName, _pointerData);
@@ -688,7 +688,7 @@ class memoryAllocatorHandle {
 						bool errorOccured = false;
 						if (checkMem(m_memListElements[iii].pointerAllocated) == true) {
 							const char* tmp = m_memListElements[iii].variableName;
-							if (tmp == nullptr) {
+							if (tmp == null) {
 								tmp = "---";
 							}
 							ETK_MEMORY_ERROR("MEM CHECK  (L): %s : %ld Bytes @ %p ==> user @ %p (depassement pre)", tmp, uint64_t(m_memListElements[iii].sizeUser), m_memListElements[iii].pointerAllocated, m_memListElements[iii].pointerGiveToUser);
@@ -696,7 +696,7 @@ class memoryAllocatorHandle {
 						}
 						if (checkMem(m_memListElements[iii].pointerAllocated + m_memListElements[iii].sizeUser + m_checkBorneSize) == true) {
 							const char* tmp = m_memListElements[iii].variableName;
-							if (tmp == nullptr) {
+							if (tmp == null) {
 								tmp = "---";
 							}
 							ETK_MEMORY_ERROR("MEM CHECK  (L): %s : %ld Bytes @ %p ==> user @ %p (depassement post)", tmp, uint64_t(m_memListElements[iii].sizeUser), m_memListElements[iii].pointerAllocated, m_memListElements[iii].pointerGiveToUser);

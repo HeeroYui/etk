@@ -30,7 +30,7 @@ etk::UString::UString(const etk::UString& _obj, size_t _pos, size_t _size) {
 }
 
 etk::UString::UString(const char32_t* _obj) {
-	if (_obj == nullptr) {
+	if (_obj == null) {
 		resize(0);
 		return;
 	}
@@ -42,7 +42,7 @@ etk::UString::UString(const char32_t* _obj) {
 }
 
 etk::UString::UString(const char32_t* _obj, size_t _size) {
-	if (    _obj == nullptr
+	if (    _obj == null
 	     || _size == 0) {
 		resize(0);
 		return;
@@ -104,7 +104,7 @@ etk::UString& etk::UString::operator=(const etk::UString& _obj) {
 
 etk::UString& etk::UString::operator=(const char32_t* _obj) {
 	clear();
-	if (_obj == nullptr) {
+	if (_obj == null) {
 		return *this;
 	}
 	size_t numberElement = u32char::strlen(_obj);
@@ -135,7 +135,7 @@ etk::UString& etk::UString::operator+= (const etk::UString& _obj) {
 }
 
 etk::UString& etk::UString::operator+= (const char32_t* _obj) {
-	if (_obj == nullptr) {
+	if (_obj == null) {
 		return *this;
 	}
 	size_t numberElement = u32char::strlen(_obj);
@@ -176,7 +176,7 @@ void etk::UString::pushBack(const char32_t _item) {
 }
 
 void etk::UString::pushBack(const char32_t* _item, size_t _nbElement) {
-	if (_item == nullptr) {
+	if (_item == null) {
 		return;
 	}
 	size_t idElement = size();

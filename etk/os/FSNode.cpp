@@ -214,7 +214,7 @@ static int32_t FSNODE_LOCAL_mkPath(const char* _path, mode_t _mode) {
 	char *sp;
 	int status;
 	char *copypath = strdup(_path);
-	if (copypath == nullptr) {
+	if (copypath == null) {
 		return -1;
 	}
 	status = 0;
@@ -321,26 +321,26 @@ etk::String etk::FSNodeGetHomePath() {
 }
 
 #ifdef HAVE_ZIP_DATA
-	static etk::Archive* s_APKArchive = nullptr;
+	static etk::Archive* s_APKArchive = null;
 	static void loadAPK(const etk::String& _apkPath) {
 		#ifdef __TARGET_OS__Android
 			ethread::UniqueLock lock(getNodeMutex());
 			TK_INFO("Loading APK '" << _apkPath << "'");
 			s_APKArchive = etk::Archive::load(_apkPath);
-			TK_ASSERT(s_APKArchive != nullptr, "Error loading APK ...  '" << _apkPath << "'");
+			TK_ASSERT(s_APKArchive != null, "Error loading APK ...  '" << _apkPath << "'");
 		#else
 			TK_INFO("Loading Intarnal data '" << _apkPath << "'");
 			//s_APKArchive = etk::Archive::loadPackage(_apkPath);
 			s_APKArchive = etk::Archive::load(_apkPath);
 			/*
 			FILE* tmp = fopen(_apkPath.c_str(), "r");
-			if (tmp == nullptr) {
+			if (tmp == null) {
 				TK_ERROR("File does not exist ...");
 			} else {
 				TK_ERROR("File open OK ...");
 			}
 			*/
-			TK_ASSERT(s_APKArchive != nullptr, "Error loading PKG ...  '" << _apkPath << "'");
+			TK_ASSERT(s_APKArchive != null, "Error loading PKG ...  '" << _apkPath << "'");
 		#endif
 		#ifdef DEBUG
 			//Just for debug, print APK contents
@@ -351,7 +351,7 @@ etk::String etk::FSNodeGetHomePath() {
 		static void loadAPKBin(const etk::String& _apkPath) {
 			TK_ERROR("Loading Intarnal data '" << _apkPath << "'");
 			s_APKArchive = etk::Archive::loadPackage(_apkPath);
-			TK_ASSERT(s_APKArchive != nullptr, "Error loading PKG ...  '" << _apkPath << "'");
+			TK_ASSERT(s_APKArchive != null, "Error loading PKG ...  '" << _apkPath << "'");
 			#ifdef DEBUG
 				//Just for debug, print APK contents
 				s_APKArchive->display();
@@ -366,7 +366,7 @@ void etk::setBaseFolderData(const char* _folder, const char* _applName) {
 		{
 			ethread::UniqueLock lock(getNodeMutex());
 			baseFolderData = "assets/";
-			if (_applName != nullptr) {
+			if (_applName != null) {
 				baseFolderData += _applName;
 				baseFolderData += "/";
 			}
@@ -431,14 +431,14 @@ void etk::forcePathUserData(const etk::String& _val) {
 	Afterwards it may be reasonable to check whether the executable isn't actually a symlink. If it is resolve it relative to the symlink directory.
 	This step is not necessary in /proc method (at least for Linux). There the proc symlink points directly to executable.
 	Note that it is up to the calling process to set argv[0] correctly. It is right most of the times however there are occasions when the calling process cannot be trusted (ex. setuid executable).
-	On Windows: use GetModuleFileName(nullptr, buf, bufsize)
+	On Windows: use GetModuleFileName(null, buf, bufsize)
 */
 etk::String getApplicationPath() {
 	etk::String binaryName = "no-name";
 	char binaryCompleatePath[FILENAME_MAX];
 	memset(binaryCompleatePath, 0, FILENAME_MAX);
 	#ifdef __TARGET_OS__Windows
-		GetModuleFileName(nullptr, binaryCompleatePath, FILENAME_MAX);
+		GetModuleFileName(null, binaryCompleatePath, FILENAME_MAX);
 		if (strlen(binaryCompleatePath) == 0) {
 			TK_CRITICAL("Can not get the binary position in the tree ==> this is really bad ...");
 		} else {
@@ -478,7 +478,7 @@ etk::String getApplicationPath() {
 		}
 		TK_VERBOSE("Parse arg0 = '" << l_argZero << "' try add PWD");
 		char * basicPathPWD = getenv("PWD");
-		if (nullptr != basicPathPWD) {
+		if (null != basicPathPWD) {
 			etk::String testCompleatePath = basicPathPWD;
 			testCompleatePath += "/";
 			testCompleatePath += l_argZero;
@@ -494,7 +494,7 @@ etk::String getApplicationPath() {
 			}
 		}
 		//char * basicPathPATH = getenv("PATH");
-		//if (nullptr != basicPathPWD) {
+		//if (null != basicPathPWD) {
 			// TODO : bad case ...
 		//}
 		// and now we will really in a bad mood ...
@@ -507,7 +507,7 @@ void etk::initDefaultFolder(const char* _applName) {
 	baseApplName = _applName;
 	char cCurrentPath[FILENAME_MAX];
 	char * basicPath = getenv("HOME");
-	if (nullptr == basicPath) {
+	if (null == basicPath) {
 		TK_WARNING("ERROR while trying to get the path of the home folder");
 		#if defined(__TARGET_OS__Windows)
 			baseFolderHome = "c:/";
@@ -673,17 +673,17 @@ etk::String etk::getUserRunFolder() {
 #ifdef HAVE_ZIP_DATA
 bool etk::FSNode::loadDataZip() {
 	ethread::UniqueLock lock(getNodeMutex());
-	if (s_APKArchive == nullptr) {
+	if (s_APKArchive == null) {
 		return false;
 	}
-	if (m_zipContent != nullptr) {
+	if (m_zipContent != null) {
 		return true;
 	}
 	if (false == s_APKArchive->exist(m_systemFileName)) {
 		return false;
 	}
 	m_zipContent = &s_APKArchive->getContent(m_systemFileName);
-	if (m_zipContent != nullptr) {
+	if (m_zipContent != null) {
 		return true;
 	}
 	return false;
@@ -695,12 +695,12 @@ etk::FSNode::FSNode(const etk::String& _nodeName) :
   m_userFileName(""),
   m_type(etk::FSNType_unknow),
   m_typeNode(etk::typeNode_unknow),
-  m_PointerFile(nullptr),
+  m_PointerFile(null),
   m_timeCreate(0),
   m_timeModify(0),
   m_timeAccess(0)
 #ifdef HAVE_ZIP_DATA
-    , m_zipContent(nullptr),
+    , m_zipContent(null),
     m_zipReadingOffset(-1)
 #endif
 {
@@ -709,9 +709,9 @@ etk::FSNode::FSNode(const etk::String& _nodeName) :
 
 
 etk::FSNode::~FSNode() {
-	if(    nullptr != m_PointerFile
+	if(    null != m_PointerFile
 	#ifdef HAVE_ZIP_DATA
-	    || nullptr != m_zipContent
+	    || null != m_zipContent
 	#endif
 	  ) {
 		TK_ERROR("Missing to close the file : \"" << *this << "\"");
@@ -724,11 +724,11 @@ void etk::FSNode::sortElementList(etk::Vector<etk::FSNode *>& _list) {
 	etk::Vector<etk::FSNode *> tmpList = _list;
 	_list.clear();
 	for(size_t iii=0; iii<tmpList.size(); iii++) {
-		if (nullptr != tmpList[iii]) {
+		if (null != tmpList[iii]) {
 			size_t findPos = 0;
 			for(size_t jjj=0; jjj<_list.size(); jjj++) {
 				//EWOL_DEBUG("compare : \""<<*tmpList[iii] << "\" and \"" << *m_listDirectory[jjj] << "\"");
-				if (_list[jjj]!=nullptr) {
+				if (_list[jjj]!=null) {
 					// TODO : Do something better : this methode is a litthe hard!!!
 					if (etk::toUpper(tmpList[iii]->getNameFile()) > etk::toUpper(_list[jjj]->getNameFile())) {
 						findPos = jjj+1;
@@ -742,15 +742,15 @@ void etk::FSNode::sortElementList(etk::Vector<etk::FSNode *>& _list) {
 }
 
 void etk::FSNode::privateSetName(etk::String _newName) {
-	if(    nullptr != m_PointerFile
+	if(    null != m_PointerFile
 	#ifdef HAVE_ZIP_DATA
-	    || nullptr != m_zipContent
+	    || null != m_zipContent
 	#endif
 	  ) {
 		TK_ERROR("Missing to close the file : '" << *this << "'");
 		fileClose();
 	}
-	// set right at nullptr ...
+	// set right at null ...
 	m_rights = 0;
 	
 	m_libSearch = "";
@@ -770,7 +770,7 @@ void etk::FSNode::privateSetName(etk::String _newName) {
 	}
 	
 	#ifdef HAVE_ZIP_DATA
-		m_zipContent = nullptr;
+		m_zipContent = null;
 		m_zipReadingOffset = 0;
 	#endif
 	// Reset ALL DATA :
@@ -928,7 +928,7 @@ void etk::FSNode::privateSetName(etk::String _newName) {
 bool directCheckFile(etk::String _tmpFileNameDirect, bool _checkInAPKIfNeeded = false) {
 	#ifdef HAVE_ZIP_DATA
 	if (true == _checkInAPKIfNeeded) {
-		if(    nullptr != s_APKArchive
+		if(    null != s_APKArchive
 		    && true == s_APKArchive->exist(_tmpFileNameDirect) ) {
 			return true;
 		}
@@ -1115,7 +1115,7 @@ void etk::FSNode::updateFileSystemProperty() {
 			folderName = m_systemFileName + "/";
 		}
 		// note : Zip does not support other think than file ...
-		if (s_APKArchive == nullptr) {
+		if (s_APKArchive == null) {
 			TK_ERROR("NOT Find the File in APK : '" << m_systemFileName << "'");
 			return;
 		}
@@ -1399,17 +1399,17 @@ const etk::FSNode& etk::FSNode::operator=  (const etk::FSNode &_obj ) {
 	if( this == &_obj ) {
 		return *this;
 	}
-	if(    nullptr != m_PointerFile
+	if(    null != m_PointerFile
 	#ifdef HAVE_ZIP_DATA
-	    || nullptr != m_zipContent
+	    || null != m_zipContent
 	#endif
 	   ) {
 		TK_ERROR("Missing close the file : " << *this);
 		fileClose();
-		m_PointerFile = nullptr;
+		m_PointerFile = null;
 	}
 	#ifdef HAVE_ZIP_DATA
-		m_zipContent = nullptr;
+		m_zipContent = null;
 		m_zipReadingOffset = 0;
 	#endif
 	etk::String tmppp = _obj.getName();
@@ -1524,12 +1524,12 @@ int64_t etk::FSNode::folderCount() {
 		*/
 	#endif
 	int64_t counter=0;
-	DIR *dir = nullptr;
-	struct dirent *ent = nullptr;
+	DIR *dir = null;
+	struct dirent *ent = null;
 	dir = opendir(m_systemFileName.c_str());
-	if (dir != nullptr) {
+	if (dir != null) {
 		// for each element in the drectory...
-		while ((ent = readdir(dir)) != nullptr) {
+		while ((ent = readdir(dir)) != null) {
 			etk::String tmpName(ent->d_name);
 			if(    tmpName == "." 
 			    || tmpName == ".." ) {
@@ -1569,7 +1569,7 @@ etk::Vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 		*/
 	#endif
 	// regenerate the next list :
-	etk::FSNode * tmpEmement = nullptr;
+	etk::FSNode * tmpEmement = null;
 	if (m_typeNode != etk::typeNode_folder ) {
 		return tmpp;
 	}
@@ -1579,7 +1579,7 @@ etk::Vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 		etk::Vector<etk::String> listAdded;
 		etk::String assetsName = baseFolderData;
 		etk::String FolderName = getNameFolder();
-		if (s_APKArchive==nullptr) {
+		if (s_APKArchive==null) {
 			return tmpp;
 		}
 		if (FolderName[FolderName.size()-1] != '/') {
@@ -1608,25 +1608,25 @@ etk::Vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 				if (findIt == false) {
 					listAdded.pushBack(tmpString);
 					tmpEmement = ETK_NEW(etk::FSNode, tmpString);
-					if (tmpEmement == nullptr) {
+					if (tmpEmement == null) {
 						TK_ERROR("allocation error ... of ewol::FSNode");
 						continue;
 					}
 					TK_VERBOSE("find element : '" << tmpString << "' --> " << *tmpEmement);
 					tmpp.pushBack(tmpEmement);
-					tmpEmement = nullptr;
+					tmpEmement = null;
 				}
 			}
 		}
 		return tmpp;
 	}
 	#endif
-	DIR *dir = nullptr;
-	struct dirent *ent = nullptr;
+	DIR *dir = null;
+	struct dirent *ent = null;
 	dir = opendir(m_systemFileName.c_str());
-	if (dir != nullptr) {
+	if (dir != null) {
 		// for each element in the drectory...
-		while ((ent = readdir(dir)) != nullptr) {
+		while ((ent = readdir(dir)) != null) {
 			etk::String tmpName(ent->d_name);
 			TK_VERBOSE(" search in folder\"" << tmpName << "\"");
 			if(    tmpName == "." 
@@ -1637,7 +1637,7 @@ etk::Vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 			if(    start_with(tmpName, ".") == false
 			    || _showHidenFile == true) {
 				tmpEmement = ETK_NEW(etk::FSNode, getRelativeFolder()+tmpName);
-				if (tmpEmement == nullptr) {
+				if (tmpEmement == null) {
 					TK_ERROR("allocation error ... of ewol::FSNode");
 					continue;
 				}
@@ -1646,13 +1646,13 @@ etk::Vector<etk::FSNode *> etk::FSNode::folderGetSubList(bool _showHidenFile, bo
 						tmpp.pushBack(tmpEmement);
 					} else {
 						ETK_DELETE(etk::FSNode, tmpEmement);
-						tmpEmement = nullptr;
+						tmpEmement = null;
 					}
 				} else if (_getFolderAndOther) {
 					tmpp.pushBack(tmpEmement);
 				} else {
 					ETK_DELETE(etk::FSNode, tmpEmement);
-					tmpEmement = nullptr;
+					tmpEmement = null;
 				}
 			}
 		}
@@ -1678,7 +1678,7 @@ etk::Vector<etk::String> etk::FSNode::folderGetSub(bool _getFolder, bool _getFil
 	#endif
 	etk::Vector<etk::String> out;
 	// regenerate the next list :
-	etk::FSNode * tmpEmement = nullptr;
+	etk::FSNode * tmpEmement = null;
 	if (m_typeNode != etk::typeNode_folder ) {
 		return out;
 	}
@@ -1688,7 +1688,7 @@ etk::Vector<etk::String> etk::FSNode::folderGetSub(bool _getFolder, bool _getFil
 		etk::Vector<etk::String> listAdded;
 		etk::String assetsName = baseFolderData;
 		etk::String FolderName = getNameFolder();
-		if (s_APKArchive == nullptr) {
+		if (s_APKArchive == null) {
 			return out;
 		}
 		if (FolderName[FolderName.size()-1] != '/') {
@@ -1723,12 +1723,12 @@ etk::Vector<etk::String> etk::FSNode::folderGetSub(bool _getFolder, bool _getFil
 		return out;
 	}
 	#endif
-	DIR *dir = nullptr;
-	struct dirent *ent = nullptr;
+	DIR *dir = null;
+	struct dirent *ent = null;
 	dir = opendir(m_systemFileName.c_str());
-	if (dir != nullptr) {
+	if (dir != null) {
 		// for each element in the drectory...
-		while ((ent = readdir(dir)) != nullptr) {
+		while ((ent = readdir(dir)) != null) {
 			etk::String tmpName(ent->d_name);
 			TK_VERBOSE(" search in folder\"" << tmpName << "\"");
 			if(    tmpName == "." 
@@ -1765,7 +1765,7 @@ void etk::FSNode::folderGetRecursiveFiles(etk::Vector<etk::String>& _output, boo
 	    || m_type == etk::FSNType_themeData) {
 		etk::String assetsName = baseFolderData;
 		etk::String FolderName = getNameFolder();
-		if (s_APKArchive==nullptr) {
+		if (s_APKArchive==null) {
 			return;
 		}
 		for (int iii=0; iii<s_APKArchive->size(); iii++) {
@@ -1789,13 +1789,13 @@ void etk::FSNode::folderGetRecursiveFiles(etk::Vector<etk::String>& _output, boo
 	#endif
 	// regenerate the next list :
 	etk::FSNode * tmpEmement;
-	DIR *dir = nullptr;
-	struct dirent *ent = nullptr;
+	DIR *dir = null;
+	struct dirent *ent = null;
 	dir = opendir(m_systemFileName.c_str());
 	//TK_DEBUG(" ** open Folder : " << m_systemFileName );
-	if (dir != nullptr) {
+	if (dir != null) {
 		// for each element in the drectory...
-		while ((ent = readdir(dir)) != nullptr) {
+		while ((ent = readdir(dir)) != null) {
 			etk::String tmpName(ent->d_name);
 			if(    tmpName == "." 
 			    || tmpName == ".." ) {
@@ -1804,7 +1804,7 @@ void etk::FSNode::folderGetRecursiveFiles(etk::Vector<etk::String>& _output, boo
 			}
 			//TK_DEBUG(" find : " << ent->d_name << " ==> " << (GetRelativeFolder()+tmpName));
 			tmpEmement = ETK_NEW(etk::FSNode, getRelativeFolder()+tmpName);
-			if (tmpEmement != nullptr) {
+			if (tmpEmement != null) {
 				if(tmpEmement->getNodeType() == etk::typeNode_file) {
 					etk::String tmpVal = tmpEmement->getName();
 					_output.pushBack(tmpVal);
@@ -1815,7 +1815,7 @@ void etk::FSNode::folderGetRecursiveFiles(etk::Vector<etk::String>& _output, boo
 					}
 				}
 				ETK_DELETE(etk::FSNode, tmpEmement);
-				tmpEmement = nullptr;
+				tmpEmement = null;
 			} else {
 				TK_ERROR("allocation error ... of ewol::FSNode");
 				continue;
@@ -1893,13 +1893,13 @@ bool etk::FSNode::fileOpenRead() {
 		return m_zipContent->getTheoricSize() == m_zipContent->size();
 	}
 	#endif
-	if (m_PointerFile != nullptr) {
+	if (m_PointerFile != null) {
 		TK_CRITICAL("File Already open : " << *this);
 		return true;
 	}
 	TK_VERBOSE(" Read file : " << m_systemFileName);
 	m_PointerFile = fopen(m_systemFileName.c_str(),"rb");
-	if(m_PointerFile == nullptr) {
+	if(m_PointerFile == null) {
 		TK_ERROR("Can not find the file " << *this );
 		return false;
 	}
@@ -1912,14 +1912,14 @@ bool etk::FSNode::fileOpenWrite() {
 		return false;
 	}
 	#endif
-	if (m_PointerFile != nullptr) {
+	if (m_PointerFile != null) {
 		TK_CRITICAL("File Already open : " << *this);
 		return true;
 	}
 	FSNODE_LOCAL_mkPath(getNameFolder().c_str() , 0744);
 	TK_VERBOSE("Write file : " << m_systemFileName);
 	m_PointerFile = fopen(m_systemFileName.c_str(),"wb");
-	if(m_PointerFile == nullptr) {
+	if(m_PointerFile == null) {
 		TK_ERROR("Can not find the file " << *this);
 		return false;
 	}
@@ -1933,7 +1933,7 @@ bool etk::FSNode::fileOpenAppend() {
 		return false;
 	}
 	#endif
-	if (m_PointerFile != nullptr) {
+	if (m_PointerFile != null) {
 		TK_CRITICAL("File Already open : " << *this);
 		return true;
 	}
@@ -1942,7 +1942,7 @@ bool etk::FSNode::fileOpenAppend() {
 	TK_VERBOSE("Append file : " << m_systemFileName);
 	
 	m_PointerFile = fopen(m_systemFileName.c_str(),"ab");
-	if(m_PointerFile == nullptr) {
+	if(m_PointerFile == null) {
 		TK_ERROR("Can not find the file " << *this);
 		return false;
 	}
@@ -1953,13 +1953,13 @@ bool etk::FSNode::fileIsOpen() {
 	#ifdef HAVE_ZIP_DATA
 	if(    etk::FSNType_data == m_type
 	    || etk::FSNType_themeData == m_type) {
-		if (m_zipContent == nullptr) {
+		if (m_zipContent == null) {
 			return false;
 		}
 		return true;
 	}
 	#endif
-	if (m_PointerFile == nullptr) {
+	if (m_PointerFile == null) {
 		return false;
 	}
 	return true;
@@ -1968,22 +1968,22 @@ bool etk::FSNode::fileClose() {
 	#ifdef HAVE_ZIP_DATA
 	if(    etk::FSNType_data == m_type
 	    || etk::FSNType_themeData == m_type) {
-		if (m_zipContent == nullptr) {
+		if (m_zipContent == null) {
 			TK_CRITICAL("File Already closed : " << *this);
 			return false;
 		}
 		s_APKArchive->close(m_systemFileName);
-		m_zipContent = nullptr;
+		m_zipContent = null;
 		m_zipReadingOffset = 0;
 		return true;
 	}
 	#endif
-	if (m_PointerFile == nullptr) {
+	if (m_PointerFile == null) {
 		TK_CRITICAL("File Already closed : " << *this);
 		return false;
 	}
 	fclose(m_PointerFile);
-	m_PointerFile = nullptr;
+	m_PointerFile = null;
 	return true;
 }
 
@@ -1994,13 +1994,13 @@ char* etk::FSNode::fileGets(char* _elementLine, int64_t _maxData) {
 	int64_t outSize = 0;
 	if(    m_type == etk::FSNType_data
 	    || m_type == etk::FSNType_themeData) {//char * tmpData = internalDataFiles[iii].data + m_readingOffset;
-		if (m_zipContent == nullptr) {
+		if (m_zipContent == null) {
 			element[0] = '\0';
-			return nullptr;
+			return null;
 		}
 		if (m_zipReadingOffset >= m_zipContent->size()) {
 			element[0] = '\0';
-			return nullptr;
+			return null;
 		}
 		while (((char*)m_zipContent->data())[m_zipReadingOffset] != '\0') {
 			if(    ((char*)m_zipContent->data())[m_zipReadingOffset] == '\n'
@@ -2026,7 +2026,7 @@ char* etk::FSNode::fileGets(char* _elementLine, int64_t _maxData) {
 			outSize++;
 		}
 		if (outSize == 0) {
-			return nullptr;
+			return null;
 		} else {
 			// send last line
 			return _elementLine;
@@ -2062,7 +2062,7 @@ int64_t etk::FSNode::fileRead(void* _data, int64_t _blockSize, int64_t _nbBlock)
 	#ifdef HAVE_ZIP_DATA
 	if(    m_type == etk::FSNType_data
 	    || m_type == etk::FSNType_themeData) {
-		if (m_zipContent == nullptr) {
+		if (m_zipContent == null) {
 			((char*)_data)[0] = '\0';
 			return 0;
 		}
@@ -2076,7 +2076,7 @@ int64_t etk::FSNode::fileRead(void* _data, int64_t _blockSize, int64_t _nbBlock)
 		return _nbBlock;
 	}
 	#endif
-	if (m_PointerFile == nullptr) {
+	if (m_PointerFile == null) {
 		TK_ERROR("Can not read in a file that is not open : " << *this);
 		return 0;
 	}
@@ -2105,7 +2105,7 @@ int64_t etk::FSNode::fileWrite(const void * _data, int64_t _blockSize, int64_t _
 		return 0;
 	}
 	#endif
-	if (m_PointerFile == nullptr) {
+	if (m_PointerFile == null) {
 		TK_ERROR("Can not write in a file that is not open : " << *this);
 		return 0;
 	}
@@ -2150,7 +2150,7 @@ bool etk::FSNode::fileSeek(long int _offset, enum etk::seekNode _origin)
 	#ifdef HAVE_ZIP_DATA
 	if(    m_type == etk::FSNType_data
 	    || m_type == etk::FSNType_themeData) {
-		if (nullptr == m_zipContent) {
+		if (null == m_zipContent) {
 			return false;
 		}
 		int32_t positionEnd = 0;
@@ -2198,7 +2198,7 @@ int64_t etk::FSNode::fileTell() {
 	#ifdef HAVE_ZIP_DATA
 	if(    m_type == etk::FSNType_data
 	    || m_type == etk::FSNType_themeData) {
-		if (nullptr == m_zipContent) {
+		if (null == m_zipContent) {
 			return false;
 		}
 		return m_zipReadingOffset;
@@ -2215,7 +2215,7 @@ void etk::FSNode::fileFlush() {
 		return;
 	}
 	#endif
-	if (m_PointerFile != nullptr) {
+	if (m_PointerFile != null) {
 		fflush(m_PointerFile);
 	}
 }

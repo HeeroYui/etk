@@ -72,15 +72,15 @@ TEST(typeTrait, IsBaseOf_4) {
 
 
 
-TEST(typeTrait, isSame_nullptr) {
+TEST(typeTrait, isSame_null) {
 	typedef etk::NullPtr type1;
 	auto ret = etk::IsSame<etk::NullPtr, type1>::value;
 	EXPECT_EQ(ret, true);
 }
 /*
-TEST(typeTrait, isSame_nullptr2) {
+TEST(typeTrait, isSame_null2) {
 	typedef etk::NullPtr type1;
-	auto ret = etk::IsSame<nullptr, type1>::value;
+	auto ret = etk::IsSame<null, type1>::value;
 	EXPECT_EQ(ret, true);
 }
 */
