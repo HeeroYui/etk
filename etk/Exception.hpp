@@ -14,9 +14,11 @@ namespace etk {
 	 */
 	class Exception {
 		private:
-			const char* m_type; //!< type of the exception
-			const etk::String m_what; //!< problem exception type
-			const char* m_function; //!< Function where the exception is generated
+			const char* m_type = null; //!< type of the exception
+			const etk::String m_what = "? ? ?"; //!< problem exception type
+			const char* m_function = null; //!< Function where the exception is generated
+			const char* m_file = null; //!< File where the excepton append
+			size_t m_line = 0; //!< Line of the exception
 		public:
 			/**
 			 * @brief Default constructor.
@@ -26,9 +28,11 @@ namespace etk {
 			 * @brief Generic Constructor.
 			 * @param[in] _type Type of the exception
 			 * @param[in] _what The explanation of the problem.
-			 * @param[in] _function Function name to find faster the source od the problem.
+			 * @param[in] _function Function name to find faster the source of the problem.
+			 * @param[in] _file File of the exception throw.
+			 * @param[in] _line Line of the file throw.
 			 */
-			Exception(const char* _type, const etk::String& _what, const char* _function = null);
+			Exception(const char* _type, const etk::String& _what);
 			/**
 			 * @brief virtualize destructor.
 			 */
@@ -44,16 +48,43 @@ namespace etk {
 			 */
 			const etk::String what() const;
 			/**
+			 * @brief Get the Name of the file where the exception is generated.
+			 * @return File string or null
+			 */
+			const char* file() const;
+			/**
+			 * @brief Set the file Name.
+			 * @param[in] _value File string or null
+			 */
+			etk::Exception& setFile(const char* _value);
+			/**
 			 * @brief Get the Name of the fuction where the exception is generated.
 			 * @return Function string or null
 			 */
-			const char* where() const;
+			const char* function() const;
+			/**
+			 * @brief Set the function Name.
+			 * @param[in] _value Function string or null
+			 */
+			etk::Exception& setFunction(const char* _value);
+			/**
+			 * @brief Line Index in the file where thre throw append
+			 * @return Line in the file
+			 */
+			size_t line() const;
+			/**
+			 * @brief Set the file line.
+			 * @param[in] _value File line.
+			 */
+			etk::Exception& setLine(size_t _value);
 			/**
 			 * @brief Convert the class in String.
 			 * @return generating desription of class
 			 */
 			etk::String toString() const;
 	};
+	#define ETK_THROW_EXCEPTION(ex) throw ex.setFunction(__PRETTY_FUNCTION__).setFile(__FILE__).setLine(__LINE__)
+	
 	//! @brief Generic 
 	namespace exception {
 		class InvalidArgument : public etk::Exception {
@@ -61,10 +92,9 @@ namespace etk {
 				/**
 				 * @brief Contructor of an generic Exception.
 				 * @param[in] _what The explanation of the problem.
-				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				InvalidArgument(const etk::String& _what, const char* _function = null):
-				  etk::Exception("INVALID-ARGUMENT", _what, _function) {
+				InvalidArgument(const etk::String& _what):
+				  etk::Exception("INVALID-ARGUMENT", _what) {
 					
 				}
 		};
@@ -73,10 +103,9 @@ namespace etk {
 				/**
 				 * @brief Contructor of an generic Exception.
 				 * @param[in] _what The explanation of the problem.
-				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				DomainError(const etk::String& _what, const char* _function = null):
-				  etk::Exception("DOMAIN-ERROR", _what, _function) {
+				DomainError(const etk::String& _what):
+				  etk::Exception("DOMAIN-ERROR", _what) {
 					
 				}
 		};
@@ -85,10 +114,9 @@ namespace etk {
 				/**
 				 * @brief Contructor of an generic Exception.
 				 * @param[in] _what The explanation of the problem.
-				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				LengthError(const etk::String& _what, const char* _function = null):
-				  etk::Exception("LENGTH-ERROR", _what, _function) {
+				LengthError(const etk::String& _what):
+				  etk::Exception("LENGTH-ERROR", _what) {
 					
 				}
 		};
@@ -97,10 +125,9 @@ namespace etk {
 				/**
 				 * @brief Contructor of an generic Exception.
 				 * @param[in] _what The explanation of the problem.
-				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				OutOfRange(const etk::String& _what, const char* _function = null):
-				  etk::Exception("OUT-OF-RANGE", _what, _function) {
+				OutOfRange(const etk::String& _what):
+				  etk::Exception("OUT-OF-RANGE", _what) {
 					
 				}
 		};
@@ -109,10 +136,9 @@ namespace etk {
 				/**
 				 * @brief Contructor of an generic Exception.
 				 * @param[in] _what The explanation of the problem.
-				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				RangeError(const etk::String& _what, const char* _function = null):
-				  etk::Exception("RANGE-ERROR", _what, _function) {
+				RangeError(const etk::String& _what):
+				  etk::Exception("RANGE-ERROR", _what) {
 					
 				}
 		};
@@ -121,10 +147,9 @@ namespace etk {
 				/**
 				 * @brief Contructor of an generic Exception.
 				 * @param[in] _what The explanation of the problem.
-				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				OverflowError(const etk::String& _what, const char* _function = null):
-				  etk::Exception("OVERFLOW-ERROR", _what, _function) {
+				OverflowError(const etk::String& _what):
+				  etk::Exception("OVERFLOW-ERROR", _what) {
 					
 				}
 		};
@@ -133,10 +158,9 @@ namespace etk {
 				/**
 				 * @brief Contructor of an generic Exception.
 				 * @param[in] _what The explanation of the problem.
-				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				UnderflowError(const etk::String& _what, const char* _function = null):
-				  etk::Exception("UNDERFLOW-ERROR", _what, _function) {
+				UnderflowError(const etk::String& _what):
+				  etk::Exception("UNDERFLOW-ERROR", _what) {
 					
 				}
 		};
@@ -145,10 +169,9 @@ namespace etk {
 				/**
 				 * @brief Contructor of an generic Exception.
 				 * @param[in] _what The explanation of the problem.
-				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				CastError(const etk::String& _what, const char* _function = null):
-				  etk::Exception("CAST-ERROR", _what, _function) {
+				CastError(const etk::String& _what):
+				  etk::Exception("CAST-ERROR", _what) {
 					
 				}
 		};
@@ -157,10 +180,9 @@ namespace etk {
 				/**
 				 * @brief Contructor of an generic Exception.
 				 * @param[in] _what The explanation of the problem.
-				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				AllocationError(const etk::String& _what, const char* _function = null):
-				  etk::Exception("ALLOCATION-ERROR", _what, _function) {
+				AllocationError(const etk::String& _what):
+				  etk::Exception("ALLOCATION-ERROR", _what) {
 					
 				}
 		};
@@ -169,10 +191,9 @@ namespace etk {
 				/**
 				 * @brief Contructor of an generic Exception.
 				 * @param[in] _what The explanation of the problem.
-				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				RuntimeError(const etk::String& _what, const char* _function = null):
-				  etk::Exception("RUNTIME-ERROR", _what, _function) {
+				RuntimeError(const etk::String& _what):
+				  etk::Exception("RUNTIME-ERROR", _what) {
 					
 				}
 		};
@@ -181,10 +202,9 @@ namespace etk {
 				/**
 				 * @brief Contructor of an generic Exception.
 				 * @param[in] _what The explanation of the problem.
-				 * @param[in] _function Function name to find faster the source od the problem.
 				 */
-				NullPointerError(const etk::String& _what, const char* _function = null):
-				  etk::Exception("NULL-POINTER-ERROR", _what, _function) {
+				NullPointerError(const etk::String& _what):
+				  etk::Exception("NULL-POINTER-ERROR", _what) {
 					
 				}
 		};

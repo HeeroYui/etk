@@ -793,9 +793,10 @@ namespace etk {
 	/**
 	 * @brief Read all the data from a file
 	 * @param[in] _path Folder/File/Pipe path of the node
+	 * @param[in] _offset Start offset in byte in the file
 	 * @return all the data of the file in a typed vector
 	 */
-	template<typename TTT> etk::Vector<TTT> FSNodeReadAllDataType(const etk::String& _path) {
+	template<typename TTT> etk::Vector<TTT> FSNodeReadAllDataType(const etk::String& _path, int32_t _offset=0) {
 		etk::Vector<TTT> out;
 		etk::FSNode node(_path);
 		if (node.fileOpenRead() == false) {
@@ -803,10 +804,12 @@ namespace etk {
 			return out;
 		}
 		uint64_t nbByte = node.fileSize();
+		nbByte -= _offset;
 		out.resize(nbByte/sizeof(TTT));
 		if (out.size()*sizeof(TTT) != nbByte) {
 			//TK_WARNING("Error in reading the file missing some byte at the end ...");
 		}
+		node.fileSeek(_offset, seekNode_start);
 		node.fileRead(&out[0], sizeof(TTT), nbByte/sizeof(TTT));
 		node.fileClose();
 		return out;

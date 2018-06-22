@@ -9,6 +9,7 @@
 #include <etk/Pair.hpp>
 #include <etk/Vector.hpp>
 #include <etk/Allocator.hpp>
+#include <etk/Exception.hpp>
 
 namespace etk {
 	/**
@@ -403,11 +404,9 @@ namespace etk {
 			 * @return Reference on the Element
 			 */
 			ETK_MAP_TYPE_DATA& get(const ETK_MAP_TYPE_KEY& _key) const {
-				static ETK_MAP_TYPE_DATA g_error;
 				int64_t elementId = getId(_key);
 				if (elementId<0) {
-					//TK_ERROR("try to access at an inexistent Map element : " << _key);
-					return g_error;
+					ETK_THROW_EXCEPTION(etk::exception::InvalidArgument("Can not find the key: " + etk::toString(_key)));
 				}
 				return m_data[elementId]->second;
 			}

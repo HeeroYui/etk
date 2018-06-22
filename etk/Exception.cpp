@@ -7,15 +7,13 @@
 #include <etk/String.hpp>
 
 etk::Exception::Exception():
-  m_type("UNKNOW"),
-  m_what("? ? ?"),
-  m_function(null) {
+  m_type("UNKNOW") {
 	
 }
-etk::Exception::Exception(const char* _type, const etk::String& _what, const char* _function):
+
+etk::Exception::Exception(const char* _type, const etk::String& _what):
   m_type(_type),
-  m_what(_what),
-  m_function(_function) {
+  m_what(_what) {
 	
 }
 
@@ -27,8 +25,31 @@ const etk::String etk::Exception::what() const {
 	return m_what;
 }
 
-const char* etk::Exception::where() const {
+const char* etk::Exception::file() const {
+	return m_file;
+}
+
+size_t etk::Exception::line() const {
+	return m_line;
+}
+
+const char* etk::Exception::function() const {
 	return m_function;
+}
+
+etk::Exception& etk::Exception::setFile(const char* _value) {
+	m_file = _value;
+	return *this;
+}
+
+etk::Exception& etk::Exception::setLine(size_t _value) {
+	m_line = _value;
+	return *this;
+}
+
+etk::Exception& etk::Exception::setFunction(const char* _value) {
+	m_function = _value;
+	return *this;
 }
 
 etk::String etk::Exception::toString() const {
@@ -37,8 +58,14 @@ etk::String etk::Exception::toString() const {
 	out += ":";
 	out += m_what;
 	if (m_function != null) {
-		out += " in ";
+		out += " on ";
 		out += m_function;
+	}
+	if (m_file != null) {
+		out += " in ";
+		out += m_file;
+		out += ":";
+		out += m_line;
 	}
 	out += "}";
 	return out;

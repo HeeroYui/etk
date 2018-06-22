@@ -156,7 +156,7 @@ namespace etk {
 				if (    m_pointerPrivate == null
 				     && m_local == false) {
 					ETK_FUNCTION_DEBUG("[%d=0X%lx] call Function (With null !!! ==> must assert ...)\n", m_pppppp, (uint64_t)this);
-					throw etk::exception::NullPointerError("etk::Function call empty pointer");
+					ETK_THROW_EXCEPTION(etk::exception::NullPointerError("etk::Function call empty pointer"));
 				}
 				ETK_FUNCTION_DEBUG("[%d=0X%lx] call Function \n", m_pppppp, (uint64_t)this);
 				if (m_local == true) {

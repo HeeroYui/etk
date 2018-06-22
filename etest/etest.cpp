@@ -12,6 +12,7 @@
 #include <echrono/Duration.hpp>
 #include <etk/os/FSNode.hpp>
 #include <etk/Allocator.hpp>
+//#include <etk/os/FSNode.hpp>
 
 static int32_t nbTimeInit = 0;
 
@@ -97,7 +98,7 @@ void etest::init(int32_t _argc, const char** _argv) {
 	}
 	nbTimeInit++;
 	elog::init(_argc, _argv);
-	etk::initDefaultFolder("ewolApplNoName");
+	//etk::initDefaultFolder("ewolApplNoName");
 	ETEST_INFO("ETEST system init (BEGIN) ");
 	for (int32_t iii=0; iii<_argc ; ++iii) {
 		etk::String data = _argv[iii];

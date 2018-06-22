@@ -260,7 +260,7 @@ namespace etk {
 			Array(const ETK_ARRAY_TYPE_2& ... _args) {
 				int32_t nbElement = int32_t(sizeof...(ETK_ARRAY_TYPE_2));
 				if (nbElement >= m_allocated) {
-					throw etk::exception::InvalidArgument("Size too big ...");
+					ETK_THROW_EXCEPTION(etk::exception::InvalidArgument("Size too big ..."));
 					return;
 				}
 				pushBackN(_args...);
@@ -442,7 +442,7 @@ namespace etk {
 			 */
 			void pushBack(ETK_ARRAY_TYPE&& _item) {
 				if (m_size == ETK_ARRAY_SIZE) {
-					throw etk::exception::OverflowError("try add to much data in array");
+					ETK_THROW_EXCEPTION(etk::exception::OverflowError("try add to much data in array"));
 				}
 				new ((char*)&m_data[m_size]) ETK_ARRAY_TYPE(etk::move(_item));
 				m_size += 1;
@@ -453,7 +453,7 @@ namespace etk {
 			 */
 			void pushBack(const ETK_ARRAY_TYPE& _item) {
 				if (m_size == ETK_ARRAY_SIZE) {
-					throw etk::exception::OverflowError("try add to much data in array");
+					ETK_THROW_EXCEPTION(etk::exception::OverflowError("try add to much data in array"));
 				}
 				new ((char*)&m_data[m_size]) ETK_ARRAY_TYPE(etk::move(_item));
 				m_size += 1;
@@ -468,7 +468,7 @@ namespace etk {
 					return;
 				}
 				if (m_size+_nbElement > ETK_ARRAY_SIZE) {
-					throw etk::exception::OverflowError("try add to much data in array");
+					ETK_THROW_EXCEPTION(etk::exception::OverflowError("try add to much data in array"));
 				}
 				for (size_t iii=0; iii<_nbElement; iii++) {
 					new ((char*)&m_data[m_size+iii]) ETK_ARRAY_TYPE(_item[iii]);
@@ -573,7 +573,7 @@ namespace etk {
 					return;
 				}
 				if (m_size+_nbElement > ETK_ARRAY_SIZE) {
-					throw etk::exception::OverflowError("try add to much data in array");
+					ETK_THROW_EXCEPTION(etk::exception::OverflowError("try add to much data in array"));
 				}
 				if (_pos + _nbElement > m_size) {
 					_nbElement = m_size - _pos;
@@ -687,7 +687,7 @@ namespace etk {
 			 */
 			void resize(size_t _newSize, const ETK_ARRAY_TYPE& _basicElement) {
 				if (_newSize > ETK_ARRAY_SIZE) {
-					throw etk::exception::OverflowError("try resize with larger size in array");
+					ETK_THROW_EXCEPTION(etk::exception::OverflowError("try resize with larger size in array"));
 				}
 				// Reallocate memory
 				if (_newSize > m_size) {
@@ -718,7 +718,7 @@ namespace etk {
 			void resize(size_t _newSize) {
 				ETK_ARRAY_DEBUG("Resize %zu => %zu\n", m_size, _newSize);
 				if (_newSize > ETK_ARRAY_SIZE) {
-					throw etk::exception::OverflowError("try resize with larger size in array");
+					ETK_THROW_EXCEPTION(etk::exception::OverflowError("try resize with larger size in array"));
 				}
 				// Reallocate memory
 				if (_newSize > m_size) {
