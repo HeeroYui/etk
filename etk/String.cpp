@@ -7,6 +7,7 @@
 #include <etk/String.hpp>
 #include <etk/UString.hpp>
 
+#include <etk/Exception.hpp>
 
 
 #if ETK_ENABLE_INTERNAL_DATA_IN_STRING > 0
@@ -1104,6 +1105,98 @@ namespace etk {
 	}
 	uint64_t string_to_uint64_t(const etk::String& _obj) {
 		return _obj.to<uint64_t>();
+	}
+	uint64_t hexaString_to_uint64_t(const etk::String& _obj) {
+		size_t iii = 0;
+		uint64_t out = 0;
+		bool invert = false;
+		etk::String tmp = _obj.toLower();
+		if (tmp.startWith("0x") == true) {
+			iii = 2;
+		} else if (tmp.startWith("-0x") == true) {
+			iii = 3;
+			invert = true;
+		} else if (tmp.startWith("+0x") == true) {
+			iii = 3;
+		}
+		for (; iii<tmp.size(); ++iii) {
+			out <<= 4;
+			if (    tmp[iii] >= '0'
+			     && tmp[iii] <= '9') {
+				out += uint64_t(tmp[iii]) - uint64_t('0');
+				continue;
+			}
+			if (    tmp[iii] >= 'a'
+			     && tmp[iii] <= 'f') {
+				out += uint64_t(tmp[iii]) - uint64_t('a') + 10;
+				continue;
+			}
+			ETK_THROW_EXCEPTION(etk::exception::InvalidArgument(" not an hexadecimal value: '" + _obj + "'"));
+		}
+		if (invert == true) {
+			int64_t tmp = *((int64_t*)&out);
+			tmp *= -1;
+			out = *((uint64_t*)&tmp);
+		}
+		return out;
+	}
+	uint64_t bitString_to_uint64_t(const etk::String& _obj) {
+		size_t iii = 0;
+		uint64_t out = 0;
+		bool invert = false;
+		etk::String tmp = _obj.toLower();
+		if (tmp.startWith("0b") == true) {
+			iii = 2;
+		} else if (tmp.startWith("-0b") == true) {
+			iii = 3;
+			invert = true;
+		} else if (tmp.startWith("+0b") == true) {
+			iii = 3;
+		}
+		for (; iii<tmp.size(); ++iii) {
+			out <<= 1;
+			if (    tmp[iii] == '0'
+			     || tmp[iii] == '1') {
+				out += uint64_t(tmp[iii]) - uint64_t('0');
+				continue;
+			}
+			ETK_THROW_EXCEPTION(etk::exception::InvalidArgument(" not an binary value: '" + _obj + "'"));
+		}
+		if (invert == true) {
+			int64_t tmp = *((int64_t*)&out);
+			tmp *= -1;
+			out = *((uint64_t*)&tmp);
+		}
+		return out;
+	}
+	uint64_t octalString_to_uint64_t(const etk::String& _obj) {
+		size_t iii = 0;
+		uint64_t out = 0;
+		bool invert = false;
+		etk::String tmp = _obj.toLower();
+		if (tmp.startWith("0o") == true) {
+			iii = 2;
+		} else if (tmp.startWith("-0o") == true) {
+			iii = 3;
+			invert = true;
+		} else if (tmp.startWith("+0o") == true) {
+			iii = 3;
+		}
+		for (; iii<tmp.size(); ++iii) {
+			out <<= 3;
+			if (    tmp[iii] >= '0'
+			     && tmp[iii] <= '7') {
+				out += uint64_t(tmp[iii]) - uint64_t('0');
+				continue;
+			}
+			ETK_THROW_EXCEPTION(etk::exception::InvalidArgument(" not an octal value: '" + _obj + "'"));
+		}
+		if (invert == true) {
+			int64_t tmp = *((int64_t*)&out);
+			tmp *= -1;
+			out = *((uint64_t*)&tmp);
+		}
+		return out;
 	}
 	bool string_to_bool(const etk::String& _obj) {
 		return _obj.to<bool>();

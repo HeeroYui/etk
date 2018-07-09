@@ -202,6 +202,23 @@ void etest::GenericTest::testResult(bool _result,
 	m_numberCheckFail++;
 }
 
+void etest::GenericTest::testCatchThrow(const etk::Exception& exeption, uint32_t _line) {
+	ETEST_ERROR("Detect an error: " << m_file << ":" << _line << ": Catch etk::Exception");
+	ETEST_ERROR("    What='" << exeption.what() << "'");
+	ETEST_ERROR("    file='" << exeption.file() << "'");
+	ETEST_ERROR("    Line=" << exeption.line());
+	ETEST_ERROR("    Function='" << exeption.function() << "'");
+	
+	m_haveError = true;
+	m_numberCheckFail++;
+}
+
+void etest::GenericTest::testCatchThrow(uint32_t _line) {
+	ETEST_ERROR("Detect an error: " << m_file << ":" << _line << ": Catch Unknow exception");
+	m_haveError = true;
+	m_numberCheckFail++;
+}
+
 void etest::GenericTest::clearLocal() {
 	m_haveError = false;
 	m_numberCheck = 0;
@@ -241,7 +258,15 @@ int32_t etest::runAllTest() {
 				it->clearLocal();
 				g_currentTest = it;
 				echrono::Steady ticTest = echrono::Steady::now();
-				it->run();
+				try {
+					it->addCheck();
+					it->run();
+				} catch ( etk::Exception e ) {
+					
+					it->testCatchThrow(e, __LINE__);
+				} catch ( ... ) {
+					it->testCatchThrow(__LINE__);
+				}
 				echrono::Steady tocTest = echrono::Steady::now();
 				g_currentTest = null;
 				if (it->getError() == true) {

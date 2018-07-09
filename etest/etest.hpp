@@ -138,6 +138,8 @@ namespace etest {
 			                const etk::String& _test2Value,
 			                const etk::String& _test2,
 			                uint32_t _line);
+			void testCatchThrow(const etk::Exception& exeption, uint32_t _line);
+			void testCatchThrow(uint32_t _line);
 			void clearLocal();
 			virtual void run() = 0;
 	};
@@ -172,81 +174,105 @@ namespace etest {
 
 #define EXPECT_EQ(element, result) \
 	do { \
-		etest::g_currentTest->addCheck(); \
-		ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_EQ(" << #element << ", " << #result << ");"); \
-		bool ETEST_VARIABLE_TMP_res = ((element) == (result)); \
-		if (etest::g_currentTest == null) { \
-			ETEST_CRITICAL("Not in a test"); \
-		} else { \
-			etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
-			                                 etest::exportResultToString(element), \
-			                                 #element, \
-			                                 etest::exportResultToString(result), \
-			                                 #result, \
-			                                 __LINE__); \
+		try { \
+			etest::g_currentTest->addCheck(); \
+			ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_EQ(" << #element << ", " << #result << ");"); \
+			bool ETEST_VARIABLE_TMP_res = ((element) == (result)); \
+			if (etest::g_currentTest == null) { \
+				ETEST_CRITICAL("Not in a test"); \
+			} else { \
+				etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
+				                                 etest::exportResultToString(element), \
+				                                 #element, \
+				                                 etest::exportResultToString(result), \
+				                                 #result, \
+				                                 __LINE__); \
+			} \
+			ETEST_DEBUG("    [ SUB-DONE ]"); \
+		} catch ( etk::Exception e ) { \
+			testCatchThrow(e, __LINE__); \
+		} catch ( ... ) {\
+			testCatchThrow(__LINE__); \
 		} \
-		ETEST_DEBUG("    [ SUB-DONE ]"); \
 	} while (false)
 
 #define EXPECT_NE(element, result) \
 	do { \
-		etest::g_currentTest->addCheck(); \
-		ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_NE(" << #element << ", " << #result << ");"); \
-		bool ETEST_VARIABLE_TMP_res = ((element) != (result)); \
-		if (etest::g_currentTest == null) { \
-			ETEST_CRITICAL("Not in a test"); \
-		} else { \
-			etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
-			                                 etest::exportResultToString(element), \
-			                                 #element, \
-			                                 etest::exportResultToString(result), \
-			                                 #result, \
-			                                 __LINE__); \
+		try { \
+			etest::g_currentTest->addCheck(); \
+			ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_NE(" << #element << ", " << #result << ");"); \
+			bool ETEST_VARIABLE_TMP_res = ((element) != (result)); \
+			if (etest::g_currentTest == null) { \
+				ETEST_CRITICAL("Not in a test"); \
+			} else { \
+				etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
+				                                 etest::exportResultToString(element), \
+				                                 #element, \
+				                                 etest::exportResultToString(result), \
+				                                 #result, \
+				                                 __LINE__); \
+			} \
+			ETEST_DEBUG("    [ SUB-DONE ]"); \
+		} catch ( etk::Exception e ) { \
+			testCatchThrow(e, __LINE__); \
+		} catch ( ... ) {\
+			testCatchThrow(__LINE__); \
 		} \
-		ETEST_DEBUG("    [ SUB-DONE ]"); \
 	} while (false)
 
 #define ASSERT_NE(element, result) \
 	do { \
-		etest::g_currentTest->addCheck(); \
-		ETEST_DEBUG("    [ SUB-RUN  ] ASSERT_NE(" << #element << ", " << #result << ");"); \
-		bool ETEST_VARIABLE_TMP_res = ((element) != (result)); \
-		if (etest::g_currentTest == null) { \
-			ETEST_CRITICAL("Not in a test"); \
-		} else { \
-			etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
-			                                 etest::exportResultToString(element), \
-			                                 #element, \
-			                                 etest::exportResultToString(result), \
-			                                 #result, \
-			                                 __LINE__); \
-		} \
-		ETEST_DEBUG("    [ SUB-DONE ]"); \
-		if (ETEST_VARIABLE_TMP_res == true) { \
-			return; \
+		try { \
+			etest::g_currentTest->addCheck(); \
+			ETEST_DEBUG("    [ SUB-RUN  ] ASSERT_NE(" << #element << ", " << #result << ");"); \
+			bool ETEST_VARIABLE_TMP_res = ((element) != (result)); \
+			if (etest::g_currentTest == null) { \
+				ETEST_CRITICAL("Not in a test"); \
+			} else { \
+				etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
+				                                 etest::exportResultToString(element), \
+				                                 #element, \
+				                                 etest::exportResultToString(result), \
+				                                 #result, \
+				                                 __LINE__); \
+			} \
+			ETEST_DEBUG("    [ SUB-DONE ]"); \
+			if (ETEST_VARIABLE_TMP_res == true) { \
+				return; \
+			} \
+		} catch ( etk::Exception e ) { \
+			testCatchThrow(e, __LINE__); \
+		} catch ( ... ) {\
+			testCatchThrow(__LINE__); \
 		} \
 	} while (false)
 
 #define EXPECT_FLOAT_EQ_DELTA(element, result, delta) \
 	do { \
-		etest::g_currentTest->addCheck(); \
-		ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_FLOAT_EQ(" << #element << ", " << #result << ");"); \
-		float ETEST_VARIABLE_TMP_res2 = (element) - (result); \
-		bool ETEST_VARIABLE_TMP_res = false; \
-		if (ETEST_VARIABLE_TMP_res2 < delta && ETEST_VARIABLE_TMP_res2 > -delta) { \
-			ETEST_VARIABLE_TMP_res = true; \
+		try { \
+			etest::g_currentTest->addCheck(); \
+			ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_FLOAT_EQ(" << #element << ", " << #result << ");"); \
+			float ETEST_VARIABLE_TMP_res2 = (element) - (result); \
+			bool ETEST_VARIABLE_TMP_res = false; \
+			if (ETEST_VARIABLE_TMP_res2 < delta && ETEST_VARIABLE_TMP_res2 > -delta) { \
+				ETEST_VARIABLE_TMP_res = true; \
+			} \
+			if (etest::g_currentTest == null) { \
+				ETEST_CRITICAL("Not in a test"); \
+			} else { \
+				etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
+				                                 etest::exportResultToString(element), \
+				                                 #element, \
+				                                 etest::exportResultToString(result), \
+				                                 #result, \
+				                                 __LINE__); \
+			} \
+			ETEST_DEBUG("    [ SUB-DONE ]"); \
+		} catch ( etk::Exception e ) { \
+			testCatchThrow(e, __LINE__); \
+		} catch ( ... ) {\
+			testCatchThrow(__LINE__); \
 		} \
-		if (etest::g_currentTest == null) { \
-			ETEST_CRITICAL("Not in a test"); \
-		} else { \
-			etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
-			                                 etest::exportResultToString(element), \
-			                                 #element, \
-			                                 etest::exportResultToString(result), \
-			                                 #result, \
-			                                 __LINE__); \
-		} \
-		ETEST_DEBUG("    [ SUB-DONE ]"); \
 	} while (false)
 
 #define EXPECT_FLOAT_EQ(element, result) \

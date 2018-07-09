@@ -568,6 +568,9 @@ namespace etk {
 	uint16_t string_to_uint16_t(const etk::String& _obj);
 	uint32_t string_to_uint32_t(const etk::String& _obj);
 	uint64_t string_to_uint64_t(const etk::String& _obj);
+	uint64_t hexaString_to_uint64_t(const etk::String& _obj);
+	uint64_t bitString_to_uint64_t(const etk::String& _obj);
+	uint64_t octalString_to_uint64_t(const etk::String& _obj);
 	bool string_to_bool(const etk::String& _obj);
 	etk::String toLower(etk::String _obj);
 	etk::String toUpper(etk::String _obj);
