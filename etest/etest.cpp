@@ -204,10 +204,11 @@ void etest::GenericTest::testResult(bool _result,
 
 void etest::GenericTest::testCatchThrow(const etk::Exception& exeption, uint32_t _line) {
 	ETEST_ERROR("Detect an error: " << m_file << ":" << _line << ": Catch etk::Exception");
-	ETEST_ERROR("    What='" << exeption.what() << "'");
+	ETEST_ERROR("    what='" << exeption.what() << "'");
+	ETEST_ERROR("    which='" << exeption.which() << "'");
 	ETEST_ERROR("    file='" << exeption.file() << "'");
-	ETEST_ERROR("    Line=" << exeption.line());
-	ETEST_ERROR("    Function='" << exeption.function() << "'");
+	ETEST_ERROR("    line=" << exeption.line());
+	ETEST_ERROR("    function='" << exeption.function() << "'");
 	
 	m_haveError = true;
 	m_numberCheckFail++;

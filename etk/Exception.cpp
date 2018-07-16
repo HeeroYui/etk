@@ -17,6 +17,12 @@ etk::Exception::Exception(const char* _type, const etk::String& _what):
 	
 }
 
+etk::Exception::Exception(const etk::String& _what):
+  m_type("ETK_EXCEPTION"),
+  m_what(_what) {
+	
+}
+
 const char* etk::Exception::which() const {
 	return m_type;
 }

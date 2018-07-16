@@ -278,3 +278,41 @@ namespace etest {
 #define EXPECT_FLOAT_EQ(element, result) \
 	EXPECT_FLOAT_EQ_DELTA(element, result, 0.00001f)
 
+
+#define EXPECT_THROW(element, typeThrow) \
+	do { \
+		try { \
+			etest::g_currentTest->addCheck(); \
+			ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_THROW(" << #element << ", " << #typeThrow << ");"); \
+			element; \
+			if (etest::g_currentTest == null) { \
+				ETEST_CRITICAL("Not in a test"); \
+			} else { \
+				etest::g_currentTest->testResult(false, \
+				                                 "", \
+				                                 #element, \
+				                                 "--- Not throw ---", \
+				                                 #typeThrow, \
+				                                 __LINE__); \
+			} \
+			ETEST_DEBUG("    [ SUB-DONE ]"); \
+		} catch ( typeThrow e ) { \
+			/*Normale Case ...*/ \
+			if (etest::g_currentTest == null) { \
+				ETEST_CRITICAL("Not in a test"); \
+			} else { \
+				etest::g_currentTest->testResult(true, \
+				                                 "", \
+				                                 #element, \
+				                                 "--- Have Throw ---", \
+				                                 #typeThrow, \
+				                                 __LINE__); \
+			} \
+			ETEST_DEBUG("    [ SUB-DONE ]"); \
+		} catch ( etk::Exception e ) { \
+			testCatchThrow(e, __LINE__); \
+		} catch ( ... ) {\
+			testCatchThrow(__LINE__); \
+		} \
+	} while (false)
+

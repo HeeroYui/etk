@@ -25,12 +25,14 @@ namespace etk {
 			 */
 			Exception();
 			/**
+			 * @brief Generic Constructor (direct generic exception.
+			 * @param[in] _what The explanation of the problem.
+			 */
+			Exception(const etk::String& _what);
+			/**
 			 * @brief Generic Constructor.
 			 * @param[in] _type Type of the exception
 			 * @param[in] _what The explanation of the problem.
-			 * @param[in] _function Function name to find faster the source of the problem.
-			 * @param[in] _file File of the exception throw.
-			 * @param[in] _line Line of the file throw.
 			 */
 			Exception(const char* _type, const etk::String& _what);
 			/**
@@ -83,7 +85,13 @@ namespace etk {
 			 */
 			etk::String toString() const;
 	};
-	#define ETK_THROW_EXCEPTION(ex) throw ex.setFunction(__PRETTY_FUNCTION__).setFile(__FILE__).setLine(__LINE__)
+	#define ETK_THROW_EXCEPTION(ex) do { \
+			auto tmp = ex; \
+			tmp.setFunction(__PRETTY_FUNCTION__); \
+			tmp.setFile(__FILE__); \
+			tmp.setLine(__LINE__); \
+			throw tmp; \
+		} while(false)
 	
 	//! @brief Generic 
 	namespace exception {
