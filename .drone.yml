@@ -1,0 +1,25 @@
+pipeline:
+  build-archlinux:
+    image: heeroyui/droneio-runner/archlinux:latest
+    group: build
+    commands:
+      - ls -l
+      - pwd
+      - uname -a
+      - pip install --user lutin
+      - pip install --user island
+      - export PATH=$PATH:~/.local/bin/
+      - lutin --help
+
+pipeline:
+  build-ubuntu:
+    image: heeroyui/droneio-runner/ubuntu:latest
+    group: build
+    commands:
+      - ls -l
+      - pwd
+      - uname -a
+      - pip install --user lutin
+      - pip install --user island
+      - export PATH=$PATH:/root/.local/bin/
+      - lutin -H
