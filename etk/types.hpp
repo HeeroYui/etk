@@ -21,6 +21,27 @@ extern "C" {
 		using size_t=uint64_t;
 	#endif
 #endif
+
+#define ETK_CONSTRUCTOR_COPY_DEFAULT(ETK_TYPE_CLASS) \
+	ETK_TYPE_CLASS(const ETK_TYPE_CLASS& ) = default; \
+	ETK_TYPE_CLASS& operator= (const ETK_TYPE_CLASS& ) = default
+
+#define ETK_CONSTRUCTOR_COPY_DELETE(ETK_TYPE_CLASS) \
+	ETK_TYPE_CLASS(const ETK_TYPE_CLASS& ) = delete; \
+	ETK_TYPE_CLASS& operator= (const ETK_TYPE_CLASS& ) = delete
+
+#define ETK_CONSTRUCTOR_MOVE_DEFAULT(ETK_TYPE_CLASS) \
+	ETK_TYPE_CLASS(ETK_TYPE_CLASS&& ) = default; \
+	ETK_TYPE_CLASS& operator= (ETK_TYPE_CLASS&& ) = default
+
+#define ETK_CONSTRUCTOR_MOVE_DELETE(ETK_TYPE_CLASS) \
+	ETK_TYPE_CLASS(ETK_TYPE_CLASS&& ) = delete; \
+	ETK_TYPE_CLASS& operator= (ETK_TYPE_CLASS&& ) = delete
+
+// DEfine 2 basic type that depend on the machine word size. uint_t is better than size_t because whe have the usigned dual.
+using int_t = int;
+using uint_t = unsigned int;
+
 #ifndef INT8_MIN
 	#define INT8_MIN  (-128)
 #endif
