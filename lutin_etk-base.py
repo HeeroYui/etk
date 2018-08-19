@@ -58,7 +58,7 @@ def configure(target, my_module):
 	    'etk/Function.hpp',
 	    'etk/NullPtr.hpp',
 	    'etk/typeInfo.hpp',
-	    'etk/Exception.hpp',
+	    'etk/Exception.hpp'
 	    ])
 	
 	# build in C++ mode

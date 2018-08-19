@@ -69,7 +69,10 @@ def configure(target, my_module):
 	    'etk/os/FSNode.hpp',
 	    'etk/os/FSNodeRight.hpp',
 	    'etk/archive/Archive.hpp',
-	    'etk/archive/Zip.hpp'])
+	    'etk/archive/Zip.hpp',
+	    'etk/TreeNode.hpp',
+	    'etk/FlatTree.hpp',
+	    ])
 	
 	# build in C++ mode
 	my_module.compile_version("c++", 2011)
