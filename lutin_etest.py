@@ -38,7 +38,7 @@ def configure(target, my_module):
 	    ])
 	
 	# build in C++ mode
-	my_module.compile_version("c++", 2011)
+	my_module.compile_version("c++", 2017)
 	# add dependency of the generic C++ library:
 	my_module.add_depend([
 	    'etk-base',
