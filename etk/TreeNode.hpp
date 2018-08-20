@@ -124,6 +124,13 @@ namespace etk {
 				}
 				return out;
 			}
+			size_t countToRoot() {
+				auto parent = m_parent.lock();
+				if (parent == null) {
+					return 0;
+				}
+				return parent->countToRoot() + 1;
+			}
 	};
 }
 

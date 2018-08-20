@@ -208,7 +208,7 @@ namespace etk {
 			};
 			#endif
 		private:
-			etk::Vector<const ememory::SharedPtr<etk::TreeNode<ETK_TREENODE_TYPE>>> m_data;
+			etk::Vector<ememory::SharedPtr<etk::TreeNode<ETK_TREENODE_TYPE>>> m_data;
 		public:
 			FlatTree() {
 				
@@ -216,6 +216,27 @@ namespace etk {
 			void setRoot(const ememory::SharedPtr<etk::TreeNode<ETK_TREENODE_TYPE>>& _root) {
 				m_data.clear();
 				append(_root);
+			}
+			size_t size() const {
+				return m_data.size();
+			}
+			auto begin() const {
+				return m_data.begin();
+			}
+			auto begin() {
+				return m_data.begin();
+			}
+			auto end() const {
+				return m_data.end();
+			}
+			auto end() {
+				return m_data.end();
+			}
+			auto operator[] (size_t _pos) {
+				return m_data[_pos];
+			}
+			auto operator[] (size_t _pos) const {
+				return m_data[_pos];
 			}
 		private:
 			void append(const ememory::SharedPtr<etk::TreeNode<ETK_TREENODE_TYPE>>& _node) {
