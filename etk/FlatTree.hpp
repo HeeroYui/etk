@@ -45,8 +45,8 @@ namespace etk {
 				append(_root);
 			}
 			void setRoot(const ememory::SharedPtr<etk::TreeNode<ETK_TREENODE_TYPE>>& _root,
-			             const etk::Function<void(ETK_TREENODE_TYPE*)>& _needAdd,
-			             const etk::Function<void(ETK_TREENODE_TYPE*)>& _needAddChild) {
+			             const etk::Function<bool(const ETK_TREENODE_TYPE&)>& _needAdd,
+			             const etk::Function<bool(const ETK_TREENODE_TYPE&)>& _needAddChild) {
 				m_data.clear();
 				append(_root, _needAdd, _needAddChild);
 			}
@@ -61,17 +61,17 @@ namespace etk {
 				}
 			}
 			void append(const ememory::SharedPtr<etk::TreeNode<ETK_TREENODE_TYPE>>& _node,
-			            const etk::Function<void(ETK_TREENODE_TYPE*)>& _needAdd,
-			            const etk::Function<void(ETK_TREENODE_TYPE*)>& _needAddChild) {
+			            const etk::Function<bool(const ETK_TREENODE_TYPE&)>& _needAdd,
+			            const etk::Function<bool(const ETK_TREENODE_TYPE&)>& _needAddChild) {
 				if (_node == null) {
 					return;
 				}
-				if (_needAdd(&_node->getData()) == true) {
+				if (_needAdd(_node->getData()) == true) {
 					m_data.pushBack(_node);
 				}
-				if (_needAddChild(&_node->getData()) == true) {
+				if (_needAddChild(_node->getData()) == true) {
 					for (auto& it:_node->getChilds()) {
-						append(it);
+						append(it, _needAdd, _needAddChild);
 					}
 				}
 			}
