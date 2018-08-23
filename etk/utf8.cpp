@@ -69,64 +69,59 @@ char32_t u32char::changeOrder(char32_t _val) {
 	return _val;
 }
 
-static uint32_t getUtf8Val(char32_t _val) {
-	uint32_t output = 0;
+int8_t u32char::convertUtf8(char32_t _val, char _output[7]) {
 	if (_val <= 127) {
-		output = _val;
-	} else if (_val <= 2047) {
-		// output ==> 00000000 00000000 110xxxxx 10xxxxxx
-		// input ==>  -------- -------- -----222 22111111
-		output = 0x0000C080;
-		output+= (_val & 0x000007C0)<<2;
-		output+=  _val & 0x0000003F;
-	} else if (_val <= 65535) {
-		// output ==> 00000000 1110xxxx 10xxxxxx 10xxxxxx
-		// input ==>  -------- -------- 33332222 22111111
-		output = 0x00E08080;
-		output+= (_val & 0x0000F000)<<4;
-		output+= (_val & 0x00000FC0)<<2;
-		output+=  _val & 0x0000003F;
-	} else if (_val <= 1114111) {
-		// output ==> 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
-		// input ==>  -------- ---44433 33332222 22111111
-		output = 0xF0808080;
-		output+= (_val & 0x001C0000)<<6;
-		output+= (_val & 0x0003F000)<<4;
-		output+= (_val & 0x00000FC0)<<2;
-		output+=  _val & 0x0000003F;
-	} else {
-		//TK_ERROR("NOT UTF8 character input...");
-		printf("not an utf8 char : %#08x\n", _val);
-		return 0;
-	}
-	//printf("utf-8 conversion : %d=%08x ==> %08x\n",value, value, output);
-	return output;
-}
-
-int8_t u32char::convertUtf8(char32_t _val, char _output[5]) {
-	uint32_t value = getUtf8Val(_val);
-	if (0xFF >= value) {
-		_output[0] = (char)value;
-		_output[1] = '\0';
+		// input  ==>                   -------- -------- -------- -1111111
+		// output ==> 00000000 00000000 00000000 00000000 00000000 0xxxxxxx
+		_output[0] = (char)_val;
+		_output[1] = 0;
 		return 1;
-	} else if (0xFFFF >= value) {
-		_output[0] = (char)((value>>8)  & 0x000000FF);
-		_output[1] = (char)value;
-		_output[2] = '\0';
+	} else if (_val <= 0x000007FF) {
+		// input  ==>                   -------- -------- -----222 22111111
+		// output ==> 00000000 00000000 00000000 00000000 110xxxxx 10xxxxxx
+		_output[0] = 0xC0 | ( (_val & 0x000007C0) >>  6 );
+		_output[1] = 0x80 | ( (_val & 0x0000003F)       );
+		_output[2] = 0;
 		return 2;
-	} else if (0xFFFFFF >= value) {
-		_output[0] = (char)((value>>16) & 0x000000FF);
-		_output[1] = (char)((value>>8)  & 0x000000FF);
-		_output[2] = (char)value;
-		_output[3] = '\0';
+	} else if (_val <= 0x0000FFFF) {
+		// input  ==>                   -------- -------- 33332222 22111111
+		// output ==> 00000000 00000000 00000000 1110xxxx 10xxxxxx 10xxxxxx
+		_output[0] = 0xE0 | ( (_val & 0x0000F000) >> 12 );
+		_output[1] = 0x80 | ( (_val & 0x00000FC0) >>  6 );
+		_output[2] = 0x80 | ( (_val & 0x0000003F)       );
+		_output[3] = 0;
 		return 3;
-	} else {
-		_output[0] = (char)((value>>24) & 0x000000FF);
-		_output[1] = (char)((value>>16) & 0x000000FF);
-		_output[2] = (char)((value>>8)  & 0x000000FF);
-		_output[3] = (char)value;
-		_output[4] = '\0';
+	} else if (_val <= 0x001FFFFF) {
+		// input  ==>                   -------- ---44433 33332222 22111111
+		// output ==> 00000000 00000000 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+		_output[0] = 0xF0 | ( (_val & 0x001C0000) >> 18 );
+		_output[1] = 0x80 | ( (_val & 0x0003F000) >> 12 );
+		_output[2] = 0x80 | ( (_val & 0x00000FC0) >>  6 );
+		_output[3] = 0x80 | ( (_val & 0x0000003F)       );
+		_output[4] = 0;
 		return 4;
+	// the next element is my personal interpretation...
+	} else if (_val <= 0x03FFFFFF) {
+		// input  ==>                   ------55 44444433 33332222 22111111
+		// output ==> 00000000 111110xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
+		_output[0] = 0xF8 | ( (_val & 0x03000000) >> 24 );
+		_output[1] = 0x80 | ( (_val & 0x00FC0000) >> 18 );
+		_output[2] = 0x80 | ( (_val & 0x0003F000) >> 12 );
+		_output[3] = 0x80 | ( (_val & 0x00000FC0) >>  6 );
+		_output[4] = 0x80 | ( (_val & 0x0000003F)       );
+		_output[5] = 0;
+		return 5;
+	} else {
+		// input  ==>                   66555555 44444433 33332222 22111111
+		// output ==> 111111xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
+		_output[0] = 0xFC | ( (_val & 0xC0000000) >> 30 );
+		_output[1] = 0x80 | ( (_val & 0x3F000000) >> 24 );
+		_output[2] = 0x80 | ( (_val & 0x00FC0000) >> 18 );
+		_output[3] = 0x80 | ( (_val & 0x0003F000) >> 12 );
+		_output[4] = 0x80 | ( (_val & 0x00000FC0) >>  6 );
+		_output[5] = 0x80 | ( (_val & 0x0000003F)       );
+		_output[6] = 0;
+		return 6;
 	}
 }
 
@@ -223,6 +218,21 @@ static uint8_t sizeElement(const char* _data, int32_t _lenMax) {
 	           && (_data[2] & 0xC0) == 0x80
 	           && (_data[3] & 0xC0) == 0x80) {
 		size = 4;
+	} else if(    _lenMax >= 5
+	           && (_data[0] & 0xFC) == 0xF8
+	           && (_data[1] & 0xC0) == 0x80
+	           && (_data[2] & 0xC0) == 0x80
+	           && (_data[3] & 0xC0) == 0x80
+	           && (_data[4] & 0xC0) == 0x80) {
+		size = 5;
+	} else if(    _lenMax >= 6
+	           && (_data[0] & 0xFC) == 0xFC
+	           && (_data[1] & 0xC0) == 0x80
+	           && (_data[2] & 0xC0) == 0x80
+	           && (_data[3] & 0xC0) == 0x80
+	           && (_data[4] & 0xC0) == 0x80
+	           && (_data[5] & 0xC0) == 0x80) {
+		size = 6;
 	}
 	return size;
 }
@@ -235,29 +245,55 @@ char32_t utf8::convertChar32(const char* _input) {
 	int32_t len = strlen(_input);
 	len = sizeElement(_input, len);
 	switch (len) {
-		default:
-			// case 0 : An error occurred...
-			value = _input[0];
-			return value;
 		case 1:
+			// input  ==> 00000000 00000000 00000000 00000000 00000000 0xxxxxxx
+			// output ==>                   -------- -------- -------- -1111111
 			value = (uint8_t)(_input[0]) & 0x7F;
 			return value;
 		case 2:
+			// input  ==> 00000000 00000000 00000000 00000000 110xxxxx 10xxxxxx
+			// output ==>                   -------- -------- -----222 22111111
 			value  = (((uint8_t)_input[0]) & 0x1F)<< 6;
-			value +=  ((uint8_t)_input[1]) & 0x3F;
+			value += (((uint8_t)_input[1]) & 0x3F);
 			return value;
 		case 3:
+			// input  ==> 00000000 00000000 00000000 1110xxxx 10xxxxxx 10xxxxxx
+			// output ==>                   -------- -------- 33332222 22111111
 			value  = (((uint8_t)_input[0]) & 0x0F)<< 12;
 			value += (((uint8_t)_input[1]) & 0x3F)<< 6;
-			value +=  ((uint8_t)_input[2]) & 0x3F;
+			value += (((uint8_t)_input[2]) & 0x3F);
 			return value;
 		case 4:
+			// input  ==> 00000000 00000000 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+			// output ==>                   -------- ---44433 33332222 22111111
 			value  = (((uint8_t)_input[0]) & 0x07)<< 18;
 			value += (((uint8_t)_input[1]) & 0x3F)<< 12;
 			value += (((uint8_t)_input[2]) & 0x3F)<< 6;
-			value +=  ((uint8_t)_input[3]) & 0x3F;
+			value += (((uint8_t)_input[3]) & 0x3F);
+			return value;
+		case 5:
+			// input  ==> 00000000 111110xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
+			// output ==>                   ------55 44444433 33332222 22111111
+			value  = (((uint8_t)_input[0]) & 0x03)<< 24;
+			value += (((uint8_t)_input[1]) & 0x3F)<< 18;
+			value += (((uint8_t)_input[2]) & 0x3F)<< 12;
+			value += (((uint8_t)_input[3]) & 0x3F)<< 6;
+			value += (((uint8_t)_input[4]) & 0x3F);
+			return value;
+		case 6:
+			// input  ==> 111111xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
+			// output ==>                   66555555 44444433 33332222 22111111
+			value  = (((uint8_t)_input[0]) & 0x03)<< 30;
+			value += (((uint8_t)_input[1]) & 0x3F)<< 24;
+			value += (((uint8_t)_input[2]) & 0x3F)<< 18;
+			value += (((uint8_t)_input[3]) & 0x3F)<< 12;
+			value += (((uint8_t)_input[4]) & 0x3F)<< 6;
+			value += (((uint8_t)_input[5]) & 0x3F);
 			return value;
 	}
+	// An error occurred...
+	value = _input[0];
+	return value;
 }
 
 int8_t utf8::length(const char _input) {
@@ -272,6 +308,12 @@ int8_t utf8::length(const char _input) {
 	}
 	if((_input&0xF8) == 0xF0) {
 		return 4;
+	}
+	if((_input&0xFC) == 0xF8) {
+		return 5;
+	}
+	if((_input&0xFC) == 0xFC) {
+		return 5;
 	}
 	return 1;
 }
@@ -298,44 +340,9 @@ etk::UString utf8::convertUnicode(const char* _input) {
 	int64_t inputLen = strlen(_input);
 	while (pos < inputLen) {
 		int32_t lenMax = inputLen - pos;
-		//4 case
-		if (    1<=lenMax
-		     && 0x00 == (_input[pos+0] & 0x80) ) {
-			tmpData[0] = _input[pos+0];
-			tmpData[1] = '\0';
-			pos += 1;
-		} else if (    2<=lenMax
-		            && 0xC0 == (_input[pos+0] & 0xE0)
-		            && 0x80 == (_input[pos+1] & 0xC0) ) {
-			tmpData[0] = _input[pos+0];
-			tmpData[1] = _input[pos+1];
-			tmpData[2] = '\0';
-			pos += 2;
-		} else if (    3<=lenMax
-		            && 0xE0 == (_input[pos+0] & 0xF0)
-		            && 0x80 == (_input[pos+1] & 0xC0)
-		            && 0x80 == (_input[pos+2] & 0xC0)) {
-			tmpData[0] = _input[pos+0];
-			tmpData[1] = _input[pos+1];
-			tmpData[2] = _input[pos+2];
-			tmpData[3] = '\0';
-			pos += 3;
-		} else if (    4<=lenMax
-		            && 0xF0 == (_input[pos+0] & 0xF8)
-		            && 0x80 == (_input[pos+1] & 0xC0)
-		            && 0x80 == (_input[pos+2] & 0xC0)
-		            && 0x80 == (_input[pos+3] & 0xC0)) {
-			tmpData[0] = _input[pos+0];
-			tmpData[1] = _input[pos+1];
-			tmpData[2] = _input[pos+2];
-			tmpData[3] = _input[pos+3];
-			tmpData[4] = '\0';
-			pos += 4;
-		} else {
-			tmpData[0] = '\0';
-			pos += 1;
-		}
-		out += utf8::convertChar32(tmpData);
+		uint8_t tmpPos = sizeElement(&_input[pos], lenMax);
+		out += utf8::convertChar32(&_input[pos]);
+		pos += tmpPos;
 	}
 	return out;
 }

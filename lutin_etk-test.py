@@ -47,6 +47,7 @@ def configure(target, my_module):
 	    'test/testString.cpp',
 	    'test/testTrait.cpp',
 	    'test/testThrow.cpp',
+	    'test/testUTF8.cpp',
 	    ])
 	my_module.add_depend([
 	    'etk',

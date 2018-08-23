@@ -65,7 +65,7 @@ namespace u32char {
 	 * @param[out] _output Char data converted
 	 * @return Number of char in utf8
 	 */
-	int8_t convertUtf8(char32_t _val, char _output[5]);
+	int8_t convertUtf8(char32_t _val, char _output[7]);
 	etk::String convertToUtf8(const etk::UString& _input);
 	char32_t toUpper(char32_t _input);
 	char32_t toLower(char32_t _input);
