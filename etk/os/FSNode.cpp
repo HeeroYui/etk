@@ -36,7 +36,7 @@ extern "C" {
 #endif
 
 #define TK_DBG_MODE TK_VERBOSE
-//#define TK_DBG_MODE TK_DEBUG
+//#define TK_DBG_MODE TK_WARNING
 
 ETK_DECLARE_TYPE(etk::FSNode);
 
@@ -317,7 +317,7 @@ etk::String etk::FSNodeGetApplicationPath() {
 }
 
 etk::String etk::FSNodeGetHomePath() {
-	return baseFolderHome;
+	return etk::getUserHomeFolder();
 }
 
 #ifdef HAVE_ZIP_DATA
@@ -503,22 +503,33 @@ etk::String getApplicationPath() {
 	return binaryName;
 }
 
+static bool initHomeFolder() {
+	static bool isInit = false;
+	if (isInit == false) {
+		TK_DBG_MODE("Real Ini Home folder:");
+		char * basicPath = getenv("HOME");
+		if (basicPath == null) {
+			TK_WARNING("ERROR while trying to get the path of the home folder");
+			#if defined(__TARGET_OS__Windows)
+				baseFolderHome = "c:/";
+			#elif defined(__TARGET_OS__Android)
+				baseFolderHome = "/sdcard";
+			#else
+				baseFolderHome = "~";
+			#endif
+		} else {
+			baseFolderHome = basicPath;
+		}
+		TK_DBG_MODE("    home=:" << baseFolderHome);
+		isInit = true;
+	}
+	return isInit;
+}
+
 void etk::initDefaultFolder(const char* _applName) {
 	baseApplName = _applName;
 	char cCurrentPath[FILENAME_MAX];
-	char * basicPath = getenv("HOME");
-	if (null == basicPath) {
-		TK_WARNING("ERROR while trying to get the path of the home folder");
-		#if defined(__TARGET_OS__Windows)
-			baseFolderHome = "c:/";
-		#elif defined(__TARGET_OS__Android)
-			baseFolderHome = "/sdcard";
-		#else
-			baseFolderHome = "~";
-		#endif
-	} else {
-		baseFolderHome = basicPath;
-	}
+	initHomeFolder();
 	if (!getcwd(cCurrentPath, FILENAME_MAX)) {
 		baseRunPath = ".";
 		baseRunPathInHome = ".";
@@ -662,6 +673,7 @@ void etk::initDefaultFolder(const char* _applName) {
 }
 
 etk::String etk::getUserHomeFolder() {
+	initHomeFolder();
 	return baseFolderHome;
 }
 
@@ -1085,7 +1097,12 @@ void etk::FSNode::generateFileSystemPath() {
 		     && m_systemFileName[m_systemFileName.size()-1] != '/') {
 			m_systemFileName += '/';
 		}
-		m_systemFileName += m_userFileName;
+		if (    m_userFileName.size()>0
+		     && m_userFileName[0] == '/') {
+			m_systemFileName += &m_userFileName[1];
+		} else {
+			m_systemFileName += m_userFileName;
+		}
 	}
 }
 
