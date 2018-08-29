@@ -291,6 +291,9 @@ namespace etk {
 			 * @return the name of the node (like myFile.kkk)
 			 */
 			etk::String getNameFile() const;
+			etk::String getFileName() const {
+				return getNameFile();
+			}
 			/**
 			 * @brief Get the current folder of the Node.
 			 * @return the common name define (like DATA:xxxxx/xxxxx/)
