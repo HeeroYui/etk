@@ -38,6 +38,7 @@ extern "C" {
 	ETK_TYPE_CLASS(ETK_TYPE_CLASS&& ) = delete; \
 	ETK_TYPE_CLASS& operator= (ETK_TYPE_CLASS&& ) = delete
 
+
 // DEfine 2 basic type that depend on the machine word size. uint_t is better than size_t because whe have the usigned dual.
 using int_t = int;
 using uint_t = unsigned int;
