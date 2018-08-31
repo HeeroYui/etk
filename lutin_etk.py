@@ -34,6 +34,11 @@ def configure(target, my_module):
 	    'etk/Noise.cpp',
 	    'etk/Color.cpp',
 	    'etk/RegEx.cpp',
+	    'etk/fileSystem/fileSystem.cpp',
+	    'etk/fileSystem/Path.cpp',
+	    'etk/fileSystem/Permissions.cpp',
+	    'etk/fileSystem/Type.cpp',
+	    'etk/theme/theme.cpp',
 	    'etk/math/Matrix2x2.cpp',
 	    'etk/math/Matrix2x3.cpp',
 	    'etk/math/Matrix3x3.cpp',
@@ -46,7 +51,8 @@ def configure(target, my_module):
 	    'etk/os/FSNode.cpp',
 	    'etk/os/FSNodeRight.cpp',
 	    'etk/archive/Archive.cpp',
-	    'etk/archive/Zip.cpp'])
+	    'etk/archive/Zip.cpp',
+	    ])
 	
 	my_module.add_header_file([
 	    'etk/etk.hpp',
@@ -56,6 +62,11 @@ def configure(target, my_module):
 	    'etk/Noise.hpp',
 	    'etk/Color.hpp',
 	    'etk/RegEx.hpp',
+	    'etk/fileSystem/fileSystem.hpp',
+	    'etk/fileSystem/Path.hpp',
+	    'etk/fileSystem/Permissions.hpp',
+	    'etk/fileSystem/Type.hpp',
+	    'etk/theme/theme.hpp',
 	    'etk/math/Matrix2x2.hpp',
 	    'etk/math/Matrix2x3.hpp',
 	    'etk/math/Matrix3x3.hpp',

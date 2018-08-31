@@ -12,6 +12,7 @@
 #include <etk/os/FSNode.hpp>
 #include <etk/typeInfo.hpp>
 #include <etk/Allocator.hpp>
+#include <etk/theme/theme.hpp>
 
 static int32_t nbTimeInit = 0;
 
@@ -27,6 +28,7 @@ void etk::unInit() {
 		nbTimeInit = 0;
 		return;
 	}
+	etk::theme::uninit();
 	TK_INFO("ETK system un-init (BEGIN)");
 	ETK_MEM_SHOW_LOG();
 	TK_INFO("ETK system un-init (END)");
@@ -51,7 +53,7 @@ void etk::init(int _argc, const char** _argv) {
 			etk::setArgZero(_argv[0]);
 		}
 	#endif
-	
+	etk::theme::init();
 	for (int32_t iii=0; iii<_argc ; ++iii) {
 		etk::String data = _argv[iii];
 		if (    data == "-h"

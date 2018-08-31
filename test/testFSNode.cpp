@@ -9,7 +9,6 @@
 #include <etest/etest.hpp>
 #include <test-debug/debug.hpp>
 #include <etk/os/FSNode.hpp>
-#define NAME "FSNode"
 
 TEST(TestEtkFSNode, checkHomePath) {
 	etk::String homePath = etk::FSNodeGetHomePath();

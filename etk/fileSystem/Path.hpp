@@ -30,6 +30,32 @@ namespace etk {
 			 */
 			Path(const etk::String& _value);
 			/**
+			 * @brief Contructor with basic path.
+			 * @param[in] _type type of path
+			 * @param[in] _value offset in the path
+			 */
+			Path(fileSystem::Type _type, const etk::String& _value);
+			/**
+			 * @brief Get the absolute path
+			 * @return string like /home/userXXX/aaa/bbb/*** or /c/userXXX/aaa/bbb/***
+			 */
+			etk::String get() const;
+			/**
+			 * @brief Get the relative path.
+			 * @return string like ../../aaa/bbb/***
+			 */
+			etk::String getRelative() const;
+			/**
+			 * @brief Get the Decorated path.
+			 * @return string like DATA:aaa/bbb/***
+			 */
+			etk::String getDecorated() const;
+			/**
+			 * @brief Get the absolute path
+			 * @return string like /home/userXXX/aaa/bbb/*** or c:\userXXX\aaa\bbb\***
+			 */
+			etk::String getNative() const;
+			/**
 			 * @brief Check if the 2 Path are identical.
 			 * @param[in] _obj Path to compare.
 			 * @return true : same path, false otherwise.

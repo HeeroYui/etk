@@ -10,7 +10,14 @@
 
 namespace etk {
 	namespace theme {
-		// TODO : Add an INIT ...
+		/**
+		 * @brief initialize the theme system
+		 */
+		void init();
+		/**
+		 * @brief un-initialize the theme system
+		 */
+		void unInit();
 		/**
 		 * @brief Set the Folder of a subset of a theme ...
 		 * @param[in] _refName Theme cathegorie ex : "GUI" "SHADER" "DEFAULT" 

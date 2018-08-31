@@ -9,7 +9,12 @@
 #include <etk/stdTools.hpp>
 #include <etk/typeInfo.hpp>
 
-// Right Flags :
+
+#include <etk/typeInfo.hpp>
+ETK_DECLARE_TYPE(etk::filesystem::Permissions);
+
+
+// Right Flags:
 enum {
 	right_other_execute = 1 << 0,
 	right_other_write   = 1 << 1,
@@ -24,9 +29,13 @@ enum {
 
 ETK_DECLARE_TYPE(etk::filesystem::Permissions);
 
-etk::filesystem::Permissions::FSNodeRight(int16_t _newRight) :
+etk::filesystem::Permissions::Permissions(uint16_t _newRight) :
  m_rights(_newRight&0x01FF) {
 	
+}
+
+uint16_t etk::filesystem::Permissions::getRight() const {
+	return m_rights;
 }
 
 etk::filesystem::Permissions& etk::filesystem::Permissions::operator= (const etk::filesystem::Permissions &_obj ) {
@@ -34,7 +43,7 @@ etk::filesystem::Permissions& etk::filesystem::Permissions::operator= (const etk
 	return *this;
 }
 
-etk::filesystem::Permissions& etk::filesystem::Permissions::operator= (const int32_t _newVal) {
+etk::filesystem::Permissions& etk::filesystem::Permissions::operator= (const uint32_t _newVal) {
 	m_rights = _newVal&0x01FF;
 	return *this;
 }

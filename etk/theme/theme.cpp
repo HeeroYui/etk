@@ -16,6 +16,15 @@ static etk::Map<etk::String, etk::String>& getThemeDefault() {
 	return g_listThemeDefault;
 }
 
+void etk::theme::init() {
+	
+}
+
+void etk::theme::unInit() {
+	getTheme().clear();
+	getThemeDefault().clear();
+}
+
 void etk::theme::setName(const etk::String& _refName, const etk::String& _folderName) {
 	TK_WARNING("Change theme : '" << _refName << "' : '" << _folderName << "'");
 	getTheme().set(_refName, _folderName);

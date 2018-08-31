@@ -22,7 +22,12 @@ namespace etk {
 			 * @brief Right contructor.
 			 * @param[in] _newRight Right to set by default
 			 */
-			Permissions(int16_t _newRight = 0);
+			Permissions(uint16_t _newRight = 0);
+			/**
+			 * @brief Get Raw right
+			 * @return the internal value.
+			 */
+			uint16_t getRight() const;
 			/**
 			 * @brief Copy asignement operator (operator=)
 			 * @param[in] _obj Object to copy
@@ -34,7 +39,7 @@ namespace etk {
 			 * @param[in] _newVal Value to set on the right
 			 * @return Local reference on the object
 			 */
-			etk::filesystem::Permissions& operator= (const int32_t _newVal );
+			etk::filesystem::Permissions& operator= (const uint32_t _newVal );
 			/**
 			 * @brief Clear right (set the value at 0 ==> cant not be read/write/execute
 			 */
