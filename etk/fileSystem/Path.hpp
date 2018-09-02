@@ -39,7 +39,7 @@ namespace etk {
 			 * @brief Get the absolute path
 			 * @return string like /home/userXXX/aaa/bbb/*** or /c/userXXX/aaa/bbb/***
 			 */
-			etk::String get() const;
+			etk::String getString() const;
 			/**
 			 * @brief Get the relative path.
 			 * @return string like ../../aaa/bbb/***

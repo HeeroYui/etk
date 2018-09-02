@@ -63,13 +63,16 @@ namespace etk {
 		 * @param[in] _path Path to remove.
 		 */
 		void removeFile(const etk::Path& _path);
-		
 		/**
 		 * @brief Check if the path exist
 		 * @param[in] _path1 Path source.
 		 * @param[in] _path2 Path destination.
 		 */
 		bool exit(const etk::Path& _path);
+		/**
+		 * @brief Get the File size
+		 * @return the requested size
+		 */
 		uint64_t fileSize(const etk::Path& _path);
 		
 		bool isDirectory(const etk::Path& _path);

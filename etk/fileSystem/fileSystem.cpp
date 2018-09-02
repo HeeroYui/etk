@@ -145,38 +145,12 @@ etk::String etk::fileSystem::getSystemString(const etk::Path& _path) {
 	return _path.getNative();
 }
 
-
 etk::String etk::fileSystem::getMimeType(const etk::Path& _path) {
 	
 }
 
-
 etk::Path etk::fileSystem::getTemporaryPath() {
 	
-}
-
-
-static bool initHomeFolder() {
-	static bool isInit = false;
-	if (isInit == false) {
-		TK_DBG_MODE("Real Ini Home folder:");
-		char * basicPath = getenv("HOME");
-		if (basicPath == null) {
-			TK_WARNING("ERROR while trying to get the path of the home folder");
-			#if defined(__TARGET_OS__Windows)
-				baseFolderHome = "c:/";
-			#elif defined(__TARGET_OS__Android)
-				baseFolderHome = "/sdcard";
-			#else
-				baseFolderHome = "~";
-			#endif
-		} else {
-			baseFolderHome = basicPath;
-		}
-		TK_DBG_MODE("    home=:" << baseFolderHome);
-		isInit = true;
-	}
-	return isInit;
 }
 
 etk::String etk::fileSystem::getHomePathString() {
@@ -200,8 +174,9 @@ etk::String etk::fileSystem::getHomePathString() {
 	}
 	return data;
 }
+
 etk::Path etk::fileSystem::getHomePath() {
-	return etk::Path(etk::fileSystem::Type::Home, "");
+	return etk::Path(etk::fileSystem::getHomePathString());
 }
 
 etk::Path etk::fileSystem::getExecutionPath() {

@@ -165,7 +165,7 @@ etk::Path::Path(fileSystem::Type _type, const etk::String& _value) {
 	
 }
 
-etk::String etk::Path::get() const {
+etk::String etk::Path::getString() const {
 	
 }
 
