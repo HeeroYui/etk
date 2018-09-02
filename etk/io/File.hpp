@@ -7,6 +7,7 @@
 
 #include <etk/types.hpp>
 #include <etk/io/Interface.hpp>
+#include <etk/io/File.hpp>
 
 namespace etk {
 	namespace io {
@@ -20,19 +21,16 @@ namespace etk {
 			public:
 				File();
 				File(const etk::Path& _path);
+				~File();
 				ETK_CONSTRUCTOR_COPY_DELETE(File);
 				ETK_CONSTRUCTOR_MOVE_DEFAULT(File);
 			public:
-				bool open() override;
+				bool open(etk::io::OpenMode _mode) override;
 				bool isOpen() override;
 				bool close() override;
 				uint64_t size() override;
-				char* gets(char* _elementLine, int64_t _maxData) override;
-				char get() override;
-				bool gets(etk::String& _output) override;
-				bool put(char _input) override;
-				bool puts(const etk::String& _input) override;
 				bool seek(uint64_t _offset, enum etk::io::SeekMode _origin) override;
+				int64_t tell() override;
 				void flush() override;
 				int64_t read(void* _data, int64_t _blockSize, int64_t _nbBlock) override;
 				int64_t write(const void* _data, int64_t _blockSize, int64_t _nbBlock) override;

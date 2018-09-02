@@ -11,10 +11,19 @@
 etk::io::File::File() {
 	// nothing to do.
 }
+
 etk::io::File::File(const etk::Path& _path):
   m_path(_path) {
 	
 }
+
+etk::io::File::File() {
+	if (m_pointer != null) {
+		TK_ERROR("Missing to close the file : \"" << *this << "\"");
+		close();
+	}
+}
+
 bool etk::io::File::open(etk::io::OpenMode _mode) {
 	if (m_pointer != null) {
 		TK_CRITICAL("File Already open : " << *this);
@@ -57,46 +66,6 @@ uint64_t etk::io::File::size() {
 	return etk::fileSystem::fileSize(m_path);
 }
 
-char* etk::io::File::gets(char* _elementLine, int64_t _maxData) {
-	return fgets(_elementLine, _maxData, m_pointer);
-}
-
-char etk::io::File::get() {
-	char data='\0';
-	if (read(&data, 1, 1)!=1) {
-		return '\0';
-	}
-	return data;
-}
-
-bool etk::io::File::gets(etk::String& _output) {
-	_output.clear();
-	char tmp = get();
-	while (    tmp != '\0'
-	        && tmp != '\n') {
-		_output += tmp;
-		tmp = get();
-	}
-	if (tmp == '\0') {
-		return false;
-	}
-	return true;
-}
-
-bool etk::io::File::put(char _input) {
-	if (fileWrite(&_input, 1, 1) == 1) {
-		return true;
-	}
-	return false;
-}
-
-bool etk::io::File::puts(const etk::String& _input) {
-	if (fileWrite((void*)_input.c_str(), 1, _input.size()) == (int64_t)_input.size()) {
-		return true;
-	}
-	return false;
-}
-
 bool etk::io::File::seek(uint64_t _offset, enum etk::io::SeekMode _origin) {
 	int originFS = 0;
 	switch(_origin) {
@@ -123,10 +92,11 @@ void etk::io::File::flush() {
 	}
 }
 
-void etk::io::File::tell() {
+int64_t etk::io::File::tell() {
 	if (m_pointer != null) {
-		ftell(m_pointer);
+		return ftell(m_pointer);
 	}
+	return 0;
 }
 
 int64_t etk::io::File::read(void* _data, int64_t _blockSize, int64_t _nbBlock) {

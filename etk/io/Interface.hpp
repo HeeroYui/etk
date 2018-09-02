@@ -16,6 +16,7 @@ namespace etk {
 		 */
 		class Interface {
 			public:
+				virtual ~Interface();
 				/**
 				 * @brief Open the file in Read mode
 				 * @param[in] _mode Mode to open the IO
@@ -41,38 +42,31 @@ namespace etk {
 				 */
 				virtual uint64_t size() = 0;
 				/**
-				 * @brief Get the pointer on the start line and the next line (or null)
-				 * @param[in,out] _elementLine Pointer to an array of chars where the string read is copied.
-				 * @param[in] _maxData Maximum number of characters to be copied into str (including the terminating null-character).
-				 * @return the pointer on the end of the cuurent line.
-				 */
-				virtual char* gets(char* _elementLine, int64_t _maxData) = 0;
-				/**
 				 * @brief Get a unique data in the file
 				 * @return the next element in the file.
 				 */
-				virtual char get() = 0;
+				virtual char get();
 				/**
 				 * @brief Get a compleate line in a text file
 				 * @param[out] _output the next element in the file.
 				 * @return true The file is not ended.
 				 * @return false The file is ended.
 				 */
-				virtual bool gets(etk::String& _output) = 0;
+				virtual bool gets(etk::String& _output);
 				/**
 				 * @brief Write data on the file
 				 * @param[in] _input data to write.
 				 * @return true Write done corectly.
 				 * @return false ErrorOn write.
 				 */
-				virtual bool put(char _input) = 0;
+				virtual bool put(char _input);
 				/**
 				 * @brief Write data on the file
 				 * @param[in] _input data to write.
 				 * @return true Write done corectly.
 				 * @return false ErrorOn write.
 				 */
-				virtual bool puts(const etk::String& _input) = 0;
+				virtual bool puts(const etk::String& _input);
 				/**
 				 * @brief Move in the file Position
 				 * @param[in] _offset Offset to apply at the file

@@ -5,6 +5,7 @@
  */
 
 #include <etk/types.hpp>
+#include <etk/Stream.hpp>
 
 #pragma once
 

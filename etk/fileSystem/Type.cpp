@@ -4,7 +4,7 @@
  * @license MPL v2.0 (see license file)
  */
 #include <etk/types.hpp>
-#include <etk/filesystem/Type.hpp>
+#include <etk/fileSystem/Type.hpp>
 
 etk::Stream& etk::operator <<(etk::Stream &_os, const enum etk::fileSystem::Type &_obj) {
 	switch (_obj) {

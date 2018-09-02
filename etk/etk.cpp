@@ -28,7 +28,7 @@ void etk::unInit() {
 		nbTimeInit = 0;
 		return;
 	}
-	etk::theme::uninit();
+	etk::theme::unInit();
 	TK_INFO("ETK system un-init (BEGIN)");
 	ETK_MEM_SHOW_LOG();
 	TK_INFO("ETK system un-init (END)");

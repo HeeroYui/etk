@@ -8,10 +8,11 @@
 #include <etk/os/FSNodeRight.hpp>
 #include <etk/stdTools.hpp>
 #include <etk/typeInfo.hpp>
+#include <etk/fileSystem/Permissions.hpp>
 
 
 #include <etk/typeInfo.hpp>
-ETK_DECLARE_TYPE(etk::filesystem::Permissions);
+ETK_DECLARE_TYPE(etk::fileSystem::Permissions);
 
 
 // Right Flags:
@@ -27,44 +28,42 @@ enum {
 	right_user_read     = 1 << 8,
 };
 
-ETK_DECLARE_TYPE(etk::filesystem::Permissions);
-
-etk::filesystem::Permissions::Permissions(uint16_t _newRight) :
+etk::fileSystem::Permissions::Permissions(uint16_t _newRight) :
  m_rights(_newRight&0x01FF) {
 	
 }
 
-uint16_t etk::filesystem::Permissions::getRight() const {
+uint16_t etk::fileSystem::Permissions::getRightValue() const {
 	return m_rights;
 }
 
-etk::filesystem::Permissions& etk::filesystem::Permissions::operator= (const etk::filesystem::Permissions &_obj ) {
+etk::fileSystem::Permissions& etk::fileSystem::Permissions::operator= (const etk::fileSystem::Permissions &_obj ) {
 	m_rights = _obj.m_rights;
 	return *this;
 }
 
-etk::filesystem::Permissions& etk::filesystem::Permissions::operator= (const uint32_t _newVal) {
+etk::fileSystem::Permissions& etk::fileSystem::Permissions::operator= (const uint32_t _newVal) {
 	m_rights = _newVal&0x01FF;
 	return *this;
 }
 
-void etk::filesystem::Permissions::clear() {
+void etk::fileSystem::Permissions::clear() {
 	m_rights = 0;
 }
 
-bool etk::filesystem::Permissions::isUserReadable() const {
+bool etk::fileSystem::Permissions::isUserReadable() const {
 	return ((m_rights&right_user_read)!=0)?true:false;
 }
 
-bool etk::filesystem::Permissions::isUserWritable() const {
+bool etk::fileSystem::Permissions::isUserWritable() const {
 	return ((m_rights&right_user_write)!=0)?true:false;
 }
 
-bool etk::filesystem::Permissions::isUserRunable() const {
+bool etk::fileSystem::Permissions::isUserRunable() const {
 	return ((m_rights&right_user_execute)!=0)?true:false;
 }
 
-void etk::filesystem::Permissions::setUserReadable(bool _newStatus) {
+void etk::fileSystem::Permissions::setUserReadable(bool _newStatus) {
 	// reset the flag :
 	m_rights &= (0xFFFFFFFF - right_user_read);
 	if (_newStatus == true) {
@@ -72,7 +71,7 @@ void etk::filesystem::Permissions::setUserReadable(bool _newStatus) {
 	}
 }
 
-void etk::filesystem::Permissions::setUserWritable(bool _newStatus) {
+void etk::fileSystem::Permissions::setUserWritable(bool _newStatus) {
 	// reset the flag :
 	m_rights &= (0xFFFFFFFF - right_user_write);
 	if (_newStatus == true) {
@@ -80,7 +79,7 @@ void etk::filesystem::Permissions::setUserWritable(bool _newStatus) {
 	}
 }
 
-void etk::filesystem::Permissions::setUserRunable(bool _newStatus) {
+void etk::fileSystem::Permissions::setUserRunable(bool _newStatus) {
 	// reset the flag :
 	m_rights &= (0xFFFFFFFF - right_user_execute);
 	if (_newStatus == true) {
@@ -88,19 +87,19 @@ void etk::filesystem::Permissions::setUserRunable(bool _newStatus) {
 	}
 }
 
-bool etk::filesystem::Permissions::isGroupReadable() const {
+bool etk::fileSystem::Permissions::isGroupReadable() const {
 	return ((m_rights&right_group_read)!=0)?true:false;
 }
 
-bool etk::filesystem::Permissions::isGroupWritable() const {
+bool etk::fileSystem::Permissions::isGroupWritable() const {
 	return ((m_rights&right_group_write)!=0)?true:false;
 }
 
-bool etk::filesystem::Permissions::isGroupRunable() const {
+bool etk::fileSystem::Permissions::isGroupRunable() const {
 	return ((m_rights&right_group_execute)!=0)?true:false;
 }
 
-void etk::filesystem::Permissions::setGroupReadable(bool _newStatus) {
+void etk::fileSystem::Permissions::setGroupReadable(bool _newStatus) {
 	// reset the flag :
 	m_rights &= (0xFFFFFFFF - right_group_read);
 	if (true == _newStatus) {
@@ -108,7 +107,7 @@ void etk::filesystem::Permissions::setGroupReadable(bool _newStatus) {
 	}
 }
 
-void etk::filesystem::Permissions::setGroupWritable(bool _newStatus) {
+void etk::fileSystem::Permissions::setGroupWritable(bool _newStatus) {
 	// reset the flag :
 	m_rights &= (0xFFFFFFFF - right_group_write);
 	if (true == _newStatus) {
@@ -116,7 +115,7 @@ void etk::filesystem::Permissions::setGroupWritable(bool _newStatus) {
 	}
 }
 
-void etk::filesystem::Permissions::setGroupRunable(bool _newStatus) {
+void etk::fileSystem::Permissions::setGroupRunable(bool _newStatus) {
 	// reset the flag :
 	m_rights &= (0xFFFFFFFF - right_group_execute);
 	if (true == _newStatus) {
@@ -124,19 +123,19 @@ void etk::filesystem::Permissions::setGroupRunable(bool _newStatus) {
 	}
 }
 
-bool etk::filesystem::Permissions::isOtherReadable() const {
+bool etk::fileSystem::Permissions::isOtherReadable() const {
 	return ((m_rights&right_other_read) != 0)?true:false;
 }
 
-bool etk::filesystem::Permissions::isOtherWritable() const {
+bool etk::fileSystem::Permissions::isOtherWritable() const {
 	return ((m_rights&right_other_write) != 0)?true:false;
 }
 
-bool etk::filesystem::Permissions::isOtherRunable() const {
+bool etk::fileSystem::Permissions::isOtherRunable() const {
 	return ((m_rights&right_other_execute) != 0)?true:false;
 }
 
-void etk::filesystem::Permissions::setOtherReadable(bool _newStatus) {
+void etk::fileSystem::Permissions::setOtherReadable(bool _newStatus) {
 	// reset the flag:
 	m_rights &= (0xFFFFFFFF - right_other_read);
 	if (_newStatus == true) {
@@ -144,7 +143,7 @@ void etk::filesystem::Permissions::setOtherReadable(bool _newStatus) {
 	}
 }
 
-void etk::filesystem::Permissions::setOtherWritable(bool _newStatus) {
+void etk::fileSystem::Permissions::setOtherWritable(bool _newStatus) {
 	// reset the flag :
 	m_rights &= (0xFFFFFFFF - right_other_write);
 	if (_newStatus == true) {
@@ -152,7 +151,7 @@ void etk::filesystem::Permissions::setOtherWritable(bool _newStatus) {
 	}
 }
 
-void etk::filesystem::Permissions::setOtherRunable(bool _newStatus) {
+void etk::fileSystem::Permissions::setOtherRunable(bool _newStatus) {
 	// reset the flag :
 	m_rights &= (0xFFFFFFFF - right_other_execute);
 	if (_newStatus == true) {
@@ -160,7 +159,7 @@ void etk::filesystem::Permissions::setOtherRunable(bool _newStatus) {
 	}
 }
 
-etk::String etk::filesystem::Permissions::getRight() const {
+etk::String etk::fileSystem::Permissions::getRight() const {
 	etk::String tmp;
 	if (isUserReadable() == true) {
 		tmp += "r";
@@ -211,7 +210,7 @@ etk::String etk::filesystem::Permissions::getRight() const {
 }
 
 
-etk::Stream& etk::operator <<(etk::Stream &_os, const etk::filesystem::Permissions &_obj) {
+etk::Stream& etk::operator <<(etk::Stream &_os, const etk::fileSystem::Permissions &_obj) {
 	_os << _obj.getRight();
 	return _os;
 };

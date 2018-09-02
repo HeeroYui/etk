@@ -3,10 +3,12 @@
  * @copyright 2018, Edouard DUPIN, all right reserved
  * @license MPL v2.0 (see license file)
  */
+#pragma once
 
 #include <etk/types.hpp>
 
-#pragma once
+#include <etk/fileSystem/Path.hpp>
+#include <etk/fileSystem/Permissions.hpp>
 
 namespace etk {
 	namespace fileSystem {
@@ -14,61 +16,86 @@ namespace etk {
 		 * @brief Copy a path to an other (if possible...)
 		 * @param[in] _path1 Path source.
 		 * @param[in] _path2 Path destination.
+		 * @return true Operation succeed.
+		 * @return false Operation Failed.
 		 */
-		void copy(const etk::Path& _path1, const etk::Path& _path2);
+		bool copy(const etk::Path& _path1, const etk::Path& _path2);
 		/**
 		 * @brief Copy a FOLDER path to an other (if possible...)
 		 * @param[in] _path1 Path source.
 		 * @param[in] _path2 Path destination.
+		 * @return true Operation succeed.
+		 * @return false Operation Failed.
 		 */
-		void copyDirectory(const etk::Path& _path1, const etk::Path& _path2, bool _recursive = true);
+		bool copyDirectory(const etk::Path& _path1, const etk::Path& _path2, bool _recursive = true);
 		/**
 		 * @brief Copy a FILE path to an other (if possible...)
 		 * @param[in] _path1 Path source.
 		 * @param[in] _path2 Path destination.
+		 * @return true Operation succeed.
+		 * @return false Operation Failed.
 		 */
-		void copyFile(const etk::Path& _path1, const etk::Path& _path2);
+		bool copyFile(const etk::Path& _path1, const etk::Path& _path2);
 		
 		/**
 		 * @brief Move a path to an other (if possible...)
 		 * @param[in] _path1 Path source.
 		 * @param[in] _path2 Path destination.
+		 * @return true Operation succeed.
+		 * @return false Operation Failed.
 		 */
-		void move(const etk::Path& _path1, const etk::Path& _path2);
+		bool move(const etk::Path& _path1, const etk::Path& _path2);
 		/**
 		 * @brief Move a FOLDER path to an other (if possible...)
 		 * @param[in] _path1 Path source.
 		 * @param[in] _path2 Path destination.
+		 * @return true Operation succeed.
+		 * @return false Operation Failed.
 		 */
-		void moveDirectory(const etk::Path& _path1, const etk::Path& _path2);
+		bool moveDirectory(const etk::Path& _path1, const etk::Path& _path2);
 		/**
 		 * @brief Move a FILE path to an other (if possible...)
 		 * @param[in] _path1 Path source.
 		 * @param[in] _path2 Path destination.
+		 * @return true Operation succeed.
+		 * @return false Operation Failed.
 		 */
-		void moveFile(const etk::Path& _path1, const etk::Path& _path2);
+		bool moveFile(const etk::Path& _path1, const etk::Path& _path2);
 		
 		/**
 		 * @brief Remove a path (if possible...)
 		 * @param[in] _path Path to remove.
+		 * @return true Operation succeed.
+		 * @return false Operation Failed.
 		 */
-		void remove(const etk::Path& _path);
+		bool remove(const etk::Path& _path);
 		/**
 		 * @brief Remove a FOLDER path (if possible...)
 		 * @param[in] _path Path to remove.
+		 * @return true Operation succeed.
+		 * @return false Operation Failed.
 		 */
-		void removeDirectory(const etk::Path& _path);
+		bool removeDirectory(const etk::Path& _path);
 		/**
 		 * @brief Remove a FILE path (if possible...)
 		 * @param[in] _path Path to remove.
+		 * @return true Operation succeed.
+		 * @return false Operation Failed.
 		 */
-		void removeFile(const etk::Path& _path);
+		bool removeFile(const etk::Path& _path);
+		/**
+		 * @brief update the Time of the file with the current time
+		 * @param[in] _path Path to touch.
+		 * @return true : action done
+		 * @return false : action not done
+		 */
+		bool touch(const etk::Path& _path);
 		/**
 		 * @brief Check if the path exist
 		 * @param[in] _path1 Path source.
 		 * @param[in] _path2 Path destination.
 		 */
-		bool exit(const etk::Path& _path);
+		bool exist(const etk::Path& _path);
 		/**
 		 * @brief Get the File size
 		 * @return the requested size
@@ -79,7 +106,7 @@ namespace etk {
 		bool isFile(const etk::Path& _path);
 		bool isSymLink(const etk::Path& _path);
 		
-		etk::filesystem::Permissions getPermission(const etk::Path& _path);
+		etk::fileSystem::Permissions getPermission(const etk::Path& _path);
 		
 		etk::String getRelativeString(const etk::Path& _path);
 		etk::String getDecoratedString(const etk::Path& _path);
