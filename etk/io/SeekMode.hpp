@@ -12,7 +12,7 @@ namespace etk {
 		/**
 		 * @brief Seek mode availlable (just to wrap it ...)
 		 */
-		enum class SeekNode {
+		enum class SeekMode {
 			Start, //!< request seek position start at the START of the file
 			End, //!< request seek position start at the END of the file
 			Current, //!< request seek position start at the CURRENT position in the file

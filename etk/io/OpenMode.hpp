@@ -18,6 +18,6 @@ namespace etk {
 			Append, //!< request File open in append
 		};
 		//! @not_in_doc
-		etk::Stream& operator <<(etk::Stream &_os, const enum etk::OpenMode &_obj);
+		etk::Stream& operator <<(etk::Stream &_os, const enum etk::io::OpenMode &_obj);
 	}
 }

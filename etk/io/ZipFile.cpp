@@ -3,11 +3,9 @@
  * @copyright 2011, Edouard DUPIN, all right reserved
  * @license MPL-2 (see license file)
  */
-#pragma once
-
 #include <etk/types.hpp>
-#include <etk/io/Interface.hpp>
 #include <etk/io/ZipFile.hpp>
+#include <etk/debug.hpp>
 
 etk::io::ZipFile::ZipFile(ememory::SharedPtr<etk::Archive> _archive):
   m_archive(_archive) {

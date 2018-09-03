@@ -112,26 +112,40 @@ static etk::String simplifyPath(etk::String _input) {
 	return _input;
 }
 
+static etk::String convertToWindows(etk::String _path) {
+	_path.replace("/", "\\");
+	if (    _path.size() > 3
+	     && _path[0] == '/'
+	     && _path[2] == '/') {
+		_path[0] = _path[1];
+		_path[0] = ':';
+	}
+	return _path;
+}
 
+static etk::String convertToUnix(etk::String _path) {
+	_path.replace("\\", "/");
+	if (    _path.size() > 3
+	     && _path[1] == ':'
+	     && _path[2] == '/') {
+		#ifndef __TARGET_OS__Windows
+			TK_WARNING("Path name have a windows form: '" << _path << "' c:/ but not a windwos platform");
+		#endif
+		if (    _path[0] >= 'A'
+		     && _path[0] <= 'Z') {
+			_path[1] = _path[0] + 'a' - 'A';
+		} else {
+			_path[1] = _path[0];
+		}
+		_path[0] = '/';
+	}
+	return _path;
+}
 static etk::String parsePath(etk::String _path) {
 	etk::String out = _path;
 	TK_DBG_MODE("1 : Set Name :              '" << out << "'");
 	// Replace all time to prevent Windows user error when port on Unix
-	out.replace("\\", "/");
-	if (    out.size() > 3
-	     && out[1] == ':'
-	     && out[2] == '/') {
-		#ifndef __TARGET_OS__Windows
-			TK_WARNING("Path name have a windows form: '" << _path << "' c:/ but not a windwos platform");
-		#endif
-		if (    out[0] >= 'A'
-		     && out[0] <= 'Z') {
-			out[1] = out[0] + 'a' - 'A';
-		} else {
-			out[1] = out[0];
-		}
-		out[0] = '/';
-	}
+	out = convertToUnix(out);
 	out = simplifyPath(out);
 	TK_DBG_MODE("3 : parse done :            '" << _path << "' ==>\"" << out << "\"");
 	return out;
@@ -147,20 +161,9 @@ etk::String etk::Path::getString() const {
 }
 
 etk::String etk::Path::getStringWindows() const {
-	etk::String out = m_data;
-	out.replace("/", "\\");
-	if (    out.size() > 3
-	     && out[0] == '/'
-	     && out[2] == '/') {
-		out[0] = out[1];
-		out[0] = ':';
-	}
+	etk::String out = getString();
+	out = convertToWindows(out);
 	return out;
-}
-
-etk::String etk::Path::getRelative() const {
-	// TODO : plouf ...
-	return "todo";
 }
 
 etk::String etk::Path::getNative() const {
@@ -168,6 +171,50 @@ etk::String etk::Path::getNative() const {
 		return getStringWindows();
 	#else
 		return getString();
+	#endif
+}
+
+etk::String etk::Path::getRelative() const {
+	if (isRelative() == true) {
+		return m_data;
+	}
+	// TODO : plouf ...
+	return "todo";
+}
+
+etk::String etk::Path::getRelativeWindows() const {
+	etk::String out = getRelative();
+	out = convertToWindows(out);
+	return out;
+}
+
+etk::String etk::Path::getRelativeNative() const {
+	#ifdef __TARGET_OS__Windows
+		return getRelativeWindows();
+	#else
+		return getRelative();
+	#endif
+}
+
+etk::String etk::Path::getAbsolute() const {
+	if (isAbsolute() == true) {
+		return m_data;
+	}
+	// TODO : plouf ...
+	return "todo";
+}
+
+etk::String etk::Path::getAbsoluteWindows() const {
+	etk::String out = getAbsolute();
+	out = convertToWindows(out);
+	return out;
+}
+
+etk::String etk::Path::getAbsoluteNative() const {
+	#ifdef __TARGET_OS__Windows
+		return getAbsoluteWindows();
+	#else
+		return getAbsolute();
 	#endif
 }
 
@@ -215,7 +262,7 @@ bool etk::Path::operator!= (const etk::Path &_obj) const {
 
 etk::Path etk::Path::operator/ (const etk::String & _element) const {
 	etk::Path tmp = *this;
-	tmp /= _element;
+	tmp /= etk::Path(_element);
 	return tmp;
 }
 
@@ -226,14 +273,7 @@ etk::Path etk::Path::operator/ (const etk::Path & _path) const {
 }
 
 etk::Path& etk::Path::operator/= (const etk::String & _element) {
-	if (_element.size() == 0) {
-		return *this;
-	}
-	if (_element[0] == '/') {
-		ETK_THROW_EXCEPTION(etk::exception::InvalidArgument("add path that is absolute"));
-	}
-	m_data += '/' + _element;
-	m_data = simplifyPath(m_data);
+	*this /= etk::Path(_element);
 	return *this;
 }
 
@@ -251,15 +291,26 @@ etk::Path& etk::Path::operator/= (const etk::Path & _path) {
 
 etk::Path etk::Path::operator+ (const etk::String & _element) const {
 	etk::Path tmp = *this;
+	tmp += etk::Path(_element);
+	return tmp;
+}
+
+etk::Path etk::Path::operator+ (const etk::Path & _element) const {
+	etk::Path tmp = *this;
 	tmp += _element;
 	return tmp;
 }
 
 etk::Path& etk::Path::operator+= (const etk::String & _element) {
-	if (_element.size() == 0) {
+	*this += etk::Path(_element);
+	return *this;
+}
+
+etk::Path& etk::Path::operator+= (const etk::Path & _element) {
+	if (_element.m_data.size() == 0) {
 		return *this;
 	}
-	m_data += _element;
+	m_data += _element.m_data;
 	m_data = simplifyPath(m_data);
 	return *this;
 }

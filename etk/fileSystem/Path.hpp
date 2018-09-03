@@ -30,25 +30,59 @@ namespace etk {
 			 */
 			Path(const etk::String& _value);
 			/**
-			 * @brief Get the absolute path
-			 * @return string like /home/userXXX/aaa/bbb/### or /c/userXXX/aaa/bbb/###
+			 * @brief Get the set path (by the user)
+			 *     - /home/userXXX/aaa/bbb/###
+			 *     - /c/userXXX/aaa/bbb/###
+			 *     - aaa/bbb/###
 			 */
 			etk::String getString() const;
 			/**
-			 * @brief Get the absolute path
-			 * @return string like /home/userXXX/aaa/bbb/### or /c/userXXX/aaa/bbb/###
+			 * @brief Get the set path (by the user) with a windows view
+			 * @return string like:
+			 *     - \home\userXXX\aaa\bbb\###
+			 *     - c:\userXXX\aaa\bbb\###
+			 *     - aaa\bbb\###
 			 */
 			etk::String getStringWindows() const;
+			/**
+			 * @brief Get the set path (by the user) with the local machine preference view
+			 * @return string like:
+			 *     - /home/userXXX/aaa/bbb/###
+			 *     - c:\userXXX\aaa\bbb\###
+			 *     - aaa/bbb/###
+			 *     - aaa\bbb\###
+			 */
+			etk::String getNative() const;
 			/**
 			 * @brief Get the relative path.
 			 * @return string like ../../aaa/bbb/###
 			 */
 			etk::String getRelative() const;
 			/**
-			 * @brief Get the absolute path
+			 * @brief Get the relative path.
+			 * @return string like ..\..\aaa\bbb\###
+			 */
+			etk::String getRelativeWindows() const;
+			/**
+			 * @brief Get the absolute path (depend on the system)
+			 * @return string like ../../aaa/bbb/### or ..\..\aaa\bbb\###
+			 */
+			etk::String getRelativeNative() const;
+			/**
+			 * @brief Get the Absolute path.
+			 * @return string like /home/userXXX/aaa/bbb/### or /c/userXXX/aaa/bbb/###
+			 */
+			etk::String getAbsolute() const;
+			/**
+			 * @brief Get the Absolute path.
+			 * @return string like \home\userXXX\aaa\bbb\### or c:\userXXX\aaa\bbb\###
+			 */
+			etk::String getAbsoluteWindows() const;
+			/**
+			 * @brief Get the absolute path (depend on the system)
 			 * @return string like /home/userXXX/aaa/bbb/### or c:\userXXX\aaa\bbb\###
 			 */
-			etk::String getNative() const;
+			etk::String getAbsoluteNative() const;
 			/**
 			 * @brief Check if the path is relative or not.
 			 * @return true The path is relative.

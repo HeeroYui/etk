@@ -17,6 +17,12 @@ extern "C" {
 	#include <sys/stat.h>
 	#include <errno.h>
 }
+#include <unistd.h>
+#include <stdlib.h>
+
+#include <etk/io/File.hpp>
+#include <etk/io/SeekMode.hpp>
+
 namespace etk {
 	static int32_t mkdir(const char* _path, mode_t _mode) {
 		struct stat st;
@@ -111,7 +117,7 @@ bool etk::fileSystem::remove(const etk::Path& _path) {
 }
 
 bool etk::fileSystem::removeDirectory(const etk::Path& _path) {
-	if( 0 != ::rmdir(_path1.getString().c_str()) ) {
+	if( 0 != ::rmdir(_path.getString().c_str()) ) {
 		if (ENOTEMPTY == errno) {
 			TK_ERROR("The Directory is not empty...");
 		}
@@ -121,7 +127,7 @@ bool etk::fileSystem::removeDirectory(const etk::Path& _path) {
 }
 
 bool etk::fileSystem::removeFile(const etk::Path& _path) {
-	if (0 != unlink(_path1.getString().c_str()) ) {
+	if (0 != unlink(_path.getString().c_str()) ) {
 		return false;
 	}
 	return true;
@@ -140,7 +146,7 @@ bool etk::fileSystem::touch(const etk::Path& _path) {
 bool etk::fileSystem::exist(const etk::Path& _path) {
 	struct stat st;
 	int32_t status = 0;
-	if (stat(_path.get().c_str(), &st) != 0) {
+	if (stat(_path.getString().c_str(), &st) != 0) {
 		return false;
 	}
 	return true;
@@ -150,7 +156,7 @@ uint64_t etk::fileSystem::fileSize(const etk::Path& _path) {
 	// Note : this is a proper methode to get the file size for Big files ... otherwithe the size is limited at 2^31 bytes
 	// tmpStat Buffer :
 	struct stat statProperty;
-	if (stat(_path.get().c_str(), &statProperty) == -1) {
+	if (stat(_path.getString().c_str(), &statProperty) == -1) {
 		//Normal case when the file does not exist ... ==> the it was in unknow mode ...
 		return 0;
 	}
@@ -165,7 +171,7 @@ uint64_t etk::fileSystem::fileSize(const etk::Path& _path) {
 bool etk::fileSystem::isDirectory(const etk::Path& _path) {
 	struct stat st;
 	int32_t status = 0;
-	if (stat(_path.get().c_str(), &st) != 0) {
+	if (stat(_path.getString().c_str(), &st) != 0) {
 		return false;
 	} else if (!S_ISDIR(st.st_mode)) {
 		return false;
@@ -176,7 +182,7 @@ bool etk::fileSystem::isDirectory(const etk::Path& _path) {
 bool etk::fileSystem::isFile(const etk::Path& _path) {
 	struct stat st;
 	int32_t status = 0;
-	if (stat(_path.get().c_str(), &st) != 0) {
+	if (stat(_path.getString().c_str(), &st) != 0) {
 		return false;
 	} else if (!S_ISREG(st.st_mode)) {
 		return false;
@@ -187,7 +193,7 @@ bool etk::fileSystem::isFile(const etk::Path& _path) {
 bool etk::fileSystem::isSymLink(const etk::Path& _path) {
 	struct stat st;
 	int32_t status = 0;
-	if (stat(_path.get().c_str(), &st) != 0) {
+	if (stat(_path.getString().c_str(), &st) != 0) {
 		return false;
 	} else if (!S_ISLNK(st.st_mode)) {
 		return false;
@@ -200,7 +206,7 @@ etk::fileSystem::Permissions etk::fileSystem::getPermission(const etk::Path& _pa
 	etk::fileSystem::Permissions permissions;
 	// tmpStat Buffer :
 	struct stat statProperty;
-	if (-1 == stat(m_systemFileName.c_str(), &statProperty)) {
+	if (-1 == stat(_path.getString().c_str(), &statProperty)) {
 		//Normal case when the file does not exist ... ==> the it was in unknow mode ...
 		return permissions;
 	}
@@ -213,12 +219,8 @@ etk::String etk::fileSystem::getRelativeString(const etk::Path& _path) {
 	return _path.getRelative();
 }
 
-etk::String etk::fileSystem::getDecoratedString(const etk::Path& _path) {
-	return _path.getDecorated();
-}
-
 etk::String etk::fileSystem::getAbsoluteString(const etk::Path& _path) {
-	return _path.get();
+	return _path.getAbsolute();
 }
 
 etk::String etk::fileSystem::getSystemString(const etk::Path& _path) {
@@ -226,11 +228,11 @@ etk::String etk::fileSystem::getSystemString(const etk::Path& _path) {
 }
 
 etk::String etk::fileSystem::getMimeType(const etk::Path& _path) {
-	
+	return "*";
 }
 
 etk::Path etk::fileSystem::getTemporaryPath() {
-	
+	return etk::Path{};
 }
 
 etk::String etk::fileSystem::getHomePathString() {

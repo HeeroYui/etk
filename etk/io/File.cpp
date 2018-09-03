@@ -3,10 +3,9 @@
  * @copyright 2011, Edouard DUPIN, all right reserved
  * @license MPL-2 (see license file)
  */
-#pragma once
-
 #include <etk/types.hpp>
-#include <etk/io/Interface.hpp>
+#include <etk/io/File.hpp>
+#include <etk/debug.hpp>
 
 etk::io::File::File() {
 	// nothing to do.
