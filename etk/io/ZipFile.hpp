@@ -7,6 +7,9 @@
 
 #include <etk/types.hpp>
 #include <etk/io/Interface.hpp>
+#include <etk/fileSystem/Path.hpp>
+#include <ememory/SharedPtr.hpp>
+#include <etk/archive/Archive.hpp>
 
 namespace etk {
 	namespace io {
@@ -22,14 +25,13 @@ namespace etk {
 			public:
 				ZipFile(ememory::SharedPtr<etk::Archive> _archive);
 				ZipFile(const etk::Path& _path, ememory::SharedPtr<etk::Archive> _archive);
-				ETK_CONSTRUCTOR_COPY_DELETE(File);
-				ETK_CONSTRUCTOR_MOVE_DEFAULT(File);
+				ETK_CONSTRUCTOR_COPY_DELETE(ZipFile);
+				ETK_CONSTRUCTOR_MOVE_DEFAULT(ZipFile);
 			public:
 				bool open(etk::io::OpenMode _mode) override;
 				bool isOpen() override;
 				bool close() override;
 				uint64_t size() override;
-				char* gets(char* _elementLine, int64_t _maxData) override;
 				bool seek(uint64_t _offset, enum etk::io::SeekMode _origin) override;
 				int64_t tell() override;
 				void flush() override;

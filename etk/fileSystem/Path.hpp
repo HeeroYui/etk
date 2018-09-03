@@ -30,6 +30,11 @@ namespace etk {
 			 */
 			Path(const etk::String& _value);
 			/**
+			 * @brief Contructor with basic path.
+			 * @param[in] _value Element basic path
+			 */
+			Path(const char * _value);
+			/**
 			 * @brief Get the set path (by the user)
 			 *     - /home/userXXX/aaa/bbb/###
 			 *     - /c/userXXX/aaa/bbb/###
@@ -96,6 +101,18 @@ namespace etk {
 			 */
 			bool isAbsolute() const;
 			/**
+			 * @brief Get the filename name of the Path (last element name after the last '/'
+			 * @return "" No file found.
+			 * @return * Name of the file.
+			 */
+			etk::String getFileName() const;
+			/**
+			 * @brief Get the filename extention if it exist
+			 * @return "" No extention found.
+			 * @return * extention of the file.
+			 */
+			etk::String getExtention() const;
+			/**
 			 * @brief remove the last child element of the path.
 			 */
 			void parent();
@@ -140,7 +157,16 @@ namespace etk {
 			Path operator+ (const etk::Path & _element) const;
 			//! @preivious
 			Path& operator+= (const etk::Path & _element);
+			/**
+			 * @breif asignmendt operator:
+			 */
+			Path& operator= (const etk::String & _element);
+			Path& operator= (const char* _element);
 	};
+	bool operator> (const Path& _left, const Path& _right);
+	bool operator>= (const Path& _left, const Path& _right);
+	bool operator< (const Path& _left, const Path& _right);
+	bool operator<= (const Path& _left, const Path& _right);
 	//! @not_in_doc
 	etk::Stream& operator <<(etk::Stream &_os, const etk::Path &_obj);
 }

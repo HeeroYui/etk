@@ -11,7 +11,7 @@
 #include <etk/fileSystem/Permissions.hpp>
 
 TEST(TestPermission, defaultContructor) {
-	etk::filesystem::Permissions permission;
+	etk::fileSystem::Permissions permission;
 	EXPECT_EQ(permission.isUserReadable(), false);
 	EXPECT_EQ(permission.isUserWritable(), false);
 	EXPECT_EQ(permission.isUserRunable(), false);
@@ -26,7 +26,7 @@ TEST(TestPermission, defaultContructor) {
 
 
 TEST(TestPermission, fullright) {
-	etk::filesystem::Permissions permission(o777);
+	etk::fileSystem::Permissions permission(0777);
 	EXPECT_EQ(permission.isUserReadable(), true);
 	EXPECT_EQ(permission.isUserWritable(), true);
 	EXPECT_EQ(permission.isUserRunable(), true);
@@ -41,7 +41,7 @@ TEST(TestPermission, fullright) {
 
 
 TEST(TestPermission, user) {
-	etk::filesystem::Permissions permission(o700);
+	etk::fileSystem::Permissions permission(0700);
 	EXPECT_EQ(permission.isUserReadable(), true);
 	EXPECT_EQ(permission.isUserWritable(), true);
 	EXPECT_EQ(permission.isUserRunable(), true);
@@ -56,7 +56,7 @@ TEST(TestPermission, user) {
 
 
 TEST(TestPermission, group) {
-	etk::filesystem::Permissions permission(o070);
+	etk::fileSystem::Permissions permission(0070);
 	EXPECT_EQ(permission.isUserReadable(), false);
 	EXPECT_EQ(permission.isUserWritable(), false);
 	EXPECT_EQ(permission.isUserRunable(), false);
@@ -71,7 +71,7 @@ TEST(TestPermission, group) {
 
 
 TEST(TestPermission, other) {
-	etk::filesystem::Permissions permission(o007);
+	etk::fileSystem::Permissions permission(0007);
 	EXPECT_EQ(permission.isUserReadable(), false);
 	EXPECT_EQ(permission.isUserWritable(), false);
 	EXPECT_EQ(permission.isUserRunable(), false);

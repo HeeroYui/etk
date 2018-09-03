@@ -8,12 +8,13 @@
 
 #include <etest/etest.hpp>
 #include <test-debug/debug.hpp>
-#include <etk/fileSystem/filesystem.hpp>
+#include <etk/fileSystem/fileSystem.hpp>
 
 TEST(TestFileSystem, checkHomePath) {
-	EXPECT_EQ(etk::fileSystem::getHomePath(), "/home/heero");
+	etk::String basicPath = getenv("HOME");
+	EXPECT_EQ(etk::fileSystem::getHomePath(), basicPath);
 }
-
+/*
 TEST(TestEtkFSNode, checkHomePath) {
 	etk::String homePath = etk::FSNodeGetHomePath();
 	EXPECT_EQ(homePath, "/home/heero");
@@ -29,3 +30,5 @@ TEST(TestEtkFSNode, checkHomePath) {
 	EXPECT_EQ(myNodeTest3.getNameFile(), "filePresent.txt");
 	EXPECT_EQ(myNodeTest3.getFileSystemName(), homePath + "/filePresent.txt");
 	EXPECT_EQ(myNodeTest3.getNameFolder(), "/home/heero");
+}
+*/

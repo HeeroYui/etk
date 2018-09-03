@@ -6,6 +6,8 @@
 #include <etk/types.hpp>
 #include <etk/io/File.hpp>
 #include <etk/debug.hpp>
+#include <etk/fileSystem/fileSystem.hpp>
+
 
 etk::io::File::File() {
 	// nothing to do.
@@ -16,28 +18,28 @@ etk::io::File::File(const etk::Path& _path):
 	
 }
 
-etk::io::File::File() {
+etk::io::File::~File() {
 	if (m_pointer != null) {
-		TK_ERROR("Missing to close the file : \"" << *this << "\"");
+		TK_ERROR("Missing to close the file : '" << m_path << "'S");
 		close();
 	}
 }
 
 bool etk::io::File::open(etk::io::OpenMode _mode) {
 	if (m_pointer != null) {
-		TK_CRITICAL("File Already open : " << *this);
+		TK_CRITICAL("File Already open : " << m_path);
 		return true;
 	}
 	TK_VERBOSE(" Read file : " << m_path);
 	switch (_mode) {
 		case etk::io::OpenMode::Read:
-			m_pointer = fopen(m_path.c_str(),"rb");
+			m_pointer = fopen(m_path.getNative().c_str(),"rb");
 			break;
 		case etk::io::OpenMode::Write:
-			m_pointer = fopen(m_path.c_str(),"wb");
+			m_pointer = fopen(m_path.getNative().c_str(),"wb");
 			break;
 		case etk::io::OpenMode::Append:
-			m_pointer = fopen(m_path.c_str(),"ab");
+			m_pointer = fopen(m_path.getNative().c_str(),"ab");
 			break;
 	}
 	if(m_pointer == null) {
@@ -53,7 +55,7 @@ bool etk::io::File::isOpen() {
 
 bool etk::io::File::close() {
 	if (m_pointer == null) {
-		TK_CRITICAL("File Already closed : " << *this);
+		TK_CRITICAL("File Already closed : " << m_path);
 		return false;
 	}
 	fclose(m_pointer);
@@ -68,10 +70,10 @@ uint64_t etk::io::File::size() {
 bool etk::io::File::seek(uint64_t _offset, enum etk::io::SeekMode _origin) {
 	int originFS = 0;
 	switch(_origin) {
-		case etk::seekNode_end:
+		case etk::io::SeekMode::End:
 			originFS = SEEK_END;
 			break;
-		case etk::seekNode_current:
+		case etk::io::SeekMode::Current:
 			originFS = SEEK_CUR;
 			break;
 		default:
@@ -100,7 +102,7 @@ int64_t etk::io::File::tell() {
 
 int64_t etk::io::File::read(void* _data, int64_t _blockSize, int64_t _nbBlock) {
 	if (m_pointer == null) {
-		TK_ERROR("Can not read in a file that is not open : " << *this);
+		TK_ERROR("Can not read in a file that is not open : " << m_path);
 		return 0;
 	}
 	return fread(_data, _blockSize, _nbBlock, m_pointer);
@@ -108,7 +110,7 @@ int64_t etk::io::File::read(void* _data, int64_t _blockSize, int64_t _nbBlock) {
 
 int64_t etk::io::File::write(const void* _data, int64_t _blockSize, int64_t _nbBlock) {
 	if (m_pointer == null) {
-		TK_ERROR("Can not write in a file that is not open : " << *this);
+		TK_ERROR("Can not write in a file that is not open : " << m_path);
 		return 0;
 	}
 	return fwrite(_data, _blockSize, _nbBlock, m_pointer);

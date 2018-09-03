@@ -6,6 +6,7 @@
 #pragma once
 
 #include <etk/types.hpp>
+#include <etk/Stream.hpp>
 
 namespace etk {
 	namespace io {
@@ -17,7 +18,7 @@ namespace etk {
 			Write, //!< request File open in write
 			Append, //!< request File open in append
 		};
-		//! @not_in_doc
-		etk::Stream& operator <<(etk::Stream &_os, const enum etk::io::OpenMode &_obj);
 	}
+	//! @not_in_doc
+	etk::Stream& operator <<(etk::Stream &_os, const enum etk::io::OpenMode &_obj);
 }

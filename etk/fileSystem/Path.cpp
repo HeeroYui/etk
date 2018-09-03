@@ -113,23 +113,23 @@ static etk::String simplifyPath(etk::String _input) {
 }
 
 static etk::String convertToWindows(etk::String _path) {
-	_path.replace("/", "\\");
-	if (    _path.size() > 3
+	if (    _path.size() >= 3
 	     && _path[0] == '/'
 	     && _path[2] == '/') {
 		_path[0] = _path[1];
-		_path[0] = ':';
+		_path[1] = ':';
 	}
+	_path.replace("/", "\\");
 	return _path;
 }
 
 static etk::String convertToUnix(etk::String _path) {
 	_path.replace("\\", "/");
-	if (    _path.size() > 3
+	if (    _path.size() >= 3
 	     && _path[1] == ':'
 	     && _path[2] == '/') {
 		#ifndef __TARGET_OS__Windows
-			TK_WARNING("Path name have a windows form: '" << _path << "' c:/ but not a windwos platform");
+			TK_DEBUG("Path name have a windows form: '" << _path << "' c:/ but not a windwos platform");
 		#endif
 		if (    _path[0] >= 'A'
 		     && _path[0] <= 'Z') {
@@ -152,7 +152,15 @@ static etk::String parsePath(etk::String _path) {
 }
 
 
+etk::Path::Path() {
+	// nothing to do
+}
+
 etk::Path::Path(const etk::String& _value) {
+	m_data = parsePath(_value);
+}
+
+etk::Path::Path(const char * _value) {
 	m_data = parsePath(_value);
 }
 
@@ -232,6 +240,27 @@ bool etk::Path::isAbsolute() const {
 		return true;
 	}
 	return false;
+}
+
+etk::String etk::Path::getFileName() const {
+	size_t pos = m_data.rfind('/');
+	if (pos == etk::String::npos) {
+		return m_data;
+	}
+	return m_data.extract(pos);
+}
+
+etk::String etk::Path::getExtention() const {
+	etk::String fileName = getFileName();
+	size_t pos = fileName.rfind('.');
+	if (pos == etk::String::npos) {
+		return "";
+	}
+	if (pos == 0) {
+		// a simple name started with a .
+		return "";
+	}
+	return fileName.extract(pos);
 }
 
 void etk::Path::parent() {
@@ -315,8 +344,35 @@ etk::Path& etk::Path::operator+= (const etk::Path & _element) {
 	return *this;
 }
 
+etk::Path& etk::Path::operator= (const etk::String & _element) {
+	m_data = parsePath(_element);
+	return *this;
+}
+
+etk::Path& etk::Path::operator= (const char* _element) {
+	m_data = parsePath(_element);
+	return *this;
+}
+
+
 etk::Stream& etk::operator <<(etk::Stream &_os, const etk::Path &_obj) {
 	_os << _obj.getString();
 	return _os;
+}
+
+bool etk::operator> (const Path& _left, const Path& _right) {
+	return _left.getString() > _right.getString();
+}
+
+bool etk::operator>= (const Path& _left, const Path& _right) {
+	return _left.getString() >= _right.getString();
+}
+
+bool etk::operator< (const Path& _left, const Path& _right) {
+	return _left.getString() < _right.getString();
+}
+
+bool etk::operator<= (const Path& _left, const Path& _right) {
+	return _left.getString() <= _right.getString();
 }
 

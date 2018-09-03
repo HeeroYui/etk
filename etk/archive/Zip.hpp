@@ -28,13 +28,13 @@
 					 * @param[in] _fileName File to parse (.zip / .apk)
 					 * @param[in] _offset Offset in the file where to start the parsing of the "zip"
 					 */
-					Zip(const etk::String& _fileName, uint64_t _offset = 0LL);
+					Zip(const etk::Path& _fileName, uint64_t _offset = 0LL);
 					/**
 					 * @brief basic destructor
 					 */
 					virtual ~Zip();
 				protected:
-					void loadFile(const etk::Map<etk::String, ArchiveContent>::Iterator& _it) override;
+					void loadFile(const etk::Map<etk::Path, ememory::SharedPtr<ArchiveContent>>::Iterator& _it) override;
 			};
 		}
 	}

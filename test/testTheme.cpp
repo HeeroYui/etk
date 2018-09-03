@@ -13,28 +13,28 @@
 TEST(TestTheme, init_uninit) {
 	etk::theme::init();
 	etk::theme::setName("AAA", "aaa");
-	EXPECT_EQ(etk::theme::getDefaultName("AAA"), "");
+	EXPECT_EQ(etk::theme::getNameDefault("AAA"), "");
 	EXPECT_EQ(etk::theme::getName("AAA"), "aaa");
-	etk::theme::unInit()
-	EXPECT_EQ(etk::theme::getDefaultName("AAA"), "");
+	etk::theme::unInit();
+	EXPECT_EQ(etk::theme::getNameDefault("AAA"), "");
 	EXPECT_EQ(etk::theme::getName("AAA"), "");
 }
 
 TEST(TestTheme, set) {
 	etk::theme::init();
-	etk::theme::setDefaultName("AAA", "aaa");
-	EXPECT_EQ(etk::theme::getDefaultName("AAA"), "aaa");
+	etk::theme::setNameDefault("AAA", "aaa");
+	EXPECT_EQ(etk::theme::getNameDefault("AAA"), "aaa");
 	EXPECT_EQ(etk::theme::getName("AAA"), "aaa");
-	etk::theme::unInit()
-	EXPECT_EQ(etk::theme::getDefaultName("AAA"), "");
+	etk::theme::unInit();
+	EXPECT_EQ(etk::theme::getNameDefault("AAA"), "");
 	EXPECT_EQ(etk::theme::getName("AAA"), "");
 }
 
 TEST(TestTheme, set2) {
 	etk::theme::init();
-	etk::theme::setDefaultName("AAA", "aaa");
+	etk::theme::setNameDefault("AAA", "aaa");
 	etk::theme::setName("AAA", "bbb");
-	EXPECT_EQ(etk::theme::getDefaultName("AAA"), "aaa");
+	EXPECT_EQ(etk::theme::getNameDefault("AAA"), "aaa");
 	EXPECT_EQ(etk::theme::getName("AAA"), "bbb");
-	etk::theme::unInit()
+	etk::theme::unInit();
 }

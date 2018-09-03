@@ -19,7 +19,7 @@ etk::io::ZipFile::ZipFile(const etk::Path& _path, ememory::SharedPtr<etk::Archiv
 
 bool etk::io::ZipFile::open(etk::io::OpenMode _mode) {
 	if (m_content != null) {
-		TK_CRITICAL("File Already open : " << *this);
+		TK_CRITICAL("File Already open : " << m_path);
 		return true;
 	}
 	if (m_archive == null) {
@@ -54,7 +54,7 @@ bool etk::io::ZipFile::isOpen() {
 
 bool etk::io::ZipFile::close() {
 	if (m_content == null) {
-		TK_CRITICAL("File Already closed : " << *this);
+		TK_CRITICAL("File Already closed : " << m_path);
 		return false;
 	}
 	m_archive->close(m_path);
@@ -65,23 +65,23 @@ bool etk::io::ZipFile::close() {
 
 uint64_t etk::io::ZipFile::size() {
 	if (m_content == null) {
-		TK_CRITICAL("Can not access to the size: " << *this);
+		TK_CRITICAL("Can not access to the size: " << m_path);
 		return false;
 	}
-	return m_content->getTheoricSize()
+	return m_content->getTheoricSize();
 }
 
 
 bool etk::io::ZipFile::seek(uint64_t _offset, enum etk::io::SeekMode _origin) {
-	if (null == m_content) {
+	if (m_content == null) {
 		return false;
 	}
 	int32_t positionEnd = 0;
 	switch(_origin) {
-		case etk::seekNode_end:
+		case etk::io::SeekMode::End:
 			positionEnd = m_content->size();
 			break;
-		case etk::seekNode_current:
+		case etk::io::SeekMode::Current:
 			positionEnd = m_offset;
 			break;
 		default:
@@ -103,7 +103,7 @@ void etk::io::ZipFile::flush() {
 }
 
 int64_t etk::io::ZipFile::tell() {
-	if (null == m_content) {
+	if (m_content == null) {
 		return 0;
 	}
 	return m_offset;
@@ -125,6 +125,6 @@ int64_t etk::io::ZipFile::read(void* _data, int64_t _blockSize, int64_t _nbBlock
 }
 
 int64_t etk::io::ZipFile::write(const void* _data, int64_t _blockSize, int64_t _nbBlock) {
-	TK_CRITICAL("Can not write on data inside APK : " << *this);
+	TK_CRITICAL("Can not write on data inside APK : " << m_path);
 	return 0;
 }

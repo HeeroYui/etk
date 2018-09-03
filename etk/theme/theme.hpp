@@ -5,6 +5,8 @@
  */
 
 #include <etk/types.hpp>
+#include <etk/Vector.hpp>
+#include <etk/String.hpp>
 
 #pragma once
 

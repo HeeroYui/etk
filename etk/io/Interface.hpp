@@ -8,6 +8,8 @@
 #include <etk/types.hpp>
 #include <etk/io/SeekMode.hpp>
 #include <etk/io/OpenMode.hpp>
+#include <etk/Vector.hpp>
+#include <etk/String.hpp>
 
 namespace etk {
 	namespace io {
@@ -16,7 +18,10 @@ namespace etk {
 		 */
 		class Interface {
 			public:
-				virtual ~Interface();
+				/**
+				 * @brief Virtualize destructor.
+				 */
+				virtual ~Interface() = default;
 				/**
 				 * @brief Open the file in Read mode
 				 * @param[in] _mode Mode to open the IO

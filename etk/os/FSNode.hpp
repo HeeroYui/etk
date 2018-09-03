@@ -17,7 +17,7 @@
 
 //http://developer.android.com/guide/topics/data/data-storage.html
 
-
+/*
 #ifdef __TARGET_OS__Android
 	#define HAVE_ZIP_DATA
 #endif
@@ -29,7 +29,7 @@
 #ifdef __TARGET_OS__Web
 	#define HAVE_ZIP_DATA
 #endif
-
+*/
 
 #ifdef HAVE_ZIP_DATA
 namespace etk {

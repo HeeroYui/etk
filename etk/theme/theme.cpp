@@ -4,7 +4,10 @@
  * @license MPL v2.0 (see license file)
  */
 #include <etk/types.hpp>
-#include <etk/filesystem/theme.hpp>
+#include <etk/theme/theme.hpp>
+#include <etk/Map.hpp>
+#include <etk/debug.hpp>
+
 
 static etk::Map<etk::String, etk::String>& getTheme() {
 	static etk::Map<etk::String, etk::String> g_listTheme;

@@ -31,7 +31,8 @@ def configure(target, my_module):
 	    'test/testPath.cpp',
 	    'test/testPermissions.cpp',
 	    'test/testTheme.cpp',
-	    """
+	    ])
+	"""
 	    'test/ConstructDestruct.cpp',
 	    'test/testColor.cpp',
 	    'test/testFunction.cpp',
@@ -53,8 +54,7 @@ def configure(target, my_module):
 	    'test/testTrait.cpp',
 	    'test/testThrow.cpp',
 	    'test/testUTF8.cpp',
-	    """
-	    ])
+	"""
 	my_module.add_depend([
 	    'etk',
 	    'etest',

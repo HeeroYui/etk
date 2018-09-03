@@ -6,6 +6,7 @@
 #pragma once
 
 #include <etk/types.hpp>
+#include <etk/Stream.hpp>
 
 namespace etk {
 	namespace io {
@@ -17,7 +18,7 @@ namespace etk {
 			End, //!< request seek position start at the END of the file
 			Current, //!< request seek position start at the CURRENT position in the file
 		};
-		//! @not_in_doc
-		etk::Stream& operator <<(etk::Stream &_os, const enum etk::io::SeekMode &_obj);
 	}
+	//! @not_in_doc
+	etk::Stream& operator <<(etk::Stream &_os, const enum etk::io::SeekMode &_obj);
 }

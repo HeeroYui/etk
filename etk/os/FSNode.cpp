@@ -14,6 +14,7 @@
 #include <etk/Map.hpp>
 #include <ethread/Mutex.hpp>
 #include <etk/typeInfo.hpp>
+#include <etk/theme/theme.hpp>
 #ifdef __TARGET_OS__Windows
 	#include <tchar.h>
 	#include <windows.h>
@@ -2236,52 +2237,6 @@ void etk::FSNode::fileFlush() {
 		fflush(m_PointerFile);
 	}
 }
-
-
-// TODO : Add an INIT to reset all allocated parameter :
-static etk::Map<etk::String, etk::String> g_listTheme;
-
-void etk::theme::setName(const etk::String& _refName, const etk::String& _folderName) {
-	TK_WARNING("Change theme : '" << _refName << "' : '" << _folderName << "'");
-	g_listTheme.set(_refName, _folderName);
-}
-
-etk::String etk::theme::getName(const etk::String& _refName) {
-	auto it = g_listTheme.find(_refName);
-	if (it != g_listTheme.end()) {
-		return it->second;
-	}
-	return _refName;
-}
-
-// get the list of all the theme folder availlable in the user Home/appl
-etk::Vector<etk::String> etk::theme::list() {
-	etk::Vector<etk::String> keys;
-	for (auto &it : g_listTheme) {
-		keys.pushBack(it.first);
-	}
-	return keys;
-}
-
-static etk::Map<etk::String, etk::String> g_listThemeDefault;
-void etk::theme::setNameDefault(const etk::String& _refName, const etk::String& _folderName) {
-	auto it = g_listThemeDefault.find(_refName);
-	if (it != g_listThemeDefault.end()) {
-		it->second = _folderName;
-		return;
-	}
-	g_listThemeDefault.set(_refName, _folderName);
-}
-
-etk::String etk::theme::getNameDefault(const etk::String& _refName) {
-	auto it = g_listThemeDefault.find(_refName);
-	if (it != g_listThemeDefault.end()) {
-		return it->second;
-	}
-	return "default";
-}
-
-
 
 /* --------------------------------------------------------------------------
  * 

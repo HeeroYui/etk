@@ -3,16 +3,15 @@
  * @copyright 2011, Edouard DUPIN, all right reserved
  * @license MPL v2.0 (see license file)
  */
+#pragma once
+
 #ifdef ETK_BUILD_MINIZIP
 
 #include <etk/types.hpp>
-
-#pragma once
-
 #include <etk/Map.hpp>
 #include <ethread/Mutex.hpp>
 #include <ememory/memory.hpp>
-#include <etk/String.hpp>
+#include <etk/fileSystem/Path.hpp>
 
 namespace etk {
 	/**
@@ -96,7 +95,7 @@ namespace etk {
 			 * @brief Contructor of the archive element
 			 * @param[in] _fileName Zip file name (or .apk for android)
 			 */
-			Archive(const etk::String& _fileName) :
+			Archive(const etk::Path& _fileName) :
 			  m_fileName(_fileName) {
 				
 			};
@@ -105,17 +104,17 @@ namespace etk {
 			 */
 			virtual ~Archive() = default;
 		protected:
-			etk::String m_fileName; //!< File name when it came from an file
+			etk::Path m_fileName; //!< File name when it came from an file
 		public:
 			/**
 			 * @brief Get the current file name.
 			 * @return the requested file name.
 			 */
-			const etk::String& getFileName() {
+			const etk::Path& getFileName() {
 				return m_fileName;
 			};
 		protected:
-			etk::Map<etk::String, ArchiveContent> m_content; //!< list of element of the zip file
+			etk::Map<etk::Path, ememory::SharedPtr<ArchiveContent>> m_content; //!< list of element of the zip file
 		public:
 			/**
 			 * @brief Get the number of elements
@@ -129,35 +128,35 @@ namespace etk {
 			 * @param[in] _id id of the element (must be < Size())
 			 * @return FileName of the requested id
 			 */
-			const etk::String& getName(size_t _id) const;
+			etk::Path getName(size_t _id) const;
 			/**
 			 * @brief Get the File name of the ID
 			 * @param[in] _id id of the element (must be < Size())
 			 * @return the archive content
 			 */
-			const ArchiveContent& getContent(size_t _id) const;
+			ememory::SharedPtr<ArchiveContent> getContent(size_t _id) const;
 			/**
 			 * @brief Get the File name of the ID
 			 * @param[in] _key name of the file
 			 * @return FileName of the requested id
 			 */
-			const ArchiveContent& getContent(const etk::String& _key) const;
+			ememory::SharedPtr<ArchiveContent> getContent(const etk::Path& _key) const;
 			/**
 			 * @brief Check if a file exist
 			 * @param[in] _key Name of the file
 			 * @return true if the file is present
 			 */
-			bool exist(const etk::String& _key) const;
+			bool exist(const etk::Path& _key) const;
 			/**
 			 * @brief Load the specific file in the memory
 			 * @param[in] _key Name of the file
 			 */
-			void open(const etk::String& _key);
+			void open(const etk::Path& _key);
 			/**
 			 * @brief Un-Load the specific file from the memory
 			 * @param[in] _key Name of the file
 			 */
-			void close(const etk::String& _key);
+			void close(const etk::Path& _key);
 			/**
 			 * @brief Display all Element in the archive
 			 */
@@ -167,20 +166,20 @@ namespace etk {
 			 * @brief Request the load in memory of the concerned file.
 			 * @param[in] _it Iterator on the element.
 			 */
-			virtual void loadFile(const etk::Map<etk::String, ArchiveContent>::Iterator& _it) { };
+			virtual void loadFile(const etk::Map<etk::Path, ememory::SharedPtr<ArchiveContent>>::Iterator& _it) { };
 		public:
 			/**
 			 * @brief Load an Achive with a specific name.
 			 * @param[in] _fileName File name of the specific archive.
 			 * @return A pointer an the specified archive, the user might delete it.
 			 */
-			static Archive* load(const etk::String& _fileName);
+			static ememory::SharedPtr<Archive> load(const etk::Path& _fileName);
 			/**
 			 * @brief Load an Achive with a specific name in package mode ==> this mean the data is associated with the basic binary.
 			 * @param[in] _fileName File name of the specific archive.
 			 * @return A pointer an the specified archive, the user might delete it.
 			 */
-			static Archive* loadPackage(const etk::String& _fileName);
+			static ememory::SharedPtr<Archive> loadPackage(const etk::Path& _fileName);
 	};
 }
 #endif

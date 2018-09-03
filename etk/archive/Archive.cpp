@@ -10,10 +10,9 @@
 #include <etk/debug.hpp>
 #include <etk/typeInfo.hpp>
 
-static const etk::ArchiveContent g_error;
 ETK_DECLARE_TYPE(etk::Archive);
 
-const etk::String& etk::Archive::getName(size_t _id) const {
+etk::Path etk::Archive::getName(size_t _id) const {
 	ethread::UniqueLock lock(m_mutex);
 	size_t id = 0;
 	for (auto &it : m_content) {
@@ -22,11 +21,10 @@ const etk::String& etk::Archive::getName(size_t _id) const {
 		}
 		++id;
 	}
-	static const etk::String error("");
-	return error;
+	return "";
 }
 
-const etk::ArchiveContent& etk::Archive::getContent(size_t _id) const {
+ememory::SharedPtr<etk::ArchiveContent> etk::Archive::getContent(size_t _id) const {
 	ethread::UniqueLock lock(m_mutex);
 	size_t id = 0;
 	for (auto &it : m_content) {
@@ -35,20 +33,20 @@ const etk::ArchiveContent& etk::Archive::getContent(size_t _id) const {
 		}
 		++id;
 	}
-	return g_error;
+	return null;
 }
 
-const etk::ArchiveContent& etk::Archive::getContent(const etk::String& _key) const {
+ememory::SharedPtr<etk::ArchiveContent> etk::Archive::getContent(const etk::Path& _key) const {
 	ethread::UniqueLock lock(m_mutex);
 	auto it = m_content.find(_key);
 	if (it == m_content.end()) {
-		return g_error;
+		return null;
 	}
 	return it->second;
 }
 
 
-bool etk::Archive::exist(const etk::String& _key) const {
+bool etk::Archive::exist(const etk::Path& _key) const {
 	ethread::UniqueLock lock(m_mutex);
 	return m_content.find(_key) != m_content.end();
 }
@@ -56,19 +54,19 @@ bool etk::Archive::exist(const etk::String& _key) const {
 void etk::Archive::display() {
 	ethread::UniqueLock lock(m_mutex);
 	for (auto &it : m_content) {
-		int32_t size = it.second.getTheoricSize();
-		int32_t sizeR = it.second.size();
+		int32_t size = it.second->getTheoricSize();
+		int32_t sizeR = it.second->size();
 		TK_INFO(" element : " << it.first << " size=" << size << " allocated=" << sizeR);
 	}
 }
 
-etk::Archive* etk::Archive::load(const etk::String& _fileName) {
-	etk::Archive* output=null;
-	etk::String tmpName = _fileName.toLower();
+ememory::SharedPtr<etk::Archive> etk::Archive::load(const etk::Path& _fileName) {
+	ememory::SharedPtr<etk::Archive> output;
+	etk::String extention = _fileName.getExtention().toLower();
 	// select the corect Loader :
-	if(    tmpName.endWith(".zip") == true
-	    || tmpName.endWith(".apk") == true ) {
-		output = ETK_NEW(etk::archive::Zip, _fileName);
+	if(    extention == "zip"
+	    || extention == ".apk") {
+		output = ememory::makeShared<etk::archive::Zip>(_fileName);
 		if (output == null) {
 			TK_ERROR("An error occured when load archive : " << _fileName);
 		}
@@ -78,9 +76,9 @@ etk::Archive* etk::Archive::load(const etk::String& _fileName) {
 	return output;
 }
 
-etk::Archive* etk::Archive::loadPackage(const etk::String& _fileName) {
-	etk::Archive* output=null;
-	FILE* file = fopen(_fileName.c_str(), "rb");
+ememory::SharedPtr<etk::Archive> etk::Archive::loadPackage(const etk::Path& _fileName) {
+	ememory::SharedPtr<etk::Archive> output;
+	FILE* file = fopen(_fileName.getNative().c_str(), "rb");
 	if (file == null) {
 		TK_ERROR("Can not open file : '" << _fileName);
 		return null;
@@ -104,39 +102,39 @@ etk::Archive* etk::Archive::loadPackage(const etk::String& _fileName) {
 	}
 	fclose(file);
 	file = null;
-	output = ETK_NEW(etk::archive::Zip, _fileName, position);
-	if (null==output) {
+	output = ememory::makeShared<etk::archive::Zip>(_fileName, position);
+	if (output == null) {
 		TK_ERROR("An error occured when load archive : " << _fileName);
 	}
 	return output;
 }
 
 
-void etk::Archive::open(const etk::String& _key) {
+void etk::Archive::open(const etk::Path& _key) {
 	ethread::UniqueLock lock(m_mutex);
 	auto it = m_content.find(_key);
 	if (it == m_content.end()) {
 		TK_ERROR("Try open an unexistant file : '" << _key << "'");
 		return;
 	}
-	if (it->second.getNumberOfRef()==-1) {
+	if (it->second->getNumberOfRef()==-1) {
 		loadFile(it);
-		it->second.increaseRef();
+		it->second->increaseRef();
 	}
-	it->second.increaseRef();
+	it->second->increaseRef();
 }
 
-void etk::Archive::close(const etk::String& _key) {
+void etk::Archive::close(const etk::Path& _key) {
 	ethread::UniqueLock lock(m_mutex);
 	auto it = m_content.find(_key);
 	if (it == m_content.end()) {
 		TK_ERROR("Try close an unexistant file : '" << _key << "'");
 		return;
 	}
-	if (it->second.getNumberOfRef()==0){
+	if (it->second->getNumberOfRef()==0){
 		TK_ERROR("Try close one more time the file : '" << _key << "'");
 	} else {
-		it->second.decreaseRef();
+		it->second->decreaseRef();
 	}
 }
 

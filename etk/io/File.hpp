@@ -8,6 +8,7 @@
 #include <etk/types.hpp>
 #include <etk/io/Interface.hpp>
 #include <etk/io/File.hpp>
+#include <etk/fileSystem/Path.hpp>
 
 namespace etk {
 	namespace io {
@@ -17,7 +18,7 @@ namespace etk {
 		class File: public etk::io::Interface {
 			private:
 				etk::Path m_path; //!< Path to access in this interface
-				FILE * m_PointerFile = null; //!< Generic file accesss.
+				FILE * m_pointer = null; //!< Generic file accesss.
 			public:
 				File();
 				File(const etk::Path& _path);
