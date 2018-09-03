@@ -3,15 +3,16 @@
  * @copyright 2018, Edouard DUPIN, all right reserved
  * @license MPL v2.0 (see license file)
  */
-#include <etk/fileSystem/Path.hpp>
+#include <etk/fs/Path.hpp>
 #include <etk/debug.hpp>
 #include <etk/Exception.hpp>
+#include <etk/fs/fileSystem.hpp>
 
 #include <etk/typeInfo.hpp>
 ETK_DECLARE_TYPE(etk::Path);
 
-//#define TK_DBG_MODE TK_VERBOSE
-#define TK_DBG_MODE TK_WARNING
+#define TK_DBG_MODE TK_VERBOSE
+//#define TK_DBG_MODE TK_WARNING
 
 
 static etk::String simplifyPath(etk::String _input) {
@@ -108,6 +109,10 @@ static etk::String simplifyPath(etk::String _input) {
 			_input = "/";
 		}
 	#endif
+	if (    _input.size() >= 1
+	     && _input[_input.size()-1] == '/') {
+		_input.erase(_input.size()-1, 1);
+	}
 	TK_DEBUG("Simplify(end) : '" << _input << "'");
 	return _input;
 }
@@ -118,6 +123,11 @@ static etk::String convertToWindows(etk::String _path) {
 	     && _path[2] == '/') {
 		_path[0] = _path[1];
 		_path[1] = ':';
+	} else if (    _path.size() == 2
+	            && _path[0] == '/') {
+		_path[0] = _path[1];
+		_path[1] = ':';
+		_path += '\\';
 	}
 	_path.replace("/", "\\");
 	return _path;
@@ -208,8 +218,7 @@ etk::String etk::Path::getAbsolute() const {
 	if (isAbsolute() == true) {
 		return m_data;
 	}
-	// TODO : plouf ...
-	return "todo";
+	return (etk::fs::getExecutionPath() / m_data).getString();
 }
 
 etk::String etk::Path::getAbsoluteWindows() const {
@@ -247,7 +256,7 @@ etk::String etk::Path::getFileName() const {
 	if (pos == etk::String::npos) {
 		return m_data;
 	}
-	return m_data.extract(pos);
+	return m_data.extract(pos+1);
 }
 
 etk::String etk::Path::getExtention() const {
@@ -260,7 +269,7 @@ etk::String etk::Path::getExtention() const {
 		// a simple name started with a .
 		return "";
 	}
-	return fileName.extract(pos);
+	return fileName.extract(pos+1);
 }
 
 void etk::Path::parent() {
@@ -281,32 +290,43 @@ etk::Path etk::Path::getParent() const {
 	return out;
 }
 
-bool etk::Path::operator== (const etk::Path &_obj) const {
+bool etk::Path::operator== (const etk::Path& _obj) const {
 	return m_data == _obj.m_data;
 }
 
-bool etk::Path::operator!= (const etk::Path &_obj) const {
+bool etk::Path::operator!= (const etk::Path& _obj) const {
 	return m_data != _obj.m_data;
 }
 
-etk::Path etk::Path::operator/ (const etk::String & _element) const {
+etk::Path etk::Path::operator/ (const etk::String& _element) const {
 	etk::Path tmp = *this;
 	tmp /= etk::Path(_element);
 	return tmp;
 }
 
-etk::Path etk::Path::operator/ (const etk::Path & _path) const {
+etk::Path etk::Path::operator/ (const char* _element) const {
+	etk::Path tmp = *this;
+	tmp /= etk::Path(_element);
+	return tmp;
+}
+
+etk::Path etk::Path::operator/ (const etk::Path& _path) const {
 	etk::Path tmp = *this;
 	tmp /= _path;
 	return tmp;
 }
 
-etk::Path& etk::Path::operator/= (const etk::String & _element) {
+etk::Path& etk::Path::operator/= (const etk::String& _element) {
 	*this /= etk::Path(_element);
 	return *this;
 }
 
-etk::Path& etk::Path::operator/= (const etk::Path & _path) {
+etk::Path& etk::Path::operator/= (const char* _element) {
+	*this /= etk::Path(_element);
+	return *this;
+}
+
+etk::Path& etk::Path::operator/= (const etk::Path& _path) {
 	if (_path.m_data.size() == 0) {
 		return *this;
 	}
@@ -318,24 +338,35 @@ etk::Path& etk::Path::operator/= (const etk::Path & _path) {
 	return *this;
 }
 
-etk::Path etk::Path::operator+ (const etk::String & _element) const {
+etk::Path etk::Path::operator+ (const char* _element) const {
 	etk::Path tmp = *this;
 	tmp += etk::Path(_element);
 	return tmp;
 }
 
-etk::Path etk::Path::operator+ (const etk::Path & _element) const {
+etk::Path etk::Path::operator+ (const etk::String& _element) const {
+	etk::Path tmp = *this;
+	tmp += etk::Path(_element);
+	return tmp;
+}
+
+etk::Path etk::Path::operator+ (const etk::Path& _element) const {
 	etk::Path tmp = *this;
 	tmp += _element;
 	return tmp;
 }
 
-etk::Path& etk::Path::operator+= (const etk::String & _element) {
+etk::Path& etk::Path::operator+= (const char* _element) {
 	*this += etk::Path(_element);
 	return *this;
 }
 
-etk::Path& etk::Path::operator+= (const etk::Path & _element) {
+etk::Path& etk::Path::operator+= (const etk::String& _element) {
+	*this += etk::Path(_element);
+	return *this;
+}
+
+etk::Path& etk::Path::operator+= (const etk::Path& _element) {
 	if (_element.m_data.size() == 0) {
 		return *this;
 	}
@@ -344,7 +375,7 @@ etk::Path& etk::Path::operator+= (const etk::Path & _element) {
 	return *this;
 }
 
-etk::Path& etk::Path::operator= (const etk::String & _element) {
+etk::Path& etk::Path::operator= (const etk::String& _element) {
 	m_data = parsePath(_element);
 	return *this;
 }
@@ -355,7 +386,7 @@ etk::Path& etk::Path::operator= (const char* _element) {
 }
 
 
-etk::Stream& etk::operator <<(etk::Stream &_os, const etk::Path &_obj) {
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Path& _obj) {
 	_os << _obj.getString();
 	return _os;
 }

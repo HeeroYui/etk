@@ -3,7 +3,7 @@
  * @copyright 2018, Edouard DUPIN, all right reserved
  * @license MPL v2.0 (see license file)
  */
-#include <etk/fileSystem/fileSystem.hpp>
+#include <etk/fs/fileSystem.hpp>
 #include <etk/debug.hpp>
 
 #ifdef __TARGET_OS__Windows
@@ -71,21 +71,21 @@ namespace etk {
 	}
 }
 
-bool etk::fileSystem::copy(const etk::Path& _path1, const etk::Path& _path2) {
+bool etk::fs::copy(const etk::Path& _path1, const etk::Path& _path2) {
 	return false;
 }
 
-bool etk::fileSystem::copyDirectory(const etk::Path& _path1, const etk::Path& _path2, bool _recursive) {
+bool etk::fs::copyDirectory(const etk::Path& _path1, const etk::Path& _path2, bool _recursive) {
 	return false;
 }
 
-bool etk::fileSystem::copyFile(const etk::Path& _path1, const etk::Path& _path2) {
+bool etk::fs::copyFile(const etk::Path& _path1, const etk::Path& _path2) {
 	return false;
 }
 
 
-bool etk::fileSystem::move(const etk::Path& _path1, const etk::Path& _path2) {
-	if (etk::fileSystem::exist(_path2) == true) {
+bool etk::fs::move(const etk::Path& _path1, const etk::Path& _path2) {
+	if (etk::fs::exist(_path2) == true) {
 		remove(_path2);
 	}
 	TK_DEBUG("Move : \"" << _path1 << "\" ==> \"" << _path2 << "\"");
@@ -100,23 +100,23 @@ bool etk::fileSystem::move(const etk::Path& _path1, const etk::Path& _path2) {
 	return true;
 }
 
-bool etk::fileSystem::moveDirectory(const etk::Path& _path1, const etk::Path& _path2) {
+bool etk::fs::moveDirectory(const etk::Path& _path1, const etk::Path& _path2) {
 	return false;
 }
 
-bool etk::fileSystem::moveFile(const etk::Path& _path1, const etk::Path& _path2) {
+bool etk::fs::moveFile(const etk::Path& _path1, const etk::Path& _path2) {
 	return false;
 }
 
 
-bool etk::fileSystem::remove(const etk::Path& _path) {
-	if (etk::fileSystem::isDirectory(_path) == true) {
-		return etk::fileSystem::removeDirectory(_path);
+bool etk::fs::remove(const etk::Path& _path) {
+	if (etk::fs::isDirectory(_path) == true) {
+		return etk::fs::removeDirectory(_path);
 	}
-	return etk::fileSystem::removeFile(_path);
+	return etk::fs::removeFile(_path);
 }
 
-bool etk::fileSystem::removeDirectory(const etk::Path& _path) {
+bool etk::fs::removeDirectory(const etk::Path& _path) {
 	if( 0 != ::rmdir(_path.getString().c_str()) ) {
 		if (ENOTEMPTY == errno) {
 			TK_ERROR("The Directory is not empty...");
@@ -126,14 +126,14 @@ bool etk::fileSystem::removeDirectory(const etk::Path& _path) {
 	return true;
 }
 
-bool etk::fileSystem::removeFile(const etk::Path& _path) {
+bool etk::fs::removeFile(const etk::Path& _path) {
 	if (0 != unlink(_path.getString().c_str()) ) {
 		return false;
 	}
 	return true;
 }
 
-bool etk::fileSystem::touch(const etk::Path& _path) {
+bool etk::fs::touch(const etk::Path& _path) {
 	TK_DEBUG("Touch FILE : " << _path);
 	//just open in write an close ==> this will update the time
 	etk::io::File file{_path};
@@ -143,7 +143,7 @@ bool etk::fileSystem::touch(const etk::Path& _path) {
 	return file.close();
 }
 
-bool etk::fileSystem::exist(const etk::Path& _path) {
+bool etk::fs::exist(const etk::Path& _path) {
 	struct stat st;
 	int32_t status = 0;
 	if (stat(_path.getString().c_str(), &st) != 0) {
@@ -152,7 +152,7 @@ bool etk::fileSystem::exist(const etk::Path& _path) {
 	return true;
 }
 
-uint64_t etk::fileSystem::fileSize(const etk::Path& _path) {
+uint64_t etk::fs::fileSize(const etk::Path& _path) {
 	// Note : this is a proper methode to get the file size for Big files ... otherwithe the size is limited at 2^31 bytes
 	// tmpStat Buffer :
 	struct stat statProperty;
@@ -168,7 +168,7 @@ uint64_t etk::fileSystem::fileSize(const etk::Path& _path) {
 }
 
 
-bool etk::fileSystem::isDirectory(const etk::Path& _path) {
+bool etk::fs::isDirectory(const etk::Path& _path) {
 	struct stat st;
 	int32_t status = 0;
 	if (stat(_path.getString().c_str(), &st) != 0) {
@@ -179,7 +179,7 @@ bool etk::fileSystem::isDirectory(const etk::Path& _path) {
 	return true;
 }
 
-bool etk::fileSystem::isFile(const etk::Path& _path) {
+bool etk::fs::isFile(const etk::Path& _path) {
 	struct stat st;
 	int32_t status = 0;
 	if (stat(_path.getString().c_str(), &st) != 0) {
@@ -190,7 +190,7 @@ bool etk::fileSystem::isFile(const etk::Path& _path) {
 	return true;
 }
 
-bool etk::fileSystem::isSymLink(const etk::Path& _path) {
+bool etk::fs::isSymLink(const etk::Path& _path) {
 	struct stat st;
 	int32_t status = 0;
 	if (stat(_path.getString().c_str(), &st) != 0) {
@@ -202,8 +202,8 @@ bool etk::fileSystem::isSymLink(const etk::Path& _path) {
 }
 
 
-etk::fileSystem::Permissions etk::fileSystem::getPermission(const etk::Path& _path) {
-	etk::fileSystem::Permissions permissions;
+etk::fs::Permissions etk::fs::getPermission(const etk::Path& _path) {
+	etk::fs::Permissions permissions;
 	// tmpStat Buffer :
 	struct stat statProperty;
 	if (-1 == stat(_path.getString().c_str(), &statProperty)) {
@@ -215,27 +215,27 @@ etk::fileSystem::Permissions etk::fileSystem::getPermission(const etk::Path& _pa
 }
 
 
-etk::String etk::fileSystem::getRelativeString(const etk::Path& _path) {
+etk::String etk::fs::getRelativeString(const etk::Path& _path) {
 	return _path.getRelative();
 }
 
-etk::String etk::fileSystem::getAbsoluteString(const etk::Path& _path) {
+etk::String etk::fs::getAbsoluteString(const etk::Path& _path) {
 	return _path.getAbsolute();
 }
 
-etk::String etk::fileSystem::getSystemString(const etk::Path& _path) {
+etk::String etk::fs::getSystemString(const etk::Path& _path) {
 	return _path.getNative();
 }
 
-etk::String etk::fileSystem::getMimeType(const etk::Path& _path) {
+etk::String etk::fs::getMimeType(const etk::Path& _path) {
 	return "*";
 }
 
-etk::Path etk::fileSystem::getTemporaryPath() {
-	return etk::Path{};
+etk::Path etk::fs::getTemporaryPath() {
+	return etk::Path{"/tmp/"};
 }
 
-etk::String etk::fileSystem::getHomePathString() {
+etk::String etk::fs::getHomePathString() {
 	static bool isInit = false;
 	static etk::String data = "";
 	if (isInit == false) {
@@ -257,40 +257,55 @@ etk::String etk::fileSystem::getHomePathString() {
 	return data;
 }
 
-etk::Path etk::fileSystem::getHomePath() {
-	return etk::Path(etk::fileSystem::getHomePathString());
+etk::Path etk::fs::getHomePath() {
+	return etk::Path(etk::fs::getHomePathString());
 }
 
-etk::Path etk::fileSystem::getExecutionPath() {
+etk::Path etk::fs::getExecutionPath() {
+	static etk::Path g_path;
+	if (g_path.getString() != "") {
+		return g_path;
+	}
+	char cCurrentPath[FILENAME_MAX];
+	if (!getcwd(cCurrentPath, FILENAME_MAX)) {
+		g_path = ".";
+	} else {
+		cCurrentPath[FILENAME_MAX - 1] = '\0';
+		if (cCurrentPath[0] == '/') {
+			g_path = cCurrentPath;
+		} else {
+			g_path = etk::String("/") + cCurrentPath;
+		}
+	}
+	return g_path;
+}
+
+etk::Path etk::fs::getBinaryPath() {
 	
 }
 
-etk::Path etk::fileSystem::getBinaryPath() {
-	
-}
-
-etk::Path etk::fileSystem::getDataPath() {
+etk::Path etk::fs::getDataPath() {
 	
 }
 
 
-uint64_t etk::fileSystem::getCreateTime(const etk::Path& _path) {
+uint64_t etk::fs::getCreateTime(const etk::Path& _path) {
 	
 }
 
-uint64_t etk::fileSystem::getModifyTime(const etk::Path& _path) {
+uint64_t etk::fs::getModifyTime(const etk::Path& _path) {
 	
 }
 
-uint64_t etk::fileSystem::getAccessTime(const etk::Path& _path) {
+uint64_t etk::fs::getAccessTime(const etk::Path& _path) {
 	
 }
 
-uint32_t etk::fileSystem::getIdOwner(const etk::Path& _path) {
+uint32_t etk::fs::getIdOwner(const etk::Path& _path) {
 	
 }
 
-uint32_t etk::fileSystem::getIdGroup(const etk::Path& _path) {
+uint32_t etk::fs::getIdGroup(const etk::Path& _path) {
 	
 }
 

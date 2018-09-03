@@ -6,7 +6,7 @@
 #pragma once
 
 #include <etk/types.hpp>
-#include <etk/fileSystem/Type.hpp>
+#include <etk/fs/Type.hpp>
 #include <etk/String.hpp>
 
 namespace etk {
@@ -126,41 +126,49 @@ namespace etk {
 			 * @param[in] _obj Path to compare.
 			 * @return true : same path, false otherwise.
 			 */
-			bool operator== (const etk::Path &_obj) const;
+			bool operator== (const etk::Path& _obj) const;
 			/**
 			 * @brief Check if the 2 Path are different.
 			 * @param[in] _obj Path to compare.
 			 * @return false : same path, true otherwise.
 			 */
-			bool operator!= (const etk::Path &_obj) const;
+			bool operator!= (const etk::Path& _obj) const;
 			/**
 			 * @brief Add a subfolder on the current path.
 			 * @param[in] _element sub folder or file to add.
 			 * @return false : same path, true otherwise.
 			 */
-			Path operator/ (const etk::String & _element) const;
+			Path operator/ (const etk::String& _element) const;
 			//! @preivious
-			Path& operator/= (const etk::String & _element);
+			Path& operator/= (const etk::String& _element);
 			//! @preivious
-			Path operator/ (const etk::Path & _element) const;
+			Path operator/ (const char* _element) const;
 			//! @preivious
-			Path& operator/= (const etk::Path & _element);
+			Path& operator/= (const char* _element);
+			//! @preivious
+			Path operator/ (const etk::Path& _element) const;
+			//! @preivious
+			Path& operator/= (const etk::Path& _element);
 			/**
 			 * @brief Add a subfolder on the current path.
 			 * @param[in] _element sub folder or file to add.
 			 * @return false : same path, true otherwise.
 			 */
-			Path operator+ (const etk::String & _element) const;
+			Path operator+ (const etk::String& _element) const;
 			//! @preivious
-			Path& operator+= (const etk::String & _element);
+			Path& operator+= (const etk::String& _element);
 			//! @preivious
-			Path operator+ (const etk::Path & _element) const;
+			Path operator+ (const char* _element) const;
 			//! @preivious
-			Path& operator+= (const etk::Path & _element);
+			Path& operator+= (const char* _element);
+			//! @preivious
+			Path operator+ (const etk::Path& _element) const;
+			//! @preivious
+			Path& operator+= (const etk::Path& _element);
 			/**
 			 * @breif asignmendt operator:
 			 */
-			Path& operator= (const etk::String & _element);
+			Path& operator= (const etk::String& _element);
 			Path& operator= (const char* _element);
 	};
 	bool operator> (const Path& _left, const Path& _right);
@@ -168,6 +176,6 @@ namespace etk {
 	bool operator< (const Path& _left, const Path& _right);
 	bool operator<= (const Path& _left, const Path& _right);
 	//! @not_in_doc
-	etk::Stream& operator <<(etk::Stream &_os, const etk::Path &_obj);
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Path& _obj);
 }
 

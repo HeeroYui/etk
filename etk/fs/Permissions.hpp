@@ -11,7 +11,7 @@
 #include <etk/String.hpp>
 
 namespace etk {
-	namespace fileSystem {
+	namespace fs {
 		/**
 		 * @brief File System Right management
 		 */
@@ -152,7 +152,7 @@ namespace etk {
 		};
 	}
 	//! @not_in_doc
-	etk::Stream& operator <<(etk::Stream &_os, const etk::fileSystem::Permissions &_obj);
+	etk::Stream& operator <<(etk::Stream &_os, const etk::fs::Permissions &_obj);
 }
 
 

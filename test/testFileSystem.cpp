@@ -8,11 +8,11 @@
 
 #include <etest/etest.hpp>
 #include <test-debug/debug.hpp>
-#include <etk/fileSystem/fileSystem.hpp>
+#include <etk/fs/fileSystem.hpp>
 
 TEST(TestFileSystem, checkHomePath) {
 	etk::String basicPath = getenv("HOME");
-	EXPECT_EQ(etk::fileSystem::getHomePath(), basicPath);
+	EXPECT_EQ(etk::fs::getHomePath(), basicPath);
 }
 /*
 TEST(TestEtkFSNode, checkHomePath) {

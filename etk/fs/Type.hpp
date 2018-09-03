@@ -10,7 +10,7 @@
 #pragma once
 
 namespace etk {
-	namespace fileSystem {
+	namespace fs {
 		/**
 		 * @brief Type of the file/folder/... accessible in the Node
 		 */
@@ -50,6 +50,6 @@ namespace etk {
 	}
 	
 	//! @not_in_doc
-	etk::Stream& operator <<(etk::Stream &_os, const etk::fileSystem::Type &_obj);
+	etk::Stream& operator <<(etk::Stream &_os, const etk::fs::Type &_obj);
 }
 

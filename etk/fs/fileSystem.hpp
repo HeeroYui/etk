@@ -7,11 +7,11 @@
 
 #include <etk/types.hpp>
 
-#include <etk/fileSystem/Path.hpp>
-#include <etk/fileSystem/Permissions.hpp>
+#include <etk/fs/Path.hpp>
+#include <etk/fs/Permissions.hpp>
 
 namespace etk {
-	namespace fileSystem {
+	namespace fs {
 		/**
 		 * @brief Copy a path to an other (if possible...)
 		 * @param[in] _path1 Path source.
@@ -106,7 +106,7 @@ namespace etk {
 		bool isFile(const etk::Path& _path);
 		bool isSymLink(const etk::Path& _path);
 		
-		etk::fileSystem::Permissions getPermission(const etk::Path& _path);
+		etk::fs::Permissions getPermission(const etk::Path& _path);
 		
 		etk::String getRelativeString(const etk::Path& _path);
 		etk::String getDecoratedString(const etk::Path& _path);

@@ -8,7 +8,7 @@
 #include <etk/types.hpp>
 #include <etk/io/Interface.hpp>
 #include <etk/io/File.hpp>
-#include <etk/fileSystem/Path.hpp>
+#include <etk/fs/Path.hpp>
 
 namespace etk {
 	namespace io {

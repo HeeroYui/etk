@@ -11,7 +11,7 @@
 #include <etk/Map.hpp>
 #include <ethread/Mutex.hpp>
 #include <ememory/memory.hpp>
-#include <etk/fileSystem/Path.hpp>
+#include <etk/fs/Path.hpp>
 
 namespace etk {
 	/**
