@@ -15,3 +15,28 @@ TEST(TestFileSystem, checkHomePath) {
 	EXPECT_EQ(etk::fs::getHomePath(), basicPath);
 }
 
+TEST(TestFileSystem, checkTmpPath) {
+	EXPECT_EQ(etk::fs::getTemporaryPath(), "/tmp");
+}
+
+TEST(TestFileSystem, getBinaryName) {
+	EXPECT_EQ(etk::fs::getBinaryName(), "etk-test");
+}
+
+TEST(TestFileSystem, getBinaryPath) {
+	EXPECT_EQ(etk::fs::getBinaryPath().getString().split('/').size() > 2, true);
+}
+
+
+TEST(TestFileSystem, createDirectory) {
+	etk::Path pathRandom = etk::fs::getTemporaryRandomPath();
+	etk::Path path = pathRandom / "eee" / "kjlk" / "kjhkjh";
+	TEST_WARNING("path tmp: " << path);
+	EXPECT_EQ(etk::fs::exist(path), false);
+	EXPECT_EQ(etk::fs::makeDirectories(path), true);
+	EXPECT_EQ(etk::fs::exist(path), true);
+	EXPECT_EQ(etk::fs::removeDirectory(pathRandom, true), true);
+	EXPECT_EQ(etk::fs::exist(pathRandom), false);
+	EXPECT_EQ(etk::fs::exist(path), false);
+}
+

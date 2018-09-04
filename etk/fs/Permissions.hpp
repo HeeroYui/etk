@@ -16,6 +16,9 @@ namespace etk {
 		 * @brief File System Right management
 		 */
 		class Permissions {
+			public:
+				static Permissions genericFile;
+				static Permissions genericFolder;
 			private:
 				uint16_t m_rights; //!< right manage in a bit field
 			public:

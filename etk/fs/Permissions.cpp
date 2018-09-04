@@ -28,6 +28,10 @@ enum {
 	right_user_read     = 1 << 8,
 };
 
+
+etk::fs::Permissions etk::fs::Permissions::genericFolder{right_user_execute|right_user_write|right_user_read|right_group_read|right_group_execute};
+etk::fs::Permissions etk::fs::Permissions::genericFile{right_user_write|right_user_read|right_group_read};
+
 etk::fs::Permissions::Permissions(uint16_t _newRight) :
  m_rights(_newRight&0x01FF) {
 	

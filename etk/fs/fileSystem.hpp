@@ -61,7 +61,6 @@ namespace etk {
 		 * @return false Operation Failed.
 		 */
 		bool moveFile(const etk::Path& _path1, const etk::Path& _path2);
-		
 		/**
 		 * @brief Remove a path (if possible...)
 		 * @param[in] _path Path to remove.
@@ -72,10 +71,11 @@ namespace etk {
 		/**
 		 * @brief Remove a FOLDER path (if possible...)
 		 * @param[in] _path Path to remove.
+		 * @param[in] _force Remove all data inside.
 		 * @return true Operation succeed.
 		 * @return false Operation Failed.
 		 */
-		bool removeDirectory(const etk::Path& _path);
+		bool removeDirectory(const etk::Path& _path, bool _force=false);
 		/**
 		 * @brief Remove a FILE path (if possible...)
 		 * @param[in] _path Path to remove.
@@ -83,6 +83,22 @@ namespace etk {
 		 * @return false Operation Failed.
 		 */
 		bool removeFile(const etk::Path& _path);
+		/**
+		 * @brief Make a directory (last one only)
+		 * @param[in] _path Path to create.
+		 * @param[in] _permission Permission of creating directory.
+		 * @return true Operation succeed.
+		 * @return false Operation Failed.
+		 */
+		bool makeDirectory(const etk::Path& _path, etk::fs::Permissions _permission = etk::fs::Permissions::genericFolder);
+		/**
+		 * @brief Make a directory (With all parents if needed)
+		 * @param[in] _path Path to create.
+		 * @param[in] _permission Permission of creating directories.
+		 * @return true Operation succeed.
+		 * @return false Operation Failed.
+		 */
+		bool makeDirectories(const etk::Path& _path, etk::fs::Permissions _permission = etk::fs::Permissions::genericFolder);
 		/**
 		 * @brief update the Time of the file with the current time
 		 * @param[in] _path Path to touch.
@@ -101,32 +117,132 @@ namespace etk {
 		 * @return the requested size
 		 */
 		uint64_t fileSize(const etk::Path& _path);
-		
+		/**
+		 * @brief Check if the path is a directory.
+		 * @param[in] _path Path of the requested information/
+		 * @return true This is a directory.
+		 * @return false This is something else...
+		 */
 		bool isDirectory(const etk::Path& _path);
+		/**
+		 * @brief Check if the path is a file (regular).
+		 * @param[in] _path Path of the requested information.
+		 * @return true This is a file.
+		 * @return false This is something else...
+		 */
 		bool isFile(const etk::Path& _path);
+		/**
+		 * @brief check if the path is a symbolink link.
+		 * @param[in] _path Path of the requested information.
+		 * @return true This is a synbolic link.
+		 * @return false This is something else...
+		 */
 		bool isSymLink(const etk::Path& _path);
-		
-		etk::fs::Permissions getPermission(const etk::Path& _path);
-		
+		/**
+		 * @brief Get the relative string of the path.
+		 * @param[in] _path Path to transform.
+		 * @return Well formated string of the path.
+		 */
 		etk::String getRelativeString(const etk::Path& _path);
-		etk::String getDecoratedString(const etk::Path& _path);
+		/**
+		 * @brief Get the absolute string of the path.
+		 * @param[in] _path Path to transform.
+		 * @return Well formated string of the path.
+		 */
 		etk::String getAbsoluteString(const etk::Path& _path);
-		etk::String getSystemString(const etk::Path& _path);
+		/**
+		 * @brief Get the native string of the path. (c:\xxx\xxx for windows and /YYY/vvv for unix)
+		 * @param[in] _path Path to transform.
+		 * @return Well formated string of the path.
+		 */
+		etk::String getNativeString(const etk::Path& _path);
 		
-		etk::String getMimeType(const etk::Path& _path);
-		
+		#if 0
+			/**
+			 * @brief Get the mime type of the file
+			 * @param[in] _path Path of the requested information
+			 * @return Mime file type "XXX_GROUP_XXX/YYY_ELEMENT_YYY"
+			 */
+			etk::String getMimeType(const etk::Path& _path);
+		#endif
+		/**
+		 * @brief Get the realPath of a defined path.
+		 * @param[in] Path that we want to have real value.
+		 * @return the real path of the _path.
+		 */
+		etk::Path realPath(const etk::Path& _path);
+		/**
+		 * @brief Get a temporary path that can be write as you want.
+		 * @return A system path.
+		 */
 		etk::Path getTemporaryPath();
-		etk::String getHomePathString();
+		/**
+		 * @brief Get a temporary path that can be write as you want witha a random subfolder.
+		 * @return A system path with gegerated string.
+		 */
+		etk::Path getTemporaryRandomPath();
+		/**
+		 * @brief Get user home directory.
+		 */
 		etk::Path getHomePath();
+		/**
+		 * @brief Get the Currect execution path.
+		 * @return Path where the program is lunch.
+		 */
 		etk::Path getExecutionPath();
+		/**
+		 * @brief Current binary name.
+		 * @return executable name.
+		 */
+		etk::Path getBinaryName();
+		/**
+		 * @brief Full banary name (with root path).
+		 * @return the binary absolute path.
+		 */
 		etk::Path getBinaryPath();
-		etk::Path getDataPath();
-		
+		#if 0
+			/**
+			 * @brief Get the data path of the application.
+			 * @return the root path of the data for this application.
+			 */
+			etk::Path getDataPath();
+		#endif
+		/**
+		 * @brief Get the creation time of the path.
+		 * @param[in] _path Path of the requested information.
+		 * @return time since epoch.
+		 */
 		uint64_t getCreateTime(const etk::Path& _path);
+		/**
+		 * @brief Get the tast modification time of the path.
+		 * @param[in] _path Path of the requested information.
+		 * @return time since epoch.
+		 */
 		uint64_t getModifyTime(const etk::Path& _path);
+		/**
+		 * @brief Get the last access time of the path.
+		 * @param[in] _path Path of the requested information.
+		 * @return time since epoch.
+		 */
 		uint64_t getAccessTime(const etk::Path& _path);
+		/**
+		 * @brief Get the Id of the file owner.
+		 * @param[in] _path Path of the requested information.
+		 * @return system user ID.
+		 */
 		uint32_t getIdOwner(const etk::Path& _path);
+		/**
+		 * @brief Get the Id of the file group.
+		 * @param[in] _path Path of the requested information.
+		 * @return system group ID.
+		 */
 		uint32_t getIdGroup(const etk::Path& _path);
+		/**
+		 * @brief Get the permission of a specific Path.
+		 * @param[in] _path Path of the requested information.
+		 * @return Generic permission class.
+		 */
+		etk::fs::Permissions getPermission(const etk::Path& _path);
 	}
 }
 

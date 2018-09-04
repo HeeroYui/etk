@@ -9,6 +9,9 @@
 #ifdef __TARGET_OS__Windows
 	#include <tchar.h>
 	#include <windows.h>
+#elif defined(__TARGET_OS__MacOs) || defined(__TARGET_OS__IOs)
+	#include <cstring>
+	#include <mach-o/dyld.h>
 #endif
 
 extern "C" {
@@ -16,60 +19,13 @@ extern "C" {
 	#include <dirent.h>
 	#include <sys/stat.h>
 	#include <errno.h>
+	#include <string.h>
 }
 #include <unistd.h>
 #include <stdlib.h>
 
 #include <etk/io/File.hpp>
 #include <etk/io/SeekMode.hpp>
-
-namespace etk {
-	static int32_t mkdir(const char* _path, mode_t _mode) {
-		struct stat st;
-		int32_t status = 0;
-		if (stat(_path, &st) != 0) {
-			/* Directory does not exist. EEXIST for race condition */
-			#ifdef __TARGET_OS__Windows
-				if(0!=::mkdir(_path)
-			#else
-				if(0!=::mkdir(_path, _mode)
-			#endif
-			    && errno != EEXIST) {
-				status = -1;
-			}
-		} else if (!S_ISDIR(st.st_mode)) {
-			errno = ENOTDIR;
-			status = -1;
-		}
-		
-		return(status);
-	}
-	static int32_t mkPath(const char* _path, mode_t _mode) {
-		char *pp;
-		char *sp;
-		int status;
-		char *copypath = strdup(_path);
-		if (copypath == null) {
-			return -1;
-		}
-		status = 0;
-		pp = copypath;
-		while (status == 0 && (sp = strchr(pp, '/')) != 0) {
-			if (sp != pp) {
-				/* Neither root nor double slash in path */
-				*sp = '\0';
-				status = etk::mkdir(copypath, _mode);
-				*sp = '/';
-			}
-			pp = sp + 1;
-		}
-		if (status == 0) {
-			status = etk::mkdir(_path, _mode);
-		}
-		free(copypath);
-		return (status);
-	}
-}
 
 bool etk::fs::copy(const etk::Path& _path1, const etk::Path& _path2) {
 	return false;
@@ -91,7 +47,7 @@ bool etk::fs::move(const etk::Path& _path1, const etk::Path& _path2) {
 	TK_DEBUG("Move : \"" << _path1 << "\" ==> \"" << _path2 << "\"");
 	// create path to be sure it exist ...
 	TK_VERBOSE("create path: '" << _path2.getParent() << "'");
-	etk::mkPath(_path2.getParent().getString().c_str() , 0755);
+	etk::fs::makeDirectories(_path2.getParent());
 	int32_t res = ::rename(_path1.getString().c_str(), _path2.getString().c_str());
 	if (res!=0) {
 		TK_ERROR("Can not move the file: '" << _path1 << "' ==> '" << _path2 << "'");
@@ -101,11 +57,11 @@ bool etk::fs::move(const etk::Path& _path1, const etk::Path& _path2) {
 }
 
 bool etk::fs::moveDirectory(const etk::Path& _path1, const etk::Path& _path2) {
-	return false;
+	return etk::fs::move(_path1, _path2);
 }
 
 bool etk::fs::moveFile(const etk::Path& _path1, const etk::Path& _path2) {
-	return false;
+	return etk::fs::move(_path1, _path2);
 }
 
 
@@ -116,8 +72,14 @@ bool etk::fs::remove(const etk::Path& _path) {
 	return etk::fs::removeFile(_path);
 }
 
-bool etk::fs::removeDirectory(const etk::Path& _path) {
-	if( 0 != ::rmdir(_path.getString().c_str()) ) {
+bool etk::fs::removeDirectory(const etk::Path& _path, bool _force) {
+	if (_force == true) {
+		if (0 != remove(_path.getString().c_str()) ) {
+			return false;
+		}
+		return true;
+	}
+	if ( 0 != ::rmdir(_path.getString().c_str()) ) {
 		if (ENOTEMPTY == errno) {
 			TK_ERROR("The Directory is not empty...");
 		}
@@ -129,6 +91,39 @@ bool etk::fs::removeDirectory(const etk::Path& _path) {
 bool etk::fs::removeFile(const etk::Path& _path) {
 	if (0 != unlink(_path.getString().c_str()) ) {
 		return false;
+	}
+	return true;
+}
+
+bool etk::fs::makeDirectory(const etk::Path& _path, etk::fs::Permissions _permission) {
+	if (etk::fs::exist(_path) == true) {
+		return true;
+	}
+	#ifdef __TARGET_OS__Windows
+		if (0!=mkdir(_path.getString().c_str())) {
+			return true;
+		}
+	#else
+		mode_t mode = _permission.getRightValue();
+		if (0!=mkdir(_path.getString().c_str(), mode)) {
+			return true;
+		}
+	#endif
+	return false;
+}
+
+bool etk::fs::makeDirectories(const etk::Path& _path, etk::fs::Permissions _permission) {
+	auto elements = _path.getString().split('/');
+	etk::Path pathToCreate;
+	if (elements[0].size() == 0) {
+		elements.popFront();
+		pathToCreate = etk::Path("/");
+	}
+	for (auto& it: elements) {
+		pathToCreate /= it;
+		if (etk::fs::makeDirectory(pathToCreate, _permission) == false) {
+			return false;
+		}
 	}
 	return true;
 }
@@ -223,19 +218,51 @@ etk::String etk::fs::getAbsoluteString(const etk::Path& _path) {
 	return _path.getAbsolute();
 }
 
-etk::String etk::fs::getSystemString(const etk::Path& _path) {
+etk::String etk::fs::getNativeString(const etk::Path& _path) {
 	return _path.getNative();
 }
 
+/*
 etk::String etk::fs::getMimeType(const etk::Path& _path) {
 	return "*";
 }
+*/
 
 etk::Path etk::fs::getTemporaryPath() {
-	return etk::Path{"/tmp/"};
+	static char const *folder = null;
+	if (folder == null) {
+		#ifdef __TARGET_OS__Windows
+			folder = GetTempPath();
+		#else
+			folder = getenv("TMPDIR");
+			if (folder == 0) {
+				folder = getenv("TMP");
+			}
+			if (folder == 0) {
+				folder = getenv("TEMP");
+			}
+			if (folder == 0) {
+				folder = getenv("TEMPDIR");
+			}
+			#ifdef __TARGET_OS__Android
+				if (folder == 0) {
+					folder = "/data/local/tmp";
+				}
+			#else
+				if (folder == 0) {
+					folder = "/tmp";
+				}
+			#endif
+		#endif
+	}
+	return etk::Path{folder};
 }
 
-etk::String etk::fs::getHomePathString() {
+etk::Path etk::fs::getTemporaryRandomPath() {
+	return etk::fs::getTemporaryPath() / "DFGDSF__TODO__SDFSDF";
+}
+
+static etk::String getHomePathString() {
 	static bool isInit = false;
 	static etk::String data = "";
 	if (isInit == false) {
@@ -258,7 +285,7 @@ etk::String etk::fs::getHomePathString() {
 }
 
 etk::Path etk::fs::getHomePath() {
-	return etk::Path(etk::fs::getHomePathString());
+	return etk::Path(getHomePathString());
 }
 
 etk::Path etk::fs::getExecutionPath() {
@@ -280,33 +307,101 @@ etk::Path etk::fs::getExecutionPath() {
 	return g_path;
 }
 
-etk::Path etk::fs::getBinaryPath() {
-	
+etk::Path etk::fs::realPath(const etk::Path& _path) {
+	#if ! defined(__TARGET_OS__Windows)
+		char buf[8192];
+		memset(buf, 0, 8192);
+		char *res = realpath(_path.getString().c_str(), buf);
+		if (res) {
+			return etk::Path{buf};
+		}
+	#endif
+	return _path;
 }
 
+etk::Path etk::fs::getBinaryPath() {
+	static etk::Path out;
+	if ( out.getString() == "" ) {
+		#if defined(__TARGET_OS__Windows) || defined(__TARGET_OS__MacOs) || defined(__TARGET_OS__IOs)
+			etk::String tmpValue;
+			tmpValue.resize(4096);
+			do {
+				uint_t size = tmpValue.size();
+				#if defined(__TARGET_OS__Windows)
+					uint_t len = GetModuleFileName(NULL, &tmpValue[0], size);
+					if (len < tmpValue.size()) {
+						tmpValue.resize(len);
+						break;
+					}
+				#else
+					uint_t size = tmpValue.size();
+					if (_NSGetExecutablePath(&tmpValue[0], &size) == 0) {
+						tmpValue.resize(strlen(&tmpValue[0]));
+						break;
+					}
+				#endif
+				tmpValue.resize(tmpValue.size() * 2);
+			} while (tmpValue.size() < 65536);
+			out = tmpValue;
+		#else
+			if (etk::fs::exist("/proc/self/exe") == true) {
+				out = etk::fs::realPath("/proc/self/exe");
+			} else if (etk::fs::exist("/proc/curproc/file") == true) {
+				out = etk::fs::realPath("/proc/curproc/file");
+			} else if (etk::fs::exist("/proc/curproc/exe") == true) {
+				out = etk::fs::realPath("/proc/curproc/exe");
+			}
+		#endif
+	}
+	return out;
+}
+
+etk::Path etk::fs::getBinaryName() {
+	return getBinaryPath().getFileName();
+}
+#if 0
 etk::Path etk::fs::getDataPath() {
 	
 }
-
-
+#endif
 uint64_t etk::fs::getCreateTime(const etk::Path& _path) {
-	
+	struct stat statProperty;
+	if (-1 == stat(_path.getString().c_str(), &statProperty)) {
+		return 0;
+	}
+	return statProperty.st_ctime;
 }
 
 uint64_t etk::fs::getModifyTime(const etk::Path& _path) {
-	
+	struct stat statProperty;
+	if (-1 == stat(_path.getString().c_str(), &statProperty)) {
+		return 0;
+	}
+	return statProperty.st_mtime;
 }
 
 uint64_t etk::fs::getAccessTime(const etk::Path& _path) {
-	
+	struct stat statProperty;
+	if (-1 == stat(_path.getString().c_str(), &statProperty)) {
+		return 0;
+	}
+	return statProperty.st_atime;
 }
 
 uint32_t etk::fs::getIdOwner(const etk::Path& _path) {
-	
+	struct stat statProperty;
+	if (-1 == stat(_path.getString().c_str(), &statProperty)) {
+		return 0;
+	}
+	return statProperty.st_uid;
 }
 
 uint32_t etk::fs::getIdGroup(const etk::Path& _path) {
-	
+	struct stat statProperty;
+	if (-1 == stat(_path.getString().c_str(), &statProperty)) {
+		return 0;
+	}
+	return statProperty.st_gid;
 }
 
 
