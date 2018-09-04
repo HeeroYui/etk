@@ -140,8 +140,17 @@ TEST(TestPath, parent) {
 TEST(TestPath, getRelative) {
 	etk::Path path("plouf.pdf");
 	EXPECT_EQ(path.getRelative(), "plouf.pdf");
-	path = "/plouf.pdf";
-	EXPECT_EQ(path.getRelative(), "../../../../plouf.pdf");
+	path = "/ici/plouf.pdf";
+	etk::String test;
+	auto elements = etk::fs::getExecutionPath().getString().split('/');
+	for (size_t iii=0; iii<elements.size(); ++iii) {
+		if (elements[iii].size() == 0) {
+			continue;
+		}
+		test += "../";
+	}
+	test += "ici/plouf.pdf";
+	EXPECT_EQ(path.getRelative(), test);
 }
 
 TEST(TestPath, getAbsolute) {
@@ -151,4 +160,11 @@ TEST(TestPath, getAbsolute) {
 	EXPECT_EQ(path.getAbsolute(), "/plouf.pdf");
 }
 
-
+TEST(TestPath, GetHomePath) {
+	etk::String basicPath = getenv("HOME");
+	etk::Path path("~");
+	EXPECT_EQ(path.getString(), basicPath);
+	basicPath += "/plouf.php";
+	path = "~/plouf.php";
+	EXPECT_EQ(path.getString(), basicPath);
+}

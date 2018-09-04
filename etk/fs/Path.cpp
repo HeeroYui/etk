@@ -22,12 +22,8 @@ static etk::String simplifyPath(etk::String _input) {
 	if (_input.size() == 0) {
 		return _input;
 	}
-	while(currentPos < _input.size()) {
-		if (_input[currentPos] == '\\') {
-			_input[currentPos] = '/';
-		}
-		currentPos++;
-		continue;
+	if (_input[0] == '~') {
+		_input = etk::fs::getHomePath().getString() + "/" + _input.extract(1);
 	}
 	// step 2 : remove all '//'
 	TK_DBG_MODE("Simplify(2) : '" << _input << "'");
@@ -196,8 +192,29 @@ etk::String etk::Path::getRelative() const {
 	if (isRelative() == true) {
 		return m_data;
 	}
-	// TODO : plouf ...
-	return "todo";
+	etk::String execPath = etk::fs::getExecutionPath().getString();
+	etk::String currentPath = m_data;
+	etk::Vector<etk::String> execPathSplit = execPath.split('/');
+	etk::Vector<etk::String> currentPathSplit = currentPath.split('/');
+	for (size_t iii=0; iii<execPathSplit.size() && iii<currentPathSplit.size(); ++iii) {
+		if (execPathSplit[0] == currentPathSplit[0]) {
+			execPathSplit.popFront();
+			currentPathSplit.popFront();
+			continue;
+		}
+		break;
+	}
+	etk::String out = "";
+	for (size_t iii=0; iii<execPathSplit.size(); ++iii) {
+		out += "../";
+	}
+	for (size_t iii=0; iii<currentPathSplit.size(); ++iii) {
+		out += currentPathSplit[iii];
+		if (currentPathSplit.size()-1 != iii) {
+			out += "/";
+		}
+	}
+	return out;
 }
 
 etk::String etk::Path::getRelativeWindows() const {
