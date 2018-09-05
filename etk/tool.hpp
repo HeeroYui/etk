@@ -48,6 +48,12 @@ namespace etk {
 				++_left;
 			}
 		}
+		/**
+		 * @brief Generate a random string with the specify size.
+		 * @param[in] _size number of char.
+		 * @return the generated string.
+		 */
+		etk::String generateString(uint_t _size);
 	}
 	/**
 	 * @brief Some useful tools

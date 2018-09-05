@@ -30,3 +30,14 @@ void etk::random::reset() {
 void etk::random::resetSeed(int32_t _val) {
 	srand(_val);
 }
+
+
+etk::String etk::random::generateString(uint_t _size) {
+	static etk::String value = "AZERTYUIOPQSDFGHJKLMWXCVBNazertyuiopqsdfghjklmwxcvbn1234567890_";
+	etk::String out;
+	for (uint_t iii=0; iii< _size; ++iii) {
+		out += value[etk::random::irand(0,value.size()-1)];
+	}
+	return out;
+}
+
