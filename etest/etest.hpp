@@ -177,14 +177,16 @@ namespace etest {
 		try { \
 			etest::g_currentTest->addCheck(); \
 			ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_EQ(" << #element << ", " << #result << ");"); \
-			bool ETEST_VARIABLE_TMP_res = ((element) == (result)); \
+			auto ETEST_VARIABLE_TMP_element = (element); \
+			auto ETEST_VARIABLE_TMP_result = (result); \
+			bool ETEST_VARIABLE_TMP_res = (ETEST_VARIABLE_TMP_element == ETEST_VARIABLE_TMP_result); \
 			if (etest::g_currentTest == null) { \
 				ETEST_CRITICAL("Not in a test"); \
 			} else { \
 				etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
-				                                 etest::exportResultToString(element), \
+				                                 etest::exportResultToString(ETEST_VARIABLE_TMP_element), \
 				                                 #element, \
-				                                 etest::exportResultToString(result), \
+				                                 etest::exportResultToString(ETEST_VARIABLE_TMP_result), \
 				                                 #result, \
 				                                 __LINE__); \
 			} \
@@ -201,14 +203,16 @@ namespace etest {
 		try { \
 			etest::g_currentTest->addCheck(); \
 			ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_NE(" << #element << ", " << #result << ");"); \
-			bool ETEST_VARIABLE_TMP_res = ((element) != (result)); \
+			auto ETEST_VARIABLE_TMP_element = (element); \
+			auto ETEST_VARIABLE_TMP_result = (result); \
+			bool ETEST_VARIABLE_TMP_res = (ETEST_VARIABLE_TMP_element != ETEST_VARIABLE_TMP_result); \
 			if (etest::g_currentTest == null) { \
 				ETEST_CRITICAL("Not in a test"); \
 			} else { \
 				etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
-				                                 etest::exportResultToString(element), \
+				                                 etest::exportResultToString(ETEST_VARIABLE_TMP_element), \
 				                                 #element, \
-				                                 etest::exportResultToString(result), \
+				                                 etest::exportResultToString(ETEST_VARIABLE_TMP_result), \
 				                                 #result, \
 				                                 __LINE__); \
 			} \
@@ -225,14 +229,16 @@ namespace etest {
 		try { \
 			etest::g_currentTest->addCheck(); \
 			ETEST_DEBUG("    [ SUB-RUN  ] ASSERT_NE(" << #element << ", " << #result << ");"); \
-			bool ETEST_VARIABLE_TMP_res = ((element) != (result)); \
+			auto ETEST_VARIABLE_TMP_element = (element); \
+			auto ETEST_VARIABLE_TMP_result = (result); \
+			bool ETEST_VARIABLE_TMP_res = (ETEST_VARIABLE_TMP_element != ETEST_VARIABLE_TMP_result); \
 			if (etest::g_currentTest == null) { \
 				ETEST_CRITICAL("Not in a test"); \
 			} else { \
 				etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
-				                                 etest::exportResultToString(element), \
+				                                 etest::exportResultToString(ETEST_VARIABLE_TMP_element), \
 				                                 #element, \
-				                                 etest::exportResultToString(result), \
+				                                 etest::exportResultToString(ETEST_VARIABLE_TMP_result), \
 				                                 #result, \
 				                                 __LINE__); \
 			} \
@@ -252,7 +258,9 @@ namespace etest {
 		try { \
 			etest::g_currentTest->addCheck(); \
 			ETEST_DEBUG("    [ SUB-RUN  ] EXPECT_FLOAT_EQ(" << #element << ", " << #result << ");"); \
-			float ETEST_VARIABLE_TMP_res2 = (element) - (result); \
+			auto ETEST_VARIABLE_TMP_element = (element); \
+			auto ETEST_VARIABLE_TMP_result = (result); \
+			float ETEST_VARIABLE_TMP_res2 = (ETEST_VARIABLE_TMP_element - ETEST_VARIABLE_TMP_result); \
 			bool ETEST_VARIABLE_TMP_res = false; \
 			if (ETEST_VARIABLE_TMP_res2 < delta && ETEST_VARIABLE_TMP_res2 > -delta) { \
 				ETEST_VARIABLE_TMP_res = true; \
@@ -261,9 +269,9 @@ namespace etest {
 				ETEST_CRITICAL("Not in a test"); \
 			} else { \
 				etest::g_currentTest->testResult(ETEST_VARIABLE_TMP_res, \
-				                                 etest::exportResultToString(element), \
+				                                 etest::exportResultToString(ETEST_VARIABLE_TMP_element), \
 				                                 #element, \
-				                                 etest::exportResultToString(result), \
+				                                 etest::exportResultToString(ETEST_VARIABLE_TMP_result), \
 				                                 #result, \
 				                                 __LINE__); \
 			} \
