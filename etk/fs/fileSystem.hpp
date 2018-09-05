@@ -69,13 +69,26 @@ namespace etk {
 		 */
 		bool remove(const etk::Path& _path);
 		/**
-		 * @brief Remove a FOLDER path (if possible...)
+		 * @brief Remove a path recursively
 		 * @param[in] _path Path to remove.
-		 * @param[in] _force Remove all data inside.
 		 * @return true Operation succeed.
 		 * @return false Operation Failed.
 		 */
-		bool removeDirectory(const etk::Path& _path, bool _force=false);
+		bool removes(const etk::Path& _path);
+		/**
+		 * @brief Remove a FOLDER path (if possible...)
+		 * @param[in] _path Path to remove.
+		 * @return true Operation succeed.
+		 * @return false Operation Failed.
+		 */
+		bool removeDirectory(const etk::Path& _path);
+		/**
+		 * @brief Remove a FOLDER path (with all his sub files
+		 * @param[in] _path Path to remove.
+		 * @return true Operation succeed.
+		 * @return false Operation Failed.
+		 */
+		bool removeDirectories(const etk::Path& _path);
 		/**
 		 * @brief Remove a FILE path (if possible...)
 		 * @param[in] _path Path to remove.
@@ -177,7 +190,12 @@ namespace etk {
 		 */
 		etk::Path getTemporaryPath();
 		/**
-		 * @brief Get a temporary path that can be write as you want witha a random subfolder.
+		 * @brief Get a temporary path random and unique for all the process axecution.
+		 * @return A system path with gegerated string.
+		 */
+		etk::Path getTemporaryProcessPath();
+		/**
+		 * @brief Get a temporary path random at each call of the application.
 		 * @return A system path with gegerated string.
 		 */
 		etk::Path getTemporaryRandomPath();
@@ -243,6 +261,12 @@ namespace etk {
 		 * @return Generic permission class.
 		 */
 		etk::fs::Permissions getPermission(const etk::Path& _path);
+		/**
+		 * @brief List the content of a specific path.
+		 * @param[in] Path to parse.
+		 * @return the full list of path in the _path.
+		 */
+		etk::Vector<etk::Path> list(const etk::Path& _path);
 	}
 }
 

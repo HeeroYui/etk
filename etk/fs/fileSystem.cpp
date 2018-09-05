@@ -64,31 +64,51 @@ bool etk::fs::moveFile(const etk::Path& _path1, const etk::Path& _path2) {
 	return etk::fs::move(_path1, _path2);
 }
 
-
-bool etk::fs::remove(const etk::Path& _path) {
-	if (etk::fs::isDirectory(_path) == true) {
-		return etk::fs::removeDirectory(_path);
+namespace detail {
+	bool removeDirectories(const etk::Path& _path, bool _recursive);
+	bool removes(const etk::Path& _path, bool _recursive) {
+		TK_VERBOSE("remove: " << _path);
+		if (etk::fs::isDirectory(_path) == true) {
+			return detail::removeDirectories(_path, _recursive);
+		}
+		return etk::fs::removeFile(_path);
 	}
-	return etk::fs::removeFile(_path);
-}
-
-bool etk::fs::removeDirectory(const etk::Path& _path, bool _force) {
-	if (_force == true) {
-		if (0 != remove(_path.getString().c_str()) ) {
+	bool removeDirectories(const etk::Path& _path, bool _recursive) {
+		TK_VERBOSE("remove Directory: " << _path);
+		if (_recursive == true) {
+			etk::Vector<etk::Path> elements = etk::fs::list(_path);
+			for (auto& it : elements) {
+				detail::removes(it, _recursive);
+			}
+		}
+		if ( 0 != ::rmdir(_path.getString().c_str()) ) {
+			if (ENOTEMPTY == errno) {
+				TK_ERROR("The Directory is not empty...");
+			}
 			return false;
 		}
 		return true;
 	}
-	if ( 0 != ::rmdir(_path.getString().c_str()) ) {
-		if (ENOTEMPTY == errno) {
-			TK_ERROR("The Directory is not empty...");
-		}
-		return false;
-	}
-	return true;
+}
+
+bool etk::fs::remove(const etk::Path& _path) {
+	return detail::removes(_path, false);
+}
+
+bool etk::fs::removes(const etk::Path& _path) {
+	return detail::removes(_path, true);
+}
+
+bool etk::fs::removeDirectory(const etk::Path& _path) {
+	return detail::removeDirectories(_path, false);
+}
+
+bool etk::fs::removeDirectories(const etk::Path& _path) {
+	return detail::removeDirectories(_path, true);
 }
 
 bool etk::fs::removeFile(const etk::Path& _path) {
+	TK_VERBOSE("remove File: " << _path);
 	if (0 != unlink(_path.getString().c_str()) ) {
 		return false;
 	}
@@ -96,23 +116,30 @@ bool etk::fs::removeFile(const etk::Path& _path) {
 }
 
 bool etk::fs::makeDirectory(const etk::Path& _path, etk::fs::Permissions _permission) {
+	TK_VERBOSE("Make directory : " << _path << " perm: " << _permission);
 	if (etk::fs::exist(_path) == true) {
 		return true;
 	}
 	#ifdef __TARGET_OS__Windows
-		if (0!=mkdir(_path.getString().c_str())) {
-			return true;
+		if (::mkdir(_path.getString().c_str()) != 0
+		     && errno != EEXIST) {
+			return false;
 		}
 	#else
 		mode_t mode = _permission.getRightValue();
-		if (0!=mkdir(_path.getString().c_str(), mode)) {
-			return true;
+		if (    ::mkdir(_path.getString().c_str(), mode) != 0
+		     && errno != EEXIST ) {
+			return false;
 		}
 	#endif
-	return false;
+	return true;
 }
 
 bool etk::fs::makeDirectories(const etk::Path& _path, etk::fs::Permissions _permission) {
+	TK_VERBOSE("Make dirrectories: " << _path << " perm: " << _permission);
+	if (etk::fs::exist(_path) == true) {
+		return true;
+	}
 	auto elements = _path.getString().split('/');
 	etk::Path pathToCreate;
 	if (elements[0].size() == 0) {
@@ -130,9 +157,17 @@ bool etk::fs::makeDirectories(const etk::Path& _path, etk::fs::Permissions _perm
 
 bool etk::fs::touch(const etk::Path& _path) {
 	TK_DEBUG("Touch FILE : " << _path);
-	//just open in write an close ==> this will update the time
+	if (etk::fs::exist(_path) == true ) {
+		//just open in write an close ==> this will update the time
+		etk::io::File file{_path};
+		if (file.open(etk::io::OpenMode::Append) == false) {
+			return false;
+		}
+		return file.close();
+	}
+	// Write the file with nothing inside...
 	etk::io::File file{_path};
-	if (file.open(etk::io::OpenMode::Append) == false) {
+	if (file.open(etk::io::OpenMode::Write) == false) {
 		return false;
 	}
 	return file.close();
@@ -258,8 +293,22 @@ etk::Path etk::fs::getTemporaryPath() {
 	return etk::Path{folder};
 }
 
+namespace detail {
+	etk::Path getTemporaryProcessPath(const etk::String& _patern) {
+		char tmpName[1024];
+		strcpy(tmpName, _patern.c_str());
+		mktemp(tmpName);
+		return etk::fs::getTemporaryPath() / tmpName;
+	}
+}
+
+etk::Path etk::fs::getTemporaryProcessPath() {
+	static etk::Path out = detail::getTemporaryProcessPath("etk.process.XXXXXX");
+	return out;
+}
+
 etk::Path etk::fs::getTemporaryRandomPath() {
-	return etk::fs::getTemporaryPath() / "DFGDSF__TODO__SDFSDF";
+	return detail::getTemporaryProcessPath("etk.random.XXXXXX");
 }
 
 static etk::String getHomePathString() {
@@ -404,4 +453,28 @@ uint32_t etk::fs::getIdGroup(const etk::Path& _path) {
 	return statProperty.st_gid;
 }
 
+etk::Vector<etk::Path> etk::fs::list(const etk::Path& _path) {
+	etk::Vector<etk::Path> out;
+	if (etk::fs::isDirectory(_path) == false) {
+		return out;
+	}
+	DIR *dir = null;
+	struct dirent *ent = null;
+	dir = opendir(_path.getString().c_str());
+	if (dir != null) {
+		// for each element in the drectory...
+		while ((ent = readdir(dir)) != null) {
+			if(    strcmp(ent->d_name, ".") == 0
+			    || strcmp(ent->d_name, "..") == 0) {
+				// do nothing ...
+				continue;
+			}
+			out.pushBack(_path / ent->d_name);
+		}
+		closedir(dir);
+	} else {
+		TK_ERROR("could not open directory : '" << _path << "'");
+	}
+	return out;
+}
 
