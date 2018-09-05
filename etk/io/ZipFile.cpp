@@ -128,3 +128,4 @@ int64_t etk::io::ZipFile::write(const void* _data, int64_t _blockSize, int64_t _
 	TK_CRITICAL("Can not write on data inside APK : " << m_path);
 	return 0;
 }
+

@@ -76,7 +76,7 @@ TEST(TestFileSystem, create_and_remove_directories_error) {
 	EXPECT_EQ(etk::fs::makeDirectories(path), false);
 	EXPECT_EQ(etk::fs::exist(path), false);
 }
-
+/*
 TEST(TestFileSystem, move_directory) {
 	etk::Path pathRandom = etk::fs::getTemporaryRandomPath();
 	etk::Path path1 = pathRandom / "eee1";
@@ -99,43 +99,49 @@ TEST(TestFileSystem, move_directory) {
 	EXPECT_EQ(etk::fs::removeDirectories(pathRandom), true);
 	EXPECT_EQ(etk::fs::exist(pathRandom), false);
 }
+*/
+#include <unistd.h>
 
 TEST(TestFileSystem, touch) {
 	etk::Path pathRandom = etk::fs::getTemporaryRandomPath();
 	etk::Path path = pathRandom / "eee" / "kjlk" / "kjhkjh.txt";
 	TEST_DEBUG("path tmp: " << path);
 	EXPECT_EQ(etk::fs::exist(path), false);
+	// Touch a file in a unexisting path
 	EXPECT_EQ(etk::fs::touch(path), false);
 	EXPECT_EQ(etk::fs::makeDirectories(path.getParent()), true);
 	EXPECT_EQ(etk::fs::exist(path), false);
+	// Touch a file in an existing path
 	EXPECT_EQ(etk::fs::touch(path), true);
 	EXPECT_EQ(etk::fs::exist(path), true);
 	uint64_t touch1 = etk::fs::getModifyTime(path);
+	
+	usleep(1000000);
+	// Tich a file already existing
 	EXPECT_EQ(etk::fs::touch(path), true);
 	EXPECT_EQ(etk::fs::exist(path), true);
 	uint64_t touch2 = etk::fs::getModifyTime(path);
 	EXPECT_NE(touch1, touch2);
-	/*
 	EXPECT_EQ(etk::fs::removeDirectories(pathRandom), true);
 	EXPECT_EQ(etk::fs::exist(pathRandom), false);
 	EXPECT_EQ(etk::fs::exist(path), false);
-	*/
 }
 
-/*
 TEST(TestFileSystem, move_file) {
 	etk::Path pathRandom = etk::fs::getTemporaryRandomPath();
 	etk::Path path1 = pathRandom / "eee1.txt";
 	etk::Path path2 = pathRandom / "eee2.mov";
 	EXPECT_EQ(etk::fs::exist(path1), false);
 	EXPECT_EQ(etk::fs::exist(path2), false);
+	EXPECT_EQ(etk::fs::makeDirectories(pathRandom), true);
 	EXPECT_EQ(etk::fs::touch(path1), true);
 	EXPECT_EQ(etk::fs::exist(path1), true);
 	EXPECT_EQ(etk::fs::exist(path2), false);
 	EXPECT_EQ(etk::fs::move(path1, path2), true);
 	EXPECT_EQ(etk::fs::exist(path1), false);
 	EXPECT_EQ(etk::fs::exist(path2), true);
+	/*
 	EXPECT_EQ(etk::fs::removeDirectories(pathRandom), true);
 	EXPECT_EQ(etk::fs::exist(pathRandom), false);
+	*/
 }
-*/

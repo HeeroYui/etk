@@ -7,7 +7,10 @@
 #include <etk/io/File.hpp>
 #include <etk/debug.hpp>
 #include <etk/fs/fileSystem.hpp>
-
+#include <sys/stat.h>
+extern "C" {
+	#include <errno.h>
+}
 
 etk::io::File::File() {
 	// nothing to do.
@@ -33,17 +36,17 @@ bool etk::io::File::open(etk::io::OpenMode _mode) {
 	TK_VERBOSE(" Read file : " << m_path);
 	switch (_mode) {
 		case etk::io::OpenMode::Read:
-			m_pointer = fopen(m_path.getNative().c_str(),"rb");
+			m_pointer = fopen(m_path.getNative().c_str(), "rb");
 			break;
 		case etk::io::OpenMode::Write:
-			m_pointer = fopen(m_path.getNative().c_str(),"wb");
+			m_pointer = fopen(m_path.getNative().c_str(), "wb");
 			break;
 		case etk::io::OpenMode::Append:
-			m_pointer = fopen(m_path.getNative().c_str(),"ab");
+			m_pointer = fopen(m_path.getNative().c_str(), "ab");
 			break;
 	}
 	if(m_pointer == null) {
-		TK_ERROR("Can not open the file " << m_path );
+		TK_WARNING("Can not open the file " << m_path.getNative() << " mode: " << _mode << " errno" << errno << " (" << strerror(errno) << ")");
 		return false;
 	}
 	return true;
@@ -115,3 +118,4 @@ int64_t etk::io::File::write(const void* _data, int64_t _blockSize, int64_t _nbB
 	}
 	return fwrite(_data, _blockSize, _nbBlock, m_pointer);
 }
+
