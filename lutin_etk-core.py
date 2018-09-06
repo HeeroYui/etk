@@ -28,38 +28,38 @@ def configure(target, my_module):
 	my_module.add_extra_flags()
 	# add the file to compile:
 	my_module.add_src_file([
-	    'etk/String.cpp',
-	    'etk/UString.cpp',
-	    'etk/utf8.cpp',
-	    'etk/stdTools.cpp',
-	    'etk/Stream.cpp',
-	    'etk/Function.cpp',
-	    'etk/Allocator.cpp',
-	    'etk/typeInfo.cpp',
-	    'etk/Exception.cpp',
+	    'etk-core/String.cpp',
+	    'etk-core/UString.cpp',
+	    'etk-core/utf8.cpp',
+	    'etk-core/stdTools.cpp',
+	    'etk-core/Stream.cpp',
+	    'etk-core/Function.cpp',
+	    'etk-core/Allocator.cpp',
+	    'etk-core/typeInfo.cpp',
+	    'etk-core/Exception.cpp',
 	    ])
 	
 	my_module.add_header_file([
-	    'etk/Allocator.hpp',
-	    'etk/types.hpp',
-	    'etk/stdTools.hpp',
-	    'etk/Buffer.hpp',
-	    'etk/String.hpp',
-	    'etk/UString.hpp',
-	    'etk/utf8.hpp',
-	    'etk/Array.hpp',
-	    'etk/Vector.hpp',
-	    'etk/Stream.hpp',
-	    'etk/Pair.hpp',
-	    'etk/Map.hpp',
-	    'etk/Set.hpp',
-	    'etk/move.hpp',
-	    'etk/typeTrait.hpp',
-	    'etk/Function.hpp',
-	    'etk/NullPtr.hpp',
-	    'etk/typeInfo.hpp',
-	    'etk/Exception.hpp'
-	    ])
+	    'etk-core/Allocator.hpp',
+	    'etk-core/types.hpp',
+	    'etk-core/stdTools.hpp',
+	    'etk-core/Buffer.hpp',
+	    'etk-core/String.hpp',
+	    'etk-core/UString.hpp',
+	    'etk-core/utf8.hpp',
+	    'etk-core/Array.hpp',
+	    'etk-core/Vector.hpp',
+	    'etk-core/Stream.hpp',
+	    'etk-core/Pair.hpp',
+	    'etk-core/Map.hpp',
+	    'etk-core/Set.hpp',
+	    'etk-core/move.hpp',
+	    'etk-core/typeTrait.hpp',
+	    'etk-core/Function.hpp',
+	    'etk-core/NullPtr.hpp',
+	    'etk-core/typeInfo.hpp',
+	    'etk-core/Exception.hpp'
+	    ], 'etk')
 	
 	# build in C++ mode
 	my_module.compile_version("c++", 2017)
@@ -73,7 +73,7 @@ def configure(target, my_module):
 	if "Android" in target.get_type():
 		my_module.add_depend("SDK")
 	if "MacOs" in target.get_type():
-                my_module.add_depend("cxx")
+		my_module.add_depend("cxx")
 	my_module.add_path(".")
 	return True
 
