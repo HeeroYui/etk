@@ -57,12 +57,13 @@ def configure(target, my_module):
 	    'etk/os/FSNodeRight.cpp',
 	    'etk/archive/Archive.cpp',
 	    'etk/archive/Zip.cpp',
+	    'etk/uri/Uri.cpp',
+	    'etk/uri/Query.cpp',
 	    ])
 	
 	my_module.add_header_file([
 	    'etk/etk.hpp',
 	    'etk/debug.hpp',
-	    'etk/stdTools.hpp',
 	    'etk/tool.hpp',
 	    'etk/Noise.hpp',
 	    'etk/Color.hpp',
@@ -93,6 +94,8 @@ def configure(target, my_module):
 	    'etk/archive/Zip.hpp',
 	    'etk/TreeNode.hpp',
 	    'etk/FlatTree.hpp',
+	    'etk/uri/Uri.hpp',
+	    'etk/uri/Query.hpp',
 	    ])
 	
 	# build in C++ mode
@@ -103,7 +106,7 @@ def configure(target, my_module):
 	    'm',
 	    'elog',
 	    'ememory',
-	    'etk-base',
+	    'etk-core',
 	    ])
 	# TODO: Remove this ==> when ready to remove dependency with stl:
 	my_module.add_depend(['cxx'])

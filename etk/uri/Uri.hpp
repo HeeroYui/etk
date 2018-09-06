@@ -9,32 +9,10 @@
 #include <etk/fs/Type.hpp>
 #include <etk/String.hpp>
 #include <etk/Map.hpp>
+#include <etk/uri/Query.hpp>
+#include <etk/fs/Path.hpp>
 
 namespace etk {
-	
-	class Query {
-		private:
-			etk::Map<etk::String, etk::String> m_query; //!< Querry data
-		public:
-			ETK_CONSTRUCTOR_MOVE_DEFAULT(Query);
-			ETK_CONSTRUCTOR_COPY_DEFAULT(Query);
-			/**
-			 * @brief Default contructor.
-			 */
-			Querry();
-			/**
-			 * @brief Set with a specific querry string
-			 * @param[in] _value querry data
-			 */
-			Querry(const etk::String& _value);
-			
-			void setEncoded(const etk::String& _value);
-			etk::String getEncoded() const;
-			
-			void set(const etk::String& _key, const etk::String& _value);
-			bool exist(const etk::String& _key);
-			etk::String get(const etk::String& _key);
-	};
 	/**
 	 * @brief Uniform resource interface manage internal resource and nerwork resource (like URL)
 	 * Format is manage like : __SCHEME__://__USER__:__PASSWORD__@__SERVER__:__PORT__/__PATH__?__QUERY__#__FRAGMENT__
@@ -47,7 +25,7 @@ namespace etk {
 			etk::String m_server; //!< server name
 			uint16_t m_port = 0; //!< Port of the server
 			etk::Path m_path; //!< Path data
-			etk::uri::Query m_query; //!< querry interface
+			etk::uri::Query m_query; //!< query interface
 			etk::String m_fragment; //!< fragment data
 		public:
 			ETK_CONSTRUCTOR_MOVE_DEFAULT(Uri);
@@ -70,7 +48,7 @@ namespace etk {
 			 * @brief Contructor with basic URI.
 			 * @param[in] _value Element basic URI
 			 */
-			void set(const etk::String& _value);
+			void set(etk::String _value);
 			/**
 			 * @brief Contructor with basic URI.
 			 * @param[in] _value Element basic URI
@@ -142,12 +120,12 @@ namespace etk {
 			 */
 			void setPath(const etk::Path& _value);
 			/**
-			 * @brief Get the Querry.
-			 * @return Querry data.
+			 * @brief Get the query.
+			 * @return query data.
 			 */
 			const etk::uri::Query& getQuery() const;
 			/**
-			 * @brief Set the new querry.
+			 * @brief Set the new query.
 			 * @param[in] _value Data.
 			 */
 			void setQuery(const etk::uri::Query& _value);
@@ -161,6 +139,10 @@ namespace etk {
 			 * @param[in] _value New fragment
 			 */
 			void setFragment(const etk::String& _value);
+			/**
+			 * @brief Clear the structure.
+			 */
+			void clear();
 	};
 }
 

@@ -122,6 +122,10 @@ namespace etk {
 			 */
 			etk::Path getParent() const;
 			/**
+			 * @brief Clear data.
+			 */
+			void clear();
+			/**
 			 * @brief Check if the 2 Path are identical.
 			 * @param[in] _obj Path to compare.
 			 * @return true : same path, false otherwise.

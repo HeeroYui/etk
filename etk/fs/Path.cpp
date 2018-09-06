@@ -307,6 +307,10 @@ etk::Path etk::Path::getParent() const {
 	return out;
 }
 
+void etk::Path::clear() {
+	m_data.clear();
+}
+
 bool etk::Path::operator== (const etk::Path& _obj) const {
 	return m_data == _obj.m_data;
 }

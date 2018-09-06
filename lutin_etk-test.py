@@ -31,6 +31,8 @@ def configure(target, my_module):
 	    'test/testPath.cpp',
 	    'test/testPermissions.cpp',
 	    'test/testTheme.cpp',
+	    'test/testUri.cpp',
+	    'test/testQuery.cpp',
 	    ])
 	"""
 	    'test/ConstructDestruct.cpp',

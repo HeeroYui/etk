@@ -3,34 +3,10 @@
  * @copyright 2018, Edouard DUPIN, all right reserved
  * @license MPL v2.0 (see license file)
  */
-#pragma once
 
-#include <etk/types.hpp>
-#include <etk/fs/Type.hpp>
-#include <etk/String.hpp>
-#include <etk/Map.hpp>
+#include <etk/uri/Uri.hpp>
+#include <etk/debug.hpp>
 
-namespace etk {
-	/**
-	 * @brief Uniform resource interface manage internal resource and nerwork resource (like URL)
-	 * Format is manage like : __SCHEME__://__USER__:__PASSWORD__@__SERVER__:__PORT__/__PATH__?__QUERY__#__FRAGMENT__
-	 */
-	class Uri {
-		private:
-			etk::String m_scheme; //!< Sheme of the uri.
-			etk::String m_user; //!< user name
-			etk::String m_password; //!< password (crypted/hashed)
-			etk::String m_server; //!< server name
-			uint16_t m_port; //!< Port of the server
-			etk::Path m_path; //!< Path data
-			etk::uri::Query m_query; //!< querry interface
-			etk::String m_fragment; //!< fragment data
-		public:
-			ETK_CONSTRUCTOR_MOVE_DEFAULT(Uri);
-			ETK_CONSTRUCTOR_COPY_DEFAULT(Uri);
-			/**
-			 * @brief Default contructor.
-			 */
 etk::Uri::Uri() {
 	
 }
@@ -43,12 +19,77 @@ etk::Uri::Uri(const char * _value) {
 	set(_value);
 }
 
-void etk::Uri::set(const etk::String& _value) {
-	
-}
-
 void etk::Uri::set(const char * _value) {
 	set(etk::String(_value));
+}
+
+void etk::Uri::clear() {
+	m_scheme.clear();
+	m_user.clear();
+	m_password.clear();
+	m_server.clear();
+	m_port = 0;
+	m_path.clear();
+	m_query.clear();
+	m_fragment.clear();
+}
+
+void etk::Uri::set(etk::String _value) {
+	TK_VERBOSE("parse: '" << _value << "'");
+	size_t pos = _value.find("://");
+	if (pos != etk::String::npos) {
+		// find scheme
+		m_scheme = _value.extract(0, pos);
+		_value = _value.extract(pos+3, etk::String::npos);
+		TK_VERBOSE("find scheme : '" << m_scheme << "'     ==||==     '" << _value << "'");
+	}
+	pos = _value.rfind('#');
+	if (pos != etk::String::npos) {
+		// find scheme
+		m_fragment = _value.extract(pos+1, etk::String::npos);
+		_value = _value.extract(0, pos);
+		TK_VERBOSE("find fragment: '" << m_fragment << "'     ==||==     '" << _value << "'");
+	}
+	pos = _value.rfind('?');
+	if (pos != etk::String::npos) {
+		// find query
+		m_query.setEncoded(_value.extract(pos+1, etk::String::npos));
+		_value = _value.extract(0, pos);
+		TK_VERBOSE("find query: '" << m_query << "'     ==||==     '" << _value << "'");
+	}
+	pos = _value.find('/');
+	if (pos != etk::String::npos) {
+		// find path
+		m_path = _value.extract(pos+1, etk::String::npos);
+		_value = _value.extract(0, pos);
+		TK_VERBOSE("find scheme : '" << m_path << "'     ==||==     '" << _value << "'");
+	}
+	pos = _value.find('@');
+	if (pos != etk::String::npos) {
+		TK_VERBOSE("find server With name");
+		// find server with user
+		etk::String userInfo = _value.extract(0, pos);
+		size_t pos_2 = userInfo.find(':');
+		if (pos_2 != etk::String::npos) {
+			// find password:
+			m_user = userInfo.extract(0, pos_2);
+			m_password = userInfo.extract(pos_2+1, etk::String::npos);
+		} else {
+			m_user=userInfo;
+			m_password="";
+		}
+		_value = _value.extract(pos+1, etk::String::npos);
+		TK_VERBOSE("find user / pass : '" << m_user << "' / '" << m_password << "'     ==||==     '" << _value << "'");
+	}
+	pos = _value.find(':');
+	if (pos != etk::String::npos) {
+		m_server = _value.extract(0, pos);
+		m_port = string_to_uint16_t(_value.extract(pos+1, etk::String::npos));
+	} else {
+		m_server = _value;
+		m_port = 0;
+	}
+	TK_VERBOSE("find server / port : '" << m_server << "' / '" << m_port << "'");
 }
 
 etk::String etk::Uri::get() {
@@ -76,7 +117,7 @@ etk::String etk::Uri::get() {
 		out += "/";
 		out += m_path.getString();
 	}
-	if(m_query.size() != 0) {
+	if(m_query.isEmpty() == false) {
 		out += "?";
 		out += m_query.getEncoded();
 	}
@@ -84,6 +125,7 @@ etk::String etk::Uri::get() {
 		out += "#";
 		out += m_fragment;
 	}
+	return out;
 }
 
 const etk::String& etk::Uri::getScheme() const {

@@ -13,23 +13,23 @@
 namespace etk {
 	namespace uri {
 		/**
-		 * @brief Querry Interface management.
+		 * @brief query Interface management.
 		 */
 		class Query {
 			private:
-				etk::Map<etk::String, etk::String> m_query; //!< Querry data
+				etk::Map<etk::String, etk::String> m_data; //!< query data
 			public:
 				ETK_CONSTRUCTOR_MOVE_DEFAULT(Query);
 				ETK_CONSTRUCTOR_COPY_DEFAULT(Query);
 				/**
 				 * @brief Default contructor.
 				 */
-				Querry();
+				Query();
 				/**
-				 * @brief Set with a specific querry string
-				 * @param[in] _value querry data
+				 * @brief Set with a specific query string
+				 * @param[in] _value query data
 				 */
-				Querry(const etk::String& _value);
+				Query(const etk::String& _value);
 				/**
 				 * @brief Set the encoded query.
 				 * @param[in] _value encoded data.
@@ -40,6 +40,11 @@ namespace etk {
 				 * @return encoded data.
 				 */
 				etk::String getEncoded() const;
+				/**
+				 * @brief Get the Not encoded query (for debug only).
+				 * @return encoded data.
+				 */
+				etk::String getNotEncoded() const;
 				/**
 				 * @brief Set an element of the query.
 				 * @param[in] _key Key of the query.
@@ -64,7 +69,18 @@ namespace etk {
 				 * @return associated data.
 				 */
 				etk::String get(const etk::String& _key);
+				/**
+				 * @brief clear data
+				 */
+				void clear();
+				/**
+				 * @brief check if the querry is empty
+				 * @return true The querry have no data. false Otherwise
+				 */
+				bool isEmpty() const;
 		};
 	}
+	//! @not_in_doc
+	etk::Stream& operator <<(etk::Stream& _os, const etk::uri::Query& _obj);
 }
 
