@@ -40,6 +40,11 @@ namespace etk {
 			 */
 			Uri(const etk::String& _value);
 			/**
+			 * @brief Contructor with basic URI with a generic path.
+			 * @param[in] _value generic path
+			 */
+			Uri(const etk::Path& _value);
+			/**
 			 * @brief Contructor with basic URI.
 			 * @param[in] _value Element basic URI
 			 */
@@ -58,7 +63,7 @@ namespace etk {
 			 * @brief generate the URI string.
 			 * @return the uri correctly encoded
 			 */
-			etk::String get();
+			etk::String get() const;
 			/**
 			 * @brief Get the scheme of the URI.
 			 * @return Scheme value.
@@ -143,6 +148,38 @@ namespace etk {
 			 * @brief Clear the structure.
 			 */
 			void clear();
+			/**
+			 * @brief Check if the uri ahave data
+			 * @return true The uri is empty
+			 * @return famse The uri have some element
+			 */
+			bool isEmpty() const;
+			/**
+			 * @brief Check if the 2 Uri are identical.
+			 * @param[in] _obj Uri to compare.
+			 * @return true : same Uri, false otherwise.
+			 */
+			bool operator== (const etk::Uri& _obj) const;
+			/**
+			 * @brief Check if the 2 Uri are different.
+			 * @param[in] _obj Uri to compare.
+			 * @return false : same Uri, true otherwise.
+			 */
+			bool operator!= (const etk::Uri& _obj) const;
+			/**
+			 * @brief check if this elemnt is greater than the other.
+			 * @param[in] _obj Uri to compare.
+			 * @return true : less Uri, false otherwise.
+			 */
+			bool operator< (const etk::Uri& _obj) const;
+			/**
+			 * @brief Check if this elemnt is greater than the other.
+			 * @param[in] _obj Uri to compare.
+			 * @return false : Greater Uri, true otherwise.
+			 */
+			bool operator> (const etk::Uri& _obj) const;
 	};
+	//! @not_in_doc
+	etk::Stream& operator <<(etk::Stream& _os, const etk::Uri& _obj);
 }
 

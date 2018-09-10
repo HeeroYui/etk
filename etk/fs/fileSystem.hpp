@@ -212,19 +212,17 @@ namespace etk {
 		 * @brief Current binary name.
 		 * @return executable name.
 		 */
-		etk::Path getBinaryName();
+		etk::String getBinaryName();
 		/**
 		 * @brief Full banary name (with root path).
 		 * @return the binary absolute path.
 		 */
 		etk::Path getBinaryPath();
-		#if 0
-			/**
-			 * @brief Get the data path of the application.
-			 * @return the root path of the data for this application.
-			 */
-			etk::Path getDataPath();
-		#endif
+		/**
+		 * @brief Get the data path of the application.
+		 * @return the root path of the data for this application.
+		 */
+		etk::Path getDataPath();
 		/**
 		 * @brief Get the creation time of the path.
 		 * @param[in] _path Path of the requested information.

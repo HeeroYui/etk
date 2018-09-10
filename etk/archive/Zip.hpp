@@ -6,6 +6,7 @@
 #pragma once
 
 #include <etk/archive/Archive.hpp>
+#include <etk/uri/Uri.hpp>
 #ifdef ETK_BUILD_MINIZIP
 	extern "C" {
 		#include <minizip/unzip.h>
@@ -29,6 +30,11 @@
 					 * @param[in] _offset Offset in the file where to start the parsing of the "zip"
 					 */
 					Zip(const etk::Path& _fileName, uint64_t _offset = 0LL);
+					/**
+					 * @brief constructor of a zip file access
+					 * @param[in] _uri URI of the file to parse (.zip / .apk)
+					 */
+					Zip(const etk::Uri& _uri);
 					/**
 					 * @brief basic destructor
 					 */

@@ -151,6 +151,20 @@ TEST(TestUri, base_9) {
 }
 
 TEST(TestUri, base_10) {
+	etk::String value = "__SCHEME__:////__PATH__?__QUERY__";
+	etk::Uri uri(value);
+	EXPECT_EQ(uri.get(), value);
+	EXPECT_EQ(uri.getScheme(), "__SCHEME__");
+	EXPECT_EQ(uri.getUser(), "");
+	EXPECT_EQ(uri.getPassword(), "");
+	EXPECT_EQ(uri.getServer(), "");
+	EXPECT_EQ(uri.getPort(), 0);
+	EXPECT_EQ(uri.getPath(), etk::Path("/__PATH__"));
+	EXPECT_EQ(uri.getQuery().getEncoded(), "__QUERY__");
+	EXPECT_EQ(uri.getFragment(), "");
+}
+
+TEST(TestUri, base_10_2) {
 	etk::String value = "__SCHEME__:///__PATH__?__QUERY__";
 	etk::Uri uri(value);
 	EXPECT_EQ(uri.get(), value);
@@ -163,3 +177,35 @@ TEST(TestUri, base_10) {
 	EXPECT_EQ(uri.getQuery().getEncoded(), "__QUERY__");
 	EXPECT_EQ(uri.getFragment(), "");
 }
+
+TEST(TestUri, base_11_1) {
+	etk::String value = "//hello/txt";
+	etk::Path valuePath = "/hello/txt";
+	etk::Uri uri(valuePath);
+	EXPECT_EQ(uri.get(), value);
+	EXPECT_EQ(uri.getScheme(), "");
+	EXPECT_EQ(uri.getUser(), "");
+	EXPECT_EQ(uri.getPassword(), "");
+	EXPECT_EQ(uri.getServer(), "");
+	EXPECT_EQ(uri.getPort(), 0);
+	EXPECT_EQ(uri.getPath(), valuePath);
+	EXPECT_EQ(uri.getQuery().getEncoded(), "");
+	EXPECT_EQ(uri.getFragment(), "");
+}
+
+TEST(TestUri, base_11_2) {
+	etk::String value = "/hello/txt";
+	etk::Path valuePath = "hello/txt";
+	etk::Uri uri(valuePath);
+	EXPECT_EQ(uri.get(), value);
+	EXPECT_EQ(uri.getScheme(), "");
+	EXPECT_EQ(uri.getUser(), "");
+	EXPECT_EQ(uri.getPassword(), "");
+	EXPECT_EQ(uri.getServer(), "");
+	EXPECT_EQ(uri.getPort(), 0);
+	EXPECT_EQ(uri.getPath(), valuePath);
+	EXPECT_EQ(uri.getQuery().getEncoded(), "");
+	EXPECT_EQ(uri.getFragment(), "");
+}
+// "audio://alsa/front?mode=I16"
+

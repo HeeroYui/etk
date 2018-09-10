@@ -97,7 +97,7 @@ void etest::init(int32_t _argc, const char** _argv) {
 		return;
 	}
 	nbTimeInit++;
-	elog::init(_argc, _argv);
+	elog::init(_argc, _argv, "etest");
 	//etk::initDefaultFolder("ewolApplNoName");
 	ETEST_INFO("ETEST system init (BEGIN) ");
 	for (int32_t iii=0; iii<_argc ; ++iii) {

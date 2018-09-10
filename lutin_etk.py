@@ -59,6 +59,9 @@ def configure(target, my_module):
 	    'etk/archive/Zip.cpp',
 	    'etk/uri/Uri.cpp',
 	    'etk/uri/Query.cpp',
+	    'etk/uri/provider/provider.cpp',
+	    'etk/uri/provider/ProviderFile.cpp',
+	    'etk/uri/provider/ProviderFileZip.cpp',
 	    ])
 	
 	my_module.add_header_file([
@@ -96,6 +99,10 @@ def configure(target, my_module):
 	    'etk/FlatTree.hpp',
 	    'etk/uri/Uri.hpp',
 	    'etk/uri/Query.hpp',
+	    'etk/uri/provider/provider.hpp',
+	    'etk/uri/provider/Interface.hpp',
+	    'etk/uri/provider/ProviderFile.hpp',
+	    'etk/uri/provider/ProviderFileZip.hpp',
 	    ])
 	
 	# build in C++ mode
@@ -112,7 +119,7 @@ def configure(target, my_module):
 	my_module.add_depend(['cxx'])
 	
 	# add some optionnal libraries
-	my_module.add_optionnal_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"])
+	my_module.add_optionnal_depend('minizip', ["c++", "-DETK_BUILD_MINIZIP"], export=True)
 	my_module.add_optionnal_depend('linearmath', ["c", "-DETK_BUILD_LINEARMATH"], export=True)
 	
 	if "Android" in target.get_type():

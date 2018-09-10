@@ -13,6 +13,8 @@
 #include <etk/typeInfo.hpp>
 #include <etk/Allocator.hpp>
 #include <etk/theme/theme.hpp>
+#include <etk/fs/fileSystem.hpp>
+#include <etk/uri/provider/provider.hpp>
 
 static int32_t nbTimeInit = 0;
 
@@ -28,8 +30,9 @@ void etk::unInit() {
 		nbTimeInit = 0;
 		return;
 	}
-	etk::theme::unInit();
 	TK_INFO("ETK system un-init (BEGIN)");
+	etk::theme::unInit();
+	etk::uri::provider::unInit();
 	ETK_MEM_SHOW_LOG();
 	TK_INFO("ETK system un-init (END)");
 }
@@ -46,13 +49,8 @@ void etk::init(int _argc, const char** _argv) {
 	} else {
 		TK_INFO("ETK system init (BEGIN) ");
 	}
-	elog::init(_argc, _argv);
-	#if !defined(__TARGET_OS__Android) and !defined(__TARGET_OS__IOs)
-		// This action is done by the main wrapper...
-		if (_argc >= 1) {
-			etk::setArgZero(_argv[0]);
-		}
-	#endif
+	elog::init(_argc, _argv, etk::fs::getBinaryName());
+	etk::uri::provider::init();
 	etk::theme::init();
 	for (int32_t iii=0; iii<_argc ; ++iii) {
 		etk::String data = _argv[iii];

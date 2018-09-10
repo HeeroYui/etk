@@ -148,3 +148,19 @@ etk::Stream& etk::operator <<(etk::Stream& _os, const etk::uri::Query& _obj) {
 bool etk::uri::Query::isEmpty() const {
 	return m_data.size() == 0;
 }
+
+bool etk::uri::Query::operator== (const etk::uri::Query& _obj) const {
+	return getEncoded() == _obj.getEncoded();
+}
+
+bool etk::uri::Query::operator!= (const etk::uri::Query& _obj) const {
+	return getEncoded() != _obj.getEncoded();
+}
+
+bool etk::uri::Query::operator< (const etk::uri::Query& _obj) const {
+	return getEncoded() < _obj.getEncoded();
+}
+
+bool etk::uri::Query::operator> (const etk::uri::Query& _obj) const {
+	return getEncoded() > _obj.getEncoded();
+}

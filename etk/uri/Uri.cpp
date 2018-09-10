@@ -15,8 +15,17 @@ etk::Uri::Uri(const etk::String& _value) {
 	set(_value);
 }
 
+etk::Uri::Uri(const etk::Path& _value) {
+	m_path = _value;
+}
+
 etk::Uri::Uri(const char * _value) {
 	set(_value);
+}
+
+etk::Stream& etk::operator <<(etk::Stream& _os, const etk::Uri& _obj) {
+	_os << _obj.get();
+	return _os;
 }
 
 void etk::Uri::set(const char * _value) {
@@ -32,6 +41,58 @@ void etk::Uri::clear() {
 	m_path.clear();
 	m_query.clear();
 	m_fragment.clear();
+}
+
+bool etk::Uri::isEmpty() const {
+	return    m_scheme.isEmpty() == true
+	       && m_user.isEmpty() == true
+	       && m_password.isEmpty() == true
+	       && m_server.isEmpty() == true
+	       && m_port == 0
+	       && m_path.isEmpty() == true
+	       && m_query.isEmpty() == true
+	       && m_fragment.isEmpty() == true;
+}
+bool etk::Uri::operator== (const etk::Uri& _obj) const {
+	return    m_scheme == _obj.m_scheme
+	       && m_user == _obj.m_user
+	       && m_password == _obj.m_password
+	       && m_server == _obj.m_server
+	       && m_port == _obj.m_port
+	       && m_path == _obj.m_path
+	       && m_query == _obj.m_query
+	       && m_fragment == _obj.m_fragment;
+}
+
+bool etk::Uri::operator!= (const etk::Uri& _obj) const {
+	return    m_scheme != _obj.m_scheme
+	       || m_user != _obj.m_user
+	       || m_password != _obj.m_password
+	       || m_server != _obj.m_server
+	       || m_port != _obj.m_port
+	       || m_path != _obj.m_path
+	       || m_query != _obj.m_query
+	       || m_fragment != _obj.m_fragment;
+}
+bool etk::Uri::operator< (const etk::Uri& _obj) const {
+	return    m_scheme < _obj.m_scheme
+	       && m_user < _obj.m_user
+	       && m_password < _obj.m_password
+	       && m_server < _obj.m_server
+	       && m_port < _obj.m_port
+	       && m_path < _obj.m_path
+	       && m_query < _obj.m_query
+	       && m_fragment < _obj.m_fragment;
+}
+bool etk::Uri::operator> (const etk::Uri& _obj) const {
+	return    m_scheme > _obj.m_scheme
+	       && m_user > _obj.m_user
+	       && m_password > _obj.m_password
+	       && m_server > _obj.m_server
+	       && m_port > _obj.m_port
+	       && m_path > _obj.m_path
+	       && m_query > _obj.m_query
+	       && m_fragment > _obj.m_fragment;
 }
 
 void etk::Uri::set(etk::String _value) {
@@ -92,7 +153,7 @@ void etk::Uri::set(etk::String _value) {
 	TK_VERBOSE("find server / port : '" << m_server << "' / '" << m_port << "'");
 }
 
-etk::String etk::Uri::get() {
+etk::String etk::Uri::get() const {
 	etk::String out;
 	if (m_scheme != "") {
 		out += m_scheme;

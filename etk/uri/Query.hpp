@@ -78,6 +78,30 @@ namespace etk {
 				 * @return true The querry have no data. false Otherwise
 				 */
 				bool isEmpty() const;
+				/**
+				 * @brief Check if the 2 Query are identical.
+				 * @param[in] _obj Query to compare.
+				 * @return true : same Query, false otherwise.
+				 */
+				bool operator== (const etk::uri::Query& _obj) const;
+				/**
+				 * @brief Check if the 2 Query are different.
+				 * @param[in] _obj Query to compare.
+				 * @return false : same query, true otherwise.
+				 */
+				bool operator!= (const etk::uri::Query& _obj) const;
+				/**
+				 * @brief check if this elemnt is greater than the other.
+				 * @param[in] _obj Query to compare.
+				 * @return true : less Query, false otherwise.
+				 */
+				bool operator< (const etk::uri::Query& _obj) const;
+				/**
+				 * @brief Check if this elemnt is greater than the other.
+				 * @param[in] _obj Query to compare.
+				 * @return false : Greater Query, true otherwise.
+				 */
+				bool operator> (const etk::uri::Query& _obj) const;
 		};
 	}
 	//! @not_in_doc

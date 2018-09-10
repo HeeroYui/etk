@@ -308,6 +308,10 @@ namespace etk {
 			bool empty() const {
 				return size() == 0;
 			}
+			/// @previous
+			bool isEmpty() const {
+				return empty();
+			}
 			/**
 			 * @brief Get a current element in the string
 			 * @param[in] _pos Desired position read

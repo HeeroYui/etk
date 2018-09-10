@@ -71,7 +71,22 @@ ememory::SharedPtr<etk::Archive> etk::Archive::load(const etk::Path& _fileName) 
 			TK_ERROR("An error occured when load archive : " << _fileName);
 		}
 	} else {
-		TK_ERROR("Extention not managed " << _fileName << " Sopported extention : .zip");
+		TK_ERROR("Extention not managed '" << _fileName << "' Supported extention : .zip");
+	}
+	return output;
+}
+ememory::SharedPtr<etk::Archive> etk::Archive::load(const etk::Uri& _uri) {
+	ememory::SharedPtr<etk::Archive> output;
+	etk::String extention = _uri.getPath().getExtention().toLower();
+	// select the corect Loader :
+	if(    extention == "zip"
+	    || extention == ".apk") {
+		output = ememory::makeShared<etk::archive::Zip>(_uri);
+		if (output == null) {
+			TK_ERROR("An error occured when load archive : " << _uri);
+		}
+	} else {
+		TK_ERROR("Extention not managed '" << _uri << "' Supported extention : .zip");
 	}
 	return output;
 }
@@ -136,6 +151,40 @@ void etk::Archive::close(const etk::Path& _key) {
 	} else {
 		it->second->decreaseRef();
 	}
+}
+
+etk::Vector<etk::Path> etk::Archive::list(const etk::Path& _path) {
+	etk::Vector<etk::Path> out;
+	etk::String base = _path.getString();
+	for (auto& it: m_content) {
+		etk::String name = it.first.getString();
+		if (name.size() < base.size()) {
+			continue;
+		}
+		if (etk::start_with(name, base) == true) {
+			// element or subElement...
+			if (it.first.getParent() == _path) {
+				out.pushBack(it.first);
+				continue;
+			}
+			etk::String back = name.extract(base.size());
+			if (    back.size() == 0
+			     || back[0] != '/') {
+				continue;
+			}
+			back.erase(back.begin());
+			size_t pos = back.find('/');
+			if (pos == etk::String::npos) {
+				continue;
+			}
+			etk::String value = back.extract(0, pos);
+			etk::Path tmpppp = etk::Path(base) / value;
+			if (etk::isIn(tmpppp, out) == false) {
+				out.pushBack(tmpppp);
+			}
+		}
+	}
+	return out;
 }
 
 #endif

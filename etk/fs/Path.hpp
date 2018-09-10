@@ -126,6 +126,14 @@ namespace etk {
 			 */
 			void clear();
 			/**
+			 * @brief Check if the path ahave data
+			 * @return true The path is empty
+			 * @return famse The path have some element
+			 */
+			bool isEmpty() const {
+				return m_data.isEmpty();
+			}
+			/**
 			 * @brief Check if the 2 Path are identical.
 			 * @param[in] _obj Path to compare.
 			 * @return true : same path, false otherwise.

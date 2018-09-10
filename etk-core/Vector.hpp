@@ -999,7 +999,7 @@ namespace etk {
 						}
 					}
 					if (swapped == false) {
-						break;
+						//break;
 					}
 				}
 			}

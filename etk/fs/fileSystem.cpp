@@ -407,14 +407,33 @@ etk::Path etk::fs::getBinaryPath() {
 	return out;
 }
 
-etk::Path etk::fs::getBinaryName() {
+etk::String etk::fs::getBinaryName() {
 	return getBinaryPath().getFileName();
 }
-#if 0
+
 etk::Path etk::fs::getDataPath() {
-	
+	#if defined(__TARGET_OS__Web)
+		return "zz_generic_zz";
+	#elif defined(__TARGET_OS__Android)
+		return "assets";
+	#elif defined(__TARGET_OS__Linux)
+		etk::Path dataPath =  etk::Path("/usr/share") / getBinaryName();
+		etk::Path theoricInstalledName = etk::Path("/usr/bin") / getBinaryName();
+		TK_DEBUG(" position : '" << getBinaryPath() << "' installed position : '" << theoricInstalledName << "'");
+		if (getBinaryPath() != theoricInstalledName) {
+			dataPath = getBinaryPath().getParent() / ".." / "share" / getBinaryName();
+		}
+		return dataPath;
+	#elif defined(__TARGET_OS__Windows)
+		return getBinaryPath().getParent() / "data";
+	#elif defined(__TARGET_OS__MacOs)
+		return getBinaryPath().getParent() / ".." / "Resources" / getBinaryName();
+	#elif defined(__TARGET_OS__IOs)
+		return getBinaryPath().getParent() / "share" / getBinaryName();
+	#endif
+	return "NO_DATA_PATH";
 }
-#endif
+
 uint64_t etk::fs::getCreateTime(const etk::Path& _path) {
 	struct stat statProperty;
 	if (-1 == stat(_path.getNative().c_str(), &statProperty)) {

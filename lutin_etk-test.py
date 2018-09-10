@@ -33,6 +33,7 @@ def configure(target, my_module):
 	    'test/testTheme.cpp',
 	    'test/testUri.cpp',
 	    'test/testQuery.cpp',
+	    'test/testUriProvider.cpp',
 	    ])
 	"""
 	    'test/ConstructDestruct.cpp',
@@ -63,5 +64,9 @@ def configure(target, my_module):
 	    'test-debug'
 	    ])
 	my_module.copy_path('data/*')
+	my_module.copy_path('data/data/*', 'data')
+	my_module.copy_path('data/data/dir_A/*', 'data/dir_A')
+	my_module.copy_path('data/data/dir_B/*', 'data/dir_B')
+	my_module.copy_path('data/data/dir_B/dir_C/*', 'data/dir_B/dir_C')
 	return True
 

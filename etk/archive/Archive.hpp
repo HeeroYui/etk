@@ -12,6 +12,7 @@
 #include <ethread/Mutex.hpp>
 #include <ememory/memory.hpp>
 #include <etk/fs/Path.hpp>
+#include <etk/uri/Uri.hpp>
 
 namespace etk {
 	/**
@@ -175,11 +176,23 @@ namespace etk {
 			 */
 			static ememory::SharedPtr<Archive> load(const etk::Path& _fileName);
 			/**
+			 * @brief Load an Achive with a specific name.
+			 * @param[in] _uri Localisation of the file.
+			 * @return A pointer an the specified archive, the user might delete it.
+			 */
+			static ememory::SharedPtr<Archive> load(const etk::Uri& _uri);
+			/**
 			 * @brief Load an Achive with a specific name in package mode ==> this mean the data is associated with the basic binary.
 			 * @param[in] _fileName File name of the specific archive.
 			 * @return A pointer an the specified archive, the user might delete it.
 			 */
 			static ememory::SharedPtr<Archive> loadPackage(const etk::Path& _fileName);
+			/**
+			 * @brief List the content of a specific path.
+			 * @param[in] Path to parse.
+			 * @return the full list of path in the _path.
+			 */
+			etk::Vector<etk::Path> list(const etk::Path& _path);
 	};
 }
 #endif
