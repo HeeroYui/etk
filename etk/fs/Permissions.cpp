@@ -5,7 +5,6 @@
  */
 
 
-#include <etk/os/FSNodeRight.hpp>
 #include <etk/stdTools.hpp>
 #include <etk/typeInfo.hpp>
 #include <etk/fs/Permissions.hpp>

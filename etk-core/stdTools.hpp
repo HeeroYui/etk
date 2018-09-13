@@ -4,7 +4,10 @@
  * @license MPL v2.0 (see license file)
  */
 #pragma once
-//#include <etk/Stream.hpp>
+#include <etk/types.hpp>
+extern "C" {
+	#include <math.h>
+}
 
 namespace etk {
 	inline float cos(float _value) {

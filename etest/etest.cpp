@@ -10,9 +10,7 @@
 #include <elog/elog.hpp>
 #include <echrono/Steady.hpp>
 #include <echrono/Duration.hpp>
-#include <etk/os/FSNode.hpp>
 #include <etk/Allocator.hpp>
-//#include <etk/os/FSNode.hpp>
 
 static int32_t nbTimeInit = 0;
 

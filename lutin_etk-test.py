@@ -34,8 +34,6 @@ def configure(target, my_module):
 	    'test/testUri.cpp',
 	    'test/testQuery.cpp',
 	    'test/testUriProvider.cpp',
-	    ])
-	"""
 	    'test/ConstructDestruct.cpp',
 	    'test/testColor.cpp',
 	    'test/testFunction.cpp',
@@ -48,8 +46,6 @@ def configure(target, my_module):
 	    'test/testArray.cpp',
 	    'test/testVector.cpp',
 	    'test/testVector3_f.cpp',
-	    'test/testArchive.cpp',
-	    'test/testFSNode.cpp',
 	    'test/testMatrix2x2.cpp',
 	    'test/testQuaternion.cpp',
 	    'test/testVector2_f.cpp',
@@ -57,7 +53,7 @@ def configure(target, my_module):
 	    'test/testTrait.cpp',
 	    'test/testThrow.cpp',
 	    'test/testUTF8.cpp',
-	"""
+	    ])
 	my_module.add_depend([
 	    'etk',
 	    'etest',

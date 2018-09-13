@@ -5,7 +5,7 @@
  */
 
 #include <etk/tool.hpp>
-#include <etk/os/FSNode.hpp>
+#include <etk/String.hpp>
 extern "C" {
 	#include <time.h>
 	#include <math.h>

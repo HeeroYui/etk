@@ -9,7 +9,6 @@
 #include <etk/types.hpp>
 #include <etk/debug.hpp>
 #include <elog/elog.hpp>
-#include <etk/os/FSNode.hpp>
 #include <etk/typeInfo.hpp>
 #include <etk/Allocator.hpp>
 #include <etk/theme/theme.hpp>
@@ -60,15 +59,17 @@ void etk::init(int _argc, const char** _argv) {
 			if (_argc >= 1) {
 				TK_PRINT("    " << _argv[0] << " [options]");
 			}
-			TK_PRINT("        --etk-base-path=name  Change the default USERDATA: generic name");
+			//TK_PRINT("        --etk-base-path=name  Change the default USERDATA: generic name");
 			/*
 			TK_PRINT("        --etk-log-lib=name:X  Set a library specific level:");
 			TK_PRINT("            name  Name of the library");
 			TK_PRINT("            X     Log level to set [0..6]");
 			*/
 			TK_PRINT("        -h/--help: this help");
+		/*
 		} else if (data.startWith("--etk-base-path=") == true) {
 			etk::forcePathUserData(etk::String(&data[16]));
+		*/
 		} else if (data.startWith("--etk") == true) {
 			TK_ERROR("Can not parse the argument : '" << data << "'");
 		}
@@ -81,5 +82,5 @@ void etk::init(int _argc, const char** _argv) {
 }
 
 etk::String etk::getApplicationName() {
-	return etk::FSNodeGetApplicationName();
+	return etk::fs::getBinaryName();
 }

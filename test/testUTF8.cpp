@@ -9,7 +9,7 @@
 #include <test-debug/debug.hpp>
 #include <etest/etest.hpp>
 #include "ConstructDestruct.hpp"
-
+/*
 TEST(TestUTF8, full) {
 	// Test contructor value
 	for (uint32_t jjj=0; jjj<0XFF; ++jjj) {
@@ -23,3 +23,13 @@ TEST(TestUTF8, full) {
 		}
 	}
 }
+*/
+
+TEST(TestUTF8, simple) {
+	char32_t inputValue = U'é';
+	char output[7];
+	u32char::convertUtf8(inputValue, output);
+	char32_t outputValue = utf8::convertChar32(output);
+	EXPECT_EQ(inputValue, outputValue);
+}
+

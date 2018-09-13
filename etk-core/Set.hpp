@@ -8,6 +8,7 @@
 #include <etk/types.hpp>
 #include <etk/Pair.hpp>
 #include <etk/Vector.hpp>
+#include <etk/algorithm.hpp>
 
 namespace etk {
 	/**
@@ -241,9 +242,10 @@ namespace etk {
 			 */
 			void sort() {
 				if (m_comparator != null) {
-					m_data.sort(0, m_data.size(), m_comparator);
+					etk::algorithm::quickSort(m_data, m_comparator);
 				} else {
-					m_data.sort(0, m_data.size(), [](const ETK_SET_TYPE& _key1, const ETK_SET_TYPE& _key2) { return _key1 < _key2; });
+					sortFunction comparator = [](const ETK_SET_TYPE& _key1, const ETK_SET_TYPE& _key2) { return _key1 < _key2; };
+					etk::algorithm::quickSort(m_data, comparator);
 				}
 			}
 		public:
