@@ -10,6 +10,7 @@
 #include <etk/Vector.hpp>
 #include <etk/Allocator.hpp>
 #include <etk/Exception.hpp>
+#include <etk/algorithm.hpp>
 
 namespace etk {
 	/**
@@ -274,12 +275,16 @@ namespace etk {
 					return;
 				}
 				if (m_comparator != null) {
-					m_data.sort(0, m_data.size(), m_comparator);
+					etk::algorithm::quickSort(m_data, 0, m_data.size(), m_comparator);
 				} else {
-					m_data.sort(0, m_data.size(), [](etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key1,
-					                                 etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key2) {
-					                                	return _key1->first < _key2->first;
-					                                });
+					sortFunction tmp = [](etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key1,
+					                      etk::Pair<ETK_MAP_TYPE_KEY, ETK_MAP_TYPE_DATA>* const & _key2) {
+					                   	return _key1->first < _key2->first;
+					                   };
+					etk::algorithm::quickSort(m_data,
+					                          0,
+					                          m_data.size(),
+					                          tmp);
 				}
 			}
 		public:

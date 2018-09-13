@@ -9,6 +9,7 @@
 //#include <etk/debug.hpp>
 #include <etk/Stream.hpp>
 #include <etk/Allocator.hpp>
+//#include <etk/algorithm.hpp>
 
 //#define ETK_VECTOR_DEBUG(...) printf(__VA_ARGS__)
 #define ETK_VECTOR_DEBUG(...) do {} while (false)
@@ -978,31 +979,11 @@ namespace etk {
 				// TODO : Later
 				return false;
 			}
+			/*
 			void sort(size_t _start, size_t _stop, bool (*_comparator)(const ETK_VECTOR_TYPE&, const ETK_VECTOR_TYPE&)) {
-				if (_stop > m_size) {
-					_stop = m_size;
-				}
-				if (_start > m_size) {
-					_start = m_size;
-				}
-				if (_start > _stop) {
-					size_t start = _start;
-					_start = _stop;
-					_stop = start;
-				}
-				for (size_t iii=_start; iii<_stop; ++iii) {
-					bool swapped = false;
-					for (size_t jjj=_start; jjj<_stop - (iii+1); ++jjj) {
-						if (_comparator(m_data[jjj], m_data[jjj+1]) == false) {
-							etk::swap(m_data[jjj], m_data[jjj+1]);
-							swapped = true;
-						}
-					}
-					if (swapped == false) {
-						//break;
-					}
-				}
+				etk::algorithm::quickSort(*this, _start, _stop, _comparator);
 			}
+			*/
 	};
 	//! @not_in_doc
 	template<typename ETK_VECTOR_TYPE_1, typename ETK_VECTOR_TYPE_2>
