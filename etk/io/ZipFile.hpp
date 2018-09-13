@@ -7,7 +7,7 @@
 
 #include <etk/types.hpp>
 #include <etk/io/Interface.hpp>
-#include <etk/fs/Path.hpp>
+#include <etk/path/Path.hpp>
 #include <ememory/SharedPtr.hpp>
 #include <etk/archive/Archive.hpp>
 

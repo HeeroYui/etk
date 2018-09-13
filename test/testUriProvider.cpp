@@ -12,7 +12,7 @@
 #include <etk/uri/provider/provider.hpp>
 #include <etk/uri/provider/ProviderFile.hpp>
 #include <etk/uri/provider/ProviderFileZip.hpp>
-#include <etk/fs/fileSystem.hpp>
+#include <etk/path/fileSystem.hpp>
 #include <etk/algorithm.hpp>
 
 
@@ -100,8 +100,8 @@ bool uriSortCallback(const etk::Uri& _left, const etk::Uri& _right) {
 
 TEST(TestUriProvider, checkDirectAccess) {
 	etk::uri::provider::clear();
-	TEST_VERBOSE("data path: " << etk::fs::getDataPath());
-	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFile>(etk::fs::getDataPath()));
+	TEST_VERBOSE("data path: " << etk::path::getDataPath());
+	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFile>(etk::path::getDataPath()));
 	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
 	ememory::SharedPtr<etk::uri::provider::Interface> provider = etk::uri::provider::getProvider("DATA");
 	EXPECT_NE(provider, null);
@@ -133,8 +133,8 @@ etk::Vector<etk::Uri> listDirect2 = {
 
 TEST(TestUriProvider, checkDirectAccess2) {
 	etk::uri::provider::clear();
-	TEST_VERBOSE("data path: " << etk::fs::getDataPath());
-	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFile>(etk::fs::getDataPath()));
+	TEST_VERBOSE("data path: " << etk::path::getDataPath());
+	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFile>(etk::path::getDataPath()));
 	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
 	ememory::SharedPtr<etk::uri::provider::Interface> provider = etk::uri::provider::getProvider("DATA");
 	EXPECT_NE(provider, null);
@@ -155,8 +155,8 @@ TEST(TestUriProvider, checkDirectAccess2) {
 
 TEST(TestUriProvider, directExistFile) {
 	etk::uri::provider::clear();
-	TEST_VERBOSE("data path: " << etk::fs::getDataPath());
-	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFile>(etk::fs::getDataPath()));
+	TEST_VERBOSE("data path: " << etk::path::getDataPath());
+	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFile>(etk::path::getDataPath()));
 	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
 	ememory::SharedPtr<etk::uri::provider::Interface> provider = etk::uri::provider::getProvider("DATA");
 	EXPECT_NE(provider, null);
@@ -172,8 +172,8 @@ TEST(TestUriProvider, directExistFile) {
 
 TEST(TestUriProvider, directReadFile) {
 	etk::uri::provider::clear();
-	TEST_VERBOSE("data path: " << etk::fs::getDataPath());
-	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFile>(etk::fs::getDataPath()));
+	TEST_VERBOSE("data path: " << etk::path::getDataPath());
+	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFile>(etk::path::getDataPath()));
 	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
 	etk::Uri element("DATA:///data/dir_B/file_B_1.txt");
 	ememory::SharedPtr<etk::io::Interface> ioElement = etk::uri::provider::get(element);
@@ -196,8 +196,8 @@ etk::Vector<etk::Uri> listZip = {
 
 TEST(TestUriProvider, checkZipAccess) {
 	etk::uri::provider::clear();
-	TEST_VERBOSE("data path: " << etk::fs::getDataPath());
-	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFileZip>(etk::fs::getDataPath() / "data_sample.zip", "data"));
+	TEST_VERBOSE("data path: " << etk::path::getDataPath());
+	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFileZip>(etk::path::getDataPath() / "data_sample.zip", "data"));
 	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
 	ememory::SharedPtr<etk::uri::provider::Interface> provider = etk::uri::provider::getProvider("DATA");
 	EXPECT_NE(provider, null);
@@ -219,8 +219,8 @@ etk::Vector<etk::Uri> listZip2 = {
 
 TEST(TestUriProvider, checkZipAccess2) {
 	etk::uri::provider::clear();
-	TEST_VERBOSE("data path: " << etk::fs::getDataPath());
-	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFileZip>(etk::fs::getDataPath() / "data_sample.zip", "data"));
+	TEST_VERBOSE("data path: " << etk::path::getDataPath());
+	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFileZip>(etk::path::getDataPath() / "data_sample.zip", "data"));
 	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
 	ememory::SharedPtr<etk::uri::provider::Interface> provider = etk::uri::provider::getProvider("DATA");
 	EXPECT_NE(provider, null);
@@ -236,8 +236,8 @@ TEST(TestUriProvider, checkZipAccess2) {
 
 TEST(TestUriProvider, zipExistFile) {
 	etk::uri::provider::clear();
-	TEST_VERBOSE("data path: " << etk::fs::getDataPath());
-	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFileZip>(etk::fs::getDataPath() / "data_sample.zip", "data"));
+	TEST_VERBOSE("data path: " << etk::path::getDataPath());
+	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFileZip>(etk::path::getDataPath() / "data_sample.zip", "data"));
 	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
 	ememory::SharedPtr<etk::uri::provider::Interface> provider = etk::uri::provider::getProvider("DATA");
 	EXPECT_NE(provider, null);
@@ -253,8 +253,8 @@ TEST(TestUriProvider, zipExistFile) {
 
 TEST(TestUriProvider, zipReadFile) {
 	etk::uri::provider::clear();
-	TEST_VERBOSE("data path: " << etk::fs::getDataPath());
-	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFileZip>(etk::fs::getDataPath() / "data_sample.zip", "data"));
+	TEST_VERBOSE("data path: " << etk::path::getDataPath());
+	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFileZip>(etk::path::getDataPath() / "data_sample.zip", "data"));
 	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
 	etk::Uri element("DATA:///dir_B/file_B_1.txt");
 	ememory::SharedPtr<etk::io::Interface> ioElement = etk::uri::provider::get(element);

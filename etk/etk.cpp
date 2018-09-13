@@ -12,7 +12,7 @@
 #include <etk/typeInfo.hpp>
 #include <etk/Allocator.hpp>
 #include <etk/theme/theme.hpp>
-#include <etk/fs/fileSystem.hpp>
+#include <etk/path/fileSystem.hpp>
 #include <etk/uri/provider/provider.hpp>
 
 static int32_t nbTimeInit = 0;
@@ -48,7 +48,7 @@ void etk::init(int _argc, const char** _argv) {
 	} else {
 		TK_INFO("ETK system init (BEGIN) ");
 	}
-	elog::init(_argc, _argv, etk::fs::getBinaryName());
+	elog::init(_argc, _argv, etk::path::getBinaryName());
 	etk::uri::provider::init();
 	etk::theme::init();
 	for (int32_t iii=0; iii<_argc ; ++iii) {
@@ -82,5 +82,5 @@ void etk::init(int _argc, const char** _argv) {
 }
 
 etk::String etk::getApplicationName() {
-	return etk::fs::getBinaryName();
+	return etk::path::getBinaryName();
 }

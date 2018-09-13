@@ -6,7 +6,6 @@
 #pragma once
 
 #include <etk/types.hpp>
-#include <etk/fs/Type.hpp>
 #include <etk/String.hpp>
 
 namespace etk {

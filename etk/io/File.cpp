@@ -6,7 +6,7 @@
 #include <etk/types.hpp>
 #include <etk/io/File.hpp>
 #include <etk/debug.hpp>
-#include <etk/fs/fileSystem.hpp>
+#include <etk/path/fileSystem.hpp>
 #include <sys/stat.h>
 extern "C" {
 	#include <errno.h>
@@ -67,7 +67,7 @@ bool etk::io::File::close() {
 }
 
 uint64_t etk::io::File::size() {
-	return etk::fs::fileSize(m_path);
+	return etk::path::fileSize(m_path);
 }
 
 bool etk::io::File::seek(uint64_t _offset, enum etk::io::SeekMode _origin) {

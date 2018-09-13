@@ -8,8 +8,8 @@
 
 #include <etest/etest.hpp>
 #include <test-debug/debug.hpp>
-#include <etk/fs/Path.hpp>
-#include <etk/fs/fileSystem.hpp>
+#include <etk/path/Path.hpp>
+#include <etk/path/fileSystem.hpp>
 
 TEST(TestPath, defaultContructor) {
 	etk::Path path;
@@ -142,7 +142,7 @@ TEST(TestPath, getRelative) {
 	EXPECT_EQ(path.getRelative(), "plouf.pdf");
 	path = "/ici/plouf.pdf";
 	etk::String test;
-	auto elements = etk::fs::getExecutionPath().getString().split('/');
+	auto elements = etk::path::getExecutionPath().getString().split('/');
 	for (size_t iii=0; iii<elements.size(); ++iii) {
 		if (elements[iii].size() == 0) {
 			continue;
@@ -155,7 +155,7 @@ TEST(TestPath, getRelative) {
 
 TEST(TestPath, getAbsolute) {
 	etk::Path path("plouf.pdf");
-	EXPECT_EQ(path.getAbsolute(), (etk::fs::getExecutionPath() / "plouf.pdf").getString());
+	EXPECT_EQ(path.getAbsolute(), (etk::path::getExecutionPath() / "plouf.pdf").getString());
 	path = "/plouf.pdf";
 	EXPECT_EQ(path.getAbsolute(), "/plouf.pdf");
 }

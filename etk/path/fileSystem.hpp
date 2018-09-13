@@ -7,11 +7,11 @@
 
 #include <etk/types.hpp>
 
-#include <etk/fs/Path.hpp>
-#include <etk/fs/Permissions.hpp>
+#include <etk/path/Path.hpp>
+#include <etk/path/Permissions.hpp>
 
 namespace etk {
-	namespace fs {
+	namespace path {
 		/**
 		 * @brief Copy a path to an other (if possible...)
 		 * @param[in] _path1 Path source.
@@ -103,7 +103,7 @@ namespace etk {
 		 * @return true Operation succeed.
 		 * @return false Operation Failed.
 		 */
-		bool makeDirectory(const etk::Path& _path, etk::fs::Permissions _permission = etk::fs::Permissions::genericFolder);
+		bool makeDirectory(const etk::Path& _path, etk::path::Permissions _permission = etk::path::Permissions::genericFolder);
 		/**
 		 * @brief Make a directory (With all parents if needed)
 		 * @param[in] _path Path to create.
@@ -111,7 +111,7 @@ namespace etk {
 		 * @return true Operation succeed.
 		 * @return false Operation Failed.
 		 */
-		bool makeDirectories(const etk::Path& _path, etk::fs::Permissions _permission = etk::fs::Permissions::genericFolder);
+		bool makeDirectories(const etk::Path& _path, etk::path::Permissions _permission = etk::path::Permissions::genericFolder);
 		/**
 		 * @brief update the Time of the file with the current time
 		 * @param[in] _path Path to touch.
@@ -258,7 +258,7 @@ namespace etk {
 		 * @param[in] _path Path of the requested information.
 		 * @return Generic permission class.
 		 */
-		etk::fs::Permissions getPermission(const etk::Path& _path);
+		etk::path::Permissions getPermission(const etk::Path& _path);
 		/**
 		 * @brief List the content of a specific path.
 		 * @param[in] Path to parse.

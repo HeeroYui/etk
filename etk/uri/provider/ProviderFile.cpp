@@ -5,7 +5,7 @@
  */
 #include <etk/uri/provider/ProviderFile.hpp>
 #include <etk/io/File.hpp>
-#include <etk/fs/fileSystem.hpp>
+#include <etk/path/fileSystem.hpp>
 #include <etk/debug.hpp>
 
 etk::uri::provider::ProviderFile::ProviderFile() {
@@ -26,16 +26,16 @@ ememory::SharedPtr<etk::io::Interface> etk::uri::provider::ProviderFile::create(
 
 bool etk::uri::provider::ProviderFile::exist(const etk::Uri& _uri) {
 	if (m_offset.isEmpty() == true) {
-		return etk::fs::exist(_uri.getPath());
+		return etk::path::exist(_uri.getPath());
 	}
-	return etk::fs::exist(m_offset / _uri.getPath());
+	return etk::path::exist(m_offset / _uri.getPath());
 }
 
 etk::Vector<etk::Uri> etk::uri::provider::ProviderFile::list(const etk::Uri& _uri) {
 	etk::Vector<etk::Path> tmp;
 	etk::Vector<etk::Uri> out;
 	if (m_offset.isEmpty() == true) {
-		tmp = etk::fs::list(_uri.getPath());
+		tmp = etk::path::list(_uri.getPath());
 		for (auto& elem: tmp) {
 			etk::Uri newUri = _uri;
 			newUri.setPath(elem);
@@ -44,7 +44,7 @@ etk::Vector<etk::Uri> etk::uri::provider::ProviderFile::list(const etk::Uri& _ur
 		return out;
 	}
 	TK_VERBOSE("list path: " << m_offset / _uri.getPath());
-	tmp = etk::fs::list(m_offset / _uri.getPath());
+	tmp = etk::path::list(m_offset / _uri.getPath());
 	int32_t offset = m_offset.getString().size()+1;
 	for (auto& elem: tmp) {
 		etk::Uri newUri = _uri;

@@ -6,11 +6,11 @@
 #pragma once
 
 #include <etk/types.hpp>
-#include <etk/fs/Type.hpp>
+
 #include <etk/String.hpp>
 #include <etk/Map.hpp>
 #include <etk/uri/Query.hpp>
-#include <etk/fs/Path.hpp>
+#include <etk/path/Path.hpp>
 #include <etk/io/Interface.hpp>
 #include <etk/uri/provider/Interface.hpp>
 #include <ememory/SharedPtr.hpp>

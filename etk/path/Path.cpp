@@ -3,10 +3,10 @@
  * @copyright 2018, Edouard DUPIN, all right reserved
  * @license MPL v2.0 (see license file)
  */
-#include <etk/fs/Path.hpp>
+#include <etk/path/Path.hpp>
 #include <etk/debug.hpp>
 #include <etk/Exception.hpp>
-#include <etk/fs/fileSystem.hpp>
+#include <etk/path/fileSystem.hpp>
 
 #include <etk/typeInfo.hpp>
 ETK_DECLARE_TYPE(etk::Path);
@@ -23,7 +23,7 @@ static etk::String simplifyPath(etk::String _input) {
 		return _input;
 	}
 	if (_input[0] == '~') {
-		_input = etk::fs::getHomePath().getString() + "/" + _input.extract(1);
+		_input = etk::path::getHomePath().getString() + "/" + _input.extract(1);
 	}
 	// step 2 : remove all '//'
 	TK_DBG_MODE("Simplify(2) : '" << _input << "'");
@@ -192,7 +192,7 @@ etk::String etk::Path::getRelative() const {
 	if (isRelative() == true) {
 		return m_data;
 	}
-	etk::String execPath = etk::fs::getExecutionPath().getString();
+	etk::String execPath = etk::path::getExecutionPath().getString();
 	etk::String currentPath = m_data;
 	etk::Vector<etk::String> execPathSplit = execPath.split('/');
 	etk::Vector<etk::String> currentPathSplit = currentPath.split('/');
@@ -235,7 +235,7 @@ etk::String etk::Path::getAbsolute() const {
 	if (isAbsolute() == true) {
 		return m_data;
 	}
-	return (etk::fs::getExecutionPath() / m_data).getString();
+	return (etk::path::getExecutionPath() / m_data).getString();
 }
 
 etk::String etk::Path::getAbsoluteWindows() const {

@@ -11,7 +11,7 @@
 #include <etk/Map.hpp>
 #include <ethread/Mutex.hpp>
 #include <ememory/memory.hpp>
-#include <etk/fs/Path.hpp>
+#include <etk/path/Path.hpp>
 #include <etk/uri/Uri.hpp>
 
 namespace etk {
