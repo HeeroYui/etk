@@ -91,17 +91,29 @@ namespace etk {
 				 */
 				bool operator!= (const etk::uri::Query& _obj) const;
 				/**
-				 * @brief check if this elemnt is greater than the other.
+				 * @brief check if this elemnt is lesser than the other.
 				 * @param[in] _obj Query to compare.
 				 * @return true : less Query, false otherwise.
 				 */
 				bool operator< (const etk::uri::Query& _obj) const;
+				/**
+				 * @brief check if this elemnt is lesser or equal than the other.
+				 * @param[in] _obj Query to compare.
+				 * @return true : less Query, false otherwise.
+				 */
+				bool operator<= (const etk::uri::Query& _obj) const;
 				/**
 				 * @brief Check if this elemnt is greater than the other.
 				 * @param[in] _obj Query to compare.
 				 * @return false : Greater Query, true otherwise.
 				 */
 				bool operator> (const etk::uri::Query& _obj) const;
+				/**
+				 * @brief Check if this elemnt is greater or equal than the other.
+				 * @param[in] _obj Query to compare.
+				 * @return false : Greater Query, true otherwise.
+				 */
+				bool operator>= (const etk::uri::Query& _obj) const;
 		};
 	}
 	//! @not_in_doc

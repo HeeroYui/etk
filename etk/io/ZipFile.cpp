@@ -19,7 +19,7 @@ etk::io::ZipFile::ZipFile(const etk::Path& _path, ememory::SharedPtr<etk::Archiv
 
 bool etk::io::ZipFile::open(etk::io::OpenMode _mode) {
 	if (m_content != null) {
-		TK_CRITICAL("File Already open : " << m_path);
+		TK_CRITICAL("File Already open: " << m_path);
 		return true;
 	}
 	if (m_archive == null) {
@@ -32,11 +32,11 @@ bool etk::io::ZipFile::open(etk::io::OpenMode _mode) {
 				return false;
 			}
 			m_content = m_archive->getContent(m_path);
-			if (m_content != null) {
-				return true;
+			if (m_content == null) {
+				return false;
 			}
 			m_archive->open(m_path);
-			return false;
+			return true;
 		case etk::io::OpenMode::Write:
 			return false;
 		case etk::io::OpenMode::Append:

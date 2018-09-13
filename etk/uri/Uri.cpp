@@ -75,6 +75,16 @@ bool etk::Uri::operator!= (const etk::Uri& _obj) const {
 	       || m_fragment != _obj.m_fragment;
 }
 bool etk::Uri::operator< (const etk::Uri& _obj) const {
+	/*
+	TK_WARNING("compare m_scheme   =" << m_scheme << " " << ( m_scheme < _obj.m_scheme?"<":">=") << " " << _obj.m_scheme);
+	TK_WARNING("compare m_user     =" << m_user << " " << ( m_user < _obj.m_user?"<":">=") << " " << _obj.m_user);
+	TK_WARNING("compare m_password =" << m_password << " " << ( m_password < _obj.m_password?"<":">=") << " " << _obj.m_password);
+	TK_WARNING("compare m_server   =" << m_server << " " << ( m_server < _obj.m_server?"<":">=") << " " << _obj.m_server);
+	TK_WARNING("compare m_port     =" << m_port << " " << ( m_port < _obj.m_port?"<":">=") << " " << _obj.m_port);
+	TK_WARNING("compare m_path     =" << m_path << " " << ( m_path < _obj.m_path?"<":">=") << " " << _obj.m_path);
+	TK_WARNING("compare m_query    =" << m_query << " " << ( m_query < _obj.m_query?"<":">=") << " " << _obj.m_query);
+	TK_WARNING("compare m_fragment =" << m_fragment << " " << ( m_fragment < _obj.m_fragment?"<":">=") << " " << _obj.m_fragment);
+	*/
 	return    m_scheme < _obj.m_scheme
 	       && m_user < _obj.m_user
 	       && m_password < _obj.m_password
@@ -84,6 +94,18 @@ bool etk::Uri::operator< (const etk::Uri& _obj) const {
 	       && m_query < _obj.m_query
 	       && m_fragment < _obj.m_fragment;
 }
+
+bool etk::Uri::operator<= (const etk::Uri& _obj) const {
+	return    m_scheme <= _obj.m_scheme
+	       && m_user <= _obj.m_user
+	       && m_password <= _obj.m_password
+	       && m_server <= _obj.m_server
+	       && m_port <= _obj.m_port
+	       && m_path <= _obj.m_path
+	       && m_query <= _obj.m_query
+	       && m_fragment <= _obj.m_fragment;
+}
+
 bool etk::Uri::operator> (const etk::Uri& _obj) const {
 	return    m_scheme > _obj.m_scheme
 	       && m_user > _obj.m_user
@@ -93,6 +115,17 @@ bool etk::Uri::operator> (const etk::Uri& _obj) const {
 	       && m_path > _obj.m_path
 	       && m_query > _obj.m_query
 	       && m_fragment > _obj.m_fragment;
+}
+
+bool etk::Uri::operator>= (const etk::Uri& _obj) const {
+	return    m_scheme >= _obj.m_scheme
+	       && m_user >= _obj.m_user
+	       && m_password >= _obj.m_password
+	       && m_server >= _obj.m_server
+	       && m_port >= _obj.m_port
+	       && m_path >= _obj.m_path
+	       && m_query >= _obj.m_query
+	       && m_fragment >= _obj.m_fragment;
 }
 
 void etk::Uri::set(etk::String _value) {
@@ -252,3 +285,16 @@ const etk::String& etk::Uri::getFragment() const {
 void etk::Uri::setFragment(const etk::String& _value) {
 	m_fragment = _value;
 }
+
+void etk::Uri::display() const {
+	TK_PRINT("Display of an URI:");
+	TK_PRINT("   m_scheme = '" << m_scheme << "'");
+	TK_PRINT("   m_user = '" << m_user << "'");
+	TK_PRINT("   m_password = '" << m_password << "'");
+	TK_PRINT("   m_server = '" << m_server << "'");
+	TK_PRINT("   m_port = '" << m_port << "'");
+	TK_PRINT("   m_path = '" << m_path << "'");
+	TK_PRINT("   m_query = '" << m_query << "'");
+	TK_PRINT("   m_fragment = '" << m_fragment << "'");
+}
+

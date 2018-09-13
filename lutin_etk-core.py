@@ -40,6 +40,7 @@ def configure(target, my_module):
 	    ])
 	
 	my_module.add_header_file([
+	    'etk-core/algorithm.hpp',
 	    'etk-core/Allocator.hpp',
 	    'etk-core/types.hpp',
 	    'etk-core/stdTools.hpp',

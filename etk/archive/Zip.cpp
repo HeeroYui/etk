@@ -40,7 +40,7 @@ etk::archive::Zip::Zip(const etk::Path& _fileName, uint64_t _offset) :
 		if(tmpFileName[strlen(tmpFileName) - 1] == '/' ) {
 			// find directory ...
 		} else {
-			TK_INFO("find file : " << tmpFileName);
+			TK_VERBOSE("find file : " << tmpFileName);
 			m_content.set(etk::Path(tmpFileName), ememory::makeShared<etk::ArchiveContent>(tmpFileInfo.uncompressed_size));
 		}
 		/* Go the the next entry listed in the zip file. */
@@ -84,7 +84,7 @@ etk::archive::Zip::Zip(const etk::Uri& _uri) :
 		if(tmpFileName[strlen(tmpFileName) - 1] == '/' ) {
 			// find directory ...
 		} else {
-			TK_INFO("find file : " << tmpFileName);
+			TK_VERBOSE("find file : " << tmpFileName);
 			m_content.set(etk::Path(tmpFileName), ememory::makeShared<etk::ArchiveContent>(tmpFileInfo.uncompressed_size));
 		}
 		/* Go the the next entry listed in the zip file. */

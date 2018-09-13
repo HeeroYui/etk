@@ -167,17 +167,33 @@ namespace etk {
 			 */
 			bool operator!= (const etk::Uri& _obj) const;
 			/**
-			 * @brief check if this elemnt is greater than the other.
+			 * @brief check if this elemnt is lower than the other.
 			 * @param[in] _obj Uri to compare.
 			 * @return true : less Uri, false otherwise.
 			 */
 			bool operator< (const etk::Uri& _obj) const;
+			/**
+			 * @brief check if this elemnt is lower or equal than the other.
+			 * @param[in] _obj Uri to compare.
+			 * @return true : less Uri, false otherwise.
+			 */
+			bool operator<= (const etk::Uri& _obj) const;
 			/**
 			 * @brief Check if this elemnt is greater than the other.
 			 * @param[in] _obj Uri to compare.
 			 * @return false : Greater Uri, true otherwise.
 			 */
 			bool operator> (const etk::Uri& _obj) const;
+			/**
+			 * @brief Check if this elemnt is greater or equal than the other.
+			 * @param[in] _obj Uri to compare.
+			 * @return false : Greater Uri, true otherwise.
+			 */
+			bool operator>= (const etk::Uri& _obj) const;
+			/**
+			 * @brief Detail display of this element
+			 */
+			void display() const;
 	};
 	//! @not_in_doc
 	etk::Stream& operator <<(etk::Stream& _os, const etk::Uri& _obj);

@@ -13,6 +13,7 @@
 #include <etk/uri/provider/ProviderFile.hpp>
 #include <etk/uri/provider/ProviderFileZip.hpp>
 #include <etk/fs/fileSystem.hpp>
+#include <etk/algorithm.hpp>
 
 
 
@@ -86,43 +87,15 @@ TEST(TestUriProvider, checkPlouf) {
 }
 
 etk::Vector<etk::Uri> listDirect = {
-	"DATA:///filePresent.txt",
-	"DATA:///fileEmpty.txt",
 	"DATA:///data",
 	"DATA:///data_sample.zip",
+	"DATA:///fileEmpty.txt",
+	"DATA:///filePresent.txt",
 };
 
-/* This function takes last element as pivot, places
-   the pivot element at its correct position in sorted
-	array, and places all smaller (smaller than pivot)
-   to left of pivot and all greater elements to right
-   of pivot */
-int_t partition (etk::Vector<etk::Uri>& _data, int _low, int _high) {
-	int_t iii = (_low - 1);  // Index of smaller element
-	for (int_t jjj = _low; jjj < _high; ++jjj) {
-		// If current element is smaller than or equal to pivot
-		if (_data[jjj] < _data[_high]) {
-			iii++;	// increment index of smaller element
-			etk::swap(_data[iii], _data[jjj]);
-		}
-	}
-	etk::swap(_data[iii + 1], _data[_high]);
-	return (iii + 1);
-}
-
-/* The main function that implements QuickSort
- arr[] --> Array to be sorted,
-  low  --> Starting index,
-  high  --> Ending index */
-void quickSort(etk::Vector<etk::Uri>& _data, int _low, int _high) {
-	if (_low >= _high) {
-		return;
-	}
-	// pi is partitioning index, arr[p] is now at right place
-	int_t pi = partition(_data, _low, _high);
-	// Separately sort elements before partition and after partition
-	quickSort(_data, _low, pi - 1);
-	quickSort(_data, pi + 1, _high);
+bool uriSortCallback(const etk::Uri& _left, const etk::Uri& _right) {
+	TEST_VERBOSE("compare " << _left << " " << (_left <= _right?"<=":">") << " " << _right);
+	return _left <= _right;
 }
 
 TEST(TestUriProvider, checkDirectAccess) {
@@ -134,27 +107,21 @@ TEST(TestUriProvider, checkDirectAccess) {
 	EXPECT_NE(provider, null);
 	etk::Uri searchBase("DATA:///");
 	auto elems = provider->list(searchBase);
-	TEST_WARNING("List DATA path: (A)");
+	TEST_VERBOSE("List DATA path: (A)");
 	for (auto& it: elems) {
-		TEST_WARNING("     " << it);
+		TEST_VERBOSE("     " << it);
 	}
-	elems.sort(0, elems.size(), [] (const etk::Uri& _left, const etk::Uri& _right) {
-	    	TEST_WARNING("compare " << _left << " " << (_left < _right?"<":">=") << " " << _right);
-	    	
-	    	return _left < _right;
-	    });
-	TEST_WARNING("List DATA path: (B)");
+	etk::algorithm::quickSort(elems, uriSortCallback);
+	TEST_VERBOSE("List DATA path: (C)");
 	for (auto& it: elems) {
-		TEST_WARNING("     " << it);
+		TEST_VERBOSE("     " << it);
 	}
-	quickSort(elems, 0, elems.size()-1);
-	TEST_WARNING("List DATA path: (C)");
-	for (auto& it: elems) {
-		TEST_WARNING("     " << it);
+	TEST_VERBOSE("List corect order:");
+	for (auto& it: listDirect) {
+		TEST_VERBOSE("     " << it);
 	}
 	EXPECT_EQ(elems, listDirect);
 }
-
 etk::Vector<etk::Uri> listDirect2 = {
 	"DATA:///data/.file_hidden.txt",
 	"DATA:///data/dir_A",
@@ -174,19 +141,49 @@ TEST(TestUriProvider, checkDirectAccess2) {
 	etk::Uri searchBase("DATA:///data");
 	
 	auto elems = provider->list(searchBase);
-	TEST_WARNING("List DATA path: (A)");
+	TEST_VERBOSE("List DATA path: (A)");
 	for (auto& it: elems) {
-		TEST_WARNING("     " << it);
+		TEST_VERBOSE("     " << it);
 	}
-	elems.sort(0, elems.size(), [] (const etk::Uri& _left, const etk::Uri& _right) {
-	    	return _left < _right;
-	    });
-	TEST_WARNING("List DATA path: (B)");
+	etk::algorithm::quickSort(elems, uriSortCallback);
+	TEST_VERBOSE("List DATA path: (B)");
 	for (auto& it: elems) {
-		TEST_WARNING("     " << it);
+		TEST_VERBOSE("     " << it);
 	}
 	EXPECT_EQ(elems, listDirect2);
 }
+
+TEST(TestUriProvider, directExistFile) {
+	etk::uri::provider::clear();
+	TEST_VERBOSE("data path: " << etk::fs::getDataPath());
+	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFile>(etk::fs::getDataPath()));
+	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
+	ememory::SharedPtr<etk::uri::provider::Interface> provider = etk::uri::provider::getProvider("DATA");
+	EXPECT_NE(provider, null);
+	{
+		etk::Uri element("DATA:///data/dir_B/file_B_1.txt");
+		EXPECT_EQ(provider->exist(element), true);
+	}
+	{
+		etk::Uri element("DATA:///data/dir_B/file_B_1_qsldkjfqlksjd.txt");
+		EXPECT_EQ(provider->exist(element), false);
+	}
+}
+
+TEST(TestUriProvider, directReadFile) {
+	etk::uri::provider::clear();
+	TEST_VERBOSE("data path: " << etk::fs::getDataPath());
+	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFile>(etk::fs::getDataPath()));
+	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
+	etk::Uri element("DATA:///data/dir_B/file_B_1.txt");
+	ememory::SharedPtr<etk::io::Interface> ioElement = etk::uri::provider::get(element);
+	EXPECT_EQ(ioElement->open(etk::io::OpenMode::Read), true);
+	etk::String data = ioElement->readAllString();
+	EXPECT_EQ(ioElement->close(), true);
+	EXPECT_EQ(data, "file_B_1.txt");
+}
+
+
 
 etk::Vector<etk::Uri> listZip = {
 	"DATA:///.file_hidden.txt",
@@ -204,11 +201,11 @@ TEST(TestUriProvider, checkZipAccess) {
 	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
 	ememory::SharedPtr<etk::uri::provider::Interface> provider = etk::uri::provider::getProvider("DATA");
 	EXPECT_NE(provider, null);
-	TEST_WARNING("List DATA path:");
+	TEST_VERBOSE("List DATA path:");
 	etk::Uri searchBase("DATA://");
 	auto elems = provider->list(searchBase);
 	for (auto& it: elems) {
-		TEST_WARNING("     " << it);
+		TEST_VERBOSE("     " << it);
 	}
 	EXPECT_EQ(elems, listZip);
 }
@@ -227,12 +224,43 @@ TEST(TestUriProvider, checkZipAccess2) {
 	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
 	ememory::SharedPtr<etk::uri::provider::Interface> provider = etk::uri::provider::getProvider("DATA");
 	EXPECT_NE(provider, null);
-	TEST_WARNING("List DATA path:");
+	TEST_VERBOSE("List DATA path:");
 	etk::Uri searchBase("DATA:///dir_B");
 	auto elems = provider->list(searchBase);
 	for (auto& it: elems) {
-		TEST_WARNING("     " << it);
+		TEST_VERBOSE("     " << it);
 	}
 	EXPECT_EQ(elems, listZip2);
+}
+
+
+TEST(TestUriProvider, zipExistFile) {
+	etk::uri::provider::clear();
+	TEST_VERBOSE("data path: " << etk::fs::getDataPath());
+	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFileZip>(etk::fs::getDataPath() / "data_sample.zip", "data"));
+	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
+	ememory::SharedPtr<etk::uri::provider::Interface> provider = etk::uri::provider::getProvider("DATA");
+	EXPECT_NE(provider, null);
+	{
+		etk::Uri element("DATA:///dir_B/file_B_1.txt");
+		EXPECT_EQ(provider->exist(element), true);
+	}
+	{
+		etk::Uri element("DATA:///dir_B/file_B_1_qsldkjfqlksjd.txt");
+		EXPECT_EQ(provider->exist(element), false);
+	}
+}
+
+TEST(TestUriProvider, zipReadFile) {
+	etk::uri::provider::clear();
+	TEST_VERBOSE("data path: " << etk::fs::getDataPath());
+	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFileZip>(etk::fs::getDataPath() / "data_sample.zip", "data"));
+	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
+	etk::Uri element("DATA:///dir_B/file_B_1.txt");
+	ememory::SharedPtr<etk::io::Interface> ioElement = etk::uri::provider::get(element);
+	EXPECT_EQ(ioElement->open(etk::io::OpenMode::Read), true);
+	etk::String data = ioElement->readAllString();
+	EXPECT_EQ(ioElement->close(), true);
+	EXPECT_EQ(data, "file_B_1.txt");
 }
 

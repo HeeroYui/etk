@@ -161,6 +161,14 @@ bool etk::uri::Query::operator< (const etk::uri::Query& _obj) const {
 	return getEncoded() < _obj.getEncoded();
 }
 
+bool etk::uri::Query::operator<= (const etk::uri::Query& _obj) const {
+	return getEncoded() <= _obj.getEncoded();
+}
+
 bool etk::uri::Query::operator> (const etk::uri::Query& _obj) const {
 	return getEncoded() > _obj.getEncoded();
+}
+
+bool etk::uri::Query::operator>= (const etk::uri::Query& _obj) const {
+	return getEncoded() >= _obj.getEncoded();
 }

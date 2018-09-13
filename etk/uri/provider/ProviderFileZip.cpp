@@ -11,7 +11,6 @@ void etk::uri::provider::ProviderFileZip::loadZipFile(const etk::Uri& _zipFile) 
 	m_archive = etk::Archive::load(_zipFile);
 	TK_ASSERT(m_archive != null, "Error loading APK ...  '" << _zipFile << "'");
 	#ifdef DEBUG
-		//Just for debug, print APK contents
 		m_archive->display();
 	#endif
 }

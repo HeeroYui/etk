@@ -43,7 +43,7 @@ etk::Vector<etk::Uri> etk::uri::provider::ProviderFile::list(const etk::Uri& _ur
 		}
 		return out;
 	}
-	TK_ERROR("list path: " << m_offset / _uri.getPath());
+	TK_VERBOSE("list path: " << m_offset / _uri.getPath());
 	tmp = etk::fs::list(m_offset / _uri.getPath());
 	int32_t offset = m_offset.getString().size()+1;
 	for (auto& elem: tmp) {
