@@ -46,7 +46,7 @@ bool etk::io::File::open(etk::io::OpenMode _mode) {
 			break;
 	}
 	if(m_pointer == null) {
-		TK_WARNING("Can not open the file " << m_path.getNative() << " mode: " << _mode << " errno" << errno << " (" << strerror(errno) << ")");
+		TK_WARNING("Can not open the file '" << m_path.getNative() << "' mode: " << _mode << " errno" << errno << " (" << strerror(errno) << ")");
 		return false;
 	}
 	return true;

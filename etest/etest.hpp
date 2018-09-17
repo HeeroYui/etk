@@ -192,9 +192,9 @@ namespace etest {
 			} \
 			ETEST_DEBUG("    [ SUB-DONE ]"); \
 		} catch ( etk::Exception e ) { \
-			testCatchThrow(e, __LINE__); \
+			etest::g_currentTest->testCatchThrow(e, __LINE__); \
 		} catch ( ... ) {\
-			testCatchThrow(__LINE__); \
+			etest::g_currentTest->testCatchThrow(__LINE__); \
 		} \
 	} while (false)
 
@@ -218,9 +218,9 @@ namespace etest {
 			} \
 			ETEST_DEBUG("    [ SUB-DONE ]"); \
 		} catch ( etk::Exception e ) { \
-			testCatchThrow(e, __LINE__); \
+			etest::g_currentTest->testCatchThrow(e, __LINE__); \
 		} catch ( ... ) {\
-			testCatchThrow(__LINE__); \
+			etest::g_currentTest->testCatchThrow(__LINE__); \
 		} \
 	} while (false)
 
@@ -247,9 +247,9 @@ namespace etest {
 				return; \
 			} \
 		} catch ( etk::Exception e ) { \
-			testCatchThrow(e, __LINE__); \
+			etest::g_currentTest->testCatchThrow(e, __LINE__); \
 		} catch ( ... ) {\
-			testCatchThrow(__LINE__); \
+			etest::g_currentTest->testCatchThrow(__LINE__); \
 		} \
 	} while (false)
 
@@ -277,9 +277,9 @@ namespace etest {
 			} \
 			ETEST_DEBUG("    [ SUB-DONE ]"); \
 		} catch ( etk::Exception e ) { \
-			testCatchThrow(e, __LINE__); \
+			etest::g_currentTest->testCatchThrow(e, __LINE__); \
 		} catch ( ... ) {\
-			testCatchThrow(__LINE__); \
+			etest::g_currentTest->testCatchThrow(__LINE__); \
 		} \
 	} while (false)
 
@@ -318,9 +318,9 @@ namespace etest {
 			} \
 			ETEST_DEBUG("    [ SUB-DONE ]"); \
 		} catch ( etk::Exception e ) { \
-			testCatchThrow(e, __LINE__); \
+			etest::g_currentTest->testCatchThrow(e, __LINE__); \
 		} catch ( ... ) {\
-			testCatchThrow(__LINE__); \
+			etest::g_currentTest->testCatchThrow(__LINE__); \
 		} \
 	} while (false)
 

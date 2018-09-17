@@ -8,7 +8,7 @@
 
 #include <etest/etest.hpp>
 #include <test-debug/debug.hpp>
-#include <etk/uri/Uri.hpp>
+#include <etk/uri/uri.hpp>
 #include <etk/uri/provider/provider.hpp>
 #include <etk/uri/provider/ProviderFile.hpp>
 #include <etk/uri/provider/ProviderFileZip.hpp>
@@ -72,9 +72,9 @@ TEST(TestUriProvider, checkPlouf) {
 	EXPECT_EQ(etk::uri::provider::exist("PLOUF_1"), true);
 	EXPECT_EQ(etk::uri::provider::exist("PLOUF_2"), true);
 	EXPECT_EQ(s_plouf, 0);
-	etk::uri::provider::get("PLOUF_1:///qsdfqsdfqsdfqsdf.txt");
+	etk::uri::get("PLOUF_1:///qsdfqsdfqsdfqsdf.txt");
 	EXPECT_EQ(s_plouf, 5555);
-	etk::uri::provider::get("PLOUF_2:///qsdfqsdfqsdfqsdf.txt");
+	etk::uri::get("PLOUF_2:///qsdfqsdfqsdfqsdf.txt");
 	EXPECT_EQ(s_plouf, 9999);
 	etk::uri::provider::remove("PLOUF_1");
 	EXPECT_EQ(etk::uri::provider::exist(""), true);
@@ -176,7 +176,7 @@ TEST(TestUriProvider, directReadFile) {
 	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFile>(etk::path::getDataPath()));
 	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
 	etk::Uri element("DATA:///data/dir_B/file_B_1.txt");
-	ememory::SharedPtr<etk::io::Interface> ioElement = etk::uri::provider::get(element);
+	ememory::SharedPtr<etk::io::Interface> ioElement = etk::uri::get(element);
 	EXPECT_EQ(ioElement->open(etk::io::OpenMode::Read), true);
 	etk::String data = ioElement->readAllString();
 	EXPECT_EQ(ioElement->close(), true);
@@ -257,7 +257,7 @@ TEST(TestUriProvider, zipReadFile) {
 	etk::uri::provider::add("DATA", ememory::makeShared<etk::uri::provider::ProviderFileZip>(etk::path::getDataPath() / "data_sample.zip", "data"));
 	EXPECT_EQ(etk::uri::provider::exist("DATA"), true);
 	etk::Uri element("DATA:///dir_B/file_B_1.txt");
-	ememory::SharedPtr<etk::io::Interface> ioElement = etk::uri::provider::get(element);
+	ememory::SharedPtr<etk::io::Interface> ioElement = etk::uri::get(element);
 	EXPECT_EQ(ioElement->open(etk::io::OpenMode::Read), true);
 	etk::String data = ioElement->readAllString();
 	EXPECT_EQ(ioElement->close(), true);

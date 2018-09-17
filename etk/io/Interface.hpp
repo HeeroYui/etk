@@ -136,9 +136,10 @@ namespace etk {
 				/**
 				 * @brief Write all the vector in a file
 				 * @param[in] _value String data to write in the File
+				 * @return true the file is fully correcty write
 				 */
-				void fileWriteAll(const etk::String& _value) {
-					write(static_cast<const void*>(&(_value[0])), sizeof(char), _value.size()/sizeof(char));
+				bool fileWriteAll(const etk::String& _value) {
+					return int64_t(_value.size()) == write(static_cast<const void*>(&(_value[0])), sizeof(char), _value.size()/sizeof(char));
 				}
 		};
 	}

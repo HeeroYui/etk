@@ -41,12 +41,6 @@ namespace etk {
 			 */
 			void clear();
 			/**
-			 * @brief Get an IO interface with a specific URI
-			 * @param[in] _uri Data interface requested
-			 * @return The interface requested.
-			 */
-			ememory::SharedPtr<etk::io::Interface> get(const etk::Uri& _uri);
-			/**
 			 * @brief Get an URI provider
 			 * @param[in] _scheme type of provider
 			 * @return The interface requested.

@@ -53,3 +53,11 @@ etk::Vector<etk::Uri> etk::uri::provider::ProviderFile::list(const etk::Uri& _ur
 	}
 	return out;
 }
+
+bool etk::uri::provider::ProviderFile::canMove() {
+	return true;
+}
+
+bool etk::uri::provider::ProviderFile::move(const etk::Uri& _uriSource, const etk::Uri& _uriDestination) {
+	return etk::path::move(_uriSource.getPath(), _uriDestination.getPath());
+}

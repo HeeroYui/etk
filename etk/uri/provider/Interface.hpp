@@ -25,6 +25,8 @@ namespace etk {
 					virtual ememory::SharedPtr<etk::io::Interface> create(const etk::Uri& _uri) = 0;
 					virtual bool exist(const etk::Uri& _uri) = 0;
 					virtual etk::Vector<etk::Uri> list(const etk::Uri& _uri) = 0;
+					virtual bool canMove() { return false; }
+					virtual bool move(const etk::Uri& _uriSource, const etk::Uri& _uriDestination) { return false; }
 			};
 		}
 	}

@@ -7,10 +7,18 @@
 #include <etk/uri/provider/ProviderFile.hpp>
 #include <etk/Map.hpp>
 #include <etk/io/File.hpp>
+#include <etk/debug.hpp>
 
-static etk::Map<etk::String, ememory::SharedPtr<etk::uri::provider::Interface>>& getProviders() {
-	static etk::Map<etk::String, ememory::SharedPtr<etk::uri::provider::Interface>> g_data;
-	return g_data;
+namespace etk {
+	namespace uri {
+		namespace provider {
+			etk::Map<etk::String, ememory::SharedPtr<etk::uri::provider::Interface>>& getProviders();
+			etk::Map<etk::String, ememory::SharedPtr<etk::uri::provider::Interface>>& getProviders() {
+				static etk::Map<etk::String, ememory::SharedPtr<etk::uri::provider::Interface>> g_data;
+				return g_data;
+			}
+		}
+	}
 }
 
 void etk::uri::provider::add(const etk::String& _scheme, ememory::SharedPtr<etk::uri::provider::Interface> _interface) {
@@ -18,16 +26,16 @@ void etk::uri::provider::add(const etk::String& _scheme, ememory::SharedPtr<etk:
 	if (scheme.empty() == true) {
 		scheme = "RAW";
 	}
-	getProviders().set(scheme, _interface);
+	etk::uri::provider::getProviders().set(scheme, _interface);
 }
 
 void etk::uri::provider::clear() {
-	getProviders().clear();
+	etk::uri::provider::getProviders().clear();
 	etk::uri::provider::add("", ememory::makeShared<etk::uri::provider::ProviderFile>());
 }
 
 void etk::uri::provider::remove(const etk::String& _scheme) {
-	getProviders().erase(_scheme);
+	etk::uri::provider::getProviders().erase(_scheme);
 }
 
 bool etk::uri::provider::exist(const etk::String& _scheme) {
@@ -35,28 +43,18 @@ bool etk::uri::provider::exist(const etk::String& _scheme) {
 	if (scheme.empty() == true) {
 		scheme = "RAW";
 	}
-	return getProviders().exist(scheme);
+	return etk::uri::provider::getProviders().exist(scheme);
 }
 
-ememory::SharedPtr<etk::io::Interface> etk::uri::provider::get(const etk::Uri& _uri) {
-	etk::String scheme = _uri.getScheme();
-	if (scheme.empty() == true) {
-		scheme = "RAW";
-	}
-	if (getProviders().exist(scheme) == false) {
-		return null;
-	}
-	return getProviders()[scheme]->create(_uri);
-}
 ememory::SharedPtr<etk::uri::provider::Interface> etk::uri::provider::getProvider(const etk::String& _scheme) {
 	etk::String scheme = _scheme;
 	if (scheme.empty() == true) {
 		scheme = "RAW";
 	}
-	if (getProviders().exist(scheme) == false) {
+	if (etk::uri::provider::getProviders().exist(scheme) == false) {
 		return null;
 	}
-	return getProviders()[scheme];
+	return etk::uri::provider::getProviders()[scheme];
 }
 
 void etk::uri::provider::init() {
@@ -64,5 +62,6 @@ void etk::uri::provider::init() {
 }
 
 void etk::uri::provider::unInit() {
-	getProviders().clear();
+	etk::uri::provider::getProviders().clear();
 }
+
