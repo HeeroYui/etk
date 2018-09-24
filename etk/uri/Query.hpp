@@ -57,7 +57,7 @@ namespace etk {
 				 * @return true Key exist.
 				 * @return false Unknown key.
 				 */
-				bool exist(const etk::String& _key);
+				bool exist(const etk::String& _key) const;
 				/**
 				 * @brief erase a specific key.
 				 * @param[in] _key Key of the query.

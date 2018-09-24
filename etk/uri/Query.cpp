@@ -122,7 +122,7 @@ void etk::uri::Query::set(const etk::String& _key, const etk::String& _value) {
 	m_data.set(_key, _value);
 }
 
-bool etk::uri::Query::exist(const etk::String& _key) {
+bool etk::uri::Query::exist(const etk::String& _key) const {
 	return m_data.exist(_key);
 }
 

@@ -186,5 +186,21 @@ etk::Vector<etk::Path> etk::Archive::list(const etk::Path& _path) {
 	}
 	return out;
 }
+etk::Vector<etk::Path> etk::Archive::listRecursive(const etk::Path& _path) {
+	etk::Vector<etk::Path> out;
+	etk::String base = _path.getString();
+	for (auto& it: m_content) {
+		etk::String name = it.first.getString();
+		if (name.size() < base.size()) {
+			continue;
+		}
+		if (etk::start_with(name, base) == true) {
+			// element or subElement...
+			out.pushBack(it.first);
+		}
+	}
+	return out;
+}
+
 
 #endif

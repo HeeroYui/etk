@@ -54,6 +54,29 @@ etk::Vector<etk::Uri> etk::uri::provider::ProviderFile::list(const etk::Uri& _ur
 	return out;
 }
 
+etk::Vector<etk::Uri> etk::uri::provider::ProviderFile::listRecursive(const etk::Uri& _uri) {
+	etk::Vector<etk::Path> tmp;
+	etk::Vector<etk::Uri> out;
+	if (m_offset.isEmpty() == true) {
+		tmp = etk::path::listRecursive(_uri.getPath());
+		for (auto& elem: tmp) {
+			etk::Uri newUri = _uri;
+			newUri.setPath(elem);
+			out.pushBack(newUri);
+		}
+		return out;
+	}
+	TK_VERBOSE("list path: " << m_offset / _uri.getPath());
+	tmp = etk::path::listRecursive(m_offset / _uri.getPath());
+	int32_t offset = m_offset.getString().size()+1;
+	for (auto& elem: tmp) {
+		etk::Uri newUri = _uri;
+		newUri.setPath(elem.getString().extract(offset));
+		out.pushBack(newUri);
+	}
+	return out;
+}
+
 bool etk::uri::provider::ProviderFile::canMove() {
 	return true;
 }

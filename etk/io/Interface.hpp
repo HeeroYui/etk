@@ -138,7 +138,7 @@ namespace etk {
 				 * @param[in] _value String data to write in the File
 				 * @return true the file is fully correcty write
 				 */
-				bool fileWriteAll(const etk::String& _value) {
+				bool writeAll(const etk::String& _value) {
 					return int64_t(_value.size()) == write(static_cast<const void*>(&(_value[0])), sizeof(char), _value.size()/sizeof(char));
 				}
 		};

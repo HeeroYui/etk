@@ -40,6 +40,16 @@ etk::Vector<etk::Uri> etk::uri::list(const etk::Uri& _uri) {
 	return etk::uri::provider::getProviders()[scheme]->list(_uri);
 }
 
+etk::Vector<etk::Uri> etk::uri::listRecursive(const etk::Uri& _uri) {
+	etk::String scheme = _uri.getScheme();
+	if (scheme.empty() == true) {
+		scheme = "RAW";
+	}
+	if (etk::uri::provider::getProviders().exist(scheme) == false) {
+		return etk::Vector<etk::Uri>();
+	}
+	return etk::uri::provider::getProviders()[scheme]->listRecursive(_uri);
+}
 ememory::SharedPtr<etk::io::Interface> etk::uri::get(const etk::Uri& _uri) {
 	etk::String scheme = _uri.getScheme();
 	if (scheme.empty() == true) {
@@ -98,7 +108,23 @@ bool etk::uri::writeAll(const etk::Uri& _uri, const etk::String& _data) {
 		TK_ERROR("Can not open (w) the file : " << _uri);
 		return false;
 	}
-	fileIo->fileWriteAll(_data);
+	fileIo->writeAll(_data);
 	fileIo->close();
 	return true;
 }
+
+bool etk::uri::readAll(const etk::Uri& _uri, etk::String& _data) {
+	auto fileIo = etk::uri::get(_uri);
+	if (fileIo == null) {
+		TK_ERROR("Can not create the uri: " << _uri);
+		return false;
+	}
+	if (fileIo->open(etk::io::OpenMode::Read) == false) {
+		TK_ERROR("Can not open (w) the file : " << _uri);
+		return false;
+	}
+	_data = fileIo->readAllString();
+	fileIo->close();
+	return true;
+}
+

@@ -36,7 +36,6 @@ namespace etk {
 		 * @return false Operation Failed.
 		 */
 		bool copyFile(const etk::Path& _path1, const etk::Path& _path2);
-		
 		/**
 		 * @brief Move a path to an other (if possible...)
 		 * @param[in] _path1 Path source.
@@ -259,12 +258,25 @@ namespace etk {
 		 * @return Generic permission class.
 		 */
 		etk::path::Permissions getPermission(const etk::Path& _path);
+		
+		enum {
+			LIST_HIDDEN = 1<<1,
+			LIST_FOLDER = 1<<2,
+			LIST_FILE = 1<<3,
+			LIST_ALL = LIST_HIDDEN|LIST_FOLDER|LIST_FILE,
+		};
 		/**
 		 * @brief List the content of a specific path.
 		 * @param[in] Path to parse.
 		 * @return the full list of path in the _path.
 		 */
-		etk::Vector<etk::Path> list(const etk::Path& _path);
+		etk::Vector<etk::Path> list(const etk::Path& _path, uint32_t _flags=etk::path::LIST_ALL);
+		/**
+		 * @brief List the content of a specific path (recursively).
+		 * @param[in] Path to parse.
+		 * @return the full list of path in the _path.
+		 */
+		etk::Vector<etk::Path> listRecursive(const etk::Path& _path, uint32_t _flags=etk::path::LIST_ALL);
 	}
 }
 

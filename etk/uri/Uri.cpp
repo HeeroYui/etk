@@ -274,6 +274,10 @@ const etk::uri::Query& etk::Uri::getQuery() const {
 	return m_query;
 }
 
+etk::uri::Query& etk::Uri::getQuery() {
+	return m_query;
+}
+
 void etk::Uri::setQuery(const etk::uri::Query& _value) {
 	m_query = _value;
 }

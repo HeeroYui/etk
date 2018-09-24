@@ -112,6 +112,15 @@ namespace etk {
 			 */
 			etk::String getExtention() const;
 			/**
+			 * @brief remove extention of the file (all after the last '.').
+			 */
+			void removeExtention();
+			/**
+			 * @brief Get a copy with the extention of the file removed.
+			 * @return a copy of the path without extention
+			 */
+			etk::Path getExtentionRemoved() const;
+			/**
 			 * @brief remove the last child element of the path.
 			 */
 			void parent();

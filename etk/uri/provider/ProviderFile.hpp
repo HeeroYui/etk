@@ -21,6 +21,7 @@ namespace etk {
 					ememory::SharedPtr<etk::io::Interface> create(const etk::Uri& _uri) override;
 					bool exist(const etk::Uri& _uri) override;
 					etk::Vector<etk::Uri> list(const etk::Uri& _uri) override;
+					etk::Vector<etk::Uri> listRecursive(const etk::Uri& _uri) override;
 					virtual bool canMove() override;
 					virtual bool move(const etk::Uri& _uriSource, const etk::Uri& _uriDestination) override;
 			};

@@ -129,6 +129,7 @@ namespace etk {
 			 * @return query data.
 			 */
 			const etk::uri::Query& getQuery() const;
+			etk::uri::Query& getQuery();
 			/**
 			 * @brief Set the new query.
 			 * @param[in] _value Data.

@@ -193,6 +193,12 @@ namespace etk {
 			 * @return the full list of path in the _path.
 			 */
 			etk::Vector<etk::Path> list(const etk::Path& _path);
+			/**
+			 * @brief List the content of a specific path.
+			 * @param[in] Path to parse.
+			 * @return the full list of path in the _path.
+			 */
+			etk::Vector<etk::Path> listRecursive(const etk::Path& _path);
 	};
 }
 #endif

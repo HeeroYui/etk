@@ -59,3 +59,25 @@ etk::Vector<etk::Uri> etk::uri::provider::ProviderFileZip::list(const etk::Uri& 
 	}
 	return out;
 }
+
+etk::Vector<etk::Uri> etk::uri::provider::ProviderFileZip::listRecursive(const etk::Uri& _uri) {
+	etk::Vector<etk::Path> tmp;
+	etk::Vector<etk::Uri> out;
+	if (m_offset.isEmpty() == true) {
+		tmp = m_archive->listRecursive(_uri.getPath());
+		for (auto& elem: tmp) {
+			etk::Uri newUri = _uri;
+			newUri.setPath(elem);
+			out.pushBack(newUri);
+		}
+		return out;
+	}
+	tmp = m_archive->listRecursive(m_offset / _uri.getPath());
+	int32_t offset = m_offset.getString().size()+1;
+	for (auto& elem: tmp) {
+		etk::Uri newUri = _uri;
+		newUri.setPath(elem.getString().extract(offset));
+		out.pushBack(newUri);
+	}
+	return out;
+}

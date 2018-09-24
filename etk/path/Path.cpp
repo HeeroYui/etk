@@ -277,16 +277,51 @@ etk::String etk::Path::getFileName() const {
 }
 
 etk::String etk::Path::getExtention() const {
-	etk::String fileName = getFileName();
-	size_t pos = fileName.rfind('.');
+	size_t pos = m_data.rfind('.');
+	size_t posSlash = m_data.rfind('/');
 	if (pos == etk::String::npos) {
 		return "";
 	}
-	if (pos == 0) {
+	if (    posSlash != etk::String::npos
+	     && posSlash > pos) {
+		return "";
+	}
+	if (    pos == 0
+	     || (    posSlash != etk::String::npos
+	          && posSlash == pos-1
+	        )
+	   ) {
 		// a simple name started with a .
 		return "";
 	}
-	return fileName.extract(pos+1);
+	return m_data.extract(pos+1);
+}
+
+void etk::Path::removeExtention() {
+	size_t pos = m_data.rfind('.');
+	size_t posSlash = m_data.rfind('/');
+	if (pos == etk::String::npos) {
+		return;
+	}
+	if (    posSlash != etk::String::npos
+	     && posSlash > pos) {
+		return;
+	}
+	if (    pos == 0
+	     || (    posSlash != etk::String::npos
+	          && posSlash == pos-1
+	        )
+	   ) {
+		// a simple name started with a .
+		return;
+	}
+	m_data = m_data.extract(0, pos);
+}
+
+etk::Path etk::Path::getExtentionRemoved() const {
+	etk::Path tmp(*this);
+	tmp.removeExtention();
+	return tmp;
 }
 
 void etk::Path::parent() {

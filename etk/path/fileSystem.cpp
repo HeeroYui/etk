@@ -474,7 +474,54 @@ uint32_t etk::path::getIdGroup(const etk::Path& _path) {
 	return statProperty.st_gid;
 }
 
-etk::Vector<etk::Path> etk::path::list(const etk::Path& _path) {
+etk::Vector<etk::Path> etk::path::list(const etk::Path& _path, uint32_t _flags) {
+	etk::Vector<etk::Path> out;
+	if (etk::path::isDirectory(_path) == false) {
+		return out;
+	}
+	DIR *dir = null;
+	struct dirent *ent = null;
+	dir = opendir(_path.getNative().c_str());
+	if (dir != null) {
+		// for each element in the drectory...
+		while ((ent = readdir(dir)) != null) {
+			if(    strcmp(ent->d_name, ".") == 0
+			    || strcmp(ent->d_name, "..") == 0
+			    || strlen(ent->d_name) == 0) {
+				// do nothing ...
+				continue;
+			}
+			etk::Path tmpPath = _path / ent->d_name;
+			if (_flags == etk::path::LIST_ALL) {
+				out.pushBack(tmpPath);
+				continue;
+			}
+			// Hidden file
+			if (    ent->d_name[0] == '.'
+			     || (_flags & etk::path::LIST_HIDDEN) == 0) {
+				continue;
+			}
+			// FOLDER
+			if (etk::path::isDirectory(tmpPath) == true) {
+				if ((_flags & etk::path::LIST_FOLDER) != 0) {
+					out.pushBack(tmpPath);
+				}
+				continue;
+			}
+			// OTHER ==> clasify as file ==> 99.9999% of usage
+			if ((_flags & etk::path::LIST_FILE) != 0) {
+				out.pushBack(tmpPath);
+			}
+		}
+		closedir(dir);
+	} else {
+		TK_ERROR("could not open directory : '" << _path << "'");
+	}
+	return out;
+}
+
+
+etk::Vector<etk::Path> etk::path::listRecursive(const etk::Path& _path, uint32_t _flags) {
 	etk::Vector<etk::Path> out;
 	if (etk::path::isDirectory(_path) == false) {
 		return out;
@@ -490,7 +537,37 @@ etk::Vector<etk::Path> etk::path::list(const etk::Path& _path) {
 				// do nothing ...
 				continue;
 			}
-			out.pushBack(_path / ent->d_name);
+			etk::Path tmpPath = _path / ent->d_name;
+			if (_flags == etk::path::LIST_ALL) {
+				out.pushBack(tmpPath);
+				if (etk::path::isDirectory(tmpPath) == true) {
+					for (auto& it: etk::path::listRecursive(tmpPath, _flags)) {
+						out.pushBack(it);
+					}
+				}
+				continue;
+			}
+			// Hidden file
+			if (    ent->d_name[0] == '.'
+			     || (_flags & etk::path::LIST_HIDDEN) == 0) {
+				continue;
+			}
+			// FOLDER
+			if (etk::path::isDirectory(tmpPath) == true) {
+				if ((_flags & etk::path::LIST_FOLDER) != 0) {
+					out.pushBack(tmpPath);
+				}
+				if (etk::path::isDirectory(tmpPath) == true) {
+					for (auto& it: etk::path::listRecursive(tmpPath, _flags)) {
+						out.pushBack(it);
+					}
+				}
+				continue;
+			}
+			// OTHER ==> clasify as file ==> 99.9999% of usage
+			if ((_flags & etk::path::LIST_FILE) != 0) {
+				out.pushBack(tmpPath);
+			}
 		}
 		closedir(dir);
 	} else {

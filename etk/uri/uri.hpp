@@ -29,6 +29,12 @@ namespace etk {
 		 */
 		etk::Vector<etk::Uri> list(const etk::Uri& _uri);
 		/**
+		 * @brief Get the list of sub-element in the Uri reursively
+		 * @param[in] _uri Uri requested as parent.
+		 * @return list of sub-uri
+		 */
+		etk::Vector<etk::Uri> listRecursive(const etk::Uri& _uri);
+		/**
 		 * @brief Get an IO interface with a specific URI
 		 * @param[in] _uri Data interface requested
 		 * @return The interface requested.
@@ -54,5 +60,12 @@ namespace etk {
 		 * @return true All data are write, false otherwise.
 		 */
 		bool writeAll(const etk::Uri& _uri, const etk::String& _data);
+		/**
+		 * @brief Read all a string in a uri (if possible)
+		 * @param[in] _uri Uri destination.
+		 * @param[out] _data Data readed.
+		 * @return true All data are read, false otherwise.
+		 */
+		bool readAll(const etk::Uri& _uri, etk::String& _data);
 	}
 }
