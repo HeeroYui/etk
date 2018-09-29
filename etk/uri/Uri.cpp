@@ -6,6 +6,8 @@
 
 #include <etk/uri/Uri.hpp>
 #include <etk/debug.hpp>
+#include <etk/typeInfo.hpp>
+ETK_DECLARE_TYPE(etk::Uri);
 
 etk::Uri::Uri() {
 	
@@ -300,5 +302,27 @@ void etk::Uri::display() const {
 	TK_PRINT("   m_path = '" << m_path << "'");
 	TK_PRINT("   m_query = '" << m_query << "'");
 	TK_PRINT("   m_fragment = '" << m_fragment << "'");
+}
+
+
+#include <etk/UString.hpp>
+namespace etk {
+	template<> etk::String toString<etk::Uri>(const etk::Uri& _val) {
+		return _val.get();
+	}
+	#if __cplusplus >= 201103L
+		template<> etk::UString toUString<etk::Uri>(const etk::Uri& _val) {
+			return toUString(_val.get());
+		}
+		
+		template<> bool from_string<etk::Uri>(etk::Uri& _variableRet, const etk::UString& _value) {
+			_variableRet = etk::Uri(toString(_value));
+			return true;
+		}
+	#endif
+	template<> bool from_string<etk::Uri >(etk::Uri& _variableRet, const etk::String& _value) {
+		_variableRet = etk::Uri(_value);
+		return true;
+	}
 }
 

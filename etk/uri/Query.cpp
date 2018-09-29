@@ -5,6 +5,8 @@
  */
 #include <etk/uri/Query.hpp>
 #include <etk/debug.hpp>
+#include <etk/typeInfo.hpp>
+ETK_DECLARE_TYPE(etk::uri::Query);
 
 static const etk::String hexData = "0123456789ABCDEF";
 

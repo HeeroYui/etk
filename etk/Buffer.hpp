@@ -7,7 +7,8 @@
  */
 #pragma once
 
-#include <etk/os/FSNode.hpp>
+#include <etk/uri/uri.hpp>
+#include <etk/io/File.hpp>
 #include <etk/debug.hpp>
 
 // minimum gapSize when allocated
@@ -93,17 +94,15 @@ namespace etk {
 			 * @return true if the data correctly stored
 			 * @return false if an error occurred
 			 */
-			bool dumpIn(const etk::String& _file) {
-				etk::FSNode file(_file);
-				if (false == file.fileOpenWrite()) {
+			bool dumpIn(const etk::Path& _file) {
+				etk::io::File fileIO(_file);
+				if (fileIO.open(etk::io::OpenMode::Write) == false) {
 					return false;
 				}
-				bool ret = true;
-				// write Data
-				file.fileWrite(m_data, sizeof(int8_t), m_gapStart);
-				file.fileWrite(&m_data[m_gapEnd], sizeof(int8_t), m_allocated - m_gapEnd);
-				file.fileClose();
-				return ret;
+				fileIO.write(m_data, sizeof(int8_t), m_gapStart);
+				fileIO.write(&m_data[m_gapEnd], sizeof(int8_t), m_allocated - m_gapEnd);
+				fileIO.close();
+				return true;
 			}
 			/**
 			 * @brief Load data from a selected file name.
@@ -111,13 +110,12 @@ namespace etk {
 			 * @return true if the data correctly stored
 			 * @return false if an error occurred
 			 */
-			bool dumpFrom(const etk::String& _file) {
-				etk::FSNode file(_file);
-				if (false == file.fileOpenRead()) {
+			bool dumpFrom(const etk::Path& _file) {
+				etk::io::File fileIO(_file);
+				if (fileIO.open(etk::io::OpenMode::Read) == false) {
 					return false;
 				}
-				bool ret = true;
-				int64_t length = file.fileSize();
+				int64_t length = fileIO.size();
 				// error case ...
 				if (length > 2000000000) {
 					return false;
@@ -125,9 +123,10 @@ namespace etk {
 				// allocate the current buffer : 
 				changeAllocation(length + GAP_SIZE_MIN);
 				// insert Data
-				int32_t nbReadData = file.fileRead(&m_data[GAP_SIZE_MIN], sizeof(int8_t), length);
+				int32_t nbReadData = fileIO.read(&m_data[GAP_SIZE_MIN], sizeof(int8_t), length);
 				TK_INFO("load data : fileSize=" << length << ", readData=" << nbReadData);
 				// check ERROR
+				bool ret = true;
 				if (nbReadData != length) {
 					TK_ERROR("load data error: fileSize=" << length << ", readData=" << nbReadData);
 					ret = false;
@@ -135,7 +134,7 @@ namespace etk {
 				// set the gap size at the buffer ...
 				m_gapStart = 0;
 				m_gapEnd = GAP_SIZE_MIN;
-				file.fileClose();
+				fileIO.close();
 				return ret;
 			}
 			

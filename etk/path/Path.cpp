@@ -463,3 +463,24 @@ bool etk::operator<= (const Path& _left, const Path& _right) {
 	return _left.getString() <= _right.getString();
 }
 
+#include <etk/UString.hpp>
+namespace etk {
+	template<> etk::String toString<etk::Path>(const etk::Path& _val) {
+		return _val.getString();
+	}
+	#if __cplusplus >= 201103L
+		template<> etk::UString toUString<etk::Path>(const etk::Path& _val) {
+			return toUString(_val.getString());
+		}
+		
+		template<> bool from_string<etk::Path>(etk::Path& _variableRet, const etk::UString& _value) {
+			_variableRet = etk::Path(toString(_value));
+			return true;
+		}
+	#endif
+	template<> bool from_string<etk::Path >(etk::Path& _variableRet, const etk::String& _value) {
+		_variableRet = etk::Path(_value);
+		return true;
+	}
+}
+

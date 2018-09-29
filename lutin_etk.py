@@ -65,6 +65,7 @@ def configure(target, my_module):
 	my_module.add_header_file([
 	    'etk/etk.hpp',
 	    'etk/debug.hpp',
+	    'etk/Buffer.hpp',
 	    'etk/tool.hpp',
 	    'etk/Noise.hpp',
 	    'etk/Color.hpp',

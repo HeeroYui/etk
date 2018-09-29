@@ -44,7 +44,6 @@ def configure(target, my_module):
 	    'etk-core/Allocator.hpp',
 	    'etk-core/types.hpp',
 	    'etk-core/stdTools.hpp',
-	    'etk-core/Buffer.hpp',
 	    'etk-core/String.hpp',
 	    'etk-core/UString.hpp',
 	    'etk-core/utf8.hpp',
