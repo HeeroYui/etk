@@ -38,6 +38,25 @@ bool etk::uri::provider::ProviderFileZip::exist(const etk::Uri& _uri) {
 	return m_archive->exist(m_offset / _uri.getPath());
 }
 
+bool etk::uri::provider::ProviderFileZip::isDirectory(const etk::Uri& _uri) {
+	if (m_offset.isEmpty() == true) {
+		return m_archive->isDirectory(_uri.getPath());
+	}
+	return m_archive->isDirectory(m_offset / _uri.getPath());
+}
+
+bool etk::uri::provider::ProviderFileZip::isFile(const etk::Uri& _uri) {
+	if (m_offset.isEmpty() == true) {
+		return m_archive->isFile(_uri.getPath());
+	}
+	return m_archive->isFile(m_offset / _uri.getPath());
+}
+
+bool etk::uri::provider::ProviderFileZip::isSymLink(const etk::Uri& _uri) {
+	// No symlink in ZIP ...
+	return false;
+}
+
 etk::Vector<etk::Uri> etk::uri::provider::ProviderFileZip::list(const etk::Uri& _uri) {
 	etk::Vector<etk::Path> tmp;
 	etk::Vector<etk::Uri> out;

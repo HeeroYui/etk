@@ -38,6 +38,10 @@ namespace {
 				etk::Vector<etk::Uri> out;
 				return out;
 			}
+			etk::Vector<etk::Uri> listRecursive(const etk::Uri& _uri) override {
+				etk::Vector<etk::Uri> out;
+				return out;
+			}
 	};
 	class ProviderTest2 : public etk::uri::provider::Interface {
 		public:
@@ -52,6 +56,10 @@ namespace {
 				etk::Vector<etk::Uri> out;
 				return out;
 			}
+			etk::Vector<etk::Uri> listRecursive(const etk::Uri& _uri) override {
+				etk::Vector<etk::Uri> out;
+				return out;
+			}
 	};
 }
 
@@ -60,7 +68,7 @@ TEST(TestUriProvider, checkPlouf) {
 	etk::uri::provider::clear();
 	s_plouf = 0;
 	EXPECT_EQ(etk::uri::provider::exist(""), true);
-	EXPECT_EQ(etk::uri::provider::exist("RAW"), true);
+	EXPECT_EQ(etk::uri::provider::exist("FILE"), true);
 	EXPECT_EQ(etk::uri::provider::exist("PLOUF_1"), false);
 	EXPECT_EQ(etk::uri::provider::exist("PLOUF_2"), false);
 	etk::uri::provider::add("PLOUF_1", ememory::makeShared<::ProviderTest1>());
@@ -202,7 +210,7 @@ TEST(TestUriProvider, checkZipAccess) {
 	ememory::SharedPtr<etk::uri::provider::Interface> provider = etk::uri::provider::getProvider("DATA");
 	EXPECT_NE(provider, null);
 	TEST_VERBOSE("List DATA path:");
-	etk::Uri searchBase("DATA://");
+	etk::Uri searchBase("DATA:///");
 	auto elems = provider->list(searchBase);
 	for (auto& it: elems) {
 		TEST_VERBOSE("     " << it);

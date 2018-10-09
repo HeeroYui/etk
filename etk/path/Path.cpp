@@ -327,10 +327,11 @@ etk::Path etk::Path::getExtentionRemoved() const {
 void etk::Path::parent() {
 	size_t pos = m_data.rfind('/');
 	if (pos == etk::String::npos) {
+		m_data = "";
 		return;
 	}
 	if (pos == 0) {
-		// Last root element ==> do nothing.
+		m_data = "/";
 		return;
 	}
 	m_data = m_data.extract(0, pos);
@@ -388,6 +389,10 @@ etk::Path& etk::Path::operator/= (const etk::Path& _path) {
 	}
 	if (_path.m_data[0] == '/') {
 		ETK_THROW_EXCEPTION(etk::exception::InvalidArgument("add path that is absolute"));
+	}
+	if (m_data.isEmpty() == true){
+		m_data = _path.m_data;
+		return *this;
 	}
 	m_data += '/' + _path.m_data;
 	m_data = simplifyPath(m_data);

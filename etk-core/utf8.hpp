@@ -67,6 +67,7 @@ namespace u32char {
 	 */
 	int8_t convertUtf8(char32_t _val, char _output[7]);
 	etk::String convertToUtf8(const etk::UString& _input);
+	etk::String convertToUtf8(char32_t _input);
 	char32_t toUpper(char32_t _input);
 	char32_t toLower(char32_t _input);
 	size_t strlen(const char32_t* _input);

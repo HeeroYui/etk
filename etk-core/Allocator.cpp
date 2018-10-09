@@ -33,7 +33,7 @@ void operator delete[] (void* ptr) {
 
 
 
-#define ETK_MEM_DEBUG_LEVEL 4
+#define ETK_MEM_DEBUG_LEVEL 5
 
 #define ETK_MEMORY_PRINT(...) \
 	do { \

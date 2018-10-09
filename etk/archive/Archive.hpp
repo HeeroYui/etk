@@ -20,7 +20,7 @@ namespace etk {
 	 */
 	class ArchiveContent {
 		private:
-			int32_t m_link; //!< number of element open on this file
+			int32_t m_link = 0; //!< number of element open on this file
 		public:
 			/**
 			 * @brief Increment the number of user of this resource (permit to keep data alive)
@@ -42,7 +42,7 @@ namespace etk {
 				return m_link;
 			}
 		private:
-			int32_t m_theoricSize; //!< Size set by the zip file (theoric ==> the data has not been read)
+			int32_t m_theoricSize = -1; //!< Size set by the zip file (theoric ==> the data has not been read)
 		public:
 			/**
 			 * @brief Get the size of the element (size set by Zip file (not read))
@@ -148,6 +148,20 @@ namespace etk {
 			 * @return true if the file is present
 			 */
 			bool exist(const etk::Path& _key) const;
+			/**
+			 * @brief Check if the path is a directory.
+			 * @param[in] _key Name of the file
+			 * @return true This is a directory.
+			 * @return false This is something else...
+			 */
+			bool isDirectory(const etk::Path& _key) const;
+			/**
+			 * @brief Check if the path is a file (regular).
+			 * @param[in] _key Name of the file
+			 * @return true This is a file.
+			 * @return false This is something else...
+			 */
+			bool isFile(const etk::Path& _key) const;
 			/**
 			 * @brief Load the specific file in the memory
 			 * @param[in] _key Name of the file

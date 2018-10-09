@@ -850,6 +850,7 @@ namespace etk {
 				// check if something is allocated : 
 				if (m_data == null) {
 					// no data allocated ==> request an allocation (might be the first)
+					//printf("Allocate : %d\n", int(sizeof(ETK_VECTOR_TYPE)*requestSize));
 					m_data = (ETK_VECTOR_TYPE*)ETK_MALLOC(char, sizeof(ETK_VECTOR_TYPE)*requestSize);
 					if (m_data == null) {
 						//TK_CRITICAL("Vector : Error in data allocation request allocation:" << requestSize << "*" << (int32_t)(sizeof(ETK_VECTOR_TYPE)) << "bytes" );
@@ -865,6 +866,12 @@ namespace etk {
 					#endif
 				} else {
 					// allocate a new pool of data:
+					/*
+					printf("Allocate : %d\n", int(sizeof(ETK_VECTOR_TYPE)*requestSize));
+					if ( int(sizeof(ETK_VECTOR_TYPE)*requestSize) > 33554432) {
+						throw "hello";
+					}
+					*/
 					ETK_VECTOR_TYPE* dataTmp = (ETK_VECTOR_TYPE*)ETK_MALLOC(char, sizeof(ETK_VECTOR_TYPE)*requestSize);;
 					if (dataTmp == null) {
 						//TK_CRITICAL("Vector : Error in data allocation request allocation:" << requestSize << "*" << (int32_t)(sizeof(ETK_VECTOR_TYPE)) << "bytes" );

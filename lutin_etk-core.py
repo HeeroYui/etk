@@ -69,7 +69,11 @@ def configure(target, my_module):
 	    'm',
 	    "pthread",
 	    ])
-	
+	"""
+	my_module.add_flag('c++', [
+		"-DETK_MEMORY_CHECKER=2"
+		], export=True)
+	"""
 	if "Android" in target.get_type():
 		my_module.add_depend("SDK")
 	if "MacOs" in target.get_type():

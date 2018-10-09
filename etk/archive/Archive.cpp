@@ -48,6 +48,24 @@ ememory::SharedPtr<etk::ArchiveContent> etk::Archive::getContent(const etk::Path
 
 bool etk::Archive::exist(const etk::Path& _key) const {
 	ethread::UniqueLock lock(m_mutex);
+	if (m_content.find(_key) != m_content.end()) {
+		return true;
+	}
+	return isDirectory(_key);
+}
+
+bool etk::Archive::isDirectory(const etk::Path& _key) const {
+	etk::String base = _key.getString() + "/";
+	for (auto &it: m_content) {
+		if (it.first.getString().startWith(base) == true) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool etk::Archive::isFile(const etk::Path& _key) const {
+	ethread::UniqueLock lock(m_mutex);
 	return m_content.find(_key) != m_content.end();
 }
 

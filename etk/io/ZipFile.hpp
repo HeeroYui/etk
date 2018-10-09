@@ -21,7 +21,7 @@ namespace etk {
 				etk::Path m_path; //!< Path to access in this interface
 				ememory::SharedPtr<etk::Archive> m_archive; //!< Archive interface
 				ememory::SharedPtr<etk::ArchiveContent> m_content; //!< Data in the archive file
-				int32_t m_offset;
+				int32_t m_offset = 0;
 			public:
 				ZipFile(ememory::SharedPtr<etk::Archive> _archive);
 				ZipFile(const etk::Path& _path, ememory::SharedPtr<etk::Archive> _archive);

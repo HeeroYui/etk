@@ -31,6 +31,27 @@ bool etk::uri::provider::ProviderFile::exist(const etk::Uri& _uri) {
 	return etk::path::exist(m_offset / _uri.getPath());
 }
 
+bool etk::uri::provider::ProviderFile::isDirectory(const etk::Uri& _uri) {
+	if (m_offset.isEmpty() == true) {
+		return etk::path::isDirectory(_uri.getPath());
+	}
+	return etk::path::isDirectory(m_offset / _uri.getPath());
+}
+
+bool etk::uri::provider::ProviderFile::isFile(const etk::Uri& _uri) {
+	if (m_offset.isEmpty() == true) {
+		return etk::path::isFile(_uri.getPath());
+	}
+	return etk::path::isFile(m_offset / _uri.getPath());
+}
+
+bool etk::uri::provider::ProviderFile::isSymLink(const etk::Uri& _uri) {
+	if (m_offset.isEmpty() == true) {
+		return etk::path::isSymLink(_uri.getPath());
+	}
+	return etk::path::isSymLink(m_offset / _uri.getPath());
+}
+
 etk::Vector<etk::Uri> etk::uri::provider::ProviderFile::list(const etk::Uri& _uri) {
 	etk::Vector<etk::Path> tmp;
 	etk::Vector<etk::Uri> out;

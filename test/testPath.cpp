@@ -85,6 +85,20 @@ TEST(TestPath, assignation) {
 }
 
 
+TEST(TestPath, operator_devide) {
+	etk::Path path;
+	EXPECT_EQ(path.getString(), "");
+	path = "/home";
+	EXPECT_EQ(path.getString(), "/home");
+	path /= "rastapopoulos";
+	EXPECT_EQ(path.getString(), "/home/rastapopoulos");
+	path = "";
+	path /= "plouf.txt";
+	EXPECT_EQ(path.getString(), "plouf.txt");
+	path = "";
+	path = path / "plouf.txt";
+	EXPECT_EQ(path.getString(), "plouf.txt");}
+
 TEST(TestPath, simplification) {
 	etk::Path path("/home/../plouf");
 	EXPECT_EQ(path.getString(), "/plouf");
@@ -135,6 +149,10 @@ TEST(TestPath, parent) {
 	EXPECT_EQ(path.getString(), "/home/plouf/plaf");
 	path = "/";
 	EXPECT_EQ(path.getParent(), "/");
+	path = "/wxdvsdf";
+	EXPECT_EQ(path.getParent(), "/");
+	path = "plouf.txt";
+	EXPECT_EQ(path.getParent(), "");
 }
 
 TEST(TestPath, getRelative) {

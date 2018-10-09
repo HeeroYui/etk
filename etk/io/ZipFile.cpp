@@ -25,6 +25,7 @@ bool etk::io::ZipFile::open(etk::io::OpenMode _mode) {
 	if (m_archive == null) {
 		return false;
 	}
+	m_offset = 0;
 	TK_VERBOSE(" Read file : " << m_path);
 	switch (_mode) {
 		case etk::io::OpenMode::Read:

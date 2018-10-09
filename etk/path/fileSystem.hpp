@@ -151,6 +151,13 @@ namespace etk {
 		 */
 		bool isSymLink(const etk::Path& _path);
 		/**
+		 * @brief check if the path have under file inside.
+		 * @param[in] _path Path of the requested information.
+		 * @return true This contain sub elements.
+		 * @return false This is empty.
+		 */
+		bool haveChild(const etk::Path& _path);
+		/**
 		 * @brief Get the relative string of the path.
 		 * @param[in] _path Path to transform.
 		 * @return Well formated string of the path.

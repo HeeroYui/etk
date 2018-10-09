@@ -232,6 +232,14 @@ bool etk::path::isSymLink(const etk::Path& _path) {
 	return true;
 }
 
+bool etk::path::haveChild(const etk::Path& _path) {
+	if (isDirectory(_path) == false) {
+		return false;
+	}
+	// TODO: do it better. it work, but is slow ...
+	return list(_path).size() != 0;
+}
+
 
 etk::path::Permissions etk::path::getPermission(const etk::Path& _path) {
 	etk::path::Permissions permissions;
@@ -481,6 +489,8 @@ etk::Vector<etk::Path> etk::path::list(const etk::Path& _path, uint32_t _flags) 
 	}
 	DIR *dir = null;
 	struct dirent *ent = null;
+	TK_VERBOSE("List path: " << _path << " with flags: " << _flags);
+	TK_VERBOSE("    native=" << _path.getNative());
 	dir = opendir(_path.getNative().c_str());
 	if (dir != null) {
 		// for each element in the drectory...
@@ -491,6 +501,7 @@ etk::Vector<etk::Path> etk::path::list(const etk::Path& _path, uint32_t _flags) 
 				// do nothing ...
 				continue;
 			}
+			TK_VERBOSE("        find=" << ent->d_name);
 			etk::Path tmpPath = _path / ent->d_name;
 			if (_flags == etk::path::LIST_ALL) {
 				out.pushBack(tmpPath);
@@ -498,18 +509,23 @@ etk::Vector<etk::Path> etk::path::list(const etk::Path& _path, uint32_t _flags) 
 			}
 			// Hidden file
 			if (    ent->d_name[0] == '.'
-			     || (_flags & etk::path::LIST_HIDDEN) == 0) {
+			     && (_flags & etk::path::LIST_HIDDEN) == 0) {
+				TK_VERBOSE("            ==> hidden");
 				continue;
 			}
 			// FOLDER
 			if (etk::path::isDirectory(tmpPath) == true) {
 				if ((_flags & etk::path::LIST_FOLDER) != 0) {
+					TK_VERBOSE("            ==> directory (add)");
 					out.pushBack(tmpPath);
+				} else {
+					TK_VERBOSE("            ==> directory");
 				}
 				continue;
 			}
 			// OTHER ==> clasify as file ==> 99.9999% of usage
 			if ((_flags & etk::path::LIST_FILE) != 0) {
+				TK_VERBOSE("            ==> file (add)");
 				out.pushBack(tmpPath);
 			}
 		}

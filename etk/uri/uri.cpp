@@ -21,7 +21,7 @@ namespace etk {
 bool etk::uri::exist(const etk::Uri& _uri) {
 	etk::String scheme = _uri.getScheme();
 	if (scheme.empty() == true) {
-		scheme = "RAW";
+		scheme = "FILE";
 	}
 	if (etk::uri::provider::getProviders().exist(scheme) == false) {
 		return false;
@@ -29,10 +29,43 @@ bool etk::uri::exist(const etk::Uri& _uri) {
 	return etk::uri::provider::getProviders()[scheme]->exist(_uri);
 }
 
+bool etk::uri::isDirectory(const etk::Uri& _uri) {
+	etk::String scheme = _uri.getScheme();
+	if (scheme.empty() == true) {
+		scheme = "FILE";
+	}
+	if (etk::uri::provider::getProviders().exist(scheme) == false) {
+		return false;
+	}
+	return etk::uri::provider::getProviders()[scheme]->isDirectory(_uri);
+}
+
+bool etk::uri::isFile(const etk::Uri& _uri) {
+	etk::String scheme = _uri.getScheme();
+	if (scheme.empty() == true) {
+		scheme = "FILE";
+	}
+	if (etk::uri::provider::getProviders().exist(scheme) == false) {
+		return false;
+	}
+	return etk::uri::provider::getProviders()[scheme]->isFile(_uri);
+}
+
+bool etk::uri::isSymLink(const etk::Uri& _uri) {
+	etk::String scheme = _uri.getScheme();
+	if (scheme.empty() == true) {
+		scheme = "FILE";
+	}
+	if (etk::uri::provider::getProviders().exist(scheme) == false) {
+		return false;
+	}
+	return etk::uri::provider::getProviders()[scheme]->isSymLink(_uri);
+}
+
 etk::Vector<etk::Uri> etk::uri::list(const etk::Uri& _uri) {
 	etk::String scheme = _uri.getScheme();
 	if (scheme.empty() == true) {
-		scheme = "RAW";
+		scheme = "FILE";
 	}
 	if (etk::uri::provider::getProviders().exist(scheme) == false) {
 		return etk::Vector<etk::Uri>();
@@ -43,7 +76,7 @@ etk::Vector<etk::Uri> etk::uri::list(const etk::Uri& _uri) {
 etk::Vector<etk::Uri> etk::uri::listRecursive(const etk::Uri& _uri) {
 	etk::String scheme = _uri.getScheme();
 	if (scheme.empty() == true) {
-		scheme = "RAW";
+		scheme = "FILE";
 	}
 	if (etk::uri::provider::getProviders().exist(scheme) == false) {
 		return etk::Vector<etk::Uri>();
@@ -51,9 +84,10 @@ etk::Vector<etk::Uri> etk::uri::listRecursive(const etk::Uri& _uri) {
 	return etk::uri::provider::getProviders()[scheme]->listRecursive(_uri);
 }
 ememory::SharedPtr<etk::io::Interface> etk::uri::get(const etk::Uri& _uri) {
+	TK_WARNING("uri get: " << _uri);
 	etk::String scheme = _uri.getScheme();
 	if (scheme.empty() == true) {
-		scheme = "RAW";
+		scheme = "FILE";
 	}
 	if (etk::uri::provider::getProviders().exist(scheme) == false) {
 		TK_ERROR("lklklk   " << scheme << "   " << _uri << "    " << etk::uri::provider::getProviders().getKeys());
@@ -68,7 +102,7 @@ ememory::SharedPtr<etk::io::Interface> etk::uri::get(const etk::Uri& _uri) {
 bool etk::uri::canMove(const etk::Uri& _uri) {
 	etk::String scheme = _uri.getScheme();
 	if (scheme.empty() == true) {
-		scheme = "RAW";
+		scheme = "FILE";
 	}
 	if (etk::uri::provider::getProviders().exist(scheme) == false) {
 		return false;
@@ -79,11 +113,11 @@ bool etk::uri::canMove(const etk::Uri& _uri) {
 bool etk::uri::move(const etk::Uri& _uriSource, const etk::Uri& _uriDestination) {
 	etk::String scheme = _uriSource.getScheme();
 	if (scheme.empty() == true) {
-		scheme = "RAW";
+		scheme = "FILE";
 	}
 	etk::String scheme2 = _uriDestination.getScheme();
 	if (scheme2.empty() == true) {
-		scheme2 = "RAW";
+		scheme2 = "FILE";
 	}
 	if (scheme != scheme2) {
 		TK_ERROR("Can not move 2 uri between 2 model of resource... " << _uriSource << " => " << _uriDestination);

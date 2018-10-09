@@ -129,6 +129,10 @@ etk::String u32char::convertToUtf8(const etk::UString& _input) {
 	return etk::toString(_input);
 }
 
+etk::String u32char::convertToUtf8(char32_t _input) {
+	return etk::toString(etk::UString(_input));
+}
+
 size_t u32char::strlen(const char32_t* _input) {
 	uint32_t out = 0;
 	while (*_input != 0) {
@@ -193,7 +197,7 @@ char32_t u32char::toLower(char32_t _input) {
 
 
 static uint8_t sizeElement(const char* _data, int32_t _lenMax) {
-	uint8_t size = 0;
+	uint8_t size = 1;
 	//TK_ASSERT(0 <= _lenMax, "size can not be < 0 ...");
 	if (0 > _lenMax) {
 		return 0;

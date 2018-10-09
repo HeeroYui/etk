@@ -23,7 +23,8 @@ bool etk::io::Interface::gets(etk::String& _output) {
 		_output += tmp;
 		tmp = get();
 	}
-	if (tmp == '\0') {
+	if (    tmp == '\0'
+	     && _output.isEmpty() == true) {
 		return false;
 	}
 	return true;

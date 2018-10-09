@@ -23,6 +23,27 @@ namespace etk {
 		 */
 		bool exist(const etk::Uri& _uri);
 		/**
+		 * @brief Check if the path is a directory.
+		 * @param[in] _uri Uri to check.
+		 * @return true This is a directory.
+		 * @return false This is something else...
+		 */
+		bool isDirectory(const etk::Uri& _uri);
+		/**
+		 * @brief Check if the path is a file (regular).
+		 * @param[in] _uri Uri to check.
+		 * @return true This is a file.
+		 * @return false This is something else...
+		 */
+		bool isFile(const etk::Uri& _uri);
+		/**
+		 * @brief check if the path is a symbolink link.
+		 * @param[in] _uri Uri to check.
+		 * @return true This is a synbolic link.
+		 * @return false This is something else...
+		 */
+		bool isSymLink(const etk::Uri& _uri);
+		/**
 		 * @brief Get the list of sub-element in the Uri
 		 * @param[in] _uri Uri requested as parent.
 		 * @return list of sub-uri

@@ -21,27 +21,37 @@ namespace etk {
 	}
 }
 
+static void displayProviders() {
+	TK_INFO("List all datat provider:");
+	for (auto& it: etk::uri::provider::getProviders()) {
+		TK_INFO("    - " << it.first);
+	}
+}
+
 void etk::uri::provider::add(const etk::String& _scheme, ememory::SharedPtr<etk::uri::provider::Interface> _interface) {
 	etk::String scheme = _scheme;
 	if (scheme.empty() == true) {
-		scheme = "RAW";
+		scheme = "FILE";
 	}
 	etk::uri::provider::getProviders().set(scheme, _interface);
+	displayProviders();
 }
 
 void etk::uri::provider::clear() {
 	etk::uri::provider::getProviders().clear();
 	etk::uri::provider::add("", ememory::makeShared<etk::uri::provider::ProviderFile>());
+	displayProviders();
 }
 
 void etk::uri::provider::remove(const etk::String& _scheme) {
 	etk::uri::provider::getProviders().erase(_scheme);
+	displayProviders();
 }
 
 bool etk::uri::provider::exist(const etk::String& _scheme) {
 	etk::String scheme = _scheme;
 	if (scheme.empty() == true) {
-		scheme = "RAW";
+		scheme = "FILE";
 	}
 	return etk::uri::provider::getProviders().exist(scheme);
 }
@@ -49,7 +59,7 @@ bool etk::uri::provider::exist(const etk::String& _scheme) {
 ememory::SharedPtr<etk::uri::provider::Interface> etk::uri::provider::getProvider(const etk::String& _scheme) {
 	etk::String scheme = _scheme;
 	if (scheme.empty() == true) {
-		scheme = "RAW";
+		scheme = "FILE";
 	}
 	if (etk::uri::provider::getProviders().exist(scheme) == false) {
 		return null;

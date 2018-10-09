@@ -17,7 +17,7 @@
 	}
 #endif
 
-//#define ETK_MEMORY_CHECKER 0
+//#define ETK_MEMORY_CHECKER 2
 
 #ifndef ETK_MEMORY_CHECKER
 	#define ETK_MEMORY_CHECKER 0
