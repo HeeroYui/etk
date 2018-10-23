@@ -39,6 +39,9 @@ bool etk::io::File::open(etk::io::OpenMode _mode) {
 			m_pointer = fopen(m_path.getNative().c_str(), "rb");
 			break;
 		case etk::io::OpenMode::Write:
+			if (etk::path::isDirectory(m_path.getParent().getNative()) == false) {
+				etk::path::makeDirectories(m_path.getParent().getNative());
+			}
 			m_pointer = fopen(m_path.getNative().c_str(), "wb");
 			break;
 		case etk::io::OpenMode::Append:

@@ -34,6 +34,7 @@ static const ColorList* getColorList();
 
 etk::Color<uint8_t, 4> etk::parseStringStartWithSharp(const etk::String& _input) {
 	TK_VERBOSE("parseStringStartWithSharp('" << _input << "'");
+	//elog::displayBacktrace(false, 0);
 	size_t len = _input.size();
 	etk::Color<uint8_t, 4> outputValue(0,0,0,0);
 	if(len == 3) {

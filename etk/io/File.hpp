@@ -26,6 +26,9 @@ namespace etk {
 				ETK_CONSTRUCTOR_COPY_DELETE(File);
 				ETK_CONSTRUCTOR_MOVE_DEFAULT(File);
 			public:
+				const etk::Path& getPath() {
+					return m_path;
+				}
 				bool open(etk::io::OpenMode _mode) override;
 				bool isOpen() override;
 				bool close() override;

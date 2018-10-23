@@ -126,6 +126,7 @@ namespace etk {
 		bool exist(const etk::Path& _path);
 		/**
 		 * @brief Get the File size
+		 * @param[in] _path Path of the file
 		 * @return the requested size
 		 */
 		uint64_t fileSize(const etk::Path& _path);

@@ -33,7 +33,7 @@ void operator delete[] (void* ptr) {
 
 
 
-#define ETK_MEM_DEBUG_LEVEL 5
+#define ETK_MEM_DEBUG_LEVEL 4
 
 #define ETK_MEMORY_PRINT(...) \
 	do { \
@@ -768,6 +768,14 @@ void* etk::memory::allocate(size_t _num,
                             const char* _functionName,
                             int32_t _line,
                             const char* _fileName) {
+	/*
+	if ( (_num * _size ) > 100*1024*1024) {
+		printf("-------------------------------------------------------------------------------------------\n");
+		printf("== %s:%d    %s   %s\n", _fileName, _fileName, _functionName, _variableName);
+		printf("-------------------------------------------------------------------------------------------\n");
+		assert(false);
+	}
+	*/
 	return getHandle().allocate(_num, _size, _variableName, _functionName, _line, _fileName);
 }
 
