@@ -237,7 +237,7 @@ namespace etk {
 					if (tmp < 10) {
 						out += ('0'+tmp);
 					} else {
-						out += ('A'+tmp);
+						out += ('A'+tmp-10);
 					}
 				}
 				return out;
