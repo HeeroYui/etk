@@ -64,6 +64,8 @@ namespace etk {
 			 * @return the uri correctly encoded
 			 */
 			etk::String get() const;
+			//! @previous
+			etk::String getString() const { return get(); }
 			/**
 			 * @brief Get the scheme of the URI.
 			 * @return Scheme value.
@@ -191,6 +193,38 @@ namespace etk {
 			 * @return false : Greater Uri, true otherwise.
 			 */
 			bool operator>= (const etk::Uri& _obj) const;
+			/**
+			 * @brief Add a subfolder on the current path.
+			 * @param[in] _element sub folder or file to add.
+			 * @return false : same path, true otherwise.
+			 */
+			Uri operator/ (const etk::String& _element) const;
+			//! @preivious
+			Uri& operator/= (const etk::String& _element);
+			//! @preivious
+			Uri operator/ (const char* _element) const;
+			//! @preivious
+			Uri& operator/= (const char* _element);
+			//! @preivious
+			Uri operator/ (const etk::Path& _element) const;
+			//! @preivious
+			Uri& operator/= (const etk::Path& _element);
+			/**
+			 * @brief Add a subfolder on the current path.
+			 * @param[in] _element sub folder or file to add.
+			 * @return false : same path, true otherwise.
+			 */
+			Uri operator+ (const etk::String& _element) const;
+			//! @preivious
+			Uri& operator+= (const etk::String& _element);
+			//! @preivious
+			Uri operator+ (const char* _element) const;
+			//! @preivious
+			Uri& operator+= (const char* _element);
+			//! @preivious
+			Uri operator+ (const etk::Path& _element) const;
+			//! @preivious
+			Uri& operator+= (const etk::Path& _element);
 			/**
 			 * @brief Detail display of this element
 			 */

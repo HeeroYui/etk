@@ -292,6 +292,73 @@ void etk::Uri::setFragment(const etk::String& _value) {
 	m_fragment = _value;
 }
 
+etk::Uri etk::Uri::operator/ (const etk::String& _element) const {
+	etk::Uri tmp = *this;
+	tmp /= etk::Path(_element);
+	return tmp;
+}
+
+etk::Uri etk::Uri::operator/ (const char* _element) const {
+	etk::Uri tmp = *this;
+	tmp /= etk::Path(_element);
+	return tmp;
+}
+
+etk::Uri etk::Uri::operator/ (const etk::Path& _path) const {
+	etk::Uri tmp = *this;
+	tmp /= _path;
+	return tmp;
+}
+
+etk::Uri& etk::Uri::operator/= (const etk::String& _element) {
+	*this /= etk::Path(_element);
+	return *this;
+}
+
+etk::Uri& etk::Uri::operator/= (const char* _element) {
+	*this /= etk::Path(_element);
+	return *this;
+}
+
+etk::Uri& etk::Uri::operator/= (const etk::Path& _path) {
+	m_path /= _path;
+	return *this;
+}
+
+etk::Uri etk::Uri::operator+ (const char* _element) const {
+	etk::Uri tmp = *this;
+	tmp += etk::Path(_element);
+	return tmp;
+}
+
+etk::Uri etk::Uri::operator+ (const etk::String& _element) const {
+	etk::Uri tmp = *this;
+	tmp += etk::Path(_element);
+	return tmp;
+}
+
+etk::Uri etk::Uri::operator+ (const etk::Path& _element) const {
+	etk::Uri tmp = *this;
+	tmp += _element;
+	return tmp;
+}
+
+etk::Uri& etk::Uri::operator+= (const char* _element) {
+	*this += etk::Path(_element);
+	return *this;
+}
+
+etk::Uri& etk::Uri::operator+= (const etk::String& _element) {
+	*this += etk::Path(_element);
+	return *this;
+}
+
+etk::Uri& etk::Uri::operator+= (const etk::Path& _element) {
+	m_path += _element;
+	return *this;
+}
+
+
 void etk::Uri::display() const {
 	TK_PRINT("Display of an URI:");
 	TK_PRINT("   m_scheme = '" << m_scheme << "'");
