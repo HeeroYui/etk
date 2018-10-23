@@ -34,6 +34,15 @@ namespace {
 			bool exist(const etk::Uri& _uri) override {
 				return false;
 			}
+			bool isDirectory(const etk::Uri& _uri) override {
+				return false;
+			}
+			bool isFile(const etk::Uri& _uri) override {
+				return false;
+			}
+			bool isSymLink(const etk::Uri& _uri) override {
+				return false;
+			}
 			etk::Vector<etk::Uri> list(const etk::Uri& _uri) override {
 				etk::Vector<etk::Uri> out;
 				return out;
@@ -50,6 +59,15 @@ namespace {
 				return null;
 			}
 			bool exist(const etk::Uri& _uri) override {
+				return false;
+			}
+			bool isDirectory(const etk::Uri& _uri) override {
+				return false;
+			}
+			bool isFile(const etk::Uri& _uri) override {
+				return false;
+			}
+			bool isSymLink(const etk::Uri& _uri) override {
 				return false;
 			}
 			etk::Vector<etk::Uri> list(const etk::Uri& _uri) override {

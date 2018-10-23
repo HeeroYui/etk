@@ -59,6 +59,7 @@ def configure(target, my_module):
 	    'etk/uri/uri.cpp',
 	    'etk/uri/Query.cpp',
 	    'etk/uri/provider/provider.cpp',
+	    'etk/uri/provider/Interface.cpp',
 	    'etk/uri/provider/ProviderFile.cpp',
 	    'etk/uri/provider/ProviderFileZip.cpp',
 	    ])

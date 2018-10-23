@@ -25,8 +25,12 @@ namespace etk {
 					bool isSymLink(const etk::Uri& _uri) override;
 					etk::Vector<etk::Uri> list(const etk::Uri& _uri) override;
 					etk::Vector<etk::Uri> listRecursive(const etk::Uri& _uri) override;
-					virtual bool canMove() override;
-					virtual bool move(const etk::Uri& _uriSource, const etk::Uri& _uriDestination) override;
+					bool canMove() override;
+					bool move(const etk::Uri& _uriSource, const etk::Uri& _uriDestination) override;
+					bool canCopy() override;
+					bool copy(const etk::Uri& _uriSource, const etk::Uri& _uriDestination) override;
+					bool canRemove() override;
+					bool remove(const etk::Uri& _uri) override;
 			};
 		}
 	}

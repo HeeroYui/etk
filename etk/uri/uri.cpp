@@ -62,6 +62,17 @@ bool etk::uri::isSymLink(const etk::Uri& _uri) {
 	return etk::uri::provider::getProviders()[scheme]->isSymLink(_uri);
 }
 
+uint64_t etk::uri::fileSize(const etk::Uri& _uri) {
+	etk::String scheme = _uri.getScheme();
+	if (scheme.empty() == true) {
+		scheme = "FILE";
+	}
+	if (etk::uri::provider::getProviders().exist(scheme) == false) {
+		return 0;
+	}
+	return etk::uri::provider::getProviders()[scheme]->fileSize(_uri);
+}
+
 etk::Vector<etk::Uri> etk::uri::list(const etk::Uri& _uri) {
 	etk::String scheme = _uri.getScheme();
 	if (scheme.empty() == true) {
@@ -130,6 +141,64 @@ bool etk::uri::move(const etk::Uri& _uriSource, const etk::Uri& _uriDestination)
 		return false;
 	}
 	return etk::uri::provider::getProviders()[scheme]->move(_uriSource, _uriDestination);
+}
+
+bool etk::uri::canCopy(const etk::Uri& _uri) {
+	etk::String scheme = _uri.getScheme();
+	if (scheme.empty() == true) {
+		scheme = "FILE";
+	}
+	if (etk::uri::provider::getProviders().exist(scheme) == false) {
+		return false;
+	}
+	return etk::uri::provider::getProviders()[scheme]->canCopy();
+}
+
+bool etk::uri::copy(const etk::Uri& _uriSource, const etk::Uri& _uriDestination) {
+	etk::String scheme = _uriSource.getScheme();
+	if (scheme.empty() == true) {
+		scheme = "FILE";
+	}
+	etk::String scheme2 = _uriDestination.getScheme();
+	if (scheme2.empty() == true) {
+		scheme2 = "FILE";
+	}
+	if (scheme != scheme2) {
+		TK_ERROR("Can not copy 2 uri between 2 model of resource... " << _uriSource << " => " << _uriDestination);
+		return false;
+	}
+	if (etk::uri::provider::getProviders().exist(scheme) == false) {
+		return false;
+	}
+	if (etk::uri::provider::getProviders()[scheme]->canCopy() == false) {
+		return false;
+	}
+	return etk::uri::provider::getProviders()[scheme]->copy(_uriSource, _uriDestination);
+}
+
+bool etk::uri::canRemove(const etk::Uri& _uri) {
+	etk::String scheme = _uri.getScheme();
+	if (scheme.empty() == true) {
+		scheme = "FILE";
+	}
+	if (etk::uri::provider::getProviders().exist(scheme) == false) {
+		return false;
+	}
+	return etk::uri::provider::getProviders()[scheme]->canRemove();
+}
+
+bool etk::uri::remove(const etk::Uri& _uri) {
+	etk::String scheme = _uri.getScheme();
+	if (scheme.empty() == true) {
+		scheme = "FILE";
+	}
+	if (etk::uri::provider::getProviders().exist(scheme) == false) {
+		return false;
+	}
+	if (etk::uri::provider::getProviders()[scheme]->canRemove() == false) {
+		return false;
+	}
+	return etk::uri::provider::getProviders()[scheme]->remove(_uri);
 }
 
 bool etk::uri::writeAll(const etk::Uri& _uri, const etk::String& _data) {

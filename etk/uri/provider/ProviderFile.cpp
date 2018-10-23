@@ -105,3 +105,19 @@ bool etk::uri::provider::ProviderFile::canMove() {
 bool etk::uri::provider::ProviderFile::move(const etk::Uri& _uriSource, const etk::Uri& _uriDestination) {
 	return etk::path::move(_uriSource.getPath(), _uriDestination.getPath());
 }
+
+bool etk::uri::provider::ProviderFile::canCopy() {
+	return true;
+}
+
+bool etk::uri::provider::ProviderFile::copy(const etk::Uri& _uriSource, const etk::Uri& _uriDestination) {
+	return etk::path::copy(_uriSource.getPath(), _uriDestination.getPath());
+}
+
+bool etk::uri::provider::ProviderFile::canRemove() {
+	return true;
+}
+
+bool etk::uri::provider::ProviderFile::remove(const etk::Uri& _uri) {
+	return etk::path::remove(_uri.getPath());
+}

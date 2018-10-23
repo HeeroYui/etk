@@ -44,6 +44,12 @@ namespace etk {
 		 */
 		bool isSymLink(const etk::Uri& _uri);
 		/**
+		 * @brief Get the File size
+		 * @param[in] _uri URI of the file
+		 * @return the requested size
+		 */
+		uint64_t fileSize(const etk::Uri& _uri);
+		/**
 		 * @brief Get the list of sub-element in the Uri
 		 * @param[in] _uri Uri requested as parent.
 		 * @return list of sub-uri
@@ -74,6 +80,31 @@ namespace etk {
 		 * @return true if moved, false ortherwise
 		 */
 		bool move(const etk::Uri& _uriSource, const etk::Uri& _uriDestination);
+		/**
+		 * @brief Check if an URI Can be copy.
+		 * @param[in] _uri Uri to check.
+		 * @return true if it is possible, false ortherwise
+		 */
+		bool canCopy(const etk::Uri& _uri);
+		/**
+		 * @brief Copy an element for a source to a destination.
+		 * @param[in] _uriSource Source Uri.
+		 * @param[in] _uriDestination Destination Uri.
+		 * @return true if copied, false ortherwise
+		 */
+		bool copy(const etk::Uri& _uriSource, const etk::Uri& _uriDestination);
+		/**
+		 * @brief Check if an URI Can be removed.
+		 * @param[in] _uri Uri to check.
+		 * @return true if it is possible, false ortherwise
+		 */
+		bool canRemove(const etk::Uri& _uri);
+		/**
+		 * @brief Remove an element.
+		 * @param[in] _uri Uri to remove.
+		 * @return true if removed, false ortherwise
+		 */
+		bool remove(const etk::Uri& _uri);
 		/**
 		 * @brief Write all a string in a uri (if possible)
 		 * @param[in] _uri Uri destination.
