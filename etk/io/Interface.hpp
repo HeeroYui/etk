@@ -141,6 +141,23 @@ namespace etk {
 				bool writeAll(const etk::String& _value) {
 					return int64_t(_value.size()) == write(static_cast<const void*>(&(_value[0])), sizeof(char), _value.size()/sizeof(char));
 				}
+				/**
+				 * @brief Stream write mode
+				 * @param[in] _data Stream to write
+				 * @return The current FSNode reference to add other stream.
+				 * @note not stable API ...
+				 */
+				etk::io::Interface& operator<< (const etk::Stream& _data);
+				//! @copydoc etk::io::Interface::operator<<(const etk::Stringstream&)
+				etk::io::Interface& operator<< (const etk::String& _data);
+				//! @copydoc etk::io::Interface::operator<<(const etk::Stringstream&)
+				etk::io::Interface& operator<< (const char* _data);
+				//! @copydoc etk::io::Interface::operator<<(const etk::Stringstream&)
+				etk::io::Interface& operator<< (const int32_t _data);
+				//! @copydoc etk::io::Interface::operator<<(const etk::Stringstream&)
+				etk::io::Interface& operator<< (const uint32_t _data);
+				//! @copydoc etk::io::Interface::operator<<(const etk::Stringstream&)
+				etk::io::Interface& operator<< (const float _data);
 		};
 	}
 }

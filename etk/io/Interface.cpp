@@ -43,3 +43,31 @@ bool etk::io::Interface::puts(const etk::String& _input) {
 	}
 	return false;
 }
+
+etk::io::Interface& etk::io::Interface::operator<< (const etk::Stream& _data) {
+	write(_data.c_str(), 1, _data.size());
+	return *this;
+}
+etk::io::Interface& etk::io::Interface::operator<< (const etk::String& _data) {
+	write(_data.c_str(), 1, _data.size());
+	return *this;
+}
+etk::io::Interface& etk::io::Interface::operator<< (const char* _data) {
+	write(_data, 1, strlen(_data));
+	return *this;
+}
+etk::io::Interface& etk::io::Interface::operator<< (const int32_t _data) {
+	etk::String sss = etk::toString(_data);
+	write(sss.c_str(), 1, sss.size());
+	return *this;
+}
+etk::io::Interface& etk::io::Interface::operator<< (const uint32_t _data) {
+	etk::String sss = etk::toString(_data);
+	write(sss.c_str(), 1, sss.size());
+	return *this;
+}
+etk::io::Interface& etk::io::Interface::operator<< (const float _data) {
+	etk::String sss = etk::toString(_data);
+	write(sss.c_str(), 1, sss.size());
+	return *this;
+}
