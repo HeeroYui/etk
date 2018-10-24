@@ -30,28 +30,33 @@ extern "C" {
 #include <etk/io/SeekMode.hpp>
 
 bool etk::path::copy(const etk::Path& _path1, const etk::Path& _path2) {
+	TK_TODO("Not Implemented COPY of File : " << _path1 << " => " << _path2);
 	return false;
 }
 
 bool etk::path::copyDirectory(const etk::Path& _path1, const etk::Path& _path2, bool _recursive) {
+	TK_TODO("Not Implemented COPY of Directory : " << _path1 << " => " << _path2);
 	return false;
 }
 
 bool etk::path::copyFile(const etk::Path& _path1, const etk::Path& _path2) {
+	TK_TODO("Not Implemented COPY of File : " << _path1 << " => " << _path2);
 	return false;
 }
 
 
 bool etk::path::move(const etk::Path& _path1, const etk::Path& _path2) {
-	TK_VERBOSE("Move : \"" << _path1 << "\" ==> \"" << _path2 << "\"");
-	if (etk::path::exist(_path2) == true) {
-		removes(_path2);
+	etk::Path path1 = _path1.getAbsolute();
+	etk::Path path2 = _path2.getAbsolute();
+	TK_VERBOSE("Move : \"" << path1 << "\" ==> \"" << path2 << "\"");
+	if (etk::path::exist(path2) == true) {
+		removes(path2);
 	}
 	// create path to be sure it exist ...
-	etk::path::makeDirectories(_path2.getParent());
-	int32_t res = ::rename(_path1.getNative().c_str(), _path2.getNative().c_str());
+	etk::path::makeDirectories(path2.getParent());
+	int32_t res = ::rename(path1.getNative().c_str(), path2.getNative().c_str());
 	if (res != 0) {
-		TK_ERROR("Can not move the file: '" << _path1 << "' ==> '" << _path2 << "' errno" << errno << " (" << strerror(errno) << ")");
+		TK_ERROR("Can not move the file: '" << path1 << "' ==> '" << path2 << "' errno" << errno << " (" << strerror(errno) << ")");
 		return false;
 	}
 	return true;
@@ -68,21 +73,23 @@ bool etk::path::moveFile(const etk::Path& _path1, const etk::Path& _path2) {
 namespace detail {
 	bool removeDirectories(const etk::Path& _path, bool _recursive);
 	bool removes(const etk::Path& _path, bool _recursive) {
-		TK_VERBOSE("remove: " << _path);
-		if (etk::path::isDirectory(_path) == true) {
-			return detail::removeDirectories(_path, _recursive);
+		etk::Path path = _path.getAbsolute();
+		TK_VERBOSE("remove: " << path);
+		if (etk::path::isDirectory(path) == true) {
+			return detail::removeDirectories(path, _recursive);
 		}
-		return etk::path::removeFile(_path);
+		return etk::path::removeFile(path);
 	}
 	bool removeDirectories(const etk::Path& _path, bool _recursive) {
-		TK_VERBOSE("remove Directory: " << _path);
+		etk::Path path = _path.getAbsolute();
+		TK_VERBOSE("remove Directory: " << path);
 		if (_recursive == true) {
-			etk::Vector<etk::Path> elements = etk::path::list(_path);
+			etk::Vector<etk::Path> elements = etk::path::list(path);
 			for (auto& it : elements) {
 				detail::removes(it, _recursive);
 			}
 		}
-		if ( 0 != ::rmdir(_path.getNative().c_str()) ) {
+		if ( 0 != ::rmdir(path.getNative().c_str()) ) {
 			if (ENOTEMPTY == errno) {
 				TK_ERROR("The Directory is not empty...");
 			}
@@ -109,26 +116,28 @@ bool etk::path::removeDirectories(const etk::Path& _path) {
 }
 
 bool etk::path::removeFile(const etk::Path& _path) {
-	TK_VERBOSE("remove File: " << _path);
-	if (0 != unlink(_path.getNative().c_str()) ) {
+	etk::Path path = _path.getAbsolute();
+	TK_VERBOSE("remove File: " << path);
+	if (0 != unlink(path.getNative().c_str()) ) {
 		return false;
 	}
 	return true;
 }
 
 bool etk::path::makeDirectory(const etk::Path& _path, etk::path::Permissions _permission) {
-	TK_VERBOSE("Make directory : " << _path << " perm: " << _permission);
-	if (etk::path::exist(_path) == true) {
+	etk::Path path = _path.getAbsolute();
+	TK_VERBOSE("Make directory : " << path << " perm: " << _permission);
+	if (etk::path::exist(path) == true) {
 		return true;
 	}
 	#ifdef __TARGET_OS__Windows
-		if (::mkdir(_path.getNative().c_str()) != 0
+		if (::mkdir(path.getNative().c_str()) != 0
 		     && errno != EEXIST) {
 			return false;
 		}
 	#else
 		mode_t mode = _permission.getRightValue();
-		if (    ::mkdir(_path.getNative().c_str(), mode) != 0
+		if (    ::mkdir(path.getNative().c_str(), mode) != 0
 		     && errno != EEXIST ) {
 			return false;
 		}
@@ -137,11 +146,12 @@ bool etk::path::makeDirectory(const etk::Path& _path, etk::path::Permissions _pe
 }
 
 bool etk::path::makeDirectories(const etk::Path& _path, etk::path::Permissions _permission) {
-	TK_VERBOSE("Make dirrectories: " << _path << " perm: " << _permission);
-	if (etk::path::exist(_path) == true) {
+	etk::Path path = _path.getAbsolute();
+	TK_VERBOSE("Make dirrectories: " << path << " perm: " << _permission);
+	if (etk::path::exist(path) == true) {
 		return true;
 	}
-	auto elements = _path.getNative().split('/');
+	auto elements = path.getNative().split('/');
 	etk::Path pathToCreate;
 	if (elements[0].size() == 0) {
 		elements.popFront();
