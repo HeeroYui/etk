@@ -35,7 +35,8 @@ namespace etk {
 				if (_parent == m_parent.lock()) {
 					return;
 				}
-				if (m_parent != null) {
+				if (    m_parent != null
+				     && _parent != null) {
 					ETK_THROW_EXCEPTION(etk::exception::RuntimeError("Set a treeNode parrent on an already used treeNode"));
 				}
 				m_parent = _parent;
@@ -80,7 +81,7 @@ namespace etk {
 				auto it = m_childs.begin();
 				while (it != m_childs.end()) {
 					if (*it == _child) {
-						it->setParent(null);
+						(*it)->setParent(null);
 						m_childs.erase(it);
 						return;
 					}
