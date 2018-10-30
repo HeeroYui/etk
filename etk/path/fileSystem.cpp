@@ -196,6 +196,7 @@ bool etk::path::exist(const etk::Path& _path) {
 uint64_t etk::path::fileSize(const etk::Path& _path) {
 	// Note : this is a proper methode to get the file size for Big files ... otherwithe the size is limited at 2^31 bytes
 	// tmpStat Buffer :
+	TK_VERBOSE(" file size of " << _path.getNative());
 	struct stat statProperty;
 	if (stat(_path.getNative().c_str(), &statProperty) == -1) {
 		//Normal case when the file does not exist ... ==> the it was in unknow mode ...
@@ -423,6 +424,10 @@ etk::Path etk::path::getBinaryPath() {
 		#endif
 	}
 	return out;
+}
+
+etk::Path etk::path::getBinaryDirectory() {
+	return getBinaryPath().getParent();
 }
 
 etk::String etk::path::getBinaryName() {
