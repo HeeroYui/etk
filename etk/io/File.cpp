@@ -70,6 +70,7 @@ bool etk::io::File::close() {
 }
 
 uint64_t etk::io::File::size() {
+	TK_WARNING(" file size= " << m_path.getNative());
 	return etk::path::fileSize(m_path);
 }
 
