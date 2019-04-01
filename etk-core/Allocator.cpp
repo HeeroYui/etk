@@ -7,14 +7,15 @@
 #include <etk/Allocator.hpp>
 #include <stdlib.h>
 
-void* operator new (size_t size) {
-	return malloc(size);
+void* operator new (size_t _size) {
+	void* data = malloc(_size);
+	return data;
 }
 
-void* operator new[] (size_t size) {
-	return malloc(size);
+void* operator new[] (size_t _size) {
+	void* data = malloc(_size);
+	return data;
 }
-
 
 void operator delete (void* ptr) {
 	free(ptr);

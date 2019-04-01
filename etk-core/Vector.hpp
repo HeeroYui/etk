@@ -9,6 +9,7 @@
 //#include <etk/debug.hpp>
 #include <etk/Stream.hpp>
 #include <etk/Allocator.hpp>
+//#include <etk/Exception.hpp>
 //#include <etk/algorithm.hpp>
 
 //#define ETK_VECTOR_DEBUG(...) printf(__VA_ARGS__)
@@ -291,6 +292,11 @@ namespace etk {
 			  m_data(null),
 			  m_size(0),
 			  m_allocated(0) {
+				/*
+				if (_obj.m_data == null) {
+					throw "Vector data whith nullptr data";
+				}
+				*/
 				reserve(_obj.m_size);
 				for(size_t iii=0; iii<_obj.m_size; iii++) {
 					new ((char*)&m_data[iii]) ETK_VECTOR_TYPE(etk::move(_obj.m_data[iii]));
@@ -305,6 +311,11 @@ namespace etk {
 			  m_data(_obj.m_data),
 			  m_size(_obj.m_size),
 			  m_allocated(_obj.m_allocated) {
+				/*
+				if (_obj.m_data == null) {
+					throw "Vector DAta whith nullptr data";
+				}
+				*/
 				_obj.m_data = null;
 				_obj.m_size = 0;
 				_obj.m_allocated = 0;
@@ -335,6 +346,11 @@ namespace etk {
 			 * @param[in] _obj second vector to swap data.
 			 */
 			void swap(etk::Vector<ETK_VECTOR_TYPE>& _obj) {
+				/*
+				if (_obj.m_data == null) {
+					throw "Vector data whith nullptr data";
+				}
+				*/
 				// avoid Swap of itself
 				if(this != &_obj) {
 					etk::swap(m_data, _obj.m_data);
@@ -348,6 +364,11 @@ namespace etk {
 			 * @return reference on the current re-copy vector
 			 */
 			Vector& operator=(etk::Vector<ETK_VECTOR_TYPE>&& _obj) {
+				/*
+				if (_obj.m_data == null) {
+					throw "Vector data whith nullptr data";
+				}
+				*/
 				if(this != &_obj) {
 					etk::swap(m_data, _obj.m_data);
 					etk::swap(m_allocated, _obj.m_allocated);
@@ -362,6 +383,11 @@ namespace etk {
 			 * @return reference on the current re-copy vector
 			 */
 			Vector& operator=(const etk::Vector<ETK_VECTOR_TYPE>& _obj) {
+				/*
+				if (_obj.m_data == null) {
+					throw "Vector data whith nullptr data";
+				}
+				*/
 				// remove all previous elements
 				clear();
 				// Force a specicfic size
@@ -378,6 +404,11 @@ namespace etk {
 			 * @param[in] _obj Element to add at the end of vector
 			 */
 			Vector& operator+= (const etk::Vector<ETK_VECTOR_TYPE>& _obj) {
+				/*
+				if (_obj.m_data == null) {
+					throw "Vector data whith nullptr data";
+				}
+				*/
 				reserve(m_size + _obj.size());
 				for(size_t iii=0; iii<_obj.size(); iii++) {
 					// copy operator ...
