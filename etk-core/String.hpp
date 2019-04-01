@@ -23,15 +23,13 @@ namespace etk {
 		public:
 			class Iterator {
 				private:
-					size_t m_current; //!< current Id on the string
-					String* m_string; //!< Pointer on the current element of the string
+					size_t m_current = 0; //!< current Id on the string
+					String* m_string = null; //!< Pointer on the current element of the string
 				public:
 					/**
 					 * @brief Basic iterator constructor with no link with an etk::String
 					 */
-					Iterator():
-					  m_current(0),
-					  m_string(null) {
+					Iterator() {
 						// nothing to do ...
 					}
 					/**

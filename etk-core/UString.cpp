@@ -312,14 +312,19 @@ const etk::UString::Iterator etk::UString::begin() const {
 }
 
 etk::UString::Iterator etk::UString::end() {
-	return position( size()-1 );
+	return position( size() );
 }
 
 const etk::UString::Iterator etk::UString::end() const {
-	return position( size()-1 );
+	return position( size() );
 }
 
 void etk::UString::resize(size_t _newSize, char32_t _value) {
+	if (_newSize == 0) {
+		m_data.clear();
+		m_data.resize(1, '\0');
+		return;
+	}
 	size_t oldSize = m_data.size();
 	if (oldSize != 0) {
 		m_data[m_data.size()-1] = _value;

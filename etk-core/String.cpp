@@ -25,7 +25,7 @@ etk::String::String():
 		//printf("size of string=%ld   %ld   %ld\n", uint64_t(sizeof(etk::String)), m_sizeLocal, uint64_t(sizeof(etk::Vector<char>)));
 		memset(m_localData, 0, sizeof(m_localData));
 	#else
-		//m_data.resize(1, '\0');
+		m_data.resize(1, '\0');
 	#endif
 }
 
@@ -401,6 +401,7 @@ const etk::String::Iterator etk::String::end() const {
 void etk::String::resize(size_t _newSize, char _value) {
 	if (_newSize == 0) {
 		m_data.clear();
+		m_data.resize(1, '\0');
 		return;
 	}
 	size_t oldSize = m_data.size();
