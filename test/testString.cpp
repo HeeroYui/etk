@@ -10,12 +10,14 @@
 
 #define NAME "etk:String"
 
-TEST(TestString, constructor) {
+TEST(TestString, constructor_1) {
 	// Test contructor value
 	etk::String test0;
 	EXPECT_EQ(test0.size(), 0);
 	EXPECT_EQ(test0.c_str()[0], '\0');
-	
+}
+
+TEST(TestString, constructor_2) {
 	etk::String test1("hello");
 	EXPECT_EQ(test1.size(), 5);
 	EXPECT_EQ(test1.c_str()[0], 'h');
@@ -24,7 +26,10 @@ TEST(TestString, constructor) {
 	EXPECT_EQ(test1.c_str()[3], 'l');
 	EXPECT_EQ(test1.c_str()[4], 'o');
 	EXPECT_EQ(test1.c_str()[5], '\0');
-	
+}
+
+TEST(TestString, constructor_3) {
+	etk::String test1("hello");
 	etk::String test2(test1);
 	EXPECT_EQ(test2.size(), 5);
 	EXPECT_EQ(test2.c_str()[0], 'h');
@@ -33,21 +38,33 @@ TEST(TestString, constructor) {
 	EXPECT_EQ(test2.c_str()[3], 'l');
 	EXPECT_EQ(test2.c_str()[4], 'o');
 	EXPECT_EQ(test2.c_str()[5], '\0');
-	
+}
+
+TEST(TestString, constructor_4) {
+	etk::String test1("hello");
 	etk::String test3(test1, 2);
 	EXPECT_EQ(test3.size(), 3);
 	EXPECT_EQ(test3.c_str()[0], 'l');
 	EXPECT_EQ(test3.c_str()[1], 'l');
 	EXPECT_EQ(test3.c_str()[2], 'o');
 	EXPECT_EQ(test3.c_str()[3], '\0');
-	
+}
+
+TEST(TestString, constructor_5) {
+	etk::String test1("hello");
 	etk::String test4(test1, 1, 3);
 	EXPECT_EQ(test4.size(), 3);
 	EXPECT_EQ(test4.c_str()[0], 'e');
 	EXPECT_EQ(test4.c_str()[1], 'l');
 	EXPECT_EQ(test4.c_str()[2], 'l');
 	EXPECT_EQ(test4.c_str()[3], '\0');
-	
+}
+
+TEST(TestString, constructor_6) {
+	etk::String test0{""};
+	EXPECT_EQ(test0.size(), 0);
+	EXPECT_EQ(test0.c_str()[0], '\0');
+	EXPECT_NE(uint64_t(&test0.c_str()[0]), 0);
 }
 
 TEST(TestString, equality) {
