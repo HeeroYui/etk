@@ -12,6 +12,7 @@ extern "C" {
 }
 #include <etk/math/Matrix3x3.hpp>
 #include <etk/math/Vector3D.hpp>
+#include <etk/debug.hpp>
 
 namespace etk {
 	/**
@@ -30,6 +31,20 @@ namespace etk {
 				m_floats[2] = 0.0f;
 				m_floats[3] = 0.0f;
 			}
+			/*
+			void checkValues() const {
+				if (    isinf(m_floats[0]) == true
+				     || isnan(m_floats[0]) == true
+				     || isinf(m_floats[1]) == true
+				     || isnan(m_floats[1]) == true
+				     || isinf(m_floats[2]) == true
+				     || isnan(m_floats[2]) == true
+				     || isinf(m_floats[3]) == true
+				     || isnan(m_floats[3]) == true) {
+					TK_CRITICAL("         set transform: (" << m_floats[0] << "," << m_floats[1] << "," << m_floats[2] << "," << m_floats[3] << ")");
+				}
+			}
+			*/
 			/**
 			 * @brief Constructor from scalars.
 			 * @param _xxx X value
@@ -409,6 +424,7 @@ namespace etk {
 				m_floats[1] = m_floats[3] * _obj.m_floats[1] + _obj.m_floats[3] * m_floats[1] + crossValue.y();
 				m_floats[2] = m_floats[3] * _obj.m_floats[2] + _obj.m_floats[3] * m_floats[2] + crossValue.z();
 				m_floats[3] = m_floats[3] * _obj.m_floats[3] - base.dot(_obj.getVectorV());
+				safeNormalize();
 				return *this;
 			}
 			/**
@@ -462,10 +478,10 @@ namespace etk {
 			 * @param[in] _www W value.
 			 */
 			void setValue(const float& _xxx, const float& _yyy, const float& _zzz, const float& _www) {
-				m_floats[0]=_xxx;
-				m_floats[1]=_yyy;
-				m_floats[2]=_zzz;
-				m_floats[3]=_www;
+				m_floats[0] = _xxx;
+				m_floats[1] = _yyy;
+				m_floats[2] = _zzz;
+				m_floats[3] = _www;
 			}
 			/**
 			 * @brief Set 0 value on all the quaternion
