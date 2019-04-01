@@ -103,7 +103,15 @@ bool etk::uri::provider::ProviderFile::canMove() {
 }
 
 bool etk::uri::provider::ProviderFile::move(const etk::Uri& _uriSource, const etk::Uri& _uriDestination) {
-	return etk::path::move(_uriSource.getPath(), _uriDestination.getPath());
+	etk::Path pathSource =_uriSource.getPath();
+	if (m_offset.isEmpty() == false) {
+		pathSource = m_offset / _uriSource.getPath();
+	}
+	etk::Path pathDestination =_uriDestination.getPath();
+	if (m_offset.isEmpty() == false) {
+		pathDestination = m_offset / _uriDestination.getPath();
+	}
+	return etk::path::move(pathSource, pathDestination);
 }
 
 bool etk::uri::provider::ProviderFile::canCopy() {
@@ -111,7 +119,15 @@ bool etk::uri::provider::ProviderFile::canCopy() {
 }
 
 bool etk::uri::provider::ProviderFile::copy(const etk::Uri& _uriSource, const etk::Uri& _uriDestination) {
-	return etk::path::copy(_uriSource.getPath(), _uriDestination.getPath());
+	etk::Path pathSource =_uriSource.getPath();
+	if (m_offset.isEmpty() == false) {
+		pathSource = m_offset / _uriSource.getPath();
+	}
+	etk::Path pathDestination =_uriDestination.getPath();
+	if (m_offset.isEmpty() == false) {
+		pathDestination = m_offset / _uriDestination.getPath();
+	}
+	return etk::path::copy(pathSource, pathDestination);
 }
 
 bool etk::uri::provider::ProviderFile::canRemove() {
@@ -119,5 +135,9 @@ bool etk::uri::provider::ProviderFile::canRemove() {
 }
 
 bool etk::uri::provider::ProviderFile::remove(const etk::Uri& _uri) {
-	return etk::path::remove(_uri.getPath());
+	etk::Path pathSource =_uri.getPath();
+	if (m_offset.isEmpty() == false) {
+		pathSource = m_offset / _uri.getPath();
+	}
+	return etk::path::remove(pathSource);
 }
