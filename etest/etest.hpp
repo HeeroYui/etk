@@ -104,6 +104,7 @@ namespace etest {
 		protected:
 			uint32_t m_numberCheck;
 			uint32_t m_numberCheckFail;
+			uint32_t m_numberCheckNotImplemented;
 		public:
 			GenericTest(const char* _file,
 			            uint32_t _line,
@@ -129,9 +130,15 @@ namespace etest {
 			 * @return simple count of test done with error
 			 */
 			uint32_t getNumberCheckError() const;
+			/**
+			 * @brief Get the number of check marked as not implemented
+			 * @return simple count of test not implemented with error
+			 */
+			uint32_t getNumberCheckNotImplemented() const;
 			void addCheck() {
 				m_numberCheck++;
 			}
+			void testNotImplemented(uint32_t _line);
 			void testResult(bool _result,
 			                const etk::String& _test1Value,
 			                const etk::String& _test1,
@@ -171,6 +178,14 @@ namespace etest {
 // This all is to be compatible with the gtest API (in main lines).
 
 #define RUN_ALL_TESTS etest::runAllTest
+
+#define TEST_NOT_IMPLEMENTED() \
+	do { \
+		etest::g_currentTest->addCheck(); \
+		etest::g_currentTest->testNotImplemented(__LINE__); \
+		/* Force exit of the function */ \
+		return; \
+	} while (false)
 
 #define EXPECT_EQ(element, result) \
 	do { \

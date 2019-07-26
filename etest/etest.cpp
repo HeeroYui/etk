@@ -176,6 +176,16 @@ uint32_t etest::GenericTest::getNumberCheckError() const {
 	return m_numberCheckFail;
 }
 
+uint32_t etest::GenericTest::getNumberCheckNotImplemented() const {
+	return m_numberCheckNotImplemented;
+}
+
+void etest::GenericTest::testNotImplemented(uint32_t _line) {
+	ETEST_ERROR("Not implemented: " << m_file << ":" << _line << ":");
+	m_haveError = true;
+	m_numberCheckNotImplemented++;
+}
+
 void etest::GenericTest::testResult(bool _result,
                                     const etk::String& _test1Value,
                                     const etk::String& _test1,
@@ -222,6 +232,7 @@ void etest::GenericTest::clearLocal() {
 	m_haveError = false;
 	m_numberCheck = 0;
 	m_numberCheckFail = 0;
+	m_numberCheckNotImplemented = 0;
 }
 etest::GenericTest* etest::g_currentTest = null;
 
@@ -233,6 +244,7 @@ int32_t etest::runAllTest() {
 	echrono::Steady tic = echrono::Steady::now();
 	uint32_t nbTotalCheck = 0;
 	uint32_t nbTotalCheckFail = 0;
+	uint32_t nbTotalCheckNotImplemented = 0;
 	for (auto &itGroup: listGroup) {
 		int32_t count = 0;
 		for (auto &it: getListOfTest()) {
@@ -243,6 +255,7 @@ int32_t etest::runAllTest() {
 		ETEST_PRINT("[++++++++++] " << count << " test from " << itGroup << ":");
 		uint32_t nbCheck = 0;
 		uint32_t nbCheckFail = 0;
+		uint32_t nbCheckNotImplemented = 0;
 		echrono::Steady ticGroup = echrono::Steady::now();
 		for (auto &it: runList) {
 			if (it->getTestGroup() != itGroup) {
@@ -277,6 +290,7 @@ int32_t etest::runAllTest() {
 				}
 				nbCheck += it->getNumberCheck();
 				nbCheckFail += it->getNumberCheckError();
+				nbCheckNotImplemented += it->getNumberCheckNotImplemented();
 			}
 			#if ETK_MEMORY_CHECKER > 0
 				ETEST_DEBUG("[    MEM   ] CHECK memory properties");
@@ -295,12 +309,21 @@ int32_t etest::runAllTest() {
 			#endif
 		}
 		echrono::Steady tocGroup = echrono::Steady::now();
-		ETEST_PRINT("[++++++++++] " << count << " test [" << nbCheck << " check / " << nbCheckFail << " fails] from " << itGroup << " (" << (tocGroup - ticGroup) << ")");
+		etk::String notImplemented = "";
+		if (nbCheckNotImplemented != 0) {
+			notImplemented = " / " + etk::toString(nbCheckNotImplemented) + " Not Implemented";
+		}
+		ETEST_PRINT("[++++++++++] " << count << " test [" << nbCheck << " check / " << nbCheckFail << " fails " << notImplemented << "] from " << itGroup << " (" << (tocGroup - ticGroup) << ")");
 		nbTotalCheck += nbCheck;
 		nbTotalCheckFail += nbCheckFail;
+		nbTotalCheckNotImplemented += nbCheckNotImplemented;
 	}
 	echrono::Steady toc = echrono::Steady::now();
-	ETEST_PRINT("[==========] All done [" << nbTotalCheck << " check / " << nbTotalCheckFail << " fails] in " << (toc - tic));
+	etk::String notImplementedFull = "";
+	if (nbTotalCheckNotImplemented != 0) {
+		notImplementedFull = " / " + etk::toString(nbTotalCheckNotImplemented) + " Not Implemented";
+	}
+	ETEST_PRINT("[==========] All done [" << nbTotalCheck << " check / " << nbTotalCheckFail << " fails" << notImplementedFull << "] in " << (toc - tic));
 	if (errorCount != 0) {
 		ETEST_PRINT("[== FAIL ==] Have " << errorCount << " test fail ");
 	}
