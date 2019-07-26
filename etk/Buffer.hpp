@@ -10,6 +10,7 @@
 #include <etk/uri/uri.hpp>
 #include <etk/io/File.hpp>
 #include <etk/debug.hpp>
+#include <string.h>
 
 // minimum gapSize when allocated
 #define GAP_SIZE_MIN		(80)
@@ -104,6 +105,18 @@ namespace etk {
 				fileIO.close();
 				return true;
 			}
+			/**
+			 * @brief Get all data in a single string element
+			 * @return the buffer in string
+			 */
+			etk::String getString() {
+				etk::String data;
+				data.resize(m_allocated - m_gapEnd + m_gapStart, ' ');
+				memcpy(&data[0], m_data, m_gapStart);
+				memcpy(&data[m_gapStart], &m_data[m_gapEnd], m_allocated - m_gapEnd);
+				return data;
+			}
+			
 			/**
 			 * @brief Load data from a selected file name.
 			 * @param[in] _file Name of the file to store buffer data.
