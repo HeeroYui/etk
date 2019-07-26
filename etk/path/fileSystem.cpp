@@ -607,3 +607,15 @@ etk::Vector<etk::Path> etk::path::listRecursive(const etk::Path& _path, uint32_t
 	return out;
 }
 
+
+etk::Path etk::path::findInParent(const etk::Path& _path, const etk::String& _fileName) {
+	etk::Path base = _path;
+	while (base.getAbsolute() != "/") {
+		etk::Path tmp = base / _fileName;
+		if (etk::path::isFile(tmp) == true) {
+			return tmp;
+		}
+		base.parent();
+	}
+	return base;
+}

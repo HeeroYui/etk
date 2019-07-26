@@ -286,10 +286,17 @@ namespace etk {
 		etk::Vector<etk::Path> list(const etk::Path& _path, uint32_t _flags=etk::path::LIST_ALL);
 		/**
 		 * @brief List the content of a specific path (recursively).
-		 * @param[in] Path to parse.
+		 * @param[in] _path Path to parse.
 		 * @return the full list of path in the _path.
 		 */
 		etk::Vector<etk::Path> listRecursive(const etk::Path& _path, uint32_t _flags=etk::path::LIST_ALL);
+		/**
+		 * @brief Find a filename in the parents directory of the path
+		 * @param[in] _path Path to parse.
+		 * @param[in] _fileName Name of the file we need to find
+		 * @return the path of the file found
+		 */
+		etk::Path findInParent(const etk::Path& _path, const etk::String& _fileName);
 	}
 }
 
