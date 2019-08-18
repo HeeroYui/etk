@@ -71,7 +71,7 @@ etk::String etk::Exception::toString() const {
 		out += " in ";
 		out += m_file;
 		out += ":";
-		out += m_line;
+		out += etk::toString(m_line);
 	}
 	out += "}";
 	return out;
