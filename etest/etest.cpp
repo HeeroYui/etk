@@ -20,6 +20,7 @@ static etk::Vector<etest::GenericTest*>& getListOfTest() {
 }
 static etk::String filterGroup;
 static etk::String filterTest;
+static bool showAtTheEnd = false;
 
 
 void etest::unInit() {
@@ -88,6 +89,30 @@ static void listAllTest() {
 	}
 }
 
+static void listAllTestError() {
+	int32_t count = 0;
+	for (auto &it: getListOfTest()) {
+		if (it->getError() == true) {
+			count++;
+			break;
+		}
+	}
+	if (count == 0) {
+		return;
+	}
+	ETEST_PRINT("List all error test:");
+	etk::Vector<etk::String> listGroup = getListGroup();
+	for (auto &itGroup: listGroup) {
+		for (auto &it: getListOfTest()) {
+			if (it->getTestGroup() == itGroup) {
+				if (it->getError() == true) {
+					ETEST_PRINT("     - " << itGroup << "." << it->getTestName());
+				}
+			}
+		}
+	}
+}
+
 void etest::init(int32_t _argc, const char** _argv) {
 	if (nbTimeInit > 0) {
 		nbTimeInit++;
@@ -96,6 +121,7 @@ void etest::init(int32_t _argc, const char** _argv) {
 	}
 	nbTimeInit++;
 	elog::init(_argc, _argv, "etest");
+	
 	//etk::initDefaultFolder("ewolApplNoName");
 	ETEST_INFO("ETEST system init (BEGIN) ");
 	for (int32_t iii=0; iii<_argc ; ++iii) {
@@ -107,6 +133,7 @@ void etest::init(int32_t _argc, const char** _argv) {
 				ETEST_PRINT("    " << _argv[0] << " [options]");
 				ETEST_PRINT("        --etest-list          List all test names");
 				ETEST_PRINT("        --etest-filter=XXX    filter group or test: XXX or WWW.yyy");
+				ETEST_PRINT("        --etest-show          Display at the end the list of test that fail");
 			}
 			ETEST_PRINT("        -h/--help: this help");
 		} else if (data == "--etest-list") {
@@ -115,6 +142,9 @@ void etest::init(int32_t _argc, const char** _argv) {
 		} else if (data == "--etest-filter=") {
 			ETEST_PRINT("Missing data in the filter list...");
 			exit(0);
+		} else if (data == "--etest-show") {
+			ETEST_PRINT("Display all error test at the end ...");
+			showAtTheEnd = true;
 		} else if (data.startWith("--etest-filter=") == true) {
 			etk::String filter = &data[15];
 			ETEST_PRINT("        Filter: " << filter);
@@ -328,6 +358,9 @@ int32_t etest::runAllTest() {
 		ETEST_PRINT("[== FAIL ==] Have " << errorCount << " test fail ");
 	}
 	ETK_MEM_SHOW_LOG();
+	if (showAtTheEnd == true) {
+		listAllTestError();
+	}
 	return -errorCount;
 }
 
