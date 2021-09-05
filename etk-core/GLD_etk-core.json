@@ -1,0 +1,79 @@
+{
+	"type":"LIBRARY",
+	"group-id":"com.atria-soft",
+	"description":"Ewol tool kit (base: container)",
+	"licence":"MPL-2",
+	"licence-file":"file://LICENCE.txt",
+	"maintainer":"Edouard DUPIN <yui.heero@gmail.com>",
+	"authors":"file://../authors.txt",
+	"version":"1.5.3",
+	"__version":"file://../version.txt",
+	
+	
+	
+	"sources": {
+		"list":[
+		    "etk/String.cpp",
+		    "etk/UString.cpp",
+		    "etk/utf8.cpp",
+		    "etk/stdTools.cpp",
+		    "etk/Stream.cpp",
+		    "etk/Function.cpp",
+		    "etk/Allocator.cpp",
+		    "etk/typeInfo.cpp",
+		    "etk/Exception.cpp",
+		    "etk/system.cpp"
+		]
+	},
+	"headers": {
+		"list": [
+		    "etk/algorithm.hpp",
+		    "etk/Allocator.hpp",
+		    "etk/types.hpp",
+		    "etk/stdTools.hpp",
+		    "etk/String.hpp",
+		    "etk/UString.hpp",
+		    "etk/utf8.hpp",
+		    "etk/Array.hpp",
+		    "etk/Vector.hpp",
+		    "etk/Stream.hpp",
+		    "etk/Pair.hpp",
+		    "etk/Map.hpp",
+		    "etk/Set.hpp",
+		    "etk/move.hpp",
+		    "etk/typeTrait.hpp",
+		    "etk/Function.hpp",
+		    "etk/NullPtr.hpp",
+		    "etk/typeInfo.hpp",
+		    "etk/Exception.hpp",
+		    "etk/system.hpp"
+		    ]
+	},
+	"path":[
+		"."
+	],
+	"compilation-version": {
+		"language": "c++",
+		"version": 2017
+	},
+	"dependency": [
+		"c",
+		"m",
+		"pthread"
+	],
+	
+	
+	"platform": {
+		"Android": {
+			"dependency": [
+				"SDK"
+			]
+		},
+		"MacOs": {
+			"dependency": [
+				"cxx"
+			]
+		}
+	}
+}
+

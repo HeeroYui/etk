@@ -38,6 +38,7 @@ def configure(target, my_module):
 	    'etk-core/typeInfo.cpp',
 	    'etk-core/Exception.cpp',
 	    'etk-core/system.cpp',
+	    'etk-core/Numbers.cpp',
 	    ])
 	
 	my_module.add_header_file([
@@ -61,6 +62,7 @@ def configure(target, my_module):
 	    'etk-core/typeInfo.hpp',
 	    'etk-core/Exception.hpp',
 	    'etk-core/system.hpp',
+	    'etk-core/Numbers.hpp',
 	    ], 'etk')
 	
 	# build in C++ mode
